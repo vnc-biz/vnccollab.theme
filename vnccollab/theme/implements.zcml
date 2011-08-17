@@ -1,0 +1,30 @@
+<configure
+    xmlns="http://namespaces.zope.org/zope"
+    xmlns:i18n="http://namespaces.zope.org/i18n"
+    i18n_domain="vnccollab.theme">
+
+  <!-- Add ratings viewlet -->
+  <include package="cioppino.twothumbs" />
+  <class class="Products.ATContentTypes.content.document.ATDocument">
+    <implements interface="cioppino.twothumbs.interfaces.ILoveThumbsDontYou" />
+  </class>
+  <class class="Products.ATContentTypes.content.event.ATEvent">
+    <implements interface="cioppino.twothumbs.interfaces.ILoveThumbsDontYou" />
+  </class>
+  <class class="Products.ATContentTypes.content.favorite.ATFavorite">
+    <implements interface="cioppino.twothumbs.interfaces.ILoveThumbsDontYou" />
+  </class>
+  <class class="Products.ATContentTypes.content.file.ATFile">
+    <implements interface="cioppino.twothumbs.interfaces.ILoveThumbsDontYou" />
+  </class>
+  <class class="Products.ATContentTypes.content.image.ATImage">
+    <implements interface="cioppino.twothumbs.interfaces.ILoveThumbsDontYou" />
+  </class>
+  <class class="Products.ATContentTypes.content.link.ATLink">
+    <implements interface="cioppino.twothumbs.interfaces.ILoveThumbsDontYou" />
+  </class>
+  <class class="Products.ATContentTypes.content.newsitem.ATNewsItem">
+    <implements interface="cioppino.twothumbs.interfaces.ILoveThumbsDontYou" />
+  </class>
+
+</configure>

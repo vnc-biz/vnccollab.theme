@@ -12,7 +12,7 @@
     meta_type="Filesystem Directory View"
     directory="vnccollab.theme:skins/vnccollab_theme_styles"/>
 
- <skin-path name="VNC Collaboration Theme" based-on="Plone Default">
+ <skin-path name="VNC Collaboration Theme" based-on="Sunburst Theme">
   <layer name="vnccollab_theme_custom_images"
      insert-after="custom"/>
   <layer name="vnccollab_theme_custom_templates"

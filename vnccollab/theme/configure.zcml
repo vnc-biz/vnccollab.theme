@@ -9,6 +9,7 @@
   <include package=".browser" />
   <include file="skins.zcml" />
   <include file="profiles.zcml" />
+  <include file="implements.zcml" />
   <i18n:registerTranslations directory="locales" />
 
 </configure>
