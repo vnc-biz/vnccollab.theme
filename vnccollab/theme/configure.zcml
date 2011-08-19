@@ -12,4 +12,7 @@
   <include file="implements.zcml" />
   <i18n:registerTranslations directory="locales" />
 
+  <adapter name="avg_ratings" factory=".indexers.avg_ratings" />
+  <adapter name="total_down_ratings" factory=".indexers.total_down_ratings" />
+
 </configure>

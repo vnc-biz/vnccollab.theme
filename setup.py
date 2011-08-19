@@ -25,6 +25,7 @@ setup(name='vnccollab.theme',
       zip_safe=False,
       install_requires=[
           'setuptools',
+          'cioppino.twothumbs',
           # -*- Extra requirements: -*-
       ],
       entry_points="""

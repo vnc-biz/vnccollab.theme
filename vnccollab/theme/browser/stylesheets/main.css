@@ -1,2 +1,24 @@
 /* Stylesheet for the 'VNC Collaboration Theme' Plone theme */
 
+/* Top Rated Viewlet Styles */
+.topRatedViewlet legend {
+  text-transform: uppercase;
+  font-weight: bold;
+}
+
+.topRatedViewlet .topRatedLink {
+  line-height: 1.5em;
+  clear: both;
+  display: block;
+  font-size: 90%;
+}
+
+.topRatedViewlet .count {
+  font-weight: bold;
+}
+
+.topRatedViewlet .rating {
+  float: right;
+  font-size: 70%;
+  color: #444444;
+}

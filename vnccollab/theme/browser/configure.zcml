@@ -10,7 +10,26 @@
       name="VNC Collaboration Theme"
       />
   
+  <browser:page
+      for="*"
+      name="you-know-you-like-it"
+      permission="zope2.View"
+      class=".like.LikeThisShizzleView"
+      layer=".interfaces.IThemeSpecific"
+      />
+  
   <!-- Viewlets registration -->
+  <browser:viewlet
+      for="plone.app.folder.folder.IATUnifiedFolder"
+      name="vnccollab.theme.toprated"
+      manager="plone.app.layout.viewlets.interfaces.IBelowContent"
+      class=".viewlets.TopRatedViewlet"
+      template="templates/toprated.pt"
+      layer=".interfaces.IThemeSpecific"
+      permission="zope2.View"
+      />
+
+
   <!-- Zope 3 browser resources -->
 
   <!-- Resource directory for images -->

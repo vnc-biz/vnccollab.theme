@@ -1,0 +1,34 @@
+<div class="topRatedViewlet icons-on"
+     i18n:domain="vnccollab.theme"
+     tal:define="elems view/elems"
+     tal:condition="elems">
+  <fieldset>
+    <legend i18n:translate="">Top Rated</legend>
+    <ul>
+      <tal:items repeat="elem elems">
+      <li>
+        <a href="#"
+           title=""
+           class="topRatedLink"
+           i18n:attributes="title"
+           i18n:translate=""
+           tal:content="elem/title"
+           tal:attributes="href elem/url;
+                           title elem/desc;
+                           class string:${attrs/class} contenttype-${elem/type}">Item Title</a>
+        <div class="rating"
+             tal:define="rating elem/rating">
+          <span class="total">Rating:
+            <span class="count" tal:content="rating/total">0</span> :</span>
+          <span class="liked"
+                tal:condition="rating/liked">Liked by
+            <span class="count" tal:content="rating/liked">0</span></span>
+          <span class="disliked"
+                tal:condition="rating/disliked">Disiked by
+            <span class="count" tal:content="rating/disliked">0</span></span>
+        </div>
+      </li>
+      </tal:items>
+    </ul>
+  </fieldset>
+</div>
