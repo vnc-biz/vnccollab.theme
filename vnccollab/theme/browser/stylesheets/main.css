@@ -22,3 +22,25 @@
   font-size: 70%;
   color: #444444;
 }
+
+/* Rating Badge in folder listings */
+.listItemRating {
+  background: none repeat scroll 0 0 #F1F1F1;
+  float: right;
+  line-height: 1.2em;
+  padding: 0 0.5em;
+  text-align: center;
+  font-size: 80%;
+  clear: both;
+  border: 1px solid #DDDDDD;
+}
+
+.listItemRating .listItemRatingLabel {
+  text-transform: lowercase;
+  font-weight: normal;
+}
+
+.listItemRating .listItemRatingValue {
+  font-weight: bold;
+  font-size: 1.3em;
+}
