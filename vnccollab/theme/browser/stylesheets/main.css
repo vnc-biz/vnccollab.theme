@@ -33,6 +33,7 @@
   font-size: 80%;
   clear: both;
   border: 1px solid #DDDDDD;
+  margin-left: 1em;
 }
 
 .listItemRating .listItemRatingLabel {
