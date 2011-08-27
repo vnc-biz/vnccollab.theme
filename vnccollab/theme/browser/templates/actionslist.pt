@@ -1,0 +1,11 @@
+<div class="actionsListViewlet"
+     i18n:domain="vnccollab.theme"
+     tal:define="todo nocall:view/todo;
+                 here nocall:todo;
+                 context nocall:todo;
+                 dummy python:request.set('sortview', 'sort_startdate')"
+     tal:condition="nocall:todo">
+
+   <metal:actions use-macro="context/actions_view/macros/main" />
+
+</div>

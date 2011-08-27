@@ -1,4 +1,10 @@
 <?xml version="1.0"?>
 <object>
-
+  <order manager="plone.belowcontent" skinname="VNC Collaboration Theme">
+    <viewlet name="plone.belowcontenttitle.keywords"/>
+    <viewlet name="plone.nextprevious"/>
+    <viewlet name="vnccollab.theme.actionslist"/>
+    <viewlet name="vnccollab.theme.toprated"/>
+    <viewlet name="plone.manage_portlets_fallback"/>
+   </order>
 </object>

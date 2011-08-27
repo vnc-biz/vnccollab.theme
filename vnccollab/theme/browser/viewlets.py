@@ -36,3 +36,16 @@ class TopRatedViewlet(ViewletBase):
                            'disliked': brain.total_down_ratings}})
         
         self.elems = tuple(elems)
+
+class ActionsListViewlet(ViewletBase):
+    """Renders internal ActionsItem List object view.
+    
+    Gets first found ActionsItem List object in first level hierarchy.
+    """
+    
+    def update(self):
+        self.todo = None
+        for obj in self.context.objectValues():
+            if getattr(obj, 'portal_type', '') == 'ActionItemList':
+                self.todo = obj
+                break
