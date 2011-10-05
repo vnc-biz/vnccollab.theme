@@ -164,7 +164,8 @@
                     <span class="listItemRating">
                       <div class="listItemRatingLabel">Rating</div>
                       <span class="listItemRatingValue"
-                            tal:define="rating python:item.avg_ratings is not None and item.avg_ratings or 0"
+                            tal:define="rr item/avg_ratings|nothing;
+                                        rating python:rr is not None and rr or 0"
                             tal:content="python:rating > 0 and '+%d' % rating or rating"></span>
                     </span>
 
