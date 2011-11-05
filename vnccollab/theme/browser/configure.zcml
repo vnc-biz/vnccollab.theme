@@ -9,6 +9,15 @@
       type="zope.publisher.interfaces.browser.IBrowserSkinType"
       name="VNC Collaboration Theme"
       />
+
+  <browser:page
+      for="*"
+      name="folder-content-types"
+      class=".util.VNCCollabUtilView"
+      attribute="listFolderContentTypes"
+      layer=".interfaces.IThemeSpecific"
+      permission="zope2.View"
+      />
   
   <browser:page
       for="*"

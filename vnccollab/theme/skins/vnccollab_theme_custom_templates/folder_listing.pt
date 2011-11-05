@@ -10,9 +10,9 @@
 
 <metal:content-core fill-slot="content-core">
 <metal:block define-macro="content-core"
-                    tal:define="kssClassesView context/@@kss_field_decorator_view;
-                                getKssClasses nocall:kssClassesView/getKssClassesInlineEditable;
-                                templateId template/getId">
+             tal:define="kssClassesView context/@@kss_field_decorator_view;
+                         getKssClasses nocall:kssClassesView/getKssClassesInlineEditable;
+                         templateId template/getId">
 
     <div metal:define-macro="text-field-view"
          id="parent-fieldname-text" class="stx"
@@ -28,7 +28,9 @@
 
     <metal:listingmacro define-macro="listing">
     <tal:foldercontents define="contentFilter contentFilter|request/contentFilter|nothing;
-	                    contentFilter python:contentFilter and dict(contentFilter) or {};
+                      filter_ptype request/filter_ptype|nothing;
+                      defaultFilter python:filter_ptype and {'portal_type': filter_ptype} or {};
+	                    contentFilter python:contentFilter and dict(contentFilter) or defaultFilter;
                         limit_display limit_display|request/limit_display|nothing;
                         limit_display python:limit_display and int(limit_display) or None;
                         more_url more_url|request/more_url|string:folder_contents;
@@ -46,6 +48,8 @@
                         navigation_root_url context/@@plone_portal_state/navigation_root_url;
                         pas_member context/@@pas_member;">
     <tal:listing condition="batch">
+
+        <metal:filters use-macro="context/folder_type_filters/macros/main" />
 
         <dl metal:define-slot="entries">
             <tal:entry tal:repeat="item batch" metal:define-macro="entries">

@@ -1,0 +1,20 @@
+<metal:macro define-macro="main">
+<div class="folderTypeFilters"
+     tal:define="filters context/@@folder-content-types|python:();
+                 url request/URL;
+                 cur_filter request/filter_ptype|string:"
+     tal:condition="filters">
+  <ul class="formTabs">
+    <tal:items repeat="filter filters">
+    <li class="formTab"
+        tal:attributes="class python:(repeat['filter'].start and '%s firstFormTab' % attrs['class']) or (repeat['filter'].end and '%s lastFormTab' % attrs['class']) or attrs['class']">
+      <a href="#"
+         class="selected"
+         tal:attributes="href string:${url}?filter_ptype=${filter/id};
+                         class python:cur_filter == filter['id'] and 'selected' or None"
+         tal:content="filter/title">Event</a>
+    </li>
+    </tal:items>
+  </ul>
+</div>
+</metal:macro>

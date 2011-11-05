@@ -45,3 +45,8 @@
   font-weight: bold;
   font-size: 1.3em;
 }
+
+/* Folder Listing Portal Type Filters */
+.folderTypeFilters {
+  text-align: center;
+}
