@@ -1,0 +1,55 @@
+<div class="loginFormWrapper">
+ <form action="login_form"
+       id="loginform"
+       method="post">
+    <div class="loginNameField"
+         tal:define="use_email_as_login context/portal_properties/site_properties/use_email_as_login|nothing;">
+
+      <tal:loginname condition="not:use_email_as_login">
+        <label for=""
+               i18n:translate="label_login_name">Login Name</label>
+        <br />
+        <input type="text"
+               size="10"
+               alt="Login Name"
+               i18n:attributes="alt label_login_name;"/>
+      </tal:loginname>
+      <tal:email condition="use_email_as_login">
+        <label for=""
+               i18n:translate="label_email">E-mail</label>
+        <br />
+        <input type="text"
+               size="10"
+               alt="E-mail"
+               i18n:attributes="alt label_email;"/>
+      </tal:email>
+    </div>
+
+    <div class="passwordField">
+        <label for=""
+               i18n:translate="label_password">Password</label>
+        <br />
+        <input type="password"
+               size="10"
+               alt="Password"
+               i18n:attributes="alt label_password;"/>
+    </div>
+
+    <div i18n:translate="enable_cookies_message_before_login"
+         class="cookiesMessage portalMessage"
+         style="display:none">
+        Cookies are not enabled. You must enable cookies before you
+        can log in.
+    </div>
+
+    <div class="loginFormControl">
+
+        <input class="context"
+               type="submit"
+               name="submit"
+               value="Log in"
+               alt="Log in"
+               i18n:attributes="value label_log_in; alt label_log_in;"/>
+    </div>
+</form>
+</div>

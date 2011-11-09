@@ -50,6 +50,14 @@
       permission="zope2.View"
       />
 
+<browser:viewlet
+    name="plone.loginviewlet"
+    manager="plone.app.layout.viewlets.interfaces.IPortalHeader"
+    template="templates/login.pt"
+    layer=".interfaces.IThemeSpecific"
+    permission="zope2.View"
+    />
+
   <!-- Zope 3 browser resources -->
 
   <!-- Resource directory for images -->
