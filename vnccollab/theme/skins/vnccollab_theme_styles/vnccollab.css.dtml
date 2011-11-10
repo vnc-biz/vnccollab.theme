@@ -79,44 +79,51 @@ div.position-0 {
 
 /*---------- PORTAL SEARCHBOX ----------*/
 #portal-searchbox {
-  
+  font-size:75%;
+  line-height:1.5em;
+  margin:26px 3px 0 0;
   }
 .LSBox {
-  clear:none;
-  float:none;
-  text-align:left;
-  padding-right:0;
+  background:url(&dtml-portal_url;/search.png) no-repeat;
+  padding:3px 9px;
   }
-#searchGadget {
-  
-  }
-.portlet-search-gadget {
-  
-  }
-#portal-searchbox .searchButton,
-.portletSearch .searchButton {
-  
+#portal-searchbox .searchField {
+  background:url(&dtml-portal_url;/search.png) no-repeat -9px -3px;
+  border:0;
+  font-size:1em;
+  padding:2px 0 0;
+  vertical-align:middle;
+  width: 113px;
   }
 #portal-searchbox .searchButton {
-  
-  }
-.portletSearch .searchButton {
-  
+  background:url(&dtml-portal_url;/search-button.png) no-repeat;
+  border:0;
+  height:0;
+  overflow:hidden;
+  padding-top:16px;
+  vertical-align:middle;
+  width:16px;
   }
 .searchSection {
   display:none;
   }
-.LSResult {
-  
+#LSResult {
+  background:none;
+  margin:0;
   }
-.livesearchContainer {
-  
+#LSResult fieldset {
+  background:#fff;
+  border:0.1em solid #cfd6db;
+  margin:0;
+  padding:0 0 1em;
   }
 #livesearchLegend {
-  
+  background-color:#e6e9ec;
+  margin-left:-1px;
   }
-.LSTable {
-  
+.LSRow,
+#LSNothingFound {
+  padding:0 1em;
   }
 
 /*---------- GLOBAL NAVIGATION ----------*/
@@ -125,6 +132,7 @@ div.position-0 {
   clear:none;
   font-size:1.13em;
   line-height:1.33em;
+  margin:0 -40px;
   }
 #portal-globalnav li {
   background:url(&dtml-portal_url;/tabs-separator.gif) no-repeat 100% 50%;
