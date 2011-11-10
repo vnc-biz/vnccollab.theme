@@ -1,9 +1,10 @@
 /* <dtml-with base_properties> (do not remove this :) */
 /* <dtml-call "REQUEST.set('portal_url', portal_url())"> (not this either :) */
 
-/*---------- GENERAL STYLE ----------*/
+/*---------- General Style ----------*/
 body {
   background-color:#7697a6;
+  color:#082736;
   }
 .imgbg {
   left:0;
@@ -23,6 +24,57 @@ body {
   content:"";
   clear:both;
   display:block;
+  }
+
+/*----- Layout -----*/
+div.width-full {
+  width:900px;
+  }
+div.position-0 {
+  margin-left:-940px;
+  }
+
+/*----- Login -----*/
+.loginFormWrapper {
+  background-color:#e6e9ec;
+  float:right;
+  font-size:0.75em;
+  line-height:1.5em;
+  margin:20px 0 0;
+  padding:10px;
+  width:280px;
+  }
+.loginNameField {
+  float:left;
+  margin-right:10px;
+  width:120px;
+  }
+.passwordField {
+  float:left;
+  margin-right:10px;
+  width:120px;
+  }
+.loginFormControl {
+  float:left;
+  margin:19px 0 0;
+  width:20px;
+  }
+.loginFormWrapper label {
+  display:block;
+  font-weight:normal;
+  margin:0 0 3px;
+  }
+.loginNameField input,
+.passwordField input {
+  background-color:#cfd6db;
+  border:0;
+  padding:1px 3px;
+  width:114px;
+  }
+
+/*---------- Logo ----------*/
+#portal-logo {
+  margin:0;
   }
 
 /*---------- PORTAL SEARCHBOX ----------*/
@@ -67,50 +119,29 @@ body {
   
   }
 
-/*----- Login -----*/
-.loginFormWrapper {
-  background-color:#e6e9ec;
-  float:right;
-  margin:20px 0 0;
-  padding:10px;
-  width:300px;
-  }
-.loginNameField {
-  float:left;
-  width:120px;
-  }
-.passwordField {
-  float:left;
-  width:120px;
-  }
-.loginFormControl {
-  float:left;
-  width:20px;
-  }
-
-/*---------- PORTAL LOGO ----------*/
-#portal-logo {
-  margin:0;
-  }
-
 /*---------- GLOBAL NAVIGATION ----------*/
 #portal-globalnav {
+  background:url(&dtml-portal_url;/tabs.gif) repeat-x #efefef;
   clear:none;
+  font-size:1.13em;
+  line-height:1.33em;
   }
 #portal-globalnav li {
-  
-  }
-#portal-globalnav li.lastItem {
-  
+  background:url(&dtml-portal_url;/tabs-separator.gif) no-repeat 100% 50%;
+  padding-right:2px;
   }
 #portal-globalnav li a {
-  
+  background-color:transparent;
+  border:0;
+  color:#012b44;
+  min-width:0;
+  padding:10px 20px 5px;
   }
-#portal-globalnav li a:hover {
-  
-  }
-#portal-globalnav li.selected a {
-  
+#portal-globalnav li a:hover,
+#portal-globalnav li.selected a,
+#portal-globalnav li.selected:hover a {
+  background:url(&dtml-portal_url;/tabs-hover.gif) repeat-x;
+  color:#012b44;
   }
 
 /*---------- PORTAL BREAD CRUMBS ----------*/
@@ -122,25 +153,7 @@ body {
 #portal-columns {
   
   }
-#portal-column-content #content-wrapper {
-  
-  }
-#portal-column-one .visualPadding {
-  
-  }
 #portal-column-two {
-  
-  }
-#portal-column-two .visualPadding {
-  
-  }
-.documentEditable {
-  
-  }
-.documentContent {
-  
-  }
-.documentEditable .documentContent {
   
   }
 
@@ -232,8 +245,8 @@ body.kssActive abbr.inlineEditable:hover {
   padding:0 0 1px;
   }
 .kupu-html body { 
-	text-align:left;
-	}
+  text-align:left;
+  }
 
 /*---------- PORTAL CONTENT ----------*/
 #content a[href^="http:"] {
