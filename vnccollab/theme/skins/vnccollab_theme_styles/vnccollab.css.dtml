@@ -279,4 +279,61 @@ form.searchPage input.searchButton {
   text-transform:none;
   }
 
+/************
+
+ Moved here from main.css
+ 
+**************/
+
+/* Top Rated Viewlet Styles */
+.topRatedViewlet legend {
+  text-transform: uppercase;
+  font-weight: bold;
+}
+
+.topRatedViewlet .topRatedLink {
+  line-height: 1.5em;
+  clear: both;
+  display: block;
+  font-size: 90%;
+}
+
+.topRatedViewlet .count {
+  font-weight: bold;
+}
+
+.topRatedViewlet .rating {
+  float: right;
+  font-size: 70%;
+  color: #444444;
+}
+
+/* Rating Badge in folder listings */
+.listItemRating {
+  background: none repeat scroll 0 0 #F1F1F1;
+  float: right;
+  line-height: 1.2em;
+  padding: 0 0.5em;
+  text-align: center;
+  font-size: 80%;
+  clear: both;
+  border: 1px solid #DDDDDD;
+  margin-left: 1em;
+}
+
+.listItemRating .listItemRatingLabel {
+  text-transform: lowercase;
+  font-weight: normal;
+}
+
+.listItemRating .listItemRatingValue {
+  font-weight: bold;
+  font-size: 1.3em;
+}
+
+/* Folder Listing Portal Type Filters */
+.folderTypeFilters {
+  text-align: center;
+}
+
 /* </dtml-with> */ 
