@@ -12,13 +12,10 @@
           tal:content="view/month"
           i18n:translate="">November</span>
   </span>
-  <a class="closeLink"
+  <a class="actionLink closeLink"
      title="Click to contract"
      i18n:attributes="title"
      href="#">
-    <img src="arrow_up_white.png"
-         alt="Close"
-         i18n:attributes="alt"
-         tal:attributes="src string:${view/site_url}/${attrs/src}" />
+     Close
   </a>
 </div>

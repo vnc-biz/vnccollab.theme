@@ -29,4 +29,9 @@
   <hidden manager="plone.abovecontent" skinname="VNC Collaboration Theme">
     <viewlet name="Products.Carousel.viewlet"/>
   </hidden>
+  <hidden manager="plone.portalfooter" skinname="VNC Collaboration Theme">
+    <viewlet name="plone.site_actions"/>
+    <viewlet name="plone.colophon"/>
+    <viewlet name="plone.footer"/>
+  </hidden>
 </object>

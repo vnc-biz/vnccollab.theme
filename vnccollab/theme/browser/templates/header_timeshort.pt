@@ -13,13 +13,10 @@
           tal:content="view/month"
           i18n:translate="">November</span> -->
   </span>
-  <a class="openLink"
+  <a class="actionLink openLink"
      title="Click to expand"
      i18n:attributes="title"
      href="#">
-    <img src="arrow_down_white.png"
-         alt="Open"
-         i18n:attributes="alt"
-         tal:attributes="src string:${view/site_url}/${attrs/src}" />
+    Open
   </a>
 </div>

@@ -33,14 +33,65 @@ div.width-full {
 div.position-0 {
   margin-left:-940px;
   }
+#portal-top .cell {
+  margin-left:-980px;
+  width:980px;
+  }
+
+/*----- Personal Tools -----*/
+#portal-personaltools {
+  background:#e6e9ec;
+  border-radius:0;
+  font-size:0.75em;
+  height:39px;
+  line-height:1.5em;
+  margin:20px 40px 17px 0;
+  padding:10px;
+  width:280px;
+  }
+#portal-personaltools dt {
+  margin:0;
+  }
+#portal-personaltools dt a {
+  color:#082736;
+  margin:0;
+  }
+#portal-personaltools dt.actionMenuHeader a:after {
+  content:"";
+  }
+#portal-personaltools dd {
+  background:none;
+  display:block;
+  padding:0;
+  position:static;
+  }
+#portal-personaltools dd a {
+  color:#082736;
+  display:inline !important;
+  margin:0;
+  padding:0 11px 0 0;
+  }
+#portal-personaltools dd a:hover {
+  background-color:transparent;
+  color:#082736;
+  }
+
+/*----- Language Selector -----*/
+#portal-languageselector {
+  background:none;
+  padding:1px 0 0;
+  position:absolute;
+  right:40px;
+  }
 
 /*----- Login -----*/
 .loginFormWrapper {
   background-color:#e6e9ec;
   float:right;
   font-size:0.75em;
+  height:39px;
   line-height:1.5em;
-  margin:20px 0 0;
+  margin:20px 40px 17px 0;
   padding:10px;
   width:280px;
   }
@@ -72,28 +123,33 @@ div.position-0 {
   width:114px;
   }
 
-/*---------- Logo ----------*/
+/*----- Logo -----*/
 #portal-logo {
-  margin:0;
+  margin:0 0 0 40px;
   }
 
-/*---------- PORTAL SEARCHBOX ----------*/
+/*----- Searchbox -----*/
 #portal-searchbox {
   font-size:75%;
   line-height:1.5em;
-  margin:26px 3px 0 0;
+  margin:9px 43px 0 0;
   }
 .LSBox {
   background:url(&dtml-portal_url;/search.png) no-repeat;
   padding:3px 9px;
+  position:relative;
   }
 #portal-searchbox .searchField {
   background:url(&dtml-portal_url;/search.png) no-repeat -9px -3px;
   border:0;
   font-size:1em;
-  padding:2px 0 0;
+  outline:none;
+  padding:1px 0 0;
   vertical-align:middle;
   width: 113px;
+  }
+input.searchField {
+  -moz-appearance:none;
   }
 #portal-searchbox .searchButton {
   background:url(&dtml-portal_url;/search-button.png) no-repeat;
@@ -110,29 +166,43 @@ div.position-0 {
 #LSResult {
   background:none;
   margin:0;
+  right:-43px;
+  top:30px;
   }
 #LSResult fieldset {
-  background:#fff;
-  border:0.1em solid #cfd6db;
+  border:0;
   margin:0;
   padding:0 0 1em;
   }
 #livesearchLegend {
-  background-color:#e6e9ec;
+  background-color:#fff;
+  border:1px solid #0d3b56;
+  border-bottom:0;
   margin-left:-1px;
+  left:0;
+  margin:0;
+  padding:2px 5px;
+  position:absolute;
+  top:-22px;
+  }
+.LSIEFix {
+  background:#fff;
+  border:1px solid #0d3b56;
+  padding:7px 0;
   }
 .LSRow,
 #LSNothingFound {
   padding:0 1em;
   }
 
-/*---------- GLOBAL NAVIGATION ----------*/
+/*----- Global Navigation -----*/
 #portal-globalnav {
   background:url(&dtml-portal_url;/tabs.gif) repeat-x #efefef;
   clear:none;
   font-size:1.13em;
   line-height:1.33em;
-  margin:0 -40px;
+  margin:0;
+  padding:0 40px;
   }
 #portal-globalnav li {
   background:url(&dtml-portal_url;/tabs-separator.gif) no-repeat 100% 50%;
@@ -152,19 +222,65 @@ div.position-0 {
   color:#012b44;
   }
 
-/*---------- VNC Collab Header ----------*/
+/*----- VNC Collab Header -----*/
+#vnccollab-header {
+  background:url(&dtml-portal_url;/map.png) no-repeat 0 0 #0e3c58;
+  padding:0 40px;
+  position:relative;
+  }
 #vnccollab-header.opened .headerTimeViewlet,
 #vnccollab-header.opened .headerLinksViewlet,
 #vnccollab-header.opened .carousel,
 #vnccollab-header.closed .headerTimeViewletShort {
   display: block;
-}
+  }
 #vnccollab-header.closed .headerTimeViewlet,
 #vnccollab-header.closed .headerLinksViewlet,
 #vnccollab-header.closed .carousel,
 #vnccollab-header.opened .headerTimeViewletShort {
   display: none;
-}
+  }
+.headerTimeViewlet {
+  float:right;
+  width:300px;
+  }
+.actionLink {
+  background:url(&dtml-portal_url;/sprite.png) no-repeat;
+  height:18px;
+  margin-top:-9px;
+  overflow:hidden;
+  position:absolute;
+  right:11px;
+  text-indent:-9999px;
+  top:50%;
+  width:18px;
+  }
+.openLink {
+  background-position:0 -18px;
+  }
+.carousel {
+  width:580px;
+  }
+div.carousel-text {
+  background-color:transparent;
+  color:#fff;
+  padding:0;
+  position:static;
+  width:auto;
+  }
+div.carousel-text a {
+  color:#fff;
+  }
+div.carousel-pager {
+  bottom:0;
+  margin:0;
+  position:absolute;
+  }
+.headerLinksViewlet {
+  bottom:0;
+  position:absolute;
+  right:360px;
+  }
 
 /*---------- PORTAL BREAD CRUMBS ----------*/
 #portal-breadcrumbs {
