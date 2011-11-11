@@ -27,7 +27,47 @@
       layer=".interfaces.IThemeSpecific"
       />
   
+  <!-- Viewlet managers -->
+  <browser:viewletManager
+      name="vnccollab.theme.htmlhead"
+      provides=".interfaces.IVNCCollabHtmlHead"
+      permission="zope2.View"
+      class="plone.app.viewletmanager.manager.BaseOrderedViewletManager"
+      />
+
   <!-- Viewlets registration -->
+  <browser:viewlet
+      name="vnccollab.theme.header"
+      manager="plone.app.layout.viewlets.interfaces.IPortalTop"
+      template="templates/vnccollab_header.pt"
+      layer=".interfaces.IThemeSpecific"
+      permission="zope2.View"
+      />
+  
+  <!-- <browser:viewlet
+      name="vnccollab.theme.headertime"
+      manager=".interfaces.IVNCCollabHtmlHead"
+      template="templates/header_links.pt"
+      layer=".interfaces.IThemeSpecific"
+      permission="zope2.View"
+      />
+      
+  <browser:viewlet
+      name="vnccollab.theme.headercarousel"
+      manager=".interfaces.IVNCCollabHtmlHead"
+      template="templates/header_links.pt"
+      layer=".interfaces.IThemeSpecific"
+      permission="zope2.View"
+      /> -->
+      
+  <browser:viewlet
+      name="vnccollab.theme.headerlinks"
+      manager=".interfaces.IVNCCollabHtmlHead"
+      template="templates/header_links.pt"
+      layer=".interfaces.IThemeSpecific"
+      permission="zope2.View"
+      />
+  
   <browser:viewlet
       for="plone.app.folder.folder.IATUnifiedFolder"
       name="vnccollab.theme.toprated"

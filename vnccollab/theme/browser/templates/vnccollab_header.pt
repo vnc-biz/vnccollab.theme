@@ -1,0 +1,5 @@
+<div id="vnccollab-header" class="opened"
+     tal:define="state request/vnccollab_header_state|request/cookies/vnccollab_header_state|nothing"
+     tal:attributes="class python:state=='closed' and 'closed' or 'opened'">
+<tal:viewletmanager replace="structure provider:vnccollab.theme.htmlhead" />
+</div>

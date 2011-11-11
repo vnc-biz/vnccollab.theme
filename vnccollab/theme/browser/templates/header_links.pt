@@ -1,0 +1,19 @@
+<div class="headerLinksViewlet"
+     i18n:domain="vnccollab.theme">
+  <a href="#"
+     title="RSS"
+     i18n:attributes="title"
+     i18n:translate="">VNC RSS</a>
+  <a href="#"
+     title="Spiegel"
+     i18n:attributes="title"
+     i18n:translate="">Spiegel</a>
+  <a href="#"
+     title="Wired"
+     i18n:attributes="title"
+     i18n:translate="">Wired</a>
+  <a href="#"
+     title="HuffPost"
+     i18n:attributes="title"
+     i18n:translate="">HuffPost</a>
+</div>

@@ -1,5 +1,14 @@
 <?xml version="1.0"?>
 <object>
+  <order manager="plone.portaltop" skinname="VNC Collaboration Theme">
+    <viewlet name="plone.header"/>
+    <viewlet name="vnccollab.theme.header"/>
+  </order>
+  <order manager="vnccollab.theme.htmlhead" skinname="VNC Collaboration Theme">
+    <viewlet name="vnccollab.theme.headertime"/>
+    <viewlet name="vnccollab.theme.headercarousel"/>
+    <viewlet name="vnccollab.theme.headerlinks"/>
+  </order>
   <order manager="plone.portalheader" skinname="VNC Collaboration Theme">
     <viewlet name="plone.skip_links"/>
     <viewlet name="plone.personal_bar"/>
