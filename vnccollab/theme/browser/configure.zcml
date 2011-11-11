@@ -52,6 +52,15 @@
       layer=".interfaces.IThemeSpecific"
       permission="zope2.View"
       />
+
+  <browser:viewlet
+      name="vnccollab.theme.headertimeshort"
+      manager=".interfaces.IVNCCollabHtmlHead"
+      template="templates/header_timeshort.pt"
+      class=".viewlets.HeaderTimeViewlet"
+      layer=".interfaces.IThemeSpecific"
+      permission="zope2.View"
+      />
       
 <!--  <browser:viewlet
       name="vnccollab.theme.headercarousel"

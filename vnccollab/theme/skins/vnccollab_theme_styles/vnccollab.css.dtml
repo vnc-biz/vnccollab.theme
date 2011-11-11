@@ -152,6 +152,20 @@ div.position-0 {
   color:#012b44;
   }
 
+/*---------- VNC Collab Header ----------*/
+#vnccollab-header.opened .headerTimeViewlet,
+#vnccollab-header.opened .headerLinksViewlet,
+#vnccollab-header.opened .headerCarouselViewlet,
+#vnccollab-header.closed .headerTimeViewletShort {
+  display: block;
+}
+#vnccollab-header.closed .headerTimeViewlet,
+#vnccollab-header.closed .headerLinksViewlet,
+#vnccollab-header.closed .headerCarouselViewlet,
+#vnccollab-header.opened .headerTimeViewletShort {
+  display: none;
+}
+
 /*---------- PORTAL BREAD CRUMBS ----------*/
 #portal-breadcrumbs {
   

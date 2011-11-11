@@ -1,0 +1,25 @@
+<div class="headerTimeViewletShort"
+     i18n:domain="vnccollab.theme">
+  <span class="datetime"
+     i18n:domain="plonelocales"
+     tal:content="view/datetime">
+    <!-- <span class="dayname"
+          tal:content="view/dayname"
+          i18n:translate="">Friday</span>
+    <span class="day"
+          tal:content="view/day"
+          i18n:translate="">01</span>
+    <span class="month"
+          tal:content="view/month"
+          i18n:translate="">November</span> -->
+  </span>
+  <a class="openLink"
+     title="Click to expand"
+     i18n:attributes="title"
+     href="#">
+    <img src="arrow_down_white.png"
+         alt="Open"
+         i18n:attributes="alt"
+         tal:attributes="src string:${view/site_url}/${attrs/src}" />
+  </a>
+</div>

@@ -144,13 +144,11 @@ class HeaderTimeViewlet(ViewletBase):
             default=safe_unicode(date.Month()))
         self.dayname = _pl(weekdayname_msgid(int(date.strftime('%w'))),
             default=safe_unicode(date.DayOfWeek()))
-
-    # def currentDate(self):
-    #     return self.toLocalizedTime(DateTime())
+        self.datetime = self.toLocalizedTime(date, long_format=True)
     
-    # def toLocalizedTime(self, time, long_format=None, time_only = None):
-    #     """Convert time to localized time
-    #     """
-    #     util = getToolByName(self.context, 'translation_service')
-    #     return util.ulocalized_time(time, long_format, time_only, self.context,
-    #                                 domain='plonelocales')
+    def toLocalizedTime(self, time, long_format=None, time_only = None):
+        """Convert time to localized time
+        """
+        util = getToolByName(self.context, 'translation_service')
+        return util.ulocalized_time(time, long_format, time_only, self.context,
+                                    domain='plonelocales')

@@ -12,7 +12,7 @@ function attachHeaderViewletCloseOpen() {
     
     return false;
   });
-  jq('.headerTimeViewlet a.openLink').click(function(event){
+  jq('.headerTimeViewletShort a.openLink').click(function(event){
     var container = jq(event.target).parents('#vnccollab-header');
     if (container.length == 0) {
       return false;
