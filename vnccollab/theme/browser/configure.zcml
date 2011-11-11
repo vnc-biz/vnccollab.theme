@@ -62,13 +62,13 @@
       permission="zope2.View"
       />
       
-<!--  <browser:viewlet
+  <browser:viewlet
       name="vnccollab.theme.headercarousel"
       manager=".interfaces.IVNCCollabHtmlHead"
-      template="templates/header_links.pt"
+      class=".viewlets.HomePageCarouselViewlet"
       layer=".interfaces.IThemeSpecific"
       permission="zope2.View"
-      /> -->
+      />
       
   <browser:viewlet
       name="vnccollab.theme.headerlinks"

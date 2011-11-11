@@ -25,5 +25,8 @@
     <viewlet name="vnccollab.theme.actionslist"/>
     <viewlet name="vnccollab.theme.toprated"/>
     <viewlet name="plone.manage_portlets_fallback"/>
-   </order>
+  </order>
+  <hidden manager="plone.abovecontent" skinname="VNC Collaboration Theme">
+    <viewlet name="Products.Carousel.viewlet"/>
+  </hidden>
 </object>

@@ -1,3 +1,4 @@
+from Acquisition import aq_base
 from DateTime import DateTime
 
 from zope.component import getMultiAdapter
@@ -11,6 +12,9 @@ from Products.CMFPlone.i18nl10n import monthname_msgid, weekdayname_msgid
 from plone.app.layout.viewlets.common import ViewletBase
 from plone.memoize.instance import memoize
 
+from Products.Carousel.config import CAROUSEL_ID
+from Products.Carousel.browser.viewlet import CarouselViewlet
+from Products.Carousel.interfaces import ICarousel
 from cioppino.twothumbs.rate import getTally
 from vnccollab.theme import messageFactory as _
 
@@ -152,3 +156,51 @@ class HeaderTimeViewlet(ViewletBase):
         util = getToolByName(self.context, 'translation_service')
         return util.ulocalized_time(time, long_format, time_only, self.context,
                                     domain='plonelocales')
+
+class HomePageCarouselViewlet(CarouselViewlet):
+    """Always displays root site /carousel's banners"""
+    
+    def update(self):
+        """
+        Set the variables needed by the template.
+        """
+        
+        self.available = False
+        
+        context_state = self.context.restrictedTraverse('@@plone_context_state')
+        folder = getToolByName(self.context, 'portal_url').getPortalObject()
+                
+        if hasattr(aq_base(folder), CAROUSEL_ID):
+            carousel = ICarousel(folder[CAROUSEL_ID], None)
+            if not carousel:
+                return
+        else:
+            return
+        
+        settings = carousel.getSettings()
+        
+        if not settings.enabled:
+            return
+        
+        banners = carousel.getBanners()
+        if not banners:
+            return
+
+        self.banners = self._template_for_carousel(
+            settings.banner_template or u'@@banner-default',
+            carousel
+        )
+        
+        self.pager = self._template_for_carousel(
+            settings.pager_template or u'@@pager-numbers',
+            carousel
+        )
+        
+        width, height = banners[0].getSize()
+        self.height = settings.height or height or 0
+        self.width = settings.width or width or 0
+        self.transition = settings.transition_type
+        self.speed = int(settings.transition_speed * 1000)
+        self.delay = int(settings.transition_delay * 1000)
+        self.element_id = settings.element_id
+        self.available = True

@@ -26,6 +26,7 @@ setup(name='vnccollab.theme',
       install_requires=[
           'setuptools',
           'cioppino.twothumbs',
+          'Products.Carousel',
           # -*- Extra requirements: -*-
       ],
       entry_points="""

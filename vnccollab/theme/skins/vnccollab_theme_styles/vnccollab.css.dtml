@@ -155,13 +155,13 @@ div.position-0 {
 /*---------- VNC Collab Header ----------*/
 #vnccollab-header.opened .headerTimeViewlet,
 #vnccollab-header.opened .headerLinksViewlet,
-#vnccollab-header.opened .headerCarouselViewlet,
+#vnccollab-header.opened .carousel,
 #vnccollab-header.closed .headerTimeViewletShort {
   display: block;
 }
 #vnccollab-header.closed .headerTimeViewlet,
 #vnccollab-header.closed .headerLinksViewlet,
-#vnccollab-header.closed .headerCarouselViewlet,
+#vnccollab-header.closed .carousel,
 #vnccollab-header.opened .headerTimeViewletShort {
   display: none;
 }
