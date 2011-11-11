@@ -44,15 +44,16 @@
       permission="zope2.View"
       />
   
-  <!-- <browser:viewlet
+  <browser:viewlet
       name="vnccollab.theme.headertime"
       manager=".interfaces.IVNCCollabHtmlHead"
-      template="templates/header_links.pt"
+      template="templates/header_time.pt"
+      class=".viewlets.HeaderTimeViewlet"
       layer=".interfaces.IThemeSpecific"
       permission="zope2.View"
       />
       
-  <browser:viewlet
+<!--  <browser:viewlet
       name="vnccollab.theme.headercarousel"
       manager=".interfaces.IVNCCollabHtmlHead"
       template="templates/header_links.pt"

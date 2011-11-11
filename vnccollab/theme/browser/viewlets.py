@@ -1,14 +1,20 @@
+from DateTime import DateTime
+
 from zope.component import getMultiAdapter
+from zope.i18nmessageid import MessageFactory
 
 from Products.Five.browser.pagetemplatefile import ViewPageTemplateFile
 from Products.CMFCore.utils import getToolByName
 from Products.CMFPlone.utils import safe_unicode, normalizeString
+from Products.CMFPlone.i18nl10n import monthname_msgid, weekdayname_msgid
 
 from plone.app.layout.viewlets.common import ViewletBase
 from plone.memoize.instance import memoize
 
 from cioppino.twothumbs.rate import getTally
 from vnccollab.theme import messageFactory as _
+
+_pl = MessageFactory('plonelocales')
 
 
 class TopRatedViewlet(ViewletBase):
@@ -125,3 +131,26 @@ class LoginViewlet(ViewletBase):
     def auth(self, _marker=[]):
         acl_users = getToolByName(self.context, 'acl_users')
         return getattr(acl_users, 'credentials_cookie_auth', None)
+
+class HeaderTimeViewlet(ViewletBase):
+    """Returns current date and time in local format"""
+
+    def update(self):
+        super(HeaderTimeViewlet, self).update()
+        
+        date = DateTime()
+        self.day = date.day()
+        self.month = _pl(monthname_msgid(int(date.strftime('%m'))),
+            default=safe_unicode(date.Month()))
+        self.dayname = _pl(weekdayname_msgid(int(date.strftime('%w'))),
+            default=safe_unicode(date.DayOfWeek()))
+
+    # def currentDate(self):
+    #     return self.toLocalizedTime(DateTime())
+    
+    # def toLocalizedTime(self, time, long_format=None, time_only = None):
+    #     """Convert time to localized time
+    #     """
+    #     util = getToolByName(self.context, 'translation_service')
+    #     return util.ulocalized_time(time, long_format, time_only, self.context,
+    #                                 domain='plonelocales')
