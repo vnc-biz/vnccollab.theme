@@ -39,11 +39,17 @@ div.position-0 {
   margin-left:-980px;
   width:980px;
   }
+div.position-1\3a 4 {
+  margin-left:-620px;
+  }
 div.position-3\3a 4 {
   margin-left:-320px;
   }
 div.width-1\3a 4 {
   width:280px;
+  }
+div.width-1\3a 2 {
+  width:260px;
   }
 div.width-3\3a 4 {
   width:580px;
@@ -60,6 +66,10 @@ div.width-3\3a 4 {
 #portal-column-content {
   background:url(&dtml-portal_url;/dot.gif) repeat-y 100% 0;
   padding-right:20px;
+  }
+#portal-column-content.width-full {
+  background:none;
+  padding-right:0;
   }
 #portal-column-two {
   background:url(&dtml-portal_url;/dot.gif) repeat-y;
