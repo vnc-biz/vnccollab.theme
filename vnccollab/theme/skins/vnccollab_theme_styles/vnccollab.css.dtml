@@ -63,13 +63,9 @@ div.width-3\3a 4 {
 #portal-columns {
   padding:0 0 20px;
   }
-#portal-column-content {
+#portal-column-content.width-3\3a 4.position-0 {
   background:url(&dtml-portal_url;/dot.gif) repeat-y 100% 0;
   padding-right:20px;
-  }
-#portal-column-content.width-full {
-  background:none;
-  padding-right:0;
   }
 #portal-column-two {
   background:url(&dtml-portal_url;/dot.gif) repeat-y;
