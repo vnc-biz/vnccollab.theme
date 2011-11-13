@@ -20,6 +20,9 @@
   position:relative;
   width:1000px;
   }
+#portal-columns {
+  padding:0 0 16px;
+  }
 .headerLinksViewlet a {
   background:url(&dtml-portal_url;/ie-sprite.png) no-repeat 100% 0;
   display:inline-block;
