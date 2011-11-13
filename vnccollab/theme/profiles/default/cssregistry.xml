@@ -3,8 +3,12 @@
 
  <stylesheet title=""
     id="vnccollab.css"
-    media="screen" rel="stylesheet" rendering="import"
+    media="screen" rel="stylesheet" rendering="link"
     cacheable="True" compression="safe" cookable="True"
     enabled="1" expression=""/>
+ <stylesheet title="" applyPrefix="False" authenticated="False"
+    cacheable="True" compression="safe" conditionalcomment="lt IE 9"
+    cookable="True" enabled="True" expression="" id="ie8fixes.css"
+    media="screen" rel="stylesheet" rendering="link" />
 
 </object>

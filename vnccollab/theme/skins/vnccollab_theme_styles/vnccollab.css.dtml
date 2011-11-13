@@ -54,6 +54,7 @@ div.position-0 {
   }
 #portal-personaltools dt a {
   color:#082736;
+  cursor:default;
   margin:0;
   }
 #portal-personaltools dt.actionMenuHeader a:after {
@@ -70,6 +71,7 @@ div.position-0 {
   display:inline !important;
   margin:0;
   padding:0 11px 0 0;
+  text-decoration:underline;
   }
 #portal-personaltools dd a:hover {
   background-color:transparent;
@@ -224,9 +226,12 @@ input.searchField {
 
 /*----- VNC Collab Header -----*/
 #vnccollab-header {
-  background:url(&dtml-portal_url;/map.png) no-repeat 0 0 #0e3c58;
+  background:url(&dtml-portal_url;/vnccollab-header.jpg) no-repeat 0 0 #012a43;
   padding:0 40px;
   position:relative;
+  }
+#vnccollab-header.closed {
+  background-position:0 -150px;
   }
 #vnccollab-header.opened .headerTimeViewlet,
 #vnccollab-header.opened .headerLinksViewlet,
@@ -241,8 +246,32 @@ input.searchField {
   display: none;
   }
 .headerTimeViewlet {
+  background:url(&dtml-portal_url;/clock.png) no-repeat 100% 0;
+  color:#fff;
   float:right;
-  width:300px;
+  font-size:1.06em;
+  line-height:1.41em;
+  margin:40px 0 0;
+  padding:20px 80px 20px 20px;
+  width:200px;
+  }
+.headerTimeViewlet span {
+  display:inline-block;
+  vertical-align:middle;
+  }
+.headerTimeViewlet .day {
+  background-color:#fff;
+  border-radius:15px;
+  color:#082736;
+  font-weight:bold;
+  padding:4px 7px 3px 6px;
+  }
+.headerTimeViewletShort {
+  color:#fff;
+  font-size:1.06em;
+  line-height:1.41em;
+  padding:2px 0;
+  text-align:right;
   }
 .actionLink {
   background:url(&dtml-portal_url;/sprite.png) no-repeat;
@@ -257,29 +286,75 @@ input.searchField {
   }
 .openLink {
   background-position:0 -18px;
+  text-indent:9999px;
   }
-.carousel {
+div.carousel {
+  margin:0;
+  padding:0 0 40px;
   width:580px;
   }
 div.carousel-text {
   background-color:transparent;
   color:#fff;
-  padding:0;
+  font-size:0.81em;
+  line-height:1.38em;
+  padding:19px 0 0;
   position:static;
   width:auto;
   }
-div.carousel-text a {
+.carousel-title {
+  color:#fff;
+  display:block;
+  font-size:1.46em;
+  line-height:1.32em;
+  margin:0 0 13px;
+  }
+.carousel-title:link,
+.carousel-title:visited {
   color:#fff;
   }
 div.carousel-pager {
-  bottom:0;
+  bottom:10px;
   margin:0;
   position:absolute;
   }
+a.carousel-pager-button-prev,
+a.carousel-pager-button-next {
+  background-color:transparent;
+  display:inline-block;
+  padding:0;
+  }
+a.carousel-pager-button-prev {
+  margin-right:5px;
+  }
+a.carousel-pager-button-prev span,
+a.carousel-pager-button-next span {
+  background:url(&dtml-portal_url;/sprite.png) no-repeat -18px 0;
+  display:block;
+  height:20px;
+  overflow:hidden;
+  text-indent:-9999px;
+  width:20px;
+  }
+a.carousel-pager-button-next span {
+  background-position:-18px -20px;
+  }
 .headerLinksViewlet {
-  bottom:0;
+  bottom:10px;
+  font-size:0.69em;
+  line-height:1.45em;
   position:absolute;
   right:360px;
+  }
+.headerLinksViewlet li {
+  margin-right:2px;
+  }
+.headerLinksViewlet a {
+  background-color:#2a6181;
+  border-radius:10px;
+  color:#fff;
+  display:inline-block;
+  padding:2px 9px;
   }
 
 /*---------- PORTAL BREAD CRUMBS ----------*/

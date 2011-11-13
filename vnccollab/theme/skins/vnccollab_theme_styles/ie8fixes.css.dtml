@@ -1,0 +1,21 @@
+/* <dtml-with base_properties> (do not remove this :) */
+/* <dtml-call "REQUEST.set('portal_url', portal_url())"> (not this either :) */
+
+.headerLinksViewlet a {
+  background:url(&dtml-portal_url;/ie-sprite.png) no-repeat 100% 0;
+  display:inline-block;
+  margin-right:14px;
+  padding:0 9px 0 0;
+  }
+.headerLinksViewlet span {
+  background:url(&dtml-portal_url;/ie-sprite.png) no-repeat 0 0;
+  cursor:pointer;
+  display:inline-block;
+  margin-left:-9px;
+  padding:2px 0 2px 9px;
+  }
+.headerTimeViewlet .day {
+  background:url(&dtml-portal_url;/ie-sprite.png) no-repeat 0 -70px;
+  }
+
+/* </dtml-with> */ 
