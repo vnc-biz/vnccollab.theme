@@ -17,5 +17,24 @@
 .headerTimeViewlet .day {
   background:url(&dtml-portal_url;/ie-sprite.png) no-repeat 0 -70px;
   }
+#portal-breadcrumbs a,
+#breadcrumbs-current {
+  background:url(&dtml-portal_url;/ie-sprite.png) no-repeat 100% -100px;
+  padding:0 9px 0 0;
+  }
+#portal-breadcrumbs a span,
+#breadcrumbs-current span {
+  background:url(&dtml-portal_url;/ie-sprite.png) no-repeat 0 -100px;
+  display:inline-block;
+  margin-left:-9px;
+  padding:2px 0 2px 9px;
+  }
+#portal-breadcrumbs a span {
+  cursor:pointer;
+  }
+#breadcrumbs-you-are-here,
+.breadcrumbSeparator {
+  padding-right:9px;
+  }
 
 /* </dtml-with> */ 

@@ -359,7 +359,26 @@ a.carousel-pager-button-next span {
 
 /*---------- PORTAL BREAD CRUMBS ----------*/
 #portal-breadcrumbs {
-  
+  background:url(&dtml-portal_url;/breadcrumbs.png) no-repeat 0 100%;
+  font-size:0.81em;
+  line-height:1.38em;
+  margin:0 0 20px;
+  padding:5px 40px 7px;
+  }
+#breadcrumbs-you-are-here {
+  color:#12425f;
+  font-weight:bold;
+  }
+#portal-breadcrumbs a,
+#breadcrumbs-current {
+  background-color:#e6e9ec;
+  border-radius:10px;
+  display:inline-block;
+  color:#082736;
+  padding:2px 9px;
+  }
+.breadcrumbSeparator {
+  font-size:1.08em;
   }
 
 /*---------- PORTAL COLUMNS PROPERTIES ----------*/

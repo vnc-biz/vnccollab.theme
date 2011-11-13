@@ -3,6 +3,7 @@
   <order manager="plone.portaltop" skinname="VNC Collaboration Theme">
     <viewlet name="plone.header"/>
     <viewlet name="vnccollab.theme.header"/>
+    <viewlet name="plone.path_bar"/>
   </order>
   <order manager="vnccollab.theme.htmlhead" skinname="VNC Collaboration Theme">
     <viewlet name="vnccollab.theme.headertime"/>
@@ -28,6 +29,7 @@
   </order>
   <hidden manager="plone.abovecontent" skinname="VNC Collaboration Theme">
     <viewlet name="Products.Carousel.viewlet"/>
+    <viewlet name="plone.path_bar"/>
   </hidden>
   <hidden manager="plone.portalfooter" skinname="VNC Collaboration Theme">
     <viewlet name="plone.site_actions"/>

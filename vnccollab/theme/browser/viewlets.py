@@ -9,7 +9,7 @@ from Products.CMFCore.utils import getToolByName
 from Products.CMFPlone.utils import safe_unicode, normalizeString
 from Products.CMFPlone.i18nl10n import monthname_msgid, weekdayname_msgid
 
-from plone.app.layout.viewlets.common import ViewletBase
+from plone.app.layout.viewlets.common import ViewletBase, PathBarViewlet
 from plone.memoize.instance import memoize
 
 from Products.Carousel.config import CAROUSEL_ID
@@ -204,3 +204,6 @@ class HomePageCarouselViewlet(CarouselViewlet):
         self.delay = int(settings.transition_delay * 1000)
         self.element_id = settings.element_id
         self.available = True
+        
+class PathBarViewlet(PathBarViewlet):
+    render = ViewPageTemplateFile('templates/path_bar.pt')
