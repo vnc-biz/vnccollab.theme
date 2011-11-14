@@ -10,6 +10,16 @@
       name="VNC Collaboration Theme"
       />
 
+  <include package="plone.app.portlets" />
+
+  <browser:page
+      for="plone.app.layout.navigation.interfaces.INavigationRoot"
+      name="hp_dashboard"
+      permission="plone.app.portlets.ViewDashboard"
+      class=".hp_dashboard.HomepageDashboardView"
+      template="templates/hp_dashboard.pt"
+      />
+
   <browser:page
       for="*"
       name="folder-content-types"
