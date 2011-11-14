@@ -59,10 +59,10 @@
           tal:content="structure provider:plone.dashboard1" />
         <div id="dashboard-portlets2" 
           tal:content="structure provider:plone.dashboard2" />
-        <div id="dashboard-portlets3" 
+        <!-- <div id="dashboard-portlets3" 
           tal:content="structure provider:plone.dashboard3" />
         <div id="dashboard-portlets4" 
-          tal:content="structure provider:plone.dashboard4" />
+          tal:content="structure provider:plone.dashboard4" /> -->
     </div>
 
     </tal:main-macro>
