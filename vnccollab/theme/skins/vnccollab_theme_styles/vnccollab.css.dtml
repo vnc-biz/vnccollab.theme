@@ -436,6 +436,22 @@ a.carousel-pager-button-next span {
   
   }
 
+/* Portlet Toggle Styles */
+.portlet .portletToggleLink {
+  background:url(&dtml-portal_url;/arrow_up_white.png) no-repeat;
+  text-indent: -10000px;
+  display: inline-block;
+  height: 21px;
+  width: 21px;
+}
+.portlet.closed .portletToggleLink{
+  background:url(&dtml-portal_url;/arrow_down_white.png) no-repeat;
+}
+.portlet.closed .portletFooter,
+.portlet.closed .portletItem {
+  display: none;
+}
+
 /*---------- PORTLET NAVIGATION ----------*/
 .portletNavigationTree .portletItem {
   
