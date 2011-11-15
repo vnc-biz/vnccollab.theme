@@ -77,6 +77,7 @@ div.width-3\3a 4 {
 #portal-personaltools {
   background:#e6e9ec;
   border-radius:0;
+  -moz-border-radius:0;
   font-size:0.75em;
   height:39px;
   line-height:1.5em;
@@ -297,6 +298,7 @@ input.searchField {
 .headerTimeViewlet .day {
   background-color:#fff;
   border-radius:15px;
+  -moz-border-radius:15px;
   color:#082736;
   font-weight:bold;
   padding:4px 7px 3px 6px;
@@ -387,6 +389,7 @@ a.carousel-pager-button-next span {
 .headerLinksViewlet a {
   background-color:#2a6181;
   border-radius:10px;
+  -moz-border-radius:10px;
   color:#fff;
   display:inline-block;
   padding:2px 9px;
@@ -408,6 +411,7 @@ a.carousel-pager-button-next span {
 #breadcrumbs-current {
   background-color:#e6e9ec;
   border-radius:10px;
+  -moz-border-radius:10px;
   display:inline-block;
   color:#082736;
   padding:2px 9px;
