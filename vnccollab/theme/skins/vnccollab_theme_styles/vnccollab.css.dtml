@@ -518,9 +518,7 @@ dl.portlet dd.portletFooter {
   padding:10px 10px 0;
   }
 .portletStaticText .portletItem a:link,
-div.portletStaticText a:link,
-.portletStaticText .portletItem a:hover,
-div.portletStaticText a:hover {
+.portletStaticText .portletItem a:hover {
   color:#3d68bd !important;
   }
 
@@ -542,7 +540,7 @@ div.portletStaticText a:hover {
   display:none;
   }
 
-/*---------- PORTLET NAVIGATION ----------*/
+/*----- Portlet Navigation -----*/
 dl.portletNavigationTree dd.portletItem {
   border-bottom:1px solid #cfd6db;
   padding:0;
@@ -610,6 +608,38 @@ dl.portlet ul.navTree .navTreeCurrentItem {
   
   }
 
+/*----- Dashboard Portlets -----*/
+#dashboard .portlet {
+  padding:10px 10px 20px;
+  }
+#dashboard .portletHeader {
+  background:#efefef;
+  background:-moz-linear-gradient(#f8f8f8, #efefef);
+  background:-webkit-linear-gradient(#f8f8f8, #efefef);
+  background:-o-linear-gradient(#f8f8f8, #efefef);
+  background:-ms-linear-gradient(#f8f8f8, #efefef);
+  background:linear-gradient(#f8f8f8, #efefef);
+  border-color:#cfd6db;
+  border-style:solid;
+  border-width:1px 1px 0;
+  font-size:1.25em;
+  line-height:1.33em;
+  padding:7px 27px 7px 14px !important;
+  filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#f8f8f8', endColorstr='#efefef',GradientType=0 );
+  }
+#dashboard .portletToggleLink {
+  right:9px;
+  }
+#dashboard .portletItem {
+  background:url(&dtml-portal_url;/top-shadow.png) no-repeat 50% 0 #cfd6db;
+  }
+#dashboard .portlet a:link,
+#dashboard .portlet a:visited,
+#dashboard .portlet a:hover {
+  color:#082736 !important;
+  text-decoration:none;
+  }
+  
 /*---------- PORTAL EDIT ----------*/
 
 
