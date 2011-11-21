@@ -27,6 +27,7 @@ setup(name='vnccollab.theme',
           'setuptools',
           'cioppino.twothumbs',
           'Products.Carousel',
+          'simplejson',
           # -*- Extra requirements: -*-
       ],
       entry_points="""

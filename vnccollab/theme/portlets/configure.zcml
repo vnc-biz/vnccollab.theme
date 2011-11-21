@@ -1,0 +1,19 @@
+<configure
+    xmlns="http://namespaces.zope.org/zope"
+    xmlns:plone="http://namespaces.plone.org/plone"
+    i18n_domain="vnccollab.theme">
+
+  <include package="plone.app.portlets" />
+  
+  <plone:portlet
+      name="vnccollab.theme.portlets.ZimbraMailPortlet"
+      interface=".zimbra_mail.IZimbraMailPortlet"
+      assignment=".zimbra_mail.Assignment"
+      view_permission="zope2.View"
+      edit_permission="cmf.ManagePortal"
+      renderer=".zimbra_mail.Renderer"
+      addview=".zimbra_mail.AddForm"
+      editview=".zimbra_mail.EditForm"
+      />
+
+</configure>
