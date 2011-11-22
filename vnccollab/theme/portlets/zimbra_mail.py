@@ -14,6 +14,7 @@ from zope.interface import implements, Interface
 from zope import schema
 
 from Products.Five.browser.pagetemplatefile import ZopeTwoPageTemplateFile
+from Products.CMFCore.utils import getToolByName
 from Products.CMFPlone.utils import safe_unicode
 
 from plone.memoize.instance import memoize

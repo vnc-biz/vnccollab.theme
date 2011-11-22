@@ -10,13 +10,20 @@
       name="VNC Collaboration Theme"
       />
 
+  <adapter
+      provides="..userdataschema.IUserDataSchema"
+      for="plone.app.layout.navigation.interfaces.INavigationRoot"
+      factory=".personalpreferences.UserDataPanelAdapter"
+      />
+
   <include package="plone.app.portlets" />
 
   <browser:page
       for="plone.app.layout.navigation.interfaces.INavigationRoot"
-      name="hp_dashboard"
+      name="dashboard"
       permission="plone.app.portlets.ViewDashboard"
-      class=".hp_dashboard.HomepageDashboardView"
+      class=".dashboard.DashboardView"
+      layer=".interfaces.IThemeSpecific"
       template="templates/hp_dashboard.pt"
       />
 

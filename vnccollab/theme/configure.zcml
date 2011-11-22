@@ -16,4 +16,8 @@
   <adapter name="avg_ratings" factory=".indexers.avg_ratings" />
   <adapter name="total_down_ratings" factory=".indexers.total_down_ratings" />
 
+  <utility
+      provides="plone.app.users.userdataschema.IUserDataSchemaProvider"
+      factory=".userdataschema.UserDataSchemaProvider"/>
+
 </configure>

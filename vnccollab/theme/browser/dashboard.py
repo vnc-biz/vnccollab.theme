@@ -10,8 +10,8 @@ from plone.memoize.instance import memoize
 
 from Products.CMFCore.utils import getToolByName
 
-class HomepageDashboardView(BrowserView):
-    """User's HomePage Dashboard.
+class DashboardView(BrowserView):
+    """User's Dashboard.
     
     Lists user's group assigned portlets.
     """
