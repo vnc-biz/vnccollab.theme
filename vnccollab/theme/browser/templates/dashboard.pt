@@ -21,21 +21,23 @@
                                 name python:memberinfo['fullname'] or member.getId() or member.getId();
                                 portal_url context/portal_url">
 
+    <tal:comment replace="nothing">Temporarily remove toolbar
     <div class="dashboardToolbar">
-      <a href="#"
+      <a href="https://zcs.vnc.biz/"
+         target="_blank"
          class="inboxLink">
         <img src="db_inbox.png"
-             tal:attributes="src string:${portal_url}/${attrs/src}" />
+             tal:attributes="src attrs/src" />
       </a>
-      <a href="#"
+      <a href="Members"
          class="peopleLink">
         <img src="db_people.png"
              tal:attributes="src string:${portal_url}/${attrs/src}" />
       </a>
-      <a href="#"
+      <a href="http://br.etherpad.zdemo.vnc.biz/"
          class="documentLink">
         <img src="db_document.png"
-             tal:attributes="src string:${portal_url}/${attrs/src}" />
+             tal:attributes="src attrs/src" />
       </a>
       <a href="#"
          class="galleryLink">
@@ -48,6 +50,7 @@
              tal:attributes="src string:${portal_url}/${attrs/src}" />
       </a>
     </div>
+    </tal:comment>
 
     <h1 class="documentFirstHeading" i18n:translate="heading_dashboard">
         <span tal:replace="name" i18n:name="user_name" />&#8217;s dashboard

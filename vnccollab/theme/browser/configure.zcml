@@ -24,7 +24,7 @@
       permission="plone.app.portlets.ViewDashboard"
       class=".dashboard.DashboardView"
       layer=".interfaces.IThemeSpecific"
-      template="templates/hp_dashboard.pt"
+      template="templates/dashboard.pt"
       />
 
   <browser:page
