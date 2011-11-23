@@ -1,15 +1,21 @@
 <ul class="headerLinksViewlet"
-     i18n:domain="vnccollab.theme">
-    <li><a href="#"
-           title="RSS"
-           i18n:attributes="title"><span i18n:translate="">VNC RSS</span></a></li>
-    <li><a href="#"
-           title="Spiegel"
-           i18n:attributes="title"><span i18n:translate="">Spiegel</span></a></li>
-    <li><a href="#"
-           title="Wired"
-           i18n:attributes="title"><span i18n:translate="">Wired</span></a></li>
-    <li><a href="#"
-           title="HuffPost"
-           i18n:attributes="title"><span i18n:translate="">HuffPost</span></a></li>
+     i18n:domain="vnccollab.theme"
+     tal:define="purl context/portal_url">
+    <li><a href="news/aggregator/RSS"
+           target="_blank"
+           title="VNC News RSS"
+           i18n:attributes="title"
+           tal:attributes="href string:${purl}/${attrs/href}"><span i18n:translate="">VNC News RSS</span></a></li>
+    <li><a href="http://www.facebook.com/pages/VNC-Virtual-Network-Consult-GmbH/109769055711495"
+           title="Facebook"
+           target="_blank"
+           i18n:attributes="title"><span i18n:translate="">VNC on Facebook</span></a></li>
+    <li><a href="http://twitter.com/@VNCbiz"
+           target="_blank"
+           title="Twitter"
+           i18n:attributes="title"><span i18n:translate="">VNC on Twitter</span></a></li>
+    <li><a href="http://www.wired.com/"
+           target="_blank"
+           title="Wired News"
+           i18n:attributes="title"><span i18n:translate="">Wired News</span></a></li>
 </ul>
