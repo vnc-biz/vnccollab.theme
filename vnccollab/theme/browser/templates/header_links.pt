@@ -6,7 +6,7 @@
            title="VNC News RSS"
            i18n:attributes="title"
            tal:attributes="href string:${purl}/${attrs/href}"><span i18n:translate="">VNC News RSS</span></a></li>
-    <li><a href="http://www.facebook.com/pages/VNC-Virtual-Network-Consult-GmbH/109769055711495"
+    <li><a href="http://www.facebook.com/pages/VNC/233323870024920"
            title="Facebook"
            target="_blank"
            i18n:attributes="title"><span i18n:translate="">VNC on Facebook</span></a></li>
