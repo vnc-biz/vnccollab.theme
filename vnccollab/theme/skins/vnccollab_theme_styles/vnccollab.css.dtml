@@ -702,6 +702,16 @@ dl.portlet ul.navTree .navTreeCurrentItem {
   text-decoration:none;
   }
 
+/* Users Box Portlet */
+.portletUsersBox a.userBox {
+  margin: 1px;
+}
+
+.portletUsersBox img {
+  height: 50px;
+  width: 50px;
+}
+
 /*----- Portal Content -----*/
 .icons-on .contenttype-document,
 .icons-on .contenttype-folder {

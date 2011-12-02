@@ -15,5 +15,16 @@
       addview=".zimbra_mail.AddForm"
       editview=".zimbra_mail.EditForm"
       />
+  
+  <plone:portlet
+      name="vnccollab.theme.portlets.UsersBoxPortlet"
+      interface=".users_box.IUsersBoxPortlet"
+      assignment=".users_box.Assignment"
+      view_permission="zope2.View"
+      edit_permission="cmf.ManagePortal"
+      renderer=".users_box.Renderer"
+      addview=".users_box.AddForm"
+      editview=".users_box.EditForm"
+      />
 
 </configure>

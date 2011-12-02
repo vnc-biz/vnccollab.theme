@@ -12,4 +12,13 @@
    <for interface="plone.app.portlets.interfaces.IDashboard" />
  </portlet>
  
+ <portlet
+   addview="vnccollab.theme.portlets.UsersBoxPortlet"
+   title="Users Box portlet"
+   description="A portlet which lists users contributed to current container."
+   i18n:attributes="title;description">
+   <for interface="plone.app.portlets.interfaces.IColumn" />
+   <for interface="plone.app.portlets.interfaces.IDashboard" />
+ </portlet>
+ 
 </portlets>
