@@ -781,4 +781,10 @@ dl.portlet ul.navTree .navTreeCurrentItem {
   text-align: center;
 }
 
+/* TinyMCE Editor fixes */
+/* toolbars doesn't float in WebKit-based browsers */
+.mceEditor table td.mceToolbar {
+  white-space: normal;
+}
+
 /* </dtml-with> */ 
