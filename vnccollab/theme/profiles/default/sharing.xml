@@ -1,0 +1,8 @@
+<sharing xmlns:i18n="http://xml.zope.org/namespaces/i18n" i18n:domain="plone">
+<role
+    id="VNCEditor"
+    title="Can ONLY edit"
+    permission="Sharing page: Delegate Editor role"
+    i18n:attributes="title"
+    />
+</sharing>
