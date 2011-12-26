@@ -1,6 +1,4 @@
 Introduction
 ============
 
-
-
-This product may contain traces of nuts.
+VNC Collaboration Plone 4 Theme.
