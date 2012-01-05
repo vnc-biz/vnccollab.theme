@@ -3,51 +3,154 @@
       xmlns:i18n="http://xml.zope.org/namespaces/i18n"
       tal:omit-tag="">
 <dl class="portlet portletZimbraMail"
-    i18n:domain="vnccollab.theme"
-    tal:condition="view/enabled">
+    i18n:domain="vnccollab.theme">
 
     <dt class="portletHeader">
         <span class="portletTopLeft"></span>
         <a href=""
            target="_blank"
-           tal:attributes="href string:${view/data/protocol}${view/data/url}"
+           tal:attributes="href view/data/url"
            tal:content="view/title"
            class="tile">
             Tags
         </a>
         <span class="portletTopRight"></span>
     </dt>
-    <tal:rss tal:condition="view/feedAvailable"
-                tal:define="toLocalizedTime nocall:context/@@plone/toLocalizedTime"
-                tal:repeat="item view/items">
-        <dd class="portletItem oddrow"
-            tal:define="oddrow repeat/item/odd"
-            tal:attributes="class python:oddrow and 'portletItem even' or 'portletItem odd'">
-
-            <a href="#"
-               target="_blank"
-               tal:attributes="href item/url"
-               tal:omit-tag="not:item/url">
-                <span tal:replace="item/title">
-                    Email Subject
-                </span>
-                <span class="portletItemDetails"
-                      tal:condition="item/updated" tal:content="python:toLocalizedTime(item['updated'])">19.02.2007</span>
-                <span class="portletItemBody"
-                      tal:condition="item/body"
-                      tal:content="item/body">Email body</span>
-            </a>
-        </dd>
-    </tal:rss>
-    <dd class="portletFooter" tal:condition="view/feedAvailable">
-        <a href=""
-           target="_blank"
-           tal:attributes="href string:${view/data/protocol}${view/data/url}"
-           i18n:translate="box_morelink">
-                More&hellip;
-        </a>
-        <span class="portletBottomLeft"></span>
-        <span class="portletBottomRight"></span>
+    <!-- classes description
+       folders - root folders listing
+       emails - inside folder, list of emails; default screen
+       newEmail - new message creation, reply or forward
+       inprogress - side state, e.g. loading more messages
+       hidden - initial load, all bars and body hidden
+       email - single email view
+    -->
+    <dd class="portletBody emails">
+      <div class="navBar">
+        <div class="navBarGroup navBarFolders">
+          <span class="label">vitaliypodoba@gmail.com</span>
+        </div>
+        <div class="navBarGroup navBarEmails">
+          <span class="buttons1">
+            <span class="button backButton">&lt; Menu</span>
+            <span class="button refreshButton">Refresh</span>
+          </span>
+          <span class="label">Inbox (3)</span>
+          <span class="buttons2">
+            <span class="button newButton">New</span>
+          </span>
+        </div>
+        <div class="navBarGroup navBarEmail">
+          <span class="buttons1">
+            <span class="button backButton">Back</span>
+            <span class="button trashButton">Trash</span>
+          </span>
+          <span class="buttons2">
+            <span class="button replyButton">Reply</span>
+            <span class="button forwardButton">Forward</span>
+          </span>
+        </div>
+        <div class="navBarGroup navBarNewEmail">
+          <span class="buttons1">
+            <span class="button backButton">Back</span>
+            <span class="button trashButton">Trash</span>
+          </span>
+          <span class="buttons2">
+            <span class="button saveButton">Save</span>
+            <span class="button sendButton">Send</span>
+          </span>
+        </div>
+      </div>
+      
+      <div class="bulkActionsBar">
+        <span class="counter">1</span>
+        <span class="trashButton">Trash</span>
+        <span class="closeButton">x</span>
+      </div>
+      
+      <div class="progressBar"><!-- --></div>
+      
+      <div class="statusBar">
+        <span class="status"><!-- --></span>
+        <span class="closeButton"><!-- --></span>
+      </div>
+      
+      <tal:comment replace="nothing">
+        Main Pane consist of a few views:
+          * foldersView - folders listing, root view
+          * emailsView - emails listing, default view with first defined folder
+          * emailView - single email view
+          * newEmailView - new email creation form, also used for Reply and
+              Forward Email forms
+      </tal:comment>
+      <div class="mainPane">
+        <div class="foldersView"><!-- --></div>
+        <div class="emailsView">
+          <div class="emailItem selected" id="email_3838838999498">
+            <div class="emailItemBody">
+              Форум :  alpin.km.ua (2) - Уведомление о новом сообщении - Сообщаем Вам о том, что добавлен новый пост в тему, на …
+            </div>
+          </div>
+          <div class="emailItem" id="email_3838899ee8e">
+            <div class="emailItemBody">
+              alpin.km.ua (2) - Уведомление о новом сообщении - Сообщаем Вам о том, что добавлен новый пост в тему, на …3:24 pmme (3) - Protocol, October 14, 2011 - Доброго дня, Я так розумію що у жовтні відбулася …3:11 pmБортякова Елена - (no subject) - Віталій, добрий день. Перешліть мені, будь ласка, і …1:37 pmIryna, me (2) - змаг
+            </div>
+          </div>
+          <div class="emailItem" id="email_38388389324234298">
+            <div class="emailItemBody">
+              Freelancer.com Support (5) - New Projects and Contests matching your skills on Freelancer.com - Freelancer Notification 05 January 2012 Hi piv, Here are the latest Projects and Contests …
+            </div>
+          </div>
+          <div class="emailItem" id="email_38388333333">
+            <div class="emailItemBody">
+              Martin Schoel Projects - [ChooseHelp] #458: Fix homepage expert bubbles when title is too long - 458: Fix homepage expert bubbles when title is too long …  
+            </div>
+          </div>
+          <div class="emailItem selected" id="email_3838838999498">
+            <div class="emailItemBody">
+              Форум :  alpin.km.ua (2) - Уведомление о новом сообщении - Сообщаем Вам о том, что добавлен новый пост в тему, на …
+            </div>
+          </div>
+          <div class="emailItem" id="email_3838899ee8e">
+            <div class="emailItemBody">
+              alpin.km.ua (2) - Уведомление о новом сообщении - Сообщаем Вам о том, что добавлен новый пост в тему, на …3:24 pmme (3) - Protocol, October 14, 2011 - Доброго дня, Я так розумію що у жовтні відбулася …3:11 pmБортякова Елена - (no subject) - Віталій, добрий день. Перешліть мені, будь ласка, і …1:37 pmIryna, me (2) - змаг
+            </div>
+          </div>
+          <div class="emailItem" id="email_38388389324234298">
+            <div class="emailItemBody">
+              Freelancer.com Support (5) - New Projects and Contests matching your skills on Freelancer.com - Freelancer Notification 05 January 2012 Hi piv, Here are the latest Projects and Contests …
+            </div>
+          </div>
+          <div class="emailItem" id="email_38388333333">
+            <div class="emailItemBody">
+              Martin Schoel Projects - [ChooseHelp] #458: Fix homepage expert bubbles when title is too long - 458: Fix homepage expert bubbles when title is too long …  
+            </div>
+          </div>
+          <div class="emailItem selected" id="email_3838838999498">
+            <div class="emailItemBody">
+              Форум :  alpin.km.ua (2) - Уведомление о новом сообщении - Сообщаем Вам о том, что добавлен новый пост в тему, на …
+            </div>
+          </div>
+          <div class="emailItem" id="email_3838899ee8e">
+            <div class="emailItemBody">
+              alpin.km.ua (2) - Уведомление о новом сообщении - Сообщаем Вам о том, что добавлен новый пост в тему, на …3:24 pmme (3) - Protocol, October 14, 2011 - Доброго дня, Я так розумію що у жовтні відбулася …3:11 pmБортякова Елена - (no subject) - Віталій, добрий день. Перешліть мені, будь ласка, і …1:37 pmIryna, me (2) - змаг
+            </div>
+          </div>
+          <div class="emailItem" id="email_38388389324234298">
+            <div class="emailItemBody">
+              Freelancer.com Support (5) - New Projects and Contests matching your skills on Freelancer.com - Freelancer Notification 05 January 2012 Hi piv, Here are the latest Projects and Contests …
+            </div>
+          </div>
+          <div class="emailItem" id="email_38388333333">
+            <div class="emailItemBody">
+              Martin Schoel Projects - [ChooseHelp] #458: Fix homepage expert bubbles when title is too long - 458: Fix homepage expert bubbles when title is too long …  
+            </div>
+          </div>
+        </div>
+        <div class="emailView"><!-- --></div>
+        <div class="newEmailView"><!-- --></div>
+      </div>
     </dd>
+    <script type="text/javascript" src="#"
+            tal:attributes="src string:${context/portal_url}/++resource++vnccollab.theme.js/zimbra_mail_portlet.js"><!-- --></script>
 </dl>
 </html>

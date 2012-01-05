@@ -2,6 +2,11 @@
 <object name="portal_css">
 
  <stylesheet title=""
+    id="++resource++vnccollab.theme.stylesheets/zimbra_mail_portlet.css"
+    media="screen" rel="stylesheet" rendering="link"
+    cacheable="True" compression="safe" cookable="True"
+    enabled="1" expression=""/>
+ <stylesheet title=""
     id="vnccollab.css"
     media="screen" rel="stylesheet" rendering="link"
     cacheable="True" compression="safe" cookable="True"

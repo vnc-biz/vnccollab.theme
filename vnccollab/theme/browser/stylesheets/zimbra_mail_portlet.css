@@ -1,0 +1,151 @@
+/* Functional CSS */
+/* Nav Bar */
+.portletZimbraMail .foldersView,
+.portletZimbraMail .emailsView,
+.portletZimbraMail .emailView,
+.portletZimbraMail .newEmailView,
+.portletZimbraMail .statusBar,
+.portletZimbraMail .progressBar,
+.portletZimbraMail .bulkActionsBar,
+.portletZimbraMail .navBarFolders,
+.portletZimbraMail .navBarEmails,
+.portletZimbraMail .navBarEmail,
+.portletZimbraMail .navBarNewEmail {
+  display: none;
+}
+.portletZimbraMail .emails .navBarEmails,
+.portletZimbraMail .emails .emailsView,
+.portletZimbraMail .email .navBarEmail,
+.portletZimbraMail .newEmail .navBarNewEmail,
+.portletZimbraMail .folders .navBarFolders {
+  display: block;
+}
+
+
+/* Some Commone styles */
+.portletZimbraMail .button {
+  cursor: pointer;
+  display: inline-block;
+  vertical-align: middle;
+}
+.portletZimbraMail .button:hover {
+  border-color: #555555;
+}
+
+.refreshButton {
+  background: transparent url('++resource++vnccollab.theme.images/reload.png') no-repeat 0 0;
+  width: 20px;
+  height: 20px;
+  text-indent: -9999px;
+  background-size: 20px 20px;
+  line-height: 20px;
+  border: 1px solid #999999;
+  border-radius: 4px;
+  padding: 0;
+}
+.backButton {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  width: 43px;
+  height: 20px;
+  border: 1px solid #999999;
+  border-radius: 4px;
+  padding: 0 2px;
+  line-height: 20px;
+}
+.newButton {
+  white-space: nowrap;
+  width: 27px;
+  height: 20px;
+  border: 1px solid #999999;
+  border-radius: 4px;
+  padding: 0 2px;
+  line-height: 20px;
+}
+
+
+/* Portlet Body */
+.portletZimbraMail .portletBody {
+  background-color: #ffffff;
+  padding: 7px 9px;
+}
+
+/* Main Pane */
+.portletZimbraMail .mainPane {
+  height: 300px;
+  overflow: auto;
+}
+
+/* Navigation Bar */
+.portletZimbraMail .navBar {
+  display: block;
+  height: 37px;
+  width: 100%;
+  position: relative;
+  background-color: #cccccc;
+  margin-bottom: 7px;
+}
+
+.portletZimbraMail .navBar .button {
+  margin-right: 3px;
+  font-size: 11px;
+  font-weight: bold;
+  color: #444444;
+}
+
+.portletZimbraMail .navBar .navBarGroup {
+  line-height: 37px;
+  width: 100%;
+  position: relative;
+  text-align: center;
+}
+
+.portletZimbraMail .navBar .label {
+  padding: 0;
+  margin: 0;
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+}
+
+/* Folders Nav Bar */
+.portletZimbraMail .navBarFolders {
+  text-align: center;
+}
+
+/* Emails Nav Bar */
+.portletZimbraMail .navBarEmails .buttons1 {
+    display: block;
+    position: absolute;
+    top: 0px;
+    left: 8px;
+}
+.portletZimbraMail .navBarEmails .buttons2 {
+    display: block;
+    position: absolute;
+    top: 0px;
+    right: 5px;
+    margin-top: 8px;
+}
+
+/* Emails Listing */
+.portletZimbraMail .emailItem {
+  display: block;
+  padding: 4px 4px 4px 8px;
+  height: 34px;
+  font-size: 13px;
+  position: relative;
+  border-bottom: 1px solid #cccccc;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+.portletZimbraMail .emailItem.selected {
+  background: transparent url('++resource++vnccollab.theme.images/small_rarrow.png') no-repeat 0 16px;
+}
+.portletZimbraMail .emailItem:hover {
+  background-color: #eeeeee;
+}
+.portletZimbraMail .emailItemBody {
+  cursor: pointer;
+}

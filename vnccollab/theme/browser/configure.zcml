@@ -19,6 +19,14 @@
   <include package="plone.app.portlets" />
 
   <browser:page
+      for="*"
+      name="zimbra-mail-portlet-view"
+      class=".zimbra.ZimbraMailPortletView"
+      layer=".interfaces.IThemeSpecific"
+      permission="plone.app.portlets.ViewDashboard"
+      />
+
+  <browser:page
       for="plone.app.layout.navigation.interfaces.INavigationRoot"
       name="dashboard"
       permission="plone.app.portlets.ViewDashboard"
