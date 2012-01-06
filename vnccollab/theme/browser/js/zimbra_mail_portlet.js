@@ -12,7 +12,6 @@ function zimbra_refreshEmails(event, folder) {
   }
   
   // load folder emails from the server
-  // TODO: add loading state to container
   container.addClass('inprogress');
   jq.post(portal_url + '/@@zimbra-mail-portlet-view',
     {'action': 'emails',
