@@ -5,9 +5,14 @@ function zimbra_refreshEmails(event, folder) {
   var body = jq('.emailsView', container);
   
   function success(data, textStatus, jqXHR) {
-    // TODO: update inbox number of unread messages label
+    // update main emails listing
     body.html(data['emails']);
+    // select first email
     jq(jq('.emailItem', container)[0]).addClass('selected');
+    // update folder label unread messages counter
+    jq('.navBarEmails .label .count', container).html(
+      jq('.emailItem.unread', container).length);
+    // remove progress state
     container.removeClass('inprogress');
   }
   

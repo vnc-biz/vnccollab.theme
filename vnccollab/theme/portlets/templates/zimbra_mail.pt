@@ -35,7 +35,7 @@
             <span class="button refreshButton"
                   onclick="zimbra_refreshEmails(event, 'inbox')">Refresh</span>
           </span>
-          <span class="label">Inbox (<span class="count">3</span>)</span>
+          <span class="label">Inbox (<span class="count">0</span>)</span>
           <span class="buttons2">
             <span class="button newButton">New</span>
           </span>
