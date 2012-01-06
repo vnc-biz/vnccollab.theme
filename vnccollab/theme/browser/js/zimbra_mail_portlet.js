@@ -1,3 +1,7 @@
+// TODO: error handling
+//  * server down, timeout, error
+//  * server json 'error' in response
+
 function zimbra_refreshEmails(event, folder) {
   var target = jq(event.target);
   var portlet = target.parents('.portletWrapper');
