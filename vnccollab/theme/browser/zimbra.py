@@ -108,12 +108,17 @@ class ZimbraMailPortletView(BrowserView):
 
         emails = []
         for item in result:
-            # TODO: add email addresses and conversation id
+            # prepare senders list
+            people = item.e
+            if not isinstance(people, list):
+                people = [people]
+            
             emails.append({
-                'body': u'%s (%s) - %s - %s' % (u'Vitaliy, Bernd',
-                    item._getAttr('n'), su(item.su), su(item.fr)),
+                'body': u'%s (%s) - %s - %s' % (u', '.join([p._getAttr('d')
+                    for p in people]), item._getAttr('n'), su(item.su),
+                    su(item.fr)),
                 'unread': u'u' in (item._getAttr('f') or ''),
-                'id': item._getAttr('id'),
+                'id': item._getAttr('_orig_id'),
                 'date': item._getAttr('d'),
             })
         
