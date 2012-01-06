@@ -32,9 +32,10 @@
         <div class="navBarGroup navBarEmails">
           <span class="buttons1">
             <span class="button backButton">&lt; Menu</span>
-            <span class="button refreshButton">Refresh</span>
+            <span class="button refreshButton"
+                  onclick="zimbra_refreshEmails(event, 'inbox')">Refresh</span>
           </span>
-          <span class="label">Inbox (3)</span>
+          <span class="label">Inbox (<span class="count">3</span>)</span>
           <span class="buttons2">
             <span class="button newButton">New</span>
           </span>
@@ -84,68 +85,7 @@
       </tal:comment>
       <div class="mainPane">
         <div class="foldersView"><!-- --></div>
-        <div class="emailsView">
-          <div class="emailItem selected" id="email_3838838999498">
-            <div class="emailItemBody">
-              Форум :  alpin.km.ua (2) - Уведомление о новом сообщении - Сообщаем Вам о том, что добавлен новый пост в тему, на …
-            </div>
-          </div>
-          <div class="emailItem" id="email_3838899ee8e">
-            <div class="emailItemBody">
-              alpin.km.ua (2) - Уведомление о новом сообщении - Сообщаем Вам о том, что добавлен новый пост в тему, на …3:24 pmme (3) - Protocol, October 14, 2011 - Доброго дня, Я так розумію що у жовтні відбулася …3:11 pmБортякова Елена - (no subject) - Віталій, добрий день. Перешліть мені, будь ласка, і …1:37 pmIryna, me (2) - змаг
-            </div>
-          </div>
-          <div class="emailItem" id="email_38388389324234298">
-            <div class="emailItemBody">
-              Freelancer.com Support (5) - New Projects and Contests matching your skills on Freelancer.com - Freelancer Notification 05 January 2012 Hi piv, Here are the latest Projects and Contests …
-            </div>
-          </div>
-          <div class="emailItem" id="email_38388333333">
-            <div class="emailItemBody">
-              Martin Schoel Projects - [ChooseHelp] #458: Fix homepage expert bubbles when title is too long - 458: Fix homepage expert bubbles when title is too long …  
-            </div>
-          </div>
-          <div class="emailItem selected" id="email_3838838999498">
-            <div class="emailItemBody">
-              Форум :  alpin.km.ua (2) - Уведомление о новом сообщении - Сообщаем Вам о том, что добавлен новый пост в тему, на …
-            </div>
-          </div>
-          <div class="emailItem" id="email_3838899ee8e">
-            <div class="emailItemBody">
-              alpin.km.ua (2) - Уведомление о новом сообщении - Сообщаем Вам о том, что добавлен новый пост в тему, на …3:24 pmme (3) - Protocol, October 14, 2011 - Доброго дня, Я так розумію що у жовтні відбулася …3:11 pmБортякова Елена - (no subject) - Віталій, добрий день. Перешліть мені, будь ласка, і …1:37 pmIryna, me (2) - змаг
-            </div>
-          </div>
-          <div class="emailItem" id="email_38388389324234298">
-            <div class="emailItemBody">
-              Freelancer.com Support (5) - New Projects and Contests matching your skills on Freelancer.com - Freelancer Notification 05 January 2012 Hi piv, Here are the latest Projects and Contests …
-            </div>
-          </div>
-          <div class="emailItem" id="email_38388333333">
-            <div class="emailItemBody">
-              Martin Schoel Projects - [ChooseHelp] #458: Fix homepage expert bubbles when title is too long - 458: Fix homepage expert bubbles when title is too long …  
-            </div>
-          </div>
-          <div class="emailItem selected" id="email_3838838999498">
-            <div class="emailItemBody">
-              Форум :  alpin.km.ua (2) - Уведомление о новом сообщении - Сообщаем Вам о том, что добавлен новый пост в тему, на …
-            </div>
-          </div>
-          <div class="emailItem" id="email_3838899ee8e">
-            <div class="emailItemBody">
-              alpin.km.ua (2) - Уведомление о новом сообщении - Сообщаем Вам о том, что добавлен новый пост в тему, на …3:24 pmme (3) - Protocol, October 14, 2011 - Доброго дня, Я так розумію що у жовтні відбулася …3:11 pmБортякова Елена - (no subject) - Віталій, добрий день. Перешліть мені, будь ласка, і …1:37 pmIryna, me (2) - змаг
-            </div>
-          </div>
-          <div class="emailItem" id="email_38388389324234298">
-            <div class="emailItemBody">
-              Freelancer.com Support (5) - New Projects and Contests matching your skills on Freelancer.com - Freelancer Notification 05 January 2012 Hi piv, Here are the latest Projects and Contests …
-            </div>
-          </div>
-          <div class="emailItem" id="email_38388333333">
-            <div class="emailItemBody">
-              Martin Schoel Projects - [ChooseHelp] #458: Fix homepage expert bubbles when title is too long - 458: Fix homepage expert bubbles when title is too long …  
-            </div>
-          </div>
-        </div>
+        <div class="emailsView"><!-- --></div>
         <div class="emailView"><!-- --></div>
         <div class="newEmailView"><!-- --></div>
       </div>

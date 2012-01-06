@@ -43,6 +43,10 @@
   border-radius: 4px;
   padding: 0;
 }
+.inprogress .refreshButton {
+  background: transparent url('++resource++vnccollab.theme.images/spinner.gif') no-repeat 2px 2px;
+}
+
 .backButton {
   overflow: hidden;
   text-overflow: ellipsis;
@@ -139,12 +143,16 @@
   border-bottom: 1px solid #cccccc;
   overflow: hidden;
   text-overflow: ellipsis;
+  background-color: #eeeeee;
 }
 .portletZimbraMail .emailItem.selected {
-  background: transparent url('++resource++vnccollab.theme.images/small_rarrow.png') no-repeat 0 16px;
+  background: #eeeeee url('++resource++vnccollab.theme.images/small_rarrow.png') no-repeat 0 16px;
+}
+.portletZimbraMail .emailItem.unread {
+  background-color: #ffffff;
 }
 .portletZimbraMail .emailItem:hover {
-  background-color: #eeeeee;
+  background-color: #cccccc;
 }
 .portletZimbraMail .emailItemBody {
   cursor: pointer;

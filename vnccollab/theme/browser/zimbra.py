@@ -3,14 +3,16 @@ import simplejson
 from pyzimbra.z.client import ZimbraClient
 
 from Acquisition import aq_inner
-from AccessControl import getSecurityManager
 
 from Products.Five.browser import BrowserView
+from Products.Five.browser.pagetemplatefile import ZopeTwoPageTemplateFile
+from Products.CMFPlone.utils import safe_unicode as su
 
 from plone.memoize.instance import memoize
 from plone.portlets.utils import unhashPortletInfo
 from plone.app.portlets.utils import assignment_mapping_from_key
 
+from vnccollab.theme.portlets.zimbra_mail import Renderer
 from vnccollab.theme import messageFactory as _
 
 
@@ -19,6 +21,9 @@ class ZimbraMailPortletView(BrowserView):
     
     It uses pyzimbra and SOAPpy.
     """
+    
+    _emails_template = ZopeTwoPageTemplateFile(
+        'templates/zimbra_emails_template.pt')
     
     def __init__(self, context, request):
         self.context = context
@@ -39,51 +44,80 @@ class ZimbraMailPortletView(BrowserView):
         It returns json.
         It authenticates before any further actions.
         """
-        request = self.request
+        # get settings
+        self.data = data = self._data(portlethash)
         
         # check if method is POST
-        if self.request.method != 'POST':
+        request = self.request
+        if request.method != 'POST':
             return self._error(_(u"Request method is not allowed."))
         
         # check if action is valid
         if action not in ('emails',):
             return self._error(_(u"Requested action is not allowed."))
         
-        # get settings
-        data = self._data()
-        
         # create zimbra client and authenticate
         self.client = ZimbraClient('%s/service/soap' % data['url'])
         self._authenticate()
 
         # perform actual action
+        data = {}
         if action == 'emails':
-            return self.get_emails(request.get('folder_id'),
-                int(request.get('start') or '0'),
-                int(request.get('limit') or '0'))
+            data = self.get_emails(request.get('folder'),
+                int(request.get('offset') or '0'),
+                int(request.get('limit') or '0'),
+                request.get('recip') or '1',
+                request.get('sortBy') or 'dateDesc'
+            )
         
-        return self._error(_(u"Requested action is not defined"))
+        return simplejson.dumps(data)
 
     def _error(self, msg):
-        return simplejson.dump({'error': msg})
+        return simplejson.dumps({'error': msg})
 
     def _authenticate(self):
         """Authenticated to Zimbra SOAP"""
-        data = self._data()
-        self.client.authenticate(data['username'], data['password'])
+        self.client.authenticate(self.data['username'], self.data['password'])
     
-    def get_emails(self, folder=None, start=0, limit=10):
-        """Returns list of emails.
+    def get_emails(self, folder=None, offset=0, limit=10, recip='1',
+                   sortBy='dateDesc'):
+        """Returns list of email conversations.
         
         Args:
           @folder - if given, return list of emails from inside this folder
-          @start - if given, return list of emails starting from start
+          @offset - if given, return list of emails starting from start
           @limit - return 'limit' number of emails
+          @recip - whether to return 'to' email adress instead of 'from' for
+                   sent messages and conversations
+          @sort_by - sort result set by given field
         """
-        # TODO: use start argument
-        result = self.client.invoke('urn:zimbraMail', 'SearchRequest',
-            {'types': 'message', 'limit': limit, 'fetch':'none'})
-        return ()
+        query = {
+            'types': 'conversation',
+            'limit': limit,
+            'offset': offset,
+            'recip': recip,
+            'sortBy': sortBy,
+        }
+        if folder:
+            query['query'] = 'in:%s' % folder
+        result = self.client.invoke('urn:zimbraMail', 'SearchRequest', query)
+        
+        # if result contains only one item then it won't be list
+        if not isinstance(result, list):
+            result = [result]
+
+        emails = []
+        for item in result:
+            # TODO: add email addresses and conversation id
+            emails.append({
+                'body': u'%s (%s) - %s - %s' % (u'Vitaliy, Bernd',
+                    item._getAttr('n'), su(item.su), su(item.fr)),
+                'unread': u'u' in (item._getAttr('f') or ''),
+                'id': item._getAttr('id'),
+                'date': item._getAttr('d'),
+            })
+        
+        return {'emails': self._emails_template(emails=emails).encode('utf-8')}
 
     def create_email(self):
         return None
@@ -97,7 +131,7 @@ class ZimbraMailPortletView(BrowserView):
         info = unhashPortletInfo(portlethash)
         assignment = assignment_mapping_from_key(context, info['manager'],                                                                       
             info['category'], info['key'])[info['name']]
-        renderer = Renderer(context, self.request, self, None, sassignment)
+        renderer = Renderer(context, self.request, self, None, assignment)
         username, password = renderer.getAuthCredentials()
         return {
             'url': assignment.url,
