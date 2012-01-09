@@ -28,6 +28,7 @@ setup(name='vnccollab.theme',
           'cioppino.twothumbs',
           'Products.Carousel',
           'simplejson',
+          'pyzimbra',
           # -*- Extra requirements: -*-
       ],
       entry_points="""
