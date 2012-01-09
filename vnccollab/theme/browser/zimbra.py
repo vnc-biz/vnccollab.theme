@@ -63,9 +63,9 @@ class ZimbraMailPortletView(BrowserView):
         # perform actual action
         data = {}
         if action == 'emails':
-            data = self.get_emails(request.get('folder'),
+            data = self.get_emails(request.get('folder') or None,
                 int(request.get('offset') or '0'),
-                int(request.get('limit') or '0'),
+                int(request.get('limit') or '100'),
                 request.get('recip') or '1',
                 request.get('sortBy') or 'dateDesc'
             )
