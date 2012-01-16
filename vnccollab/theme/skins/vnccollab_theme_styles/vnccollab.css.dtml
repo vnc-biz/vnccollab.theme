@@ -787,4 +787,12 @@ dl.portlet ul.navTree .navTreeCurrentItem {
   white-space: normal;
 }
 
+/* Deployment View styles */
+.template-vnccollab-deployment .log dd {
+  background-color: #dddddd;
+  border: 1px solid #000000;
+  font-size: 13px;
+  padding: 5px;
+}
+
 /* </dtml-with> */ 
