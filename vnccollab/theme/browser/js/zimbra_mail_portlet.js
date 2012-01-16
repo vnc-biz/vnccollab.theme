@@ -32,5 +32,6 @@ function zimbra_refreshEmails(event, folder) {
 
 jq(function(event) {
 // load inbox emails on page load
-jq('.portletZimbraMail .refreshButton').click();
+zimbra_refreshEmails({'target': jq('.portletZimbraMail .refreshButton')},
+  'inbox');
 });
