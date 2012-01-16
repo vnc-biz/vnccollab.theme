@@ -90,7 +90,5 @@
         <div class="newEmailView"><!-- --></div>
       </div>
     </dd>
-    <script type="text/javascript" src="#"
-            tal:attributes="src string:${context/portal_url}/++resource++vnccollab.theme.js/zimbra_mail_portlet.js"><!-- --></script>
 </dl>
 </html>

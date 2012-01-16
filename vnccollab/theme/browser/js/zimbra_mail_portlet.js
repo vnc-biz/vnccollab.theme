@@ -4,7 +4,7 @@
 
 function zimbra_refreshEmails(event, folder) {
   var target = jq(event.target);
-  var portlet = target.parents('.portletWrapper');
+  var portlet = target.parents('.portletZimbraMail').parent();
   var container = target.parents('.portletBody');
   var body = jq('.emailsView', container);
   
@@ -32,6 +32,8 @@ function zimbra_refreshEmails(event, folder) {
 
 jq(function(event) {
 // load inbox emails on page load
-zimbra_refreshEmails({'target': jq('.portletZimbraMail .refreshButton')},
-  'inbox');
+jq('.portletZimbraMail .refreshButton').each(function(idx, button) {
+  zimbra_refreshEmails({'target': button}, 'inbox');
+});
+
 });
