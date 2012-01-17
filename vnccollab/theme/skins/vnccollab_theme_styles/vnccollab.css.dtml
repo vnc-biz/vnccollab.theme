@@ -83,7 +83,7 @@ div.width-3\3a 4 {
   line-height:1.5em;
   margin:20px 40px 17px 0;
   padding:10px;
-  width:280px;
+  min-width:280px;
   }
 #portal-personaltools dt {
   margin:0;
