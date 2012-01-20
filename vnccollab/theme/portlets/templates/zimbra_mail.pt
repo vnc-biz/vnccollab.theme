@@ -3,7 +3,8 @@
       xmlns:i18n="http://xml.zope.org/namespaces/i18n"
       tal:omit-tag="">
 <dl class="portlet portletZimbraMail"
-    i18n:domain="vnccollab.theme">
+    i18n:domain="vnccollab.theme"
+    tal:define="purl context/portal_url">
 
     <dt class="portletHeader">
         <span class="portletTopLeft"></span>
@@ -31,18 +32,21 @@
         </div>
         <div class="navBarGroup navBarEmails">
           <span class="buttons1">
-            <span class="button backButton">&lt; Menu</span>
+            <span class="button backButton"
+                  onclick="zimbra_goBackToFolders(event)">&lt; Menu</span>
             <span class="button refreshButton"
                   onclick="zimbra_refreshEmails(event, 'inbox')">Refresh</span>
           </span>
           <span class="label">Inbox (<span class="count">0</span>)</span>
           <span class="buttons2">
-            <span class="button newButton">New</span>
+            <span class="button newButton"
+                  onclick="zimbra_newEmail(event)">New</span>
           </span>
         </div>
         <div class="navBarGroup navBarEmail">
           <span class="buttons1">
-            <span class="button backButton">Back</span>
+            <span class="button backButton"
+                  onclick="zimbra_goBackToEmails(event, 'inbox')">&lt; Inbox</span>
             <span class="button trashButton">Trash</span>
           </span>
           <span class="buttons2">
@@ -84,9 +88,16 @@
               Forward Email forms
       </tal:comment>
       <div class="mainPane">
-        <div class="foldersView"><!-- --></div>
-        <div class="emailsView"><!-- --></div>
-        <div class="emailView"><!-- --></div>
+        <div class="pane foldersView"><!-- --></div>
+        <div class="pane emailsView"><!-- --></div>
+        <div class="pane emailView">
+          <div class="emailSubject"><!-- --></div>
+          <div class="emailThread"><!-- --></div>
+          <div class="spinner">
+            <img src="++resource++vnccollab.theme.images/spinner_arrows.gif"
+                 tal:attributes="src string:${purl}/${attrs/src}" />
+          </div>
+        </div>
         <div class="newEmailView"><!-- --></div>
       </div>
     </dd>

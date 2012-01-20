@@ -1,8 +1,10 @@
+import types
 import simplejson
 
 from pyzimbra.z.client import ZimbraClient
 
 from Acquisition import aq_inner
+from DateTime import DateTime
 
 from Products.Five.browser import BrowserView
 from Products.Five.browser.pagetemplatefile import ZopeTwoPageTemplateFile
@@ -14,6 +16,25 @@ from plone.app.portlets.utils import assignment_mapping_from_key
 
 from vnccollab.theme.portlets.zimbra_mail import Renderer
 from vnccollab.theme import messageFactory as _
+
+
+def findMsgBody(node, format='text/html'):
+    """Recursively goes over attachments and finds body"""
+    if hasattr(node, '_name') and node._name == 'mp' and \
+       hasattr(node, '_getAttr') and node._getAttr('body') == '1' and \
+       node._getAttr('ct') == format and hasattr(node, 'content'):
+        return su(node.content)
+
+    if hasattr(node, 'mp'):
+        mp = node.mp
+        if not isinstance(mp, (types.ListType, types.TupleType)):
+            mp = [mp]
+        for sub_node in mp:
+            body = findMsgBody(sub_node, format)
+            if body:
+                return body
+    
+    return u''
 
 
 class ZimbraMailPortletView(BrowserView):
@@ -53,7 +74,7 @@ class ZimbraMailPortletView(BrowserView):
             return self._error(_(u"Request method is not allowed."))
         
         # check if action is valid
-        if action not in ('emails',):
+        if action not in ('emails', 'email'):
             return self._error(_(u"Requested action is not allowed."))
         
         # create zimbra client and authenticate
@@ -69,6 +90,8 @@ class ZimbraMailPortletView(BrowserView):
                 request.get('recip') or '1',
                 request.get('sortBy') or 'dateDesc'
             )
+        elif action == 'email':
+            data = self.get_email(request.get('eid') or None)
         
         return simplejson.dumps(data)
 
@@ -77,6 +100,8 @@ class ZimbraMailPortletView(BrowserView):
 
     def _authenticate(self):
         """Authenticated to Zimbra SOAP"""
+        # TODO: do not login every request, but only on timing bases (e.g.
+        #       every 10 minutes)
         self.client.authenticate(self.data['username'], self.data['password'])
     
     def get_emails(self, folder=None, offset=0, limit=10, recip='1',
@@ -114,6 +139,7 @@ class ZimbraMailPortletView(BrowserView):
                 people = [people]
             
             emails.append({
+                'subject': su(item.su),
                 'body': u'%s (%s) - %s - %s' % (u', '.join([p._getAttr('d')
                     for p in people]), item._getAttr('n'), su(item.su),
                     su(item.fr)),
@@ -123,6 +149,38 @@ class ZimbraMailPortletView(BrowserView):
             })
         
         return {'emails': self._emails_template(emails=emails).encode('utf-8')}
+
+    def get_email(self, eid):
+        """Returns conversation emails by given id.
+        
+        It also marks conversation as read.
+        """
+        if not eid:
+            return {'error': _(u"Conversation id is not valid.")}
+
+        # TODO: make zimbra conversation as read
+        
+        result = self.client.invoke('urn:zimbraMail', 'GetConvRequest',
+            {'c': {'id': eid, 'fetch': 'all', 'html': '1'}}).m
+            
+        # if result contains only one item then it won't be list
+        if not isinstance(result, list):
+            result = [result]
+        
+        thread = []
+        for item in result:
+            thread.append({
+                'from': [su(e._getAttr('p')) for e in item.e
+                    if e._getAttr('t') == 'f'][0],
+                'to': u', '.join([su(e._getAttr('d')) for e in item.e
+                    if e._getAttr('t') == 't']),
+                'body': findMsgBody(item),
+                'id': item._getAttr('_orig_id'),
+                'date': item._getAttr('d'),
+            })
+        
+        return {'conversation': '<br />'.join([t['from']+': '+t['body']
+            for t in thread])}
 
     def create_email(self):
         return None

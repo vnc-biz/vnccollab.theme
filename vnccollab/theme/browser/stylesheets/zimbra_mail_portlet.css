@@ -16,58 +16,13 @@
 .portletZimbraMail .emails .navBarEmails,
 .portletZimbraMail .emails .emailsView,
 .portletZimbraMail .email .navBarEmail,
+.portletZimbraMail .email .emailView,
 .portletZimbraMail .newEmail .navBarNewEmail,
-.portletZimbraMail .folders .navBarFolders {
+.portletZimbraMail .newEmail .newEmailView,
+.portletZimbraMail .folders .navBarFolders,
+.portletZimbraMail .folders .foldersView {
   display: block;
 }
-
-
-/* Some Commone styles */
-.portletZimbraMail .button {
-  cursor: pointer;
-  display: inline-block;
-  vertical-align: middle;
-}
-.portletZimbraMail .button:hover {
-  border-color: #555555;
-}
-
-.refreshButton {
-  background: transparent url('++resource++vnccollab.theme.images/reload.png') no-repeat 0 0;
-  width: 20px;
-  height: 20px;
-  text-indent: -9999px;
-  background-size: 20px 20px;
-  line-height: 20px;
-  border: 1px solid #999999;
-  border-radius: 4px;
-  padding: 0;
-}
-.inprogress .refreshButton {
-  background: transparent url('++resource++vnccollab.theme.images/spinner.gif') no-repeat 2px 2px;
-}
-
-.backButton {
-  overflow: hidden;
-  text-overflow: ellipsis;
-  white-space: nowrap;
-  width: 43px;
-  height: 20px;
-  border: 1px solid #999999;
-  border-radius: 4px;
-  padding: 0 2px;
-  line-height: 20px;
-}
-.newButton {
-  white-space: nowrap;
-  width: 27px;
-  height: 20px;
-  border: 1px solid #999999;
-  border-radius: 4px;
-  padding: 0 2px;
-  line-height: 20px;
-}
-
 
 /* Portlet Body */
 .portletZimbraMail .portletBody {
@@ -79,6 +34,9 @@
 .portletZimbraMail .mainPane {
   height: 300px;
   overflow: auto;
+}
+.portletZimbraMail .mainPane .pane {
+  height: 300px;
 }
 
 /* Navigation Bar */
@@ -92,10 +50,34 @@
 }
 
 .portletZimbraMail .navBar .button {
-  margin-right: 3px;
   font-size: 11px;
   font-weight: bold;
   color: #444444;
+  cursor: pointer;
+  display: inline-block;
+/*  vertical-align: middle;*/
+  padding: 0 2px;
+  white-space: nowrap;
+  height: 20px;
+  border: 1px solid #999999;
+  border-radius: 4px;
+  line-height: 20px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+.portletZimbraMail .navBar .button:hover {
+  border-color: #555555;
+}
+
+.portletZimbraMail .navBar .refreshButton {
+  background: transparent url('++resource++vnccollab.theme.images/reload.png') no-repeat 0 0;
+  width: 20px;
+  text-indent: -9999px;
+  background-size: 20px 20px;
+  padding: 0;
+}
+.portletZimbraMail .inprogress .refreshButton {
+  background: transparent url('++resource++vnccollab.theme.images/spinner_arrows_nav.gif') no-repeat 2px 2px;
 }
 
 .portletZimbraMail .navBar .navBarGroup {
@@ -119,18 +101,23 @@
 }
 
 /* Emails Nav Bar */
-.portletZimbraMail .navBarEmails .buttons1 {
+/*.portletZimbraMail .navBarEmails .buttons1 {*/
+.portletZimbraMail .buttons1 {
     display: block;
     position: absolute;
-    top: 0px;
-    left: 8px;
+    top: 0;
+    left: 0;
+    padding-left: 5px;
+    padding-top: 8px;
 }
-.portletZimbraMail .navBarEmails .buttons2 {
+/*.portletZimbraMail .navBarEmails .buttons2 {*/
+.portletZimbraMail .buttons2 {
     display: block;
     position: absolute;
-    top: 0px;
-    right: 5px;
-    margin-top: 8px;
+    top: 0;
+    right: 0;
+    padding-right: 5px;
+    padding-top: 8px;
 }
 
 /* Emails Listing */
@@ -154,6 +141,36 @@
 .portletZimbraMail .emailItem:hover {
   background-color: #cccccc;
 }
+portletZimbraMail .emailItem .emailSubject {
+  display: none;
+}
 .portletZimbraMail .emailItemBody {
   cursor: pointer;
+}
+
+/* Single Email/Conversation Pane */
+.portletZimbraMail .emailView {
+  background-color: #eeeeee;
+  position: relative;
+}
+.portletZimbraMail .emailView .spinner {
+  display: none;
+}
+.portletZimbraMail .emailView .emailSubject {
+  padding: 5px 7px 1px 7px;
+  font-size: 14px;
+  font-weight: bold;
+}
+.portletZimbraMail .inprogress .emailView .emailThread {
+  display: none;
+}
+.portletZimbraMail .inprogress .emailView .spinner {
+  display: block;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  z-index: 103;
+  width: 32px;
+  height: 32px;
+  margin: -16px 0 0 -16px;
 }
