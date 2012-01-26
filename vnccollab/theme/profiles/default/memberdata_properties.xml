@@ -2,4 +2,9 @@
 <object name="portal_memberdata" meta_type="Plone Memberdata Tool">
  <property name="zimbra_username" type="string"/>
  <property name="zimbra_password" type="string"/>
+ <property name="etherpad_url" type="string"/>
+ <property name="etherpad_username" type="string"/>
+ <property name="etherpad_password" type="string"/>
+ <property name="openerp_username" type="string"/>
+ <property name="openerp_password" type="string"/>
 </object>

@@ -29,6 +29,8 @@ setup(name='vnccollab.theme',
           'Products.Carousel',
           'simplejson',
           'pyzimbra',
+          'zope.testbrowser',
+          'BeautifulSoup',
           # -*- Extra requirements: -*-
       ],
       entry_points="""

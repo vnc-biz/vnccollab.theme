@@ -4,7 +4,18 @@
     i18n_domain="vnccollab.theme">
 
   <include package="plone.app.portlets" />
-  
+
+  <plone:portlet
+      name="vnccollab.theme.portlets.EtherpadsListPortlet"
+      interface=".etherpads_list.IEtherpadsListPortlet"
+      assignment=".etherpads_list.Assignment"
+      view_permission="zope2.View"
+      edit_permission="cmf.ManagePortal"
+      renderer=".etherpads_list.Renderer"
+      addview=".etherpads_list.AddForm"
+      editview=".etherpads_list.EditForm"
+      />
+
   <plone:portlet
       name="vnccollab.theme.portlets.ZimbraMailPortlet"
       interface=".zimbra_mail.IZimbraMailPortlet"

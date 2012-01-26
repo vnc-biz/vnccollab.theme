@@ -23,8 +23,8 @@ from plone.app.portlets.portlets import base
 from vnccollab.theme import messageFactory as _
 
 
-logger = logging.getLogger('vnccollab.theme.ZimbraMailPortlet')
-def logException(msg, context=None):
+MYLOGGER = logging.getLogger('vnccollab.theme.ZimbraMailPortlet')
+def logException(msg, context=None, logger=MYLOGGER):
     logger.exception(msg)
     if context is not None:
         error_log = getattr(context, 'error_log', None)
