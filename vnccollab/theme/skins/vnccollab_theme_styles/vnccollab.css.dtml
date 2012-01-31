@@ -801,4 +801,63 @@ dl.portlet ul.navTree .navTreeCurrentItem {
   overflow-x: auto;
 }
 
+/* TinyMCE Extr Styles */
+#content div.attention,
+#content div.yes,
+#content div.no,
+#content div.information,
+#content div.thumbsup,
+#content div.idea,
+#content div.rosette,
+#content div.note,
+#content div.smiley,
+#content div.warning {
+  display: block;
+  padding: 1.7em 1em 1.7em 2.3em;
+  margin: 1.7em 0;
+  -moz-border-radius: 5px;
+  -webkit-border-radius: 5px;
+  border-radius: 5px;
+}
+#content div.attention {
+  color: #555708;
+  background: #FCFF9D url(&dtml-portal_url;/icon-lightning.png) 0.5em 50% no-repeat;
+}
+#content div.yes {
+  color: #295E07;
+  background: #E8FFDA url(&dtml-portal_url;/icon-tick.png) 0.5em 50% no-repeat;
+}
+#content div.no {
+  color: #A7001D;
+  background: #FFE5F0 url(&dtml-portal_url;/icon-cross.png) 0.5em 50% no-repeat;
+}
+#content div.information {
+  color: #19509C;
+  background: #DBE9FD url(&dtml-portal_url;/icon-information.png) 0.5em 50% no-repeat;
+}
+#content div.thumbsup {
+  color: #295E07;
+  background: #E8FFDA url(&dtml-portal_url;/icon-thumb_up.png) 0.5em 50% no-repeat;
+}
+#content div.rosette {
+  color: #666666;
+  background: #f1f1f1 url(&dtml-portal_url;/icon-rosette.png) 0.5em 50% no-repeat;
+}
+#content div.idea {
+  color: #555708;
+  background: #FCFF9D url(&dtml-portal_url;/icon-lightbulb.png) 0.5em 50% no-repeat;
+}
+#content div.smiley {
+  color: #555708;
+  background: #FCFF9D url(&dtml-portal_url;/icon-emoticon_smile.png) 0.5em 50% no-repeat;
+}
+#content div.note {
+  color: #666666;
+  background: #f1f1f1 url(&dtml-portal_url;/icon-note.png) 0.5em 50% no-repeat;
+}
+#content div.warning {
+  color: #A7001D;
+  background: #FFE5F0 url(&dtml-portal_url;/icon-exclamation.png) 0.5em 50% no-repeat;
+}
+
 /* </dtml-with> */ 

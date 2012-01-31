@@ -1,0 +1,17 @@
+<?xml version="1.0"?>
+<object>
+ <layout>
+  <styles purge="False">
+   <element value="Notice - Attention|div|attention"/>
+   <element value="Notice - Yes|div|yes"/>
+   <element value="Notice - No|div|no"/>
+   <element value="Notice - Information|div|information"/>
+   <element value="Notice - Thumbs Up|div|thumbsup"/>
+   <element value="Notice - Rosette|div|rosette"/>
+   <element value="Notice - Idea|div|idea"/>
+   <element value="Notice - Smiley|div|smiley"/>
+   <element value="Notice - Note|div|note"/>
+   <element value="Notice - Warning|div|warning"/>
+  </styles>
+ </layout>
+</object>
