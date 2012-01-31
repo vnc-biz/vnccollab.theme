@@ -436,6 +436,13 @@ a.carousel-pager-button-next span {
   line-height:1.5em;
   margin:0;
   }
+#content .documentDescription,
+#content #description {
+  padding-bottom: 10px;
+  border-bottom: 1px solid #aaaaaa;
+  margin-bottom: 15px;
+}
+
 #content a:link,
 dl.portlet a:link {
   border-bottom:0;
