@@ -51,7 +51,25 @@
       class=".like.LikeThisShizzleView"
       layer=".interfaces.IThemeSpecific"
       />
-  
+
+  <!-- Override standard plone pages and forms to fix, adjust styles -->
+  <browser:page
+      name="usergroup-userprefs"
+      for="Products.CMFPlone.interfaces.IPloneSiteRoot"
+      class="plone.app.controlpanel.usergroups.UsersOverviewControlPanel"
+      permission="zope2.ManageUsers"
+      template="templates/usergroups_usersoverview.pt"
+      layer=".interfaces.IThemeSpecific"
+      />
+  <browser:page
+      name="usergroup-groupprefs"
+      for="Products.CMFPlone.interfaces.IPloneSiteRoot"
+      class="plone.app.controlpanel.usergroups.GroupsOverviewControlPanel"
+      permission="zope2.ManageUsers"
+      template="templates/usergroups_groupsoverview.pt"
+      layer=".interfaces.IThemeSpecific"
+      />
+
   <!-- Viewlet managers -->
   <browser:viewletManager
       name="vnccollab.theme.htmlhead"

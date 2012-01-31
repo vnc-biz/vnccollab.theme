@@ -795,4 +795,10 @@ dl.portlet ul.navTree .navTreeCurrentItem {
   padding: 5px;
 }
 
+/* Plone Users and Groups Pages and Forms */
+.groupsTableWrapper,
+.usersTableWrapper {
+  overflow-x: auto;
+}
+
 /* </dtml-with> */ 
