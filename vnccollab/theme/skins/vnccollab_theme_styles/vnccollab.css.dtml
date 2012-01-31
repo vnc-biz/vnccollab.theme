@@ -438,9 +438,9 @@ a.carousel-pager-button-next span {
   }
 #content .documentDescription,
 #content #description {
-  padding-bottom: 10px;
+  padding-bottom: 20px;
   border-bottom: 1px solid #aaaaaa;
-  margin-bottom: 15px;
+  margin-bottom: 25px;
 }
 
 #content a:link,
