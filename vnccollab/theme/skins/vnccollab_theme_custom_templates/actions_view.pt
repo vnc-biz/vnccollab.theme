@@ -1,0 +1,181 @@
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en"
+      lang="en"
+      metal:use-macro="here/main_template/macros/master"
+      i18n:domain="plone">
+<body>
+
+<metal:main fill-slot="main">
+    <tal:main-macro metal:define-macro="main"
+        tal:define="DateTime python:modules['DateTime'].DateTime;
+                    view context/@@actionitemlist_view;
+                    sortview request/sortview|string:upcoming;
+                    sortlimit request/sortlimit|string:20;
+                    sortfilter request/sortfilter|string:;
+                    all_results python:view.getSortedActions(sortview, sortlimit, sortfilter);
+                    all_contexts_and_projects python:view.getAllProjectsAndContexts();
+                    template_id template_id|string:actions_view">
+
+        <div><strong><a href="@@actionitemlist_quickadd" tal:attributes="href string:${context/absolute_url}/${attrs/href}"><img src="addaction.gif"></a></strong></div>
+
+        <div tal:condition="nothing">Add new actions using <a href="@@actionitemlist_quickadd">Quick Add</a> or <a href="@@actionitemlist_add">Full Add</a>.</div>
+
+        <h1>
+          Action Item List
+        </h1>
+        
+        <form action="."
+              tal:attributes="action string:${here/absolute_url}/actions_view" method="get"
+              class="navigate-form"
+              id="navigate_form">
+              Filter by:
+              <select id="sortfilter" size="1" name="sortfilter">
+                  <option value="all"
+                            tal:attributes="selected python:sortfilter=='all' and 'selected'">
+                        Show All (no filter)
+                  </option>
+                  <tal:options tal:repeat="tag all_contexts_and_projects">
+                      <option
+                            tal:define="title python:tag[1]; id python:tag[0]"
+                            tal:attributes="selected python:sortfilter==id and 'selected';
+                                            value id;"
+                            tal:content="title">
+                            tag
+                      </option>
+                  </tal:options>
+              </select>
+              
+              View:
+              <select id="sortview" size="1" name="sortview">
+                  <option value="upcoming"
+                        tal:attributes="selected python:sortview=='upcoming' and 'selected'">
+                        Upcoming actions
+                  </option>
+                  <option value="recently_added"
+                        tal:attributes="selected python:sortview=='recently_added' and 'selected'">
+                      Recently added actions
+                  </option>
+                  <option value="sort_done"
+                          tal:attributes="selected python:sortview=='sort_done' and 'selected'">
+                      Sort by Done
+                  </option>
+                  <option value="sort_flag"
+                            tal:attributes="selected python:sortview=='sort_flag' and 'selected'">
+                            Sort by Flag
+                  </option>
+                  <option value="sort_startdate"
+                            tal:attributes="selected python:sortview=='sort_startdate' and 'selected'">
+                            Sort by Start Date
+                  </option>
+                  <option value="sort_duedate"
+                            tal:attributes="selected python:sortview=='sort_duedate' and 'selected'">
+                            Sort by Due Date
+                  </option>
+              </select>
+              <select id="sortlimit" size="1" name="sortlimit">
+                  <option value="5"
+                            tal:attributes="selected python:sortlimit=='5' and 'selected'">
+                        Show 5 actions
+                  </option>
+                  <option value="10"
+                            tal:attributes="selected python:sortlimit=='10' and 'selected'">
+                        Show 10 actions
+                  </option>
+                  <option value="20"
+                              tal:attributes="selected python:sortlimit=='20' and 'selected'">
+                        Show 20 actions
+                  </option>
+                  <option value="50"
+                              tal:attributes="selected python:sortlimit=='50' and 'selected'">
+                        Show 50 actions
+                  </option>
+                  <option value="all"
+                              tal:attributes="selected python:sortlimit=='all' and 'selected'">
+                        Show all actions
+                  </option>
+              </select>
+              <input class="context" type="submit" name="refresh_view" value="Refresh">
+        </form>
+
+        <div tal:condition="not:all_results"><br />No actions to display.</div>
+
+        <table class="listing nosort" id="something-unique" cellpadding="7">
+            <thead>
+            <tr>
+              <th>Done</th>
+              <th>Flag</th>
+              <th>Action Item Name</th>
+              <th>Project</th>
+              <th>Context</th>
+              <th>Start date</th>
+              <th>Due date</th>
+              <tal:REMOVE condition="nothing">
+                <th>Priority</th>
+                <th>Effort (hours)</th>
+              </tal:REMOVE>
+            </tr>
+            </thead>
+            <tbody>
+                <tal:actionItemListing
+                        tal:repeat="actionItem all_results">
+                  <tr tal:attributes="class python:odd and 'even' or 'odd'" tal:define="odd repeat/actionItem/odd;">
+                    <td tal:define="prefix string:main_complete;">
+                        <a metal:use-macro="here/collectivegtd_kss/macros/complete-section" />
+                    </td>
+                    <td tal:define="prefix string:main_flag;">
+                        <a metal:use-macro="here/collectivegtd_kss/macros/flag-section" />
+                    </td>
+                    <td>
+                      <a href="" tal:content="actionItem/title" tal:attributes="href actionItem/absolute_url">ActionItem</a>
+                    </td>
+                    <td>
+                      <tal:exists tal:condition="actionItem/projects">
+                          <ul>
+                              <tal:projectlist repeat="tag actionItem/projects">
+                                  <li>
+                                      <a tal:define="tag_id python:view.getTagID(tag)"
+                                         tal:content="tag"
+                                         tal:attributes="href string:${template_id}?sortfilter=${tag_id}&sortview=${sortview}&sortlimit=${sortlimit}"
+                                      >Tag Title</a>
+                                  </li>
+                              </tal:projectlist>
+                          </ul>
+                      </tal:exists>
+
+                      <span tal:condition="not:actionItem/projects">&nbsp;</span>
+                    </td>
+                    <td>
+                        <tal:exists tal:condition="actionItem/contexts">
+                            <ul>
+                                <tal:contextlist repeat="tag actionItem/contexts">
+                                    <li>
+                                        <a tal:define="tag_id python:view.getTagID(tag)"
+                                           tal:content="tag"
+                                           tal:attributes="href string:${template_id}?sortfilter=${tag_id}&sortview=${sortview}&sortlimit=${sortlimit}"
+                                        >Tag Title</a>
+                                    </li>
+                                </tal:contextlist>
+                            </ul>
+                        </tal:exists>
+                      <span tal:condition="not:actionItem/contexts">&nbsp;</span>
+
+                    </td>
+                    <td tal:define="prefix string:main_startdate;">
+                        <div metal:use-macro="here/collectivegtd_kss/macros/action-start-section" />
+                    </td>
+                    <td tal:define="prefix string:main_duedate;">
+                        <div metal:use-macro="here/collectivegtd_kss/macros/action-due-section" />
+                    </td>
+                    <tal:REMOVE condition="nothing">
+                      <td><i>[priority]</i></td>
+                      <td><i>[effort]</i></td>
+                    </tal:REMOVE>
+                  </tr>
+                </tal:actionItemListing>
+          </tbody>
+          </table>
+
+    </tal:main-macro>
+</metal:main>
+
+</body>
+</html>
