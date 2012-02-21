@@ -96,6 +96,15 @@
       />
   
   <browser:viewlet
+      view=".homepage.IHomePageView"
+      name="vnccollab.theme.header"
+      manager="plone.app.layout.viewlets.interfaces.IPortalTop"
+      template="templates/vnccollab_header_homepage.pt"
+      layer=".interfaces.IThemeSpecific"
+      permission="zope2.View"
+      />
+  
+  <browser:viewlet
     name="plone.path_bar"
     manager="plone.app.layout.viewlets.interfaces.IPortalTop"
     class=".viewlets.PathBarViewlet"
