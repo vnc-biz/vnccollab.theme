@@ -1,3 +1,7 @@
 <?xml version="1.0"?>
 <site>
+ <property name="selectable_views" type="lines" purge="False">
+  <element value="homepage_view" />
+ </property>
+ <property name="layout" type="string">homepage_view</property>
 </site>
