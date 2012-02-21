@@ -3,22 +3,11 @@
 
 /*---------- General Style ----------*/
 body {
-  background-color:#7697a6;
+  background:url(&dtml-portal_url;/bg.png) repeat-x #c7d0da;
   color:#082736;
   }
-.imgbg {
-  left:0;
-  min-height:100%;
-  min-width:1000px;
-  position:fixed;
-  top:0;
-  width:100%;
-  }
 #visual-portal-wrapper {
-  background-color:#fff;
-  -webkit-box-shadow:0 0 11px 1px rgba(0,0,0,0.25); 
-  box-shadow:0 0 11px 1px rgba(0,0,0,0.25); 
-  margin:40px auto 45px;
+  margin:auto;
   position:relative;
   width:980px;
   }
@@ -163,7 +152,7 @@ div.width-3\3a 4 {
 
 /*----- Logo -----*/
 #portal-logo {
-  margin:0 0 0 40px;
+  margin:0;
   }
 
 /*----- Searchbox -----*/
@@ -242,29 +231,27 @@ input.searchField {
 
 /*----- Global Navigation -----*/
 #portal-globalnav {
-  background:url(&dtml-portal_url;/tabs.gif) repeat-x #efefef;
+  background-color:#012a43;
   clear:none;
-  font-size:1.13em;
-  line-height:1.33em;
+  font-size:16px;
+  line-height:22px;
   margin:0;
-  padding:0 40px;
   }
 #portal-globalnav li {
-  background:url(&dtml-portal_url;/tabs-separator.gif) no-repeat 100% 50%;
-  padding-right:2px;
+
   }
 #portal-globalnav li a {
   background-color:transparent;
   border:0;
-  color:#012b44;
+  color:#fff;
   min-width:0;
   padding:10px 20px 5px;
   }
 #portal-globalnav li a:hover,
 #portal-globalnav li.selected a,
 #portal-globalnav li.selected:hover a {
-  background:url(&dtml-portal_url;/tabs-hover.gif) repeat-x;
-  color:#012b44;
+  background-color:#6ea21b;
+  color:#fff;
   }
 
 /*----- VNC Collab Header -----*/

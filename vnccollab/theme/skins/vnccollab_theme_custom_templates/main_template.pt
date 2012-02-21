@@ -55,8 +55,6 @@
                   sunburst_view python:context.restrictedTraverse('@@sunburstview')"
     tal:attributes="class body_class;
                     dir python:isRTL and 'rtl' or 'ltr'">
-<img src="bg.jpg" class="imgbg" tal:attributes="href string:${context/portal_url}/bg.jpg" />
-<div id="visual-portal-top"></div>
 <div id="visual-portal-wrapper">
 
         <div id="portal-top"
