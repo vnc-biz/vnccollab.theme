@@ -8,6 +8,10 @@
         tal:condition="view/available"
         tal:attributes="action view/login_form">
 
+      <label for=""
+             tal:attributes="for ac_name"
+             i18n:translate="">Login</label>
+
       <div>
           <input type="hidden" name="form.submitted" value="1" />
           <input type="hidden" name="came_from" value=""

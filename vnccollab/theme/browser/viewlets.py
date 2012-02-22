@@ -272,3 +272,18 @@ class FooterViewlet(common.FooterViewlet):
             }
         
         self.columns = columns
+
+class PersonalBarViewlet(common.PersonalBarViewlet):
+    index = ViewPageTemplateFile('templates/personal_bar.pt')
+    
+    def update(self):
+        super(PersonalBarViewlet, self).update()
+        
+        # get personal user image
+        self.user_image = None
+        if not self.anonymous:
+            mtool = getToolByName(self.context, 'portal_membership')
+            # if no userid passes it'll return portrait of logged in user
+            portrait = mtool.getPersonalPortrait()
+            if portrait is not None:
+                self.user_image = portrait.absolute_url()
