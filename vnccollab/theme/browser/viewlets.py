@@ -1,4 +1,4 @@
-from Acquisition import aq_base
+from Acquisition import aq_base, aq_inner
 from DateTime import DateTime
 
 from zope.component import getMultiAdapter
@@ -6,10 +6,12 @@ from zope.i18nmessageid import MessageFactory
 
 from Products.Five.browser.pagetemplatefile import ViewPageTemplateFile
 from Products.CMFCore.utils import getToolByName
+from Products.CMFCore.interfaces import IActionCategory, IAction
+from Products.CMFCore.ActionInformation import ActionInfo
 from Products.CMFPlone.utils import safe_unicode, normalizeString
 from Products.CMFPlone.i18nl10n import monthname_msgid, weekdayname_msgid
 
-from plone.app.layout.viewlets.common import ViewletBase, PathBarViewlet
+from plone.app.layout.viewlets import common
 from plone.memoize.instance import memoize
 
 from Products.Carousel.config import CAROUSEL_ID
@@ -17,11 +19,12 @@ from Products.Carousel.browser.viewlet import CarouselViewlet
 from Products.Carousel.interfaces import ICarousel
 from cioppino.twothumbs.rate import getTally
 from vnccollab.theme import messageFactory as _
+from vnccollab.theme.config import FOOTER_LINKS_CAT
 
 _pl = MessageFactory('plonelocales')
 
 
-class TopRatedViewlet(ViewletBase):
+class TopRatedViewlet(common.ViewletBase):
     """Renders list of most rated items under given container.
     
     Rating system by cioppino.twothumbs.
@@ -50,7 +53,7 @@ class TopRatedViewlet(ViewletBase):
         
         self.elems = tuple(elems)
 
-class ActionsListViewlet(ViewletBase):
+class ActionsListViewlet(common.ViewletBase):
     """Renders internal ActionsItem List object view.
     
     Gets first found ActionsItem List object in first level hierarchy.
@@ -63,7 +66,7 @@ class ActionsListViewlet(ViewletBase):
                 self.todo = obj
                 break
 
-class LoginViewlet(ViewletBase):
+class LoginViewlet(common.ViewletBase):
     """Most methods are copied over from login portlet renderer"""
     
     def __init__(self, *args, **kw):
@@ -136,7 +139,7 @@ class LoginViewlet(ViewletBase):
         acl_users = getToolByName(self.context, 'acl_users')
         return getattr(acl_users, 'credentials_cookie_auth', None)
 
-class HeaderTimeViewlet(ViewletBase):
+class HeaderTimeViewlet(common.ViewletBase):
     """Returns current date and time in local format"""
 
     def update(self):
@@ -205,5 +208,82 @@ class HomePageCarouselViewlet(CarouselViewlet):
         self.element_id = settings.element_id
         self.available = True
         
-class PathBarViewlet(PathBarViewlet):
+class PathBarViewlet(common.PathBarViewlet):
     render = ViewPageTemplateFile('templates/path_bar.pt')
+
+class FooterViewlet(common.FooterViewlet):
+    index = ViewPageTemplateFile('templates/footer.pt')
+
+    def update(self):
+        super(FooterViewlet, self).update()
+        self.columns = columns = {}
+        
+        context = aq_inner(self.context)
+        actions_tool = getToolByName(context, 'portal_actions')
+        
+        # check if we got root category for all column links
+        if not FOOTER_LINKS_CAT in actions_tool.objectIds():
+            return
+        
+        # prepare expression context for evaluating TAL expressions
+        ec = actions_tool._getExprContext(context)
+        
+        # go over root category and collect all sub-categories
+        container = actions_tool[FOOTER_LINKS_CAT]
+        cat_ids = container.objectIds()
+        for cid in ('column1', 'column2', 'column3'):
+            # skip not existing categories
+            if cid not in cat_ids:
+                continue
+            
+            cat = container[cid]
+            if not IActionCategory.providedBy(cat):
+                continue
+            
+            # prepare category actions
+            actions = []
+            for action in cat.objectValues():
+                # look only for actions
+                if not IAction.providedBy(action):
+                    continue
+                
+                # create actioninfo object to compile and render TAL expressions
+                # and check if action is available in current circumstances
+                info = ActionInfo(action, ec)
+                if not (info['visible'] and info['allowed'] and
+                        info['available']):
+                    continue
+                
+                # and finally extract all required details from action
+                desc = action.getProperty('description', None) or None
+                if desc is not None:
+                    desc = _(safe_unicode(desc))
+                actions.append({
+                    'id': info['id'],
+                    'title': _(safe_unicode(info['title'])),
+                    'desc': desc,
+                    'url': info['url']
+                })
+            
+            # finally add category to be rendered as footer column
+            columns[cid] = {
+                'title': _(safe_unicode(cat.getProperty('title', ''))),
+                'actions': tuple(actions)
+            }
+        
+        self.columns = columns
+
+class PersonalBarViewlet(common.PersonalBarViewlet):
+    index = ViewPageTemplateFile('templates/personal_bar.pt')
+    
+    def update(self):
+        super(PersonalBarViewlet, self).update()
+        
+        # get personal user image
+        self.user_image = None
+        if not self.anonymous:
+            mtool = getToolByName(self.context, 'portal_membership')
+            # if no userid passes it'll return portrait of logged in user
+            portrait = mtool.getPersonalPortrait()
+            if portrait is not None:
+                self.user_image = portrait.absolute_url()

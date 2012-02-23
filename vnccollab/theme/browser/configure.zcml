@@ -19,6 +19,14 @@
   <include package="plone.app.portlets" />
 
   <browser:page
+      for="Products.CMFPlone.interfaces.siteroot.IPloneSiteRoot"
+      name="homepage_view"
+      class=".homepage.HomePageView"
+      template="templates/homepage_view.pt"
+      permission="zope2.View"
+      />
+
+  <browser:page
       for="*"
       name="zimbra-mail-portlet-view"
       class=".zimbra.ZimbraMailPortletView"
@@ -80,9 +88,35 @@
 
   <!-- Viewlets registration -->
   <browser:viewlet
+      name="plone.personal_bar"
+      manager="plone.app.layout.viewlets.interfaces.IPortalHeader"
+      class=".viewlets.PersonalBarViewlet"
+      layer=".interfaces.IThemeSpecific"
+      permission="zope2.View"
+      />
+  
+  <browser:viewlet
+      name="plone.footer"
+      for="*"
+      manager="plone.app.layout.viewlets.interfaces.IPortalFooter"
+      class=".viewlets.FooterViewlet"
+      layer=".interfaces.IThemeSpecific"
+      permission="zope2.View"
+      />
+  
+  <browser:viewlet
       name="vnccollab.theme.header"
       manager="plone.app.layout.viewlets.interfaces.IPortalTop"
       template="templates/vnccollab_header.pt"
+      layer=".interfaces.IThemeSpecific"
+      permission="zope2.View"
+      />
+  
+  <browser:viewlet
+      view=".homepage.IHomePageView"
+      name="vnccollab.theme.header"
+      manager="plone.app.layout.viewlets.interfaces.IPortalTop"
+      template="templates/vnccollab_header_homepage.pt"
       layer=".interfaces.IThemeSpecific"
       permission="zope2.View"
       />

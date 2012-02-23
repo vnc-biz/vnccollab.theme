@@ -2,8 +2,8 @@
 <object>
   <order manager="plone.portaltop" skinname="VNC Collaboration Theme">
     <viewlet name="plone.header"/>
-    <viewlet name="vnccollab.theme.header"/>
     <viewlet name="plone.path_bar"/>
+    <viewlet name="vnccollab.theme.header"/>
   </order>
   <order manager="vnccollab.theme.htmlhead" skinname="VNC Collaboration Theme">
     <viewlet name="vnccollab.theme.headertime"/>
@@ -33,7 +33,7 @@
   </hidden>
   <hidden manager="plone.portalfooter" skinname="VNC Collaboration Theme">
     <viewlet name="plone.site_actions"/>
-    <viewlet name="plone.colophon"/>
-    <viewlet name="plone.footer"/>
+    <viewlet name="plone.colophon" />
+    <viewlet name="plone.footer" remove="True" />
   </hidden>
 </object>

@@ -286,6 +286,69 @@ input.searchField {
   padding:0 40px;
   position:relative;
   }
+#vnccollab-header.homepageHeader {
+  height: 323px;
+  padding: 0;
+  color: #ffffff;
+  background-color: #103f5b;
+  background-image: none;
+}
+#vnccollab-header.homepageHeader .hpHeaderImgWrapper {
+  position: absolute;
+  top: 0;
+  left: 0;
+}
+#vnccollab-header.homepageHeader .hpHeaderContentWrapper {
+  position: absolute;
+  top: 0;
+  right: 0;
+  width: 661px;
+  height: 323px;
+  font-size: 80%;
+  font-weight: normal;
+}
+#vnccollab-header.homepageHeader h2 {
+  font-size: 30px;
+  font-weight: normal;
+  color: #ffffff;
+  margin-bottom: 15px;
+}
+#vnccollab-header.homepageHeader .hpHeaderContent {
+  padding: 26px 32px 0 18px;
+}
+#vnccollab-header.homepageHeader .hpHeaderContent p {
+  margin-bottom: 15px;
+}
+
+#vnccollab-header.homepageHeader .hpHeaderLinks {
+  width: 661px;
+  position: absolute;
+  bottom: 0;
+  right: 0;
+}
+#vnccollab-header.homepageHeader .hpHeaderLink {
+  display: block;
+  width: 293px;
+  float: left;
+  padding: 12px 18px 17px 19px;
+}
+#vnccollab-header.homepageHeader .signUpLink,
+#vnccollab-header.homepageHeader .dashboardLink {
+  background-color: #679531;
+}
+#vnccollab-header.homepageHeader .contactUsLink {
+  background-color: #0f4e6c;
+}
+#vnccollab-header.homepageHeader .hpHeaderLink h3 {
+  margin-bottom: 16px;
+}
+#vnccollab-header.homepageHeader .hpHeaderLink h3 a {
+  color: #ffffff;
+  font-size: 30px;
+  font-weight: normal;
+}
+
+
 #vnccollab-header.closed {
   background-position:0 -150px;
   }

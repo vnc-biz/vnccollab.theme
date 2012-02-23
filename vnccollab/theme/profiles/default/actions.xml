@@ -5,8 +5,135 @@
     <object name="login" meta_type="CMF Action" i18n:domain="plone">
       <property name="visible">False</property>
     </object>
+    <object name="logout" meta_type="CMF Action" i18n:domain="plone">
+      <property name="visible">False</property>
+    </object>
+    <object name="join" meta_type="CMF Action"
+        i18n:domain="vnccollab.theme">
+      <property name="title"
+         i18n:translate="">Sign up</property>
+      <property name="description" i18n:translate=""></property>
+      <property
+         name="url_expr">string:${globals_view/navigationRootUrl}/@@register</property>
+      <property name="icon_expr"></property>
+      <property name="available_expr">python:member is None</property>
+      <property name="permissions">
+       <element value="Add portal member"/>
+      </property>
+      <property name="visible">True</property>
+     </object>
+    <object name="login_info" meta_type="CMF Action"
+        i18n:domain="vnccollab.theme">
+      <property name="title"
+         i18n:translate="">Get your login information</property>
+      <property name="description" i18n:translate=""></property>
+      <property
+         name="url_expr">string:${globals_view/navigationRootUrl}/mail_password_form</property>
+      <property name="icon_expr"></property>
+      <property name="available_expr">python:member is None</property>
+      <property name="permissions">
+       <element value="View"/>
+      </property>
+      <property name="visible">True</property>
+     </object>
   </object>
   <object name="join" meta_type="CMF Action" i18n:domain="plone">
     <property name="visible">False</property>
   </object>
+  <object name="footer_links" meta_type="CMF Action Category">
+    <property name="title">Footer Links</property>
+    <object name="column1" meta_type="CMF Action Category">
+     <property name="title">The VNC Cloud Portal</property>
+    </object>
+    <object name="column2" meta_type="CMF Action Category">
+     <property name="title">Other VNC Destinations</property>
+     <object name="vnc_germany_website" meta_type="CMF Action"
+        i18n:domain="vnccollab.theme">
+      <property name="title"
+         i18n:translate="">VNC Germany Website</property>
+      <property name="description" i18n:translate=""></property>
+      <property
+         name="url_expr">string:http://www.vnc.biz/index.php?id=632&amp;L=1</property>
+      <property name="icon_expr"></property>
+      <property name="available_expr"></property>
+      <property name="permissions">
+       <element value="View"/>
+      </property>
+      <property name="visible">True</property>
+     </object>
+     <object name="vnc_switzerland_website" meta_type="CMF Action"
+        i18n:domain="vnccollab.theme">
+      <property name="title"
+         i18n:translate="">VNC Switzerland Website</property>
+      <property name="description" i18n:translate=""></property>
+      <property
+         name="url_expr">string:http://www.linkedin.com/company/vnc-switzerland</property>
+      <property name="icon_expr"></property>
+      <property name="available_expr"></property>
+      <property name="permissions">
+       <element value="View"/>
+      </property>
+      <property name="visible">True</property>
+     </object>
+     <object name="vnc_support_website" meta_type="CMF Action"
+        i18n:domain="vnccollab.theme">
+      <property name="title"
+         i18n:translate="">VNC Support &amp; Service Portal</property>
+      <property name="description" i18n:translate=""></property>
+      <property
+         name="url_expr">string:http://www.vnc.biz/index.php?id=637</property>
+      <property name="icon_expr"></property>
+      <property name="available_expr"></property>
+      <property name="permissions">
+       <element value="View"/>
+      </property>
+      <property name="visible">True</property>
+     </object>
+   </object>
+   <object name="column3" meta_type="CMF Action Category">
+     <property name="title">Things to do</property>
+     <object name="dashboard" meta_type="CMF Action"
+        i18n:domain="vnccollab.theme">
+      <property name="title"
+         i18n:translate="">Go to your dashboard</property>
+      <property name="description" i18n:translate=""></property>
+      <property
+         name="url_expr">string:${portal_url}/dashboard</property>
+      <property name="icon_expr"></property>
+      <property name="available_expr">python:member is not None</property>
+      <property name="permissions">
+       <element value="Portlets: Manage own portlets"/>
+      </property>
+      <property name="visible">True</property>
+     </object>
+     <object name="preferences" meta_type="CMF Action"
+        i18n:domain="vnccollab.theme">
+      <property name="title"
+         i18n:translate="">Edit your preferences</property>
+      <property name="description" i18n:translate=""></property>
+      <property
+         name="url_expr">string:${globals_view/navigationRootUrl}/@@personal-preferences</property>
+      <property name="icon_expr"></property>
+      <property name="available_expr">python:member is not None</property>
+      <property name="permissions">
+       <element value="View"/>
+      </property>
+      <property name="visible">True</property>
+     </object>
+     <object name="ask_for_support" meta_type="CMF Action"
+        i18n:domain="vnccollab.theme">
+      <property name="title"
+         i18n:translate="">Ask for support</property>
+      <property name="description" i18n:translate=""></property>
+      <property
+         name="url_expr">string:${portal_url}/contact-info</property>
+      <property name="icon_expr"></property>
+      <property name="available_expr"></property>
+      <property name="permissions">
+       <element value="View"/>
+      </property>
+      <property name="visible">True</property>
+     </object>
+   </object>
+ </object>
 </object>

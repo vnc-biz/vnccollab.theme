@@ -1,0 +1,64 @@
+<div class="row"
+     metal:define-macro="portal_footer"
+     tal:define="portal_url context/portal_url;
+                 columns view/columns"
+     tal:condition="columns"
+     i18n:domain="vnccollab.theme">
+  <div class="cell width-full position-0">
+    <div id="portal-footer"
+         tal:define="columns view/columns">
+      <dl class="footerColumn"
+          tal:define="column columns/column1|nothing"
+          tal:condition="column">
+        <dt i18n:translate=""
+            tal:content="structure column/title">The VNC Cloud Portal</dt>
+        <dd>
+          <span class="copyrights">(c)2012 VNC - Virtual Network Consult</span>
+          <span class="credits">Built with Plone -
+            <a title="Plone CMS Site"
+               href="http://plone.org"
+               i18n:attributes="title">plone.org</a>
+          </span>
+        </dd>
+      </dl>
+      <dl class="footerColumn"
+          tal:define="column columns/column2|nothing"
+          tal:condition="column">
+        <dt i18n:translate=""
+            tal:content="structure column/title">Other VNC Destinations</dt>
+        <dd>
+          <ul>
+            <tal:actions repeat="action columns/column2/actions">
+            <li tal:attributes="id string:flink-${action/id}"><a
+                 href="#"
+                 i18n:translate=""
+                 i18n:attributes="title"
+                 tal:attributes="href string:${action/url};
+                                 title action/desc"
+                 tal:content="structure action/title">Action Title</a></li>
+            </tal:actions>
+          </ul>
+        </dd>
+      </dl>
+      <dl class="footerColumn"
+          tal:define="column columns/column3|nothing"
+          tal:condition="column">
+        <dt i18n:translate=""
+            tal:content="structure column/title">Things to do</dt>
+        <dd>
+          <ul>
+            <tal:actions repeat="action columns/column3/actions">
+            <li tal:attributes="id string:flink-${action/id}"><a
+                 href="#"
+                 i18n:translate=""
+                 i18n:attributes="title"
+                 tal:attributes="href string:${action/url};
+                                 title action/desc"
+                 tal:content="structure action/title">Action Title</a></li>
+            </tal:actions>
+          </ul>
+        </dd>
+      </dl>
+     </div>
+   </div>
+</div>
