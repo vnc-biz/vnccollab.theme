@@ -113,41 +113,67 @@ div.width-3\3a 4 {
 
 /*----- Login -----*/
 .loginFormWrapper {
-  background-color:#e6e9ec;
+  background-color:#cfd6dd;
   float:right;
   font-size:0.75em;
-  height:39px;
+  height:60px;
   line-height:1.5em;
-  margin:20px 40px 17px 0;
-  padding:10px;
-  width:280px;
+  margin:10px 0 15px;
+  padding:12px 15px 8px;
+  width:310px;
   }
-.loginNameField {
-  float:left;
-  margin-right:10px;
-  width:120px;
+.loginFormHeader {
+  margin:0 0 14px;
   }
-.passwordField {
-  float:left;
-  margin-right:10px;
-  width:120px;
+.loginFormLink {
+  float:right;
+  text-decoration:underline;
   }
-.loginFormControl {
-  float:left;
-  margin:19px 0 0;
-  width:20px;
+.loginFormLink:link,
+.loginFormLink:visited {
+  color:#082736;
   }
-.loginFormWrapper label {
-  display:block;
+.loginFormTitle {
+  font-size:14px;
+  font-weight:bold;
+  line-height:19px;
+  }
+.loginFormControls {
+
+  }
+.loginFormControls label {
   font-weight:normal;
   margin:0 0 3px;
+  vertical-align:middle;
   }
-.loginNameField input,
-.passwordField input {
-  background-color:#cfd6db;
+.loginFormName,
+.loginFormEmail,
+.loginFormPassword {
+  background-color:#edeff2;
   border:0;
+  -moz-box-sizing:border-box;
+  -webkit-box-sizing:border-box;
+  box-sizing:border-box;
+  height:27px;
   padding:1px 3px;
-  width:114px;
+  vertical-align:middle;
+  width:90px;
+  }
+.loginFormName,
+.loginFormEmail {
+  margin-right:5px;
+  }
+.loginFormSubmit {
+  background-color:#12425f;
+  border:0;
+  -moz-box-sizing:border-box;
+  -webkit-box-sizing:border-box;
+  box-sizing:border-box;
+  color:#fff;
+  height:27px;
+  text-align:center;
+  vertical-align:middle;
+  width:27px;
   }
 
 /*----- Logo -----*/

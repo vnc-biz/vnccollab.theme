@@ -1,24 +1,11 @@
 /* <dtml-with base_properties> (do not remove this :) */
 /* <dtml-call "REQUEST.set('portal_url', portal_url())"> (not this either :) */
-
-#visual-portal-top {
-  background:url(&dtml-portal_url;/shadow-t.png) no-repeat 0 0;
-  height:11px;
-  margin:31px auto 0;
-  position:relative;
-  width:998px;
-  }
-#visual-portal-wrapper {
-  background:url(&dtml-portal_url;/shadow.png) repeat-y 0 0;
-  margin:auto;
-  padding:0 10px;
-  }
-#visual-portal-bottom {
-  background:url(&dtml-portal_url;/shadow-b.png) no-repeat 0 0;
-  height:15px;
-  margin:0 auto 29px;
-  position:relative;
-  width:1000px;
+.loginFormName,
+.loginFormEmail,
+.loginFormPassword {
+  padding:5px 3px;
+  //height:17px;
+  //width:84px;
   }
 #portal-columns {
   padding:0 0 16px;
