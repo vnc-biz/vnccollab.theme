@@ -1,8 +1,10 @@
 from Acquisition import aq_base, aq_inner
 from DateTime import DateTime
 
-from zope.component import getMultiAdapter
+from zope.interface import alsoProvides
+from zope.component import getMultiAdapter, queryMultiAdapter
 from zope.i18nmessageid import MessageFactory
+from zope.viewlet.interfaces import IViewlet
 
 from Products.Five.browser.pagetemplatefile import ViewPageTemplateFile
 from Products.CMFCore.utils import getToolByName
@@ -11,7 +13,9 @@ from Products.CMFCore.ActionInformation import ActionInfo
 from Products.CMFPlone.utils import safe_unicode, normalizeString
 from Products.CMFPlone.i18nl10n import monthname_msgid, weekdayname_msgid
 
+from plone.app.viewletmanager.manager import BaseOrderedViewletManager
 from plone.app.layout.viewlets import common
+from plone.app.layout.viewlets.interfaces import IPortalHeader
 from plone.memoize.instance import memoize
 
 from Products.Carousel.config import CAROUSEL_ID
@@ -287,3 +291,16 @@ class PersonalBarViewlet(common.PersonalBarViewlet):
             portrait = mtool.getPersonalPortrait()
             if portrait is not None:
                 self.user_image = portrait.absolute_url()
+
+        # render languages viewlet
+        context = aq_inner(self.context)
+        languages = u''
+        manager = BaseOrderedViewletManager()
+        alsoProvides(manager, IPortalHeader)
+        viewlet = queryMultiAdapter((context, self.request, self.view,
+            manager), IViewlet, name='plone.app.i18n.locales.languageselector')
+        if viewlet is not None:
+            viewlet = viewlet.__of__(context)
+            viewlet.update()
+            languages = viewlet.render()
+        self.languages = languages

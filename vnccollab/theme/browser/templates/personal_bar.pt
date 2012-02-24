@@ -46,7 +46,7 @@
        i18n:attributes="title"
        i18n:translate="">Log out</a>
     <div class="languages">
-      EN DE
+      <tal:flags replace="structure view/languages " />
     </div>
   </div>
   </tal:block>

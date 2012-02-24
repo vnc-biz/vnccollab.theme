@@ -27,6 +27,9 @@
     <viewlet name="vnccollab.theme.toprated"/>
     <viewlet name="plone.manage_portlets_fallback"/>
   </order>
+  <hidden manager="plone.portalheader" skinname="VNC Collaboration Theme">
+    <viewlet name="plone.app.i18n.locales.languageselector"/>
+  </hidden>
   <hidden manager="plone.abovecontent" skinname="VNC Collaboration Theme">
     <viewlet name="Products.Carousel.viewlet"/>
     <viewlet name="plone.path_bar"/>
