@@ -6,7 +6,13 @@ function attachPortletUpDowns() {
 }
 
 function attachHeaderViewletCloseOpen() {
-  jq('.headerTimeViewlet a.closeLink').click(function(event){
+  // add close link
+  if (jq('#vnccollab-header a.closeLink').length == 0) {
+    jq('#vnccollab-header').append('<a class="actionLink closeLink" '+
+      'title="Click to contract" href="#">Close</a>');
+  }
+  
+  jq('#vnccollab-header a.closeLink').click(function(event){
     var container = jq(event.target).parents('#vnccollab-header');
     if (container.length == 0) {
       return false;
@@ -19,7 +25,7 @@ function attachHeaderViewletCloseOpen() {
     
     return false;
   });
-  jq('.headerTimeViewletShort a.openLink').click(function(event){
+  jq('#vnccollab-header a.openLink').click(function(event){
     var container = jq(event.target).parents('#vnccollab-header');
     if (container.length == 0) {
       return false;

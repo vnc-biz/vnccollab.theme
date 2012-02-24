@@ -361,6 +361,7 @@ input.searchField {
 #vnccollab-header.closed .headerTimeViewlet,
 #vnccollab-header.closed .headerLinksViewlet,
 #vnccollab-header.closed .carousel,
+#vnccollab-header.closed .closeLink,
 #vnccollab-header.opened .headerTimeViewletShort {
   display: none;
   }

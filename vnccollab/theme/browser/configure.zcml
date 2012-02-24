@@ -35,12 +35,12 @@
       />
 
   <browser:page
-      for="plone.app.layout.navigation.interfaces.INavigationRoot"
+      for="*"
       name="dashboard"
-      permission="plone.app.portlets.ViewDashboard"
       class=".dashboard.DashboardView"
       layer=".interfaces.IThemeSpecific"
       template="templates/dashboard.pt"
+      permission="plone.app.portlets.ViewDashboard"
       />
 
   <browser:page
@@ -128,14 +128,14 @@
     permission="zope2.View"
     />
   
-  <browser:viewlet
+  <!-- <browser:viewlet
       name="vnccollab.theme.headertime"
       manager=".interfaces.IVNCCollabHtmlHead"
       template="templates/header_time.pt"
       class=".viewlets.HeaderTimeViewlet"
       layer=".interfaces.IThemeSpecific"
       permission="zope2.View"
-      />
+      /> -->
 
   <browser:viewlet
       name="vnccollab.theme.headertimeshort"
@@ -149,18 +149,18 @@
   <browser:viewlet
       name="vnccollab.theme.headercarousel"
       manager=".interfaces.IVNCCollabHtmlHead"
-      class=".viewlets.HomePageCarouselViewlet"
+      class="Products.Carousel.browser.viewlet.CarouselViewlet"
       layer=".interfaces.IThemeSpecific"
       permission="zope2.View"
       />
       
-  <browser:viewlet
+  <!-- <browser:viewlet
       name="vnccollab.theme.headerlinks"
       manager=".interfaces.IVNCCollabHtmlHead"
       template="templates/header_links.pt"
       layer=".interfaces.IThemeSpecific"
       permission="zope2.View"
-      />
+      /> -->
   
   <browser:viewlet
       for="plone.app.folder.folder.IATUnifiedFolder"
