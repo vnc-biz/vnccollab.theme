@@ -123,7 +123,7 @@
   
   <browser:viewlet
     name="plone.path_bar"
-    manager="plone.app.layout.viewlets.interfaces.IPortalTop"
+    manager="plone.app.layout.viewlets.interfaces.IPortalHeader"
     class=".viewlets.PathBarViewlet"
     permission="zope2.View"
     />

@@ -9,7 +9,7 @@ body {
 #visual-portal-wrapper {
   margin:auto;
   position:relative;
-  width:980px;
+  width:960px;
   }
 #visual-portal-wrapper:after {
   content:"";
@@ -19,14 +19,10 @@ body {
 
 /*----- Layout -----*/
 div.width-full {
-  width:900px;
+  width:960px;
   }
 div.position-0 {
-  margin-left:-940px;
-  }
-#portal-top .cell {
-  margin-left:-980px;
-  width:980px;
+  margin-left:-960px;
   }
 div.position-1\3a 4 {
   margin-left:-620px;
@@ -43,28 +39,13 @@ div.width-1\3a 2 {
 div.width-3\3a 4 {
   width:580px;
   }
-.cell div.width-full {
-  width:100%;
-  }
-.cell div.position-0 {
-  margin-left:-100%;
-  }
 #portal-columns {
   padding:0 0 20px;
-  }
-#portal-column-content.width-3\3a 4.position-0 {
-  background:url(&dtml-portal_url;/dot.gif) repeat-y 100% 0;
-  padding-right:20px;
-  }
-#portal-column-two {
-  background:url(&dtml-portal_url;/dot.gif) repeat-y;
-  margin-left:-341px;
-  padding-left:20px;
   }
 
 /*----- Personal Tools -----*/
 #portal-personaltools-anonymous {
-  font-size:12px;
+  font-size:11px;
   line-height:16px;
   position:absolute;
   right:15px;
@@ -79,7 +60,7 @@ div.width-3\3a 4 {
 #portal-personaltools-loggedin {
   background-color:#cfd6dd;
   float:right;
-  font-size:14px;
+  font-size:13px;
   height:80px;
   line-height:18px;
   margin:10px 0 15px;
@@ -146,7 +127,7 @@ div.width-3\3a 4 {
   border:1px solid #012a43;
   color:#fff !important;
   display:inline-block;
-  font-size:12px;
+  font-size:11px;
   line-height:17px;
   padding:2px 0;
   position:absolute;
@@ -194,9 +175,9 @@ div.width-3\3a 4 {
 .loginFormWrapper {
   background-color:#cfd6dd;
   float:right;
-  font-size:0.75em;
+  font-size:11px;
   height:60px;
-  line-height:1.5em;
+  line-height:18px;
   margin:10px 0 15px;
   padding:12px 15px 8px;
   width:310px;
@@ -213,7 +194,7 @@ div.width-3\3a 4 {
   color:#082736;
   }
 .loginFormTitle {
-  font-size:14px;
+  font-size:13px;
   font-weight:bold;
   line-height:19px;
   }
@@ -230,6 +211,8 @@ div.width-3\3a 4 {
   -moz-box-sizing:border-box;
   -webkit-box-sizing:border-box;
   box-sizing:border-box;
+  font-family:Arial,FreeSans,sans-serif;
+  font-size:11px;
   height:27px;
   padding:1px 3px;
   vertical-align:middle;
@@ -259,35 +242,38 @@ div.width-3\3a 4 {
 
 /*----- Searchbox -----*/
 #portal-searchbox {
+  background-color:#093650;
+  border:1px solid #436174;
   font-size:75%;
   line-height:1.5em;
-  margin:9px 43px 0 0;
+  margin:7px 15px 0 0;
   }
 #portal-searchbox .LSBox {
-  background:url(&dtml-portal_url;/search.png) no-repeat;
-  padding:3px 9px;
+  border-top:1px solid #072c41;
+  padding:0 2px;
   position:relative;
   }
 #portal-searchbox .searchField {
-  background:url(&dtml-portal_url;/search.png) no-repeat -9px -3px;
+  background-color:#093650;
   border:0;
+  color:#fff;
   font-size:1em;
   outline:none;
-  padding:1px 0 0;
+  padding:1px 0 0 4px;
   vertical-align:middle;
-  width: 113px;
+  width:115px;
   }
 input.searchField {
   -moz-appearance:none;
   }
 #portal-searchbox .searchButton {
-  background:url(&dtml-portal_url;/search-button.png) no-repeat;
+  background:url(&dtml-portal_url;/sb.gif) no-repeat;
   border:0;
   height:0;
   overflow:hidden;
-  padding-top:16px;
+  padding-top:27px;
   vertical-align:middle;
-  width:16px;
+  width:27px;
   }
 .searchSection {
   display:none;
@@ -295,14 +281,7 @@ input.searchField {
 #LSResult {
   background:none;
   margin:0;
-  right:-43px;
-  top:30px;
-  }
-.LSResult {
-  background:none;
-  margin:0;
-  position:absolute;
-  right:-43px;
+  right:-2px;
   top:30px;
   }
 #LSResult fieldset {
@@ -333,21 +312,19 @@ input.searchField {
 
 /*----- Global Navigation -----*/
 #portal-globalnav {
-  background-color:#012a43;
+  background:url(&dtml-portal_url;/shadow.png) no-repeat 0 100% #012a43;
   clear:none;
-  font-size:16px;
-  line-height:22px;
+  font-size:15px;
+  line-height:23px;
   margin:0;
-  }
-#portal-globalnav li {
-
+  padding:0 0 26px;
   }
 #portal-globalnav li a {
   background-color:transparent;
   border:0;
   color:#fff;
   min-width:0;
-  padding:10px 20px 5px;
+  padding:11px 20px;
   }
 #portal-globalnav li a:hover,
 #portal-globalnav li.selected a,
@@ -560,27 +537,22 @@ a.carousel-pager-button-next span {
 
 /*----- Bread Crumbs -----*/
 #portal-breadcrumbs {
-  background:url(&dtml-portal_url;/breadcrumbs.png) no-repeat 0 100%;
-  font-size:0.81em;
-  line-height:1.38em;
-  margin:0 0 20px;
-  padding:5px 40px 7px;
+  font-size:13px;
+  line-height:16px;
+  margin:-11px 0 15px;
   }
 #breadcrumbs-you-are-here {
-  color:#12425f;
+  background:url(&dtml-portal_url;/bc.gif) no-repeat 100% 0 #012a43;
+  color:#fff;
+  display:inline-block;
   font-weight:bold;
+  padding:0 10px 0 14px;
   }
 #portal-breadcrumbs a,
 #breadcrumbs-current {
-  background-color:#e6e9ec;
-  border-radius:10px;
-  -moz-border-radius:10px;
   display:inline-block;
   color:#082736;
-  padding:2px 9px;
-  }
-.breadcrumbSeparator {
-  font-size:1.08em;
+  padding:0 3px;
   }
 
 /*----- Content -----*/

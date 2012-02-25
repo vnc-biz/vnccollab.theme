@@ -48,3 +48,6 @@ ul#portal-languageselector li {
   left:0;
   top:100%;
   }
+#portal-searchbox input.searchButton {
+  height:27px;
+  }
