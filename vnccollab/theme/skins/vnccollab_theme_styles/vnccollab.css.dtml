@@ -63,52 +63,131 @@ div.width-3\3a 4 {
   }
 
 /*----- Personal Tools -----*/
-#portal-personaltools {
-  background:#e6e9ec;
-  border-radius:0;
-  -moz-border-radius:0;
-  font-size:0.75em;
-  height:39px;
-  line-height:1.5em;
-  margin:20px 40px 17px 0;
-  padding:10px;
-  min-width:280px;
+#portal-personaltools-anonymous {
+  font-size:12px;
+  line-height:16px;
+  position:absolute;
+  right:15px;
+  top:26px;
   }
-#portal-personaltools dt {
-  margin:0;
-  }
-#portal-personaltools dt a {
-  color:#082736;
-  cursor:default;
-  margin:0;
-  }
-#portal-personaltools dt.actionMenuHeader a:after {
-  content:"";
-  }
-#portal-personaltools dd {
-  background:none;
-  display:block;
-  padding:0;
-  position:static;
-  }
-#portal-personaltools dd a {
+#portal-personaltools-anonymous a {
   color:#082736;
   display:inline !important;
-  margin:0;
-  padding:0 11px 0 0;
+  margin-left:5px;
   text-decoration:underline;
   }
-#portal-personaltools dd a:hover {
-  background-color:transparent;
+#portal-personaltools-loggedin {
+  background-color:#cfd6dd;
+  float:right;
+  font-size:14px;
+  height:80px;
+  line-height:18px;
+  margin:10px 0 15px;
+  padding:0 15px 0 0;
+  position:relative;
+  width:325px;
+  z-index:1;
+  }
+#portal-personaltools-loggedin a {
   color:#082736;
+  }
+.actionMenuUserImgWrapper {
+  float:left;
+  margin-right:15px;
+  }
+.actionMenuHeader {
+  margin:12px 0 16px;
+  }
+#user-name {
+  font-weight:bold;
+  }
+.userPreferences {
+  display:table;
+  position:relative;
+  width:149px;
+  }
+.userPreferencesHeader {
+  background:url(&dtml-portal_url;/dd.gif) no-repeat 100% 0 #cfd6dd;
+  border:1px solid #b3c0ca;
+  cursor:pointer;
+  font-weight:normal;
+  padding:3px 30px 2px 10px;
+  position:relative;
+  z-index:1;
+  }
+.userPreferencesBody {
+  background-color:#e6e9ee;
+  border:1px solid #b3c0ca;
+  -moz-box-shadow:0 2px 8px  rgba(0,0,0,0.75);
+  -webkit-box-shadow:0 2px 8px  rgba(0,0,0,0.75);
+  box-shadow:0 2px 8px  rgba(0,0,0,0.75);
+  display:none;
+  margin:-1px 0 0;
+  padding:4px 0;
+  position:absolute;
+  width:147px;
+  }
+.userPreferences:hover .userPreferencesBody {
+  display:block;
+  }
+.userPreferencesBody a {
+  background:url(&dtml-portal_url;/useractions-icons.png) no-repeat 10px 8px;
+  display:block;
+  padding:7px 0 7px 35px;
+  }
+#personaltools-mystuff a {
+  background-position:10px -93px
+  }
+#personaltools-dashboard a {
+  background-position:10px -192px
+  }
+.logoutLink {
+  background-color:#12425f;
+  border:1px solid #012a43;
+  color:#fff !important;
+  display:inline-block;
+  font-size:12px;
+  line-height:17px;
+  padding:2px 0;
+  position:absolute;
+  right:15px;
+  text-align:center;
+  top:12px;
+  width:58px;
   }
 
 /*----- Language Selector -----*/
 #portal-languageselector {
   background:none;
-  padding:1px 0 0;
+  bottom:10px;
+  padding:0;
   position:absolute;
-  right:40px;
+  right:15px;
+  top:auto;
+  }
+#portal-languageselector li {
+  background:url(&dtml-portal_url;/flags.png) no-repeat 0 0;
+  display:inline-block;
+  margin-left:10px;
+  vertical-align:bottom;
+  }
+#portal-languageselector .language-en {
+  background-position:-23px 0;
+  }
+#portal-languageselector .currentLanguage.language-en {
+  background-position:-23px -23px;
+  }
+#portal-languageselector .currentLanguage.language-de {
+  background-position:0 -23px;
+  }
+#portal-languageselector a {
+  display:block;
+  height:23px;
+  width:23px;
+  overflow:hidden;
+  }
+#portal-languageselector img {
+  margin-left:-23px;
   }
 
 /*----- Login -----*/
@@ -137,9 +216,6 @@ div.width-3\3a 4 {
   font-size:14px;
   font-weight:bold;
   line-height:19px;
-  }
-.loginFormControls {
-
   }
 .loginFormControls label {
   font-weight:normal;

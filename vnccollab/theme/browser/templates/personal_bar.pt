@@ -3,7 +3,7 @@
 
 <h5 class="hiddenStructure" i18n:translate="heading_personal_tools">Personal tools</h5>
 
-<dl class="actionMenu deactivated" id="portal-personaltools"
+<div class="actionMenu deactivated" id="portal-personaltools-loggedin"
     tal:condition="python:view.user_actions and not view.anonymous">
   <tal:block condition="not: view/anonymous">
   <div class="actionMenuUserImgWrapper"
@@ -19,15 +19,17 @@
                            alt view/user_name" />
     </a>
   </div>
-  <dt class="actionMenuHeader">
+  <div class="actionMenuHeader">
     <a id="user-name"
        tal:attributes="href view/homelink_url"
        tal:content="view/user_name">
         John
     </a>
-  </dt>
-  <dd class="actionMenuContent">
-    <ul>
+  </div>
+  <dl class="userPreferences">
+    <dt class="userPreferencesHeader">Preferences</dt>
+    <dd class="userPreferencesBody">
+      <ul>
         <li tal:repeat="action view/user_actions"
             tal:attributes="id string:personaltools-${action/id}">
             <a href=""
@@ -37,22 +39,21 @@
                 action title
             </a>
         </li>
-    </ul>
-  </dd>
+      </ul>
+    </dd>
+  </dl>
   <div class="actionMenuExtra">
     <a class="logoutLink"
        title="Click to logout"
        tal:attributes="href string:${context/portal_url}/logout"
        i18n:attributes="title"
        i18n:translate="">Log out</a>
-    <div class="languages">
-      <tal:flags replace="structure view/languages " />
-    </div>
+    <tal:flags replace="structure view/languages " />
   </div>
   </tal:block>
-</dl>
+</div>
 
-<dl class="actionMenu deactivated" id="portal-personaltools"
+<dl class="actionMenu deactivated" id="portal-personaltools-anonymous"
     tal:condition="python:view.user_actions and view.anonymous">
   <dt id="anon-personalbar">
     <tal:actions repeat="action view/user_actions">

@@ -4,9 +4,8 @@
 .loginFormEmail,
 .loginFormPassword {
   padding:5px 3px;
-  //height:17px;
-  //width:84px;
   }
+
 #portal-columns {
   padding:0 0 16px;
   }
