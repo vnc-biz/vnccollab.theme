@@ -1,14 +1,9 @@
-<div id="vnccollab-header" class="homepageHeader"
+<div id="vnccollab-header" class="nccollab-hp-header"
      i18n:domain="vnccollab.theme"
      tal:define="purl context/portal_url;
                  plone_view context/@@plone_portal_state;
                  anon plone_view/anonymous">
-  <div class="hpHeaderImgWrapper">
-    <img src="hp_header_logo.png"
-         tal:attributes="src string:${purl}/${attrs/src}"
-         />
-  </div>
-  <div class="hpHeaderContentWrapper">
+  <div class="hp-header-content">
     <div class="hpHeaderContent">
       <h2 i18n:translate="">Welcome to the VNC Community</h2>
       <p i18n:translate="">The VNC Community is an ecosystem for VNC partners,
