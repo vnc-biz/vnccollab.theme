@@ -4,41 +4,31 @@
                  plone_view context/@@plone_portal_state;
                  anon plone_view/anonymous">
   <div class="hp-header-content">
-    <div class="hpHeaderContent">
+    <div class="hp-header-welcome">
       <h2 i18n:translate="">Welcome to the VNC Community</h2>
-      <p i18n:translate="">The VNC Community is an ecosystem for VNC partners,
-        customers, vendors, team members and friends to get together and share
-        ideas about Commercial Open Source and Cloud solutions.</p>
-      <p i18n:translate="">We believe in "Open Source = Open Mind". That's why
-        we invite all our partners, customers, associated vendors, enthusiasts
-        and developers from across the world to share ideas, provide feedback,
-        evangelize and participate in making Commercial Open Source and Cloud
-        solutions the first choice for businesses of all sizes.</p>
+      <p i18n:translate="">The VNC Community is an ecosystem for VNC partners, customers, vendors, team members and friends to get together and share ideas about Commercial Open Source and Cloud solutions.</p>
+      <p i18n:translate="">We believe in "Open Source = Open Mind". That's why we invite all our partners, customers, associated vendors, enthusiasts and developers from across the world to share ideas, provide feedback, evangelize and participate in making Commercial Open Source and Cloud solutions the first choice for businesses of all sizes.</p>
     </div>
-    <div class="hpHeaderLinks">
-      <div class="signUpLink hpHeaderLink"
+    <div class="hp-header-links">
+      <div class="signUpLink hp-header-first-link"
            tal:condition="anon">
         <h3><a href="register"
-               tal:attributes="href string:${purl}/${attrs/href}">Sign
-          up</a></h3>
-        <div i18n:translate="">Become part of the VNC Community.
-          It's free.</div>
+               tal:attributes="href string:${purl}/${attrs/href}">Sign up</a></h3>
+        <div i18n:translate="">Become part of the VNC Community. It's free.</div>
       </div>
-      <div class="dashboardLink hpHeaderLink"
+      <div class="dashboardLink hp-header-first-link"
            tal:condition="not:anon">
         <h3><a href="dashboard"
-               tal:attributes="href string:${purl}/${attrs/href}">Dashboard</a>
-          </h3>
+               tal:attributes="href string:${purl}/${attrs/href}">Dashboard</a></h3>
         <div i18n:translate="">Visit your personal account dashboard.</div>
       </div>
-      <div class="contactUsLink hpHeaderLink">
+      <div class="contactUsLink hp-header-second-link">
         <h3><a href="contact-info"
                tal:attributes="href string:${purl}/${attrs/href}">Contact
           us</a></h3>
         <div i18n:translate="">for more information. We'll get back to you
           asap.</div>
       </div>
-      <div class="visualClear"><!-- --></div>
     </div>
   </div>
 </div>

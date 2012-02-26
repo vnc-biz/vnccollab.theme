@@ -30,9 +30,9 @@ div.cell {
 }
 
 /* Theme Fixes */
-.loginFormName,
-.loginFormEmail,
-.loginFormPassword {
+input.loginFormName,
+input.loginFormEmail,
+input.loginFormPassword {
   height:17px;
   width:84px;
   }
@@ -41,7 +41,9 @@ ul#portal-languageselector li {
   margin-left:14px;
   zoom:1;
   }
-.userPreferencesHeader {
+.userPreferencesHeader,
+div.carousel-text,
+.headerTimeViewletShort {
   zoom:1;
   }
 .userPreferencesBody {
@@ -50,4 +52,8 @@ ul#portal-languageselector li {
   }
 #portal-searchbox input.searchButton {
   height:27px;
+  }
+a.carousel-pager-button-prev span,
+a.carousel-pager-button-next span {
+  cursor:pointer;  
   }
