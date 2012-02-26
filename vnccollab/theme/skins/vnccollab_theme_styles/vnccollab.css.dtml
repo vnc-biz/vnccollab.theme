@@ -31,16 +31,16 @@ div.position-1\3a 4 {
   margin-left:-620px;
   }
 div.position-3\3a 4 {
-  margin-left:-320px;
+  margin-left:-310px;
   }
 div.width-1\3a 4 {
-  width:280px;
+  width:310px;
   }
 div.width-1\3a 2 {
   width:260px;
   }
 div.width-3\3a 4 {
-  width:580px;
+  width:635px;
   }
 #portal-columns {
   border-top:1px solid #e6eaee;
@@ -561,6 +561,24 @@ a.carousel-pager-button-next span {
   padding:0 3px;
   }
 
+/*------ Footer -----*/
+#portal-footer {
+  background:url(&dtml-portal_url;/f.png) no-repeat 0 0;
+  display:table;
+  padding:103px 0 0;
+  }
+.footerColumn {
+  background:url(&dtml-portal_url;/f-s.png) no-repeat 0 5px;
+  float:left;
+  padding-left:45px;
+  padding-right:30px;
+  width:250px;
+  }
+.footerColumn:first-child {
+  background:none;
+  padding-left:15px;
+  }
+
 /*----- Content -----*/
 #content {
   font-size:0.75em;
@@ -628,7 +646,6 @@ dl.portlet {
   font-size:75%;
   line-height:1.5em;
   margin:0 0 20px;
-  padding:0 10px 20px;
   }
 dl.portlet.closed {
   padding-bottom:0;
@@ -662,7 +679,6 @@ dl.portlet dt a:hover {
   color:#082736 !important;
   }
 dl.portlet dd.portletItem {
-  background-color:#fff;
   padding:10px;
   }
 dl.portlet dd.portletFooter {
