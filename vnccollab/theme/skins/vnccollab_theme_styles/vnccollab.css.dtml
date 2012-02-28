@@ -44,7 +44,7 @@ div.width-3\3a 4 {
   }
 #portal-columns {
   border-top:1px solid #e6eaee;
-  padding:0 0 20px;
+  padding:9px 0 0;
   }
 
 /*----- Personal Tools -----*/
@@ -587,11 +587,10 @@ a.carousel-pager-button-next span {
   }
 #content .documentDescription,
 #content #description {
-  padding-bottom: 20px;
-  border-bottom: 1px solid #aaaaaa;
-  margin-bottom: 25px;
-}
-
+  border-bottom:1px solid #aaa;
+  margin-bottom:25px;
+  padding-bottom:20px;
+  }
 #content a:link,
 dl.portlet a:link {
   border-bottom:0;
@@ -605,40 +604,14 @@ a:visited,
   color:#3d68bd !important;
   text-decoration:underline;
   }
+h1 {
+  color:#012a43;
+  font-size:29px;
+  font-weight:normal;
+  line-height:34px;
+  }
 h1, h2 {
   letter-spacing:0;
-  }
-#dashboard {
-  font-size:1.33em;
-  line-height:1.5em;
-  }
-.dashboardToolbar {
-  background-color:#e6e9ec;
-  margin:0 0 20px;
-  padding:3px 10px;
-  }
-.dashboardToolbar a {
-  display:inline-block;
-  margin-right:3px;
-  vertical-align:middle;
-  }
-#dashboard-portlets1,
-#dashboard-portlets2 {
-  padding:0;
-  width:285px;
-  }
-#dashboard-portlets1 {
-  margin-right:10px;
-  }
-#dashboard-portlets3 {
-  margin-left:10px;
-  padding:0;
-  width:285px;
-  }
-#dashboard-portlets4 {
-  clear:left;
-  padding:0;
-  width:285px;
   }
 
 /*----- Portlets Properties -----*/
@@ -646,37 +619,6 @@ dl.portlet {
   font-size:75%;
   line-height:1.5em;
   margin:0 0 20px;
-  }
-/****** TODO: vipod: dashboard prototype, serg - please, fix */
-#dashboard-portlets1 {
-  width: 100%;
-}
-
-#dashboard-portlets1 .portlet {
-  width: 46%;
-  float: left;
-}
-/* portlets on manage-dashboard screens */
-#dashboard-portlets1 .portlet.managedPortlet {
-  width: 100%;
-  float: none;
-}
-#dashboard-portlets1 .portlet.wide {
-  width: 92%;
-}
-
-/********************** end vipod TODO ********/
-
-
-
-dl.portlet.closed {
-  padding-bottom:0;
-  }
-#dashboard dl.portlet.closed {
-  padding-bottom:10px;
-  }
-#dashboard dl.portlet.closed .portletHeader {
-  border-bottom:1px solid #cfd6db;
   }
 dl.portlet a:link,
 dl.portlet a:visited {
@@ -732,6 +674,95 @@ dl.portlet dd.portletFooter {
 .portlet.closed .portletFooter,
 .portlet.closed .portletItem {
   display:none;
+  }
+
+/*----- Dashboard -----*/
+#dashboard {
+  font-size:1.33em;
+  line-height:1.5em;
+  }
+.dashboardToolbar {
+  background-color:#e6e9ec;
+  margin:0 0 20px;
+  padding:3px 10px;
+  }
+.dashboardToolbar a {
+  display:inline-block;
+  margin-right:3px;
+  vertical-align:middle;
+  }
+#dashboard-portlets1 {
+  display:block;
+  float:none;
+  margin-right:-15px;
+  padding:0;
+  width:auto;
+  }
+#dashboard-portlets2 {
+  padding:0;
+  width:285px;
+  }
+#dashboard-portlets3 {
+  margin-left:10px;
+  padding:0;
+  width:285px;
+  }
+#dashboard-portlets4 {
+  clear:left;
+  padding:0;
+  width:285px;
+  }
+#dashboard-portlets1 .portlet {
+  float:left;
+  margin-right:15px;
+  width:310px;
+  }
+#dashboard-portlets1 .wide {
+  width:635px;
+  }
+/* portlets on manage-dashboard screens */
+#dashboard-portlets1 .portlet.managedPortlet {
+  width: 100%;
+  float: none;
+  }
+dl.portlet.closed {
+  padding-bottom:0;
+  }
+#dashboard dl.portlet.closed {
+  padding-bottom:10px;
+  }
+#dashboard dl.portlet.closed .portletHeader {
+  border-bottom:1px solid #cfd6db;
+  }
+#dashboard .portletHeader {
+  font-weight:normal;
+  padding-right:45px;
+  }
+#dashboard .portletToggleLink {
+  right:27px;
+  }
+#dashboard .portletItem {
+  /*background:url(&dtml-portal_url;/top-shadow.png) no-repeat 50% 0 #cfd6db;*/
+  }
+#dashboard .portlet a:link,
+#dashboard .portlet a:visited,
+#dashboard .portlet a:hover {
+  color:#082736 !important;
+  text-decoration:none;
+  }
+
+/*----- Portlet Wide Narrow Link -----*/
+.portletWideNarrowLink {
+  background:url(&dtml-portal_url;/sprite.png) no-repeat -56px 0;
+  text-indent:-9999px;
+  height:18px;
+  position:absolute;
+  right:3px;
+  top:9px;
+  width:18px;
+  }
+.wide .portletWideNarrowLink {
+  background-position:-56px -18px;
   }
 
 /*----- Portlet Navigation -----*/
@@ -843,38 +874,6 @@ dl.portlet ul.navTree .navTreeCurrentItem {
 #content .portletSearch ul {
   list-style-type:none;
   margin-left:0;
-  }
-
-/*----- Dashboard Portlets -----*/
-#dashboard .portlet {
-  padding:10px 10px 20px;
-  }
-#dashboard .portletHeader {
-  background:#efefef;
-  background:-moz-linear-gradient(#f8f8f8, #efefef);
-  background:-webkit-linear-gradient(#f8f8f8, #efefef);
-  background:-o-linear-gradient(#f8f8f8, #efefef);
-  background:-ms-linear-gradient(#f8f8f8, #efefef);
-  background:linear-gradient(#f8f8f8, #efefef);
-  border-color:#cfd6db;
-  border-style:solid;
-  border-width:1px 1px 0;
-  font-size:1.25em;
-  line-height:1.33em;
-  padding:7px 27px 7px 14px !important;
-  filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#f8f8f8', endColorstr='#efefef',GradientType=0 );
-  }
-#dashboard .portletToggleLink {
-  right:9px;
-  }
-#dashboard .portletItem {
-  background:url(&dtml-portal_url;/top-shadow.png) no-repeat 50% 0 #cfd6db;
-  }
-#dashboard .portlet a:link,
-#dashboard .portlet a:visited,
-#dashboard .portlet a:hover {
-  color:#082736 !important;
-  text-decoration:none;
   }
 
 /* Users Box Portlet */
