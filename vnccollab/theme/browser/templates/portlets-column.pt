@@ -1,0 +1,18 @@
+<tal:block repeat="portlet options/portlets">
+<div tal:attributes="id string:portletwrapper-${portlet/hash};
+                     class string:portletWrapper kssattr-portlethash-${hash}${closed_klass}${wide_klass}"
+     tal:define="hash portlet/hash;
+                 states python:view.portlet_states(hash);
+                 closed_klass python:states.get('closed') == '1' and ' closed' or '';
+                 wide_klass python:states.get('wide') == '1' and ' wide' or ''"
+     tal:content="structure python:view.safe_render(portlet['renderer'])" />
+</tal:block>
+
+<div class="managePortletsLink" tal:condition="view/can_manage_portlets"
+      i18n:domain="plone">
+  <a title="View portlet management screen"
+     i18n:attributes="title"
+     i18n:translate="manage_portlets_link"
+     tal:attributes="href string:${view/base_url}/@@manage-portlets"
+     >Manage portlets</a>
+</div>

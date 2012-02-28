@@ -1,10 +1,46 @@
+// TODO: add state html classes to portlet wrapper
+
 function attachPortletButtons() {
   // add up/down and left/right links to portlet headers,
   // which will expand/contract and make portlets wide
   jq('.portlet dt.portletHeader .portletTopRight').before(
-    '<a href="#" class="portletToggleLink" onclick="jq(this).parents(\'.portlet\').toggleClass(\'closed\');return false;" title="Toggle Portlet">toggle</a>');
+    '<a href="#" class="portletToggleLink" title="Toggle ' +
+    'Portlet">toggle</a>');
+  jq('.portlet dt.portletHeader a.portletToggleLink').click(function(event){
+    // toggle html class
+    var a = jq(event.target);
+    var portlet = a.parents('.portletWrapper');
+    portlet.toggleClass('closed');
+    
+    // record change on the server side
+    var hash = portlet.attr('id').slice('portletwrapper-'.length);
+    if (hash) {
+      jq.post(portal_url + '/@@record-portlet-state',
+        {'hash': hash,
+         'action': 'closed',
+         'value': portlet.is('.closed') ? '1' : '0'});
+    }
+    return false;
+  });
   jq('#dashboard .portlet dt.portletHeader .portletTopRight').before(
-    '<a href="#" class="portletWideNarrowLink" onclick="jq(this).parents(\'.portlet\').toggleClass(\'wide\');return false;" title="Wide/Narrow">wide/narrow</a>');
+    '<a href="#" class="portletWideNarrowLink" title="Wide/Narrow">wide/narrow'
+    + '</a>');
+  jq('#dashboard .portlet dt.portletHeader a.portletWideNarrowLink').click(function(event){
+    // toggle html class
+    var a = jq(event.target);
+    var portlet = a.parents('.portletWrapper');
+    portlet.toggleClass('wide');
+    
+    // record change on the server side
+    var hash = portlet.attr('id').slice('portletwrapper-'.length);
+    if (hash) {
+      jq.post(portal_url + '/@@record-portlet-state',
+        {'hash': hash,
+         'action': 'wide',
+         'value': portlet.is('.wide') ? '1' : '0'});
+    }
+    return false;
+  });
 }
 
 function attachHeaderViewletCloseOpen() {

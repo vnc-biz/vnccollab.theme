@@ -60,6 +60,21 @@
       layer=".interfaces.IThemeSpecific"
       permission="plone.app.portlets.ManagePortlets"
       />
+  <browser:page
+      for="Products.CMFCore.interfaces.ISiteRoot"
+      name="record-portlet-state"
+      class=".util.VNCCollabUtilView"
+      attribute="recordPortletState"
+      permission="plone.app.portlets.ViewDashboard"
+      />
+  <adapter
+      factory=".portlet_manager.ColumnPortletManagerRenderer"
+      provides="plone.portlets.interfaces.IPortletManagerRenderer"
+      />
+  <adapter
+      factory=".portlet_manager.DashboardPortletManagerRenderer"
+      provides="plone.portlets.interfaces.IPortletManagerRenderer"
+      />
 
   <browser:page
       for="*"

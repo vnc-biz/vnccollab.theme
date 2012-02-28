@@ -668,11 +668,11 @@ dl.portlet dd.portletFooter {
   top:9px;
   width:18px;
   }
-.portlet.closed .portletToggleLink {
+.portletWrapper.closed .portletToggleLink {
   background-position:-38px -18px;
   }
-.portlet.closed .portletFooter,
-.portlet.closed .portletItem {
+.portletWrapper.closed .portletFooter,
+.portletWrapper.closed .portletItem {
   display:none;
   }
 
@@ -712,12 +712,12 @@ dl.portlet dd.portletFooter {
   padding:0;
   width:285px;
   }
-#dashboard-portlets1 .portlet {
+#dashboard-portlets1 .portletWrapper {
   float:left;
   margin-right:15px;
   width:310px;
   }
-#dashboard-portlets1 .wide {
+#dashboard-portlets1 .portletWrapper.wide {
   width:635px;
   }
 /* portlets on manage-dashboard screens */
@@ -725,13 +725,13 @@ dl.portlet dd.portletFooter {
   width: 100%;
   float: none;
   }
-dl.portlet.closed {
+.portletWrapper.closed dl.portlet {
   padding-bottom:0;
   }
-#dashboard dl.portlet.closed {
+#dashboard .portletWrapper.closed dl.portlet {
   padding-bottom:10px;
   }
-#dashboard dl.portlet.closed .portletHeader {
+#dashboard .portletWrapper.closed dl.portlet .portletHeader {
   border-bottom:1px solid #cfd6db;
   }
 #dashboard .portletHeader {
