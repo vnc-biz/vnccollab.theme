@@ -3,7 +3,7 @@ function attachPortletButtons() {
   // which will expand/contract and make portlets wide
   jq('.portlet dt.portletHeader .portletTopRight').before(
     '<a href="#" class="portletToggleLink" onclick="jq(this).parents(\'.portlet\').toggleClass(\'closed\');return false;" title="Toggle Portlet">toggle</a>');
-  jq('.portlet dt.portletHeader .portletTopRight').before(
+  jq('#dashboard .portlet dt.portletHeader .portletTopRight').before(
     '<a href="#" class="portletWideNarrowLink" onclick="jq(this).parents(\'.portlet\').toggleClass(\'wide\');return false;" title="Wide/Narrow">wide/narrow</a>');
 }
 
