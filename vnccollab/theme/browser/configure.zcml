@@ -34,6 +34,8 @@
       permission="plone.app.portlets.ViewDashboard"
       />
 
+  <!-- Override dashboard and dashboard management forms,
+       we need only one column there -->
   <browser:page
       for="*"
       name="dashboard"
@@ -41,6 +43,22 @@
       layer=".interfaces.IThemeSpecific"
       template="templates/dashboard.pt"
       permission="plone.app.portlets.ViewDashboard"
+      />
+  <browser:page
+      for="plone.app.layout.navigation.interfaces.INavigationRoot"
+      class="plone.app.portlets.browser.manage.ManageDashboardPortlets"
+      name="manage-dashboard"
+      template="templates/manage-dashboard.pt"
+      layer=".interfaces.IThemeSpecific"
+      permission="plone.app.portlets.ManageOwnPortlets"
+      />
+  <browser:page
+      for="Products.CMFCore.interfaces.ISiteRoot"
+      class="plone.app.portlets.browser.manage.ManageGroupDashboardPortlets"
+      name="manage-group-dashboard"
+      template="templates/manage-group-dashboard.pt"
+      layer=".interfaces.IThemeSpecific"
+      permission="plone.app.portlets.ManagePortlets"
       />
 
   <browser:page

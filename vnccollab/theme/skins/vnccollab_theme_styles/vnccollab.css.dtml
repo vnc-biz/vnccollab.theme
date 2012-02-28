@@ -647,6 +647,28 @@ dl.portlet {
   line-height:1.5em;
   margin:0 0 20px;
   }
+/****** TODO: vipod: dashboard prototype, serg - please, fix */
+#dashboard-portlets1 {
+  width: 100%;
+}
+
+#dashboard-portlets1 .portlet {
+  width: 46%;
+  float: left;
+}
+/* portlets on manage-dashboard screens */
+#dashboard-portlets1 .portlet.managedPortlet {
+  width: 100%;
+  float: none;
+}
+#dashboard-portlets1 .portlet.wide {
+  width: 92%;
+}
+
+/********************** end vipod TODO ********/
+
+
+
 dl.portlet.closed {
   padding-bottom:0;
   }
