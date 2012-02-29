@@ -19,7 +19,7 @@
                            alt view/user_name" />
     </a>
   </div>
-  <div class="actionMenuHeader">
+  <div class="userHeader">
     <a id="user-name"
        tal:attributes="href view/homelink_url"
        tal:content="view/user_name">
