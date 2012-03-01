@@ -601,6 +601,13 @@ a.carousel-pager-button-next span {
   line-height:18px;
   margin:0 0 24px;
   }
+#portal-footer ul {
+  list-style-type:disc;
+  margin:0 0 0 20px;
+  }
+#portal-footer li {
+  display:list-item;
+  }
 
 /*----- Content -----*/
 #content {
