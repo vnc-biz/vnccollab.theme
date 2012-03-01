@@ -24,6 +24,12 @@ body {
 div.width-full {
   width:960px;
   }
+.cell div.width-full {
+  width:100%;
+  }
+.cell div.position-0 {
+  margin-left:-100%;
+  }
 div.position-0 {
   margin-left:-960px;
   }
@@ -118,6 +124,9 @@ div.width-3\3a 4 {
   background:url(&dtml-portal_url;/useractions-icons.png) no-repeat 10px 8px;
   display:block;
   padding:7px 0 7px 35px;
+  }
+.userPreferencesBody a:hover {
+  text-decoration:underline;
   }
 #personaltools-mystuff a {
   background-position:10px -93px
@@ -852,7 +861,7 @@ dl.portlet ul.navTreeLevel0 > .navTreeItem > a {
 dl.portlet ul.navTreeLevel0 > .navTreeItem:first-child > a {
   border:0;
   }
-.icons-on .portletNavigationTree .contenttype-folder {
+.icons-on .portletNavigationTree .navTreeLevel0 > .navTreeItem > .contenttype-folder {
   background-position: 11px -640px;
   }
 dl.portlet ul.navTree .navTreeCurrentItem {
@@ -860,15 +869,23 @@ dl.portlet ul.navTree .navTreeCurrentItem {
   border:0;
   margin:0;
   }
+dl.portlet ul.navTreeLevel0 > .navTreeItem > a:hover,
+dl.portlet ul.navTreeLevel0 > .navTreeItem > a.navTreeCurrentItem {
+  background-color:#12425f;
+  color:#fff !important;
+  }
+.icons-on .portletNavigationTree .navTreeLevel0 > .navTreeItem > .contenttype-folder.navTreeCurrentItem,
+.icons-on .portletNavigationTree .navTreeLevel0 > .navTreeItem > .contenttype-folder:hover {
+  background-position: 11px -1933px;
+  }
 .navTreeLevel1 {
-  background:url(&dtml-portal_url;/bottom-shadow.png) no-repeat 50% 100% #cfd6db;
+  background-color:#a3b4c1;
   padding:0 0 4px;
   }
 dl.portlet ul.navTreeLevel1 .navTreeItem {
-  padding:0 13px;
+  padding:0 13px 0 35px;
   }
 dl.portlet ul.navTreeLevel1 > .navTreeItem:first-child {
-  background:url(&dtml-portal_url;/top-shadow.png) no-repeat 50% 0;
   padding-top:4px;
   }
 /* Site Map */
@@ -963,6 +980,9 @@ dl.portlet ul.navTreeLevel1 > .navTreeItem:first-child {
   }
 .thumb-rating {
   margin:0 0 5px 10px;
+  }
+#content li.formTab a:hover {
+  color:#000 !important;
   }
 
 /*----- Front Page -----*/
