@@ -17,9 +17,9 @@
 
         <dt class="portletHeader">
             <span class="portletTopLeft"></span>
-            <h1><a href="news"
+            <a href="news"
                    i18n:translate="vnc_news"
-                   tal:attributes="href string:${context/portal_url}/${attrs/href}">VNC News</a></h1>
+                   tal:attributes="href string:${context/portal_url}/${attrs/href}">VNC News</a>
             <span class="portletTopRight"></span>
         </dt>
 
