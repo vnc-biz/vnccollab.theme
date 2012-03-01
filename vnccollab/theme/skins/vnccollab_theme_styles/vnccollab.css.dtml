@@ -559,6 +559,17 @@ a.carousel-pager-button-next span {
   padding:0 3px;
   }
 
+/* XMPP Socializing Viewlet */
+#xmpp-viewlet {
+  padding-top: 15px;
+}
+#xmpp-viewlet a#toggle-online-users {
+  border-radius: 0 0.5em 0.5em 0;
+}
+#xmpp-viewlet a#site-stream-link {
+  border-radius: 0.5em 0 0 0.5em;
+}
+
 /*------ Footer -----*/
 #portal-footer {
   background:url(&dtml-portal_url;/f.png) no-repeat 0 0;

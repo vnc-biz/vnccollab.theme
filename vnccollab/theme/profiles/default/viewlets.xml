@@ -18,6 +18,7 @@
     <viewlet name="plone.logo"/>
     <viewlet name="plone.searchbox"/>
     <viewlet name="plone.global_sections"/>
+    <viewlet name="jarn.xmpp.core.ui"/>
     <viewlet name="plone.path_bar"/>
   </order>
   <order manager="plone.belowcontent" skinname="VNC Collaboration Theme">
