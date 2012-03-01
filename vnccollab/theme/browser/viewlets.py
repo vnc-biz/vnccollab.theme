@@ -20,9 +20,13 @@ from plone.memoize.instance import memoize
 
 from Products.Carousel.config import CAROUSEL_ID
 from Products.Carousel.interfaces import ICarousel
+
 from cioppino.twothumbs.rate import getTally
+
 from vnccollab.theme import messageFactory as _
 from vnccollab.theme.config import FOOTER_LINKS_CAT
+from vnccollab.theme.browser.interfaces import IVNCCollabHtmlHead
+
 
 _pl = MessageFactory('plonelocales')
 
@@ -257,3 +261,21 @@ class PersonalBarViewlet(common.PersonalBarViewlet):
             viewlet.update()
             languages = viewlet.render()
         self.languages = languages
+
+class VNCCollabHeaderViewlet(common.ViewletBase):
+    """Viewlet that inserts vnc header manager into plone header manager"""
+    
+    def available(self):
+        """Available only if carousel is set on current folder"""
+        context = aq_inner(self.context)
+        
+        manager = BaseOrderedViewletManager()
+        alsoProvides(manager, IVNCCollabHtmlHead)
+        viewlet = queryMultiAdapter((context, self.request, self.view, manager),
+            IViewlet, name='vnccollab.theme.headercarousel')
+        if viewlet is None:
+            return False
+        
+        viewlet = viewlet.__of__(context)
+        viewlet.update()
+        return viewlet.available
