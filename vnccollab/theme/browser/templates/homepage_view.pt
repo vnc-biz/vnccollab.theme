@@ -12,6 +12,7 @@
 <metal:block define-macro="main"
              tal:define="news view/getNews">
     
+  <div class="portletWrapper">
     <dl class="portlet portletNews wide"
         i18n:domain="plone">
 
@@ -63,6 +64,7 @@
         </metal:empty>
         
     </dl>
+  </div>
 
 </metal:block>
 </metal:content-core>
