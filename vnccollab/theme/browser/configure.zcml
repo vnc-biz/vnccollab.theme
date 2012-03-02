@@ -75,6 +75,21 @@
       factory=".portlet_manager.DashboardPortletManagerRenderer"
       provides="plone.portlets.interfaces.IPortletManagerRenderer"
       />
+  <!-- Renderer for the columns in edit mode, need also register it in order to
+       override above ones -->
+  <adapter
+      factory=".portlet_manager.EditPortletManagerRenderer"
+      provides="plone.portlets.interfaces.IPortletManagerRenderer"
+      />
+  <adapter
+      factory=".portlet_manager.ContextualEditPortletManagerRenderer"
+      provides="plone.portlets.interfaces.IPortletManagerRenderer"
+      />
+  <adapter
+      factory=".portlet_manager.DashboardEditPortletManagerRenderer"
+      provides="plone.portlets.interfaces.IPortletManagerRenderer"
+      />
+
 
   <browser:page
       for="*"

@@ -11,14 +11,17 @@ from Products.CMFCore.utils import getToolByName
 from plone.app.portlets.interfaces import IColumn, IDashboard
 from plone.memoize.instance import memoize
 
-from plone.app.portlets.manager import ColumnPortletManagerRenderer as \
-    BasePortletManagerRenderer
+from plone.portlets.interfaces import IPortletManager
+from plone.app.portlets import manager
+from plone.app.portlets.browser import editmanager
+from plone.app.portlets.browser.interfaces import IManageColumnPortletsView, \
+    IManageContextualPortletsView, IManageDashboardPortletsView
 
 from vnccollab.theme.browser.interfaces import IThemeSpecific
 from vnccollab.theme.config import PORTLETS_STATES_ANNO_KEY
 
 
-class ColumnPortletManagerRenderer(BasePortletManagerRenderer):
+class ColumnPortletManagerRenderer(manager.ColumnPortletManagerRenderer):
     """A renderer for the column portlets
     """
     adapts(Interface, IThemeSpecific, IBrowserView, IColumn)
@@ -48,3 +51,17 @@ class DashboardPortletManagerRenderer(ColumnPortletManagerRenderer):
     """
     adapts(Interface, IThemeSpecific, IBrowserView, IDashboard)
     template = ViewPageTemplateFile('templates/portlets-dashboard-column.pt')
+
+class EditPortletManagerRenderer(editmanager.EditPortletManagerRenderer):
+    adapts(Interface, IThemeSpecific, IManageColumnPortletsView,
+        IPortletManager)
+
+class ContextualEditPortletManagerRenderer(
+    editmanager.ContextualEditPortletManagerRenderer):
+    adapts(Interface, IThemeSpecific, IManageContextualPortletsView,
+        IPortletManager)
+
+class DashboardEditPortletManagerRenderer(
+    editmanager.DashboardEditPortletManagerRenderer):
+    adapts(Interface, IThemeSpecific, IManageDashboardPortletsView,
+        IDashboard)
