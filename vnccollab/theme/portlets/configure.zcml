@@ -38,4 +38,15 @@
       editview=".users_box.EditForm"
       />
 
+  <plone:portlet
+      name="vnccollab.theme.portlets.OpenERPJSPortlet"
+      interface=".openerp_js.IOpenERPJSPortlet"
+      assignment=".openerp_js.Assignment"
+      view_permission="zope2.View"
+      edit_permission="cmf.ManagePortal"
+      renderer=".openerp_js.Renderer"
+      addview=".openerp_js.AddForm"
+      editview=".openerp_js.EditForm"
+      />
+  
 </configure>

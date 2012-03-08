@@ -30,6 +30,15 @@
    <for interface="plone.app.portlets.interfaces.IDashboard" />
  </portlet>
 
+ <portlet
+   addview="vnccollab.theme.portlets.OpenERPJSPortlet"
+   title="OpenERP Javascript portlet"
+   description="A generic portlet which can render any OpenERP widget."
+   i18n:attributes="title;description">
+   <for interface="plone.app.portlets.interfaces.IColumn" />
+   <for interface="plone.app.portlets.interfaces.IDashboard" />
+ </portlet>
+
  <!-- Portlet Assignments -->
  <!-- Authenticated Users Group Dashboard -->
  <!-- EtherpadLists portlet -->

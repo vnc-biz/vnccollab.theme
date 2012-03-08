@@ -1,0 +1,30 @@
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:tal="http://xml.zope.org/namespaces/tal"
+      xmlns:i18n="http://xml.zope.org/namespaces/i18n"
+      tal:omit-tag="">
+<dl class="portlet portletOpenERPJS"
+    i18n:domain="vnccollab.theme"
+    tal:define="purl context/portal_url">
+
+    <dt class="portletHeader">
+        <span class="portletTopLeft"></span>
+        <a href=""
+           target="_blank"
+           tal:attributes="href view/data/origin"
+           tal:content="view/title"
+           class="tile">
+            Tags
+        </a>
+        <span class="portletTopRight"></span>
+    </dt>
+
+    <dd class="portletBody openerp">
+      <!-- TODO: This script will be registered in portal_js -->
+      <script type="text/javascript" src="http://demo.vnc.biz:8085/web/webclient/js"></script>
+      <script type="text/javascript"
+              tal:content="view/data/script_content">
+          new openerp.init(["web"]).web.embed("http://demo.vnc.biz:8085", "openerp_v61_demo", "embedded-e9e3c597782a4b41b11bd98167f9e835", "JPKDgxdXEy",617, {"search_view":     true});
+            </script>
+    </dd>
+</dl>
+</html>
