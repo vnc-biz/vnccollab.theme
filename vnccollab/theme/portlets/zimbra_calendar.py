@@ -22,7 +22,6 @@ from plone.portlets.interfaces import IPortletDataProvider
 from plone.app.portlets.portlets import base
 
 from vnccollab.theme import messageFactory as _
-from vnccollab.theme.zimbra import IZimbra
 
 
 
@@ -136,10 +135,6 @@ class EditForm(base.EditForm):
 class Renderer(base.Renderer):
 
     render = ZopeTwoPageTemplateFile('templates/zimbra_calendar.pt')
-
-    def update(self):
-        zimbra = getUtility(IZimbra)
-        print zimbra.test()
 
     @memoize
     def getAuthCredentials(self):
