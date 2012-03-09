@@ -28,6 +28,17 @@
       />
   
   <plone:portlet
+      name="vnccollab.theme.portlets.ZimbraCalendarPortlet"
+      interface=".zimbra_calendar.IZimbraCalendarPortlet"
+      assignment=".zimbra_calendar.Assignment"
+      view_permission="zope2.View"
+      edit_permission="cmf.ManagePortal"
+      renderer=".zimbra_calendar.Renderer"
+      addview=".zimbra_calendar.AddForm"
+      editview=".zimbra_calendar.EditForm"
+      />
+  
+  <plone:portlet
       name="vnccollab.theme.portlets.UsersBoxPortlet"
       interface=".users_box.IUsersBoxPortlet"
       assignment=".users_box.Assignment"
