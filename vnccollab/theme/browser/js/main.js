@@ -78,7 +78,32 @@ function attachHeaderViewletCloseOpen() {
   });
 }
 
+function replaceERPPortlet(index) {
+  var $this = jq(this);
+
+  // TODO: Get these values from the portlet
+  var origin = "http://demo.vnc.biz:8085";
+  var dbname = "openerp_v61_demo";
+  var login = "embedded-e9e3c597782a4b41b11bd98167f9e835";
+  var key = "JPKDgxdXEy";
+  var action = 617;
+  var options = {"search_view":     true};
+
+  var erp = new openerp.init(["web"]);
+  erp.connection.bind(origin).then(function () {
+    erp.connection.session_authenticate(dbname, login, key, true).then(function () {
+      var client = new erp.web.EmbeddedClient(action, options);
+      client.replace($this);
+    });
+  });
+}
+
+function initOpenERPPortlets() {
+  jq('.openerp-content').each(replaceERPPortlet);
+}
+
 jq(function() {
   attachHeaderViewletCloseOpen();
   attachPortletButtons();
+  initOpenERPPortlets();
 });
