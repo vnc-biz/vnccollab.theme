@@ -60,4 +60,15 @@
       editview=".openerp_js.EditForm"
       />
   
+  <plone:portlet
+      name="vnccollab.theme.portlets.RedmineTicketsPortlet"
+      interface=".redmine_tickets.IRedmineTicketsPortlet"
+      assignment=".redmine_tickets.Assignment"
+      view_permission="zope2.View"
+      edit_permission="cmf.ManagePortal"
+      renderer=".redmine_tickets.Renderer"
+      addview=".redmine_tickets.AddForm"
+      editview=".redmine_tickets.EditForm"
+      />
+
 </configure>

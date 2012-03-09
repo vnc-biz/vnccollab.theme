@@ -48,11 +48,20 @@
    <for interface="plone.app.portlets.interfaces.IDashboard" />
  </portlet>
 
+ <portlet
+   addview="vnccollab.theme.portlets.RedmineTicketsPortlet"
+   title="Redmine Tickets portlet"
+   description="Renders list of opened Redmine Tickets for authenticated user."
+   i18n:attributes="title;description">
+   <for interface="plone.app.portlets.interfaces.IColumn" />
+   <for interface="plone.app.portlets.interfaces.IDashboard" />
+ </portlet>
+
  <!-- Portlet Assignments -->
  <!-- Authenticated Users Group Dashboard -->
  <!-- EtherpadLists portlet -->
   <assignment
-      manager="plone.dashboard2"
+      manager="plone.dashboard1"
       category="group"
       key="AuthenticatedUsers"
       type="vnccollab.theme.portlets.EtherpadsListPortlet"
