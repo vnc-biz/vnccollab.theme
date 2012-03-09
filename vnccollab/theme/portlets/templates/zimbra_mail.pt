@@ -25,7 +25,7 @@
        hidden - initial load, all bars and body hidden
        email - single email view
     -->
-    <dd class="portletBody emails">
+    <dd class="portletBody emails portletItem">
       <div class="navBar">
         <div class="navBarGroup navBarFolders">
           <span class="label">vitaliypodoba@gmail.com</span>
