@@ -108,7 +108,7 @@ class Renderer(base.Renderer):
 
     @property
     def available(self):
-        return self.getTickets() > 0
+        return len(self.getTickets()) > 0
 
     def getTicketsURL(self):
         """Returns tickets root url"""
@@ -130,8 +130,8 @@ class Renderer(base.Renderer):
         if self.data.request_timeout:
             attrs['_timeout'] = self.data.request_timeout
         
-        Issue = type("Issue", (ActiveResource,), attrs)
-        User = type("User", (ActiveResource,), attrs)
+        Issue = type("Issue", (ActiveResource,), attrs.copy())
+        User = type("User", (ActiveResource,), attrs.copy())
         
         # do actual calls to redmine
         try:

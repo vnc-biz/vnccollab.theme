@@ -64,3 +64,21 @@ class UserDataPanelAdapter(base.UserDataPanelAdapter):
         return self.context.setMemberProperties({'openerp_password': value})
 
     openerp_password = property(get_openerp_password, set_openerp_password)
+
+    # Redmine
+
+    def get_redmine_username(self):
+        return self._getProperty('redmine_username')
+
+    def set_redmine_username(self, value):
+        return self.context.setMemberProperties({'redmine_username': value})
+
+    redmine_username = property(get_redmine_username, set_redmine_username)
+
+    def get_redmine_password(self):
+        return self._getProperty('redmine_password')
+
+    def set_redmine_password(self, value):
+        return self.context.setMemberProperties({'redmine_password': value})
+
+    redmine_password = property(get_redmine_password, set_redmine_password)

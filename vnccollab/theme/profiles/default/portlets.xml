@@ -68,5 +68,15 @@
       name="etherpad-lists">
     <property name="header">Your Pads</property>
   </assignment>
+ <!-- Redmine Tickets portlet -->
+  <assignment
+      manager="plone.dashboard1"
+      category="group"
+      key="AuthenticatedUsers"
+      type="vnccollab.theme.portlets.RedmineTicketsPortlet"
+      name="redmine-tickets">
+    <property name="username"></property>
+    <property name="password"></property>
+  </assignment>
  
 </portlets>
