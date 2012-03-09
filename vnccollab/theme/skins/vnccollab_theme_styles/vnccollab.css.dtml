@@ -837,6 +837,12 @@ dl.portlet dd.portletFooter a {
   background-position:-56px -18px;
   }
 
+/* Portlet Zimbra Calendar */
+.portletZimbraCalendar iframe {
+  width: 100%;
+  height: 300px;
+}
+
 /*----- Portlet Navigation -----*/
 dl.portletNavigationTree dd.portletItem {
   border-bottom:1px solid #cfd6db;

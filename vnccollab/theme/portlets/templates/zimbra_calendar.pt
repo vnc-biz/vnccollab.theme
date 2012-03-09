@@ -2,7 +2,7 @@
       xmlns:tal="http://xml.zope.org/namespaces/tal"
       xmlns:i18n="http://xml.zope.org/namespaces/i18n"
       tal:omit-tag="">
-<dl class="portlet portletZimbraMail"
+<dl class="portlet portletZimbraCalendar"
     i18n:domain="vnccollab.theme"
     tal:define="purl context/portal_url">
 
@@ -19,7 +19,6 @@
     </dt>
 
     <dd class="portletBody calendar">
-      <div class="navBar">
         <iframe
             tal:attributes="src    view/src;"
             src=""
@@ -27,7 +26,6 @@
             frameborder="0"
             scrolling="auto">
         </iframe>
-      </div>
     </dd>
 </dl>
 </html>
