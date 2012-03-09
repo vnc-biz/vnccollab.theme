@@ -4,4 +4,6 @@
               enabled="True" />
   <javascript id="++resource++vnccollab.theme.js/zimbra_mail_portlet.js"
               enabled="True" />
+  <javascript id="++resource++vnccollab.theme.js/openerp_generic_portlet.js"
+              enabled="True" />
 </object>
