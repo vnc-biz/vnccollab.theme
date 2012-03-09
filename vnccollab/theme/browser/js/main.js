@@ -3,10 +3,10 @@
 function attachPortletButtons() {
   // add up/down and left/right links to portlet headers,
   // which will expand/contract and make portlets wide
-  jq('.portlet dt.portletHeader .portletTopRight').before(
+  jq('.portletWrapper dt.portletHeader .portletTopRight').before(
     '<a href="#" class="portletToggleLink" title="Toggle ' +
     'Portlet">toggle</a>');
-  jq('.portlet dt.portletHeader a.portletToggleLink').click(function(event){
+  jq('.portletWrapper dt.portletHeader a.portletToggleLink').click(function(event){
     // toggle html class
     var a = jq(event.target);
     var portlet = a.parents('.portletWrapper');
@@ -22,10 +22,10 @@ function attachPortletButtons() {
     }
     return false;
   });
-  jq('#dashboard .portlet dt.portletHeader .portletTopRight').before(
+  jq('#dashboard .portletWrapper dt.portletHeader .portletTopRight').before(
     '<a href="#" class="portletWideNarrowLink" title="Wide/Narrow">wide/narrow'
     + '</a>');
-  jq('#dashboard .portlet dt.portletHeader a.portletWideNarrowLink').click(function(event){
+  jq('#dashboard .portletWrapper dt.portletHeader a.portletWideNarrowLink').click(function(event){
     // toggle html class
     var a = jq(event.target);
     var portlet = a.parents('.portletWrapper');
