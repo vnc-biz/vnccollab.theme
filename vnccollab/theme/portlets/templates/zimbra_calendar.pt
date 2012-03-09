@@ -18,7 +18,7 @@
         <span class="portletTopRight"></span>
     </dt>
 
-    <dd class="portletBody calendar">
+    <dd class="portletBody calendar portletItem">
         <iframe
             tal:attributes="src    view/src;"
             src=""
