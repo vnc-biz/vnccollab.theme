@@ -1080,10 +1080,33 @@ dl.portlet ul.navTreeLevel1 > .navTreeItem:first-child {
   text-align: center;
 }
 
-/* TinyMCE Editor fixes */
+/* TinyMCE Editor fixes and styles */
 /* toolbars doesn't float in WebKit-based browsers */
 .mceEditor table td.mceToolbar {
   white-space: normal;
+}
+
+/* Content Headings */
+#content-core h2 {
+  font-size: 18px;
+  font-weight: bold;
+}
+#content-core h3 {
+  font-size: 16px;
+  font-weight: bold;
+}
+#content-core h4 {
+  font-size: 14px;
+  font-weight: bold;
+}
+#content-core h5 {
+  font-size: 12px;
+  font-weight: bold;
+}
+#content-core h6 {
+  font-size: 12px;
+  font-weight: bold;
+  font-style: italic;
 }
 
 /* Deployment View styles */
