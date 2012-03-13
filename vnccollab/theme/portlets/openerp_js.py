@@ -1,3 +1,5 @@
+import xmlrpclib
+
 from zope.formlib import form
 from zope.interface import implements, Interface
 from zope.component import getUtility
@@ -21,7 +23,7 @@ class IOpenERPJSPortlet(IPortletDataProvider):
         required=True,
         default=u'OpenERP JavaScript Portlet')
 
-    origin = schema.URI(
+    url = schema.URI(
         title=_(u"OpenERP URL"),
         description=_(u"Root url to your OpenERP service."),
         required=True,
@@ -33,54 +35,75 @@ class IOpenERPJSPortlet(IPortletDataProvider):
         required=True,
         default=u'openerp_v61_demo')
 
-    action = schema.Int(
-        title=_(u"Action"),
-        description=_(u"Code of the OpenERP action to execute."),
+    action_id = schema.Int(
+        title=_(u"action_id"),
+        description=_(u"Code of the OpenERP action_id to execute."),
         required=True,
         default=617)
 
-    options = schema.TextLine(
-        # We can't use schema.Dict since the values could be from multiple
-        # types.
-        title=_(u"Action Options"),
-        description=_(u"String representing a dictionary with the options for the action."),
-        required=True,
-        default=u'{"search_view": true}')
-
+    embedded_url = schema.URI(
+        title=_(u"Embedded URL"),
+        description=_(u"You can put here the embedded URL of the OpenERP widget, if you have it."),
+        required=False)
 
 
 class Assignment(base.Assignment):
     implements(IOpenERPJSPortlet)
 
     header = u'OpenERP Customers'
-    origin = u'http://demo.vnc.biz:8085'
+    url = u'http://demo.vnc.biz:8085'
     dbname  = u'openerp_v61_demo'
-    action = 617
-    options = u'{"search_view": true}'
-
-    SCRIPT = '''
-    new openerp.init(["web"]).web.embed("%s", "%s", "%s", "%s", %s, %s);
-    '''
+    action_id = 617
+    embedded_url = None
 
     @property
     def title(self):
         """Return portlet header"""
         return self.header
 
-    def __init__(self, header=header, origin=origin, dbname=dbname,
-                 action=action, options=options):
+    def __init__(self, header=header, url=url, dbname=dbname,
+                 action_id=action_id, embedded_url=embedded_url):
         self.header = header
-        self.origin = origin
+        self.url = url
         self.dbname = dbname
-        self.action = action
-        self.options = options
-        # TODO: Calculate these fields
-        self.login = 'embedded-e9e3c597782a4b41b11bd98167f9e835'
-        self.key = 'JPKDgxdXEy'
+        self.action_id = action_id
+        self.embedded_url = ''
+        self._initEmbeddedURL()
 
-    def script_content(self):
-        return self.SCRIPT % (self.origin, self.dbname, self.login, self.key,
-                              self.action, self.options)
+    def _getAuthCredentials(self):
+        """Returns username and password for zimbra user."""
+        # TODO: this is a copy of zimbra_mail.Renderer.getAuthCredentials,
+        # it should be factored out in the future.
+        username, password = self.data.username, self.data.password
+        if not (username and password):
+            # take username and password from authenticated user Zimbra creds
+            mtool = getToolByName(self.context, 'portal_membership')
+            member = mtool.getAuthenticatedMember()
+            username, password = member.getProperty('zimbra_username', ''), \
+                member.getProperty('zimbra_password', '')
+        # password could contain non-ascii chars, ensure it's properly encoded
+        return username, safe_unicode(password).encode('utf-8')
+
+    def _auth(self):
+        '''Get OpenERP embed 'uid' from user id and password'''
+        server = xmlrpclib.ServerProxy(self.url + '/xmlrpc/common')
+        login, pwd = self._getAuthCredentials()
+        uid = server.login(self.dbname, login, pwd)
+        return uid, pwd
+
+    def _initEmbeddedURL(self):
+        if self.embedded_url:
+            return
+
+        model = 'share.wizard'
+        uid, pwd = self._auth()
+        args = [self.action_id]
+
+        server = xmlrpclib.ServerProxy(self.url + '/xmlrpc/object')
+        server.execute(self.dbname, uid, pwd, model, 'go_step_1', args)
+        server.execute(self.dbname, uid, pwd, model, 'go_step_2', args)
+        r = server.execute(self.dbname, uid, pwd, model, 'export_data', ['embed_url'])
+        self.embedded_url = r['datas'][0][0]
 
 
 class Renderer(base.Renderer):

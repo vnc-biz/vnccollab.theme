@@ -19,6 +19,7 @@
     </dt>
 
     <dd class="portletBody openerp">
+      <p tal:content="view/data/embedded_url">hola</p>
       <!-- TODO: This script will be registered in portal_js -->
       <!-- script type="text/javascript" src="http://demo.vnc.biz:8085/web/webclient/js"></script >
       <script type="text/javascript"
