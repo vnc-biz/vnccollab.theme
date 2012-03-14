@@ -19,6 +19,13 @@
   <include package="plone.app.portlets" />
 
   <browser:page
+      for="*"
+      name="context-redmine-ticket"
+      class=".file_issue.FileTicketFormView"
+      permission="cmf.ModifyPortalContent"
+      />
+
+  <browser:page
       for="Products.CMFPlone.interfaces.siteroot.IPloneSiteRoot"
       name="homepage_view"
       class=".homepage.HomePageView"

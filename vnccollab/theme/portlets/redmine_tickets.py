@@ -9,7 +9,7 @@ from pyactiveresource.activeresource import ActiveResource
 
 from DateTime import DateTime
 
-from zope.component import getMultiAdapter
+from zope.component import getMultiAdapter, getUtility
 from zope.formlib import form
 from zope.interface import implements, Interface
 from zope import schema
@@ -18,6 +18,7 @@ from Products.Five.browser.pagetemplatefile import ZopeTwoPageTemplateFile
 from Products.CMFCore.utils import getToolByName
 from Products.CMFPlone.utils import safe_unicode
 
+from plone.registry.interfaces import IRegistry
 from plone.memoize.instance import memoize
 from plone.portlets.interfaces import IPortletDataProvider
 from plone.app.portlets.portlets import base
@@ -36,38 +37,11 @@ class IRedmineTicketsPortlet(IPortletDataProvider):
         required=True,
         default=u'Redmine Tickets')
 
-    url = schema.URI(
-        title=_(u"Redmine URL"),
-        description=_(u"Root url to your Redmine service."),
-        required=True,
-        default='https://redmine.vnc.biz/redmine')
-
-    # plone_related = schema.Bool(
-    #     title=_(u"List Plone Related tickets"),
-    #     description=_(u"If checked, only tickets related to Plone Content "
-    #         "objects  will be listed in a portlet. NOT IMPLEMENTED YET."),
-    #     required=False,
-    #     default=False)
-
     count = schema.Int(
        title=_(u"Number of items to display"),
        description=_(u"How many items to list."),
        required=True,
        default=5)
-    
-    username = schema.ASCIILine(
-        title=_(u"Username"),
-        description=_(u"If not set, redmine_username property of authenticated "
-                      "user will be used."),
-        required=False,
-        default='')
-
-    password = schema.Password(
-        title=_(u"Password"),
-        description=_(u"If not set, redmine_password property of authenticated "
-                      "user will be used."),
-        required=False,
-        default=u'')
 
     request_timeout = schema.Int(
         title=_(u"Request timeout"),
@@ -79,11 +53,7 @@ class Assignment(base.Assignment):
     implements(IRedmineTicketsPortlet)
 
     header = u''
-    url = ''
-    plone_related = False
     count = 5
-    username = ''
-    password = u''
     request_timeout = 15
 
     @property
@@ -91,15 +61,9 @@ class Assignment(base.Assignment):
         """Return portlet header"""
         return self.header
 
-    def __init__(self, header=u'', url='https://redmine.vnc.biz/redmine',
-                 plone_related=False, count=5, username='', password=u'',
-                 request_timeout=15):
+    def __init__(self, header=u'', count=5, request_timeout=15):
         self.header = header
-        self.url = url
-        self.plone_related = plone_related
         self.count = count
-        self.username = username
-        self.password = password
         self.request_timeout = request_timeout
 
 class Renderer(base.Renderer):
@@ -112,7 +76,7 @@ class Renderer(base.Renderer):
 
     def getTicketsURL(self):
         """Returns tickets root url"""
-        return '%s/issues' % self.data.url
+        return '%s/issues' % self._url()
         
     def getTickets(self):
         """Returns list of opened issues for authenticated user"""
@@ -120,7 +84,7 @@ class Renderer(base.Renderer):
         if not username or not password:
             return ()
         
-        return self._tickets(self.data.url, username, password)
+        return self._tickets(self._url(), username, password)
 
     @memoize
     def _tickets(self, url, username, password):
@@ -187,7 +151,7 @@ class Renderer(base.Renderer):
 
     @memoize
     def getAuthCredentials(self):
-        """Returns username and password for zimbra user."""
+        """Returns username and password for redmine user."""
         username, password = self.data.username, self.data.password
         if not (username and password): 
             # take username and password from authenticated user Zimbra creds
@@ -197,6 +161,12 @@ class Renderer(base.Renderer):
                 member.getProperty('redmine_password', '')
         # password could contain non-ascii chars, ensure it's properly encoded
         return username, safe_unicode(password).encode('utf-8')
+
+    @memoize
+    def _url(self):
+        """Redmine root url"""
+        registry = getUtility(IRegistry)
+        return registry.get('vnccollab.theme.redmine.url')
 
     @property
     def title(self):
