@@ -1395,5 +1395,8 @@ form input.dislike-button {
   background-color:#fff;
   padding:10px;
   }
+.width-3\3a 4.position-0 .collapsibleContent {
+  width:615px;
+  }
 
 /* </dtml-with> */ 
