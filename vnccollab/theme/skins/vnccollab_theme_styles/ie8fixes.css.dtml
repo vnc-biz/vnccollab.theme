@@ -22,5 +22,42 @@
 .headerTimeViewlet .day {
   background:url(&dtml-portal_url;/ie-sprite.png) no-repeat 0 -70px;
   }
+#xmpp-viewlet a#site-stream-link:hover {
+  background-color:#2f5065;
+  }
+div#xmpp-viewlet-container > a {
+  background-color:#b8c2cb;
+  }
+div#xmpp-viewlet-container > a:hover,
+#xmpp-viewlet-container a#toggle-online-users.active {
+  background-color:#cfd5dd;
+  }
+div.postItemWrapper {
+  background-color:#98a8b5;
+  }
+a:link,
+#content a:link,
+dl.portlet a:link,
+a:visited,
+#content a:visited {
+  color:#5f7e93;
+  }
+.portletItemDetails {
+  color:#728da0;
+  }
+#content ul.formTabs {
+  background:#f0f2f5;
+  }
+#content li.formTab a.selected,
+#content li.formTab a:hover {
+  background:#d8dde3;
+  }
+#contentActionMenus dl.actionMenu dt a,
+#contentActionMenus dl.actionMenu.activated dd {
+  background-color:#899ca9;
+  }
+#document-action-socialbookmark {
+  background:#b3bfcb;
+  }
 
 /* </dtml-with> */ 
