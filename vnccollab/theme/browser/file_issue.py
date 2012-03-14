@@ -27,8 +27,6 @@ logger = logging.getLogger('vnccollab.theme.redmine_file_ticket')
 
 # TODO: request redmine for vocabularies
 # TODO: display error message above form
-# TODO: add viewlet to list opened tickets for current object
-# TODO: add custom field id setting to plone.registry
 
 class IFileTicketForm(Interface):
     
@@ -110,17 +108,18 @@ class FileTicketForm(form.Form):
             self.status = self.formErrorsMessage
             return
 
-        # check user redmine credentials and redmine url
+        # check user redmine credentials and redmine url/field id
         registry = getUtility(IRegistry)
         url = registry.get('vnccollab.theme.redmine.url')
+        field_id = registry.get('vnccollab.theme.redmine.plone_uid_field_id')
         username, password = self.getAuthCredentials()
-        if not username or not password or not url:
+        if not username or not password or not url or not field_id:
             if not username or not password:
                 msg = _(u"Please, set correct redmine username and password in "
                 "your profile form in order to create redmine issue.")
             else:
-                msg = _(u"Please, set Redmine URL setting in Control Panel "
-                    "(Configuration Registry).")
+                msg = _(u"Please, set Redmine URL and ID settings in Control "
+                    " Panel (Configuration Registry).")
             
             # issue form level error
             self.status = msg
@@ -151,7 +150,8 @@ class FileTicketForm(form.Form):
                 'start_date': start_date,
                 'due_date': due_date,
                 'estimated_hours': data.get('estimated_time') or '',
-                'custom_fields': [{'value': self.context.UID(), 'id': '1'}]
+                'custom_fields': [{'value': self.context.UID(),
+                    'id': '%d' % field_id}]
             })
             created = issue.save()
         except Exception, e:
