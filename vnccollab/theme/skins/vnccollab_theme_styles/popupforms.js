@@ -5,6 +5,10 @@
     Standard popups
 ******/
 
+// vipod: make some useful functions global
+var noformerrorshow = null;
+var redirectbasehref = null;
+
 var common_content_filter = '#content>*:not(div.configlet),dl.portalMessage.error,dl.portalMessage.info';
 var common_jqt_config = {fixed:false,speed:'fast',mask:{color:'#fff',opacity: 0.4,loadSpeed:0,closeSpeed:0}};
 
@@ -22,7 +26,7 @@ jQuery(function($){
     
     // method to show error message in a noform
     // situation.
-    function noformerrorshow(el, noform) {
+    noformerrorshow = function (el, noform) {
         var o = $(el),
             emsg = o.find('dl.portalMessage.error');
         if (emsg.length) {
@@ -34,7 +38,7 @@ jQuery(function($){
     }
 
     // After deletes we need to redirect to the target page.
-    function redirectbasehref(el, responseText) {
+    redirectbasehref = function (el, responseText) {
         // vipod: for File and Image content types return location
         if ($('.portaltype-file, portaltype-image').length != 0) {
           return location;
