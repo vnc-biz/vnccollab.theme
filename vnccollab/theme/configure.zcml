@@ -20,4 +20,22 @@
       provides="plone.app.users.userdataschema.IUserDataSchemaProvider"
       factory=".userdataschema.UserDataSchemaProvider"/>
 
+  <!-- Vocabularies -->
+  <utility
+      component=".vocabularies.ProjectsRedmineVocabulary"
+      name="vnccollab.theme.vocabularies.ProjectsRedmineVocabulary"
+      />
+  <utility
+      component=".vocabularies.TrackersRedmineVocabulary"
+      name="vnccollab.theme.vocabularies.TrackersRedmineVocabulary"
+      />
+  <utility
+      component=".vocabularies.PrioritiesRedmineVocabulary"
+      name="vnccollab.theme.vocabularies.PrioritiesRedmineVocabulary"
+      />
+  <utility
+      component=".vocabularies.UsersRedmineVocabulary"
+      name="vnccollab.theme.vocabularies.UsersRedmineVocabulary"
+      />
+
 </configure>

@@ -18,6 +18,7 @@ from z3c.form.interfaces import IErrorViewSnippet
 from plone.z3cform.layout import wrap_form
 from plone.registry.interfaces import IRegistry
 from plone.memoize.instance import memoize
+from plone.memoize import ram
 
 from vnccollab.theme import messageFactory as _
 from vnccollab.theme.portlets.zimbra_mail import logException
@@ -25,21 +26,22 @@ from vnccollab.theme.portlets.zimbra_mail import logException
 
 logger = logging.getLogger('vnccollab.theme.redmine_file_ticket')
 
-# TODO: request redmine for vocabularies
+
 # TODO: display error message above form
+
 
 class IFileTicketForm(Interface):
     
     project = schema.Choice(
         title=_(u"Project"),
         description=_(u"Pick project to post issue to."),
-        values=('9',),
+        vocabulary='vnccollab.theme.vocabularies.ProjectsRedmineVocabulary',
         required=True)
     
     tracker = schema.Choice(
         title=_(u"Tracker"),
         description=u'',
-        values=('1', '2', '3', '4'),
+        vocabulary='vnccollab.theme.vocabularies.TrackersRedmineVocabulary',
         required=True)
     
     subject = schema.TextLine(
@@ -56,13 +58,13 @@ class IFileTicketForm(Interface):
     priority = schema.Choice(
         title=_(u"Priority"),
         description=u'',
-        values=('3', '4', '5', '6', '7'),
+        vocabulary='vnccollab.theme.vocabularies.PrioritiesRedmineVocabulary',
         required=True)
     
     asignee = schema.Choice(
         title=_(u"Asignee"),
         description=u'',
-        values=('3',),
+        vocabulary='vnccollab.theme.vocabularies.UsersRedmineVocabulary',
         required=False)
     
     start_date = schema.Date(
