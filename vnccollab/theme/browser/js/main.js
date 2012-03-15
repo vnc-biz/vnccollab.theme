@@ -81,18 +81,17 @@ function attachHeaderViewletCloseOpen() {
 function replaceERPPortlet(index) {
   var $this = jq(this);
 
-  // TODO: Get these values from the portlet
-  var origin = "http://demo.vnc.biz:8085";
-  var dbname = "openerp_v61_demo";
-  var login = "embedded-e9e3c597782a4b41b11bd98167f9e835";
-  var key = "JPKDgxdXEy";
-  var action = 617;
-  var options = {"search_view":     true};
+  var url = $this.attr('url');
+  var dbname = $this.attr('dbname');
+  var login = $this.attr('login');
+  var key = $this.attr('key');
+  var action_id = parseInt($this.attr('action_id'));
+  var options = {"search_view": true, "display_title" : false};
 
   var erp = new openerp.init(["web"]);
-  erp.connection.bind(origin).then(function () {
+  erp.connection.bind(url).then(function () {
     erp.connection.session_authenticate(dbname, login, key, true).then(function () {
-      var client = new erp.web.EmbeddedClient(action, options);
+      var client = new erp.web.EmbeddedClient(action_id, options);
       client.replace($this);
     });
   });

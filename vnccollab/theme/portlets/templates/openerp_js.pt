@@ -10,7 +10,7 @@
         <span class="portletTopLeft"></span>
         <a href=""
            target="_blank"
-           tal:attributes="href view/data/origin"
+           tal:attributes="href view/data/url"
            tal:content="view/title"
            class="tile">
             Tags
@@ -19,14 +19,14 @@
     </dt>
 
     <dd class="portletBody openerp">
-      <p tal:content="view/data/embedded_url">hola</p>
-      <!-- TODO: This script will be registered in portal_js -->
-      <!-- script type="text/javascript" src="http://demo.vnc.biz:8085/web/webclient/js"></script >
-      <script type="text/javascript"
-              tal:content="view/data/script_content">
-          new openerp.init(["web"]).web.embed("http://demo.vnc.biz:8085", "openerp_v61_demo", "embedded-e9e3c597782a4b41b11bd98167f9e835", "JPKDgxdXEy",617, {"search_view":     true});
-      </script-->
-      <div class="openerp-content">Please wait a moment...</div>
+      <div class="openerp-content"
+           tal:attributes="embedded_url  view/embedded_url;
+                           url           view/url;
+                           login         view/login;
+                           dbname        view/dbname;
+                           key           view/key;
+                           action_id     view/action_id;">
+           Please wait a moment...</div>
     </dd>
 </dl>
 </html>

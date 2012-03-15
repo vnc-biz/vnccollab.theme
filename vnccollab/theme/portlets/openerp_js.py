@@ -1,9 +1,15 @@
 import xmlrpclib
+from urlparse import urlparse, parse_qs
 
 from zope.formlib import form
 from zope.interface import implements, Interface
 from zope.component import getUtility
 from zope import schema
+from zope.annotation.interfaces import IAnnotations, IAttributeAnnotatable
+
+from zope.schema.interfaces import IVocabularyFactory
+from zope.schema.vocabulary import SimpleTerm
+from zope.schema.vocabulary import SimpleVocabulary
 
 from Products.Five.browser.pagetemplatefile import ZopeTwoPageTemplateFile
 from Products.CMFCore.utils import getToolByName
@@ -35,26 +41,20 @@ class IOpenERPJSPortlet(IPortletDataProvider):
         required=True,
         default=u'openerp_v61_demo')
 
-    action_id = schema.Int(
-        title=_(u"action_id"),
-        description=_(u"Code of the OpenERP action_id to execute."),
-        required=True,
-        default=617)
-
-    embedded_url = schema.URI(
-        title=_(u"Embedded URL"),
-        description=_(u"You can put here the embedded URL of the OpenERP widget, if you have it."),
-        required=False)
+    action_id = schema.Choice(
+        title=_(u"Widget"),
+        description=_(u"OpenERP widget to use."),
+        source = 'vnccollab.theme.openerp_js.openerp_vocabulary',
+        required=True,)
 
 
 class Assignment(base.Assignment):
-    implements(IOpenERPJSPortlet)
+    implements(IOpenERPJSPortlet, IAttributeAnnotatable)
 
     header = u'OpenERP Customers'
     url = u'http://demo.vnc.biz:8085'
     dbname  = u'openerp_v61_demo'
-    action_id = 617
-    embedded_url = None
+    action_id = 22
 
     @property
     def title(self):
@@ -62,58 +62,75 @@ class Assignment(base.Assignment):
         return self.header
 
     def __init__(self, header=header, url=url, dbname=dbname,
-                 action_id=action_id, embedded_url=embedded_url):
+                 action_id=action_id):
         self.header = header
         self.url = url
         self.dbname = dbname
         self.action_id = action_id
-        self.embedded_url = ''
-        self._initEmbeddedURL()
-
-    def _getAuthCredentials(self):
-        """Returns username and password for zimbra user."""
-        # TODO: this is a copy of zimbra_mail.Renderer.getAuthCredentials,
-        # it should be factored out in the future.
-        username, password = self.data.username, self.data.password
-        if not (username and password):
-            # take username and password from authenticated user Zimbra creds
-            mtool = getToolByName(self.context, 'portal_membership')
-            member = mtool.getAuthenticatedMember()
-            username, password = member.getProperty('zimbra_username', ''), \
-                member.getProperty('zimbra_password', '')
-        # password could contain non-ascii chars, ensure it's properly encoded
-        return username, safe_unicode(password).encode('utf-8')
-
-    def _auth(self):
-        '''Get OpenERP embed 'uid' from user id and password'''
-        server = xmlrpclib.ServerProxy(self.url + '/xmlrpc/common')
-        login, pwd = self._getAuthCredentials()
-        uid = server.login(self.dbname, login, pwd)
-        return uid, pwd
-
-    def _initEmbeddedURL(self):
-        if self.embedded_url:
-            return
-
-        model = 'share.wizard'
-        uid, pwd = self._auth()
-        args = [self.action_id]
-
-        server = xmlrpclib.ServerProxy(self.url + '/xmlrpc/object')
-        server.execute(self.dbname, uid, pwd, model, 'go_step_1', args)
-        server.execute(self.dbname, uid, pwd, model, 'go_step_2', args)
-        r = server.execute(self.dbname, uid, pwd, model, 'export_data', ['embed_url'])
-        self.embedded_url = r['datas'][0][0]
 
 
 class Renderer(base.Renderer):
 
     render = ZopeTwoPageTemplateFile('templates/openerp_js.pt')
 
+    def update(self):
+        login, pwd = self._getAuthCredentials()
+        annotation = IAnnotations(self.data)
+        key = 'vnccollab.theme.openerp_js.embedded_url.{0}.{1}'.format(
+                self.data.action_id, login)
+        self.embedded_url = annotation.get(key, None)
+
+        if not self.embedded_url:
+            annotation[key] = self._embedded_url(login, pwd)
+            self.embedded_url = annotation.get(key)
+
+        parsed = urlparse(self.embedded_url)
+        dct = parse_qs(parsed.query)
+
+        self.url = '{0}://{1}'.format(parsed.scheme, parsed.netloc)
+        self.login = dct['login'][0]
+        self.dbname = dct['db'][0]
+        self.key= dct['key'][0]
+        self.action_id = self.data.action_id
+
+
     @property
     def title(self):
         """return title of feed for portlet"""
         return self.data.header
+
+    @memoize
+    def _getAuthCredentials(self):
+        """Returns username and password for zimbra user."""
+        mtool = getToolByName(self.context, 'portal_membership')
+        member = mtool.getAuthenticatedMember()
+        username, password = member.getProperty('openerp_username', ''), \
+            member.getProperty('openerp_password', '')
+        # password could contain non-ascii chars, ensure it's properly encoded
+        return username, safe_unicode(password).encode('utf-8')
+
+    def _embedded_url(self, login, pwd):
+        """Generate the ebedded url for the OpenERP widget associated with the
+        current user"""
+        url = self.data.url
+        dbname = self.data.dbname
+        model = 'share.wizard'
+        action_id = self.data.action_id
+        create_args = { 'name' : '{0}-{1}'.format(login, action_id),
+                        'action_id' : action_id}
+
+        server = xmlrpclib.ServerProxy(url + '/xmlrpc/common', allow_none=True)
+        uid = server.login(dbname, login, pwd)
+        server = xmlrpclib.ServerProxy(url + '/xmlrpc/object', allow_none=True)
+
+        id = server.execute(dbname, uid, pwd, model, 'create', create_args)
+        args = [id]
+        server.execute(dbname, uid, pwd, model, 'go_step_1', args)
+        server.execute(dbname, uid, pwd, model, 'go_step_2', args, {})
+        r = server.execute(dbname, uid, pwd, model, 'export_data', args,
+                           ['embed_url'])
+        embedded_url = r['datas'][0][0]
+        return embedded_url
 
 
 class AddForm(base.AddForm):
@@ -131,3 +148,27 @@ class EditForm(base.EditForm):
     description = _(u"This portlet allows managing the OpenERP JavaScript Portlet.")
 
 
+
+'''
+How to get the action_id of a widget?
+
+Just visit http://demo.vnc.biz:8085. Go to the page you want to embed, click the green icon in the upper left side of screen, the one with "Link or Embed..." as tooltip and follow the wizard. It will generate a url with an action_id parameter.
+'''
+OPENERP_VOCAB = [
+        #(59,  _(u'Sales - Leads')),
+        (150, _(u'Sales - Opportunities')),
+        #(562, _(u'Sales - Contracts')),
+        (60,  _(u'Sales - Customers')),
+        (57,  _(u'Sales - Contacts')),
+        (180, _(u'Sales - Products by Category')),
+        (178, _(u'Sales - Products')),
+]
+
+class OpenERPJSPortletVocabulary():
+    implements(IVocabularyFactory)
+
+    def __call__(self, context):
+        items = [SimpleTerm(value, title, title) for (value, title) in OPENERP_VOCAB]
+        return SimpleVocabulary(items)
+
+openerp_vocabulary = OpenERPJSPortletVocabulary()
