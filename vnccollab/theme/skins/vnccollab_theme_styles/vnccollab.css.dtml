@@ -1410,4 +1410,16 @@ form input.dislike-button {
   width:615px;
   }
 
+/* Ajax Overlay */
+/* Fix for File a Ticket Overlay form */
+.pb-ajax > div {
+  padding: 3.5em 1em 1em 1em;
+  position: relative;
+}
+.pb-ajax .portalMessage {
+  position: absolute;
+  top: 0;
+  width: 92%;
+}
+
 /* </dtml-with> */ 
