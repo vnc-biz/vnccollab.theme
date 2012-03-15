@@ -1,5 +1,3 @@
-// TODO: add state html classes to portlet wrapper
-
 function attachPortletButtons() {
   // add up/down and left/right links to portlet headers,
   // which will expand/contract and make portlets wide
@@ -101,8 +99,18 @@ function initOpenERPPortlets() {
   jq('.openerp-content').each(replaceERPPortlet);
 }
 
+function attachRedmineTicketAction() {
+  jq('#document-action-redmine_ticket a').prepOverlay({
+    'subtype': 'ajax',
+    'filter': common_content_filter,
+    'formselector': 'form#file_ticket_form',
+    'noform': function(el) {return noformerrorshow(el, 'reload');}
+  });
+}
+
 jq(function() {
   attachHeaderViewletCloseOpen();
   attachPortletButtons();
   initOpenERPPortlets();
+  attachRedmineTicketAction();
 });

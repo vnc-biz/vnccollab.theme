@@ -135,5 +135,21 @@
       <property name="visible">True</property>
      </object>
    </object>
+  </object>
+  <object name="document_actions" meta_type="CMF Action Category">
+    <object name="redmine_ticket" meta_type="CMF Action"
+            i18n:domain="vnccollab.theme">
+    <property name="title"
+       i18n:translate="">File a Ticket</property>
+    <property name="description" i18n:translate="">Create redmine task related to this object.</property>
+    <property
+       name="url_expr">string:${object_url}/@@context-redmine-ticket</property>
+    <property name="icon_expr"></property>
+    <property name="available_expr"></property>
+    <property name="permissions">
+     <element value="Modify portal content"/>
+    </property>
+    <property name="visible">True</property>
+   </object>
  </object>
 </object>

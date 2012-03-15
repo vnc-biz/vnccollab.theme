@@ -28,6 +28,12 @@
     <viewlet name="vnccollab.theme.toprated"/>
     <viewlet name="plone.manage_portlets_fallback"/>
   </order>
+  <order manager="plone.belowcontentbody" skinname="VNC Collaboration Theme">
+    <viewlet name="plone.belowcontentbody.relateditems"/>
+    <viewlet name="vnccollab.theme.related_redmine_tickets"/>
+    <viewlet name="plone.abovecontenttitle.documentactions"/>
+    <viewlet name="sc.social.bookmarks"/>
+  </order>
   <hidden manager="plone.portalheader" skinname="VNC Collaboration Theme">
     <viewlet name="plone.app.i18n.locales.languageselector"/>
   </hidden>

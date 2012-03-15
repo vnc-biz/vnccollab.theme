@@ -57,3 +57,16 @@ a.carousel-pager-button-prev span,
 a.carousel-pager-button-next span {
   cursor:pointer;  
   }
+#breadcrumbs-you-are-here {
+  z-index:expression(runtimeStyle.zIndex = 1, insertAdjacentHTML('beforeEnd', '<span class="yah-icon"></span>'));
+  }
+.yah-icon {
+  background:url(bc.gif) no-repeat 100% 0;
+  content:"";
+  display:block;
+  height:20px;
+  position:absolute;
+  right:-10px;
+  top:0;
+  width:10px; 
+  }
