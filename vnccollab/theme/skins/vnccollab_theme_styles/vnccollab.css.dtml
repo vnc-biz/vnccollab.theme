@@ -599,6 +599,10 @@ a.carousel-pager-button-next span {
 #xmpp-viewlet a#site-stream-link:hover {
   background-color:rgba(1, 42, 67, 0.8);
   }
+#xmpp-viewlet-container > a#site-stream-link.newStreamMessage {
+  background-color: darkOrange;
+  color: white;
+}
 div#xmpp-viewlet-container > a {
   background-color:rgba(1, 42, 67, 0.2);
   display:inline-block;
@@ -620,6 +624,13 @@ ul#online-users {
   color:#fff;
   box-shadow:0 1px 4px #000;
   }
+ul#online-users li > a {
+  color: #fff;
+}
+ul#online-users li > a:hover {
+  color: #eee;
+}
+
 div.postItemWrapper {
   background-color:rgba(1, 42, 67, 0.3);
   border-bottom:1px solid #fff;
