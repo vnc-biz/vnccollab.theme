@@ -157,7 +157,8 @@ class Renderer(base.Renderer):
     @property
     def src(self):
         '''Returs the url of the zimbra calendar'''
+        username, password = self.getAuthCredentials()
         return '%s/service/home/%s@%s/%s.html' % (
-               self.data.url, self.data.username, self.data.mail_domain,
+               self.data.url, username, self.data.mail_domain,
                self.data.calendar_name)
 
