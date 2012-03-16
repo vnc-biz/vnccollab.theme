@@ -152,13 +152,11 @@ class Renderer(base.Renderer):
     @memoize
     def getAuthCredentials(self):
         """Returns username and password for redmine user."""
-        username, password = self.data.username, self.data.password
-        if not (username and password): 
-            # take username and password from authenticated user Zimbra creds
-            mtool = getToolByName(self.context, 'portal_membership')
-            member = mtool.getAuthenticatedMember()
-            username, password = member.getProperty('redmine_username', ''), \
-                member.getProperty('redmine_password', '')
+        # take username and password from authenticated user Zimbra creds
+        mtool = getToolByName(self.context, 'portal_membership')
+        member = mtool.getAuthenticatedMember()
+        username, password = member.getProperty('redmine_username', ''), \
+            member.getProperty('redmine_password', '')
         # password could contain non-ascii chars, ensure it's properly encoded
         return username, safe_unicode(password).encode('utf-8')
 
