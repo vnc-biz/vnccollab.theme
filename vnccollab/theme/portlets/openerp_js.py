@@ -88,32 +88,28 @@ class Renderer(base.Renderer):
         # password could contain non-ascii chars, ensure it's properly encoded
         return username, safe_unicode(password).encode('utf-8')
 
-    @property
-    def embed(self):
-        """Returns a dict with the info needed to embed an openERP widget"""
+    def update(self):
+        """Calculates the info needed to embed an openERP widget"""
         annotation = IAnnotations(self.data)
         login, pwd = self._getAuthCredentials()
         key = 'vnccollab.theme.openerp_js.embedded_url.{0}.{1}'.format(
                 self.data.action_id, login)
-        embedded_url = annotation.get(key, '')
+        self.embedded_url = annotation.get(key, '')
 
-        if not embedded_url:
-            embedded_url = self._generate_embedded_url(login, pwd)
+        if not self.embedded_url:
+            self.embedded_url = self._generate_embedded_url(login, pwd)
 
-        dct = dict(embedded_url='', url='', login='', key='',
-                   dbname=self.data.dbname, action_id= self.data.action_id)
+        self.url, self.login, self.key = '', '', ''
+        self.dbname = self.data.dbname
+        self.action_id = self.data.action_id
 
-        if embedded_url:
-            parsed = urlparse(embedded_url)
+        if self.embedded_url:
+            parsed = urlparse(self.embedded_url)
             query_params = parse_qs(parsed.query)
 
-            dct['embedded_url'] = embedded_url
-            dct['url'] = '{0}://{1}'.format(parsed.scheme, parsed.netloc)
-            dct['login'] = query_params['login'][0]
-            dct['key'] = query_params['key'][0]
-
-        return dct
-
+            self.url = '{0}://{1}'.format(parsed.scheme, parsed.netloc)
+            self.login = query_params['login'][0]
+            self.key = query_params['key'][0]
 
     def _generate_embedded_url(self, login, pwd):
         """Generate the ebedded url for the OpenERP widget associated with the
