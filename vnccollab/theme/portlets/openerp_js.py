@@ -73,27 +73,6 @@ class Renderer(base.Renderer):
 
     render = ZopeTwoPageTemplateFile('templates/openerp_js.pt')
 
-    def update(self):
-        login, pwd = self._getAuthCredentials()
-        annotation = IAnnotations(self.data)
-        key = 'vnccollab.theme.openerp_js.embedded_url.{0}.{1}'.format(
-                self.data.action_id, login)
-        self.embedded_url = annotation.get(key, None)
-
-        if not self.embedded_url:
-            annotation[key] = self._embedded_url(login, pwd)
-            self.embedded_url = annotation.get(key)
-
-        parsed = urlparse(self.embedded_url)
-        dct = parse_qs(parsed.query)
-
-        self.url = '{0}://{1}'.format(parsed.scheme, parsed.netloc)
-        self.login = dct['login'][0]
-        self.dbname = dct['db'][0]
-        self.key= dct['key'][0]
-        self.action_id = self.data.action_id
-
-
     @property
     def title(self):
         """return title of feed for portlet"""
@@ -109,7 +88,34 @@ class Renderer(base.Renderer):
         # password could contain non-ascii chars, ensure it's properly encoded
         return username, safe_unicode(password).encode('utf-8')
 
-    def _embedded_url(self, login, pwd):
+    @property
+    def embed(self):
+        """Returns a dict with the info needed to embed an openERP widget"""
+        annotation = IAnnotations(self.data)
+        login, pwd = self._getAuthCredentials()
+        key = 'vnccollab.theme.openerp_js.embedded_url.{0}.{1}'.format(
+                self.data.action_id, login)
+        embedded_url = annotation.get(key, '')
+
+        if not embedded_url:
+            embedded_url = self._generate_embedded_url(login, pwd)
+
+        dct = dict(embedded_url='', url='', login='', key='',
+                   dbname=self.data.dbname, action_id= self.data.action_id)
+
+        if embedded_url:
+            parsed = urlparse(embedded_url)
+            query_params = parse_qs(parsed.query)
+
+            dct['embedded_url'] = embedded_url
+            dct['url'] = '{0}://{1}'.format(parsed.scheme, parsed.netloc)
+            dct['login'] = query_params['login'][0]
+            dct['key'] = query_params['key'][0]
+
+        return dct
+
+
+    def _generate_embedded_url(self, login, pwd):
         """Generate the ebedded url for the OpenERP widget associated with the
         current user"""
         url = self.data.url
@@ -118,18 +124,23 @@ class Renderer(base.Renderer):
         action_id = self.data.action_id
         create_args = { 'name' : '{0}-{1}'.format(login, action_id),
                         'action_id' : action_id}
+        embedded_url = ''
 
-        server = xmlrpclib.ServerProxy(url + '/xmlrpc/common', allow_none=True)
-        uid = server.login(dbname, login, pwd)
-        server = xmlrpclib.ServerProxy(url + '/xmlrpc/object', allow_none=True)
+        try:
+            server = xmlrpclib.ServerProxy(url + '/xmlrpc/common', allow_none=True)
+            uid = server.login(dbname, login, pwd)
+            server = xmlrpclib.ServerProxy(url + '/xmlrpc/object', allow_none=True)
 
-        id = server.execute(dbname, uid, pwd, model, 'create', create_args)
-        args = [id]
-        server.execute(dbname, uid, pwd, model, 'go_step_1', args)
-        server.execute(dbname, uid, pwd, model, 'go_step_2', args, {})
-        r = server.execute(dbname, uid, pwd, model, 'export_data', args,
-                           ['embed_url'])
-        embedded_url = r['datas'][0][0]
+            id = server.execute(dbname, uid, pwd, model, 'create', create_args)
+            args = [id]
+            server.execute(dbname, uid, pwd, model, 'go_step_1', args)
+            server.execute(dbname, uid, pwd, model, 'go_step_2', args, {})
+            r = server.execute(dbname, uid, pwd, model, 'export_data', args,
+                               ['embed_url'])
+            embedded_url = r['datas'][0][0]
+        except:
+            pass
+
         return embedded_url
 
 

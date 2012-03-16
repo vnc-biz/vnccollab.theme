@@ -86,13 +86,17 @@ function replaceERPPortlet(index) {
   var action_id = parseInt($this.attr('action_id'));
   var options = {"search_view": true, "display_title" : false};
 
-  var erp = new openerp.init(["web"]);
-  erp.connection.bind(url).then(function () {
-    erp.connection.session_authenticate(dbname, login, key, true).then(function () {
-      var client = new erp.web.EmbeddedClient(action_id, options);
-      client.replace($this);
-    });
-  });
+  if (url != '') {
+      var erp = new openerp.init(["web"]);
+      erp.connection.bind(url).then(function () {
+        erp.connection.session_authenticate(dbname, login, key, true).then(function () {
+          var client = new erp.web.EmbeddedClient(action_id, options);
+          client.replace($this);
+        });
+      });
+  } else {
+     $this.text("Couldn't connect to the server or authenticacion failed");
+  }
 }
 
 function initOpenERPPortlets() {

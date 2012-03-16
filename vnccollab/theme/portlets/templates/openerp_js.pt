@@ -20,12 +20,12 @@
 
     <dd class="portletBody openerp">
       <div class="openerp-content"
-           tal:attributes="embedded_url  view/embedded_url;
-                           url           view/url;
-                           login         view/login;
-                           dbname        view/dbname;
-                           key           view/key;
-                           action_id     view/action_id;">
+           tal:attributes="embedded_url  python:view.embed['embedded_url'];
+                           url           view/embed/url;
+                           login         view/embed/login;
+                           dbname        view/embed/dbname;
+                           key           view/embed/key;
+                           action_id     view/embed/action_id;">
            Please wait a moment...</div>
     </dd>
 </dl>
