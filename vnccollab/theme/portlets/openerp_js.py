@@ -1,3 +1,4 @@
+import re
 import xmlrpclib
 from urlparse import urlparse, parse_qs
 
@@ -94,33 +95,34 @@ class Renderer(base.Renderer):
         login, pwd = self._getAuthCredentials()
         key = 'vnccollab.theme.openerp_js.embedded_url.{0}.{1}'.format(
                 self.data.action_id, login)
-        self.embedded_url = annotation.get(key, '')
 
-        if not self.embedded_url:
-            self.embedded_url = self._generate_embedded_url(login, pwd)
+        embedded_info = annotation.get(key, None)
 
-        self.url, self.login, self.key = '', '', ''
-        self.dbname = self.data.dbname
+        if embedded_info is None:
+            embedded_info = self._embed(login, pwd)
+
+            if embedded_info is not None:
+                annotation[key] = embedded_info
+            else:
+                embedded_info = ('', '', '', '', '', 0)
+
+        self.embedded_url, self.embedded_code, self.url, \
+                self.login, self.key, _ = embedded_info
         self.action_id = self.data.action_id
+        self.dbname = self.data.dbname
 
-        if self.embedded_url:
-            parsed = urlparse(self.embedded_url)
-            query_params = parse_qs(parsed.query)
-
-            self.url = '{0}://{1}'.format(parsed.scheme, parsed.netloc)
-            self.login = query_params['login'][0]
-            self.key = query_params['key'][0]
-
-    def _generate_embedded_url(self, login, pwd):
-        """Generate the ebedded url for the OpenERP widget associated with the
-        current user"""
+    def _embed(self, login, pwd):
+        """Generates the OpenERP embed widget for the give user user"""
         url = self.data.url
         dbname = self.data.dbname
         model = 'share.wizard'
         action_id = self.data.action_id
         create_args = { 'name' : '{0}-{1}'.format(login, action_id),
-                        'action_id' : action_id}
+                        'action_id' : action_id,
+                        'access_mode': 'readwrite',
+                        'domain' : ['|',['state','=','draft'],['state','=','open']] }
         embedded_url = ''
+        embedded_code = ''
 
         try:
             server = xmlrpclib.ServerProxy(url + '/xmlrpc/common', allow_none=True)
@@ -132,12 +134,24 @@ class Renderer(base.Renderer):
             server.execute(dbname, uid, pwd, model, 'go_step_1', args)
             server.execute(dbname, uid, pwd, model, 'go_step_2', args, {})
             r = server.execute(dbname, uid, pwd, model, 'export_data', args,
-                               ['embed_url'])
+                               ['embed_url', 'embed_code'])
             embedded_url = r['datas'][0][0]
+            embedded_code = r['datas'][0][1]
         except:
-            pass
+            import traceback
+            traceback.print_exc()
 
-        return embedded_url
+        # Parse the embed info in embedded_url and embedded_code
+        if not embedded_url:
+            return None
+
+        parsed = urlparse(embedded_url)
+        query_params = parse_qs(parsed.query)
+        url = '{0}://{1}'.format(parsed.scheme, parsed.netloc)
+        login = query_params['login'][0]
+        key = query_params['key'][0]
+        action_id = re.search('(?<=,)[0-9]+', embedded_code).group(0)
+        return (embedded_url, embedded_code, url, login, key, action_id)
 
 
 class AddForm(base.AddForm):
@@ -162,13 +176,16 @@ How to get the action_id of a widget?
 Just visit http://demo.vnc.biz:8085. Go to the page you want to embed, click the green icon in the upper left side of screen, the one with "Link or Embed..." as tooltip and follow the wizard. It will generate a url with an action_id parameter.
 '''
 OPENERP_VOCAB = [
-        #(59,  _(u'Sales - Leads')),
+        (147,  _(u'Sales - Leads')),
         (150, _(u'Sales - Opportunities')),
-        #(562, _(u'Sales - Contracts')),
+        (562, _(u'Sales - Contracts')),
         (60,  _(u'Sales - Customers')),
         (57,  _(u'Sales - Contacts')),
         (180, _(u'Sales - Products by Category')),
         (178, _(u'Sales - Products')),
+        (158, _(u'Sales - Logged Calls')),
+        (159, _(u'Sales - Scheduled Calls')),
+        (196, _(u'Projects - Tasks')),
 ]
 
 class OpenERPJSPortletVocabulary():
