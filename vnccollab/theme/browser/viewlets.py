@@ -24,6 +24,7 @@ from plone.registry.interfaces import IRegistry
 
 from Products.Carousel.config import CAROUSEL_ID
 from Products.Carousel.interfaces import ICarousel
+from Products.Carousel.browser.viewlet import CarouselViewlet
 
 from cioppino.twothumbs.rate import getTally
 
@@ -267,6 +268,11 @@ class PersonalBarViewlet(common.PersonalBarViewlet):
             viewlet.update()
             languages = viewlet.render()
         self.languages = languages
+
+class VNCCarouselViewlet(CarouselViewlet):
+    """Customize template to fix javascript code"""
+
+    index = ViewPageTemplateFile('templates/carousel_viewlet.pt')
 
 class VNCCollabHeaderViewlet(common.ViewletBase):
     """Viewlet that inserts vnc header manager into plone header manager"""

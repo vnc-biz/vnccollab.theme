@@ -214,7 +214,7 @@
   <browser:viewlet
       name="vnccollab.theme.headercarousel"
       manager=".interfaces.IVNCCollabHtmlHead"
-      class="Products.Carousel.browser.viewlet.CarouselViewlet"
+      class=".viewlets.VNCCarouselViewlet"
       layer=".interfaces.IThemeSpecific"
       permission="zope2.View"
       />
