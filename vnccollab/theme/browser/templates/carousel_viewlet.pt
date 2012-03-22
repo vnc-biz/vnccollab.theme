@@ -13,6 +13,8 @@
     </tal:pager>
     <script type="text/javascript" charset="utf-8" tal:content="string:
         (function ($$) {
+          // vipod: execute ploneCarousel only after page load, otherwise it
+          // breaks for the cases when carousel.js file hasn't been loaded 
           $$(function(){
             $$('#${view/element_id}').ploneCarousel({
                 height: ${view/height},
