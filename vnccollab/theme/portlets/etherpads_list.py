@@ -134,9 +134,17 @@ class Renderer(base.Renderer):
             # get row cells
             ctitle, cdate, ceditors = row.findAll('td')[:3]
             
+            if not (ctitle and cdate and ceditors):
+                continue
+            
             # prepare pad url
             link = ctitle.find('a')
+            if not link:
+                continue
+            
             url = '%s%s' % (base_url, link.get('href'))
+            if not url:
+                continue
             
             # prepare editors
             editors = []
