@@ -36,8 +36,8 @@ def getRedmineEnumerators(url, username, password):
     * users
     """
     data = {}
-    
-    # projects
+    # projects, result is sensitive to user, so only those projects are returned
+    # where current logged in user has an access
     projects = []
     Project = type("Project", (ActiveResource,), {'_site': url, '_user':
             username, '_password': password})
@@ -47,13 +47,19 @@ def getRedmineEnumerators(url, username, password):
     data['projects'] = tuple(projects)
     
     # trackers
-    trackers = []
-    Tracker = type("Tracker", (ActiveResource,), {'_site': url, '_user':
-            username, '_password': password})
-    for item in Tracker.find():
-        trackers.append((item.id, item.name))
+    # TODO: redmine 1.1 do not support tracker REST API call, so also hard-code
+    # it so far
+    # trackers = []
+    # Tracker = type("Tracker", (ActiveResource,), {'_site': url, '_user':
+    #         username, '_password': password})
+    # for item in Tracker.find():
+    #     trackers.append((item.id, item.name))
     # trackers.sort(lambda x,y:cmp(x[1], y[1]))
-    data['trackers'] = tuple(trackers)
+    # data['trackers'] = tuple(trackers)
+    data['trackers'] = (('1', 'Bug'), ('2', 'Feature'), ('3', 'Support'),
+        ('4', 'WR - Work Request'), ('5', 'CR - Change Request'),
+        ('6', 'Status Call'), ('7', 'Meeting'), ('10', 'Draft'),
+        ('11', 'Sign-Off'), ('12', 'Approval'), ('13', 'Testing'))
     
     # priorities
     # TODO: switch to using REST API after this ticket is closed:
@@ -73,8 +79,14 @@ def getRedmineEnumerators(url, username, password):
     users = []
     User = type("User", (ActiveResource,), {'_site': url, '_user':
             username, '_password': password})
-    for item in User.find():
-        users.append((item.id, '%s %s' % (item.firstname, item.lastname)))
+    
+    # only Redmine Administrator could do this call
+    try:
+        for item in User.find():
+            users.append((item.id, '%s %s' % (item.firstname, item.lastname)))
+    except Exception, e:
+        pass
+    
     users.sort(lambda x,y:cmp(x[1], y[1]))
     data['users'] = tuple(users)
     
