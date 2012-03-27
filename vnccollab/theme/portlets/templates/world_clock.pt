@@ -71,7 +71,7 @@
       hourHand: { lineWidth: 10, startAt: 0, endAt: 70, color: "#0d415b", alpha: 1 },
       minuteHand: { lineWidth: 10, startAt: 0, endAt: 88, color: "#0d415b", alpha: 1 },
       secondHand: { lineWidth: 3, startAt: -45, endAt: 92, color: "#0d415b", alpha: 1 },
-      secondDecoration: { lineWidth: 4, startAt: 0, radius: 15, fillColor: "#eeeeee", color: "#eeeeee", alpha: 1 }
+      secondDecoration: { lineWidth: 4, startAt: 0, radius: 15, fillColor: "#dee2e9", color: "#dee2e9", alpha: 1 }
     };
     </script>
 </dl>
