@@ -31,6 +31,7 @@ setup(name='vnccollab.theme',
           'pyzimbra',
           'zope.testbrowser',
           'BeautifulSoup',
+          'pyactiveresource',
           # -*- Extra requirements: -*-
       ],
       entry_points="""
