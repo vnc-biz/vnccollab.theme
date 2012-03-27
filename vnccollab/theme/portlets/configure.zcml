@@ -6,6 +6,17 @@
   <include package="plone.app.portlets" />
 
   <plone:portlet
+      name="vnccollab.theme.portlets.WorldClockPortlet"
+      interface=".world_clock.IWorldClockPortlet"
+      assignment=".world_clock.Assignment"
+      view_permission="zope2.View"
+      edit_permission="cmf.ManagePortal"
+      renderer=".world_clock.Renderer"
+      addview=".world_clock.AddForm"
+      editview=".world_clock.EditForm"
+      />
+
+  <plone:portlet
       name="vnccollab.theme.portlets.EtherpadsListPortlet"
       interface=".etherpads_list.IEtherpadsListPortlet"
       assignment=".etherpads_list.Assignment"

@@ -940,6 +940,20 @@ dl.portlet dd.portletFooter a {
   height: 300px;
 }
 
+/*----- World Clock Portlet -----*/
+.portletWorldClock .portletItem {
+  text-align: center;
+  color: #0d415b;
+}
+.portletWorldClock .worldClockWrapper {
+  display: block;
+  float: left;
+  width: 33%;
+}
+.portletWorldClock .worldClockCity {
+  display: block;
+}
+
 /*----- Portlet Navigation -----*/
 dl.portletNavigationTree dd.portletItem {
   border-bottom:1px solid #cfd6db;

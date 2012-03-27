@@ -1,0 +1,78 @@
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:tal="http://xml.zope.org/namespaces/tal"
+      xmlns:i18n="http://xml.zope.org/namespaces/i18n"
+      tal:omit-tag="">
+<dl class="portlet portletWorldClock"
+    i18n:domain="vnccollab.theme"
+    tal:define="portal_url context/portal_url">
+
+    <dt class="portletHeader">
+        <span class="portletTopLeft"></span>
+        <span i18n:translate=""
+              tal:content="view/data/header">World Clock</span>
+        <span class="portletTopRight"></span>
+    </dt>
+
+    <dd class="portletItem">
+      <span class="worldClockWrapper"
+            tal:define="zone view/data/tz_1;
+                        skin view/data/skin_1;
+                        radius view/data/radius_1;
+                        no_seconds python:view.data.no_seconds_1 and 'noSeconds' or ''"
+            tal:condition="zone">
+        <span class="worldClock">
+          <canvas id="c1" class="CoolClock:%s:%s:%s:%s"
+              tal:attributes="class python:attrs['class'] % (skin, radius, no_seconds, zone)"></canvas>
+        </span>
+        <span class="worldClockCity"
+              tal:content="python:view.getTimeZoneCityName(zone)">Berlin</span>
+      </span>
+      <span class="worldClockWrapper"
+            tal:define="zone view/data/tz_2;
+                        skin view/data/skin_2;
+                        radius view/data/radius_2;
+                        no_seconds python:view.data.no_seconds_2 and 'noSeconds' or ''"
+            tal:condition="zone">
+        <span class="worldClock">
+          <canvas id="c2" class="CoolClock:%s:%s:%s:%s"
+              tal:attributes="class python:attrs['class'] % (skin, radius, no_seconds, zone)"></canvas>
+        </span>
+        <span class="worldClockCity"
+              tal:content="python:view.getTimeZoneCityName(zone)">Berlin</span>
+      </span>
+      <span class="worldClockWrapper"
+            tal:define="zone view/data/tz_3;
+                        skin view/data/skin_3;
+                        radius view/data/radius_3;
+                        no_seconds python:view.data.no_seconds_3 and 'noSeconds' or ''"
+            tal:condition="zone">
+        <span class="worldClock">
+          <canvas id="c3" class="CoolClock:%s:%s:%s:%s"
+              tal:attributes="class python:attrs['class'] % (skin, radius, no_seconds, zone)"></canvas>
+        </span>
+        <span class="worldClockCity"
+              tal:content="python:view.getTimeZoneCityName(zone)">Berlin</span>
+      </span>
+    </dd>
+    <div class="visualClear"><!-- --></div>
+
+    <tal:comment replace="nothing">Insert coolclock.js library
+      scripts</tal:comment>
+    <!--[if IE]><script type="text/javascript"
+      src="++resource++vnccollab.theme.js/excanvas.js"
+      tal:attributes="src string:${portal_url}/${attrs/src}"></script><![endif]-->
+    <script src="++resource++vnccollab.theme.js/coolclock.js"
+      type="text/javascript"
+      tal:attributes="src string:${portal_url}/${attrs/src}"></script>
+    <script type="text/javascript">
+    CoolClock.config['skins']['vnc'] = {
+      outerBorder: { lineWidth: 6, radius:16, color: "#0d415b", alpha: 1 },
+      largeIndicator: { lineWidth: 6, startAt: 75, endAt: 93, color: "#0d415b", alpha: 1 },
+      hourHand: { lineWidth: 10, startAt: 0, endAt: 70, color: "#0d415b", alpha: 1 },
+      minuteHand: { lineWidth: 10, startAt: 0, endAt: 88, color: "#0d415b", alpha: 1 },
+      secondHand: { lineWidth: 3, startAt: -45, endAt: 92, color: "#0d415b", alpha: 1 },
+      secondDecoration: { lineWidth: 4, startAt: 0, radius: 15, fillColor: "#eeeeee", color: "#eeeeee", alpha: 1 }
+    };
+    </script>
+</dl>
+</html>

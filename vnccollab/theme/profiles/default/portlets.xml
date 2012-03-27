@@ -4,6 +4,15 @@
     i18n:domain="vnccollab.theme">
 
  <portlet
+   addview="vnccollab.theme.portlets.WorldClockPortlet"
+   title="World Clock portlet"
+   description="A portlet displaying analog world clocks."
+   i18n:attributes="title;description">
+   <for interface="plone.app.portlets.interfaces.IColumn" />
+   <for interface="plone.app.portlets.interfaces.IDashboard" />
+ </portlet>
+
+ <portlet
    addview="vnccollab.theme.portlets.EtherpadsListPortlet"
    title="Etherpad Lists portlet"
    description="A portlet displaying list of Etherpad pads."
