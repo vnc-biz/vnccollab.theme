@@ -37,5 +37,9 @@
       component=".vocabularies.UsersRedmineVocabulary"
       name="vnccollab.theme.vocabularies.UsersRedmineVocabulary"
       />
+  <utility
+      component=".vocabularies.TimeZonesVocabulary"
+      name="vnccollab.theme.vocabularies.TimeZonesVocabulary"
+      />
 
 </configure>

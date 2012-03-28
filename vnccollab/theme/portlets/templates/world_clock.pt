@@ -15,43 +15,43 @@
 
     <dd class="portletItem">
       <span class="worldClockWrapper"
-            tal:define="zone view/data/tz_1;
+            tal:define="zone python:view.getTimeZoneInfo(view.data.tz_1);
                         skin view/data/skin_1;
                         radius view/data/radius_1;
                         no_seconds python:view.data.no_seconds_1 and 'noSeconds' or ''"
             tal:condition="zone">
         <span class="worldClock">
           <canvas id="c1" class="CoolClock:%s:%s:%s:%s"
-              tal:attributes="class python:attrs['class'] % (skin, radius, no_seconds, zone)"></canvas>
+              tal:attributes="class python:attrs['class'] % (skin, radius, no_seconds, zone['hours'])"></canvas>
         </span>
         <span class="worldClockCity"
-              tal:content="python:view.getTimeZoneCityName(zone)">Berlin</span>
+              tal:content="zone/city">Berlin</span>
       </span>
       <span class="worldClockWrapper"
-            tal:define="zone view/data/tz_2;
+            tal:define="zone python:view.getTimeZoneInfo(view.data.tz_2);
                         skin view/data/skin_2;
                         radius view/data/radius_2;
                         no_seconds python:view.data.no_seconds_2 and 'noSeconds' or ''"
             tal:condition="zone">
         <span class="worldClock">
           <canvas id="c2" class="CoolClock:%s:%s:%s:%s"
-              tal:attributes="class python:attrs['class'] % (skin, radius, no_seconds, zone)"></canvas>
+              tal:attributes="class python:attrs['class'] % (skin, radius, no_seconds, zone['hours'])"></canvas>
         </span>
         <span class="worldClockCity"
-              tal:content="python:view.getTimeZoneCityName(zone)">Berlin</span>
+              tal:content="zone/city">Berlin</span>
       </span>
       <span class="worldClockWrapper"
-            tal:define="zone view/data/tz_3;
+            tal:define="zone python:view.getTimeZoneInfo(view.data.tz_3);
                         skin view/data/skin_3;
                         radius view/data/radius_3;
                         no_seconds python:view.data.no_seconds_3 and 'noSeconds' or ''"
             tal:condition="zone">
         <span class="worldClock">
           <canvas id="c3" class="CoolClock:%s:%s:%s:%s"
-              tal:attributes="class python:attrs['class'] % (skin, radius, no_seconds, zone)"></canvas>
+              tal:attributes="class python:attrs['class'] % (skin, radius, no_seconds, zone['hours'])"></canvas>
         </span>
         <span class="worldClockCity"
-              tal:content="python:view.getTimeZoneCityName(zone)">Berlin</span>
+              tal:content="zone/city">Berlin</span>
       </span>
     </dd>
     <div class="visualClear"><!-- --></div>

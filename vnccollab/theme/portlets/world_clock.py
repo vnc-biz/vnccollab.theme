@@ -1,3 +1,6 @@
+from pytz import timezone
+from datetime import datetime
+
 from zope.formlib import form
 from zope.interface import implements, Interface
 from zope import schema
@@ -20,13 +23,12 @@ class IWorldClockPortlet(IPortletDataProvider):
         required=True,
         default=u'World Clocks')
 
-    # TODO: make vocabulary dynamic
     tz_1 = schema.Choice(
         title=_(u"Clock 1 Timezone"),
         description=u'',
         required=True,
-        values=('-5', '-4', '-3', '-2', '-1', '0', '1', '2', '3', '4', '5'),
-        default='0')
+        vocabulary='vnccollab.theme.vocabularies.TimeZonesVocabulary',
+        default='Europe/Berlin')
 
     skin_1 = schema.Choice(
        title=_(u"Clock 1 Skin"),
@@ -51,8 +53,8 @@ class IWorldClockPortlet(IPortletDataProvider):
         title=_(u"Clock 2 Timezone"),
         description=u'',
         required=False,
-        values=('-5', '-4', '-3', '-2', '-1', '0', '1', '2', '3', '4', '5'),
-        default='0')
+        vocabulary='vnccollab.theme.vocabularies.TimeZonesVocabulary',
+        default='Europe/Berlin')
 
     skin_2 = schema.Choice(
        title=_(u"Clock 2 Skin"),
@@ -77,8 +79,8 @@ class IWorldClockPortlet(IPortletDataProvider):
         title=_(u"Clock 3 Timezone"),
         description=u'',
         required=False,
-        values=('-5', '-4', '-3', '-2', '-1', '0', '1', '2', '3', '4', '5'),
-        default='0')
+        vocabulary='vnccollab.theme.vocabularies.TimeZonesVocabulary',
+        default='Europe/Berlin')
 
     skin_3 = schema.Choice(
        title=_(u"Clock 3 Skin"),
@@ -103,15 +105,15 @@ class Assignment(base.Assignment):
     implements(IWorldClockPortlet)
 
     header = u'World Clock'
-    tz_1 = '0'
+    tz_1 = 'Europe/Berlin'
     skin_1 = 'vnc'
     radius_1 = 35
     no_seconds_1 = False
-    tz_2 = '0'
+    tz_2 = 'Europe/Berlin'
     skin_2 = 'vnc'
     radius_2 = 35
     no_seconds_2 = False
-    tz_3 = '0'
+    tz_3 = 'Europe/Berlin'
     skin_3 = 'vnc'
     radius_3 = 35
     no_seconds_3 = False
@@ -121,10 +123,10 @@ class Assignment(base.Assignment):
         """Return portlet header"""
         return self.header
 
-    def __init__(self, header=_(u"World Clock"), tz_1='0', skin_1='vnc',
-        radius_1=35, no_seconds_1=False, tz_2='0', skin_2='vnc',
-        radius_2=35, no_seconds_2=False, tz_3='0', skin_3='vnc',
-        radius_3=35, no_seconds_3=False):
+    def __init__(self, header=_(u"World Clock"), tz_1='Europe/Berlin',
+        skin_1='vnc', radius_1=35, no_seconds_1=False, tz_2='Europe/Berlin',
+        skin_2='vnc', radius_2=35, no_seconds_2=False, tz_3='Europe/Berlin',
+        skin_3='vnc', radius_3=35, no_seconds_3=False):
         self.tz_1 = tz_1
         self.skin_1 = skin_1
         self.radius_1 = radius_1
@@ -142,9 +144,18 @@ class Renderer(base.Renderer):
 
     render = ZopeTwoPageTemplateFile('templates/world_clock.pt')
 
-    def getTimeZoneCityName(self, zone):
-        # TODO: implement this method
-        return _(u"Berlin")
+    def getTimeZoneInfo(self, zone_name):
+        """Return timezone city name and hours offset"""
+        if not zone_name:
+            return None
+
+        offset = datetime.now(timezone(zone_name)).utcoffset()
+        hours = offset.seconds / 3600.0
+        # if time delta is negative, then subtract 24 hours
+        if offset.days < 0:
+            hours = hours - 24.0
+        return {'hours': '%.1f' % round(hours, 1),
+            'city': zone_name.split('/')[-1].replace('_', ' ')}
 
 class AddForm(base.AddForm):
     form_fields = form.Fields(IWorldClockPortlet)
