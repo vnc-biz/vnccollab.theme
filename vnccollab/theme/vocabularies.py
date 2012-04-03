@@ -1,5 +1,6 @@
 import logging
 import time
+from pytz import common_timezones
 from pyactiveresource.activeresource import ActiveResource
 
 from zope.interface import implements
@@ -130,3 +131,22 @@ ProjectsRedmineVocabulary = RedmineVocabularyFactory('projects')
 TrackersRedmineVocabulary = RedmineVocabularyFactory('trackers')
 PrioritiesRedmineVocabulary = RedmineVocabularyFactory('priorities')
 UsersRedmineVocabulary = RedmineVocabularyFactory('users')
+
+class TimeZonesVocabularyFactory(object):
+    """Returns list of common timezones with user friendly titles.
+    
+    It uses python timezone library: pytz.
+    """
+    
+    implements(IVocabularyFactory)
+    
+    def __call__(self, context):
+        terms = []
+        for zone_name in common_timezones:
+            # prepare zone title: America/New_York -> America/New York
+            terms.append(SimpleTerm(zone_name, zone_name,
+                zone_name.replace('_', ' ')))
+    
+        return SimpleVocabulary(terms)
+
+TimeZonesVocabulary = TimeZonesVocabularyFactory()
