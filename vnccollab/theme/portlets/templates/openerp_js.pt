@@ -19,14 +19,16 @@
     </dt>
 
     <dd class="portletBody openerp">
-      <div class="openerp-content"
-           tal:attributes="embedded_url  view/embedded_url;
+      <iframe class="openerp-content"
+           src="/VNC/openerp-iframe-helper"
+           tal:attributes="src string:${context/@@plone_portal_state/navigation_root_url}/openerp-iframe-helper;
+                           embedded_url  view/embedded_url;
                            url           view/url;
                            login         view/login;
                            dbname        view/dbname;
                            key           view/key;
                            action_id     view/action_id;">
-           Please wait a moment...</div>
+      </iframe>
     </dd>
 </dl>
 </html>

@@ -76,33 +76,6 @@ function attachHeaderViewletCloseOpen() {
   });
 }
 
-function replaceERPPortlet(index) {
-  var $this = jq(this);
-
-  var url = $this.attr('url');
-  var dbname = $this.attr('dbname');
-  var login = $this.attr('login');
-  var key = $this.attr('key');
-  var action_id = parseInt($this.attr('action_id'));
-  var options = {"search_view": true, "display_title" : false};
-
-  if (url != '') {
-      var erp = new openerp.init(["web"]);
-      erp.connection.bind(url).then(function () {
-        erp.connection.session_authenticate(dbname, login, key, true).then(function () {
-          var client = new erp.web.EmbeddedClient(action_id, options);
-          client.replace($this);
-        });
-      });
-  } else {
-     $this.text("Couldn't connect to the server or authenticacion failed");
-  }
-}
-
-function initOpenERPPortlets() {
-  jq('.openerp-content').each(replaceERPPortlet);
-}
-
 function attachRedmineTicketAction() {
   jq('#document-action-redmine_ticket a').prepOverlay({
     'subtype': 'ajax',
@@ -115,6 +88,5 @@ function attachRedmineTicketAction() {
 jq(function() {
   attachHeaderViewletCloseOpen();
   attachPortletButtons();
-  initOpenERPPortlets();
   attachRedmineTicketAction();
 });

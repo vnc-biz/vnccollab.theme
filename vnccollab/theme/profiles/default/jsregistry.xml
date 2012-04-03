@@ -1,9 +1,9 @@
 <?xml version="1.0"?>
 <object name="portal_javascripts">
+  <javascript id="++resource++vnccollab.theme.js/openerp_generic_portlet.js"
+              enabled="False" />
   <javascript id="++resource++vnccollab.theme.js/main.js"
               enabled="True" />
   <javascript id="++resource++vnccollab.theme.js/zimbra_mail_portlet.js"
-              enabled="True" />
-  <javascript id="++resource++vnccollab.theme.js/openerp_generic_portlet.js"
               enabled="True" />
 </object>
