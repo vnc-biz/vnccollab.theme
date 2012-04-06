@@ -33,6 +33,7 @@ setup(name='vnccollab.theme',
           'zope.testbrowser',
           'BeautifulSoup',
           'pyactiveresource',
+          'wsapi4plone.core',
           # -*- Extra requirements: -*-
       ],
       entry_points="""
