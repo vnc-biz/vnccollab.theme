@@ -4,6 +4,7 @@ from urllib2 import urlopen, Request
 import logging
 import base64
 import simplejson
+import textile
 from datetime import datetime
 from pyactiveresource.activeresource import ActiveResource
 
@@ -134,8 +135,14 @@ class Renderer(base.Renderer):
             # prepare ticket body
             body = safe_unicode(info.get('description', ''))
             if body:
+                # convert textile to html and do not cut down ticket
+                # description anymore
+                try:
+                    body = textile.textile(body)
+                except Exception, e:
+                    pass
                 # crop length to 160 characters
-                body = plone_view.cropText(body, 160, ellipsis=u'...')
+                # body = plone_view.cropText(body, 160, ellipsis=u'...')
             
             tickets.append({
                 'id': info['id'],
