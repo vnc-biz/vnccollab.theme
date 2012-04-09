@@ -28,7 +28,7 @@
         </a>
         <div class="portletItemBody"
              tal:condition="elem/body"
-             tal:content="elem/body">
+             tal:content="structure elem/body">
           Ticket Description
         </div>
         <div class="portletItemDate"
