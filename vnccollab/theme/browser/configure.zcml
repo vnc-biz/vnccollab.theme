@@ -20,6 +20,13 @@
 
   <browser:page
       for="*"
+      name="livesearch_reply_json"
+      class=".livesearch.LiveSearchReplyJson"
+      permission="zope2.View"
+      />
+
+  <browser:page
+      for="*"
       name="openerp-iframe-helper"
       class=".openerp.IframeHelperView"
       template="templates/openerp_iframe_helper_view.pt"
