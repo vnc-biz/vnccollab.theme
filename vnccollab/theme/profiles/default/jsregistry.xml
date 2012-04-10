@@ -6,4 +6,6 @@
               enabled="True" />
   <javascript id="++resource++vnccollab.theme.js/zimbra_mail_portlet.js"
               enabled="True" />
+  <javascript id="++resource++vnccollab.theme.js/jquery.markitup.js"
+              enabled="True" />
 </object>
