@@ -35,6 +35,7 @@ setup(name='vnccollab.theme',
           'BeautifulSoup',
           'pyactiveresource',
           'wsapi4plone.core',
+          'z3c.jbot'
           # -*- Extra requirements: -*-
       ],
       entry_points="""
