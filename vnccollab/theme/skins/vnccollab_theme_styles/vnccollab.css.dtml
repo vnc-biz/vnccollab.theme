@@ -833,6 +833,7 @@ dl.portlet dd.portletFooter a {
 .portletWrapper.closed .portletToggleLink {
   background-position:-38px -18px;
   }
+.portletWrapper.closed .portletBody,
 .portletWrapper.closed .portletFooter,
 .portletWrapper.closed .portletItem {
   display:none;
@@ -936,6 +937,12 @@ dl.portlet dd.portletFooter a {
 
 /* Portlet Zimbra Calendar */
 .portletZimbraCalendar iframe {
+  width: 100%;
+  height: 300px;
+}
+
+/* Portlet OpenERP JS */
+.portletOpenERPJS iframe {
   width: 100%;
   height: 300px;
 }
