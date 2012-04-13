@@ -1284,6 +1284,17 @@ dl.actionMenu.activated dd div {
   white-space: normal;
 }
 
+/* Textile (MarkItUp) edito fixes */
+.textile .markItUp {
+  width: 100%;
+}
+  
+.textile #text.markItUpEditor {
+  padding: 0;
+  width: 100%;
+  background: none;
+}
+
 /* Content Headings */
 #content-core h2 {
   font-size: 18px;
