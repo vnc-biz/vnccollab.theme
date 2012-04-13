@@ -76,7 +76,7 @@
 
             <div class="contentActions">&nbsp;</div>
         </div>
-    
+
        <metal:use_form use-macro="python: getmacro('main')"/>
 
     </div>
