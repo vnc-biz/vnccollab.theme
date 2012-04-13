@@ -833,6 +833,7 @@ dl.portlet dd.portletFooter a {
 .portletWrapper.closed .portletToggleLink {
   background-position:-38px -18px;
   }
+.portletWrapper.closed .portletBody,
 .portletWrapper.closed .portletFooter,
 .portletWrapper.closed .portletItem {
   display:none;
@@ -936,6 +937,12 @@ dl.portlet dd.portletFooter a {
 
 /* Portlet Zimbra Calendar */
 .portletZimbraCalendar iframe {
+  width: 100%;
+  height: 300px;
+}
+
+/* Portlet OpenERP JS */
+.portletOpenERPJS iframe {
   width: 100%;
   height: 300px;
 }
@@ -1275,6 +1282,17 @@ dl.actionMenu.activated dd div {
 /* toolbars doesn't float in WebKit-based browsers */
 .mceEditor table td.mceToolbar {
   white-space: normal;
+}
+
+/* Textile (MarkItUp) edito fixes */
+.textile .markItUp {
+  width: 100%;
+}
+  
+.textile #text.markItUpEditor {
+  padding: 0;
+  width: 100%;
+  background: none;
 }
 
 /* Content Headings */

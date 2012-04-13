@@ -39,9 +39,8 @@ class LiveSearchReplyJson(BrowserView):
 
         return tuples
 
-    def _get_query_string(self):
+    def _get_query_string(self, query):
         '''Cleans the query string sanitized'''
-        query = self.request.get('q')
         multispace = u'\u3000'.encode('utf-8')
         for char in ('?', '-', '+', '*', multispace):
                 query = query.replace(char, ' ')
@@ -49,7 +48,7 @@ class LiveSearchReplyJson(BrowserView):
 
     def __call__(self, REQUEST, RESPONSE):
         '''Returns a JSON representation of the objects that satisfy the query'''
-        brains = self.search(self._get_query_string())
+        brains = self.search(self._get_query_string(REQUEST))
         results = self._tuples_from_brains(brains)
         RESPONSE.setHeader('Content-Type', 'application/json')
         return json.dumps(results)
