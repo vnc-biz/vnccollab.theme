@@ -20,6 +20,11 @@ class LiveSearchReplyJson(BrowserView):
         results = catalog(**params)
         return results
 
+    def _get_lost_icon(self, brain):
+        '''Gets the icon of a brain if it is not present'''
+        return '{0}{1}'.format(self.context.portal_url(),
+                               '/++resource++vnccollab.theme.images/doc.png')
+
     def _tuples_from_brains(self, brains):
         '''Converts a list of brains to a list of tuples'''
         plone_view = self.context.restrictedTraverse('@@plone')
@@ -29,7 +34,7 @@ class LiveSearchReplyJson(BrowserView):
         tuples = []
 
         for brain in brains:
-            icon = plone_view.getIcon(brain).url
+            icon = plone_view.getIcon(brain).url or self._get_lost_icon(brain)
             type_ = brain.portal_type
             title = pretty_title_or_id(brain)
             url = brain.getURL()
