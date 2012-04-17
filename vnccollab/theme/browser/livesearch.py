@@ -72,7 +72,6 @@ class GetObjectJson(BrowserView):
         wsapi = ApplicationAPI(self.context, self.request)
         result = wsapi.get_object([self.context.absolute_url_path()])
         self._sanitize_results(result)
-        #import pdb;pdb.set_trace()
         RESPONSE.setHeader('Content-Type', 'application/json')
         return json.dumps(result)
 
@@ -80,7 +79,7 @@ class GetObjectJson(BrowserView):
         for k, v in result.items():
             for item in v:
                 for dateKey in ['creation_date', 'expirationDate',
-                                'modification_date']:
+                                'effectiveDate', 'modification_date']:
                     if dateKey in item:
                         item[dateKey] = str(item[dateKey])
 
