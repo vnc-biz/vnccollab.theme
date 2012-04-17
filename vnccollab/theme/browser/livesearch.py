@@ -3,6 +3,7 @@ from zope.interface import Interface, implements
 from Products.Five.browser import BrowserView
 from Products.CMFCore.utils import getToolByName
 
+from wsapi4plone.core.browser.app import ApplicationAPI
 import json
 
 
@@ -57,4 +58,29 @@ class LiveSearchReplyJson(BrowserView):
         results = self._tuples_from_brains(brains)
         RESPONSE.setHeader('Content-Type', 'application/json')
         return json.dumps(results)
+
+
+
+class GetObjectJson(BrowserView):
+    '''Implements get_object_json.
+
+    zimbra has problems reading get_object output, so we make sure it gets
+    a json format'''
+
+    def __call__(self, REQUEST, RESPONSE):
+        '''Returns a JSON representation of the current object'''
+        wsapi = ApplicationAPI(self.context, self.request)
+        result = wsapi.get_object([self.context.absolute_url_path()])
+        self._sanitize_results(result)
+        #import pdb;pdb.set_trace()
+        RESPONSE.setHeader('Content-Type', 'application/json')
+        return json.dumps(result)
+
+    def _sanitize_results(self, result):
+        for k, v in result.items():
+            for item in v:
+                for dateKey in ['creation_date', 'expirationDate',
+                                'modification_date']:
+                    if dateKey in item:
+                        item[dateKey] = str(item[dateKey])
 
