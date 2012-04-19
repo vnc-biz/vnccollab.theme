@@ -35,7 +35,8 @@ setup(name='vnccollab.theme',
           'BeautifulSoup',
           'pyactiveresource',
           'wsapi4plone.core',
-          'z3c.jbot'
+          'z3c.jbot',
+          'tldextract'
           # -*- Extra requirements: -*-
       ],
       entry_points="""
