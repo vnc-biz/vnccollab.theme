@@ -1,10 +1,11 @@
-from zope.interface import Interface, implements
+import json
+import base64
 
+from zope.interface import Interface, implements
 from Products.Five.browser import BrowserView
 from Products.CMFCore.utils import getToolByName
 
 from wsapi4plone.core.browser.app import ApplicationAPI
-import json
 
 
 class LiveSearchReplyJson(BrowserView):
@@ -64,22 +65,32 @@ class LiveSearchReplyJson(BrowserView):
 class GetObjectJson(BrowserView):
     '''Implements get_object_json.
 
-    zimbra has problems reading get_object output, so we make sure it gets
-    a json format'''
+    Returns a JSON representation of the current object.
+
+    The representation is a dictionary with the data obtained by wsapi4plone's
+    get_object with dates converted to strings.'''
 
     def __call__(self, REQUEST, RESPONSE):
         '''Returns a JSON representation of the current object'''
         wsapi = ApplicationAPI(self.context, self.request)
-        result = wsapi.get_object([self.context.absolute_url_path()])
+        my_path =self.context.absolute_url_path()
+        results = wsapi.get_object([my_path])
+        # One result is a tuple (object_data, object_type, extra_info)
+        # We're interested only in object_data
+        result = results[my_path][0]
         self._sanitize_results(result)
         RESPONSE.setHeader('Content-Type', 'application/json')
         return json.dumps(result)
 
+    SANITIZE_FIELDS = ['DateTime']
+
     def _sanitize_results(self, result):
-        for k, v in result.items():
-            for item in v:
-                for dateKey in ['creation_date', 'expirationDate',
-                                'effectiveDate', 'modification_date']:
-                    if dateKey in item:
-                        item[dateKey] = str(item[dateKey])
+        #import pdb; pdb.set_trace()
+        for k,v in result.items():
+            if v.__class__.__name__ in self.SANITIZE_FIELDS:
+                result[k] = str(v)
+
+        # Convert file data to string instead of xmlrpclib.Binary
+        if 'file' in result:
+            result['file']['data'] = base64.b64encode(result['file']['data'].data)
 
