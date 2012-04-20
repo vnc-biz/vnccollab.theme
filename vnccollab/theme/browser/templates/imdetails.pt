@@ -81,7 +81,9 @@
             i18n:translate="im_details_desc">
             Table below contains configuration details for you IM client.
             Fill in the fields of your IM client with the appropriate
-            property values from the table below.
+            property values from the table below. For connection security
+            option please select 'Use encryption if available' value
+            (pidgin client) or similar value if you use other im client.
           </div>
           <table id='im-details' class="listing"
                  tal:define="info view/imDetails">
