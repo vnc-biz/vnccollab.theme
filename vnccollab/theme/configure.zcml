@@ -20,6 +20,10 @@
       provides="plone.app.users.userdataschema.IUserDataSchemaProvider"
       factory=".userdataschema.UserDataSchemaProvider"/>
 
+  <utility
+      provides=".avatar.IAvatarUtil"
+      factory=".avatar.AvatarUtil"/>
+
   <!-- Vocabularies -->
   <utility
       component=".vocabularies.ProjectsRedmineVocabulary"

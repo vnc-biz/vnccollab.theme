@@ -1,4 +1,5 @@
 import logging
+import os.path
 from pyactiveresource.activeresource import ActiveResource
 
 from Acquisition import aq_base, aq_inner
@@ -30,6 +31,7 @@ from cioppino.twothumbs.rate import getTally
 
 from vnccollab.theme.portlets.zimbra_mail import logException
 from vnccollab.theme import messageFactory as _
+from vnccollab.theme.avatar import IAvatarUtil
 from vnccollab.theme.config import FOOTER_LINKS_CAT
 from vnccollab.theme.browser.interfaces import IVNCCollabHtmlHead
 
@@ -40,10 +42,10 @@ logger = logging.getLogger('vnccollab.theme.RelatedRedmineTicketsViewlet')
 
 class TopRatedViewlet(common.ViewletBase):
     """Renders list of most rated items under given container.
-    
+
     Rating system by cioppino.twothumbs.
     """
-    
+
     def update(self):
         catalog = getToolByName(self.context, 'portal_catalog')
         elems = []
@@ -51,11 +53,11 @@ class TopRatedViewlet(common.ViewletBase):
             'query': '/'.join(self.context.getPhysicalPath())},
             sort_on='avg_ratings',
             sort_order='reverse'):
-            
+
             # skip item if nobody voted yet
             if brain.positive_ratings == 0 and brain.total_down_ratings == 0:
                 continue
-            
+
             elems.append({
                 'title': _(safe_unicode(brain.Title)),
                 'desc': _(safe_unicode(brain.Description)),
@@ -64,15 +66,15 @@ class TopRatedViewlet(common.ViewletBase):
                 'rating': {'total': brain.avg_ratings,
                            'liked': brain.positive_ratings,
                            'disliked': brain.total_down_ratings}})
-        
+
         self.elems = tuple(elems)
 
 class ActionsListViewlet(common.ViewletBase):
     """Renders internal ActionsItem List object view.
-    
+
     Gets first found ActionsItem List object in first level hierarchy.
     """
-    
+
     def update(self):
         self.todo = None
         for obj in self.context.objectValues():
@@ -82,7 +84,7 @@ class ActionsListViewlet(common.ViewletBase):
 
 class LoginViewlet(common.ViewletBase):
     """Most methods are copied over from login portlet renderer"""
-    
+
     def __init__(self, *args, **kw):
         super(LoginViewlet, self).__init__(*args, **kw)
 
@@ -99,7 +101,7 @@ class LoginViewlet(common.ViewletBase):
             return False
         if not self.pas_info.hasLoginPasswordExtractor():
             return False
-        
+
         return True
         # page = self.request.get('URL', '').split('/')[-1]
         # return page not in ('login_form', '@@register')
@@ -160,7 +162,7 @@ class HeaderTimeViewlet(common.ViewletBase):
 
     def update(self):
         super(HeaderTimeViewlet, self).update()
-        
+
         date = DateTime()
         self.day = date.day()
         self.month = _pl(monthname_msgid(int(date.strftime('%m'))),
@@ -168,14 +170,14 @@ class HeaderTimeViewlet(common.ViewletBase):
         self.dayname = _pl(weekdayname_msgid(int(date.strftime('%w'))),
             default=safe_unicode(date.DayOfWeek()))
         self.datetime = self.toLocalizedTime(date, long_format=True)
-    
+
     def toLocalizedTime(self, time, long_format=None, time_only = None):
         """Convert time to localized time
         """
         util = getToolByName(self.context, 'translation_service')
         return util.ulocalized_time(time, long_format, time_only, self.context,
                                     domain='plonelocales')
-        
+
 class PathBarViewlet(common.PathBarViewlet):
     render = ViewPageTemplateFile('templates/path_bar.pt')
 
@@ -185,17 +187,17 @@ class FooterViewlet(common.FooterViewlet):
     def update(self):
         super(FooterViewlet, self).update()
         self.columns = columns = {}
-        
+
         context = aq_inner(self.context)
         actions_tool = getToolByName(context, 'portal_actions')
-        
+
         # check if we got root category for all column links
         if not FOOTER_LINKS_CAT in actions_tool.objectIds():
             return
-        
+
         # prepare expression context for evaluating TAL expressions
         ec = actions_tool._getExprContext(context)
-        
+
         # go over root category and collect all sub-categories
         container = actions_tool[FOOTER_LINKS_CAT]
         cat_ids = container.objectIds()
@@ -203,25 +205,25 @@ class FooterViewlet(common.FooterViewlet):
             # skip not existing categories
             if cid not in cat_ids:
                 continue
-            
+
             cat = container[cid]
             if not IActionCategory.providedBy(cat):
                 continue
-            
+
             # prepare category actions
             actions = []
             for action in cat.objectValues():
                 # look only for actions
                 if not IAction.providedBy(action):
                     continue
-                
+
                 # create actioninfo object to compile and render TAL expressions
                 # and check if action is available in current circumstances
                 info = ActionInfo(action, ec)
                 if not (info['visible'] and info['allowed'] and
                         info['available']):
                     continue
-                
+
                 # and finally extract all required details from action
                 desc = action.getProperty('description', None) or None
                 if desc is not None:
@@ -232,21 +234,21 @@ class FooterViewlet(common.FooterViewlet):
                     'desc': desc,
                     'url': info['url']
                 })
-            
+
             # finally add category to be rendered as footer column
             columns[cid] = {
                 'title': _(safe_unicode(cat.getProperty('title', ''))),
                 'actions': tuple(actions)
             }
-        
+
         self.columns = columns
 
 class PersonalBarViewlet(common.PersonalBarViewlet):
     index = ViewPageTemplateFile('templates/personal_bar.pt')
-    
+
     def update(self):
         super(PersonalBarViewlet, self).update()
-        
+
         # get personal user image
         self.user_image = None
         if not self.anonymous:
@@ -269,6 +271,17 @@ class PersonalBarViewlet(common.PersonalBarViewlet):
             languages = viewlet.render()
         self.languages = languages
 
+        # Get css style for image avatar
+        if self.user_image is not None:
+            img_name = os.path.basename(self.user_image)
+            img = context.portal_memberdata.portraits[img_name]
+            avatar = getUtility(IAvatarUtil)
+            self.avatar_width, self.avatar_height, self.avatar_style = avatar.style(img, (80, 80))
+        else:
+            self.avatar_width = 80
+            self.avatar_height = 80
+            self.avatar_style = ''
+
 class VNCCarouselViewlet(CarouselViewlet):
     """Customize template to fix javascript code"""
 
@@ -276,25 +289,25 @@ class VNCCarouselViewlet(CarouselViewlet):
 
 class VNCCollabHeaderViewlet(common.ViewletBase):
     """Viewlet that inserts vnc header manager into plone header manager"""
-    
+
     def available(self):
         """Available only if carousel is set on current folder"""
         context = aq_inner(self.context)
-        
+
         manager = BaseOrderedViewletManager()
         alsoProvides(manager, IVNCCollabHtmlHead)
         viewlet = queryMultiAdapter((context, self.request, self.view, manager),
             IViewlet, name='vnccollab.theme.headercarousel')
         if viewlet is None:
             return False
-        
+
         viewlet = viewlet.__of__(context)
         viewlet.update()
         return viewlet.available
 
 class RelatedRedmineTicketsViewlet(common.ViewletBase):
     """Lists redmine tickets assigned to current object"""
-    
+
     def update(self):
         self.tickets = ()
         tickets = []
@@ -316,21 +329,21 @@ class RelatedRedmineTicketsViewlet(common.ViewletBase):
                 logException(_(u"Error during fetching redmine tickets %s" %
                     url), context=self.context, logger=logger)
                 return
-            
+
             for item in data:
                 info = item.to_dict()
-                
+
                 # skip invalid entries
                 if not info.get('id') or not info.get('subject'):
                     continue
-                
+
                 tickets.append({
                     'id': info['id'],
                     'title': safe_unicode(info['subject']),
                     'body': safe_unicode(info.get('description', '')),
                     'url': '%s/issues/%s' % (url, info['id'])
                 })
-        
+
         self.tickets = tuple(tickets)
 
     @memoize
