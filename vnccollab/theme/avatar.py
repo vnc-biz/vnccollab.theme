@@ -32,6 +32,6 @@ class AvatarUtil:
         pad_top    = int((dh-nh)/2)
         pad_bottom = dh - nh - pad_top
 
-        style = 'pad: {0}px {1}px {2}px {3}px'.format(
+        style = 'padding: {0}px {1}px {2}px {3}px'.format(
                 pad_top, pad_right, pad_bottom, pad_left)
         return nw, nh, style

@@ -272,15 +272,16 @@ class PersonalBarViewlet(common.PersonalBarViewlet):
         self.languages = languages
 
         # Get css style for image avatar
+        self.avatar_width = 80
+        self.avatar_height = 80
+        self.avatar_style = ''
+
         if self.user_image is not None:
             img_name = os.path.basename(self.user_image)
-            img = context.portal_memberdata.portraits[img_name]
-            avatar = getUtility(IAvatarUtil)
-            self.avatar_width, self.avatar_height, self.avatar_style = avatar.style(img, (80, 80))
-        else:
-            self.avatar_width = 80
-            self.avatar_height = 80
-            self.avatar_style = ''
+            if img_name <> 'defaultUser.png':
+                img = context.portal_memberdata.portraits[img_name]
+                avatar = getUtility(IAvatarUtil)
+                self.avatar_width, self.avatar_height, self.avatar_style = avatar.style(img, (80, 80))
 
 class VNCCarouselViewlet(CarouselViewlet):
     """Customize template to fix javascript code"""
