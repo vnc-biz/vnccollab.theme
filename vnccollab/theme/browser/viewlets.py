@@ -1,6 +1,8 @@
 import logging
 import os.path
 from pyactiveresource.activeresource import ActiveResource
+from pytz import timezone
+from datetime import datetime
 
 from Acquisition import aq_base, aq_inner
 from DateTime import DateTime
@@ -22,6 +24,7 @@ from plone.app.layout.viewlets import common
 from plone.app.layout.viewlets.interfaces import IPortalHeader
 from plone.memoize.instance import memoize
 from plone.registry.interfaces import IRegistry
+from plone.portlets.interfaces import IPortletManager, IPortletAssignmentMapping
 
 from Products.Carousel.config import CAROUSEL_ID
 from Products.Carousel.interfaces import ICarousel
@@ -34,6 +37,8 @@ from vnccollab.theme import messageFactory as _
 from vnccollab.theme.avatar import IAvatarUtil
 from vnccollab.theme.config import FOOTER_LINKS_CAT
 from vnccollab.theme.browser.interfaces import IVNCCollabHtmlHead
+from vnccollab.theme.portlets import world_clock
+
 
 
 _pl = MessageFactory('plonelocales')
@@ -359,11 +364,6 @@ class RelatedRedmineTicketsViewlet(common.ViewletBase):
         return username, safe_unicode(password).encode('utf-8')
 
 
-
-from pytz import timezone
-from datetime import datetime
-from plone.portlets.interfaces import IPortletManager, IPortletAssignmentMapping
-from vnccollab.theme.portlets import world_clock
 
 class WorldClockViewlet(common.ViewletBase):
     """Shows world clock"""

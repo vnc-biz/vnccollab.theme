@@ -1,0 +1,63 @@
+<div class="worldClockViewlet"
+     i18n:domain="vnccollab.theme">
+     <dl class="portlet portletWorldClock"
+         i18n:domain="vnccollab.theme"
+         tal:define="portal_url context/portal_url">
+      <dd class="portletItem">
+
+        <span class="worldClockWrapper"
+              tal:define="zone python:view.getTimeZoneInfo(view.data.tz_1);
+                          skin view/data/skin_1;
+                          radius view/data/radius_1;
+                          no_seconds python:view.data.no_seconds_1 and 'noSeconds' or ''"
+              tal:condition="zone">
+          <span class="worldClock">
+            <canvas id="vc1" class="CoolClock:%s:%s:%s:%s"
+                tal:attributes="class python:attrs['class'] % (skin, radius, no_seconds, zone['hours'])"></canvas>
+          </span>
+          <span class="worldClockCity"
+                tal:content="zone/city">Berlin</span>
+        </span>
+
+      <span class="worldClockWrapper"
+            tal:define="zone python:view.getTimeZoneInfo(view.data.tz_2);
+                        skin view/data/skin_2;
+                        radius view/data/radius_2;
+                        no_seconds python:view.data.no_seconds_2 and 'noSeconds' or ''"
+            tal:condition="zone">
+        <span class="worldClock">
+          <canvas id="vc2" class="CoolClock:%s:%s:%s:%s"
+              tal:attributes="class python:attrs['class'] % (skin, radius, no_seconds, zone['hours'])"></canvas>
+        </span>
+        <span class="worldClockCity"
+              tal:content="zone/city">Berlin</span>
+      </span>
+
+      <span class="worldClockWrapper"
+            tal:define="zone python:view.getTimeZoneInfo(view.data.tz_3);
+                        skin view/data/skin_3;
+                        radius view/data/radius_3;
+                        no_seconds python:view.data.no_seconds_3 and 'noSeconds' or ''"
+            tal:condition="zone">
+        <span class="worldClock">
+          <canvas id="vc3" class="CoolClock:%s:%s:%s:%s"
+              tal:attributes="class python:attrs['class'] % (skin, radius, no_seconds, zone['hours'])"></canvas>
+        </span>
+        <span class="worldClockCity"
+              tal:content="zone/city">Berlin</span>
+      </span>
+
+      </dd>
+     </dl>
+     <script src="++resource++vnccollab.theme.js/coolclock.js"></script>
+    <script type="text/javascript">
+    CoolClock.config['skins']['vnc'] = {
+      outerBorder: { lineWidth: 6, radius:16, color: "#0d415b", alpha: 1 },
+      largeIndicator: { lineWidth: 6, startAt: 75, endAt: 93, color: "#0d415b", alpha: 1 },
+      hourHand: { lineWidth: 10, startAt: 0, endAt: 70, color: "#0d415b", alpha: 1 },
+      minuteHand: { lineWidth: 10, startAt: 0, endAt: 88, color: "#0d415b", alpha: 1 },
+      secondHand: { lineWidth: 3, startAt: -45, endAt: 92, color: "#0d415b", alpha: 1 },
+      secondDecoration: { lineWidth: 4, startAt: 0, radius: 15, fillColor: "#dee2e9", color: "#dee2e9", alpha: 1 }
+    };
+    </script>
+</div>
