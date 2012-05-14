@@ -880,6 +880,7 @@ dl.portlet dd.portletFooter a {
   float:left;
   height: 300px;
   margin-right:15px;
+  margin-bottom: 37px;
   overflow: hidden;
   width:310px;
   }
@@ -890,8 +891,20 @@ dl.portlet dd.portletFooter a {
   width:635px;
   }
 #dashboard-portlets1 dl.portlet {
+  background: rgba(255, 255, 255, 0.2);
   margin:0 0 37px;
+  padding-left: 5px;
+  padding-right: 5px;
+  -moz-transition: background-color .15s linear;
+  -ms-transition: background-color .15s linear;
+  -o-transition: background-color .15s linear;
+  -webkit-transition: background-color .15s linear;
+  transition: background-color .15s linear;
   }
+#dashboard-portlets1 dl.portlet:hover {
+  background-color: rgba(255, 255, 255, 0.6);
+  }
+
 /* portlets on manage-dashboard screens */
 #dashboard-portlets1 .portlet.managedPortlet {
   width:100%;
@@ -1459,6 +1472,24 @@ form input.dislike-button {
   top: 0;
   width: 92%;
 }
+
+/*----- Portal Message -----*/
+dl.portalMessage{
+  background-color: rgba(1, 42, 67, 0.1);
+  border: 1px solid rgba(1, 42, 67, 0.5);
+  border-radius: 15px;
+  color: rgba(1, 42, 67, 1.0);
+  }
+
+dl.portalMessage dt {
+  background-color: rgba(1, 42, 67, 1.0);
+  border-top-left-radius: 15px;
+  border-bottom-left-radius: 15px;
+  padding-left: 14px;
+  }
+dl.portalMessage dd {
+  border-radius: 15px;
+  }
 
 }
 
