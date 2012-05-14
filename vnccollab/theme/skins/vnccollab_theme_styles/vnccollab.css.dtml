@@ -1,10 +1,11 @@
 /* <dtml-with base_properties> (do not remove this :) */
 /* <dtml-call "REQUEST.set('portal_url', portal_url())"> (not this either :) */
 
+@media screen {
+
 /*---------- General Style ----------*/
 body {
   background:url(&dtml-portal_url;/bg.png) repeat-x #c7d0da;
-  /*background:#fff;*/
   color:#000;
   font:100% "Myriad Pro", Arial, FreeSans, sans-serif;
   }
@@ -877,15 +878,33 @@ dl.portlet dd.portletFooter a {
   }
 #dashboard-portlets1 .portletWrapper {
   float:left;
+  height: 300px;
   margin-right:15px;
+  margin-bottom: 37px;
+  overflow: hidden;
   width:310px;
+  }
+#dashboard-portlets1 .portletWrapper:hover {
+  overflow-y: auto;
   }
 #dashboard-portlets1 .wide {
   width:635px;
   }
 #dashboard-portlets1 dl.portlet {
+  background: rgba(255, 255, 255, 0.2);
   margin:0 0 37px;
+  padding-left: 5px;
+  padding-right: 5px;
+  -moz-transition: background-color .15s linear;
+  -ms-transition: background-color .15s linear;
+  -o-transition: background-color .15s linear;
+  -webkit-transition: background-color .15s linear;
+  transition: background-color .15s linear;
   }
+#dashboard-portlets1 dl.portlet:hover {
+  background-color: rgba(255, 255, 255, 0.6);
+  }
+
 /* portlets on manage-dashboard screens */
 #dashboard-portlets1 .portlet.managedPortlet {
   width:100%;
@@ -1453,5 +1472,67 @@ form input.dislike-button {
   top: 0;
   width: 92%;
 }
+
+/*----- Portal Message -----*/
+dl.portalMessage{
+  background-color: rgba(1, 42, 67, 0.1);
+  border: 1px solid rgba(1, 42, 67, 0.5);
+  border-radius: 15px;
+  color: rgba(1, 42, 67, 1.0);
+  }
+
+dl.portalMessage dt {
+  background-color: rgba(1, 42, 67, 1.0);
+  border-top-left-radius: 15px;
+  border-bottom-left-radius: 15px;
+  padding-left: 14px;
+  }
+dl.portalMessage dd {
+  border-radius: 15px;
+  }
+
+}
+
+@media screen and (min-width: 1600px) {
+
+#visual-portal-wrapper {
+  width: 1180px;
+  }
+div.width-full {
+  width: 1180px;
+  }
+div.position-0 {
+  margin-left: -1180px;
+  }
+div.width-3\3a 4 {
+  width: 840px;
+  }
+#portal-breadcrumbs,
+#vnccollab-header {
+  background-size: 1180px 30px;
+  }
+.hp-header-first-link {
+  width: 396px;
+  }
+.hp-header-second-link {
+  left: 751px;
+  width: 391px;
+  }
+#dashboard-portlets1 .portletWrapper {
+  width: 412px;
+  }
+#dashboard-portlets1 .wide {
+  width: 840px;
+  }
+#portal-footer {
+  background-size: 1180px 85px;
+  width: 100%;
+  }
+.footerColumn {
+  width: 328px;
+  }
+
+}
+
 
 /* </dtml-with> */ 
