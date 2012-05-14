@@ -39,6 +39,7 @@
   </hidden>
   <hidden manager="plone.abovecontent" skinname="VNC Collaboration Theme">
     <viewlet name="Products.Carousel.viewlet"/>
+    <viewlet name="vnccollab.theme.worldclock"/>
     <viewlet name="plone.path_bar"/>
   </hidden>
   <hidden manager="plone.portalfooter" skinname="VNC Collaboration Theme">

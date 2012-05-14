@@ -82,6 +82,17 @@
       editview=".redmine_tickets.EditForm"
       />
 
+  <plone:portlet
+      name="vnccollab.theme.portlets.SpecialRSSPortlet"
+      interface=".special_rss.ISpecialRSSPortlet"
+      assignment=".special_rss.Assignment"
+      view_permission="zope2.View"
+      edit_permission="cmf.ManagePortal"
+      renderer=".special_rss.Renderer"
+      addview=".special_rss.AddForm"
+      editview=".special_rss.EditForm"
+      />
+
   <utility
     component=".openerp_js.openerp_vocabulary"
     name="vnccollab.theme.openerp_js.openerp_vocabulary"

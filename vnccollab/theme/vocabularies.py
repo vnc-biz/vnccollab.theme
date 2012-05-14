@@ -30,7 +30,7 @@ def cachemethod(interval):
 @ram.cache(cachemethod(time.time() // REDMINE_ENUMERATORS_CACHE_TIME))
 def getRedmineEnumerators(url, username, password):
     """Returns redmine enumerators:
-    
+
     * projects
     * trackers
     * priorities
@@ -46,7 +46,7 @@ def getRedmineEnumerators(url, username, password):
         projects.append((item.id, item.name))
     # projects.sort(lambda x,y:cmp(x[1], y[1]))
     data['projects'] = tuple(projects)
-    
+
     # trackers
     # TODO: redmine 1.1 do not support tracker REST API call, so also hard-code
     # it so far
@@ -61,7 +61,7 @@ def getRedmineEnumerators(url, username, password):
         ('4', 'WR - Work Request'), ('5', 'CR - Change Request'),
         ('6', 'Status Call'), ('7', 'Meeting'), ('10', 'Draft'),
         ('11', 'Sign-Off'), ('12', 'Approval'), ('13', 'Testing'))
-    
+
     # priorities
     # TODO: switch to using REST API after this ticket is closed:
     #         http://www.redmine.org/issues/7402
@@ -75,38 +75,38 @@ def getRedmineEnumerators(url, username, password):
     # data['priorities'] = tuple(priorities)
     data['priorities'] = (('3', 'Low'), ('4', 'Normal'), ('5', 'High'),
         ('6', 'Urgent'), ('7', 'Immediate'))
-    
+
     # users
     users = []
     User = type("User", (ActiveResource,), {'_site': url, '_user':
             username, '_password': password})
-    
+
     # only Redmine Administrator could do this call
     try:
         for item in User.find():
             users.append((item.id, '%s %s' % (item.firstname, item.lastname)))
     except Exception, e:
         pass
-    
+
     users.sort(lambda x,y:cmp(x[1], y[1]))
     data['users'] = tuple(users)
-    
+
     return data
 
 class RedmineVocabularyFactory(object):
-    
+
     implements(IVocabularyFactory)
-    
+
     def __init__(self, resource):
         self.resource = resource
-    
+
     def __call__(self, context):
         # get authenticated user
         mtool = getToolByName(context, 'portal_membership')
         member = mtool.getAuthenticatedMember()
         if not member:
             return SimpleVocabulary([])
-    
+
         username, password = member.getProperty('redmine_username', ''), \
             safe_unicode(member.getProperty('redmine_password',
             '')).encode('utf-8')
@@ -116,14 +116,14 @@ class RedmineVocabularyFactory(object):
             'vnccollab.theme.redmine.plone_uid_field_id')
         if not (username and password and url and field_id):
             return SimpleVocabulary([])
-    
+
         try:
             data = getRedmineEnumerators(url, username, password)
         except Exception, e:
             logException(_(u"Error during fetching redmine enumerators"),
                 context=context, logger=logger)
             return SimpleVocabulary([])
-    
+
         return SimpleVocabulary([SimpleTerm(key, key, value)
             for key, value in data.get(self.resource, ())])
 
@@ -134,19 +134,34 @@ UsersRedmineVocabulary = RedmineVocabularyFactory('users')
 
 class TimeZonesVocabularyFactory(object):
     """Returns list of common timezones with user friendly titles.
-    
+
     It uses python timezone library: pytz.
     """
-    
+
     implements(IVocabularyFactory)
-    
+
     def __call__(self, context):
         terms = []
         for zone_name in common_timezones:
             # prepare zone title: America/New_York -> America/New York
             terms.append(SimpleTerm(zone_name, zone_name,
                 zone_name.replace('_', ' ')))
-    
+
         return SimpleVocabulary(terms)
 
 TimeZonesVocabulary = TimeZonesVocabularyFactory()
+
+from Products.CMFCore.utils import getToolByName
+
+class ATLinkVocabularyFactory(object):
+    '''Return vocabulary with references to ATLink objects'''
+    implements(IVocabularyFactory)
+
+    def __call__(self, context):
+        catalog = getToolByName(context, 'portal_catalog')
+        brains = catalog.searchResults(Type = 'Link')
+        terms = [SimpleTerm(x.getObject(), x.getObject().Title())
+                        for x in brains]
+        return SimpleVocabulary(terms)
+
+ATLinkVocabulary = ATLinkVocabularyFactory()

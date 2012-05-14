@@ -357,3 +357,49 @@ class RelatedRedmineTicketsViewlet(common.ViewletBase):
             member.getProperty('redmine_password', '')
         # password could contain non-ascii chars, ensure it's properly encoded
         return username, safe_unicode(password).encode('utf-8')
+
+
+
+from pytz import timezone
+from datetime import datetime
+from plone.portlets.interfaces import IPortletManager, IPortletAssignmentMapping
+from vnccollab.theme.portlets import world_clock
+
+class WorldClockViewlet(common.ViewletBase):
+    """Shows world clock"""
+    def update(self):
+        self.data = self._get_world_clock()
+
+    def _get_world_clock(self):
+        """Gets a World Clock Portlet Assignment instance"""
+        # we look for a world clock portlet instance
+        for name in (u'plone.leftcolumn', u'plone.rightcolumn'):
+            manager = getUtility(IPortletManager, name=name)
+            assign = getMultiAdapter((self.context, manager),
+                                     IPortletAssignmentMapping)
+            world_clock = assign.get('world-clock', None)
+
+            if world_clock is not None:
+                return world_clock
+
+        # If we can't find it, we create a new one
+        return portlets.world_clock.Assignment()
+
+    # we copy vnccollab.theme.portlets.world_clock..Renderer.getTimeZoneInfo
+    # method, since it is used in the template
+    def getTimeZoneInfo(self, zone_name):
+        """Return timezone city name and hours offset"""
+        if not zone_name:
+            return None
+
+        offset = datetime.now(timezone(zone_name)).utcoffset()
+        hours = offset.seconds / 3600.0
+        # if time delta is negative, then subtract 24 hours
+        if offset.days < 0:
+            hours = hours - 24.0
+        return {'hours': '%.1f' % round(hours, 1),
+            'city': zone_name.split('/')[-1].replace('_', ' ')}
+
+
+
+

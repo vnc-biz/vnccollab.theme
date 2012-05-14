@@ -1,0 +1,38 @@
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:tal="http://xml.zope.org/namespaces/tal"
+      xmlns:i18n="http://xml.zope.org/namespaces/i18n"
+      tal:omit-tag="">
+  <dl class="portlet portletSpecialRSS"
+    i18n:domain="vnccollab.theme"
+    tal:define="portal_url context/portal_url">
+
+    <dt class="portletHeader">
+        <span class="portletTopLeft"></span>
+        <span i18n:translate=""
+              tal:content="view/data/header">New in the Cloud</span>
+        <span class="portletTopRight"></span>
+    </dt>
+
+    <dd class="portletItem special-rss-item">
+      <h2>Item title</h2>
+      <div>
+        Item body
+      </div>
+
+      <ul class="special-rss-nav">
+        <li >
+          <a href="">Previous</a>
+          <a href="">Next</a>
+        </li>
+      </ul>
+
+      <ul class="special-rss-links">
+        <li tal:repeat="item view/data/source">
+          <a href="" tal:content="item/title">VNC RSS</a>
+        </li>
+      </ul>
+
+    </dd>
+
+  </dl>
+</html>

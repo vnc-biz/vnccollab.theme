@@ -241,6 +241,15 @@
       permission="zope2.View"
       />
       
+  <browser:viewlet
+      name="vnccollab.theme.worldclock"
+      manager=".interfaces.IVNCCollabHtmlHead"
+      class=".viewlets.WorldClockViewlet"
+      layer=".interfaces.IThemeSpecific"
+      template="templates/worldclock.pt"
+      permission="zope2.View"
+      />
+      
   <!-- <browser:viewlet
       name="vnccollab.theme.headerlinks"
       manager=".interfaces.IVNCCollabHtmlHead"

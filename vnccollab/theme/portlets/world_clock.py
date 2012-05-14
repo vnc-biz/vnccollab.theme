@@ -36,7 +36,7 @@ class IWorldClockPortlet(IPortletDataProvider):
        required=True,
        values=('chunkySwiss', 'chunkySwissOnBlack', 'swissRail', 'vnc'),
        default='vnc')
-    
+
     radius_1 = schema.Int(
         title=_(u"Clock 1 Radius"),
         description=u'',
@@ -62,7 +62,7 @@ class IWorldClockPortlet(IPortletDataProvider):
        required=True,
        values=('chunkySwiss', 'chunkySwissOnBlack', 'swissRail', 'vnc'),
        default='vnc')
-    
+
     radius_2 = schema.Int(
         title=_(u"Clock 2 Radius"),
         description=u'',
@@ -88,7 +88,7 @@ class IWorldClockPortlet(IPortletDataProvider):
        required=True,
        values=('chunkySwiss', 'chunkySwissOnBlack', 'swissRail', 'vnc'),
        default='vnc')
-    
+
     radius_3 = schema.Int(
         title=_(u"Clock 3 Radius"),
         description=u'',
