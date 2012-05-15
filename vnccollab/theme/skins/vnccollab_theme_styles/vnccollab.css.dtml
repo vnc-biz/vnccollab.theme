@@ -980,6 +980,26 @@ dl.portlet dd.portletFooter a {
   display: block;
 }
 
+/*----- World Clock Header Viewlet -----*/
+#vnccollab-header .worldClockViewlet {
+  position: absolute;
+  top: 0;
+  right: 0;
+  width: 320px;
+  height: 150px;
+  display: block;
+}
+
+#vnccollab-header .worldClockViewlet .portlet {
+  padding: 0;
+  margin: 22px 30px 0 0;
+  background: none;
+}
+
+#vnccollab-header .worldClockViewlet .worldClockCity {
+  color: #ffffff;
+}
+
 /*----- Portlet Navigation -----*/
 dl.portletNavigationTree dd.portletItem {
   border-bottom:1px solid #cfd6db;

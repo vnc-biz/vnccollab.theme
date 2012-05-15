@@ -60,7 +60,8 @@ class IWorldClockPortlet(IPortletDataProvider):
        title=_(u"Clock 2 Skin"),
        description=u'',
        required=True,
-       values=('chunkySwiss', 'chunkySwissOnBlack', 'swissRail', 'vnc'),
+       values=('chunkySwiss', 'chunkySwissOnBlack', 'swissRail', 'vnc',
+           'vncHeaderViewlet'),
        default='vnc')
 
     radius_2 = schema.Int(
@@ -127,6 +128,7 @@ class Assignment(base.Assignment):
         skin_1='vnc', radius_1=35, no_seconds_1=False, tz_2='Europe/Berlin',
         skin_2='vnc', radius_2=35, no_seconds_2=False, tz_3='Europe/Berlin',
         skin_3='vnc', radius_3=35, no_seconds_3=False):
+        self.header = header
         self.tz_1 = tz_1
         self.skin_1 = skin_1
         self.radius_1 = radius_1

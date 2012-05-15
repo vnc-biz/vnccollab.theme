@@ -6,7 +6,8 @@
     i18n:domain="vnccollab.theme"
     tal:define="portal_url context/portal_url">
 
-    <dt class="portletHeader">
+    <dt class="portletHeader"
+        tal:condition="view/data/header">
         <span class="portletTopLeft"></span>
         <span i18n:translate=""
               tal:content="view/data/header">World Clock</span>
@@ -72,6 +73,14 @@
       minuteHand: { lineWidth: 10, startAt: 0, endAt: 88, color: "#0d415b", alpha: 1 },
       secondHand: { lineWidth: 3, startAt: -45, endAt: 92, color: "#0d415b", alpha: 1 },
       secondDecoration: { lineWidth: 4, startAt: 0, radius: 15, fillColor: "#dee2e9", color: "#dee2e9", alpha: 1 }
+    };
+    CoolClock.config['skins']['vncHeaderViewlet'] = {
+      outerBorder: { lineWidth: 6, radius:16, color: "#ffffff", alpha: 1 },
+      largeIndicator: { lineWidth: 6, startAt: 75, endAt: 93, color: "#ffffff", alpha: 1 },
+      hourHand: { lineWidth: 10, startAt: 0, endAt: 70, color: "#ffffff", alpha: 1 },
+      minuteHand: { lineWidth: 10, startAt: 0, endAt: 88, color: "#ffffff", alpha: 1 },
+      secondHand: { lineWidth: 3, startAt: -45, endAt: 92, color: "#ffffff", alpha: 1 },
+      secondDecoration: { lineWidth: 4, startAt: 0, radius: 15, fillColor: "#12425f", color: "#12425f", alpha: 1 }
     };
     </script>
 </dl>

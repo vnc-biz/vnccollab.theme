@@ -24,7 +24,7 @@ from plone.app.layout.viewlets import common
 from plone.app.layout.viewlets.interfaces import IPortalHeader
 from plone.memoize.instance import memoize
 from plone.registry.interfaces import IRegistry
-from plone.portlets.interfaces import IPortletManager, IPortletAssignmentMapping
+from plone.portlets.interfaces import IPortletManager, IPortletRenderer
 
 from Products.Carousel.config import CAROUSEL_ID
 from Products.Carousel.interfaces import ICarousel
@@ -366,40 +366,47 @@ class RelatedRedmineTicketsViewlet(common.ViewletBase):
 
 
 class WorldClockViewlet(common.ViewletBase):
-    """Shows world clock"""
+    """Shows world clock.
+    
+    It basically re-uses World Clock portlet code.
+    """
+    
     def update(self):
-        self.data = self._get_world_clock()
-
-    def _get_world_clock(self):
-        """Gets a World Clock Portlet Assignment instance"""
-        # we look for a world clock portlet instance
-        for name in (u'plone.leftcolumn', u'plone.rightcolumn'):
-            manager = getUtility(IPortletManager, name=name)
-            assign = getMultiAdapter((self.context, manager),
-                                     IPortletAssignmentMapping)
-            world_clock = assign.get('world-clock', None)
-
-            if world_clock is not None:
-                return world_clock
-
-        # If we can't find it, we create a new one
-        return portlets.world_clock.Assignment()
-
-    # we copy vnccollab.theme.portlets.world_clock..Renderer.getTimeZoneInfo
-    # method, since it is used in the template
-    def getTimeZoneInfo(self, zone_name):
-        """Return timezone city name and hours offset"""
-        if not zone_name:
-            return None
-
-        offset = datetime.now(timezone(zone_name)).utcoffset()
-        hours = offset.seconds / 3600.0
-        # if time delta is negative, then subtract 24 hours
-        if offset.days < 0:
-            hours = hours - 24.0
-        return {'hours': '%.1f' % round(hours, 1),
-            'city': zone_name.split('/')[-1].replace('_', ' ')}
-
-
-
-
+        context = aq_inner(self.context)
+        portal = getToolByName(context, 'portal_url').getPortalObject()
+        manager = getUtility(IPortletManager, name='plone.rightcolumn',
+            context=portal)
+        
+        # get settings from registry
+        registry = getUtility(IRegistry)
+        tz_1 = registry.get('vnccollab.theme.header_clock.tz_1',
+            'Europe/Berlin')
+        skin_1 = registry.get('vnccollab.theme.header_clock.skin_1',
+            'vnc')
+        radius_1 = registry.get('vnccollab.theme.header_clock.radius_1', 35)
+        no_seconds_1 = registry.get('vnccollab.theme.header_clock.no_seconds_1',
+            False)
+        tz_2 = registry.get('vnccollab.theme.header_clock.tz_2',
+            'Europe/Berlin')
+        skin_2 = registry.get('vnccollab.theme.header_clock.skin_2',
+            'vnc')
+        radius_2 = registry.get('vnccollab.theme.header_clock.radius_2', 35)
+        no_seconds_2 = registry.get('vnccollab.theme.header_clock.no_seconds_2',
+            False)
+        tz_3 = registry.get('vnccollab.theme.header_clock.tz_3',
+            'Europe/Berlin')
+        skin_3 = registry.get('vnccollab.theme.header_clock.skin_3',
+            'vnc')
+        radius_3 = registry.get('vnccollab.theme.header_clock.radius_3', 35)
+        no_seconds_3 = registry.get('vnccollab.theme.header_clock.no_seconds_3',
+            False)
+            
+        assignment = world_clock.Assignment(header=u'', tz_1=tz_1,
+            skin_1=skin_1, radius_1=radius_1, no_seconds_1=no_seconds_1,
+            tz_2=tz_2, skin_2=skin_2, radius_2=radius_2,
+            no_seconds_2=no_seconds_2, tz_3=tz_3, skin_3=skin_3,
+            radius_3=radius_3, no_seconds_3=no_seconds_3)
+        renderer = queryMultiAdapter((context, self.request, self.view, manager,
+            assignment), IPortletRenderer)
+        renderer.update()
+        self.world_clock = renderer.render()
