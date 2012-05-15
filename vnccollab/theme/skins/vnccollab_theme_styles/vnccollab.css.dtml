@@ -988,13 +988,12 @@ dl.portlet dd.portletFooter a {
   top: 0;
   right: 0;
   width: 320px;
-  height: 150px;
   display: block;
 }
 
 #vnccollab-header .worldClockViewlet .portlet {
   padding: 0;
-  margin: 22px 30px 0 0;
+  margin: 6px 30px 0 0;
   background: none;
 }
 
