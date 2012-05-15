@@ -414,6 +414,7 @@ input.searchField {
 #vnccollab-header.opened .headerTimeViewlet,
 #vnccollab-header.opened .headerLinksViewlet,
 #vnccollab-header.opened .carousel,
+#vnccollab-header.opened .worldClockViewlet,
 #vnccollab-header.closed .headerTimeViewletShort {
   display: block;
   }
@@ -421,6 +422,7 @@ input.searchField {
 #vnccollab-header.closed .headerLinksViewlet,
 #vnccollab-header.closed .carousel,
 #vnccollab-header.closed .closeLink,
+#vnccollab-header.closed .worldClockViewlet,
 #vnccollab-header.opened .headerTimeViewletShort {
   display: none;
   }
