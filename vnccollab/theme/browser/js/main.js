@@ -130,7 +130,7 @@ function init_textile_editor() {
 }
 
 function addSlimScrollingToDashboardPortlets() {
-  jq('#dashboard-portlets1 .portletBody').slimScroll({
+  jq('#dashboard-portlets1 .portletBody:not(.noSlimScroll)').slimScroll({
     'height': '300px'
   });
 }

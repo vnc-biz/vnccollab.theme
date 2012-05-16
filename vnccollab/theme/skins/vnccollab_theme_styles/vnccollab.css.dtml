@@ -792,8 +792,8 @@ dl.portlet dd.portletItem {
 #dashboard-portlets1 dl.portlet .portletBody:hover {
 /*  overflow-y: scroll;*/
 }
-dl.portlet ul.portletBody,
-#content dl.portlet ul.portletBody {
+dl.portlet .portletBody,
+#content dl.portlet .portletBody {
   padding: 0;
   margin: 0;
   list-style-type: none;
@@ -1150,6 +1150,11 @@ dl.portlet ul.navTreeLevel1 > .navTreeItem:first-child {
   }
 
 /*------ Specific Portlet Styles -----*/
+.portletWorkflowReview .portletItem,
+.portletRedmineTickets .portletItem,
+.portletRss .portletItem,
+.portletEvents .portletItem,
+.portletEtherpadsList .portletItem,
 .portletNews .portletItem,
 .portletCollection .portletItem,
 .portletRecent .portletItem {
