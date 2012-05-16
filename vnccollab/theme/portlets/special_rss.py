@@ -6,6 +6,7 @@ from zope.interface import implements, Interface
 from zope import schema
 from plone.app.portlets.portlets.rss import RSSFeed
 
+from Products.CMFCore.utils import getToolByName
 from Products.Five.browser.pagetemplatefile import ZopeTwoPageTemplateFile
 
 from plone.portlets.interfaces import IPortletDataProvider
@@ -59,22 +60,21 @@ class Assignment(base.Assignment):
         self.source = source
         self.count = count
         self.timeout = timeout
-        self.feeds = [RSSFeed(x.remote_url(), timeout) for x in self.source]
 
-
-FEED_DATA = {}
 
 class Renderer(base.DeferredRenderer):
     # This is an adaptation of plone.app.portlets.portlets.rss.Renderer
     # modified to handle several feeds
     render = ZopeTwoPageTemplateFile('templates/special_rss.pt')
 
+    MAX_SUMMARY_LEN = 80
+
     @property
     def initializing(self):
         """should return True if deferred template should be displayed"""
-        if any([not x.loaded for x in self.data.feeds]):
+        if any([not x.loaded for x in self.feeds]):
             return True
-        if any([x.needs_update for x in self.data.feeds]):
+        if any([x.needs_update for x in self.feeds]):
             return True
         return False
 
@@ -86,7 +86,36 @@ class Renderer(base.DeferredRenderer):
     def update(self):
         """update data before rendering. We can not wait for KSS since users
         may not be using KSS."""
+        #self.feeds = [RSSFeed(x.remote_url(), self.data.timeout)
+        #                    for x in self.data.source]
+        self.feeds = []
+        for link in self.data.source:
+            rss = RSSFeed(link.remote_url(), self.data.timeout)
+            rss.id = link.id
+            self.feeds.append(rss)
+
         self.deferred_update()
+        #import pdb;pdb.set_trace()
+
+    def items(self, feed):
+        """Return postprocessed items"""
+        return (self.sanitize(item) for item in feed.items[:self.data.count])
+
+    def sanitize(self, item):
+        """return a news feed item sanitized."""
+        new = dict(**item)
+        # Convert HTML to plain text.
+        # We won't use portal_transforms due to potential problems with
+        # encoding on the summary text.
+        s = MLStripper()
+        s.feed(new['summary'])
+        summary = s.get_data()
+
+        if len(summary) > self.MAX_SUMMARY_LEN:
+            summary = summary[:self.MAX_SUMMARY_LEN] + '...'
+        new['summary'] = summary
+
+        return new
 
 
 class AddForm(base.AddForm):
@@ -102,3 +131,17 @@ class EditForm(base.EditForm):
     form_fields = form.Fields(ISpecialRSSPortlet)
     label = _(u"Edit Special RSS portlet")
     description = _(u"A portlet displaying multiple RSS sources.")
+
+
+from HTMLParser import HTMLParser
+
+class MLStripper(HTMLParser):
+    '''Support class to convert HTML to ASCII'''
+    def __init__(self):
+        self.reset()
+        self.fed = []
+    def handle_data(self, d):
+        self.fed.append(d)
+    def get_data(self):
+        return ''.join(self.fed)
+
