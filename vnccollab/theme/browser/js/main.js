@@ -129,9 +129,16 @@ function init_textile_editor() {
   set_textile_editor.call($text_text_format);
 }
 
+function addSlimScrollingToDashboardPortlets() {
+  jq('#dashboard-portlets1 .portletBody').slimScroll({
+    'height': '300px'
+  });
+}
+
 jq(function() {
   attachHeaderViewletCloseOpen();
   attachPortletButtons();
   attachRedmineTicketAction();
   init_textile_editor();
+  addSlimScrollingToDashboardPortlets();
 });
