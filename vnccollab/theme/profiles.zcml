@@ -11,6 +11,14 @@
       provides="Products.GenericSetup.interfaces.EXTENSION"
       />
 
+  <genericsetup:registerProfile
+      name="worldclock"
+      title="WorldClock Control Panel"
+      directory="profiles/default"
+      description='Adds a configlet to the control panel to configure WorldClock viewlet.'
+      provides="Products.GenericSetup.interfaces.EXTENSION"
+      />
+
   <genericsetup:importStep
       name="vnccollab.theme.various"
       title="VNC Collaboration Theme: miscellaneous import steps"

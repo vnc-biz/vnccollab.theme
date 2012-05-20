@@ -38,7 +38,7 @@ from vnccollab.theme.avatar import IAvatarUtil
 from vnccollab.theme.config import FOOTER_LINKS_CAT
 from vnccollab.theme.browser.interfaces import IVNCCollabHtmlHead
 from vnccollab.theme.portlets import world_clock
-
+from vnccollab.theme.settings import IWorldClockSettings
 
 
 _pl = MessageFactory('plonelocales')
@@ -367,40 +367,32 @@ class RelatedRedmineTicketsViewlet(common.ViewletBase):
 
 class WorldClockViewlet(common.ViewletBase):
     """Shows world clock.
-    
+
     It basically re-uses World Clock portlet code.
     """
-    
+
     def update(self):
         context = aq_inner(self.context)
         portal = getToolByName(context, 'portal_url').getPortalObject()
         manager = getUtility(IPortletManager, name='plone.rightcolumn',
             context=portal)
-        
+
         # get settings from registry
         registry = getUtility(IRegistry)
-        tz_1 = registry.get('vnccollab.theme.header_clock.tz_1',
-            'Europe/Berlin')
-        skin_1 = registry.get('vnccollab.theme.header_clock.skin_1',
-            'vnc')
-        radius_1 = registry.get('vnccollab.theme.header_clock.radius_1', 35)
-        no_seconds_1 = registry.get('vnccollab.theme.header_clock.no_seconds_1',
-            False)
-        tz_2 = registry.get('vnccollab.theme.header_clock.tz_2',
-            'Europe/Berlin')
-        skin_2 = registry.get('vnccollab.theme.header_clock.skin_2',
-            'vnc')
-        radius_2 = registry.get('vnccollab.theme.header_clock.radius_2', 35)
-        no_seconds_2 = registry.get('vnccollab.theme.header_clock.no_seconds_2',
-            False)
-        tz_3 = registry.get('vnccollab.theme.header_clock.tz_3',
-            'Europe/Berlin')
-        skin_3 = registry.get('vnccollab.theme.header_clock.skin_3',
-            'vnc')
-        radius_3 = registry.get('vnccollab.theme.header_clock.radius_3', 35)
-        no_seconds_3 = registry.get('vnccollab.theme.header_clock.no_seconds_3',
-            False)
-            
+        settings = registry.forInterface(IWorldClockSettings)
+        tz_1 = settings.tz_1
+        skin_1 = settings.skin_1
+        radius_1 = settings.radius_1
+        no_seconds_1 = settings.no_seconds_1
+        tz_2 = settings.tz_2
+        skin_2 = settings.skin_2
+        radius_2 = settings.radius_2
+        no_seconds_2 = settings.no_seconds_2
+        tz_3 = settings.tz_3
+        skin_3 = settings.skin_3
+        radius_3 = settings.radius_3
+        no_seconds_3 = settings.no_seconds_3
+
         assignment = world_clock.Assignment(header=u'', tz_1=tz_1,
             skin_1=skin_1, radius_1=radius_1, no_seconds_1=no_seconds_1,
             tz_2=tz_2, skin_2=skin_2, radius_2=radius_2,

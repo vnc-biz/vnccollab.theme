@@ -326,4 +326,12 @@
       permission="cmf.SetOwnProperties"
       />
 
+  <!-- Control Panel -->
+  <browser:page
+      name="worldclock-settings"
+      for="Products.CMFPlone.interfaces.IPloneSiteRoot"
+      class="vnccollab.theme.settings.WorldClockSettingsControlPanel"
+      permission="cmf.ManagePortal"
+      />
+
 </configure>
