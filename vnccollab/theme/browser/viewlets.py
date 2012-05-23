@@ -7,7 +7,7 @@ from datetime import datetime
 from Acquisition import aq_base, aq_inner
 from DateTime import DateTime
 
-from zope.interface import alsoProvides
+from zope.interface import alsoProvides, Interface
 from zope.component import getMultiAdapter, queryMultiAdapter, getUtility
 from zope.i18nmessageid import MessageFactory
 from zope.viewlet.interfaces import IViewlet
@@ -402,3 +402,15 @@ class WorldClockViewlet(common.ViewletBase):
             assignment), IPortletRenderer)
         renderer.update()
         self.world_clock = renderer.render()
+
+
+class IExternalEditable(Interface):
+    """Marker Interface for objects than can be edited by zopeedit."""
+
+class ZopeEditViewlet(common.ViewletBase):
+    """Link for external editor"""
+    def external_editor_url(self):
+        path = self.context.absolute_url_path()
+        parent = os.path.dirname(path)
+        me = os.path.basename(path)
+        return os.path.join(parent, 'externalEdit_', me)

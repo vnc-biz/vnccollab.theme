@@ -26,6 +26,7 @@
     <viewlet name="plone.nextprevious"/>
     <viewlet name="vnccollab.theme.actionslist"/>
     <viewlet name="vnccollab.theme.toprated"/>
+    <viewlet name="vnccollab.theme.zopeedit"/>
     <viewlet name="plone.manage_portlets_fallback"/>
   </order>
   <order manager="plone.belowcontentbody" skinname="VNC Collaboration Theme">

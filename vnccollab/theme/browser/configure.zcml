@@ -289,6 +289,22 @@
       permission="zope2.View"
       />
 
+  <!-- ZopeEdit Viewlet -->
+  <browser:viewlet
+      name="vnccollab.theme.zopeedit"
+      for=".viewlets.IExternalEditable"
+      manager="plone.app.layout.viewlets.interfaces.IBelowContentTitle"
+      template="templates/zopeedit.pt"
+      class=".viewlets.ZopeEditViewlet"
+      layer=".interfaces.IThemeSpecific"
+      permission="zope2.View"
+      />
+
+    <!-- This are the classes we want to edit with zopeedit-->
+    <class class="plone.app.blob.content.ATBlob">
+        <implements interface=".viewlets.IExternalEditable"/>
+    </class>
+
   <!-- Zope 3 browser resources -->
 
   <!-- Resource directory for images -->
