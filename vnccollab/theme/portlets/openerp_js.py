@@ -1,5 +1,6 @@
 import re
 import xmlrpclib
+import traceback
 from urlparse import urlparse, parse_qs
 
 from zope.formlib import form
@@ -101,13 +102,12 @@ class Renderer(base.Renderer):
         if embedded_info is None:
             embedded_info = self._embed(login, pwd)
 
-            if embedded_info is not None:
+            error_msg = embedded_info[-1]
+            if not error_msg:
                 annotation[key] = embedded_info
-            else:
-                embedded_info = ('', '', '', '', '', 0)
 
         self.embedded_url, self.embedded_code, self.url, \
-                self.login, self.key, _ = embedded_info
+                self.login, self.key, _, self.error_msg = embedded_info
         self.action_id = self.data.action_id
         self.dbname = self.data.dbname
 
@@ -123,6 +123,8 @@ class Renderer(base.Renderer):
                         'domain' : ['|',['state','=','draft'],['state','=','open']] }
         embedded_url = ''
         embedded_code = ''
+        key = ''
+        error_msg = ''
 
         try:
             server = xmlrpclib.ServerProxy(url + '/xmlrpc/common', allow_none=True)
@@ -137,21 +139,20 @@ class Renderer(base.Renderer):
                                ['embed_url', 'embed_code'])
             embedded_url = r['datas'][0][0]
             embedded_code = r['datas'][0][1]
-        except:
-            import traceback
-            traceback.print_exc()
+        except Exception, e:
+            # error_msg = str(e)
+            error_msg = traceback.format_exc()
 
         # Parse the embed info in embedded_url and embedded_code
-        if not embedded_url:
-            return None
+        if embedded_url:
+            parsed = urlparse(embedded_url)
+            query_params = parse_qs(parsed.query)
+            url = '{0}://{1}'.format(parsed.scheme, parsed.netloc)
+            login = query_params['login'][0]
+            key = query_params['key'][0]
+            action_id = re.search('(?<=,)[0-9]+', embedded_code).group(0)
 
-        parsed = urlparse(embedded_url)
-        query_params = parse_qs(parsed.query)
-        url = '{0}://{1}'.format(parsed.scheme, parsed.netloc)
-        login = query_params['login'][0]
-        key = query_params['key'][0]
-        action_id = re.search('(?<=,)[0-9]+', embedded_code).group(0)
-        return (embedded_url, embedded_code, url, login, key, action_id)
+        return (embedded_url, embedded_code, url, login, key, action_id, error_msg)
 
 
 class AddForm(base.AddForm):

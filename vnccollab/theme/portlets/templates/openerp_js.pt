@@ -27,7 +27,8 @@
                            login         view/login;
                            dbname        view/dbname;
                            key           view/key;
-                           action_id     view/action_id;">
+                           action_id     view/action_id;
+                           error_msg     view/error_msg;">
       </iframe>
     </dd>
 </dl>
