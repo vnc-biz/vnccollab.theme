@@ -160,7 +160,9 @@ class ATLinkVocabularyFactory(object):
     def __call__(self, context):
         catalog = getToolByName(context, 'portal_catalog')
         brains = catalog.searchResults(Type = 'Link')
-        terms = [SimpleTerm(x.getObject(), x.getObject().Title())
+        terms = [SimpleTerm(value=x.getObject(),
+                            token=x.UID,
+                            title=x.getObject().Title())
                         for x in brains]
         return SimpleVocabulary(terms)
 
