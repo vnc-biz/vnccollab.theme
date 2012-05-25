@@ -379,7 +379,13 @@ class WorldClockViewlet(common.ViewletBase):
 
         # get settings from registry
         registry = getUtility(IRegistry)
-        settings = registry.forInterface(IWorldClockSettings)
+        try:
+            settings = registry.forInterface(IWorldClockSettings)
+        except KeyError, e:
+            # in case settings are not there yet
+            self.world_clock = ''
+            return
+        
         tz_1 = settings.tz_1
         skin_1 = settings.skin_1
         radius_1 = settings.radius_1
@@ -402,7 +408,6 @@ class WorldClockViewlet(common.ViewletBase):
             assignment), IPortletRenderer)
         renderer.update()
         self.world_clock = renderer.render()
-
 
 class IExternalEditable(Interface):
     """Marker Interface for objects than can be edited by zopeedit."""

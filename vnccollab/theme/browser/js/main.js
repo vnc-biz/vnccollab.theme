@@ -176,6 +176,12 @@ function init_special_rss_portlet() {
   show_first('.portletSpecialRSS');
 }
 
+function attachSocialBookmarksLink() {
+  jq('#document-action-socialbookmark a').click(function(event) {
+    jq('.sc_social_bookmarks_viewlet').toggleClass('visible');
+    return false;
+  });
+}
 
 jq(function() {
   attachHeaderViewletCloseOpen();
@@ -184,4 +190,5 @@ jq(function() {
   init_textile_editor();
   addSlimScrollingToDashboardPortlets();
   init_special_rss_portlet();
+  attachSocialBookmarksLink();
 });

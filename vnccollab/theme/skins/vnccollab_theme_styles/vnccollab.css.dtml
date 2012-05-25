@@ -669,6 +669,31 @@ div.postItemWrapper {
   padding:0.6em 2em;
   }
 
+/*------ Document Actions ------*/
+#content-core,
+.relatedItems,
+.sc_social_bookmarks_viewlet,
+.documentActions {
+  margin-bottom: 10px;
+  padding-bottom: 10px;
+  background: url(&dtml-portal_url;/p-s.png) repeat-x 0 100%;
+}
+
+.sc_social_bookmarks_viewlet {
+  display: none;
+}
+
+.sc_social_bookmarks_viewlet.visible {
+  display: block;
+}
+
+.sc_social_bookmarks_wrapper {
+  -moz-border-radius: 0.5em;
+  -webkit-border-radius: 0.5em;
+  border-radius: 0.5em;
+  background-color: #ffffff;
+}
+
 /*------ Footer -----*/
 #portal-footer {
   background:url(&dtml-portal_url;/f.png) no-repeat 0 0;
@@ -703,13 +728,14 @@ div.postItemWrapper {
 
 /*----- Content -----*/
 #content {
+  position: relative;
   font-size:0.75em;
   line-height:1.5em;
   margin:0;
   }
 #content .documentDescription,
 #content #description {
-  border-bottom:1px solid #aaa;
+  background:url(&dtml-portal_url;/p-s.png) repeat-x 0 100%;
   color:#082736;
   font-weight:normal;
   margin-bottom:25px;
@@ -1474,6 +1500,9 @@ dl.actionMenu.activated dd div {
 /*----- rating -----*/
 .thumb-rating {
   margin:20px 0 5px 10px;
+  position: absolute;
+  right: 0;
+  top: -10px;
   }
 input.like-button,
 input.dislike-button {
