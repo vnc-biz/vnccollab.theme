@@ -19,8 +19,9 @@ class IWorldClockSettings(Interface):
        title=_(u"Clock 1 Skin"),
        description=u'',
        required=True,
-       values=('chunkySwiss', 'chunkySwissOnBlack', 'swissRail', 'vnc'),
-       default='vnc')
+       values=('chunkySwiss', 'chunkySwissOnBlack', 'swissRail', 'vnc',
+           'vncHeaderViewlet'),
+       default='vncHeaderViewlet')
 
     radius_1 = schema.Int(
         title=_(u"Clock 1 Radius"),
@@ -39,7 +40,7 @@ class IWorldClockSettings(Interface):
         description=u'',
         required=False,
         vocabulary='vnccollab.theme.vocabularies.TimeZonesVocabulary',
-        default='Europe/Berlin')
+        default='Asia/Mumbai')
 
     skin_2 = schema.Choice(
        title=_(u"Clock 2 Skin"),
@@ -47,7 +48,7 @@ class IWorldClockSettings(Interface):
        required=True,
        values=('chunkySwiss', 'chunkySwissOnBlack', 'swissRail', 'vnc',
            'vncHeaderViewlet'),
-       default='vnc')
+       default='vncHeaderViewlet')
 
     radius_2 = schema.Int(
         title=_(u"Clock 2 Radius"),
@@ -66,14 +67,15 @@ class IWorldClockSettings(Interface):
         description=u'',
         required=False,
         vocabulary='vnccollab.theme.vocabularies.TimeZonesVocabulary',
-        default='Europe/Berlin')
+        default='America/New_York')
 
     skin_3 = schema.Choice(
        title=_(u"Clock 3 Skin"),
        description=u'',
        required=True,
-       values=('chunkySwiss', 'chunkySwissOnBlack', 'swissRail', 'vnc'),
-       default='vnc')
+       values=('chunkySwiss', 'chunkySwissOnBlack', 'swissRail', 'vnc',
+           'vncHeaderViewlet'),
+       default='vncHeaderViewlet')
 
     radius_3 = schema.Int(
         title=_(u"Clock 3 Radius"),
@@ -101,5 +103,4 @@ class WorldClockSettingsEditForm(controlpanel.RegistryEditForm):
 
 class WorldClockSettingsControlPanel(controlpanel.ControlPanelFormWrapper):
     form = WorldClockSettingsEditForm
-
 
