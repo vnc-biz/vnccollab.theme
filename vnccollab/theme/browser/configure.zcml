@@ -27,6 +27,13 @@
 
   <browser:page
       for="*"
+      name="zimbra_get_tree_json"
+      class=".zimbraxmlrpc.GetTreeJson"
+      permission="zope2.View"
+      />
+
+  <browser:page
+      for="*"
       name="get_object_json"
       class=".livesearch.GetObjectJson"
       permission="zope2.View"
