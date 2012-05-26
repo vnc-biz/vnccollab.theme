@@ -21,7 +21,7 @@
   <browser:page
       for="*"
       name="livesearch_reply_json"
-      class=".livesearch.LiveSearchReplyJson"
+      class=".zimbraxmlrpc.LiveSearchReplyJson"
       permission="zope2.View"
       />
 
