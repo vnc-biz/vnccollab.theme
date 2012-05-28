@@ -768,7 +768,7 @@ dl.portlet dt {
   font-size:22px;
   font-weight:normal;
   line-height:24px;
-  padding:9px 24px 9px 0;
+  padding: 5px 24px 4px 0;
   position:relative;
   text-shadow 0 1px 1px #fff;
   }
@@ -882,7 +882,7 @@ dl.portlet dd.portletFooter a {
   float:left;
   height: 300px;
   margin-right:15px;
-  margin-bottom: 37px;
+  margin-bottom: 10px;
   overflow: hidden;
   width:310px;
   }
@@ -919,7 +919,7 @@ dl.portlet dd.portletFooter a {
   padding-bottom:10px;
   }
 #dashboard .portletHeader {
-  font-size:24px;
+  font-size:20px;
   font-weight:normal;
   padding-right:45px;
   }
@@ -933,8 +933,8 @@ dl.portlet dd.portletFooter a {
   text-decoration:none;
   }
 #dashboard dl.portlet .portletItem a {
-  font-size:16px;
-  line-height:25px;
+  font-size: 14px;
+  line-height: 18px;
   }
 #dashboard .portletFooter a:link,
 #dashboard .portletFooter a:visited,
@@ -1510,6 +1510,10 @@ dl.portalMessage dt {
   }
 dl.portalMessage dd {
   border-radius: 15px;
+  }
+
+.slimScrollDiv {
+  height: 240px;
   }
 
 }
