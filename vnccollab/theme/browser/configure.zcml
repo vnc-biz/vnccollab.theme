@@ -58,7 +58,6 @@
       for="Products.CMFPlone.interfaces.siteroot.IPloneSiteRoot"
       name="homepage_view"
       class=".homepage.HomePageView"
-      template="templates/homepage_view.pt"
       permission="zope2.View"
       />
 
