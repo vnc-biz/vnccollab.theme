@@ -21,14 +21,14 @@
   <browser:page
       for="*"
       name="livesearch_reply_json"
-      class=".zimbraxmlrpc.LiveSearchReplyJson"
+      class=".zimbrajson.LiveSearchReplyJson"
       permission="zope2.View"
       />
 
   <browser:page
       for="*"
       name="zimbra_get_tree_json"
-      class=".zimbraxmlrpc.GetTreeJson"
+      class=".zimbrajson.GetTreeJson"
       permission="zope2.View"
       />
 
