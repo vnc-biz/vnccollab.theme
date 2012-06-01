@@ -86,8 +86,6 @@ class Renderer(base.DeferredRenderer):
     def update(self):
         """update data before rendering. We can not wait for KSS since users
         may not be using KSS."""
-        #self.feeds = [RSSFeed(x.remote_url(), self.data.timeout)
-        #                    for x in self.data.source]
         self.feeds = []
         for link in self.data.source:
             rss = RSSFeed(link.remote_url(), self.data.timeout)
@@ -95,7 +93,6 @@ class Renderer(base.DeferredRenderer):
             self.feeds.append(rss)
 
         self.deferred_update()
-        #import pdb;pdb.set_trace()
 
     def items(self, feed):
         """Return postprocessed items"""

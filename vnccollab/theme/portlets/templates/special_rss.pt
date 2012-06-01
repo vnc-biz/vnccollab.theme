@@ -34,8 +34,9 @@
         <li><a id="special-rss-nav-next">Next</a></li>
       </ul>
 
-      <ul class="special-rss-links">
-        <li tal:repeat="item view/data/source">
+      <ul class="special-rss-links"
+          tal:define="source view/data/source">
+        <li tal:repeat="item source">
           <a tal:attributes="feed item/id" 
              tal:content="item/title">VNC RSS</a>
         </li>
