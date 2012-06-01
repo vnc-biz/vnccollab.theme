@@ -34,13 +34,6 @@
 
   <browser:page
       for="*"
-      name="get_object_json"
-      class=".livesearch.GetObjectJson"
-      permission="zope2.View"
-      />
-
-  <browser:page
-      for="*"
       name="openerp-iframe-helper"
       class=".openerp.IframeHelperView"
       template="templates/openerp_iframe_helper_view.pt"
