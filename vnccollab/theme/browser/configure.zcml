@@ -21,21 +21,14 @@
   <browser:page
       for="*"
       name="livesearch_reply_json"
-      class=".zimbraxmlrpc.LiveSearchReplyJson"
+      class=".zimbrajson.LiveSearchReplyJson"
       permission="zope2.View"
       />
 
   <browser:page
       for="*"
       name="zimbra_get_tree_json"
-      class=".zimbraxmlrpc.GetTreeJson"
-      permission="zope2.View"
-      />
-
-  <browser:page
-      for="*"
-      name="get_object_json"
-      class=".livesearch.GetObjectJson"
+      class=".zimbrajson.GetTreeJson"
       permission="zope2.View"
       />
 
@@ -58,7 +51,6 @@
       for="Products.CMFPlone.interfaces.siteroot.IPloneSiteRoot"
       name="homepage_view"
       class=".homepage.HomePageView"
-      template="templates/homepage_view.pt"
       permission="zope2.View"
       />
 
