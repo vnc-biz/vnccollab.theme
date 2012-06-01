@@ -21,7 +21,14 @@
   <browser:page
       for="*"
       name="livesearch_reply_json"
-      class=".livesearch.LiveSearchReplyJson"
+      class=".zimbraxmlrpc.LiveSearchReplyJson"
+      permission="zope2.View"
+      />
+
+  <browser:page
+      for="*"
+      name="zimbra_get_tree_json"
+      class=".zimbraxmlrpc.GetTreeJson"
       permission="zope2.View"
       />
 
@@ -289,6 +296,22 @@
       permission="zope2.View"
       />
 
+  <!-- ZopeEdit Viewlet -->
+  <browser:viewlet
+      name="vnccollab.theme.zopeedit"
+      for=".viewlets.IExternalEditable"
+      manager="plone.app.layout.viewlets.interfaces.IBelowContentTitle"
+      template="templates/zopeedit.pt"
+      class=".viewlets.ZopeEditViewlet"
+      layer=".interfaces.IThemeSpecific"
+      permission="zope2.View"
+      />
+
+    <!-- This are the classes we want to edit with zopeedit-->
+    <class class="plone.app.blob.content.ATBlob">
+        <implements interface=".viewlets.IExternalEditable"/>
+    </class>
+
   <!-- Zope 3 browser resources -->
 
   <!-- Resource directory for images -->
@@ -324,6 +347,14 @@
       class=".imdetails.IMDetailsPanel"
       layer=".interfaces.IThemeSpecific"
       permission="cmf.SetOwnProperties"
+      />
+
+  <!-- Control Panel -->
+  <browser:page
+      name="worldclock-settings"
+      for="Products.CMFPlone.interfaces.IPloneSiteRoot"
+      class="vnccollab.theme.settings.WorldClockSettingsControlPanel"
+      permission="cmf.ManagePortal"
       />
 
 </configure>

@@ -16,27 +16,33 @@
         <span class="portletTopRight"></span>
     </dt>
 
-    <tal:items tal:repeat="elem view/getTickets">
-    <dd tal:define="oddrow repeat/elem/odd"
-         tal:attributes="class python:oddrow and 'portletItem even' or 'portletItem odd'">
-        <a href=""
-           class="tile"
-           target="_blank"
-           tal:attributes="href elem/url;
-                           title elem/title">
-            <strong tal:content="elem/title">Ticket 1</strong>
-        </a>
-        <div class="portletItemBody"
-             tal:condition="elem/body"
-             tal:content="structure elem/body">
-          Ticket Description
-        </div>
-        <div class="portletItemDate"
-             tal:condition="elem/date">
-          <strong>Last Updated:</strong>
-          <tal:date content="elem/date" /></div>
+    <dd class="portletBodyWrapper">
+      <ul class="portletBody">
+
+        <tal:items tal:repeat="elem view/getTickets">
+        <li class="portletItem"
+            tal:define="oddrow repeat/elem/odd"
+             tal:attributes="class python:oddrow and 'portletItem even' or 'portletItem odd'">
+            <a href=""
+               class="tile"
+               target="_blank"
+               tal:attributes="href elem/url;
+                               title elem/title">
+                <strong tal:content="elem/title">Ticket 1</strong>
+            </a>
+            <div class="portletItemBody"
+                 tal:condition="elem/body"
+                 tal:content="structure elem/body">
+              Ticket Description
+            </div>
+            <div class="portletItemDate"
+                 tal:condition="elem/date">
+              <strong>Last Updated:</strong>
+              <tal:date content="elem/date" /></div>
+        </li>
+        </tal:items>
+      </ul>
     </dd>
-    </tal:items>
 
     <dd class="portletFooter">
         <span class="portletBottomLeft"></span>

@@ -1,0 +1,3 @@
+<div class="zopeedit">
+  <a tal:attributes="href view/external_editor_url">Edit me on the Desktop</a>
+</div>

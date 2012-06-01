@@ -14,17 +14,21 @@
     <span class="portletTopRight"></span>
   </dt>
     
-  <dd class="portletItem oddrow">
-    <tal:users repeat="user view/users">
-    <a class="userBox"
-       href="#"
-       title="Username"
-       tal:attributes="href user/url;
-                       title user/id">
-      <img alt="Username" src="#"
-           tal:replace="structure user/img" />
-    </a>
-    </tal:users>
+  <dd class="portletBodyWrapper">
+    <ul class="portletBody">
+      <li class="portletItem">
+        <tal:users repeat="user view/users">
+        <a class="userBox"
+           href="#"
+           title="Username"
+           tal:attributes="href user/url;
+                           title user/id">
+          <img alt="Username" src="#"
+               tal:replace="structure user/img" />
+        </a>
+      </tal:users>
+      </li>
+    </ul>
     <div class="visualClear"><!-- --></div>
   </dd>
 </dl>

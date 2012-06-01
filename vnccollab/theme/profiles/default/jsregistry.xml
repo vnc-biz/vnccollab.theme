@@ -8,4 +8,6 @@
               enabled="True" />
   <javascript id="++resource++vnccollab.theme.js/jquery.markitup.js"
               enabled="True" />
+  <javascript id="++resource++vnccollab.theme.js/slimScroll.js"
+              enabled="True" />
 </object>

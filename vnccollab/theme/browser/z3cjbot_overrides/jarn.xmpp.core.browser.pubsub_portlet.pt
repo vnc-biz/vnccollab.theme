@@ -1,0 +1,76 @@
+<dl class="portlet portletPubSubFeed"
+    xmlns="http://www.w3.org/1999/xhtml"
+    xmlns:tal="http://xml.zope.org/namespaces/tal"
+    xmlns:i18n="http://xml.zope.org/namespaces/i18n"
+    i18n:domain="jarn.xmpp.core"
+    tal:define="node view/node;
+              isLeaf python: view.nodeType=='leaf';
+              postNode view/postNode;
+              feed_items view/feeds;">
+
+    <dt class="portletHeader">
+      <span class="portletTopLeft"></span>
+      <span tal:content="python: view.title or view.fullname(node) or node">John Doe</span>
+      <div class="pubsubAvatar" tal:condition="isLeaf">
+          <img class="portrait"
+               tal:define="portrait python:context.portal_membership.getPersonalPortrait(view.node);"
+               tal:condition="portrait"
+               tal:attributes="src portrait/absolute_url" />
+      </div>
+      <span class="portletTopRight"></span>
+    </dt>
+    
+    <dd class="portletBodyWrapper">
+      <ul class="portletBody">
+    <li class="portletItem">
+        <div class="postItemWrapper"
+            tal:define="postNode view/postNode"
+            tal:condition="postNode">
+            <form action="" method="post" class="pubsub-form">
+                <fieldset>
+                      <textarea name="message" placeholder="Post to stream"
+                                i18n:attributes="placeholder"
+                                tal:attributes="data-post-node postNode"></textarea>
+                  </fieldset>
+                  <div class="formControls">
+                      <label class="share-geolocation">
+                          <input type="checkbox" name="share-location" />
+                          <span tal:omit-tag="" i18n:translate="">Share location</span>
+                      </label>
+                      <input type="hidden" name="parent" value=""/>
+                      <button type="submit" name="postButton" class="allowMultiSubmit"
+                          i18n:translate="">Post</button>
+                  </div>
+            </form>
+        </div>
+
+        <ul class="pubsubNode" tal:attributes="data-node node; data-leaf isLeaf">
+          <tal:pubsubitems tal:repeat="obj feed_items">
+            <li class="pubsubItem">
+              <div tal:replace="structure python:context.unrestrictedTraverse('@@pubsub-item')(obj, isLeaf=isLeaf)"/>
+            </li>
+          </tal:pubsubitems>
+        </ul>
+        <div class="visualClear"><!-- --></div>
+        </li>
+      </ul>
+    </dd>
+    <dd class="portletFooter">
+        <span class="portletBottomLeft"></span>
+        <a href="#"
+           class="tile"
+           tal:condition="node"
+           tal:attributes="href string:${context/portal_url}/@@pubsub-feed?node=${node}"
+           i18n:translate="more">
+           More&hellip;
+        </a>
+        <a href="#"
+           class="tile"
+           tal:condition="not: node"
+           tal:attributes="href string:${context/portal_url}/@@pubsub-feed"
+           i18n:translate="more">
+           More&hellip;
+        </a>
+        <span class="portletBottomRight"></span>
+    </dd>
+</dl>

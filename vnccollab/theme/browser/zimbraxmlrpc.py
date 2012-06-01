@@ -7,6 +7,12 @@ from Products.CMFCore.utils import getToolByName
 
 from wsapi4plone.core.browser.app import ApplicationAPI
 
+'''
+This module contains the views to allow Zimbra to interact with plone.
+
+All these views are server as XMLRPC methods. They return a string with the
+result encoded as JSON.
+'''
 
 class LiveSearchReplyJson(BrowserView):
     OMIT_TYPES = ['Folder']
@@ -65,7 +71,7 @@ class LiveSearchReplyJson(BrowserView):
 class GetObjectJson(BrowserView):
     '''Implements get_object_json.
 
-    Returns a JSON representation of the current object.
+    Returns a string with a JSON representation of the current object.
 
     The representation is a dictionary with the data obtained by wsapi4plone's
     get_object with dates converted to strings.'''
@@ -93,4 +99,62 @@ class GetObjectJson(BrowserView):
         # Convert file data to string instead of xmlrpclib.Binary
         if 'file' in result:
             result['file']['data'] = base64.b64encode(result['file']['data'].data)
+
+
+class GetTreeJson(BrowserView):
+    '''Returns a string with a JSON representation of the tree of folders
+    accesible by the current user.
+    '''
+    CONTAINER_TYPES = ['Folder']
+
+    def __call__(self, REQUEST, RESPONSE):
+        result = self._get_tree()
+        RESPONSE.setHeader('Content-Type', 'application/json')
+        #return result
+        return json.dumps(result)
+
+    def _get_tree(self):
+        # TODO: Search only below context
+        catalog = self.context.portal_catalog
+        params = {'portal_type': self.CONTAINER_TYPES,}
+        results = [self._dict_from_brain(x) for x in catalog(**params)]
+        results = self._sorted(results, reverse=True)
+        tree = self._create_tree(results)
+        tree = self._sort_tree(tree)
+        return tree
+
+    def _dict_from_brain(self, brain):
+        '''Returns a dict representing the folder, given a brain'''
+        return {'id': brain.getId,
+                'title' : brain.Title,
+                'path' : brain.getPath(),
+                'portal_type': brain.portal_type,
+                'content' : []}
+
+    def _sorted(self, lst, reverse=False):
+        '''Returns the folders sorted by the lenght of its path'''
+        return sorted(lst, lambda x, y: cmp(len(x['path']), len(y['path'])),
+                      reverse=reverse)
+
+    def _inside(self, son, father):
+        '''True if the folder son is inside father'''
+        return son['path'].startswith(father['path'])
+
+    def _create_tree(self, lst):
+        tree = []
+        for i, e in enumerate(lst):
+            for f in lst[i+1:]:
+                if self._inside(e, f):
+                    f['content'].append(e)
+                    break
+            else:
+                tree.append(e)
+        return tree
+
+    def _sort_tree(self, tree):
+        tree = sorted(tree, lambda x, y: cmp(x['title'], y['title']))
+        for e in tree:
+            e['content'] = self._sort_tree(e['content'])
+        return tree
+
 

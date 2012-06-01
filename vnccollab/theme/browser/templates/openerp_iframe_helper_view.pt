@@ -20,10 +20,11 @@
     var login = frame.getAttribute('login');
     var key = frame.getAttribute('key');
     var action_id = parseInt(frame.getAttribute('action_id'));
+    var error_msg = frame.getAttribute('error_msg');
     var options = {"search_view": true, "display_title" : false};
     var widget = jQuery('#openerp-widget');
 
-    if (url != '') {
+    if (error_msg === '') {
       var erp = new openerp.init(["web"]);
       erp.connection.bind(url).then(function () {
         erp.connection.session_authenticate(dbname, login, key, true).then(function () {
@@ -32,7 +33,8 @@
         });
       });
     } else {
-      widget.text("Couldn't connect to the server or authenticacion failed");
+      widget.text("Couldn't connect to the server or authenticacion failed. "
+                  + error_msg);
     }
 
   </script>

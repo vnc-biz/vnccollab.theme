@@ -18,7 +18,7 @@
         <span class="portletTopRight"></span>
     </dt>
 
-    <dd class="portletBody openerp">
+    <dd class="portletBody openerp noSlimScroll">
       <iframe class="openerp-content"
            src="/VNC/openerp-iframe-helper"
            tal:attributes="src string:${context/@@plone_portal_state/navigation_root_url}/openerp-iframe-helper;
@@ -27,7 +27,8 @@
                            login         view/login;
                            dbname        view/dbname;
                            key           view/key;
-                           action_id     view/action_id;">
+                           action_id     view/action_id;
+                           error_msg     view/error_msg;">
       </iframe>
     </dd>
 </dl>

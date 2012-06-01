@@ -13,26 +13,34 @@
         <span class="portletTopRight"></span>
     </dt>
 
-    <dd class="portletItem special-rss-item">
-      <h2>Item title</h2>
-      <div>
-        Item body
+    <dd class="portletItem">
+
+      <div class="special-rss-feed" 
+           tal:attributes="id python:'special-rss-feed-'+feed.id"
+           tal:repeat="feed view/feeds">
+
+        <div class="special-rss-item"
+             style="display: none"
+             tal:repeat="item python:view.items(feed)">
+          <h2><a href="" tal:content="item/title"
+                 tal:attributes="href item/url">Item title</a></h2>
+          <div tal:content="item/summary">Item body</div>
+        </div>
+
       </div>
 
       <ul class="special-rss-nav">
-        <li >
-          <a href="">Previous</a>
-          <a href="">Next</a>
-        </li>
+        <li><a id="special-rss-nav-prev">Previous</a></li>
+        <li><a id="special-rss-nav-next">Next</a></li>
       </ul>
 
       <ul class="special-rss-links">
         <li tal:repeat="item view/data/source">
-          <a href="" tal:content="item/title">VNC RSS</a>
+          <a tal:attributes="feed item/id" 
+             tal:content="item/title">VNC RSS</a>
         </li>
       </ul>
 
     </dd>
-
   </dl>
 </html>

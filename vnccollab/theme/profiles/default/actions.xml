@@ -140,7 +140,7 @@
     <object name="redmine_ticket" meta_type="CMF Action"
             i18n:domain="vnccollab.theme">
     <property name="title"
-       i18n:translate="">File a Ticket</property>
+       i18n:translate="">Create Task</property>
     <property name="description" i18n:translate="">Create redmine task related to this object.</property>
     <property
        name="url_expr">string:${object_url}/@@context-redmine-ticket</property>

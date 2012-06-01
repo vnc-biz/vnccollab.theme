@@ -129,9 +129,66 @@ function init_textile_editor() {
   set_textile_editor.call($text_text_format);
 }
 
+function addSlimScrollingToDashboardPortlets() {
+  jq('#dashboard-portlets1 .portletBody:not(.noSlimScroll)').slimScroll({
+    'height': '300px'
+  });
+}
+
+function init_special_rss_portlet() {
+  function hide_all() {
+    jq('.special-rss-item').hide().removeClass('selected');
+  }
+
+  function show_first(selector) {
+    // Selects the first element with class special-rss-item
+    jq(selector + ' .special-rss-item').first().show().addClass('selected');
+  }
+
+  function next() {
+    var $item = jq('.special-rss-item.selected');
+    var $sibling = $item.next();
+    if ($sibling.length !== 0) {
+      $item.removeClass('selected').hide();
+      $sibling.show().addClass('selected');
+    }
+  }
+
+  function prev() {
+    var $item = jq('.special-rss-item.selected');
+    var $sibling = $item.prev();
+    if ($sibling.length !== 0) {
+      $item.removeClass('selected').hide();
+      $sibling.show().addClass('selected');
+    }
+  }
+
+  function change_feed() {
+    var feed = $(this).attr('feed');
+    hide_all();
+    show_first('#special-rss-feed-' + feed);
+  }
+
+  hide_all();
+  jq('#special-rss-nav-prev').click(prev);
+  jq('#special-rss-nav-next').click(next);
+  jq('.special-rss-links a').click(change_feed);
+  show_first('.portletSpecialRSS');
+}
+
+function attachSocialBookmarksLink() {
+  jq('#document-action-socialbookmark a').click(function(event) {
+    jq('.sc_social_bookmarks_viewlet').toggleClass('visible');
+    return false;
+  });
+}
+
 jq(function() {
   attachHeaderViewletCloseOpen();
   attachPortletButtons();
   attachRedmineTicketAction();
   init_textile_editor();
+  addSlimScrollingToDashboardPortlets();
+  init_special_rss_portlet();
+  attachSocialBookmarksLink();
 });

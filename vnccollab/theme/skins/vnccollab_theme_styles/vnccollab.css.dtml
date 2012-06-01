@@ -669,6 +669,31 @@ div.postItemWrapper {
   padding:0.6em 2em;
   }
 
+/*------ Document Actions ------*/
+#content-core,
+.relatedItems,
+.sc_social_bookmarks_viewlet,
+.documentActions {
+  margin-bottom: 10px;
+  padding-bottom: 10px;
+  background: url(&dtml-portal_url;/p-s.png) repeat-x 0 100%;
+}
+
+.sc_social_bookmarks_viewlet {
+  display: none;
+}
+
+.sc_social_bookmarks_viewlet.visible {
+  display: block;
+}
+
+.sc_social_bookmarks_wrapper {
+  -moz-border-radius: 0.5em;
+  -webkit-border-radius: 0.5em;
+  border-radius: 0.5em;
+  background-color: #ffffff;
+}
+
 /*------ Footer -----*/
 #portal-footer {
   background:url(&dtml-portal_url;/f.png) no-repeat 0 0;
@@ -703,13 +728,14 @@ div.postItemWrapper {
 
 /*----- Content -----*/
 #content {
+  position: relative;
   font-size:0.75em;
   line-height:1.5em;
   margin:0;
   }
 #content .documentDescription,
 #content #description {
-  border-bottom:1px solid #aaa;
+  background:url(&dtml-portal_url;/p-s.png) repeat-x 0 100%;
   color:#082736;
   font-weight:normal;
   margin-bottom:25px;
@@ -779,9 +805,25 @@ dl.portlet dt a:visited {
 dl.portlet dt a:hover {
   color:#082736 !important;
   }
+#content li.portletItem,
+dl.portlet li.portletItem,
 dl.portlet dd.portletItem {
   padding:8px 0;
+  margin: 0;
   }
+#dashboard-portlets1 dl.portlet .portletBody {
+  height: 300px;
+  overflow: hidden;
+}
+#dashboard-portlets1 dl.portlet .portletBody:hover {
+/*  overflow-y: scroll;*/
+}
+dl.portlet .portletBody,
+#content dl.portlet .portletBody {
+  padding: 0;
+  margin: 0;
+  list-style-type: none;
+}
 dl.portlet dd.portletFooter {
   background:url(&dtml-portal_url;/tab.png) repeat-x 0 -37px;
   font-size:13px;
@@ -836,6 +878,7 @@ dl.portlet dd.portletFooter a {
 .portletWrapper.closed .portletToggleLink {
   background-position:-38px -18px;
   }
+.portletWrapper.closed .portletBodyWrapper,
 .portletWrapper.closed .portletBody,
 .portletWrapper.closed .portletFooter,
 .portletWrapper.closed .portletItem {
@@ -880,14 +923,10 @@ dl.portlet dd.portletFooter a {
   }
 #dashboard-portlets1 .portletWrapper {
   float:left;
-  height: 300px;
   margin-right:15px;
   margin-bottom: 10px;
   overflow: hidden;
   width:310px;
-  }
-#dashboard-portlets1 .portletWrapper:hover {
-  overflow-y: auto;
   }
 #dashboard-portlets1 .wide {
   width:635px;
@@ -1138,6 +1177,11 @@ dl.portlet ul.navTreeLevel1 > .navTreeItem:first-child {
   }
 
 /*------ Specific Portlet Styles -----*/
+.portletWorkflowReview .portletItem,
+.portletRedmineTickets .portletItem,
+.portletRss .portletItem,
+.portletEvents .portletItem,
+.portletEtherpadsList .portletItem,
 .portletNews .portletItem,
 .portletCollection .portletItem,
 .portletRecent .portletItem {
@@ -1457,6 +1501,9 @@ dl.actionMenu.activated dd div {
 /*----- rating -----*/
 .thumb-rating {
   margin:20px 0 5px 10px;
+  position: absolute;
+  right: 0;
+  top: -10px;
   }
 input.like-button,
 input.dislike-button {

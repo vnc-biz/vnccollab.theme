@@ -1,75 +1,30 @@
 <?xml version="1.0"?>
 <registry>
-  <record name="vnccollab.theme.header_clock.tz_1">
-    <field type="plone.registry.field.ASCIILine">
-      <title>Header World Clock Timezone 1</title>
-    </field>
-    <value>Europe/Berlin</value>
-  </record>
-  <record name="vnccollab.theme.header_clock.skin_1">
-    <field type="plone.registry.field.ASCIILine">
-      <title>Header World Clock Skin 1</title>
-    </field>
-    <value>vncHeaderViewlet</value>
-  </record>
-  <record name="vnccollab.theme.header_clock.radius_1">
-    <field type="plone.registry.field.Int">
-      <title>Header World Clock Radius 1</title>
-    </field>
-    <value>35</value>
-  </record>
-  <record name="vnccollab.theme.header_clock.no_seconds_1">
-    <field type="plone.registry.field.Bool">
-      <title>Header World Clock No Seconds 1</title>
-    </field>
-    <value>False</value>
-  </record>
-  <record name="vnccollab.theme.header_clock.tz_2">
-    <field type="plone.registry.field.ASCIILine">
-      <title>Header World Clock Timezone 2</title>
-    </field>
-    <value>Indian/Mahe</value>
-  </record>
-  <record name="vnccollab.theme.header_clock.skin_2">
-    <field type="plone.registry.field.ASCIILine">
-      <title>Header World Clock Skin 2</title>
-    </field>
-    <value>vncHeaderViewlet</value>
-  </record>
-  <record name="vnccollab.theme.header_clock.radius_2">
-    <field type="plone.registry.field.Int">
-      <title>Header World Clock Radius 2</title>
-    </field>
-    <value>35</value>
-  </record>
-  <record name="vnccollab.theme.header_clock.no_seconds_2">
-    <field type="plone.registry.field.Bool">
-      <title>Header World Clock No Seconds 2</title>
-    </field>
-    <value>False</value>
-  </record>
-  <record name="vnccollab.theme.header_clock.tz_3">
-    <field type="plone.registry.field.ASCIILine">
-      <title>Header World Clock Timezone 3</title>
-    </field>
-    <value>America/New_York</value>
-  </record>
-  <record name="vnccollab.theme.header_clock.skin_3">
-    <field type="plone.registry.field.ASCIILine">
-      <title>Header World Clock Skin 3</title>
-    </field>
-    <value>vncHeaderViewlet</value>
-  </record>
-  <record name="vnccollab.theme.header_clock.radius_3">
-    <field type="plone.registry.field.Int">
-      <title>Header World Clock Radius 3</title>
-    </field>
-    <value>35</value>
-  </record>
-  <record name="vnccollab.theme.header_clock.no_seconds_3">
-    <field type="plone.registry.field.Bool">
-      <title>Header World Clock No Seconds 3</title>
-    </field>
-    <value>False</value>
-  </record>
+  <records interface="vnccollab.theme.settings.IWorldClockSettings">
+    <value key="tz_1">Europe/Berlin</value>
+    <value key="skin_1">vncHeaderViewlet</value>
+    <value key="radius_1">35</value>
+    <value key="no_seconds_1">False</value>
+    <value key="tz_2">Asia/Mumbai</value>
+    <value key="skin_2">vncHeaderViewlet</value>
+    <value key="radius_2">35</value>
+    <value key="no_seconds_2">False</value>
+    <value key="tz_3">America/New_York</value>
+    <value key="skin_3">vncHeaderViewlet</value>
+    <value key="radius_3">35</value>
+    <value key="no_seconds_3">False</value>
+  </records>
+  <!-- Delete legacy records -->
+  <record name="vnccollab.theme.header_clock.tz_1" delete="true" />
+  <record name="vnccollab.theme.header_clock.radius_1" delete="true" />
+  <record name="vnccollab.theme.header_clock.no_seconds_1" delete="true" />
+  <record name="vnccollab.theme.header_clock.skin_1" delete="true" />
+  <record name="vnccollab.theme.header_clock.tz_2" delete="true" />
+  <record name="vnccollab.theme.header_clock.radius_2" delete="true" />
+  <record name="vnccollab.theme.header_clock.no_seconds_2" delete="true" />
+  <record name="vnccollab.theme.header_clock.skin_2" delete="true" />
+  <record name="vnccollab.theme.header_clock.tz_3" delete="true" />
+  <record name="vnccollab.theme.header_clock.radius_3" delete="true" />
+  <record name="vnccollab.theme.header_clock.no_seconds_3" delete="true" />
+  <record name="vnccollab.theme.header_clock.skin_3" delete="true" />
 </registry>
