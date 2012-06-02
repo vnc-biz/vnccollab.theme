@@ -15,6 +15,7 @@ from plone.registry.interfaces import IRegistry
 from plone.memoize import ram
 
 from vnccollab.theme import messageFactory as _
+from vnccollab.theme.util import getAllActiveResources
 from vnccollab.theme.portlets.zimbra_mail import logException
 from vnccollab.theme.config import REDMINE_ENUMERATORS_CACHE_TIME
 
@@ -37,12 +38,13 @@ def getRedmineEnumerators(url, username, password):
     * users
     """
     data = {}
+    
     # projects, result is sensitive to user, so only those projects are returned
     # where current logged in user has an access
     projects = []
     Project = type("Project", (ActiveResource,), {'_site': url, '_user':
             username, '_password': password})
-    for item in Project.find():
+    for item in getAllActiveResources(Project):
         projects.append((item.id, item.name))
     # projects.sort(lambda x,y:cmp(x[1], y[1]))
     data['projects'] = tuple(projects)
@@ -53,14 +55,21 @@ def getRedmineEnumerators(url, username, password):
     # trackers = []
     # Tracker = type("Tracker", (ActiveResource,), {'_site': url, '_user':
     #         username, '_password': password})
-    # for item in Tracker.find():
+    # for item in getAllActiveResources(Tracker):
     #     trackers.append((item.id, item.name))
     # trackers.sort(lambda x,y:cmp(x[1], y[1]))
     # data['trackers'] = tuple(trackers)
-    data['trackers'] = (('1', 'Bug'), ('2', 'Feature'), ('3', 'Support'),
-        ('4', 'WR - Work Request'), ('5', 'CR - Change Request'),
-        ('6', 'Status Call'), ('7', 'Meeting'), ('10', 'Draft'),
-        ('11', 'Sign-Off'), ('12', 'Approval'), ('13', 'Testing'))
+    data['trackers'] = (
+        ('15', '01 - PSR - Presales Request'),
+        ('16', '02 - RFP -Request For Proposal'),
+        ('17', '03 - APP - APProval'),
+        ('18', '04 - FR - Feature Request'),
+        ('19', '05 - WR - Work Request'),
+        ('20', '06 - BR - Bug Report'),
+        ('21', '07 - CR - Change Request'),
+        ('22', '08 - SO - Sign Off'),
+        ('23', 'SR - Support Request')
+    )
 
     # priorities
     # TODO: switch to using REST API after this ticket is closed:
@@ -69,7 +78,7 @@ def getRedmineEnumerators(url, username, password):
     # priorities = []
     # IssuePriority = type("IssuePriority", (ActiveResource,), {'_site': url,
     #     '_user': username, '_password': password})
-    # for item in IssuePriority.find():
+    # for item in getAllActiveResources(IssuePriority):
     #     priorities.append((item.id, item.name))
     # priorities.sort(lambda x,y:cmp(x[1], y[1]))
     # data['priorities'] = tuple(priorities)
@@ -83,7 +92,7 @@ def getRedmineEnumerators(url, username, password):
 
     # only Redmine Administrator could do this call
     try:
-        for item in User.find():
+        for item in getAllActiveResources(User):
             users.append((item.id, '%s %s' % (item.firstname, item.lastname)))
     except Exception, e:
         pass
