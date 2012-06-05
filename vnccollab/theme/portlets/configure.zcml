@@ -93,6 +93,17 @@
       editview=".special_rss.EditForm"
       />
 
+  <plone:portlet
+      name="vnccollab.theme.portlets.DashletPortlet"
+      interface=".dashlet.IDashletPortlet"
+      assignment=".dashlet.Assignment"
+      view_permission="zope2.View"
+      edit_permission="cmf.ManagePortal"
+      renderer=".dashlet.Renderer"
+      addview=".dashlet.AddForm"
+      editview=".dashlet.EditForm"
+      />
+
   <utility
     component=".openerp_js.openerp_vocabulary"
     name="vnccollab.theme.openerp_js.openerp_vocabulary"

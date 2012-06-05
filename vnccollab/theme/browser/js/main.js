@@ -116,10 +116,8 @@ function set_textile_editor() {
   $this = jq(this);
   if ($this.val() === 'text/x-web-textile') {
     jq('#text').markItUp(textile_settings);
-    console.log('textile');
   } else {
     jq('#text').markItUpRemove();
-    console.log('html');
   }
 }
 
@@ -176,6 +174,25 @@ function init_special_rss_portlet() {
   show_first('.portletSpecialRSS');
 }
 
+function initPortletDashlet() {
+  function reloadPortletDashletContent(e) {
+    var target = e.target;
+    var url = target.getAttribute('href');
+    var $container = jq(target).parents('.portletDashlet');
+    var $content = $container.find('.portletDashletContent');
+
+    jq.get(url, function(r) {
+        var $newContent = jq(r).find('.portletDashletContent');
+        $content.replaceWith($newContent);
+    });
+    e.preventDefault();
+  }
+  
+  jq('.portletDashlet').delegate('.dashlet-action', 'click',
+                                 reloadPortletDashletContent);
+  jq('.dashlet-action').first().click();
+}
+
 function attachSocialBookmarksLink() {
   jq('#document-action-socialbookmark a').click(function(event) {
     jq('.sc_social_bookmarks_viewlet').toggleClass('visible');
@@ -190,5 +207,6 @@ jq(function() {
   init_textile_editor();
   addSlimScrollingToDashboardPortlets();
   init_special_rss_portlet();
+  initPortletDashlet();
   attachSocialBookmarksLink();
 });

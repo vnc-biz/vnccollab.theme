@@ -48,6 +48,14 @@
       />
 
   <browser:page
+      for="*"
+      name="dashlet"
+      class=".dashlet.Dashlet"
+      template="templates/dashlet.pt"
+      permission="zope2.View"
+      />
+
+  <browser:page
       for="Products.CMFPlone.interfaces.siteroot.IPloneSiteRoot"
       name="homepage_view"
       class=".homepage.HomePageView"
