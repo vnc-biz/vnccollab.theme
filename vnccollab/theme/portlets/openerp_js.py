@@ -98,7 +98,7 @@ class Renderer(base.Renderer):
                 self.data.action_id, login)
 
         embedded_info = annotation.get(key, None)
-        if len(embedded_info) <> 7:
+        if embedded_info is not None and len(embedded_info) <> 7:
             embedded_info = (list(embedded_info[0]) + ['', '', ''])[:7]
 
         if embedded_info is None:
