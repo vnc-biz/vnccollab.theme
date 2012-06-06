@@ -30,7 +30,7 @@ class HomePageView(BrowserView):
         if self.is_anonymous():
             return self.homepage()
         else:
-            dashboard_url = self.context.absolute_url_path() + '/dashboard'
+            dashboard_url = self.context.absolute_url() + '/dashboard'
             return self.request.response.redirect(dashboard_url)
 
     def is_anonymous(self):
