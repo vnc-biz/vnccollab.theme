@@ -6,6 +6,7 @@ from pyzimbra.z.client import ZimbraClient
 from Acquisition import aq_inner
 from DateTime import DateTime
 
+from zope.component import getUtility
 from Products.Five.browser import BrowserView
 from Products.Five.browser.pagetemplatefile import ZopeTwoPageTemplateFile
 from Products.CMFPlone.utils import safe_unicode as su
@@ -14,6 +15,7 @@ from plone.memoize.instance import memoize
 from plone.portlets.utils import unhashPortletInfo
 from plone.app.portlets.utils import assignment_mapping_from_key
 
+from vnccollab.theme.zimbrautil import IZimbraUtil
 from vnccollab.theme.portlets.zimbra_mail import Renderer
 from vnccollab.theme import messageFactory as _
 
@@ -77,16 +79,11 @@ class ZimbraMailPortletView(BrowserView):
         if action not in ('emails', 'email'):
             return self._error(_(u"Requested action is not allowed."))
 
-        mails = self._execute_action(action, data, request)
-        return simplejson.dumps(mails)
+        # Gets the zimbra client
+        zimbraUtil = getUtility(IZimbraUtil)
+        self.client = zimbraUtil.get_client(data['url'], data['username'],
+                data['password'])
 
-    def _execute_action(self, action, data, request={}):
-        # create zimbra client and authenticate
-        self.data = data
-        self.client = ZimbraClient('%s/service/soap' % data['url'])
-        self._authenticate()
-
-        # perform actual action
         mails = []
         if action == 'emails':
             mails = self.get_emails(request.get('folder') or None,
@@ -95,72 +92,13 @@ class ZimbraMailPortletView(BrowserView):
                 request.get('recip') or '1',
                 request.get('sortBy') or 'dateDesc'
             )
-        elif action == 'emails_as_dicts':
-            mails = self.get_emails_as_dicts(request.get('folder') or None,
-                int(request.get('offset') or '0'),
-                int(request.get('limit') or '100'),
-                request.get('recip') or '1',
-                request.get('sortBy') or 'dateDesc'
-            )
         elif action == 'email':
             mails = self.get_email(request.get('eid') or None)
 
-        return mails
+        return simplejson.dumps(mails)
 
     def _error(self, msg):
         return simplejson.dumps({'error': msg})
-
-    def _authenticate(self):
-        """Authenticated to Zimbra SOAP"""
-        # TODO: do not login every request, but only on timing bases (e.g.
-        #       every 10 minutes)
-        self.client.authenticate(self.data['username'], self.data['password'])
-
-    def get_emails_as_dicts(self, folder=None, offset=0, limit=10, recip='1',
-                   sortBy='dateDesc'):
-        """Returns list of email conversations. Each email is represented by a dict.
-
-        Args:
-          @folder - if given, return list of emails from inside this folder
-          @offset - if given, return list of emails starting from start
-          @limit - return 'limit' number of emails
-          @recip - whether to return 'to' email adress instead of 'from' for
-                   sent messages and conversations
-          @sort_by - sort result set by given field
-        """
-        query = {
-            'types': 'conversation',
-            'limit': limit,
-            'offset': offset,
-            'recip': recip,
-            'sortBy': sortBy,
-        }
-        if folder:
-            query['query'] = 'in:%s' % folder
-        result = self.client.invoke('urn:zimbraMail', 'SearchRequest', query)
-
-        # if result contains only one item then it won't be list
-        if not isinstance(result, list):
-            result = [result]
-
-        emails = []
-        for item in result:
-            # prepare senders list
-            people = item.e
-            if not isinstance(people, list):
-                people = [people]
-
-            emails.append({
-                'subject': su(item.su),
-                'body': u'%s (%s) - %s - %s' % (u', '.join([p._getAttr('d')
-                    for p in people]), item._getAttr('n'), su(item.su),
-                    su(item.fr)),
-                'unread': u'u' in (item._getAttr('f') or ''),
-                'id': item._getAttr('_orig_id'),
-                'date': item._getAttr('d'),
-            })
-
-        return emails
 
     def get_emails(self, folder=None, offset=0, limit=10, recip='1',
                    sortBy='dateDesc'):
@@ -175,7 +113,7 @@ class ZimbraMailPortletView(BrowserView):
           @sort_by - sort result set by given field
         """
 
-        emails = self.get_emails_as_dicts(folder, offset, limit, recip, sortBy)
+        emails = self.client.get_emails(folder, offset, limit, recip, sortBy)
         return {'emails': self._emails_template(emails=emails).encode('utf-8')}
 
     def get_email(self, eid):
@@ -186,22 +124,18 @@ class ZimbraMailPortletView(BrowserView):
         if not eid:
             return {'error': _(u"Conversation id is not valid.")}
 
-        # TODO: make zimbra conversation as read
-
-        result = self.client.invoke('urn:zimbraMail', 'GetConvRequest',
-            {'c': {'id': eid, 'fetch': 'all', 'html': '1'}}).m
-
-        # if result contains only one item then it won't be list
-        if not isinstance(result, list):
-            result = [result]
-
+        result = self.client.get_email(eid)
         thread = []
         for item in result:
+            from_ = [su(e._getAttr('p')) for e in item.e
+                        if e._getAttr('t') == 'f']
+            from_ = from_[0] if len(from_) else ''
+            to =  u', '.join([su(e._getAttr('d')) for e in item.e
+                        if e._getAttr('t') == 't'])
+
             thread.append({
-                'from': [su(e._getAttr('p')) for e in item.e
-                    if e._getAttr('t') == 'f'][0],
-                'to': u', '.join([su(e._getAttr('d')) for e in item.e
-                    if e._getAttr('t') == 't']),
+                'from': from_,
+                'to': to,
                 'body': findMsgBody(item),
                 'id': item._getAttr('_orig_id'),
                 'date': item._getAttr('d'),
