@@ -24,6 +24,10 @@
       provides=".avatar.IAvatarUtil"
       factory=".avatar.AvatarUtil"/>
 
+  <utility
+      provides=".zimbrautil.IZimbraUtil"
+      component=".zimbrautil.zimbraUtilInstance"/>
+
   <!-- Vocabularies -->
   <utility
       component=".vocabularies.ProjectsRedmineVocabulary"
