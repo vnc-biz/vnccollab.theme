@@ -13,6 +13,7 @@ from plone.portlets.interfaces import IPortletManager, IPortletRenderer
 from plone.app.portlets.portlets import base
 from plone.memoize.instance import memoize
 
+from vnccollab.theme.zimbrautil import IZimbraUtil
 from vnccollab.theme.browser.zimbra import ZimbraMailPortletView
 from vnccollab.theme.portlets import redmine_tickets
 from vnccollab.theme import messageFactory as _
@@ -25,8 +26,7 @@ class Dashlet(BrowserView):
         self.context = context
         self.request = request
         self.count = int(request.get('count', '5'))
-        self.typ = request.get('type', 'all')
-        self.portlet_id = request.get('portlet_id', None)
+        self.type_ = request.get('type', 'all')
 
         context = aq_inner(self.context)
         portal_state = getMultiAdapter((context, self.request),
@@ -36,16 +36,16 @@ class Dashlet(BrowserView):
 
 
     def items(self):
-        typ = self.typ
-        if typ == 'all':
+        type_ = self.type_
+        if type_ == 'all':
             items = self.all_items()
-        elif typ == 'mails':
+        elif type_ == 'mails':
             items =  self.all_mails()
-        elif typ == 'news':
+        elif type_ == 'news':
             items =  self.all_news()
-        elif typ == 'recent':
+        elif type_ == 'recent':
             items = self.all_recents()
-        elif typ == 'tickets':
+        elif type_ == 'tickets':
             items = self.all_tickets()
         else:
             items = []
@@ -100,6 +100,7 @@ class Dashlet(BrowserView):
 
     @memoize
     def all_mails(self):
+        '''
         zimbra = ZimbraMailPortletView(self.context, self.request)
         mtool = getToolByName(self.context, 'portal_membership')
         member = mtool.getAuthenticatedMember()
@@ -110,7 +111,14 @@ class Dashlet(BrowserView):
             'username' : username,
             'password' : password,
             }
-        mails = zimbra._execute_action('emails_as_dicts', data)
+        '''
+        mtool = getToolByName(self.context, 'portal_membership')
+        member = mtool.getAuthenticatedMember()
+        username = member.getProperty('zimbra_username', '')
+        password = member.getProperty('zimbra_password', '')
+        zimbraUtil = getUtility(IZimbraUtil)
+        client = zimbraUtil.get_client(username=username, password=password)
+        mails = client.get_emails(limit=self.count)
         return [FakeMailBrain(mail) for mail in mails][:self.count]
 
     def all_by_types(self, portal_types):
