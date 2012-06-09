@@ -38,7 +38,7 @@ def getRedmineEnumerators(url, username, password):
     * users
     """
     data = {}
-    
+
     # projects, result is sensitive to user, so only those projects are returned
     # where current logged in user has an access
     projects = []
@@ -176,3 +176,34 @@ class ATLinkVocabularyFactory(object):
         return SimpleVocabulary(terms)
 
 ATLinkVocabulary = ATLinkVocabularyFactory()
+
+class SimpleVocabularyFactory:
+    implements(IVocabularyFactory)
+
+    def __init__(self, lst):
+        self.lst = lst
+
+    def __call__(self, context):
+        terms = [SimpleTerm(value=x[0], token=x[0], title=x[1]) for x in self.lst]
+        vocabulary = SimpleVocabulary(terms)
+        return vocabulary
+
+ZIMBRA_STATUS_VOCAB = [
+        ('NEED', 'Not initiated'),
+        ('INPR', 'In process'),
+        ('COMP', 'Complete'),
+        ('WAITING', 'Waiting'),
+        ('DEFERRED', 'Deferred')
+    ]
+
+ZIMBRA_PRIORITIES_VOCAB = [
+        ('1', 'High'),
+        ('5', 'Normal'),
+        ('9', 'Low')
+   ]
+
+ZIMBRA_PERCENTAGE_VOCAB = [(str(x), str(x)+'%') for x in range(0, 100, 10)]
+
+StatusZimbraTaskVocabulary = SimpleVocabularyFactory(ZIMBRA_STATUS_VOCAB)
+PrioritiesZimbraTaskVocabulary = SimpleVocabularyFactory(ZIMBRA_PRIORITIES_VOCAB)
+PercentageZimbraTaskVocabulary = SimpleVocabularyFactory(ZIMBRA_PERCENTAGE_VOCAB)

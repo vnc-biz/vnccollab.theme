@@ -49,6 +49,13 @@
 
   <browser:page
       for="*"
+      name="context-zimbra-ticket"
+      class=".zimbratask.ZimbraTaskForm"
+      permission="cmf.ModifyPortalContent"
+      />
+
+  <browser:page
+      for="*"
       name="dashlet"
       class=".dashlet.Dashlet"
       template="templates/dashlet.pt"

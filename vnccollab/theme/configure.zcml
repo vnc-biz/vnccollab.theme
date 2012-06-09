@@ -53,5 +53,17 @@
       component=".vocabularies.ATLinkVocabulary"
       name="vnccollab.theme.vocabularies.ATLinkVocabulary"
       />
+  <utility
+      component=".vocabularies.StatusZimbraTaskVocabulary"
+      name="vnccollab.theme.vocabularies.StatusZimbraTaskVocabulary"
+      />
+  <utility
+      component=".vocabularies.PrioritiesZimbraTaskVocabulary"
+      name="vnccollab.theme.vocabularies.PrioritiesZimbraTaskVocabulary"
+      />
+  <utility
+      component=".vocabularies.PercentageZimbraTaskVocabulary"
+      name="vnccollab.theme.vocabularies.PercentageZimbraTaskVocabulary"
+      />
 
 </configure>

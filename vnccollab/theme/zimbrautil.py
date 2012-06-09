@@ -139,10 +139,12 @@ class ZimbraUtilClient:
         }
         return dct
 
-    def create_task(self, task):
+    def create_task(self, dct):
         """Creates a task, given its description as a dictionary"""
-        # TODO: today, author, ...
-        today , author, authorName = '', '', ''
+        task = dict(**dct)
+        task['startDate'] = self._stringFromDate(task['startDate'])
+        task['endDate'] = self._stringFromDate(task['endDate'])
+
         query = {
             'm': {
               #'l' : '24486', # List id. It could be ommited
@@ -151,23 +153,29 @@ class ZimbraUtilClient:
                   'name' : task.get('subject', ''),
                   'loc'  : task.get('location', ''),
                   'percentComplete' : task.get('percentComplete', '0'),
-                  'status' : task.get('status', 'NEED'),  # Not started
-                  'priority' : task.get('priority', '5'), # Normal
-                  's' : {'d' : task.get('startDate', today)},
+                  'status' : task.get('status', 'NEED'),    # Not started
+                  'priority' : task.get('priority', '5'),   # Normal
+                  's' : {'d' : task.get('startDate', '')},
                   'e' : {'d' : task.get('endDate', '')},
-                  'or' : {'a' : task.get('author', author),
-                        'd' : task.get('authorName', authorName),
+                  'or' : {'a' : task['author'],             # Required
+                        'd' : task.get('authorName', ''),
                   },
                 },
-                'mp' : {
-                  'ct' : 'text/plain',
-                  'content' : task.get('content', '')
-                }
+              },
+              'mp' : {
+                'ct' : 'text/plain',
+                'content' : task.get('content', '')
               },
             }
         }
+
         result = self.client.invoke('urn:zimbraMail', 'CreateTaskRequest', query)
         return result
+
+    def _stringFromDate(self, date=None):
+        if not date:
+            return ''
+        return date.strftime('%Y%m%d')
 
 
 zimbraUtilInstance = ZimbraUtil()
