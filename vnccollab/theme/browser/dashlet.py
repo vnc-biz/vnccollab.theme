@@ -140,11 +140,14 @@ class FakeTicketBrain:
         self.id = dct.get('id', '')
         self.url = dct.get('url', '')
         self.Title = dct.get('title', '')
-        # TODO: html -> plain text
-        self.Description = dct.get('body', '')
         date = datetime.strptime(dct['date'], '%b %d, %Y %I:%M %p')
         self.Date = date.isoformat()
         self.portal_type = 'Redmine Ticket'
+        # html -> plain text
+        portal_transforms = getToolByName(self, 'portal_transforms')
+        html_body = dct.get('body', '').encode()
+        txt_body = portal_transforms.convert('html_to_text', html_body).getData()
+        self.Description = txt_body
 
     @property
     def pretty_title_or_id(self):
