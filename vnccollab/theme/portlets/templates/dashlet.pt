@@ -14,26 +14,27 @@
         <span class="portletTopRight"></span>
     </dt>
 
-    <ul class="dashlet-actions"
-        tal:define="portal_url  context/portal_url;
-                    count       view/data/count;
-                    dashlet_url string:$portal_url/@@dashlet?count=$count&type=">
-      <li><a class="dashlet-action"
-             tal:attributes="href python:dashlet_url + 'all'">All</a></li>
-      <li><a class="dashlet-action"
-             tal:attributes="href python:dashlet_url + 'mails'">Mails</a></li>
-      <li><a class="dashlet-action"
-             tal:attributes="href python:dashlet_url + 'news'">News</a></li>
-      <li><a class="dashlet-action"
-             tal:attributes="href python:dashlet_url + 'tickets'">Tickets</a></li>
-      <li><a class="dashlet-action"
-             tal:attributes="href python:dashlet_url + 'recent'">Recent</a></li>
-    </ul>
+    <dd class="portletBodyWrapper">
+      <ul class="dashlet-actions"
+          tal:define="portal_url  context/portal_url;
+                      count       view/data/count;
+                      dashlet_url string:$portal_url/@@dashlet?count=$count&type=">
+        <li><a class="dashlet-action"
+               tal:attributes="href python:dashlet_url + 'all'">All</a></li>
+        <li><a class="dashlet-action"
+               tal:attributes="href python:dashlet_url + 'mails'">Mails</a></li>
+        <li><a class="dashlet-action"
+               tal:attributes="href python:dashlet_url + 'news'">News</a></li>
+        <li><a class="dashlet-action"
+               tal:attributes="href python:dashlet_url + 'tickets'">Tickets</a></li>
+        <li><a class="dashlet-action"
+               tal:attributes="href python:dashlet_url + 'recent'">Recent</a></li>
+      </ul>
 
-    <div class="portletDashletContent">
-      Please, Wait a second...
-    </div>
-
+      <div class="portletDashletContent">
+        Please, Wait a second...
+      </div>
+    </dd>
 
     <dd class="portletFooter">
         <span class="portletBottomLeft"></span>
