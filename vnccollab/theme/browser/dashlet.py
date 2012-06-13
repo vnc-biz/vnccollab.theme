@@ -117,8 +117,11 @@ class Dashlet(BrowserView):
         username = member.getProperty('zimbra_username', '')
         password = member.getProperty('zimbra_password', '')
         zimbraUtil = getUtility(IZimbraUtil)
-        client = zimbraUtil.get_client(username=username, password=password)
-        mails = client.get_emails(limit=self.count)
+        try:
+            client = zimbraUtil.get_client(username=username, password=password)
+            mails = client.get_emails(limit=self.count)
+        except:
+            mails = []
         return [FakeMailBrain(mail) for mail in mails][:self.count]
 
     def all_by_types(self, portal_types):
