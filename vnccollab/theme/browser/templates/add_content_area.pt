@@ -1,0 +1,113 @@
+<div class="addContentArea"
+     i18n:domain="vnccollab.theme"
+     tal:define="purl context/portal_url">
+  <div class="MetaBox" id="metaBox">
+    
+      <div class="MetaContent">
+        
+          <H1><strong>CREATE</strong> NEW CONTENT...</H1>
+        
+          <p>To add new content, please select the place you want to add that content to, and then click one of the content types below. <br>
+          To upload a file, select the place you want to upload to and drag the file onto the drop zone.
+          </p>
+        
+          <div class="Column First">
+              <form>
+              <label>Add new content to:</label>
+              </form>
+          </div>
+        
+          <div class="Column Wide">
+              <form>
+              <input type="text" name="phone" value="Start typing the name of the destination.">
+              </form>
+          </div>
+        
+          <h2>Content Types</h2>
+        
+          <div class="Column First">
+              <a href="#" class="Item">
+              <img src="add_content_area/metabox_icon_folder.png" alt="Folder">
+              <p class="Label">Folder</p>
+              <p class="Desc">Create a new folder</p>
+              </a>
+
+              <a href="#" class="Item">
+              <img src="add_content_area/metabox_icon_page.png" alt="Page">
+              <p class="Label">Page</p>
+              <p class="Desc">Create a new page</p>
+              </a>
+            
+              <a href="#" class="Item">
+              <img src="add_content_area/metabox_icon_file.png" alt="File">
+              <p class="Label">File</p>
+              <p class="Desc">Create a new file</p>
+              </a>
+            
+              <a href="#" class="Item">
+              <img src="add_content_area/metabox_icon_image.png" alt="Image">
+              <p class="Label">Image</p>
+              <p class="Desc">Add a picture file</p>
+              </a>
+          </div>
+        
+          <div class="Column">
+              <a href="#" class="Item">
+              <img src="add_content_area/metabox_icon_event.png" alt="Event">
+              <p class="Label">Event</p>
+              <p class="Desc">Post a new event</p>
+              </a>
+            
+              <a href="#" class="Item">
+              <img src="add_content_area/metabox_icon_action.png" alt="Action Item">
+              <p class="Label">Action Item</p>
+              <p class="Desc">Create an Action Item list</p>
+              </a>
+            
+              <a href="#" class="Item">
+              <img src="add_content_area/metabox_icon_news.png" alt="News Item">
+              <p class="Label">News Item</p>
+              <p class="Desc">Create a News Article</p>
+              </a>
+            
+              <a href="#" class="Item">
+              <img src="add_content_area/metabox_icon_link.png" alt="Link">
+              <p class="Label">Link</p>
+              <p class="Desc">Create link to an external source</p>
+              </a>
+          </div>
+        
+          <div class="Column">
+              <div class="DropZone">
+                  <p>Drop file to upload into this zone or</p>
+                  <form>
+                      <button>Click here to select file...</button>
+                  </form>
+              </div>
+          </div>
+        
+      </div>
+
+  </div>
+
+  <div class="PullTab" id="metaBoxButton">    
+    <a href="#" rel="nofollow">
+      <img src="add_content_area/head_pulltab.png"
+           alt="VNC and You."
+           i18n:attributes="alt"
+           tal:attributes="src string:${purl}/${attrs/src}" />
+    </a>
+  </div>
+
+<script type="text/javascript">
+$('#metaBoxButton').click(function() {
+  if ($("#metaBox").is(":hidden")) {
+    $('#metaBox').slideDown("fast");
+  } else {
+    $('#metaBox').slideUp("fast");
+  }
+  return false;
+});
+</script>
+
+</div>

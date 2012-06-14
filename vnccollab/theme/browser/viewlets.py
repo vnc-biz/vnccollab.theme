@@ -419,3 +419,7 @@ class ZopeEditViewlet(common.ViewletBase):
         parent = os.path.dirname(path)
         me = os.path.basename(path)
         return os.path.join(parent, 'externalEdit_', me)
+
+class AddContentAreaViewlet(common.ViewletBase):
+    """Add new content form"""
+    pass

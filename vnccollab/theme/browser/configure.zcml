@@ -314,6 +314,16 @@
       permission="zope2.View"
       />
 
+  <browser:viewlet
+    name="vnccollab.theme.addcontentarea"
+    for="*"
+    manager="plone.app.layout.viewlets.interfaces.IPortalHeader"
+    class=".viewlets.AddContentAreaViewlet"
+    template="templates/add_content_area.pt"
+    layer=".interfaces.IThemeSpecific"
+    permission="cmf.SetOwnProperties"
+    />
+
     <!-- This are the classes we want to edit with zopeedit-->
     <class class="plone.app.blob.content.ATBlob">
         <implements interface=".viewlets.IExternalEditable"/>
