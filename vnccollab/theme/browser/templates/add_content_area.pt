@@ -22,7 +22,7 @@
           <div class="Column Wide"
                tal:define="uid folder/UID|string:">
             <form name="add_new_content_form">
-              <input class="inputLabel1" type="text" name="destination"
+              <input class="inputLabel" type="text" name="destination"
                      id="destination"
                      title="Start typing the name of the destination."
                      value="" />
@@ -132,8 +132,8 @@ function attachAddContentTypeAreaAutocomplete() {
         'data': {'uid': ui.item.value},
         'success': function(data) {
           if (data) {
-            jq(data).find("#metaBox").show();
             jq('.addContentArea').outerHTML(data);
+            jq("#metaBox").show();
           } else {
             alert('Requested container does not exist.');
             // TODO: remove overlay and spinner
@@ -145,11 +145,12 @@ function attachAddContentTypeAreaAutocomplete() {
         }
       });
       attachAddContentTypeAreaAutocomplete();
-      return true;
+      jq(event.target).val(ui.item.label);
+      return false;
     },
     'focus': function(event, ui) {
       jq(event.target).val(ui.item.label);
-        return false;
+      return false;
     }
   }).data("autocomplete")._renderItem = function(ul, item) {
     return jq("<"+"li><"+"/li>").data("item.autocomplete", item)

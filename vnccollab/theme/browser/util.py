@@ -107,7 +107,7 @@ class VNCCollabUtilView(BrowserView):
 
         data = []
         for brain in catalog(SearchableText=r, is_folderish=True,
-            sort_on='sortable_title', sort_limit=limit+1)[:limit+1]:
+            sort_on='sortable_title', sort_limit=limit)[:limit]:
             data.append({
                 'value': brain.UID,
                 'label': brain.Title,
