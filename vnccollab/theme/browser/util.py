@@ -1,17 +1,26 @@
+import simplejson
+
+from Acquisition import aq_inner
 from BTrees.OOBTree import OOBTree
 from persistent.dict import PersistentDict
 from AccessControl import getSecurityManager
 
+from zope.interface import alsoProvides
 from zope.component import getMultiAdapter
 from zope.annotation.interfaces import IAnnotations
+from zope.viewlet.interfaces import IViewlet
 
 from Products.Five.browser import BrowserView
 from Products.CMFCore.utils import getToolByName
 from Products.CMFPlone.utils import safe_unicode
 from Products.Archetypes.utils import shasattr
 
+from plone.app.layout.viewlets.interfaces import IPortalHeader
+from plone.app.viewletmanager.manager import BaseOrderedViewletManager
+
 from vnccollab.theme import messageFactory as _
 from vnccollab.theme.config import PORTLETS_STATES_ANNO_KEY
+from vnccollab.theme.browser.viewlets import AddContentAreaViewlet
 
 
 class VNCCollabUtilView(BrowserView):
@@ -74,3 +83,51 @@ class VNCCollabUtilView(BrowserView):
         portlet[action] = value
         
         return 'Done.'
+
+    def searchContainersJSON(self, term=None, limit='20'):
+        """Queries all contains in the site for a given term and returns
+        json list of found containers.
+        """
+        limit = int(limit)
+        if not term:
+            return simplejson.dumps([])
+
+        context = aq_inner(self.context)
+        catalog = getToolByName(context, 'portal_catalog')
+        # prepare search query
+        for char in ('?', '-', '+', '*', u'\u3000'.encode('utf-8')):
+            term = term.replace(char, ' ')
+        r = " AND ".join(term.split())
+        def quote_bad_chars(s):                                                                                                                    
+            bad_chars = ["(", ")"]
+            for char in bad_chars:
+                s = s.replace(char, '"%s"' % char)
+            return s
+        r = quote_bad_chars(r) + '*'
+
+        data = []
+        for brain in catalog(SearchableText=r, is_folderish=True,
+            sort_on='sortable_title', sort_limit=limit+1)[:limit+1]:
+            data.append({
+                'value': brain.UID,
+                'label': brain.Title,
+                'desc': brain.Description})
+        
+        return simplejson.dumps(data)
+
+    def renderAddContentAreaViewlet(self, uid):
+        """Renders add content area viewlet for object with given uid"""
+        context = aq_inner(self.context)
+        catalog = getToolByName(context, 'portal_catalog')
+        brains = catalog(UID=uid)
+        if len(brains) == 0:
+            return ''
+
+        obj = brains[0].getObject()
+        manager = BaseOrderedViewletManager()
+        alsoProvides(manager, IPortalHeader)
+        viewlet = getMultiAdapter((obj, self.request, self, manager),
+            IViewlet, name='vnccollab.theme.addcontentarea')
+        viewlet = viewlet.__of__(obj)
+        viewlet.update()
+        return viewlet.render()

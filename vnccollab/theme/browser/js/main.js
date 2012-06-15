@@ -1,3 +1,9 @@
+// add outerHTML support to jQuery
+jq.fn.outerHTML = function(s) {
+  return (s) ? this.before(s).remove():
+    jQuery("&lt;p&gt;").append(this.eq(0).clone()).html();
+};
+
 function attachPortletButtons() {
   // add up/down and left/right links to portlet headers,
   // which will expand/contract and make portlets wide

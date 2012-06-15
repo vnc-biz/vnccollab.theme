@@ -1,3 +1,4 @@
+from urllib import quote_plus
 import logging
 import os.path
 from pyactiveresource.activeresource import ActiveResource
@@ -16,9 +17,11 @@ from Products.Five.browser.pagetemplatefile import ViewPageTemplateFile
 from Products.CMFCore.utils import getToolByName
 from Products.CMFCore.interfaces import IActionCategory, IAction
 from Products.CMFCore.ActionInformation import ActionInfo
-from Products.CMFPlone.utils import safe_unicode, normalizeString
+from Products.CMFPlone.utils import safe_unicode, normalizeString, parent
 from Products.CMFPlone.i18nl10n import monthname_msgid, weekdayname_msgid
 
+from plone.i18n.normalizer.interfaces import IIDNormalizer
+from plone.app.contentmenu.menu import FactoriesSubMenuItem
 from plone.app.viewletmanager.manager import BaseOrderedViewletManager
 from plone.app.layout.viewlets import common
 from plone.app.layout.viewlets.interfaces import IPortalHeader
@@ -39,6 +42,7 @@ from vnccollab.theme.config import FOOTER_LINKS_CAT
 from vnccollab.theme.browser.interfaces import IVNCCollabHtmlHead
 from vnccollab.theme.portlets import world_clock
 from vnccollab.theme.settings import IWorldClockSettings
+from vnccollab.theme.util import groupList
 
 
 _pl = MessageFactory('plonelocales')
@@ -422,4 +426,48 @@ class ZopeEditViewlet(common.ViewletBase):
 
 class AddContentAreaViewlet(common.ViewletBase):
     """Add new content form"""
-    pass
+    
+    def getAddLinks(self):
+        """Returns tuple containing list of links for 1st, 2nd and file zone
+        areas.
+        """
+        context = aq_inner(self.context)
+        submenu = FactoriesSubMenuItem(context, self.request)
+        folder = self.getFolder()
+        folder_url = folder.absolute_url()
+        idnormalizer = getUtility(IIDNormalizer)
+        result = []
+        for atype in submenu._addableTypesInContext(folder):
+            id = atype.getId()
+            result.append({
+                'id': id,
+                'title': atype.Title(),
+                'desc': atype.Description(),
+                'url': '%s/createObject?type_name=%s' % (folder_url,
+                    quote_plus(id)),
+                'icon': '%s/add_content_area/metabox_icon_%s.png' % (
+                    self.site_url, idnormalizer.normalize(id))
+            })
+        
+        if len(result) == 0:
+            return {}
+        
+        # group result by columns
+        # TODO: set properly column3
+        result = groupList(result, groups_number=2)
+        data = {'column1': result[0],
+                'column2': (),
+                'column3': {'url': 'test_url'}}
+        
+        if len(result) > 1:
+            data['column2'] = result[1]
+        
+        return data
+
+    @memoize
+    def getFolder(self):
+        context = aq_inner(self.context)
+        submenu = FactoriesSubMenuItem(context, self.request)
+        if submenu.context_state.is_default_page():
+            return parent(context)
+        return submenu._addContext()

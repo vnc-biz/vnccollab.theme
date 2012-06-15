@@ -1,5 +1,7 @@
 <?xml version="1.0"?>
 <object name="portal_javascripts">
+  <javascript id="jquery.autocomplete.min.js"
+              enabled="False" />
   <javascript id="++resource++vnccollab.theme.js/openerp_generic_portlet.js"
               enabled="False" />
   <javascript id="++resource++vnccollab.theme.js/main.js"

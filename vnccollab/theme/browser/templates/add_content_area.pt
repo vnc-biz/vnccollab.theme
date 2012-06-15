@@ -1,6 +1,8 @@
 <div class="addContentArea"
      i18n:domain="vnccollab.theme"
-     tal:define="purl context/portal_url">
+     tal:define="purl context/portal_url;
+                 links view/getAddLinks;
+                 folder view/getFolder">
   <div class="MetaBox" id="metaBox">
     
       <div class="MetaContent">
@@ -17,69 +19,79 @@
               </form>
           </div>
         
-          <div class="Column Wide">
-              <form>
-              <input type="text" name="phone" value="Start typing the name of the destination.">
-              </form>
+          <div class="Column Wide"
+               tal:define="uid folder/UID|string:">
+            <form name="add_new_content_form">
+              <input class="inputLabel1" type="text" name="destination"
+                     id="destination"
+                     title="Start typing the name of the destination."
+                     value="" />
+              <input type="hidden" name="selected_destination"
+                     value=""
+                     tal:attributes="value uid" />
+              <label for="destination">Selected Container:</label>
+              <span class="selectedContainer"
+                    tal:define="title folder/Title|string:No Title"
+                    tal:content="python:uid and title or 'Site Root'">Context Title</span>
+            </form>
           </div>
         
           <h2>Content Types</h2>
         
-          <div class="Column First">
-              <a href="#" class="Item">
-              <img src="add_content_area/metabox_icon_folder.png" alt="Folder">
-              <p class="Label">Folder</p>
-              <p class="Desc">Create a new folder</p>
-              </a>
-
-              <a href="#" class="Item">
-              <img src="add_content_area/metabox_icon_page.png" alt="Page">
-              <p class="Label">Page</p>
-              <p class="Desc">Create a new page</p>
-              </a>
-            
-              <a href="#" class="Item">
-              <img src="add_content_area/metabox_icon_file.png" alt="File">
-              <p class="Label">File</p>
-              <p class="Desc">Create a new file</p>
-              </a>
-            
-              <a href="#" class="Item">
-              <img src="add_content_area/metabox_icon_image.png" alt="Image">
-              <p class="Label">Image</p>
-              <p class="Desc">Add a picture file</p>
-              </a>
+          <div class="Column Wide noTypesToAddMessage"
+               tal:condition="not:links"
+               i18n:translate="">You are not allowed to add any content into
+            selected container. Please, choose another container or contact site
+            administrator.
           </div>
         
-          <div class="Column">
-              <a href="#" class="Item">
-              <img src="add_content_area/metabox_icon_event.png" alt="Event">
-              <p class="Label">Event</p>
-              <p class="Desc">Post a new event</p>
-              </a>
-            
-              <a href="#" class="Item">
-              <img src="add_content_area/metabox_icon_action.png" alt="Action Item">
-              <p class="Label">Action Item</p>
-              <p class="Desc">Create an Action Item list</p>
-              </a>
-            
-              <a href="#" class="Item">
-              <img src="add_content_area/metabox_icon_news.png" alt="News Item">
-              <p class="Label">News Item</p>
-              <p class="Desc">Create a News Article</p>
-              </a>
-            
-              <a href="#" class="Item">
-              <img src="add_content_area/metabox_icon_link.png" alt="Link">
-              <p class="Label">Link</p>
-              <p class="Desc">Create link to an external source</p>
-              </a>
+          <div class="Column First"
+               tal:condition="links"
+               tal:define="col1 python:links.get('column1')">
+            <tal:links repeat="link col1">
+            <a href="#" class="Item"
+               tal:attributes="href link/url">
+              <img src=""
+                   alt="Add %s"
+                   i18n:attributes="alt"
+                   tal:attributes="src link/icon;
+                                   alt python:attrs['alt'] % link['title']" />
+              <p class="Label"
+                 tal:content="link/title"
+                 i18n:translate="">Folder</p>
+              <p class="Desc"
+                 i18n:translate="add_content_area_link_desc">Create a new <tal:type i18n:name="type" replace="link/title">folder</tal:type></p>
+            </a>
+            </tal:links>
           </div>
         
-          <div class="Column">
-              <div class="DropZone">
+          <div class="Column"
+               tal:condition="links"
+               tal:define="col2 python:links.get('column2')">
+            <tal:links repeat="link col2">
+            <a href="#" class="Item"
+               tal:attributes="href link/url">
+              <img src=""
+                   alt="Add %s"
+                   i18n:attributes="alt"
+                   tal:attributes="src link/icon;
+                                   alt python:attrs['alt'] % link['title']" />
+              <p class="Label"
+                 tal:content="link/title"
+                 i18n:translate="">Folder</p>
+              <p class="Desc"
+                 i18n:translate="add_content_area_link_desc">Create a new <tal:type i18n:name="type" replace="link/title">folder</tal:type></p>
+            </a>
+            </tal:links>
+          </div>
+        
+          <div class="Column"
+               tal:condition="links"
+               tal:define="link python:links.get('column3')">
+              <div class="DropZone"
+                   tal:condition="link">
                   <p>Drop file to upload into this zone or</p>
+                  <!-- TODO: implement below form -->
                   <form>
                       <button>Click here to select file...</button>
                   </form>
@@ -100,14 +112,51 @@
   </div>
 
 <script type="text/javascript">
-$('#metaBoxButton').click(function() {
-  if ($("#metaBox").is(":hidden")) {
-    $('#metaBox').slideDown("fast");
+jq('#metaBoxButton').click(function() {
+  if (jq("#metaBox").is(":hidden")) {
+    jq('#metaBox').slideDown("fast");
   } else {
-    $('#metaBox').slideUp("fast");
+    jq('#metaBox').slideUp("fast");
   }
   return false;
 });
+function attachAddContentTypeAreaAutocomplete() {
+  jq('form[name=add_new_content_form] input#destination').autocomplete({
+    'source': portal_url + '/@@search-containers.json',
+    'minLength': 2,
+    'select': function(event, ui) {
+      // TODO: add overlay and ajax spinner
+      jq.ajax({
+        'url': portal_url + '/@@addcontentarea_viewlet',
+        'method': 'GET',
+        'data': {'uid': ui.item.value},
+        'success': function(data) {
+          if (data) {
+            jq(data).find("#metaBox").show();
+            jq('.addContentArea').outerHTML(data);
+          } else {
+            alert('Requested container does not exist.');
+            // TODO: remove overlay and spinner
+          }
+        },
+        'error': function() {
+          // TODO: remove overlay and spinner
+          return true;
+        }
+      });
+      attachAddContentTypeAreaAutocomplete();
+      return true;
+    },
+    'focus': function(event, ui) {
+      jq(event.target).val(ui.item.label);
+        return false;
+    }
+  }).data("autocomplete")._renderItem = function(ul, item) {
+    return jq("<"+"li><"+"/li>").data("item.autocomplete", item)
+      .append("<"+"a><" + "strong>" + item.label + "<" + "/strong><"+"br>" + item.desc + "<"+"/a>").appendTo(ul);
+    };
+};
+attachAddContentTypeAreaAutocomplete();
 </script>
 
 </div>

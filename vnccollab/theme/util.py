@@ -1,4 +1,6 @@
 """Miscellaneous utility functions"""
+from math import ceil
+
 from Products.CMFCore.utils import getToolByName
 from Products.CMFPlone.utils import safe_unicode
 
@@ -39,3 +41,31 @@ def getZimbraCredentials(context):
     password = member.getProperty('zimbra_password', '')
     # password could contain non-ascii chars, ensure it's properly encoded
     return username, safe_unicode(password).encode('utf-8')
+
+def groupList(value, batch_size=None, groups_number=None):
+    """Divide give list into groups"""
+    if not value:
+        return ()
+
+    value = value[:]
+    
+    # we can group by group size or by groups number
+    if groups_number is not None:
+        size = int(ceil(len(value)/float(groups_number)))
+    else:
+        size = batch_size
+    
+    assert size is not None
+    
+    # add zeros to get even number of elems for size
+    # to preform further grouping
+    if len(value) % size != 0:
+        value.extend([0 for i in range(size - len(value) % size)])
+    
+    # group elements into batches
+    value = zip(*[value[i::size] for i in range(size)])
+
+    # finally filter out any zeros we added before grouping
+    value[-1] = tuple([k for k in value[-1] if k != 0])
+    
+    return value
