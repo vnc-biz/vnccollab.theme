@@ -65,5 +65,9 @@
       component=".vocabularies.PercentageZimbraTaskVocabulary"
       name="vnccollab.theme.vocabularies.PercentageZimbraTaskVocabulary"
       />
+  <utility
+      component=".vocabularies.NewTicketVocabulary"
+      name="vnccollab.theme.vocabularies.NewTicketVocabulary"
+      />
 
 </configure>

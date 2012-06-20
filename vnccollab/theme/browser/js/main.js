@@ -82,15 +82,6 @@ function attachHeaderViewletCloseOpen() {
   });
 }
 
-function attachRedmineTicketAction() {
-  jq('#document-action-redmine_ticket a').prepOverlay({
-    'subtype': 'ajax',
-    'filter': common_content_filter,
-    'formselector': 'form#file_ticket_form',
-    'noform': function(el) {return noformerrorshow(el, 'reload');}
-  });
-}
-
 textile_settings = {
     nameSpace:           "textile", // Useful to prevent multi-instances CSS conflict
     onShiftEnter:        {keepDefault:false, replaceWith:'\n\n'},
@@ -206,13 +197,93 @@ function attachSocialBookmarksLink() {
   });
 }
 
+function initNewTicketForm() {
+  var $form = jq('#new_ticket_form');
+  var $zimbraWidgets = $form.find('div:has(.zimbra-widget)');
+  var $redmineWidgets = $form.find('div:has(.redmine-widget)');
+  var $typeOfTicket = jq('#form-widgets-type_of_ticket');
+  // Inputs to keep sinchronized
+  var $subject_ = jq('#form-widgets-subject_');
+  var $startDateDay = jq('#form-widgets-startDate-day');
+  var $startDateMonth = jq('#form-widgets-startDate-month');
+  var $startDateYear = jq('#form-widgets-startDate-year');
+  var $endDateDay = jq('#form-widgets-endDate-day');
+  var $endDateMonth = jq('#form-widgets-endDate-month');
+  var $endDateYear = jq('#form-widgets-endDate-year');
+  var $content = jq('#form-widgets-content');
+  var $zimbra = [$subject_, $startDateDay, $startDateMonth, $startDateYear, 
+                 $endDateDay, $endDateMonth, $endDateYear, $content]
+
+  var $subject = jq('#form-widgets-subject');
+  var $start_dateDay = jq('#form-widgets-start_date-day');
+  var $start_dateMonth = jq('#form-widgets-start_date-month');
+  var $start_dateYear = jq('#form-widgets-start_date-year');
+  var $due_dateDay = jq('#form-widgets-due_date-day');
+  var $due_dateMonth = jq('#form-widgets-due_date-month');
+  var $due_dateYear = jq('#form-widgets-due_date-year');
+  var $description = jq('#form-widgets-description');
+  var $redmine = [$subject, $start_dateDay, $start_dateMonth, $start_dateYear, 
+                  $due_dateDay, $due_dateMonth, $due_dateYear, $description]
+
+
+
+  function showWidgets(classToShow) {
+    if (classToShow === 'zimbra') {
+        $zimbraWidgets.show();
+        $redmineWidgets.hide();
+    } else {
+        $zimbraWidgets.hide();
+        $redmineWidgets.show();
+    }
+  }
+
+  function onTypeOfTicketChange() {
+      showWidgets($typeOfTicket.val());
+  }
+
+  function genericOnChange($from, $to) {
+      return function() {
+        if ($to.val() !== $from.val()) {
+              $to.val($from.val());
+        }
+      }
+  }
+
+  function sinchronizeOnChange() {
+      for (var i = 0; i < $zimbra.length; i++) {
+          $zimbra[i].change(genericOnChange($zimbra[i], $redmine[i]));
+          $redmine[i].change(genericOnChange($redmine[i], $zimbra[i]));
+      }
+  }
+
+  sinchronizeOnChange();
+  $typeOfTicket.change(onTypeOfTicketChange);
+  onTypeOfTicketChange();
+}
+
+function attachNewTicketAction() {
+  jq('#document-action-new_ticket a').prepOverlay({
+    'subtype': 'ajax',
+    'filter': common_content_filter,
+    'formselector': 'form#new_ticket_form',
+    'noform': function(el) {return noformerrorshow(el, 'reload');},
+    'config' : {
+        'onBeforeLoad' : function(e) {
+            console.log('sip!');
+            initNewTicketForm();
+        }
+    }
+  }); 
+}
+
 jq(function() {
   attachHeaderViewletCloseOpen();
   attachPortletButtons();
-  attachRedmineTicketAction();
+  attachNewTicketAction();
   init_textile_editor();
   addSlimScrollingToDashboardPortlets();
   init_special_rss_portlet();
   initPortletDashlet();
+  initNewTicketForm();
   attachSocialBookmarksLink();
 });

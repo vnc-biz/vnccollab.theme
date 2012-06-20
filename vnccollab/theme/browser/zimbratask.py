@@ -14,7 +14,8 @@ import vnccollab.theme.util as util
 class IZimbraTaskForm(Interface):
     # TODO: List Id
 
-    subject =schema.TextLine(
+    # we end it with _ to avoid conflicts in newtask.py
+    subject_ = schema.TextLine(
         title = _(u'Subject'),
         description = u'',
         required = True)
@@ -30,7 +31,8 @@ class IZimbraTaskForm(Interface):
         vocabulary = 'vnccollab.theme.vocabularies.StatusZimbraTaskVocabulary',
         required = True)
 
-    priority = schema.Choice(
+    # we end it with _ to avoid conflicts in newtask.py
+    priority_ = schema.Choice(
         title = _(u"Priority"),
         description = u'',
         vocabulary = 'vnccollab.theme.vocabularies.PrioritiesZimbraTaskVocabulary',
@@ -106,6 +108,8 @@ class ZimbraTaskForm(form.Form):
             client = zimbraUtil.get_client(url, username, password)
             email = util.getZimbraEmail(self.context)
             data['author'] = email
+            data['subject'] = data['subject_']
+            data['priority'] = data['priority_']
             task = client.create_task(data)
             created = True
         except Exception, e:

@@ -72,6 +72,13 @@
 
   <browser:page
       for="*"
+      name="context-new-ticket"
+      class=".newticket.NewTicketForm"
+      permission="cmf.ModifyPortalContent"
+      />
+
+  <browser:page
+      for="*"
       name="dashlet"
       class=".dashlet.Dashlet"
       template="templates/dashlet.pt"
