@@ -137,6 +137,7 @@
    </object>
   </object>
   <object name="document_actions" meta_type="CMF Action Category">
+    <object name="redmine_ticket" remove="True"/>
     <object name="new_ticket" meta_type="CMF Action"
             i18n:domain="vnccollab.theme">
     <property name="title"
