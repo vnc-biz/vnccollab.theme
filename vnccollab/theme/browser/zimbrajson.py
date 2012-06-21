@@ -4,6 +4,7 @@ import base64
 from zope.interface import Interface, implements
 from Products.Five.browser import BrowserView
 from Products.CMFCore.utils import getToolByName
+from Products.CMFPlone import utils
 
 from wsapi4plone.core.browser.app import ApplicationAPI
 
@@ -157,4 +158,25 @@ class GetTreeJson(BrowserView):
             e['content'] = self._sort_tree(e['content'])
         return tree
 
+
+class SetFilenameJson(BrowserView):
+    '''Sets the filename of a ATFile object.
+
+    This should be done using by wsapi4plone.core, but since it is unable,
+    we'll do it here.
+
+    Returns an empty string is everything is OK or an error message.'''
+
+    def __call__(self, REQUEST, RESPONSE):
+        '''Returns a JSON representation of the current object'''
+        result = ''
+        try:
+            context = self.context
+            default_filename = utils.pretty_title_or_id(context, context) + '.pdf'
+            filename = REQUEST.get('filename', default_filename)
+            self.context.setFilename(filename)
+        except Exception, e:
+            result = str(e)
+        RESPONSE.setHeader('Content-Type', 'application/json')
+        return json.dumps(result)
 
