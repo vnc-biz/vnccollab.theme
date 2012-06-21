@@ -6,6 +6,7 @@ from zope.component import getUtility, getMultiAdapter, queryMultiAdapter
 from Products.Five.browser import BrowserView
 from Products.Five.browser.pagetemplatefile import ViewPageTemplateFile
 from Products.CMFCore.utils import getToolByName
+from Products.CMFPlone.utils import safe_unicode
 from Acquisition import aq_inner
 
 from plone.portlets.interfaces import IPortletDataProvider
@@ -148,10 +149,9 @@ class FakeTicketBrain:
         self.portal_type = 'Redmine Ticket'
         # html -> plain text
         portal_transforms = getToolByName(self, 'portal_transforms')
-        html_body = dct.get('body', '')
-        html_body = html_body.encode() if html_body is not None else u''
+        html_body = dct.get('body', u'').encode('utf-8')
         txt_body = portal_transforms.convert('html_to_text', html_body).getData()
-        self.Description = txt_body
+        self.Description = txt_body.decode('utf-8')
 
     @property
     def pretty_title_or_id(self):
