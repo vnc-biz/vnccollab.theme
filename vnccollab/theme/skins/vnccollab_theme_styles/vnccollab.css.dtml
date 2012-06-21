@@ -463,15 +463,13 @@ input.searchField {
   position:absolute;
   right:11px;
   text-indent:-9999px;
-  top:15px;
+  top:5px;
   width:18px;
   }
 .openLink {
   background-position:0 -18px;
   text-indent:9999px;
-  top:5px;
   }
-  
 div.carousel {
   background-color:#12425f;
   margin:0;
@@ -488,6 +486,11 @@ div.carousel-text {
   padding:18px 40px 15px 22px;
   position:static;
   width:auto;
+  }
+div.carousel-text a:link,
+div.carousel-text a:visited {
+  color:#fff;
+  text-decoration: underline;
   }
 .carousel-title {
   color:#fff;
@@ -1023,6 +1026,8 @@ dl.portlet dd.portletFooter a {
 
 /*----- World Clock Header Viewlet -----*/
 #vnccollab-header .worldClockViewlet {
+  background: url(&dtml-portal_url;/top-separator.png) no-repeat 0 0;
+  padding: 0 0 10px 15px;
   position: absolute;
   top: 0;
   right: 0;
