@@ -98,7 +98,7 @@ class VNCCollabUtilView(BrowserView):
         for char in ('?', '-', '+', '*', u'\u3000'.encode('utf-8')):
             term = term.replace(char, ' ')
         r = " AND ".join(term.split())
-        def quote_bad_chars(s):                                                                                                                    
+        def quote_bad_chars(s):
             bad_chars = ["(", ")"]
             for char in bad_chars:
                 s = s.replace(char, '"%s"' % char)
