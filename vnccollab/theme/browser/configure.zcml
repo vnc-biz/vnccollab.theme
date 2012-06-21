@@ -57,6 +57,13 @@
       />
 
   <browser:page
+      for="Products.ATContentTypes.interface.IATFile"
+      name="zimbra_set_filename"
+      class=".zimbrajson.SetFilenameJson"
+      permission="cmf.ModifyPortalContent"
+      />
+
+  <browser:page
       for="*"
       name="openerp-iframe-helper"
       class=".openerp.IframeHelperView"
