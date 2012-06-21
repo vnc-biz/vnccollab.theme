@@ -70,3 +70,11 @@ a.carousel-pager-button-next span {
   top:0;
   width:10px; 
   }
+ul.special-rss-nav li {
+  display: inline !important;
+  margin: 0 1px 0 0;
+  }
+ul.special-rss-links li {
+  display: inline !important;
+  margin: 0 0 0 1px;
+  }
