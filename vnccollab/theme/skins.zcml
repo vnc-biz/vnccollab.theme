@@ -4,8 +4,6 @@
     i18n_domain="vnccollab.theme">
 
   <!-- File System Directory Views registration -->
-  <cmf:registerDirectory name="vnccollab_theme_custom_images"/>
-  <cmf:registerDirectory name="vnccollab_theme_custom_templates"/>
-  <cmf:registerDirectory name="vnccollab_theme_styles"/>
+  <cmf:registerDirectory name="skins" directory="skins" recursive="True" />
 
 </configure>

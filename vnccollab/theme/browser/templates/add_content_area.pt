@@ -91,13 +91,25 @@
               <div class="DropZone"
                    tal:condition="link">
                   <p>Drop file to upload into this zone or</p>
-                  <!-- TODO: implement below form -->
-                  <form>
-                      <button>Click here to select file...</button>
+                  <form action="" method="post"
+                        tal:attributes="action link"
+                        enctype="multipart/form-data">
+                      <input type="file" value="Click here to select file..."
+                             name="file" />
                   </form>
               </div>
           </div>
         
+      </div>
+
+      <div class="MetaBoxOverlay">
+        <div class="ajaxLoadImage">
+          <img class="spinnerAddContentArea"
+               alt="Loading..."
+               src="add_content_area_loader.gif"
+               tal:attributes="src string:${context/portal_url}/${attrs/src}"
+               />
+        </div>
       </div>
 
   </div>
@@ -125,7 +137,8 @@ function attachAddContentTypeAreaAutocomplete() {
     'source': portal_url + '/@@search-containers.json',
     'minLength': 2,
     'select': function(event, ui) {
-      // TODO: add overlay and ajax spinner
+      // show overlay and ajax spinner
+      jq('.MetaBoxOverlay').show();
       jq.ajax({
         'url': portal_url + '/@@addcontentarea_viewlet',
         'method': 'GET',
@@ -136,15 +149,17 @@ function attachAddContentTypeAreaAutocomplete() {
             jq("#metaBox").show();
           } else {
             alert('Requested container does not exist.');
-            // TODO: remove overlay and spinner
+            jq('.MetaBoxOverlay').hide();
           }
         },
         'error': function() {
-          // TODO: remove overlay and spinner
+          // hide overlay and spinner
+          jq('.MetaBoxOverlay').hide();
           return true;
         }
       });
       attachAddContentTypeAreaAutocomplete();
+      attachDnDFile();
       jq(event.target).val(ui.item.label);
       return false;
     },
@@ -158,6 +173,52 @@ function attachAddContentTypeAreaAutocomplete() {
     };
 };
 attachAddContentTypeAreaAutocomplete();
+
+var dndSupported = function () {
+  var div = document.createElement('div');
+  return ('draggable' in div) || ('ondragstart' in div && 'ondrop' in div);
+};
+
+function attachDnDFile() {
+  // post file on input File change
+  jq('.DropZone form input[name=file]').change(function(event){
+    jq('.MetaBoxOverlay').show();
+    jq(this).parents('form').submit();
+  });
+  
+  // also attach drag and drop functionality if supported by browser
+  if (dndSupported()) {
+    var zone = jq('.DropZone');
+    zone[0].ondragover = function () {return false;};
+    zone[0].ondragend = function () {return false;};
+    zone[0].ondrop = function (event) {
+      event.preventDefault && event.preventDefault();
+      var file = event.dataTransfer.files[0];
+      if (!file) {
+        return false;
+      }
+      
+      // send file to server
+      var formData = new FormData();
+      formData.append('file', file);
+      formData.append('ajax_call', '1');
+
+      var xhr = new XMLHttpRequest();
+      xhr.open('POST', jq('.DropZone form').attr('action'), true);
+      xhr.onload = function(e) {
+        // redirect to file edit form
+        window.location.href = jq.trim(this.responseText);
+      };
+      // show overlay
+      jq('.MetaBoxOverlay').show();
+      xhr.send(formData);  // multipart/form-data
+
+      return false;
+    }
+  }
+};
+
+attachDnDFile();
 </script>
 
 </div>

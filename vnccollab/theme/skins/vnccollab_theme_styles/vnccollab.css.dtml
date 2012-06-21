@@ -1613,6 +1613,7 @@ div.width-3\3a 4 {
     background: #c7d0da url(&dtml-portal_url;/add_content_area/bg_metabox.png) repeat;
     border-bottom: 1px solid rgba(1,42,67,0.2);
     display: none;
+    position: relative;
     }
     
 .MetaContent {
@@ -1787,6 +1788,34 @@ div.width-3\3a 4 {
     border-radius:10px;
     text-align: center;
     }
+
+.MetaBoxOverlay {
+  display: none;
+  position: absolute;
+  top: -1px;
+  bottom: -1px;
+  left: -1px;
+  right: -1px;
+  z-index: 10;
+  background-color: #aaa;
+  opacity: 0.5;
+}
+
+.ajaxLoadImage {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  z-index: 103;
+  width: 32px;
+  height: 32px;
+  margin: -16px 0 0 -16px;
+ }
+
+.spinnerAddContentArea {
+  width: 100px;
+  height: 100px;
+  margin: -50px 0 0 -50px;
+}
 
 .PullTab {
     margin: 0 auto;

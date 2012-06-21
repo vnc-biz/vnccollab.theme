@@ -20,6 +20,14 @@
 
   <browser:page
       for="*"
+      name="upload-file"
+      class=".util.VNCCollabUtilView"
+      attribute="uploadFile"
+      permission="cmf.AddPortalContent"
+      />
+
+  <browser:page
+      for="*"
       name="addcontentarea_viewlet"
       class=".util.VNCCollabUtilView"
       attribute="renderAddContentAreaViewlet"
