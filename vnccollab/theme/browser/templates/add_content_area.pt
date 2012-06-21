@@ -100,6 +100,16 @@
         
       </div>
 
+      <div class="MetaBoxOverlay">
+        <div class="ajaxLoadImage">
+          <img class="spinnerAddContentArea"
+               alt="Loading..."
+               src="add_content_area_loader.gif"
+               tal:attributes="src string:${context/portal_url}/${attrs/src}"
+               />
+        </div>
+      </div>
+
   </div>
 
   <div class="PullTab" id="metaBoxButton">    
@@ -125,7 +135,8 @@ function attachAddContentTypeAreaAutocomplete() {
     'source': portal_url + '/@@search-containers.json',
     'minLength': 2,
     'select': function(event, ui) {
-      // TODO: add overlay and ajax spinner
+      // show overlay and ajax spinner
+      jq('.MetaBoxOverlay').show();
       jq.ajax({
         'url': portal_url + '/@@addcontentarea_viewlet',
         'method': 'GET',
@@ -136,11 +147,12 @@ function attachAddContentTypeAreaAutocomplete() {
             jq("#metaBox").show();
           } else {
             alert('Requested container does not exist.');
-            // TODO: remove overlay and spinner
+            jq('.MetaBoxOverlay').hide();
           }
         },
         'error': function() {
-          // TODO: remove overlay and spinner
+          // hide overlay and spinner
+          jq('.MetaBoxOverlay').hide();
           return true;
         }
       });
