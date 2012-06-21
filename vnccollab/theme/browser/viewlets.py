@@ -437,8 +437,11 @@ class AddContentAreaViewlet(common.ViewletBase):
         folder_url = folder.absolute_url()
         idnormalizer = getUtility(IIDNormalizer)
         result = []
+        add_file = ''
         for atype in submenu._addableTypesInContext(folder):
             id = atype.getId()
+            if id == 'File':
+                add_file = '%s/upload-file' % folder_url
             result.append({
                 'id': id,
                 'title': atype.Title(),
@@ -453,11 +456,10 @@ class AddContentAreaViewlet(common.ViewletBase):
             return {}
         
         # group result by columns
-        # TODO: set properly column3
         result = groupList(result, groups_number=2)
         data = {'column1': result[0],
                 'column2': (),
-                'column3': {'url': 'test_url'}}
+                'column3': add_file}
         
         if len(result) > 1:
             data['column2'] = result[1]

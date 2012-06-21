@@ -5,6 +5,7 @@ from BTrees.OOBTree import OOBTree
 from persistent.dict import PersistentDict
 from AccessControl import getSecurityManager
 
+from zope.event import notify
 from zope.interface import alsoProvides
 from zope.component import getMultiAdapter
 from zope.annotation.interfaces import IAnnotations
@@ -14,6 +15,9 @@ from Products.Five.browser import BrowserView
 from Products.CMFCore.utils import getToolByName
 from Products.CMFPlone.utils import safe_unicode
 from Products.Archetypes.utils import shasattr
+from Products.Archetypes.utils import make_uuid
+from Products.Archetypes.event import ObjectInitializedEvent
+from Products.statusmessages.interfaces import IStatusMessage
 
 from plone.app.layout.viewlets.interfaces import IPortalHeader
 from plone.app.viewletmanager.manager import BaseOrderedViewletManager
@@ -131,3 +135,43 @@ class VNCCollabUtilView(BrowserView):
         viewlet = viewlet.__of__(obj)
         viewlet.update()
         return viewlet.render()
+
+    def uploadFile(self, file):
+        """Form post handler to create file.
+        
+        If created successfully then redirect to it's Edit form,
+        otherwise to it's Add form with validation errors.
+        
+        Parameter:
+          @file - data to upload
+        File title is taken from file as filename.
+        """
+        # check it's post request
+        if self.request.method != 'POST' or not file or not file.filename:
+            raise Exception(u'Invalid request.')
+        
+        context = aq_inner(self.context)
+        id = make_uuid('temp-id')
+        # make sure our id is unique
+        id = context.invokeFactory(id=id, type_name='File')
+        obj = getattr(context, id)
+        obj.update(title=file.filename, file=file)
+        obj._renameAfterCreation()
+        if obj.checkCreationFlag():
+            obj.unmarkCreationFlag()
+        obj._renameAfterCreation()
+        obj.reindexObject()
+        notify(ObjectInitializedEvent(obj))
+        
+        # if file is not there then it haven't got over validation process,
+        # notify user about this issue
+        if not obj.get_size():
+            IStatusMessage(self.request).addStatusMessage(_(u"Attached file is "
+                "invalid, please, try to upload another one."), type="error")
+        
+        # if posted by javascript then no redirect
+        if self.request.form.get('ajax_call'):
+            return '%s/edit' % obj.absolute_url()
+        else:
+            return self.request.response.redirect('%s/edit' %
+                obj.absolute_url())
