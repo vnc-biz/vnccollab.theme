@@ -189,6 +189,9 @@ function attachDnDFile() {
   // also attach drag and drop functionality if supported by browser
   if (dndSupported()) {
     var zone = jq('.DropZone');
+    if (zone.length == 0) {
+      return;
+    }
     zone[0].ondragover = function () {return false;};
     zone[0].ondragend = function () {return false;};
     zone[0].ondrop = function (event) {
