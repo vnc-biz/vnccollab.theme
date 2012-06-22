@@ -149,8 +149,9 @@ class FakeTicketBrain:
         self.portal_type = 'Redmine Ticket'
         # html -> plain text
         portal_transforms = getToolByName(self, 'portal_transforms')
-        html_body = dct.get('body', u'').encode('utf-8')
-        txt_body = portal_transforms.convert('html_to_text', html_body).getData()
+        html_body = (dct.get('body', u'') or u'').encode('utf-8')
+        txt_body = portal_transforms.convert('html_to_text',
+            html_body).getData()
         self.Description = txt_body.decode('utf-8')
 
     @property
