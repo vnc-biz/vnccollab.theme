@@ -176,11 +176,14 @@ function initPortletDashlet() {
     var target = e.target;
     var url = target.getAttribute('href');
     var $container = jq(target).parents('.portletDashlet');
-    var $content = $container.find('.portletDashletContent');
+    var $content = $container.find('.portletBody');
 
     jq.get(url, function(r) {
-        var $newContent = jq(r).find('.portletDashletContent');
-        $content.replaceWith($newContent);
+        $content.html(r);
+        // selecte current action
+        jq(target).parents('ul').find('li').removeClass('selected');
+        jq(target).parent().addClass('selected');
+        $content.find('.portletBody').slimScroll({'height': '300px'});
     });
     e.preventDefault();
   }

@@ -1172,6 +1172,25 @@ dl.portlet ul.navTreeLevel1 > .navTreeItem:first-child {
   margin-left:0;
   }
 
+/* Dashlet portlet */
+#content .portletDashlet ul.dashlet-actions,
+.portletDashlet ul.dashlet-actions {
+  list-style-type: none;
+  margin: 10px 0 10px 0;
+  text-align: center;
+  font-size: 14px;
+}
+#content .portletDashlet ul.dashlet-actions li,
+.portletDashlet ul.dashlet-actions li {
+  display: inline;
+  margin-right: 10px;
+}
+
+.portletDashlet ul.dashlet-actions li.selected {
+  font-weight: bold;
+  display: inline;
+}
+
 /* Users Box Portlet */
 .portletUsersBox a.userBox {
   margin:1px;
