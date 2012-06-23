@@ -18,7 +18,6 @@
            tal:attributes="src img;
                            width  view/avatar_width;
                            height view/avatar_height;
-                           style  view/avatar_style;
                            alt view/user_name" />
     </a>
   </div>
