@@ -355,7 +355,7 @@
   <browser:viewlet
     name="vnccollab.theme.addcontentarea"
     for="*"
-    manager="plone.app.layout.viewlets.interfaces.IPortalHeader"
+    manager="plone.app.layout.viewlets.interfaces.IPortalTop"
     class=".viewlets.AddContentAreaViewlet"
     template="templates/add_content_area.pt"
     layer=".interfaces.IThemeSpecific"
