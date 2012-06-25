@@ -19,7 +19,7 @@ from Products.Archetypes.utils import make_uuid
 from Products.Archetypes.event import ObjectInitializedEvent
 from Products.statusmessages.interfaces import IStatusMessage
 
-from plone.app.layout.viewlets.interfaces import IPortalHeader
+from plone.app.layout.viewlets.interfaces import IPortalTop
 from plone.app.viewletmanager.manager import BaseOrderedViewletManager
 
 from vnccollab.theme import messageFactory as _
@@ -129,7 +129,7 @@ class VNCCollabUtilView(BrowserView):
 
         obj = brains[0].getObject()
         manager = BaseOrderedViewletManager()
-        alsoProvides(manager, IPortalHeader)
+        alsoProvides(manager, IPortalTop)
         viewlet = getMultiAdapter((obj, self.request, self, manager),
             IViewlet, name='vnccollab.theme.addcontentarea')
         viewlet = viewlet.__of__(obj)
