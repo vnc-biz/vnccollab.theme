@@ -1781,6 +1781,9 @@ dl.portalMessage dd {
   padding: 50px 10px;
   text-align: center;
   }
+.MetaContent .DropZone input {
+  max-width: 250px;
+  }
 .MetaBoxOverlay {
   background-color: #aaa;
   bottom: -1px;
