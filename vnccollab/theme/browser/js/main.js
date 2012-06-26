@@ -205,6 +205,8 @@ function initNewTicketForm() {
   var $zimbraWidgets = $form.find('div:has(.zimbra-widget)');
   var $redmineWidgets = $form.find('div:has(.redmine-widget)');
   var $typeOfTicket = jq('#form-widgets-type_of_ticket');
+  var $create = jq('#form-buttons-create');
+
   // Inputs to keep sinchronized
   var $subject_ = jq('#form-widgets-subject_');
   var $startDateDay = jq('#form-widgets-startDate-day');
@@ -229,8 +231,8 @@ function initNewTicketForm() {
                   $due_dateDay, $due_dateMonth, $due_dateYear, $description]
 
 
-
   function showWidgets(classToShow) {
+    // Shows a subform and hides the other one
     if (classToShow === 'zimbra') {
         $zimbraWidgets.show();
         $redmineWidgets.hide();
@@ -241,6 +243,7 @@ function initNewTicketForm() {
   }
 
   function onTypeOfTicketChange() {
+      // Event to show the right subform
       showWidgets($typeOfTicket.val());
   }
 
@@ -252,16 +255,28 @@ function initNewTicketForm() {
       }
   }
 
+  function onSubjectChange() {
+    // Activate or deactivate "Create" button
+    if (($subject.val()==='') || ($subject_.val()==='')) {
+      $create.enable(false);    
+    } else {
+      $create.enable(true);
+    }
+  }
+
   function sinchronizeOnChange() {
       for (var i = 0; i < $zimbra.length; i++) {
           $zimbra[i].change(genericOnChange($zimbra[i], $redmine[i]));
           $redmine[i].change(genericOnChange($redmine[i], $zimbra[i]));
       }
+      $subject.change(onSubjectChange);
+      $subject_.change(onSubjectChange);
   }
 
   sinchronizeOnChange();
   $typeOfTicket.change(onTypeOfTicketChange);
   onTypeOfTicketChange();
+  onSubjectChange();
 }
 
 function attachNewTicketAction() {
@@ -272,7 +287,6 @@ function attachNewTicketAction() {
     'noform': function(el) {return noformerrorshow(el, 'reload');},
     'config' : {
         'onBeforeLoad' : function(e) {
-            console.log('sip!');
             initNewTicketForm();
         }
     }
