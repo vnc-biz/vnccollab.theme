@@ -3,6 +3,7 @@
   <javascript id="jquery.autocomplete.min.js"
               enabled="False" />
   <javascript id="++resource++vnccollab.theme.js/jquery.textchange.js"
+              insert-before="main.js"
               enabled="True" />
   <javascript id="++resource++vnccollab.theme.js/openerp_generic_portlet.js"
               enabled="False" />
