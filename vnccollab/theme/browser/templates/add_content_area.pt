@@ -4,20 +4,12 @@
                  links view/getAddLinks;
                  folder view/getFolder">
   <div class="MetaBox" id="metaBox">
-    
       <div class="MetaContent">
-        
           <H1><strong>CREATE</strong> NEW CONTENT...</H1>
-        
           <p>To add new content, please select the place you want to add that content to, and then click one of the content types below. <br>
-          To upload a file, select the place you want to upload to and drag the file onto the drop zone.
-          </p>
-        
+          To upload a file, select the place you want to upload to and drag the file onto the drop zone.</p>
           <div class="Column First">
-              <form>
-              <label>Add new content to:</label>
-              </form>
-          </div>
+            <div class="label">Add new content to:</div></div>
         
           <div class="Column Wide"
                tal:define="uid folder/UID|string:">
@@ -127,8 +119,10 @@
 jq('#metaBoxButton').click(function() {
   if (jq("#metaBox").is(":hidden")) {
     jq('#metaBox').slideDown("fast");
+    jq(this).addClass("open");
   } else {
     jq('#metaBox').slideUp("fast");
+    jq(this).removeClass("open");
   }
   return false;
 });

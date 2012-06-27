@@ -17,9 +17,6 @@ body {
   clear:both;
   display:block;
   }
-#portal-top {
-  border-bottom:1px solid #c1ccd5;
-  }
 #portal-header {
   margin: auto;
   width: 960px;
@@ -361,6 +358,7 @@ input.searchField {
 /*----- VNC Collab Header -----*/
 #vnccollab-header {
   background:url(&dtml-portal_url;/shadow.png) no-repeat 0 100%;
+  border-bottom:1px solid #c1ccd5;
   margin: auto;
   padding:0 0 30px;
   position:relative;
@@ -419,10 +417,6 @@ input.searchField {
 .hp-header-first-link h3 a,
 .hp-header-second-link h3 a {
   color:#fff;
-  }
-
-#vnccollab-header.closed {
-  background-position:0 -150px;
   }
 #vnccollab-header.opened .headerTimeViewlet,
 #vnccollab-header.opened .headerLinksViewlet,
@@ -1668,7 +1662,7 @@ dl.portalMessage dd {
 
 /*----- Content Add Area -----*/
 .MetaBox {
-  background:url(&dtml-portal_url;/add_content_area/bg_metabox.png) #c7d0da;
+  background:url(&dtml-portal_url;/add_content_area/bg_metabox.png) #1a3443;
   border-bottom: 1px solid rgba(1,42,67,0.2);
   display: none;
   position: relative;
@@ -1687,26 +1681,27 @@ dl.portalMessage dd {
   margin-bottom: 20px;
   text-shadow: 1px 1px 1px rgba(0,0,0,0.8);
   }
-.MetaContent H1 {
+.MetaContent h1 {
   color: #fff;
   font-size: 26px;
   margin-bottom: 20px;
   text-shadow: 1px 1px 1px rgba(0,0,0,0.9);
   }
-.MetaContent H2 {
+.MetaContent h2 {
   border-top: 1px solid rgba(255, 255, 255, 0.1);
   clear: left;
   color: #fff;
   font-size: 20px;
+  font-weight: normal;
   margin-bottom: 20px;
   text-shadow: 1px 1px 1px rgba(0,0,0,0.9);
   padding-top: 20px;
   }
-.MetaContent H3 {
+.MetaContent h3 {
   color: #fff;
   font-size: 16px;
   text-shadow: 1px 1px 1px rgba(0,0,0,0.9);
-    }
+  }
 .MetaContent .Column {
   float: left;
   margin-right: 30px;
@@ -1720,47 +1715,42 @@ dl.portalMessage dd {
 .MetaContent .Column.First {
   margin-left: 0;
   }
+.MetaContent form label,
+.MetaContent .label {
+  color: rgba(255, 255, 255, 0.8);
+  display: inline-block;
+  font-weight: normal;
+  font-size: 14px;
+  letter-spacing: 1px;
+  }
 .MetaContent a.Item {
   background: rgba(255, 255, 255, 0.0);
+  border-radius: 5px;
+  color: rgba(255, 255, 255, 0.5);
   display: block;
   padding: 10px;
-  width: 100%;
-  margin-bottom: 0;
-  height:auto;
-  overflow: hidden;
-  color: rgba(255, 255, 255, 0.5);
-  border-bottom: 0px solid rgba(255, 255, 255, 0.1);
-  border-radius: 5px;
   -webkit-transition:all 0.2s ease-out;  
-    -moz-transition:all 0.2s ease-out;  
-    -o-transition:all 0.2s ease-out;  
-    transition:all 0.2s ease-out;
+  -moz-transition:all 0.2s ease-out;  
+  -o-transition:all 0.2s ease-out;  
+  transition:all 0.2s ease-out;
   }
 .MetaContent a.Item:hover {
-  color: rgba(255, 255, 255, 1.0);
   background: rgba(255, 255, 255, 0.1);
+  color: rgba(255, 255, 255, 1.0);
   }
 .MetaContent a.Item p.Label {
-    float:left;
-  font-size: 14px;
-  font-family: "myriad-pro",sans-serif;
-  font-weight: 600;
-  width:70%;
   color: #fff;
-  margin-top: 0;
-  margin-left: 0;
+  font-size: 14px;
+  font-weight: 600;
   margin-bottom: 2px;
   }
 .MetaContent a.Item p.Desc {
-    float:left;
-    color: inherit;
-    font-size:11px;
-    font-weight: 300;
-    margin:0;
-    }
+  font-size:11px;
+  margin:0;
+  }
 .MetaContent a.Item:Hover p.Desc {
-    font-size:13px;
-    }
+  font-size:13px;
+  }
 .MetaContent a.Item img {
   float:left;
   margin-right:13px;
@@ -1772,92 +1762,70 @@ dl.portalMessage dd {
   opacity: 1;
   width: 35px;
   }
-.MetaContent form label {
-  display: inline-block;
-  font-weight: bold;
-  font-size: 14px;
-  color: rgba(255, 255, 255, 0.8);
-  }
 .MetaContent form input {
-  width: 100%;
-  margin-top: -6px;
   background: rgba(255, 255, 255, 0.7);
   border: 1px solid rgba(255, 255, 255, 1.0);
-  padding: 6px;
-  font-size:14px;
-  color: rgba(1,42,67,1.0);
   border-radius: 5px;
-  }
-.MetaContent .Button {
-    background: url(&dtml-portal_url;/add_content_area/bg_button_light_off.png) repeat-x;
-    box-shadow: inset 0px 1px 1px rgba(255,255,255,0.6);
-    -moz-box-shadow: inset 0px 1px 1px rgba(255,255,255,0.6);
-    -webkit-box-shadow: inset 0px 1px 1px rgba(255,255,255,0.6);
-    border-bottom: 1px solid rgba(255,255,255,1.0);
-    -webkit-transition:background 0.2s ease-out;  
-    -moz-transition:background 0.2s ease-out;  
-    -o-transition:background 0.2s ease-out;  
-    transition:background 0.2s ease-out;
   color: rgba(1,42,67,1.0);
-  text-shadow: none;
-    }
-.MetaContent .Button:Hover {
-    background: url(&dtml-portal_url;/add_content_area/bg_button_light_on.png) repeat-x;
-    }
+  font-size:14px;
+  margin-top: -6px;
+  padding: 6px;
+  }
+#destination {
+  margin-bottom: 4px;
+  width: 100%;
+  }
 .MetaContent .DropZone {
-    float:left;
-    width:100%;
-    height:auto;
-    padding: 50px 10px;
-    border:3px dashed rgba(255,255,255,0.3);
-    border-radius:10px;
-    text-align: center;
-    }
+  border:3px dashed rgba(255,255,255,0.3);
+  border-radius:10px;
+  padding: 50px 10px;
+  text-align: center;
+  }
+.MetaContent .DropZone input {
+  max-width: 250px;
+  }
 .MetaBoxOverlay {
-  display: none;
-  position: absolute;
-  top: -1px;
-  bottom: -1px;
-  left: -1px;
-  right: -1px;
-  z-index: 10;
   background-color: #aaa;
+  bottom: -1px;
+  display: none;
+  left: -1px;
   opacity: 0.5;
-}
-.ajaxLoadImage {
   position: absolute;
-  top: 50%;
+  right: -1px;
+  top: -1px;
+  z-index: 10;
+  }
+.ajaxLoadImage {
   left: 50%;
-  z-index: 103;
-  width: 32px;
   height: 32px;
   margin: -16px 0 0 -16px;
- }
+  position: absolute;
+  top: 50%;
+  width: 32px;
+  z-index: 103;
+  }
 .spinnerAddContentArea {
-  width: 100px;
   height: 100px;
   margin: -50px 0 0 -50px;
-}
+  width: 100px;
+  }
 .PullTab {
-    margin: 0 auto;
-    height: 37px;
-    width: 194px;
-    margin-top: 0;
-    margin-bottom: 10px;
-    opacity: 0.6;
-    -webkit-transition:opacity 0.2s ease-out;  
-   	-moz-transition:opacity 0.2s ease-out;  
-   	-o-transition:opacity 0.2s ease-out;  
-   	transition:opacity 0.2s ease-out;
-    }
-.PullTab:Hover {
-    margin: 0 auto;
-    height: 37px;
-    width: 194px;
-    margin-top: 0;
-    margin-bottom: 10px;
-    opacity: 1.0;
-    }
+  margin: 0 auto 10px;
+  height: 37px;
+  opacity: 0.6;
+  -webkit-transition:opacity 0.2s ease-out;  
+  -moz-transition:opacity 0.2s ease-out;  
+  -o-transition:opacity 0.2s ease-out;  
+  transition:opacity 0.2s ease-out;
+  width: 194px;
+  }
+.PullTab:hover,
+.PullTab.open {
+  opacity: 1.0;
+  }
+.PullTab a:focus img {
+  outline: none;
+  }
   
 }
 
