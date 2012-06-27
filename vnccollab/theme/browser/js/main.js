@@ -257,7 +257,7 @@ function initNewTicketForm() {
 
   function onSubjectChange() {
     // Activate or deactivate "Create" button
-    if (($subject.val()==='') || ($subject_.val()==='')) {
+    if (($subject.val()==='') && ($subject_.val()==='')) {
       $create.enable(false);    
     } else {
       $create.enable(true);
@@ -269,8 +269,10 @@ function initNewTicketForm() {
           $zimbra[i].change(genericOnChange($zimbra[i], $redmine[i]));
           $redmine[i].change(genericOnChange($redmine[i], $zimbra[i]));
       }
-      $subject.change(onSubjectChange);
-      $subject_.change(onSubjectChange);
+      $subject.bind('hastext', onSubjectChange);
+      $subject_.bind('hastext', onSubjectChange);
+      $subject.bind('notext', onSubjectChange);
+      $subject_.bind('notext', onSubjectChange);
   }
 
   sinchronizeOnChange();
