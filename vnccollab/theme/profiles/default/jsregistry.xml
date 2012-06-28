@@ -2,11 +2,11 @@
 <object name="portal_javascripts">
   <javascript id="jquery.autocomplete.min.js"
               enabled="False" />
-  <javascript id="++resource++vnccollab.theme.js/jquery.textchange.js"
-              insert-before="main.js"
-              enabled="True" />
   <javascript id="++resource++vnccollab.theme.js/openerp_generic_portlet.js"
               enabled="False" />
+  <javascript id="++resource++vnccollab.theme.js/jquery.textchange.js"
+              insert-before="++resource++vnccollab.theme.js/main.js"
+              enabled="True" />
   <javascript id="++resource++vnccollab.theme.js/main.js"
               enabled="True" />
   <javascript id="++resource++vnccollab.theme.js/zimbra_mail_portlet.js"
