@@ -169,7 +169,8 @@ class ZimbraUtilClient:
             }
         }
 
-        result = self.client.invoke('urn:zimbraMail', 'CreateTaskRequest', query)
+        result = self.client.invoke('urn:zimbraMail', 'CreateTaskRequest',
+            query)
         return result
 
     def _stringFromDate(self, date=None):
