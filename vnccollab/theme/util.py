@@ -79,6 +79,9 @@ def getZimbraLiveAnnotatedTasks(context):
     '''
     username, password = getZimbraCredentials(context)
     annotated_tasks = getZimbraAnnotatedTasks(context, username)
+    if not annotated_tasks:
+        return []
+
     try:
         # Clean the orphan tasks, the ones are annotated,
         # but don't exist anymore.
@@ -86,9 +89,9 @@ def getZimbraLiveAnnotatedTasks(context):
         zimbra_client = zimbra_util.get_client(username=username,
                                                password=password)
         all_tasks = zimbra_client.get_all_tasks()
-        tasks = [x for x in annotated_tasks if x in all_tasks]
+        tasks = [x for x in all_tasks if x in annotated_tasks]
         if tasks <> annotated_tasks:
-            setZimbraAnnotatedTasks(context, username, annotated_tasks)
+            setZimbraAnnotatedTasks(context, username, tasks)
     except :
         # If we can't get all the task, we won't clean the orphans.
         tasks = annotated_tasks
