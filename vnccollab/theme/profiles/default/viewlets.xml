@@ -33,6 +33,7 @@
   <order manager="plone.belowcontentbody" skinname="VNC Collaboration Theme">
     <viewlet name="plone.belowcontentbody.relateditems"/>
     <viewlet name="vnccollab.theme.related_redmine_tickets"/>
+    <viewlet name="vnccollab.theme.related_zimbra_tasks"/>
     <viewlet name="plone.abovecontenttitle.documentactions"/>
     <viewlet name="sc.social.bookmarks"/>
   </order>

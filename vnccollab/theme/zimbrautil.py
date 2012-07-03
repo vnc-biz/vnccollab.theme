@@ -1,3 +1,4 @@
+import urlparse
 from pyzimbra.z.client import ZimbraClient
 
 from zope.interface import implements, Interface
@@ -47,7 +48,10 @@ class ZimbraUtilClient:
     '''
     def __init__(self, url, username='', password=''):
         self.url = url
+        p = urlparse.urlparse(self.url)
+        self.server_url = '{0}://{1}'.format(p.scheme, p.netloc)
         self.client = ZimbraClient(url)
+
         if username:
             self.authenticate(username, password)
 
@@ -76,6 +80,10 @@ class ZimbraUtilClient:
         if folder:
             query['query'] = 'in:%s' % folder
         result = self.client.invoke('urn:zimbraMail', 'SearchRequest', query)
+        # if we have activated returnAllAttrs, result is a tuple.
+        # We're interested here only in its first element
+        if type(result) == tuple:
+            result = result[0]
 
         # if result contains only one item then it won't be list
         if not isinstance(result, list):
@@ -169,14 +177,68 @@ class ZimbraUtilClient:
             }
         }
 
-        result = self.client.invoke('urn:zimbraMail', 'CreateTaskRequest',
-            query)
-        return result
+        response, _ = self.client.invoke('urn:zimbraMail', 'CreateTaskRequest',
+                query)
+        response = self.get_message(response._getAttr(u'invId'))
+        task = self._taskFromGetMsgResponse(response)
+        return task
+
+    def get_message(self, id):
+        '''Returns a message (mail, task, etc), given its id.'''
+        query = {"_jsns":"urn:zimbraMail",
+                 "m":{'id': id, 'html': 1, 'needExp': 1, 'max':250000}}
+        response, attrs = self.client.invoke('urn:zimbraMail',
+                'GetMsgRequest', query)
+        return response
+
+    def get_all_tasks(self):
+        '''Returns all the zimbra tasks of the authenticated user.'''
+        query = {'query': 'in:"tasks"', 'types':'task',}
+        response, _ = self.client.invoke('urn:zimbraMail',
+                'SearchRequest', query)
+        if type(response) <> list:
+            response = [response]
+        return [self._taskFromSearchResponse(x) for x in response]
+
+    def _taskFromGetMsgResponse(self, response):
+        '''Returns a ZimbraTask given a zimbra CreateTaskResponse.'''
+        id = response._getAttr('_orig_id')
+        title = response.inv.comp._getAttr('name')
+        body = response.inv.comp.fr
+        return ZimbraTask(id, title, self.server_url, body)
+
+    def _taskFromSearchResponse(self, response):
+        '''Returns a ZImbraTask given a zimbra SearchResponse.'''
+        id = response._getAttr('invId')
+        title = response._getAttr('name')
+        body = response.fr
+        return ZimbraTask(id, title, self.server_url, body)
 
     def _stringFromDate(self, date=None):
         if not date:
             return ''
         return date.strftime('%Y%m%d')
+
+
+class ZimbraTask:
+    def __init__(self, id, title, server_url, body):
+        self.id = id
+        self.title = title
+        self.server_url = server_url
+        self.url = ('{0}/zimbra/h/search?su=1&si=0&so=0&sc=4&st=task'
+              + '&id={1}&action=edittask').format(self.server_url, id)
+        self.body = body
+
+    def __eq__(self, other):
+        return (self.id == other.id) and (self.server_url == other.server_url)
+
+    def __repr__(self):
+        if len(self.body) < 10:
+            body = repr(self.body)
+        else:
+            body = repr(self.body[:10]+'...')
+        return 'ZimbraTask({0}, {1}, {2})'.format(repr(self.id),
+                repr(self.title), body)
 
 
 zimbraUtilInstance = ZimbraUtil()

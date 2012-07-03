@@ -1,0 +1,18 @@
+<div class="relatedZImbraTasks"
+     i18n:domain="vnccollab.theme"
+     tal:define="related view/tasks"
+     tal:condition="related">
+    <div class="visualClear" id="clear-space-before-relatedTicketBox"><!-- --></div>
+    <dl id="relatedZImbraBox">
+        <dt i18n:translate="label_related_tickets">Related Zimbra Tasks</dt>
+        <dd>
+          <li tal:repeat="item related">
+            <a href="" class="" target="_blank"
+               tal:attributes="href  item/url|string:'';
+                               title item/body|string:'test body'">
+              <tal:id replace="item/title|string:'Task'" /> 
+            </a>
+          </li>
+        </dd>
+    </dl>
+</div>

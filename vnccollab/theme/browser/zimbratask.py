@@ -6,6 +6,7 @@ from z3c.form import form, field, button
 from z3c.form.interfaces import IErrorViewSnippet
 from Products.CMFCore.utils import getToolByName
 from Products.statusmessages.interfaces import IStatusMessage
+from collective.z3cform import datetimewidget
 
 from vnccollab.theme import messageFactory as _
 from vnccollab.theme.zimbrautil import IZimbraUtil
@@ -48,6 +49,7 @@ class IZimbraTaskForm(Interface):
     startDate = schema.Date(
         title = _(u"Start date"),
         description = u'',
+        #widget = datetimewidget.DateFieldWidget,
         required = False)
 
     endDate = schema.Date(
@@ -111,7 +113,9 @@ class ZimbraTaskForm(form.Form):
             data['subject'] = data['subject_']
             data['priority'] = data['priority_']
             task = client.create_task(data)
+            util.addZimbraAnnotatedTasks(self.context, task)
             created = True
+
         except Exception, e:
             plone_utils = getToolByName(self.context, 'plone_utils')
             exception = plone_utils.exceptionString()
@@ -122,6 +126,7 @@ class ZimbraTaskForm(form.Form):
             error.update()
             self.widgets.errors += (error,)
             return
+
         else:
             if not created:
                 self.status = _(u"Task wasn't created, please, check your "

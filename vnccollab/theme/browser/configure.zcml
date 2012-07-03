@@ -226,6 +226,15 @@
       permission="zope2.View"
       />
   <browser:viewlet
+      name="vnccollab.theme.related_zimbra_tasks"
+      manager="plone.app.layout.viewlets.interfaces.IBelowContentBody"
+      class=".viewlets.RelatedZimbraTasksViewlet"
+      template="templates/related_zimbra_tasks.pt"
+      view="plone.app.layout.globals.interfaces.IViewView"
+      layer=".interfaces.IThemeSpecific"
+      permission="zope2.View"
+      />
+  <browser:viewlet
       name="plone.personal_bar"
       manager="plone.app.layout.viewlets.interfaces.IPortalHeader"
       class=".viewlets.PersonalBarViewlet"

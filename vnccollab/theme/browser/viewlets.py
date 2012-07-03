@@ -42,7 +42,7 @@ from vnccollab.theme.config import FOOTER_LINKS_CAT
 from vnccollab.theme.browser.interfaces import IVNCCollabHtmlHead
 from vnccollab.theme.portlets import world_clock
 from vnccollab.theme.settings import IWorldClockSettings
-from vnccollab.theme.util import groupList
+from vnccollab.theme.util import groupList, getZimbraLiveAnnotatedTasks
 
 
 _pl = MessageFactory('plonelocales')
@@ -368,6 +368,12 @@ class RelatedRedmineTicketsViewlet(common.ViewletBase):
         return username, safe_unicode(password).encode('utf-8')
 
 
+class RelatedZimbraTasksViewlet(common.ViewletBase):
+    """Lists zimbra tasks assigned to current object"""
+
+    def update(self):
+        self.tasks = getZimbraLiveAnnotatedTasks(self.context)
+
 
 class WorldClockViewlet(common.ViewletBase):
     """Shows world clock.
@@ -389,7 +395,7 @@ class WorldClockViewlet(common.ViewletBase):
             # in case settings are not there yet
             self.world_clock = ''
             return
-        
+
         tz_1 = settings.tz_1
         skin_1 = settings.skin_1
         radius_1 = settings.radius_1
@@ -426,7 +432,7 @@ class ZopeEditViewlet(common.ViewletBase):
 
 class AddContentAreaViewlet(common.ViewletBase):
     """Add new content form"""
-    
+
     def getAddLinks(self):
         """Returns tuple containing list of links for 1st, 2nd and file zone
         areas.
@@ -451,19 +457,18 @@ class AddContentAreaViewlet(common.ViewletBase):
                 'icon': '%s/add_content_area/metabox_icon_%s.png' % (
                     self.site_url, idnormalizer.normalize(id))
             })
-        
+
         if len(result) == 0:
             return {}
-        
+
         # group result by columns
         result = groupList(result, groups_number=2)
         data = {'column1': result[0],
                 'column2': (),
                 'column3': add_file}
-        
         if len(result) > 1:
             data['column2'] = result[1]
-        
+
         return data
 
     @memoize
