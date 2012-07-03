@@ -179,6 +179,7 @@ class ZimbraUtilClient:
 
         response, _ = self.client.invoke('urn:zimbraMail', 'CreateTaskRequest',
                 query)
+        response, _ = self.client.invoke('urn:zimbraMail', 'CreateTaskRequest', query)
         response = self.get_message(response._getAttr(u'invId'))
         task = self._taskFromGetMsgResponse(response)
         return task
