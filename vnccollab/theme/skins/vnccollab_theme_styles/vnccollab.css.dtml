@@ -1581,8 +1581,8 @@ dl.actionMenu.activated dd div {
   }
 #document-action-socialbookmark:hover {
   background:#012a43;
-  border-top-left-radius:0;
-  border-bottom-left-radius:0;
+/*  border-top-left-radius:0;
+  border-bottom-left-radius:0;*/
   }
 #document-action-socialbookmark:hover a {
   color:#fff !important
@@ -1597,10 +1597,7 @@ dl.actionMenu.activated dd div {
 
 /*----- rating -----*/
 .thumb-rating {
-  margin:20px 0 5px 10px;
-  position: absolute;
-  right: 0;
-  top: -10px;
+  margin: 5px 0 5px 10px;
   }
 input.like-button,
 input.dislike-button {

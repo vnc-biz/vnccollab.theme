@@ -44,6 +44,9 @@
     <viewlet name="vnccollab.theme.worldclock"/>
     <viewlet name="plone.path_bar"/>
   </hidden>
+  <hidden manager="plone.belowcontenttitle" skinname="VNC Collaboration Theme">
+    <viewlet name="cioppino.twothumbs"/>
+  </hidden>
   <hidden manager="plone.portalfooter" skinname="VNC Collaboration Theme">
     <viewlet name="plone.site_actions"/>
     <viewlet name="plone.colophon" />

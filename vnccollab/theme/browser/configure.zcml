@@ -361,6 +361,14 @@
     layer=".interfaces.IThemeSpecific"
     permission="cmf.SetOwnProperties"
     />
+  
+  <browser:viewlet
+		name="cioppino.twothumbs"
+	 	for="cioppino.twothumbs.interfaces.ILoveThumbsDontYou"
+	 	manager="plone.app.layout.viewlets.interfaces.IAboveContentTitle"
+	 	class="cioppino.twothumbs.viewlets.thumbs.ThumbsViewlet"
+		permission="zope2.View"
+    />
 
     <!-- This are the classes we want to edit with zopeedit-->
     <class class="plone.app.blob.content.ATBlob">
