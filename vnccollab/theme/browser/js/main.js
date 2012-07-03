@@ -201,11 +201,8 @@ function attachSocialBookmarksLink() {
 }
 
 function initNewTicketForm() {
-  var $form = jq('#new_ticket_form');
-  var $zimbraWidgets = $form.find('div:has(.zimbra-widget)');
-  var $redmineWidgets = $form.find('div:has(.redmine-widget)');
-  var $typeOfTicket = jq('#form-widgets-type_of_ticket');
   var $create = jq('#form-buttons-create');
+  var $typeOfTicket = jq('#form-widgets-type_of_ticket');
 
   // Inputs to keep sinchronized
   var $subject_ = jq('#form-widgets-subject_');
@@ -231,8 +228,17 @@ function initNewTicketForm() {
                   $due_dateDay, $due_dateMonth, $due_dateYear, $description]
 
 
-  function showWidgets(classToShow) {
+  function showNewTaskWidgets(classToShow) {
     // Shows a subform and hides the other one
+    var $form = jq('#new_ticket_form');
+    var $zimbraWidgets = $form.find('div:has(.zimbra-widget)');
+    var $redmineWidgets = $form.find('div:has(.redmine-widget)');
+
+    console.log('showNewTaskWidgets init');
+    console.log(jQuery.fn.jquery);
+    console.log(classToShow);
+    console.log($zimbraWidgets);
+    console.log($redmineWidgets);
     if (classToShow === 'zimbra') {
         $zimbraWidgets.show();
         $redmineWidgets.hide();
@@ -240,11 +246,12 @@ function initNewTicketForm() {
         $zimbraWidgets.hide();
         $redmineWidgets.show();
     }
+    console.log('showNewTaskWidgets end');
   }
 
   function onTypeOfTicketChange() {
-      // Event to show the right subform
-      showWidgets($typeOfTicket.val());
+    // Event to show the right subform
+    showNewTaskWidgets($typeOfTicket.val());
   }
 
   function genericOnChange($from, $to) {
@@ -282,23 +289,26 @@ function initNewTicketForm() {
 }
 
 function attachNewTicketAction() {
+  console.log('attaching');
   jq('#document-action-new_ticket a').prepOverlay({
     'subtype': 'ajax',
     'filter': common_content_filter,
     'formselector': 'form#new_ticket_form',
     'noform': function(el) {return noformerrorshow(el, 'reload');},
+    'afterpost': function(obj, paren) {console.log(obj.html()); console.log(paren);}, //initNewTicketForm,
     'config' : {
         'onBeforeLoad' : function(e) {
             initNewTicketForm();
         }
     }
   }); 
+  console.log('attached');
 }
 
 jq(function() {
+  attachNewTicketAction();
   attachHeaderViewletCloseOpen();
   attachPortletButtons();
-  attachNewTicketAction();
   init_textile_editor();
   addSlimScrollingToDashboardPortlets();
   init_special_rss_portlet();

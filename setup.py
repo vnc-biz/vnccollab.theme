@@ -37,7 +37,9 @@ setup(name='vnccollab.theme',
           'pyactiveresource',
           'wsapi4plone.core',
           'z3c.jbot',
-          'tldextract'
+          'tldextract',
+          #'collective.z3cform.datetimewidget',
+          #'jyu.z3cform.datepicker',
           # -*- Extra requirements: -*-
       ],
       entry_points="""
