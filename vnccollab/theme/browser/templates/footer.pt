@@ -1,10 +1,9 @@
-<div class="row"
+<div id="visual-footer-wrapper"
      metal:define-macro="portal_footer"
      tal:define="portal_url context/portal_url;
                  columns view/columns"
      tal:condition="columns"
      i18n:domain="vnccollab.theme">
-  <div class="cell width-full position-0">
     <div id="portal-footer"
          tal:define="columns view/columns">
       <dl class="footerColumn"
@@ -60,5 +59,4 @@
         </dd>
       </dl>
      </div>
-   </div>
 </div>

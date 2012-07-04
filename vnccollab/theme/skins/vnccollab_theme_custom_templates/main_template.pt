@@ -65,6 +65,7 @@
     <div id="portal-columns" class="row">
 
         <div id="portal-column-content" class="cell" tal:attributes="class python:sunburst_view.getColumnsClass(view)">
+          <div id="portal-content">
 
             <div id="viewlet-above-content" tal:content="structure provider:plone.abovecontent" tal:condition="not:ajax_load" />
             
@@ -132,6 +133,7 @@
             </metal:block>
         
             <div id="viewlet-below-content" tal:content="structure provider:plone.belowcontent" tal:condition="not:ajax_load" />
+          </div>
         </div>
 
         <tal:notajax tal:condition="not:ajax_load">

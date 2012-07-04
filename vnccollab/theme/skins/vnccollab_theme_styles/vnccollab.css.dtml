@@ -5,61 +5,47 @@
 
 /*---------- General Style ----------*/
 body {
-  background:url(&dtml-portal_url;/bg.png) repeat-x #c7d0da;
+  background: #e6e9ee;
   color:#000;
   font:100% "Myriad Pro", Arial, FreeSans, sans-serif;
+  min-width: 960px;
   }
-#visual-portal-wrapper {
-  position:relative;
-  }
-#visual-portal-wrapper:after {
-  content:"";
-  clear:both;
-  display:block;
+#portal-top {
+  width: 100%;
   }
 #portal-header {
-  margin: auto;
-  width: 960px;
-  }
-
-/*----- Layout -----*/
-div.width-full {
-  width:960px;
-  }
-.cell div.width-full {
-  width:100%;
-  }
-.cell div.position-0 {
-  margin-left:-100%;
-  }
-div.position-0 {
-  margin-left:-960px;
-  }
-div.position-1\3a 4 {
-  margin-left:-620px;
-  }
-div.position-3\3a 4 {
-  margin-left:-310px;
-  }
-div.width-1\3a 4 {
-  width:310px;
-  }
-div.width-1\3a 2 {
-  width:260px;
-  }
-div.width-3\3a 4 {
-  width:635px;
+  margin: 0 30px;
   }
 #portal-columns {
-  border-top:1px solid #e6eaee;
-  left: 50%;
-  margin-left: -480px;
-  width: 960px;
+  background-color: #f2f2f2;
+  border-top: 1px solid #c1ccd5;
+  border-bottom: 1px solid #c1ccd5;
+  width: 100%;
   }
-#portal-columns + .row {
-  clear: left;
-  left: 50%;
-  margin-left: -480px;
+#portal-columns:after,
+#portal-footer:after {
+  clear: both;
+  content: "";
+  display: block;
+  visibility: hidden;
+  }
+#portal-column-content {
+  float: left;
+  margin-right: -360px;
+  width: 100%;
+  }
+#portal-content {
+  margin: 0 360px 0 30px;
+  }
+#portal-column-two {
+  float: right;
+  margin: 0 30px;
+  width: 300px;
+  }
+#portal-footer {
+  background: none;
+  margin: 15px auto;
+  padding: 0;
   width: 960px;
   }
 
@@ -268,8 +254,11 @@ div.width-3\3a 4 {
   background-color:#093650;
   border:1px solid #436174;
   font-size:75%;
-  line-height:1.5em;
-  margin:7px 15px 0 0;
+  left: 453px;
+  line-height: 1.5em;
+  margin: 0;
+  position: absolute;
+  top: 52px;
   }
 #portal-searchbox .LSBox {
   border-top:1px solid #072c41;
@@ -358,7 +347,6 @@ input.searchField {
 /*----- VNC Collab Header -----*/
 #vnccollab-header {
   background:url(&dtml-portal_url;/shadow.png) no-repeat 0 100%;
-  border-bottom:1px solid #c1ccd5;
   margin: auto;
   padding:0 0 30px;
   position:relative;
@@ -708,12 +696,6 @@ div.postItemWrapper {
 }
 
 /*------ Footer -----*/
-#portal-footer {
-  background:url(&dtml-portal_url;/f.png) no-repeat 0 0;
-  display:table;
-  padding:103px 0 0;
-  width: 100%;
-  }
 .footerColumn {
   background:url(&dtml-portal_url;/f-s.png) no-repeat 0 5px;
   float:left;
@@ -825,11 +807,11 @@ dl.portlet dd.portletItem {
   padding:8px 0;
   margin: 0;
   }
-#dashboard-portlets1 dl.portlet .portletBody {
+#dashboard-portlets dl.portlet .portletBody {
   height: 300px;
   overflow: hidden;
 }
-#dashboard-portlets1 dl.portlet .portletBody:hover {
+#dashboard-portlets dl.portlet .portletBody:hover {
 /*  overflow-y: scroll;*/
 }
 dl.portlet .portletBody,
@@ -903,6 +885,7 @@ dl.portlet dd.portletFooter a {
 #dashboard {
   font-size:1.33em;
   line-height:1.5em;
+  margin-right: 14px;
   }
 .dashboardToolbar {
   background-color:#e6e9ec;
@@ -914,54 +897,36 @@ dl.portlet dd.portletFooter a {
   margin-right:3px;
   vertical-align:middle;
   }
-#dashboard-portlets1 {
-  display:block;
-  float:none;
-  margin-right:-15px;
-  padding:0;
-  width:auto;
+#dashboard-portlets:after {
+  clear: both;
+  content: "";
+  display: block;
+  visibility: visible;
   }
-#dashboard-portlets2 {
-  padding:0;
-  width:285px;
-  }
-#dashboard-portlets3 {
-  margin-left:10px;
-  padding:0;
-  width:285px;
-  }
-#dashboard-portlets4 {
-  clear:left;
-  padding:0;
-  width:285px;
-  }
-#dashboard-portlets1 .portletWrapper {
+#dashboard-portlets .portletWrapper {
   float:left;
-  margin-right:15px;
   margin-bottom: 10px;
   overflow: hidden;
-  width:310px;
+  width:50%;
   }
-#dashboard-portlets1 .wide {
-  width:635px;
-  }
-#dashboard-portlets1 dl.portlet {
+#dashboard-portlets .portlet {
   background: rgba(255, 255, 255, 0.2);
-  margin:0 0 37px;
-  padding-left: 5px;
-  padding-right: 5px;
+  margin:0 16px 0 0;
   -moz-transition: background-color .15s linear;
   -ms-transition: background-color .15s linear;
   -o-transition: background-color .15s linear;
   -webkit-transition: background-color .15s linear;
   transition: background-color .15s linear;
   }
-#dashboard-portlets1 dl.portlet:hover {
+#dashboard-portlets dl.portlet:hover {
   background-color: rgba(255, 255, 255, 0.6);
+  }
+#dashboard-portlets .wide {
+  width:100%;
   }
 
 /* portlets on manage-dashboard screens */
-#dashboard-portlets1 .portlet.managedPortlet {
+#dashboard-portlets .portlet.managedPortlet {
   width:100%;
   float:none;
   }
@@ -1658,6 +1623,9 @@ dl.portalMessage dd {
   }
 
 /*----- Content Add Area -----*/
+.addContentArea {
+  position: relative;
+  }
 .MetaBox {
   background:url(&dtml-portal_url;/add_content_area/bg_metabox.png) #1a3443;
   border-bottom: 1px solid rgba(1,42,67,0.2);
@@ -1807,14 +1775,17 @@ dl.portalMessage dd {
   width: 100px;
   }
 .PullTab {
-  margin: 0 auto 10px;
-  height: 37px;
+  bottom: -37px;
+  left: 50%;
+  margin-left: -97px;
   opacity: 0.6;
+  position: absolute;
   -webkit-transition:opacity 0.2s ease-out;  
   -moz-transition:opacity 0.2s ease-out;  
   -o-transition:opacity 0.2s ease-out;  
   transition:opacity 0.2s ease-out;
   width: 194px;
+  z-index: 3;
   }
 .PullTab:hover,
 .PullTab.open {
@@ -1824,47 +1795,6 @@ dl.portalMessage dd {
   outline: none;
   }
   
-}
-
-@media screen and (min-width: 1600px) {
-
-#visual-portal-wrapper {
-  width: 1180px;
-  }
-div.width-full {
-  width: 1180px;
-  }
-div.position-0 {
-  margin-left: -1180px;
-  }
-div.width-3\3a 4 {
-  width: 840px;
-  }
-#portal-breadcrumbs,
-#vnccollab-header {
-  background-size: 1180px 30px;
-  }
-.hp-header-first-link {
-  width: 396px;
-  }
-.hp-header-second-link {
-  left: 751px;
-  width: 391px;
-  }
-#dashboard-portlets1 .portletWrapper {
-  width: 412px;
-  }
-#dashboard-portlets1 .wide {
-  width: 840px;
-  }
-#portal-footer {
-  background-size: 1180px 85px;
-  width: 100%;
-  }
-.footerColumn {
-  width: 328px;
-  }
-
 }
 
 /* </dtml-with> */ 
