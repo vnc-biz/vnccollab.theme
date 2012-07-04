@@ -254,9 +254,9 @@ body {
   background-color:#093650;
   border:1px solid #436174;
   font-size:75%;
-  left: 453px;
+  left: 50%;
   line-height: 1.5em;
-  margin: 0;
+  margin: 0 0 0 -140px;
   position: absolute;
   top: 52px;
   }
@@ -554,7 +554,7 @@ a.carousel-pager-button-next span {
 
 /*----- Bread Crumbs -----*/
 #portal-breadcrumbs {
-  background:url(&dtml-portal_url;/shadow.png) no-repeat 0 -2px;
+  background:url(&dtml-portal_url;/shadow.png) no-repeat 50% -2px;
   font-size:14px;
   line-height:20px;
   margin:0 0 15px;
