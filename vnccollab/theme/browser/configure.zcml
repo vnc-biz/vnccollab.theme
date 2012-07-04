@@ -251,14 +251,14 @@
       permission="zope2.View"
       />
   
-  <browser:viewlet
+  <!-- <browser:viewlet
       name="vnccollab.theme.header"
       manager="plone.app.layout.viewlets.interfaces.IPortalTop"
       class=".viewlets.VNCCollabHeaderViewlet"
       template="templates/vnccollab_header.pt"
       layer=".interfaces.IThemeSpecific"
       permission="zope2.View"
-      />
+      /> -->
   
   <browser:viewlet
       view=".homepage.IHomePageView"
