@@ -851,7 +851,6 @@ dl.portlet .portletBody,
   list-style-type: none;
 }
 dl.portlet dd.portletFooter {
-  background:url(&dtml-portal_url;/tab.png) repeat-x 0 -37px;
   font-size:13px;
   line-height:18px;
   padding:6px 0 13px;
@@ -977,11 +976,15 @@ dl.portlet dd.portletFooter {
   position:absolute;
   right:3px;
   top:5px;
+  visibility: hidden;
   width:18px;
   }
 .wide .portletWideNarrowLink {
   background-position:-56px -18px;
   }
+.portletHeader:hover .portletWideNarrowLink {
+ visibility: visible; 
+ }
 
 /* Portlet Zimbra Calendar */
 .portletZimbraCalendar iframe {
@@ -1195,22 +1198,6 @@ dl.portlet ul.navTreeLevel1 > .navTreeItem:first-child {
 .portletCollection .portletItem,
 .portletRecent .portletItem {
   border-top:1px dashed #90a5b5;
-  }
-
-/*----- portletEvents -----*/
-dl.portletEvents dd.portletFooter {
-  background:none;
-  position:static;
-  }
-dl.portletEvents dd.portletFooter a {
-  color:#082736 !important;
-  }
-dl.portletEvents dd.portletFooter + dd.portletFooter {
-  background:url(&dtml-portal_url;/tab.png) repeat-x 0 -37px;
-  position:absolute;
-  }
-dl.portletEvents dd.portletFooter + dd.portletFooter a {
-  color:#fff !important;
   }
 
 /*----- Portlet Special RSS -----*/
