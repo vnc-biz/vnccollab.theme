@@ -68,6 +68,7 @@ class ZimbraTaskForm(form.Form):
     implements(IZimbraTaskForm)
     fields = field.Fields(IZimbraTaskForm)
     label = _("New Zimbra Task")
+    prefix = 'zimbra_task_form'
 
     formErrorsMessage = _(u"There were some errors.")
     successMessage = _(u"Task was created successfully.")

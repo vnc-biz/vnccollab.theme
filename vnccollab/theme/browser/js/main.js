@@ -201,108 +201,44 @@ function attachSocialBookmarksLink() {
 }
 
 function initNewTicketForm() {
-  var $create = jq('#form-buttons-create');
-  var $typeOfTicket = jq('#form-widgets-type_of_ticket');
+  var $zimbraTaskForm = jq('#zimbra-contents'),
+      $redmineTaskForm = jq('#redmine-contents'),
+      $typeOfTicket = jq('#form-widgets-type_of_ticket');
 
-  // Inputs to keep sinchronized
-  var $subject_ = jq('#form-widgets-subject_');
-  var $startDateDay = jq('#form-widgets-startDate-day');
-  var $startDateMonth = jq('#form-widgets-startDate-month');
-  var $startDateYear = jq('#form-widgets-startDate-year');
-  var $endDateDay = jq('#form-widgets-endDate-day');
-  var $endDateMonth = jq('#form-widgets-endDate-month');
-  var $endDateYear = jq('#form-widgets-endDate-year');
-  var $content = jq('#form-widgets-content');
-  var $zimbra = [$subject_, $startDateDay, $startDateMonth, $startDateYear, 
-                 $endDateDay, $endDateMonth, $endDateYear, $content]
-
-  var $subject = jq('#form-widgets-subject');
-  var $start_dateDay = jq('#form-widgets-start_date-day');
-  var $start_dateMonth = jq('#form-widgets-start_date-month');
-  var $start_dateYear = jq('#form-widgets-start_date-year');
-  var $due_dateDay = jq('#form-widgets-due_date-day');
-  var $due_dateMonth = jq('#form-widgets-due_date-month');
-  var $due_dateYear = jq('#form-widgets-due_date-year');
-  var $description = jq('#form-widgets-description');
-  var $redmine = [$subject, $start_dateDay, $start_dateMonth, $start_dateYear, 
-                  $due_dateDay, $due_dateMonth, $due_dateYear, $description]
-
-
-  function showNewTaskWidgets(classToShow) {
-    // Shows a subform and hides the other one
-    var $form = jq('#new_ticket_form');
-    var $zimbraWidgets = $form.find('div:has(.zimbra-widget)');
-    var $redmineWidgets = $form.find('div:has(.redmine-widget)');
-
-    console.log('showNewTaskWidgets init');
-    console.log(jQuery.fn.jquery);
-    console.log(classToShow);
-    console.log($zimbraWidgets);
-    console.log($redmineWidgets);
-    if (classToShow === 'zimbra') {
-        $zimbraWidgets.show();
-        $redmineWidgets.hide();
+  function toggleSubforms(toShow) {
+    if (toShow == 'zimbra'){
+      $zimbraTaskForm.show();
+      $redmineTaskForm.hide();
     } else {
-        $zimbraWidgets.hide();
-        $redmineWidgets.show();
+      $zimbraTaskForm.hide();
+      $redmineTaskForm.show();
     }
-    console.log('showNewTaskWidgets end');
   }
-
+  
   function onTypeOfTicketChange() {
     // Event to show the right subform
-    showNewTaskWidgets($typeOfTicket.val());
-  }
-
-  function genericOnChange($from, $to) {
-      return function() {
-        if ($to.val() !== $from.val()) {
-              $to.val($from.val());
-        }
-      }
-  }
-
-  function onSubjectChange() {
-    // Activate or deactivate "Create" button
-    if (($subject.val()==='') && ($subject_.val()==='')) {
-      $create.enable(false);    
-    } else {
-      $create.enable(true);
+    if ($typeOfTicket.length == 0) {
+        // If there's no typeOfTicket, there's nothing to hide
+        return;
     }
+    toggleSubforms($typeOfTicket.val());
   }
-
-  function sinchronizeOnChange() {
-      for (var i = 0; i < $zimbra.length; i++) {
-          $zimbra[i].change(genericOnChange($zimbra[i], $redmine[i]));
-          $redmine[i].change(genericOnChange($redmine[i], $zimbra[i]));
-      }
-      $subject.bind('hastext', onSubjectChange);
-      $subject_.bind('hastext', onSubjectChange);
-      $subject.bind('notext', onSubjectChange);
-      $subject_.bind('notext', onSubjectChange);
-  }
-
-  sinchronizeOnChange();
+  
   $typeOfTicket.change(onTypeOfTicketChange);
   onTypeOfTicketChange();
-  onSubjectChange();
 }
 
 function attachNewTicketAction() {
-  console.log('attaching');
   jq('#document-action-new_ticket a').prepOverlay({
-    'subtype': 'ajax',
-    'filter': common_content_filter,
-    'formselector': 'form#new_ticket_form',
-    'noform': function(el) {return noformerrorshow(el, 'reload');},
-    'afterpost': function(obj, paren) {console.log(obj.html()); console.log(paren);}, //initNewTicketForm,
-    'config' : {
-        'onBeforeLoad' : function(e) {
-            initNewTicketForm();
-        }
-    }
+      'subtype': 'ajax',
+      'filter': '#content>*',
+      'formselector': 'form',
+      'noform': function(el) {return noformerrorshow(el, 'reload');},
+      'afterpost' : initNewTicketForm,
+      'config' : {
+          'onBeforeLoad' : initNewTicketForm
+      },
   }); 
-  console.log('attached');
 }
 
 jq(function() {

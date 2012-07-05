@@ -31,52 +31,52 @@ logger = logging.getLogger('vnccollab.theme.redmine_file_ticket')
 
 
 class IFileTicketForm(Interface):
-    
+
     project = schema.Choice(
         title=_(u"Project"),
         description=_(u"Pick project to post issue to."),
         vocabulary='vnccollab.theme.vocabularies.ProjectsRedmineVocabulary',
         required=True)
-    
+
     tracker = schema.Choice(
         title=_(u"Tracker"),
         description=u'',
         vocabulary='vnccollab.theme.vocabularies.TrackersRedmineVocabulary',
         required=True)
-    
+
     subject = schema.TextLine(
         title=_(u"Subject"),
         description=u'',
         required=True)
-    
+
     description = schema.Text(
         title=_(u"Description"),
         description=u'',
         required=False,
         default=u'')
-    
+
     priority = schema.Choice(
         title=_(u"Priority"),
         description=u'',
         vocabulary='vnccollab.theme.vocabularies.PrioritiesRedmineVocabulary',
         required=True)
-    
+
     asignee = schema.Choice(
         title=_(u"Asignee"),
         description=u'',
         vocabulary='vnccollab.theme.vocabularies.UsersRedmineVocabulary',
         required=False)
-    
+
     start_date = schema.Date(
         title=_(u"Start date"),
         description=u'',
         required=False)
-    
+
     due_date = schema.Date(
         title=_(u"Due date"),
         description=u'',
         required=False)
-    
+
     estimated_time = schema.ASCIILine(
         title=_(u"Estimated time (hours)"),
         description=u'',
@@ -84,19 +84,20 @@ class IFileTicketForm(Interface):
 
 
 class FileTicketForm(form.Form):
-    
+
     implements(IFileTicketForm)
-    
+
     ignoreContext = True
     label = _(u"New Issue")
-    description = u'This form will post new redmine issue.'
+    #description = u'This form will post new redmine issue.'
     id = 'file_ticket_form'
-    
+    prefix = 'redmine_task_form'
+
     formErrorsMessage = _(u"There were some errors.")
     successMessage = _(u"Ticket was created successfully.")
-    
+
     fields = field.Fields(IFileTicketForm)
-    
+
     @property
     def action(self):
         """See interfaces.IInputForm"""
@@ -122,7 +123,7 @@ class FileTicketForm(form.Form):
             else:
                 msg = _(u"Please, set Redmine URL and ID settings in Control "
                     " Panel (Configuration Registry).")
-            
+
             # issue form level error
             self.status = msg
             error = getMultiAdapter((Invalid(u''), self.request, None,
@@ -141,7 +142,7 @@ class FileTicketForm(form.Form):
             due_date = data.get('due_date') or ''
             if due_date:
                 due_date = due_date.strftime('%Y-%m-%d')
-            
+
             issue = Issue({
                 'project_id': data['project'],
                 'subject': data['subject'].encode('utf-8'),
@@ -186,7 +187,7 @@ class FileTicketForm(form.Form):
         self.status = self.successMessage
         IStatusMessage(self.request).addStatusMessage(self.successMessage,
             type='info')
-        
+
         # redirect to success page to gather number of emailed pages
         return self.request.response.redirect(self.context.absolute_url())
 
