@@ -150,6 +150,9 @@ class ZimbraUtilClient:
     def create_task(self, dct):
         """Creates a task, given its description as a dictionary"""
         task = dict(**dct)
+        for k,v in task.items():
+            if v is None:
+                task[k] = u''
         task['startDate'] = self._stringFromDate(task['startDate'])
         task['endDate'] = self._stringFromDate(task['endDate'])
 
@@ -163,23 +166,23 @@ class ZimbraUtilClient:
                   'percentComplete' : task.get('percentComplete', '0'),
                   'status' : task.get('status', 'NEED'),    # Not started
                   'priority' : task.get('priority', '5'),   # Normal
-                  's' : {'d' : task.get('startDate', '')},
-                  'e' : {'d' : task.get('endDate', '')},
                   'or' : {'a' : task['author'],             # Required
                         'd' : task.get('authorName', ''),
                   },
                 },
               },
-              'mp' : {
-                'ct' : 'text/plain',
-                'content' : task.get('content', '')
-              },
             }
         }
+        if task['content']:
+            query['m']['mp'] = {'ct': 'text/plain',
+                                'content' : task['content']}
+        if task['startDate']:
+            query['m']['inv']['comp']['s'] = {'d': task['startDate']}
+        if task['endDate']:
+            query['m']['inv']['comp']['e'] = {'d': task['endDate']}
 
-        response, _ = self.client.invoke('urn:zimbraMail', 'CreateTaskRequest',
-                query)
-        response, _ = self.client.invoke('urn:zimbraMail', 'CreateTaskRequest', query)
+        response, _ = self.client.invoke('urn:zimbraMail',
+                'CreateTaskRequest', query)
         response = self.get_message(response._getAttr(u'invId'))
         task = self._taskFromGetMsgResponse(response)
         return task
@@ -205,14 +208,14 @@ class ZimbraUtilClient:
         '''Returns a ZimbraTask given a zimbra CreateTaskResponse.'''
         id = response._getAttr('_orig_id')
         title = response.inv.comp._getAttr('name')
-        body = response.inv.comp.fr
+        body = getattr(response.inv.comp, 'fr', u'')
         return ZimbraTask(id, title, self.server_url, body)
 
     def _taskFromSearchResponse(self, response):
         '''Returns a ZImbraTask given a zimbra SearchResponse.'''
         id = response._getAttr('invId')
         title = response._getAttr('name')
-        body = response.fr
+        body = getattr(response, 'fr', u'')
         return ZimbraTask(id, title, self.server_url, body)
 
     def _stringFromDate(self, date=None):

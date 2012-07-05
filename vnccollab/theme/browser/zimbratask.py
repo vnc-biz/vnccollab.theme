@@ -1,5 +1,5 @@
 from zope import schema
-from zope.interface import implements, Interface, Invalid
+from zope.interface import implements, Interface, Invalid, invariant
 from zope.component import getMultiAdapter, getUtility
 
 from z3c.form import form, field, button
@@ -11,6 +11,10 @@ from collective.z3cform import datetimewidget
 from vnccollab.theme import messageFactory as _
 from vnccollab.theme.zimbrautil import IZimbraUtil
 import vnccollab.theme.util as util
+
+class BothDatesError(Invalid):
+    __doc__ == _(u'''Either both or none dates must be provided''')
+
 
 class IZimbraTaskForm(Interface):
     # TODO: List Id
@@ -62,6 +66,13 @@ class IZimbraTaskForm(Interface):
         description = u'',
         required = False,
         default = u'')
+
+    @invariant
+    def validateBothDates(data):
+        if not data.startDate and not data.endDate:
+            return
+        if not data.startDate or not data.endDate:
+            raise BothDatesError(_("You must set both start and end date or none."))
 
 
 class ZimbraTaskForm(form.Form):
