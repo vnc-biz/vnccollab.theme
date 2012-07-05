@@ -62,9 +62,10 @@
             tal:condition="not:ajax_load">
             <div tal:replace="structure provider:plone.portaltop" />
         </div>
-    <div id="portal-columns" class="row">
+    <div id="portal-columns" class="row" tal:attributes="class python:sunburst_view.getColumnsClass(view)">
+      <div id="visual-column-wrapper">
 
-        <div id="portal-column-content" class="cell" tal:attributes="class python:sunburst_view.getColumnsClass(view)">
+        <div id="portal-column-content">
           <div id="portal-content">
 
             <div id="viewlet-above-content" tal:content="structure provider:plone.abovecontent" tal:condition="not:ajax_load" />
@@ -137,28 +138,25 @@
         </div>
 
         <tal:notajax tal:condition="not:ajax_load">
-        <div id="portal-column-one" 
-            class="cell width-1:4 position-0"
+        <div id="portal-column-one"
             metal:define-slot="column_one_slot" 
-            tal:condition="sl"
-            tal:attributes="class python:isRTL and 'cell width-1:4 position-3:4' or 'cell width-1:4 position-0'">
+            tal:condition="sl">
             <metal:portlets define-slot="portlets_one_slot">
                 <tal:block replace="structure provider:plone.leftcolumn" />
             </metal:portlets>
         </div>
-
-        <div id="portal-column-two" 
-            class="cell width-1:4 position-3:4"
+        </tal:notajax>
+      </div>
+      <tal:notajax tal:condition="not:ajax_load">
+        <div id="portal-column-two"
             metal:define-slot="column_two_slot" 
-            tal:condition="sr"
-            tal:attributes="class python:isRTL and 'cell width-1:4 position-0' or 'cell width-1:4 position-3:4'">
+            tal:condition="sr">
             <metal:portlets define-slot="portlets_two_slot">
                 <tal:block replace="structure provider:plone.rightcolumn" />
             </metal:portlets>
         </div>
-        </tal:notajax>
+      </tal:notajax>
     </div>
-
 
     <metal:block i18n:domain="plone" tal:condition="not:ajax_load">
         <div tal:replace="structure provider:plone.portalfooter" />

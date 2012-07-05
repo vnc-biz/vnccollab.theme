@@ -20,6 +20,8 @@ body {
   background-color: #f2f2f2;
   border-top: 1px solid #c1ccd5;
   border-bottom: 1px solid #c1ccd5;
+  padding: 22px 0 50px;
+  position: relative;
   width: 100%;
   }
 #portal-columns:after,
@@ -29,13 +31,44 @@ body {
   display: block;
   visibility: hidden;
   }
-#portal-column-content {
+#portal-columns.width-3\3a 4.position-0:before,
+#portal-columns.width-1\3a 2:before {
+  background: url(&dtml-portal_url;/columns-separator.png) no-repeat;
+  background-size: 13px 100%;
+  bottom: 0;
+  content: "";
+  display: block;
+  position: absolute;
+  right: 330px;
+  top: 0;
+  width: 30px;
+  }
+#visual-column-wrapper {
   float: left;
   margin-right: -360px;
   width: 100%;
   }
+#portal-column-content {
+  float: right;
+  margin-left: -360px;
+  width: 100%;
+  }
 #portal-content {
   margin: 0 360px 0 30px;
+  }
+.width-full #portal-content {
+  margin: 0 30px;
+  }
+.width-1\3a 2 #portal-content {
+  margin: 0 360px;
+  }
+.width-3\3a 4.position-1\3a 4 #portal-content {
+  margin: 0 30px 0 360px;
+  }
+#portal-column-one {
+  float: left;
+  margin: 0 30px;
+  width: 300px;
   }
 #portal-column-two {
   float: right;
@@ -754,12 +787,9 @@ dl.portlet a:hover,
   }
 h1 {
   color:#012a43;
-  font:35px/34px "Myriad Pro", Verdana, sans-serif;
+  font:30px/34px "Myriad Pro", Verdana, sans-serif;
   margin:0 0 10px;
   text-shadow:0px 1px 1px white;
-  }
-#content h1.documentFirstHeading {
-  margin-top:9px;
   }
 h1, h2 {
   letter-spacing:0;
@@ -771,11 +801,10 @@ h1, h2 {
   }
 dl.portlet {
   background:url(&dtml-portal_url;/p-s.png) repeat-x 0 100%;
-  /*border-bottom:1px solid #b6c2ce;*/
   font-size:75%;
   line-height:1.5em;
-  margin:0 0 37px;
-  padding:0 0 18px;
+  margin:0 0 7px;
+  padding:0 0 9px;
   position:relative;
   }
 dl.portlet a:link,
@@ -787,12 +816,13 @@ dl.portlet a:hover {
   }
 dl.portlet dt {
   background-color:transparent;
-  font-size:22px;
+  font-size:14px;
   font-weight:normal;
-  line-height:24px;
+  line-height:18px;
   padding: 5px 24px 4px 0;
   position:relative;
   text-shadow 0 1px 1px #fff;
+  text-transform: uppercase;
   }
 dl.portlet dt a:link,
 dl.portlet dt a:visited {
@@ -825,28 +855,6 @@ dl.portlet dd.portletFooter {
   font-size:13px;
   line-height:18px;
   padding:6px 0 13px;
-  position:absolute;
-  right:31px;
-  top:100%;
-  }
-.portletFooter .portletBottomLeft {
-  background:url(&dtml-portal_url;/tab.png) repeat-x 0 0;
-  height:37px;
-  left:-16px;
-  position:absolute;
-  top:0;
-  width:16px;
-  }
-.portletFooter .portletBottomRight {
-  background:url(&dtml-portal_url;/tab.png) repeat-x 0 -74px;
-  height:37px;
-  position:absolute;
-  right:-16px;
-  top:0;
-  width:16px;
-  }
-dl.portlet dd.portletFooter a {
-  color:#fff !important;
   }
 .portletItemDetails {
   color:rgba(1, 42, 67, 0.5);
@@ -868,11 +876,15 @@ dl.portlet dd.portletFooter a {
   height:18px;
   position:absolute;
   right:3px;
-  top:9px;
+  top:5px;
+  visibility: hidden;
   width:18px;
   }
 .portletWrapper.closed .portletToggleLink {
   background-position:-38px -18px;
+  }
+.portletHeader:hover .portletToggleLink {
+  visibility: visible;
   }
 .portletWrapper.closed .portletBodyWrapper,
 .portletWrapper.closed .portletBody,
@@ -930,9 +942,6 @@ dl.portlet dd.portletFooter a {
   width:100%;
   float:none;
   }
-.portletWrapper.closed dl.portlet {
-  padding-bottom:0;
-  }
 #dashboard .portletWrapper.closed dl.portlet {
   padding-bottom:10px;
   }
@@ -967,7 +976,7 @@ dl.portlet dd.portletFooter a {
   height:18px;
   position:absolute;
   right:3px;
-  top:9px;
+  top:5px;
   width:18px;
   }
 .wide .portletWideNarrowLink {
