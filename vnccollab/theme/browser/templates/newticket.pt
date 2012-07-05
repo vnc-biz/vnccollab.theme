@@ -1,0 +1,41 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+          "http://www.w3.org/TR/html4/loose.dtd">
+<html
+    xmlns="http://www.w3.org/1999/xhtml"
+    xmlns:tal="http://xml.zope.org/namespaces/tal"
+    xmlns:metal="http://xml.zope.org/namespaces/metal"
+    metal:use-macro="here/main_template/macros/master"
+    >
+
+<head>
+  <meta content="text/html; charset=utf-8" http-equiv="Content-Type"/>
+  <title></title>
+</head>
+
+<body>
+  <metal:main fill-slot="main">
+    <tal:main-macro metal:define-macro="main">
+
+      <h1 class="documentFirstHeading" tal:content="view/label">Title</h1>
+
+      <div id="skel-contents">
+          <span tal:replace="structure view/contents" />
+          
+          <div id="zimbra-contents"
+               tal:condition="python:hasattr(view.zimbra, 'contents')">
+            <span tal:replace="structure view/zimbra/contents" />
+          </div>
+
+          <div id="redmine-contents"
+               tal:condition="python:hasattr(view.redmine, 'contents')">
+            <span tal:replace="structure view/redmine/contents" />
+          </div>
+      </div>
+
+    </tal:main-macro>
+  </metal:main>
+</body>
+</html>
+
+
+
