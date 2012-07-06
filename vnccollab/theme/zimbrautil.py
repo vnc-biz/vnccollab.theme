@@ -97,7 +97,7 @@ class ZimbraUtilClient:
         It also marks conversation as read.
         """
         result = self.client.invoke('urn:zimbraMail', 'GetConvRequest',
-            {'c': {'id': eid, 'fetch': 'all', 'html': '1'}}).m
+            {'c': {'id': eid, 'fetch': 'all', 'html': '1'}})[0].m
 
         # TODO: make zimbra conversation as read
         if not isinstance(result, list):
