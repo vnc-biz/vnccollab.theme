@@ -3,13 +3,11 @@
      tal:define="breadcrumbs view/breadcrumbs;
                  is_rtl view/is_rtl">
 
-    <span id="breadcrumbs-you-are-here" i18n:translate="you_are_here">You
-are here:</span>
     <span id="breadcrumbs-home">
         <a i18n:translate="tabs_home"
            tal:attributes="href view/navigation_root_url"><span>Home</span></a>
         <span tal:condition="breadcrumbs" class="breadcrumbSeparator">
-            <tal:ltr condition="not: is_rtl">&rsaquo;</tal:ltr>
+            <tal:ltr condition="not: is_rtl">&gt;</tal:ltr>
             <tal:rtl condition="is_rtl">&lsaquo;</tal:rtl>
         </span>
     </span>
@@ -24,7 +22,7 @@ are here:</span>
                tal:condition="python:not is_last"
                tal:attributes="href url"><span tal:content="title">crumb</span></a>
             <span class="breadcrumbSeparator" tal:condition="not: is_last">
-                <tal:ltr condition="not: is_rtl">&rsaquo;</tal:ltr>
+                <tal:ltr condition="not: is_rtl">&gt;</tal:ltr>
                 <tal:rtl condition="is_rtl">&lsaquo;</tal:rtl>
             </span>
             <span id="breadcrumbs-current"

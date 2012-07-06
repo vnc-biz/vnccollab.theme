@@ -35,12 +35,12 @@ body {
 #portal-columns.width-1\3a 2:before {
   background: url(&dtml-portal_url;/columns-separator.png) no-repeat;
   background-size: 13px 100%;
-  bottom: 0;
+  bottom: 60px;
   content: "";
   display: block;
   position: absolute;
   right: 330px;
-  top: 0;
+  top: 30px;
   width: 30px;
   }
 #visual-column-wrapper {
@@ -54,16 +54,16 @@ body {
   width: 100%;
   }
 #portal-content {
-  margin: 0 360px 0 30px;
+  margin: 0 390px 0 30px;
   }
 .width-full #portal-content {
   margin: 0 30px;
   }
 .width-1\3a 2 #portal-content {
-  margin: 0 360px;
+  margin: 0 390px;
   }
 .width-3\3a 4.position-1\3a 4 #portal-content {
-  margin: 0 30px 0 360px;
+  margin: 0 30px 0 390px;
   }
 #portal-column-one {
   float: left;
@@ -379,11 +379,10 @@ input.searchField {
 
 /*----- VNC Collab Header -----*/
 #vnccollab-header {
-  background:url(&dtml-portal_url;/shadow.png) no-repeat 0 100%;
-  margin: auto;
+  background:url(&dtml-portal_url;/shadow.png) no-repeat 50% 100%;
+  margin: 0 30px;
   padding:0 0 30px;
   position:relative;
-  width: 960px;
   }
 .nccollab-hp-header .actionLink {
   display:none;
@@ -410,23 +409,36 @@ input.searchField {
 .hp-header-welcome p {
   margin:0 0 14px;
   }
+.hp-header-links {
+  bottom: 0;
+  height: 89px;
+  left: 317px;
+  position: absolute;
+  right: 0;
+  }
 .hp-header-first-link {
   background-color:#6b9512;
   bottom:0;
+  -moz-box-sizing: border-box;
+  -webkit-box-sizing: border-box;
+  box-sizing: border-box;
   height:89px;
-  left:317px;
+  left:0;
   padding:0 19px;
   position:absolute;
-  width:286px;
+  width:50%;
   }
 .hp-header-second-link {
   background-color:#164e6f;
   bottom:0;
+  -moz-box-sizing: border-box;
+  -webkit-box-sizing: border-box;
+  box-sizing: border-box;
   height:89px;
-  left:641px;
   padding:0 19px;
   position:absolute;
-  width:281px;
+  right: 0;
+  width:50%;
   }
 .hp-header-first-link h3,
 .hp-header-second-link h3 {
@@ -588,10 +600,11 @@ a.carousel-pager-button-next span {
 /*----- Bread Crumbs -----*/
 #portal-breadcrumbs {
   background:url(&dtml-portal_url;/shadow.png) no-repeat 50% -2px;
-  font-size:14px;
-  line-height:20px;
+  font-size:12px;
+  line-height:18px;
   margin:0 0 15px;
-  padding:15px 0 0;
+  padding:15px 18px 0;
+  text-transform: uppercase;
   }
 #breadcrumbs-you-are-here {
   background-color:#012a43;
@@ -618,6 +631,9 @@ a.carousel-pager-button-next span {
   display:inline-block;
   color:#082736;
   padding:0 3px;
+  }
+.breadcrumbSeparator {
+  font-size: 14px;
   }
 
 /* XMPP Socializing Viewlet */
@@ -796,9 +812,6 @@ h1, h2 {
   }
 
 /*----- Portlets Properties -----*/
-.portletWrapper {
-  /*border-bottom:1px solid #dbe0e7;*/
-  }
 dl.portlet {
   background:url(&dtml-portal_url;/p-s.png) repeat-x 0 100%;
   font-size:75%;
@@ -831,36 +844,27 @@ dl.portlet dt a:visited {
 dl.portlet dt a:hover {
   color:#082736 !important;
   }
-#content li.portletItem,
-dl.portlet li.portletItem,
-dl.portlet dd.portletItem {
+#content .portletItem,
+dl.portlet dd.portletItem,
+dl.portlet li.portletItem {
   padding:8px 0;
   margin: 0;
   }
-#dashboard-portlets dl.portlet .portletBody {
-  height: 300px;
-  overflow: hidden;
-}
-#dashboard-portlets dl.portlet .portletBody:hover {
-/*  overflow-y: scroll;*/
-}
 dl.portlet .portletBody,
 #content dl.portlet .portletBody {
   padding: 0;
   margin: 0;
   list-style-type: none;
-}
+  }
 dl.portlet dd.portletFooter {
-  font-size:13px;
-  line-height:18px;
-  padding:6px 0 13px;
+  padding:8px 0;
   }
 .portletItemDetails {
-  color:rgba(1, 42, 67, 0.5);
-  font-size:100%;
+  color: #6ea21b;
+  font-size: 10px;
+  line-height: 14px;
   margin-left:0;
   padding-top:0;
-  text-shadow:0 1px 1px #fff;
   }
 .portletStaticText .portletItem a:link,
 .portletStaticText .portletItem a:hover,
@@ -870,26 +874,32 @@ dl.portlet dd.portletFooter {
 
 /*----- Portlet Toggle Styles -----*/
 .portlet .portletToggleLink {
-  background:url(&dtml-portal_url;/sprite.png) no-repeat -38px 0;
+  background:url(&dtml-portal_url;/sprite.png) no-repeat -134px 0;
   text-indent:-9999px;
-  height:18px;
+  height:17px;
   position:absolute;
   right:3px;
   top:5px;
   visibility: hidden;
-  width:18px;
+  width:17px;
   }
-.portletWrapper.closed .portletToggleLink {
-  background-position:-38px -18px;
+.closed .portletToggleLink {
+  background-position:-134px -20px;
   }
-.portletHeader:hover .portletToggleLink {
+.portlet:hover .portletToggleLink {
   visibility: visible;
   }
-.portletWrapper.closed .portletBodyWrapper,
-.portletWrapper.closed .portletBody,
-.portletWrapper.closed .portletFooter,
-.portletWrapper.closed .portletItem {
+.closed .portletBodyWrapper,
+.closed .portletBody,
+.closed .portletFooter,
+.closed .portletItem {
   display:none;
+  }
+#dashboard .portletToggleLink {
+  background-position: -94px 0;
+  }
+#dashboard .closed .portletToggleLink {
+  background-position: -94px -20px;
   }
 
 /*----- Dashboard -----*/
@@ -916,73 +926,87 @@ dl.portlet dd.portletFooter {
   }
 #dashboard-portlets .portletWrapper {
   float:left;
-  margin-bottom: 10px;
   overflow: hidden;
   width:50%;
-  }
-#dashboard-portlets .portlet {
-  background: rgba(255, 255, 255, 0.2);
-  margin:0 16px 0 0;
-  -moz-transition: background-color .15s linear;
-  -ms-transition: background-color .15s linear;
-  -o-transition: background-color .15s linear;
-  -webkit-transition: background-color .15s linear;
-  transition: background-color .15s linear;
-  }
-#dashboard-portlets dl.portlet:hover {
-  background-color: rgba(255, 255, 255, 0.6);
   }
 #dashboard-portlets .wide {
   width:100%;
   }
-
+#dashboard-portlets .portlet {
+  background: #fff;
+  box-shadow: 1px 1px 8px 0 #c4cbd0;
+  height: 278px;
+  margin: 0 16px 16px 0;
+  overflow: hidden;
+  padding: 0;
+  }
+#dashboard-portlets .closed .portlet {
+  height: auto;
+  }
+#dashboard .portlet a:link,
+#dashboard .portlet a:visited,
+#dashboard .portlet a:hover {
+  color:#012a43 !important;
+  text-decoration:none;
+  }
+#dashboard .portletHeader {
+  background-color: #d0d6dd;
+  border-bottom: 1px solid #dadfe4;
+  color: #7791a6;
+  font-weight:normal;
+  padding: 3px 45px 2px 14px;
+  }
+#dashboard .closed .portletHeader {
+  border-bottom: 1px solid #dadfe4;
+  }
+#dashboard .portletHeader a:link,
+#dashboard .portletHeader a:visited,
+#dashboard .portletHeader a:hover {
+  color: #7791a6 !important;
+  }
+#dashboard .portletToggleLink {
+  right:27px;
+  }
+#dashboard-portlets .portletBody {
+  height: 300px;
+  overflow: hidden;
+  }
+#dashboard .portletItem {
+  padding: 8px 13px;
+  }
+#dashboard .even,
+#dashboard li.portletItem:nth-child(even) {
+  background-color: #f5f5f5;
+  }
+#dashboard .portletItem a {
+  font-size: 14px;
+  line-height: 18px;
+  }
+#dashboard .portletFooter {
+  padding: 8px 13px;
+  }
+  
 /* portlets on manage-dashboard screens */
 #dashboard-portlets .portlet.managedPortlet {
   width:100%;
   float:none;
   }
-#dashboard .portletWrapper.closed dl.portlet {
-  padding-bottom:10px;
-  }
-#dashboard .portletHeader {
-  font-size:20px;
-  font-weight:normal;
-  padding-right:45px;
-  }
-#dashboard .portletToggleLink {
-  right:27px;
-  }
-#dashboard .portlet a:link,
-#dashboard .portlet a:visited,
-#dashboard .portlet a:hover {
-  color:#082736 !important;
-  text-decoration:none;
-  }
-#dashboard dl.portlet .portletItem a {
-  font-size: 14px;
-  line-height: 18px;
-  }
-#dashboard .portletFooter a:link,
-#dashboard .portletFooter a:visited,
-#dashboard .portletFooter a:hover {
-  color:#fff !important;
-  }
 
 /*----- Portlet Wide Narrow Link -----*/
 .portletWideNarrowLink {
-  background:url(&dtml-portal_url;/sprite.png) no-repeat -56px 0;
+  background:url(&dtml-portal_url;/sprite.png) no-repeat -114px 0;
   text-indent:-9999px;
-  height:18px;
+  height:17px;
   position:absolute;
   right:3px;
   top:5px;
   visibility: hidden;
-  width:18px;
+  width:17px;
   }
 .wide .portletWideNarrowLink {
-  background-position:-56px -18px;
+  background-position:-114px -20px;
   }
-.portletHeader:hover .portletWideNarrowLink {
+.portlet:hover .portletWideNarrowLink {
  visibility: visible; 
  }
 
@@ -1189,7 +1213,7 @@ dl.portlet ul.navTreeLevel1 > .navTreeItem:first-child {
   }
 
 /*------ Specific Portlet Styles -----*/
-.portletWorkflowReview .portletItem,
+/*.portletWorkflowReview .portletItem,
 .portletRedmineTickets .portletItem,
 .portletRss .portletItem,
 .portletEvents .portletItem,
@@ -1198,7 +1222,7 @@ dl.portlet ul.navTreeLevel1 > .navTreeItem:first-child {
 .portletCollection .portletItem,
 .portletRecent .portletItem {
   border-top:1px dashed #90a5b5;
-  }
+  }*/
 
 /*----- Portlet Special RSS -----*/
 #dashboard dl.portletSpecialRSS .portletItem {
