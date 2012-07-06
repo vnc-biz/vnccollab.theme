@@ -18,6 +18,17 @@
 
   <include package="plone.app.portlets" />
 
+  <include package="jarn.xmpp.core" />
+
+  <browser:page
+      for="Products.CMFCore.interfaces.ISiteRoot"
+      class=".stream.StreamView"
+      name="vnc-stream"
+      layer=".interfaces.IThemeSpecific"
+      attribute="stream"
+      permission="jarn.xmpp.core.XMPPView"
+      />
+
   <browser:page
       for="*"
       name="upload-file"

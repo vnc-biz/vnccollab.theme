@@ -241,6 +241,62 @@ function attachNewTicketAction() {
   }); 
 }
 
+var vncStreamLoading = false;
+
+function attachStreamButton() {
+  // xmpp Messages onclick load stream from the server
+  // do we need to load it from the server?
+  jq('#site-stream-link').click(function(event){
+    var stream = jq('#vnc-stream');
+    if (stream.length == 0) {
+      // it's already being loaded
+      if (vncStreamLoading) {
+        return false;
+      }
+      
+      // load from the server
+      vncStreamLoading = true;
+      jq.get(portal_url + '/@@vnc-stream',
+        {}, function(data, textStatus, jqXHR){
+          jq('#portal-top').append(data);
+          attachStreamTabs();
+          jq('#vnc-stream').hide().slideDown();
+          // attach slim scrolling
+          jq('.vncStreamBodyItems').slimScroll({'height': '293px'});
+          vncStreamLoading = false;
+        }, 'html');
+    } else if (stream.is(':visible')) {
+      stream.slideUp();
+    } else {
+      stream.slideDown();
+    }
+    return false;
+  });
+}
+
+function attachStreamTabs() {
+  var container = jq('.vncStreamTabs');
+  if (container.length == 0) {
+    return;
+  }
+  
+  jq('a', container).click(function(event){
+    var target = jq(event.target);
+    var parent = target.parents('li');
+    var klass = parent.attr('id').slice('stream-type-'.length-1);
+    
+    // change container class to display only filtered stream items
+    target.parents('.vncStreamMsgs').removeClass().addClass("vncStreamMsgs " +
+      klass);
+    
+    // add selected class to current tab
+    parent.parent().find('li').removeClass('selected');
+    parent.addClass('selected');
+    
+    return false;
+  })
+}
+
 jq(function() {
   attachNewTicketAction();
   attachHeaderViewletCloseOpen();
@@ -251,4 +307,6 @@ jq(function() {
   initPortletDashlet();
   initNewTicketForm();
   attachSocialBookmarksLink();
+  attachStreamButton();
+  attachStreamTabs();
 });

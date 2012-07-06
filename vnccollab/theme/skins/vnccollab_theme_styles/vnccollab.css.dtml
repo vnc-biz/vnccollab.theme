@@ -1817,4 +1817,154 @@ dl.portalMessage dd {
   
 }
 
+/*---------- Stream Viewlet ----------*/
+#vnc-stream {
+  width: 100%;
+  position: relative;
+  display: block;
+  height: 327px;
+  overflow: hidden;
+  border-top: 1px solid #c1ccd5;
+  background-color: #ffffff;
+}
+
+#vnc-stream .vncStreamPostForm {
+  width: 49%;
+  float: left;
+  display: block;
+  height: 327px;
+}
+#vnc-stream .vncStreamMsgs {
+  width: 50%;
+  display: block;
+  height: 327px;
+  float: right;
+  border-left: 1px solid #c1ccd5;
+}
+
+ul.vncStreamTabs {
+  list-style: none outside none;
+  background-color: #f2f2f2;
+  margin: 0;
+  padding: 0;
+  font-size: 80%;
+  border-bottom: 1px solid #c1ccd5;
+  height: 34px;
+}
+
+ul.vncStreamTabs li {
+  display: block;
+  float: left;
+  padding: 10px 12px 8px 10px
+}
+
+ul.vncStreamTabs li.selected {
+  background-color: #ffffff;
+  border-left: 1px solid #c1ccd5;
+  border-right: 1px solid #c1ccd5;
+  border-bottom: 1px solid #FFFFFF;
+  padding-bottom: 8px;
+}
+
+.all ul.vncStreamTabs li.selected {
+  border-left: none;
+}
+
+ul.vncStreamBodyItems {
+  margin: 0;
+  padding: 0;
+  list-style: none outside none;
+}
+
+ul.vncStreamBodyItems li.vncStreamItem {
+  padding: 10px;
+  border-bottom: 1px solid #c1ccd5;
+  display: block;
+  position: relative;
+  clear: both;
+}
+
+.vncStreamItem:hover {
+  background-color: #f2f2f2;
+}
+
+.vncStreamItem:hover .vncStreamItemReplyIcon {
+  display: block;
+}
+
+.vncStreamItemImg {
+  float: left;
+  width: 32px;
+  height: 32px;
+}
+
+.vncStreamItemBody {
+  margin-left: 42px;
+}
+
+.vncStreamItemByline {
+  display: block;
+}
+
+a.vncStreamItemTitle {
+  display: block;
+  font-size: 90%;
+  color: #75ad0a !important;
+}
+
+.vncStreamItemDetails {
+  float: right;
+  color: #75ad0a;
+  font-size: 80%;
+  margin-right: 70px;
+}
+
+.vncStreamItemReplyIcon {
+  display: block;
+  width: 19px;
+  height: 12px;
+  position: absolute;
+  top: 6px;
+  right: 50px;
+  display: none;
+}
+
+.vncStreamItemDesc {
+  display: block;
+  font-size: 85%;
+}
+
+/* Stream Tabs Functional css rules */
+#vnc-stream ul.vncStreamBodyItems li {
+  display: none;
+}
+
+#vnc-stream .all ul.vncStreamBodyItems li {
+  display: block;
+}
+
+#vnc-stream .im ul.vncStreamBodyItems li.stream-type-im {
+  display: block;
+}
+
+#vnc-stream .zm ul.vncStreamBodyItems li.stream-type-zm {
+  display: block;
+}
+
+#vnc-stream .news ul.vncStreamBodyItems li.stream-type-news {
+  display: block;
+}
+
+#vnc-stream .tickets ul.vncStreamBodyItems li.stream-type-tickets {
+  display: block;
+}
+
+#vnc-stream .recent ul.vncStreamBodyItems li.stream-type-recent {
+  display: block;
+}
+
+#vnc-stream .comments ul.vncStreamBodyItems li.stream-type-comments {
+  display: block;
+}
+
 /* </dtml-with> */ 
