@@ -35,12 +35,12 @@ body {
 #portal-columns.width-1\3a 2:before {
   background: url(&dtml-portal_url;/columns-separator.png) no-repeat;
   background-size: 13px 100%;
-  bottom: 0;
+  bottom: 60px;
   content: "";
   display: block;
   position: absolute;
   right: 330px;
-  top: 0;
+  top: 30px;
   width: 30px;
   }
 #visual-column-wrapper {
@@ -379,11 +379,10 @@ input.searchField {
 
 /*----- VNC Collab Header -----*/
 #vnccollab-header {
-  background:url(&dtml-portal_url;/shadow.png) no-repeat 0 100%;
-  margin: auto;
+  background:url(&dtml-portal_url;/shadow.png) no-repeat 50% 100%;
+  margin: 0 30px;
   padding:0 0 30px;
   position:relative;
-  width: 960px;
   }
 .nccollab-hp-header .actionLink {
   display:none;
@@ -410,23 +409,36 @@ input.searchField {
 .hp-header-welcome p {
   margin:0 0 14px;
   }
+.hp-header-links {
+  bottom: 0;
+  height: 89px;
+  left: 317px;
+  position: absolute;
+  right: 0;
+  }
 .hp-header-first-link {
   background-color:#6b9512;
   bottom:0;
+  -moz-box-sizing: border-box;
+  -webkit-box-sizing: border-box;
+  box-sizing: border-box;
   height:89px;
-  left:317px;
+  left:0;
   padding:0 19px;
   position:absolute;
-  width:286px;
+  width:50%;
   }
 .hp-header-second-link {
   background-color:#164e6f;
   bottom:0;
+  -moz-box-sizing: border-box;
+  -webkit-box-sizing: border-box;
+  box-sizing: border-box;
   height:89px;
-  left:641px;
   padding:0 19px;
   position:absolute;
-  width:281px;
+  right: 0;
+  width:50%;
   }
 .hp-header-first-link h3,
 .hp-header-second-link h3 {
@@ -588,10 +600,11 @@ a.carousel-pager-button-next span {
 /*----- Bread Crumbs -----*/
 #portal-breadcrumbs {
   background:url(&dtml-portal_url;/shadow.png) no-repeat 50% -2px;
-  font-size:14px;
-  line-height:20px;
+  font-size:12px;
+  line-height:18px;
   margin:0 0 15px;
-  padding:15px 0 0;
+  padding:15px 18px 0;
+  text-transform: uppercase;
   }
 #breadcrumbs-you-are-here {
   background-color:#012a43;
@@ -618,6 +631,9 @@ a.carousel-pager-button-next span {
   display:inline-block;
   color:#082736;
   padding:0 3px;
+  }
+.breadcrumbSeparator {
+  font-size: 14px;
   }
 
 /* XMPP Socializing Viewlet */
@@ -882,7 +898,7 @@ dl.portlet dd.portletFooter {
 .portletWrapper.closed .portletToggleLink {
   background-position:-38px -18px;
   }
-.portletHeader:hover .portletToggleLink {
+.portlet:hover .portletToggleLink {
   visibility: visible;
   }
 .portletWrapper.closed .portletBodyWrapper,
@@ -982,7 +998,7 @@ dl.portlet dd.portletFooter {
 .wide .portletWideNarrowLink {
   background-position:-56px -18px;
   }
-.portletHeader:hover .portletWideNarrowLink {
+.portlet:hover .portletWideNarrowLink {
  visibility: visible; 
  }
 
