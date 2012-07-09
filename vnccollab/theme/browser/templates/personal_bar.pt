@@ -55,7 +55,7 @@
   </tal:block>
 </div>
 
-<dl class="actionMenu deactivated" id="portal-personaltools-anonymous"
+<!--<dl class="actionMenu deactivated" id="portal-personaltools-anonymous"
     tal:condition="python:view.user_actions and view.anonymous">
   <dt id="anon-personalbar">
     <tal:actions repeat="action view/user_actions">
@@ -68,6 +68,6 @@
         </a>
     </tal:actions>
   </dt>
-</dl>
+</dl>-->
 
 </div>

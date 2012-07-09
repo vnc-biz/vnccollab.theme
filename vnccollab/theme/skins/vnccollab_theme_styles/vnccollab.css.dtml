@@ -215,30 +215,12 @@ body {
 
 /*----- Login -----*/
 .loginFormWrapper {
-  background-color:#cfd6dd;
-  float:right;
   font-size:11px;
-  height:60px;
   line-height:18px;
-  margin:10px 0 15px;
-  padding:12px 15px 8px;
-  width:310px;
-  }
-.loginFormHeader {
-  margin:0 0 14px;
-  }
-.loginFormLink {
-  float:right;
-  text-decoration:underline;
-  }
-.loginFormLink:link,
-.loginFormLink:visited {
-  color:#082736;
-  }
-.loginFormTitle {
-  font-size:13px;
-  font-weight:bold;
-  line-height:19px;
+  position: absolute;
+  right: 0;
+  top: 50px;
+  /*width:310px;*/
   }
 .loginFormControls label {
   font-weight:normal;
