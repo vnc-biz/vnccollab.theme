@@ -22,9 +22,11 @@
       </li>
       </tal:tabs>
     </ul>
-    <div class="vncStreamBody">
+    <div class="vncStreamBody"
+         tal:define="entries view/get_items">
       <ul class="vncStreamBodyItems">
-        <tal:items repeat="entry view/get_items">
+        <metal:items define-macro="stream-items">
+        <tal:items repeat="entry entries">
         <li class="vncStreamItem"
             tal:attributes="class string:${attrs/class} stream-type-${entry/type}">
           <div class="vncStreamItemImg">
@@ -51,6 +53,9 @@
                 |
                 <!-- TODO: onclick load replies if more than 0 -->
                 <span class="rNum" tal:content="entry/replies_num">0</span>
+                <tal:comment replace="nothing">Do not remove below datetime
+                  element. It's being used by javascript code.</tal:comment>
+                <span class="dt hiddenStructure" tal:content="entry/datetime" />
               </div>
               <a class="vncStreamItemTitle"
                  href="" title=""
@@ -85,6 +90,7 @@
           </div>
         </li>
         </tal:items>
+        </metal:items>
       </ul>
     </div>
   </div>
