@@ -243,6 +243,52 @@ function attachNewTicketAction() {
 
 var vncStreamLoading = false;
 
+function checkVNCStream() {
+  // request is already in process
+  if (vncStreamLoading == true) {
+    return false;
+  }
+  
+  // mark request busy
+  vncStreamLoading = true;
+  
+  var stream = jq('#vnc-stream');
+  if (stream.length == 0) {
+    vncStreamLoading = false;
+    return false;
+  }
+  
+  // find first item in the stream
+  var item = jq('.vncStreamItem:first', stream);
+  var data = {};
+  if (item.length > 0) {
+    data = {'since': item.find('.dt').text()};
+  }
+  
+  // do ajax request to the server to get fresh stream items
+  jq.ajax({
+    'type': 'GET',
+    'dataType': 'html',
+    'url': portal_url + '/@@vnc-stream-check',
+    'data': data,
+    'success': function(data){
+      if (item.length > 0) {
+        item.before(data);
+      } else {
+        jq('.vncStreamBodyItems', stream).append(data);
+      }
+      vncStreamLoading = false;
+      setTimeout(checkVNCStream, 5000);
+    },
+    'error': function(){
+      vncStreamLoading = false;
+      setTimeout(checkVNCStream, 5000);
+    }
+  });
+  
+  return true;
+}
+
 function attachStreamButton() {
   // xmpp Messages onclick load stream from the server
   // do we need to load it from the server?
@@ -256,15 +302,26 @@ function attachStreamButton() {
       
       // load from the server
       vncStreamLoading = true;
-      jq.get(portal_url + '/@@vnc-stream',
-        {}, function(data, textStatus, jqXHR){
+      jq.ajax({
+        'url': portal_url + '/@@vnc-stream',
+        'dataType': 'html',
+        'success': function(data, textStatus, jqXHR){
           jq('#portal-top').append(data);
           attachStreamTabs();
           jq('#vnc-stream').hide().slideDown();
           // attach slim scrolling
           jq('.vncStreamBodyItems').slimScroll({'height': '293px'});
           vncStreamLoading = false;
-        }, 'html');
+          setTimeout(checkVNCStream, 5000);
+        },
+        'error': function() {
+          alert('Sorry, something went wrong on the server. Please, try ' +
+            'a bit later.');
+          vncStreamLoading = false;
+          setTimeout(checkVNCStream, 5000);
+        },
+        'data': {}
+        });
     } else if (stream.is(':visible')) {
       stream.slideUp();
     } else {

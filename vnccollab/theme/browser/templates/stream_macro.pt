@@ -1,0 +1,5 @@
+<tal:macro i18n:domain="vnccollab.theme"
+           define="entries options/entries;
+                   purl context/portal_url">
+<div metal:use-macro="context/@@vnc-stream-macros/macros/stream-items" />
+</tal:macro>
