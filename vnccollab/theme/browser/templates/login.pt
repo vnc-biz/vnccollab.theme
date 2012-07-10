@@ -16,42 +16,45 @@
           <input type="hidden" name="login_name" id="login_name" value="" />
           <input type="hidden" name="pwd_empty" id="pwd_empty" value="0" />
       </div>
-      <div class="loginFormHeader">
+<!--      <div class="loginFormHeader">
         <span class="loginFormTitle">Login</span>
-      </div>
+      </div>-->
       <div class="loginFormControls"
            tal:define="use_email_as_login context/portal_properties/site_properties/use_email_as_login|nothing;">
         <tal:loginname condition="not:use_email_as_login">
-          <label for=""
+          <label for="" class="hiddenStructure"
                  tal:attributes="for ac_name"
                  i18n:translate="label_login_name">User:</label>
-          <input class="loginFormName"
+          <input class="loginFormName inputLabel"
                  type="text"
                  size="10"
                  alt="Login Name"
+                 title="Login Name"
                  tal:attributes="name ac_name; id ac_name;
                                  value python:request.get(ac_name, '');"
                  i18n:attributes="alt label_login_name;"/>
         </tal:loginname>
         <tal:email condition="use_email_as_login">
-          <label for=""
+          <label for="" class="hiddenStructure"
                  tal:attributes="for ac_name"
                  i18n:translate="label_email">E-mail:</label>
-          <input class="loginFormEmail"
+          <input class="loginFormEmail inputLabel"
                  type="text"
                  size="10"
                  alt="E-mail"
+                 title="E-mail"
                  tal:attributes="name ac_name; id ac_name;
                                  value python:request.get(ac_name, '');"
                  i18n:attributes="alt label_email;"/>
         </tal:email>
-        <label for=""
+        <label for="" class="hiddenStructure"
                tal:attributes="for ac_password"
                i18n:translate="label_password">Password:</label>
-        <input class="loginFormPassword"
+        <input class="loginFormPassword inputLabel"
                type="password"
                size="10"
                alt="Password"
+               title="Password"
                tal:attributes="name ac_password; id ac_password;"
                i18n:attributes="alt label_password;"/><input
                class="loginFormSubmit"
