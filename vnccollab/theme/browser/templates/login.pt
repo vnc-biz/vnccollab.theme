@@ -16,9 +16,6 @@
           <input type="hidden" name="login_name" id="login_name" value="" />
           <input type="hidden" name="pwd_empty" id="pwd_empty" value="0" />
       </div>
-<!--      <div class="loginFormHeader">
-        <span class="loginFormTitle">Login</span>
-      </div>-->
       <div class="loginFormControls"
            tal:define="use_email_as_login context/portal_properties/site_properties/use_email_as_login|nothing;">
         <tal:loginname condition="not:use_email_as_login">
@@ -56,11 +53,11 @@
                alt="Password"
                title="Password"
                tal:attributes="name ac_password; id ac_password;"
-               i18n:attributes="alt label_password;"/><input
-               class="loginFormSubmit"
+               i18n:attributes="alt label_password;"/>
+        <input class="loginFormSubmit"
                type="submit"
                name="submit"
-               value="OK"
+               value="Login"
                i18n:attributes="value label_log_in;"/>
       </div>
       <div i18n:translate="enable_cookies_message_before_login"

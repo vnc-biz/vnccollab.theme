@@ -8,7 +8,7 @@ body {
   background: #e6e9ee;
   color:#000;
   font:100% "Myriad Pro", Arial, FreeSans, sans-serif;
-  min-width: 960px;
+  min-width: 1060px;
   }
 #portal-top {
   width: 100%;
@@ -215,48 +215,56 @@ body {
 
 /*----- Login -----*/
 .loginFormWrapper {
-  font-size:11px;
-  line-height:18px;
   position: absolute;
   right: 0;
-  top: 50px;
-  /*width:310px;*/
+  top: 52px;
   }
 .loginFormControls label {
   font-weight:normal;
   margin:0 0 3px;
   vertical-align:middle;
   }
-.loginFormName,
-.loginFormEmail,
-.loginFormPassword {
-  background-color:#edeff2;
-  border:0;
-  -moz-box-sizing:border-box;
-  -webkit-box-sizing:border-box;
-  box-sizing:border-box;
-  font-family:Arial,FreeSans,sans-serif;
-  font-size:11px;
-  height:27px;
-  padding:1px 3px;
-  vertical-align:middle;
-  width:90px;
+input.loginFormName,
+input.loginFormEmail,
+input.loginFormPassword {
+  background-color: #dee3e8;
+  background-image: -moz-linear-gradient(#dee3e8,#cfd6dd);
+  background-image: -ms-linear-gradient(#dee3e8,#cfd6dd);
+  background-image: -o-linear-gradient(#dee3e8,#cfd6dd);
+  background-image: -webkit-linear-gradient(#dee3e8,#cfd6dd);
+  background-image: linear-gradient(#dee3e8,#cfd6dd);
+  border: 1px solid #738ea2;
+  box-shadow: 0 1px #e6e9ee inset;
+  -moz-box-sizing: border-box;
+  -webkit-box-sizing: border-box;
+  box-sizing: border-box;
+  color: #738ea2;
+  display: inline-block;
+  font-size: 14px;
+  height: 32px;
+  line-height: 17px;
+  margin-right: 7px;
+  padding: 6px 9px;
+  vertical-align: top;
+  width: 140px;
   }
-.loginFormName,
-.loginFormEmail {
-  margin-right:5px;
+button::-moz-focus-inner,
+input[type="reset"]::-moz-focus-inner,
+input[type="button"]::-moz-focus-inner,
+input[type="submit"]::-moz-focus-inner,
+input[type="file"] > input[type="button"]::-moz-focus-inner {
+  padding: 0;
+  border: 0;
   }
 .loginFormSubmit {
-  background-color:#12425f;
-  border:0;
-  -moz-box-sizing:border-box;
-  -webkit-box-sizing:border-box;
-  box-sizing:border-box;
+  background-color: #12425f;
+  border: 1px solid #012a43;
   color:#fff;
-  height:27px;
+  font-size: 14px;
+  height: 32px;
+  padding: 0 9px;
   text-align:center;
-  vertical-align:middle;
-  width:27px;
+  vertical-align: top;
   }
 
 /*----- Logo -----*/
@@ -271,11 +279,11 @@ body {
   border-radius: 3px;
   box-shadow: 1px 1px 2px #d9d9d9 inset;
   font-size:1em;
-  left: 50%;
-  margin: 0 0 0 -134px;
+  margin: 0 -134px 0 0;
   padding: 6px 4px;
   position: absolute;
-  top: 52px;
+  right: 50%;
+  top: 51px;
   width: 268px;
   }
 #portal-searchbox .searchField {
