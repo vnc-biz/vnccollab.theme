@@ -959,7 +959,7 @@ dl.portlet dd.portletFooter {
   color:#748fa2 !important;
   }
 .slimScrollBar {
-  border-radius: 12px !important;
+  border-radius: 20px !important;
   }
 
 /*----- Portlet Toggle Styles -----*/
