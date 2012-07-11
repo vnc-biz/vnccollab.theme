@@ -972,6 +972,7 @@ dl.portlet dd.portletFooter {
 .portlet:hover .portletToggleLink {
   visibility: visible;
   }
+.closed .dashlet-actions-wrapper,
 .closed .portletBodyWrapper,
 .closed .portletBody,
 .closed .portletFooter,
