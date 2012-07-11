@@ -1392,8 +1392,10 @@ dl.portlet ul.navTreeLevel1 > .navTreeItem:first-child {
   margin:0 15px;
   padding:7px 0;
   }
-.template-homepage_view .portletHeader {
+.template-homepage_view #content .portletHeader {
+  font-size:29px;
   font-weight:normal !important;
+  line-height:34px;
   }
 .template-homepage_view #content .portletHeader a,
 .template-homepage_view #content .portletItem a {
