@@ -1075,6 +1075,7 @@ dl.portlet dd.portletFooter {
 #dashboard-portlets .portlet.managedPortlet {
   width:100%;
   float:none;
+  height: 21px;
   }
 
 /*----- Portlet Wide Narrow Link -----*/

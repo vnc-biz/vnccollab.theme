@@ -66,7 +66,7 @@
 
                 <div id="content-core">
                     <div id="dashboard">
-                        <div id="dashboard-portlets1"
+                        <div id="dashboard-portlets"
                           tal:content="structure provider:plone.dashboard1" />
                     </div>
                     <div class="visualClear"><!-- --></div>
