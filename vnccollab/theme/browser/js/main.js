@@ -125,8 +125,8 @@ function init_textile_editor() {
 }
 
 function addSlimScrollingToDashboardPortlets() {
-  jq('#dashboard-portlets1 .portletBody:not(.noSlimScroll)').slimScroll({
-    'height': '300px'
+  jq('#dashboard-portlets .portletBody:not(.noSlimScroll)').slimScroll({
+    'height': '254px'
   });
 }
 
@@ -183,7 +183,7 @@ function initPortletDashlet() {
         // selecte current action
         jq(target).parents('ul').find('li').removeClass('selected');
         jq(target).parent().addClass('selected');
-        $content.find('.portletBody').slimScroll({'height': '300px'});
+        $content.find('.portletBody').slimScroll({'height': '213px'});
     });
     e.preventDefault();
   }
