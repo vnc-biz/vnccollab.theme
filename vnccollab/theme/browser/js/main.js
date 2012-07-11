@@ -242,6 +242,7 @@ function attachNewTicketAction() {
 }
 
 var vncStreamLoading = false;
+var vncStreamDelay = 10000;
 
 function checkVNCStream() {
   // request is already in process
@@ -262,7 +263,8 @@ function checkVNCStream() {
   var item = jq('.vncStreamItem:first', stream);
   var data = {};
   if (item.length > 0) {
-    data = {'since': item.find('.dt').text()};
+    data = {'since': item.find('.dt').text(),
+      'uid': item.find('.uid').text()};
   }
   
   // do ajax request to the server to get fresh stream items
@@ -278,11 +280,11 @@ function checkVNCStream() {
         jq('.vncStreamBodyItems', stream).append(data);
       }
       vncStreamLoading = false;
-      setTimeout(checkVNCStream, 5000);
+      setTimeout(checkVNCStream, vncStreamDelay);
     },
     'error': function(){
       vncStreamLoading = false;
-      setTimeout(checkVNCStream, 5000);
+      setTimeout(checkVNCStream, vncStreamDelay);
     }
   });
   
@@ -312,13 +314,13 @@ function attachStreamButton() {
           // attach slim scrolling
           jq('.vncStreamBodyItems').slimScroll({'height': '293px'});
           vncStreamLoading = false;
-          setTimeout(checkVNCStream, 5000);
+          setTimeout(checkVNCStream, vncStreamDelay);
         },
         'error': function() {
           alert('Sorry, something went wrong on the server. Please, try ' +
             'a bit later.');
           vncStreamLoading = false;
-          setTimeout(checkVNCStream, 5000);
+          setTimeout(checkVNCStream, vncStreamDelay);
         },
         'data': {}
         });

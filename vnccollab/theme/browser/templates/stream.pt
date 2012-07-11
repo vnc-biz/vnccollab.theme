@@ -31,6 +31,7 @@
             tal:attributes="class string:${attrs/class} stream-type-${entry/type}">
           <div class="vncStreamItemImg">
             <a href="" title=""
+               target="_blank"
                i18n:attributes="title"
                tal:define="image entry/image"
                tal:condition="image"
@@ -53,12 +54,14 @@
                 |
                 <!-- TODO: onclick load replies if more than 0 -->
                 <span class="rNum" tal:content="entry/replies_num">0</span>
-                <tal:comment replace="nothing">Do not remove below datetime
-                  element. It's being used by javascript code.</tal:comment>
+                <tal:comment replace="nothing">Do not remove below hidden
+                  elements. It's being used by javascript code.</tal:comment>
                 <span class="dt hiddenStructure" tal:content="entry/datetime" />
+                <span class="uid hiddenStructure" tal:content="entry/uid" />
               </div>
               <a class="vncStreamItemTitle"
                  href="" title=""
+                 target="_blank"
                  i18n:translate=""
                  i18n:attributes="title"
                  tal:attributes="href entry/url;
