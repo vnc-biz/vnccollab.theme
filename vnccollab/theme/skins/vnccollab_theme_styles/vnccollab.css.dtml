@@ -281,6 +281,7 @@ input[type="file"] > input[type="button"]::-moz-focus-inner {
   background-color: #12425f;
   border: 1px solid #012a43;
   color:#fff;
+  cursor: pointer;
   font-size: 14px;
   height: 32px;
   padding: 0 9px;
@@ -956,6 +957,9 @@ dl.portlet dd.portletFooter {
 .portletStaticText .portletItem a:hover,
 .portletStaticText .portletItem a:visited {
   color:#748fa2 !important;
+  }
+.slimScrollBar {
+  border-radius: 12px !important;
   }
 
 /*----- Portlet Toggle Styles -----*/
