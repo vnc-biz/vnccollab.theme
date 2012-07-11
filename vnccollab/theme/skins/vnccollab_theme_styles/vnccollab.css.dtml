@@ -242,6 +242,9 @@ body {
   margin:0 0 3px;
   vertical-align:middle;
   }
+.loginFormControls input::-webkit-input-placeholder {
+  color: #738ea2;
+  }
 input.loginFormName,
 input.loginFormEmail,
 input.loginFormPassword {

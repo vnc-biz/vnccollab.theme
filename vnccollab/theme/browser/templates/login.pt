@@ -22,38 +22,35 @@
           <label for="" class="hiddenStructure"
                  tal:attributes="for ac_name"
                  i18n:translate="label_login_name">User:</label>
-          <input class="loginFormName inputLabel"
+          <input class="loginFormName"
                  type="text"
                  size="10"
-                 alt="Login Name"
-                 title="Login Name"
+                 placeholder="Login Name"
                  tal:attributes="name ac_name; id ac_name;
                                  value python:request.get(ac_name, '');"
-                 i18n:attributes="alt label_login_name;"/>
+                 i18n:attributes="placeholder label_login_name;"/>
         </tal:loginname>
         <tal:email condition="use_email_as_login">
           <label for="" class="hiddenStructure"
                  tal:attributes="for ac_name"
                  i18n:translate="label_email">E-mail:</label>
-          <input class="loginFormEmail inputLabel"
+          <input class="loginFormEmail"
                  type="text"
                  size="10"
-                 alt="E-mail"
-                 title="E-mail"
+                 placeholder="E-mail"
                  tal:attributes="name ac_name; id ac_name;
                                  value python:request.get(ac_name, '');"
-                 i18n:attributes="alt label_email;"/>
+                 i18n:attributes="placeholder label_email;"/>
         </tal:email>
         <label for="" class="hiddenStructure"
                tal:attributes="for ac_password"
                i18n:translate="label_password">Password:</label>
-        <input class="loginFormPassword inputLabel"
+        <input class="loginFormPassword"
                type="password"
                size="10"
-               alt="Password"
-               title="Password"
+               placeholder="Password"
                tal:attributes="name ac_password; id ac_password;"
-               i18n:attributes="alt label_password;"/>
+               i18n:attributes="placeholder label_password;"/>
         <input class="loginFormSubmit"
                type="submit"
                name="submit"
