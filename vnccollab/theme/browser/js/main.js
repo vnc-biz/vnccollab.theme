@@ -304,6 +304,15 @@ function attachStreamButton() {
       
       // load from the server
       vncStreamLoading = true;
+      
+      // add spinner
+      if (jq('#xmpp-viewlet-container .spinner').length == 0) {
+        jq('#xmpp-viewlet-container').prepend('<span class="spinner">' +
+          '<img src="' + portal_url + '/dots-white.gif" /></span>');
+      } else {
+        jq('#xmpp-viewlet-container .spinner').show();
+      }
+      
       jq.ajax({
         'url': portal_url + '/@@vnc-stream',
         'dataType': 'html',
@@ -314,12 +323,16 @@ function attachStreamButton() {
           // attach slim scrolling
           jq('.vncStreamBodyItems').slimScroll({'height': '293px'});
           vncStreamLoading = false;
+          // remove spinner
+          jq('#xmpp-viewlet-container .spinner').hide();
           setTimeout(checkVNCStream, vncStreamDelay);
         },
         'error': function() {
           alert('Sorry, something went wrong on the server. Please, try ' +
             'a bit later.');
           vncStreamLoading = false;
+          // remove spinner
+          jq('#xmpp-viewlet-container .spinner').hide();
           setTimeout(checkVNCStream, vncStreamDelay);
         },
         'data': {}
