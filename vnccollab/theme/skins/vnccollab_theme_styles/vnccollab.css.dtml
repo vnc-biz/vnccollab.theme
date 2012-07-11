@@ -102,20 +102,20 @@ body {
   width: auto;
   }
 .userPreferences {
-  border: 1px solid #738ea2;
-  float: left;
-  margin-right: 10px;
-  position: relative;
-  width: 149px;
-  }
-.userPreferencesHeader {
   background-color: #dee3e8;
   background-image: -moz-linear-gradient(#dee3e8,#cfd6dd);
   background-image: -ms-linear-gradient(#dee3e8,#cfd6dd);
   background-image: -o-linear-gradient(#dee3e8,#cfd6dd);
   background-image: -webkit-linear-gradient(#dee3e8,#cfd6dd);
   background-image: linear-gradient(#dee3e8,#cfd6dd);
+  border: 1px solid #738ea2;
   box-shadow: 0 1px #e6e9ee inset;
+  float: left;
+  margin-right: 10px;
+  position: relative;
+  width: 149px;
+  }
+.userPreferencesHeader {
   color: #738ea2;
   cursor:pointer;
   font-size: 14px;
@@ -140,15 +140,10 @@ body {
   white-space: nowrap;
   }
 .userPreferencesBody {
-  background-color:#cfd6dd;
-  border:1px solid #738ea2;
   border-top: 0;
   display:none;
-  left: -1px;
   margin:-1px 0 0;
   padding:4px 0;
-  position:absolute;
-  width: 100%;
   }
 .userPreferences:hover .userPreferencesBody {
   display:block;
@@ -192,7 +187,7 @@ body {
   font-weight:normal;
   line-height: 18px;
   margin-right: 10px;
-  padding: 4px 24px 4px 0;
+  padding: 28px 24px 4px 0;
   width: 92px;
   }
 #portal-languageselector:after {
@@ -212,10 +207,17 @@ body {
   display: none;
   padding: 3px 9px;
   }
-#portal-languageselector .currentLanguage a,
-#portal-languageselector:hover a{
+#portal-languageselector:hover a {
   display: block;
   overflow: hidden;
+  white-space: nowrap;
+  }
+#portal-languageselector .currentLanguage a {
+  display: block;
+  left: 0;
+  overflow: hidden;
+  position: absolute;
+  top: 4px;
   white-space: nowrap;
   }
 
@@ -894,7 +896,7 @@ h1, h2 {
 
 /*----- Portlets Properties -----*/
 dl.portlet {
-  background:url(&dtml-portal_url;/p-s.png) repeat-x 0 100%;
+  border-bottom: 1px solid #c1ccd5;
   font-size:75%;
   line-height:1.5em;
   margin:0 0 7px;
@@ -1015,6 +1017,7 @@ dl.portlet dd.portletFooter {
   }
 #dashboard-portlets .portlet {
   background: #fff;
+  border: 0;
   box-shadow: 1px 1px 8px 0 #c4cbd0;
   height: 278px;
   margin: 0 16px 16px 0;
@@ -1140,61 +1143,57 @@ dl.portlet dd.portletFooter {
 
 /*----- Portlet Navigation -----*/
 dl.portletNavigationTree dd.portletItem {
-  border-bottom:1px solid #cfd6db;
-  padding:0;
+  padding: 8px 0 3px;
   }
 dl.portlet .navTreeItem {
   margin:0;
   }
 dl.portlet ul.navTreeLevel0 > .navTreeItem {
-  border-top:1px solid #95a9b8;
   border-bottom:0;
-  line-height:2em;
   padding:0;
   }
-dl.portlet ul.navTreeLevel0 > .navTreeItem:first-child {
-  border:0;
+dl.portlet ul.navTreeLevel0 > .navTreeCurrentNode,
+dl.portlet ul.navTreeLevel0 > .navTreeItemInPath {
+  box-shadow: 0 3px 8px rgba(1, 42, 67, 0.25);
+  margin: 0 0 7px;
   }
 .portletNavigationTree .navTreeItem a,
 .portletNavigationTree .navTreeItem a:hover {
   color:#082736 !important;
+  font-size: 14px;
+  line-height: 17px;
+  padding: 5px 15px 5px 34px !important;
   }
 dl.portlet ul.navTreeLevel0 > .navTreeItem > a {
-  background-color:#efefef;
-  border-top:1px solid #fff;
-  font-size:15px;
-  line-height:21px;
-  padding:6px 15px 6px 38px !important;
-  }
-dl.portlet ul.navTreeLevel0 > .navTreeItem:first-child > a {
-  border:0;
-  }
-.icons-on .portletNavigationTree .navTreeLevel0 > .navTreeItem > .contenttype-folder {
-  background-position:11px -640px;
-  }
-.icons-on .portletNavigationTree .navTreeLevel0 > .navTreeItem > .contenttype-document {
-  background-position:11px 8px;
+  border: 1px solid transparent;
   }
 dl.portlet ul.navTree .navTreeCurrentItem {
   background-color:transparent;
   border:0;
   margin:0;
   }
-dl.portlet ul.navTreeLevel0 > .navTreeItem > a:hover,
-dl.portlet ul.navTreeLevel0 > .navTreeItem > a.navTreeCurrentItem {
-  background-color:#12425f;
+dl.portlet ul.navTreeLevel0 > .navTreeItem > a:hover {
+  background-color: #e7e9ec;
+  border-color: #d9dfe3;
+  }
+dl.portlet ul.navTreeLevel0 > .navTreeItem > a.navTreeCurrentItem,
+dl.portlet ul.navTreeLevel0 > .navTreeItem > a.navTreeItemInPath{
+  background-color: #6ea21b;
+  border-color: transparent;
   color:#fff !important;
   }
-.icons-on .portletNavigationTree .navTreeLevel0 > .navTreeItem > .contenttype-folder.navTreeCurrentItem,
-.icons-on .portletNavigationTree .navTreeLevel0 > .navTreeItem > .contenttype-folder:hover {
-  background-position: 11px -1933px;
+.icons-on .portletNavigationTree .contenttype-folder {
+  background-position:11px -643px;
+  }
+.icons-on .portletNavigationTree .contenttype-document {
+  background-position:11px 4px;
   }
 .navTreeLevel1 {
-  background-color:#a3b4c1;
+  background-color: #fff;
   padding:0 0 4px;
   }
 dl.portlet ul.navTreeLevel1 .navTreeItem {
-  padding:0 13px 0 35px;
+  padding:0 13px 0 26px;
   }
 dl.portlet ul.navTreeLevel1 > .navTreeItem:first-child {
   padding-top:4px;
@@ -1394,9 +1393,7 @@ dl.portlet ul.navTreeLevel1 > .navTreeItem:first-child {
   padding:7px 0;
   }
 .template-homepage_view .portletHeader {
-  font-size:29px;
   font-weight:normal !important;
-  line-height:34px;
   }
 .template-homepage_view #content .portletHeader a,
 .template-homepage_view #content .portletItem a {
