@@ -38,6 +38,7 @@ setup(name='vnccollab.theme',
           'wsapi4plone.core',
           'z3c.jbot',
           'tldextract',
+          'Products.AdvancedQuery',
           #'collective.z3cform.datetimewidget',
           #'jyu.z3cform.datepicker',
           # -*- Extra requirements: -*-

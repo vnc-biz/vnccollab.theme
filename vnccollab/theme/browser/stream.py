@@ -320,9 +320,9 @@ class StreamView(BrowserView):
             return []
         
         # make zimbra soap query to get list of recent emails
-        zimbra = getUtility(IZimbraUtil).get_client(username=username,
-            password=password)
         try:
+            zimbra = getUtility(IZimbraUtil).get_client(username=username,
+                password=password)
             mails = zimbra.get_emails(folder='inbox', limit=DEFAULT_ITEMS_NUM,
                 types='message')
         except Exception, e:
