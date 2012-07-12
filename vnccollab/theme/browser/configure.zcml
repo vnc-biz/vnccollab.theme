@@ -44,6 +44,13 @@
 
   <browser:page
       for="*"
+      name="get_object_json"
+      class=".livesearch.GetObjectJson"
+      permission="zope2.View"
+      />
+
+  <browser:page
+      for="*"
       name="livesearch_reply_json"
       class=".zimbrajson.LiveSearchReplyJson"
       permission="zope2.View"
