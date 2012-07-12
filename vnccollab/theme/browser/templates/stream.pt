@@ -2,7 +2,23 @@
      i18n:domain="vnccollab.theme"
      tal:define="purl context/portal_url">
   <div class="vncStreamPostForm">
-    Post Form
+    <div class="streamPostImgWrapper">
+      <img width="75" height="99" alt="image" src="defaultUser.png"
+           tal:attributes="src string:${context/portal_url}/defaultUser.png" />
+    </div>
+    <form action="#" id="stream-quick-post">
+      <textarea id="stream-quick-post-message"></textarea>
+      <div class="streamQuickPostSubjectsWrapper">
+        <input id="stream-quick-post-subject" type="text" placeholder="@All, @Marketing" />
+        <ul class="streamQuickPostSubjects">
+          <li>Alle</li>
+          <li>Marketing</li>
+          <li>Sales Team</li>
+          <li>Something else</li>
+        </ul>
+      </div>
+      <input id="stream-quick-post-submit" type="submit" value="Send">
+    </form>
   </div>
   <div class="vncStreamMsgs all">
     <ul class="vncStreamTabs"
@@ -97,4 +113,5 @@
       </ul>
     </div>
   </div>
+  <div class="dragButton"></div>
 </div>

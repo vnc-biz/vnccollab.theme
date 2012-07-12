@@ -738,6 +738,17 @@ div#xmpp-viewlet-container > a {
   text-transform: uppercase;
   vertical-align: middle;
   }
+#unread-message {
+  background-color: #75a724;
+  border: 1px solid #558114;
+  border-radius: 16px;
+  color: #fff;
+  display: inline-block;
+  min-width: 10px;
+  padding: 0 3px;
+  text-align: center;
+  vertical-align: bottom;
+  }
 a#site-stream-link {
   border-radius: 0;
   }
@@ -1912,161 +1923,285 @@ dl.portalMessage dd {
 .PullTab a:focus img {
   outline: none;
   }
-  
-}
-
 /*---------- Stream Viewlet ----------*/
 #vnc-stream {
-  width: 100%;
-  position: relative;
-  display: block;
-  height: 327px;
-  overflow: hidden;
+  background-color: #fff;
   border-top: 1px solid #c1ccd5;
-  background-color: #ffffff;
-}
-
-#vnc-stream .vncStreamPostForm {
-  width: 49%;
-  float: left;
-  display: block;
   height: 327px;
-}
-#vnc-stream .vncStreamMsgs {
-  width: 50%;
+/*  overflow: hidden;*/
+  position: relative;
+  }
+#vnc-stream:after {
+  background-color: #c1ccd5;
+  bottom: 0;
+  content: "";
   display: block;
-  height: 327px;
+  left: 50%;
+  margin-left: -1px;
+  position: absolute;
+  top: 0;
+  width: 1px;
+  }
+.vncStreamMsgs {
   float: right;
-  border-left: 1px solid #c1ccd5;
-}
-
-ul.vncStreamTabs {
-  list-style: none outside none;
-  background-color: #f2f2f2;
-  margin: 0;
-  padding: 0;
-  font-size: 80%;
+  /*height: 327px;*/
+  width: 50%;
+  }
+.vncStreamTabs {
+  background-color: #f5f5f5;
   border-bottom: 1px solid #c1ccd5;
-  height: 34px;
-}
-
-ul.vncStreamTabs li {
-  display: block;
+  font-size: 0.75em;
+  height: 33px;
+  line-height: 1.25em;
+  }
+.vncStreamTabs li {
   float: left;
-  padding: 10px 12px 8px 10px
-}
-
-ul.vncStreamTabs li.selected {
-  background-color: #ffffff;
+  height: 33px;
+  }
+.vncStreamTabs li.selected {
+  background-color: #fff;
   border-left: 1px solid #c1ccd5;
   border-right: 1px solid #c1ccd5;
-  border-bottom: 1px solid #FFFFFF;
-  padding-bottom: 8px;
-}
-
-.all ul.vncStreamTabs li.selected {
-  border-left: none;
-}
-
-ul.vncStreamBodyItems {
-  margin: 0;
-  padding: 0;
-  list-style: none outside none;
-}
-
-ul.vncStreamBodyItems li.vncStreamItem {
-  padding: 10px;
-  border-bottom: 1px solid #c1ccd5;
+  border-bottom: 1px solid #fff;
+  }
+.vncStreamTabs li.selected:first-child {
+  border-left: 0;
+  }
+.vncStreamTabs a {
+  color: #012a43;
   display: block;
-  position: relative;
+  padding: 9px 15px;
+  }
+.vncStreamTabs .selected a {
+  padding: 9px 14px;
+  }
+.vncStreamTabs .selected:first-child a {
+  padding: 9px 14px 9px 15px;
+  }
+.vncStreamItem {
+  border-top: 1px solid #e5e5e5;
   clear: both;
-}
-
+  margin: -1px 0 0;
+  padding: 8px 10px;
+  position: relative;
+  }
 .vncStreamItem:hover {
   background-color: #f2f2f2;
-}
-
-.vncStreamItem:hover .vncStreamItemReplyIcon {
-  display: block;
-}
-
+  }
 .vncStreamItemImg {
   float: left;
-  width: 32px;
   height: 32px;
-}
-
+  width: 32px;
+  }
 .vncStreamItemBody {
   margin-left: 42px;
-}
-
+  }
 .vncStreamItemByline {
   display: block;
-}
-
-a.vncStreamItemTitle {
+  font-size: 0.875em;
+  }
+.vncStreamItemTitle {
   display: block;
-  font-size: 90%;
   color: #75ad0a !important;
-}
-
+  }
 .vncStreamItemDetails {
-  float: right;
   color: #75ad0a;
-  font-size: 80%;
-  margin-right: 70px;
-}
-
+  float: right;
+  font-size: 0.857em;
+  margin-right: 62px;
+  }
+.vncStreamItemDetails span {
+  display: inline-block;
+  vertical-align: middle;
+  }
+.rNum {
+  font-size: 1.167em;
+  }
 .vncStreamItemReplyIcon {
-  display: block;
-  width: 19px;
+  display: none;
   height: 12px;
   position: absolute;
-  top: 6px;
-  right: 50px;
-  display: none;
-}
-
-.vncStreamItemDesc {
+  right: 30px;
+  top: 10px;
+  width: 19px;
+  }
+.vncStreamItem:hover .vncStreamItemReplyIcon {
   display: block;
-  font-size: 85%;
-}
+  }
+.vncStreamItemReplyIcon a {
+  display: block;
+  }
+.vncStreamItemDesc {
+  color: #131313;
+  font-size: 0.875em;
+  }
 
 /* Stream Tabs Functional css rules */
-#vnc-stream ul.vncStreamBodyItems li {
+.vncStreamItem {
   display: none;
-}
-
-#vnc-stream .all ul.vncStreamBodyItems li {
+  }
+.all .vncStreamItem {
   display: block;
-}
-
-#vnc-stream .im ul.vncStreamBodyItems li.stream-type-im {
+  }
+.im .stream-type-im {
   display: block;
-}
-
-#vnc-stream .zm ul.vncStreamBodyItems li.stream-type-zm {
+  }
+.zm .stream-type-zm {
   display: block;
-}
-
-#vnc-stream .news ul.vncStreamBodyItems li.stream-type-news {
+  }
+.news .stream-type-news {
   display: block;
-}
-
-#vnc-stream .tickets ul.vncStreamBodyItems li.stream-type-tickets {
+  }
+.tickets .stream-type-tickets {
   display: block;
-}
-
-#vnc-stream .recent ul.vncStreamBodyItems li.stream-type-recent {
+  }
+.recent .stream-type-recent {
   display: block;
-}
-
-#vnc-stream .comments ul.vncStreamBodyItems li.stream-type-comments {
+  }
+.comments .stream-type-comments {
   display: block;
-}
+  }
 
+/* Stream Post Form */
+.vncStreamPostForm {
+  float: left;
+  /*height: 327px;*/
+  padding: 30px 0 0;
+  width: 50%;
+  }
+.streamPostImgWrapper {
+  float: left;
+  height: 48px;
+  margin-left: 30px;
+  overflow: hidden;
+  }
+.streamPostImgWrapper img {
+  height: auto;
+  width: 48px;
+  }
+#stream-quick-post {
+  margin: 0 48px 0 110px;
+  position: relative;
+  }
+#stream-quick-post:before {
+  background: url(&dtml-portal_url;/sprite.png) no-repeat -320px 0;
+  content: "";
+  display: block;
+  height: 18px;
+  left: -9px;
+  position: absolute;
+  top: 8px;
+  width: 11px;
+  }
+#stream-quick-post-message {
+  border: 1px solid #c4c4c4;
+  -moz-box-sizing: border-box;
+  -webkit-box-sizing: border-box;
+  box-sizing: border-box;
+  box-shadow: 0 1px 2px #e9e9e9 inset;
+  height: 120px;
+  max-width: 100%;
+  padding: 5px 9px;
+  width: 100%;
+  }
+#stream-quick-post-message:focus {
+  background-color: #fff;
+  }
+.streamQuickPostSubjectsWrapper {
+  margin: 15px 0 0;
+  position: relative;
+  }
+.streamQuickPostSubjectsWrapper:after {
+  background: url(&dtml-portal_url;/sprite.png) no-repeat -331px 0;
+  content: "";
+  display: block;
+  height: 4px;
+  position: absolute;
+  right: 13px;
+  top: 15px;
+  width: 7px;
+  }
+#stream-quick-post-subject {
+  border: 1px solid #c4c4c4;
+  background-color: #fbfbfb;
+  background-image: -moz-linear-gradient(#f7f7f7,#fbfbfb);
+  background-image: -ms-linear-gradient(#f7f7f7,#fbfbfb);
+  background-image: -o-linear-gradient(#f7f7f7,#fbfbfb);
+  background-image: -webkit-linear-gradient(#f7f7f7,#fbfbfb);
+  background-image: linear-gradient(#f7f7f7,#fbfbfb);
+  -moz-box-sizing: border-box;
+  -webkit-box-sizing: border-box;
+  box-sizing: border-box;
+  color: #012a43;
+  font-size: 12px;
+  outline: none;
+  padding: 7px 25px 7px 9px;
+  width: 100%;
+  }
+.streamQuickPostSubjects {
+  background-color: #fff;
+  border: 1px solid #c4c4c4;
+  box-shadow: 0 2px 3px #cfcfcf;
+  color: #012a43;
+  display: none;
+  font-size: 12px;
+  margin-top: -1px;
+  padding: 5px 0 3px;
+  position: absolute;
+  width: 90%;
+  }
+.streamQuickPostSubjectsWrapper:hover .streamQuickPostSubjects {
+  display: block;
+  }
+.streamQuickPostSubjects li {
+  border-top: 1px solid #e5e5e5;
+  display: block;
+  padding: 5px 12px;
+  }
+.streamQuickPostSubjects li:first-child {
+  border-top: 0;
+  }
+#stream-quick-post-submit {
+  background-color: #dee2e8;
+  background-image: -moz-linear-gradient(#dee2e8,#cfd6dd);
+  background-image: -ms-linear-gradient(#dee2e8,#cfd6dd);
+  background-image: -o-linear-gradient(#dee2e8,#cfd6dd);
+  background-image: -webkit-linear-gradient(#dee2e8,#cfd6dd);
+  background-image: linear-gradient(#dee2e8,#cfd6dd);
+  border: 1px solid #738ea2;
+  border-radius: 5px;
+  box-shadow: 0 1px #e6e9ee inset;
+  color: #012a43;
+  cursor: pointer;
+  display: block;
+  margin: 15px auto;
+  outline: none;
+  padding: 5px 0;
+  width: 114px;
+  }
+  
+/* Drag Button */
+.dragButton {
+  background: url(&dtml-portal_url;/sprite.png) no-repeat -257px 0 #f2f2f2;
+  border-color: #c1ccd5;
+  border-style: solid;
+  border-width: 1px 1px 0;
+  border-radius: 5px 5px 0 0;
+  bottom: -1px;
+  cursor: pointer;
+  height: 19px;
+  left: 50%;
+  margin-left: -31px;
+  position: absolute;
+  width: 60px;
+  z-index: 1;
+  }
+
+/* hiddenStructure Fix */
 .hiddenStructure {
   position: absolute;
   }
+ 
+}
 
 /* </dtml-with> */ 
