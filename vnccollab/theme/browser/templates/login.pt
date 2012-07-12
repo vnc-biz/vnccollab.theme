@@ -16,48 +16,45 @@
           <input type="hidden" name="login_name" id="login_name" value="" />
           <input type="hidden" name="pwd_empty" id="pwd_empty" value="0" />
       </div>
-      <div class="loginFormHeader">
-        <span class="loginFormTitle">Login</span>
-      </div>
       <div class="loginFormControls"
            tal:define="use_email_as_login context/portal_properties/site_properties/use_email_as_login|nothing;">
         <tal:loginname condition="not:use_email_as_login">
-          <label for=""
+          <label for="" class="hiddenStructure"
                  tal:attributes="for ac_name"
                  i18n:translate="label_login_name">User:</label>
           <input class="loginFormName"
                  type="text"
                  size="10"
-                 alt="Login Name"
+                 placeholder="Login Name"
                  tal:attributes="name ac_name; id ac_name;
                                  value python:request.get(ac_name, '');"
-                 i18n:attributes="alt label_login_name;"/>
+                 i18n:attributes="placeholder label_login_name;"/>
         </tal:loginname>
         <tal:email condition="use_email_as_login">
-          <label for=""
+          <label for="" class="hiddenStructure"
                  tal:attributes="for ac_name"
                  i18n:translate="label_email">E-mail:</label>
           <input class="loginFormEmail"
                  type="text"
                  size="10"
-                 alt="E-mail"
+                 placeholder="E-mail"
                  tal:attributes="name ac_name; id ac_name;
                                  value python:request.get(ac_name, '');"
-                 i18n:attributes="alt label_email;"/>
+                 i18n:attributes="placeholder label_email;"/>
         </tal:email>
-        <label for=""
+        <label for="" class="hiddenStructure"
                tal:attributes="for ac_password"
                i18n:translate="label_password">Password:</label>
         <input class="loginFormPassword"
                type="password"
                size="10"
-               alt="Password"
+               placeholder="Password"
                tal:attributes="name ac_password; id ac_password;"
-               i18n:attributes="alt label_password;"/><input
-               class="loginFormSubmit"
+               i18n:attributes="placeholder label_password;"/>
+        <input class="loginFormSubmit"
                type="submit"
                name="submit"
-               value="OK"
+               value="Login"
                i18n:attributes="value label_log_in;"/>
       </div>
       <div i18n:translate="enable_cookies_message_before_login"

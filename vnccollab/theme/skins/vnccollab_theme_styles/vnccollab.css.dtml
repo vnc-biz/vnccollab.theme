@@ -8,7 +8,7 @@ body {
   background: #e6e9ee;
   color:#000;
   font:100% "Myriad Pro", Arial, FreeSans, sans-serif;
-  min-width: 960px;
+  min-width: 1060px;
   }
 #portal-top {
   width: 100%;
@@ -83,198 +83,210 @@ body {
   }
 
 /*----- Personal Tools -----*/
-#portal-personaltools-anonymous {
-  font-size:11px;
-  line-height:16px;
-  position:absolute;
-  right:15px;
-  top:26px;
-  }
-#portal-personaltools-anonymous a {
-  color:#082736;
-  display:inline !important;
-  margin-left:5px;
-  text-decoration:underline;
-  }
 #portal-personaltools-loggedin {
-  background-color:#cfd6dd;
-  float:right;
   font-size:13px;
-  height:80px;
   line-height:18px;
-  margin:10px 0 15px;
-  padding:0 15px 0 0;
-  position:relative;
-  width:325px;
+  position: absolute;
+  right: 0;
+  top: 52px;
   z-index:1;
-  }
-#portal-personaltools-loggedin a {
-  color:#082736;
   }
 .actionMenuUserImgWrapper {
+  border: 1px solid #738ea2;
+  border-right: 0;
   float:left;
-  margin-right:15px;
   }
-.userHeader {
-  margin:12px 0 16px;
-  }
-#user-name {
-  font-weight:bold;
+#user-image img {
+  height: 32px;
+  vertical-align: top;
+  width: auto;
   }
 .userPreferences {
-  display:table;
-  position:relative;
-  width:149px;
+  background-color: #dee3e8;
+  background-image: -moz-linear-gradient(#dee3e8,#cfd6dd);
+  background-image: -ms-linear-gradient(#dee3e8,#cfd6dd);
+  background-image: -o-linear-gradient(#dee3e8,#cfd6dd);
+  background-image: -webkit-linear-gradient(#dee3e8,#cfd6dd);
+  background-image: linear-gradient(#dee3e8,#cfd6dd);
+  border: 1px solid #738ea2;
+  box-shadow: 0 1px #e6e9ee inset;
+  float: left;
+  margin-right: 10px;
+  position: relative;
+  width: 149px;
   }
 .userPreferencesHeader {
-  background:url(&dtml-portal_url;/dd.gif) no-repeat 100% 0 #cfd6dd;
-  border:1px solid #b3c0ca;
+  color: #738ea2;
   cursor:pointer;
+  font-size: 14px;
   font-weight:normal;
-  padding:3px 30px 2px 10px;
+  line-height: 18px;
+  padding: 7px 24px 7px 9px;
   position:relative;
-  z-index:1;
+  }
+.userPreferencesHeader:after {
+  background:url(&dtml-portal_url;/sprite.png) no-repeat -206px -20px;
+  content: "";
+  display: block;
+  height: 8px;
+  position: absolute;
+  right: 7px;
+  top: 12px;
+  width: 13px;
+  }
+.userPreferencesHeader a {
+  display: block;
+  overflow: hidden;
+  white-space: nowrap;
   }
 .userPreferencesBody {
-  background-color:#e6e9ee;
-  border:1px solid #b3c0ca;
-  -moz-box-shadow:0 2px 8px  rgba(0,0,0,0.75);
-  -webkit-box-shadow:0 2px 8px  rgba(0,0,0,0.75);
-  box-shadow:0 2px 8px  rgba(0,0,0,0.75);
+  border-top: 0;
   display:none;
   margin:-1px 0 0;
   padding:4px 0;
-  position:absolute;
-  width:147px;
   }
 .userPreferences:hover .userPreferencesBody {
   display:block;
   }
 .userPreferencesBody a {
-  background:url(&dtml-portal_url;/useractions-icons.png) no-repeat 10px 8px;
-  display:block;
-  padding:7px 0 7px 35px;
+  display: block;
+  padding: 5px 9px;
+  }
+.userPreferencesBody a:before {
+  background:url(&dtml-portal_url;/sprite.png) no-repeat -190px 0;
+  content: "";
+  display: inline-block;
+  height: 16px;
+  margin-right: 5px;
+  vertical-align: text-top;
+  width: 16px;
   }
 .userPreferencesBody a:hover {
   text-decoration:underline;
   }
-#personaltools-mystuff a {
-  background-position:10px -93px
+#personaltools-mystuff a:before {
+  background-position: -190px -20px;
   }
-#personaltools-dashboard a {
-  background-position:10px -192px
-  }
-.logoutLink {
-  background-color:#12425f;
-  border:1px solid #012a43;
-  color:#fff !important;
-  display:inline-block;
-  font-size:11px;
-  line-height:17px;
-  padding:2px 0;
-  position:absolute;
-  right:15px;
-  text-align:center;
-  top:12px;
-  width:58px;
+#personaltools-dashboard a:before {
+  background-position: -206px 0;
   }
 
 /*----- Language Selector -----*/
 #portal-languageselector {
-  background:none;
-  bottom:10px;
-  padding:0;
-  position:absolute;
-  right:15px;
-  top:auto;
+  background-color: #dee3e8;
+  background-image: -moz-linear-gradient(#dee3e8,#cfd6dd);
+  background-image: -ms-linear-gradient(#dee3e8,#cfd6dd);
+  background-image: -o-linear-gradient(#dee3e8,#cfd6dd);
+  background-image: -webkit-linear-gradient(#dee3e8,#cfd6dd);
+  background-image: linear-gradient(#dee3e8,#cfd6dd);
+  border: 1px solid #738ea2;
+  border-radius: 0;
+  box-shadow: 0 1px #e6e9ee inset;
+  float: left;
+  font-size: 14px;
+  font-weight:normal;
+  line-height: 18px;
+  margin-right: 10px;
+  padding: 28px 24px 4px 0;
+  width: 92px;
+  }
+#portal-languageselector:after {
+  background:url(&dtml-portal_url;/sprite.png) no-repeat -206px -20px;
+  content: "";
+  display: block;
+  height: 8px;
+  position: absolute;
+  right: 7px;
+  top: 12px;
+  width: 13px;
   }
 #portal-languageselector li {
-  background:url(&dtml-portal_url;/flags.png) no-repeat 0 0;
-  display:inline-block;
-  margin-left:10px;
-  vertical-align:bottom;
-  }
-#portal-languageselector .language-en {
-  background-position:-23px 0;
-  }
-#portal-languageselector .currentLanguage.language-en {
-  background-position:-23px -23px;
-  }
-#portal-languageselector .currentLanguage.language-de {
-  background-position:0 -23px;
+  display:block;
   }
 #portal-languageselector a {
-  display:block;
-  height:23px;
-  width:23px;
-  overflow:hidden;
+  display: none;
+  padding: 3px 9px;
   }
-#portal-languageselector img {
-  margin-left:-23px;
+#portal-languageselector:hover a {
+  display: block;
+  overflow: hidden;
+  white-space: nowrap;
+  }
+#portal-languageselector .currentLanguage a {
+  display: block;
+  left: 0;
+  overflow: hidden;
+  position: absolute;
+  top: 4px;
+  white-space: nowrap;
+  }
+
+/*----- Logout Link -----*/
+.logoutLink {
+  background: url(&dtml-portal_url;/sprite.png) no-repeat -222px 0 #12425f;
+  display: inline-block;
+  height: 34px;
+  overflow: hidden;
+  text-indent: -9999px;
+  width: 34px;
   }
 
 /*----- Login -----*/
 .loginFormWrapper {
-  background-color:#cfd6dd;
-  float:right;
-  font-size:11px;
-  height:60px;
-  line-height:18px;
-  margin:10px 0 15px;
-  padding:12px 15px 8px;
-  width:310px;
-  }
-.loginFormHeader {
-  margin:0 0 14px;
-  }
-.loginFormLink {
-  float:right;
-  text-decoration:underline;
-  }
-.loginFormLink:link,
-.loginFormLink:visited {
-  color:#082736;
-  }
-.loginFormTitle {
-  font-size:13px;
-  font-weight:bold;
-  line-height:19px;
+  position: absolute;
+  right: 0;
+  top: 52px;
   }
 .loginFormControls label {
   font-weight:normal;
   margin:0 0 3px;
   vertical-align:middle;
   }
-.loginFormName,
-.loginFormEmail,
-.loginFormPassword {
-  background-color:#edeff2;
-  border:0;
-  -moz-box-sizing:border-box;
-  -webkit-box-sizing:border-box;
-  box-sizing:border-box;
-  font-family:Arial,FreeSans,sans-serif;
-  font-size:11px;
-  height:27px;
-  padding:1px 3px;
-  vertical-align:middle;
-  width:90px;
+.loginFormControls input::-webkit-input-placeholder {
+  color: #738ea2;
   }
-.loginFormName,
-.loginFormEmail {
-  margin-right:5px;
+input.loginFormName,
+input.loginFormEmail,
+input.loginFormPassword {
+  background-color: #dee3e8;
+  background-image: -moz-linear-gradient(#dee3e8,#cfd6dd);
+  background-image: -ms-linear-gradient(#dee3e8,#cfd6dd);
+  background-image: -o-linear-gradient(#dee3e8,#cfd6dd);
+  background-image: -webkit-linear-gradient(#dee3e8,#cfd6dd);
+  background-image: linear-gradient(#dee3e8,#cfd6dd);
+  border: 1px solid #738ea2;
+  box-shadow: 0 1px #e6e9ee inset;
+  -moz-box-sizing: border-box;
+  -webkit-box-sizing: border-box;
+  box-sizing: border-box;
+  color: #738ea2;
+  display: inline-block;
+  font-size: 14px;
+  height: 32px;
+  line-height: 17px;
+  margin-right: 7px;
+  padding: 6px 9px;
+  vertical-align: top;
+  width: 140px;
+  }
+button::-moz-focus-inner,
+input[type="reset"]::-moz-focus-inner,
+input[type="button"]::-moz-focus-inner,
+input[type="submit"]::-moz-focus-inner,
+input[type="file"] > input[type="button"]::-moz-focus-inner {
+  padding: 0;
+  border: 0;
   }
 .loginFormSubmit {
-  background-color:#12425f;
-  border:0;
-  -moz-box-sizing:border-box;
-  -webkit-box-sizing:border-box;
-  box-sizing:border-box;
+  background-color: #12425f;
+  border: 1px solid #012a43;
   color:#fff;
-  height:27px;
+  cursor: pointer;
+  font-size: 14px;
+  height: 32px;
+  padding: 0 9px;
   text-align:center;
-  vertical-align:middle;
-  width:27px;
+  vertical-align: top;
   }
 
 /*----- Logo -----*/
@@ -284,41 +296,39 @@ body {
 
 /*----- Searchbox -----*/
 #portal-searchbox {
-  background-color:#093650;
-  border:1px solid #436174;
-  font-size:75%;
-  left: 50%;
-  line-height: 1.5em;
-  margin: 0 0 0 -140px;
+  background-color:#f5f5f5;
+  border:1px solid #738ea2;
+  border-radius: 3px;
+  box-shadow: 1px 1px 2px #d9d9d9 inset;
+  font-size:1em;
+  margin: 0 -134px 0 0;
+  padding: 6px 4px;
   position: absolute;
-  top: 52px;
-  }
-#portal-searchbox .LSBox {
-  border-top:1px solid #072c41;
-  padding:0 2px;
-  position:relative;
+  right: 50%;
+  top: 51px;
+  width: 268px;
   }
 #portal-searchbox .searchField {
-  background-color:#093650;
+  background-color:#f5f5f5;
   border:0;
-  color:#fff;
-  font-size:1em;
+  color:#738ea2;
+  font-size:17px;
   outline:none;
-  padding:1px 0 0 4px;
-  vertical-align:middle;
-  width:115px;
+  padding: 0 7px;
+  vertical-align:top;
+  width:230px;
   }
 input.searchField {
-  -moz-appearance:none;
+  -moz-appearance: none;
   }
 #portal-searchbox .searchButton {
-  background:url(&dtml-portal_url;/sb.gif) no-repeat;
+  background:url(&dtml-portal_url;/sprite.png) no-repeat -154px 0;
   border:0;
   height:0;
   overflow:hidden;
-  padding-top:27px;
-  vertical-align:middle;
-  width:27px;
+  padding-top:20px;
+  vertical-align:top;
+  width:19px;
   }
 .searchSection {
   display:none;
@@ -326,8 +336,9 @@ input.searchField {
 #LSResult {
   background:none;
   margin:0;
-  right:-2px;
+  right: -125px;
   top:30px;
+  z-index: 1;
   }
 #LSResult fieldset {
   border:0;
@@ -335,24 +346,98 @@ input.searchField {
   padding:0 0 1em;
   }
 #livesearchLegend {
-  background-color:#fff;
-  border:1px solid #0d3b56;
-  border-bottom:0;
-  margin-left:-1px;
-  left:0;
+  background-color: #f5f5f5;
+  border: 0;
+  box-shadow: 3px 0 2px -2px #D9D9D9 inset;
+  color: #f5f5f5;
+  height: 6px;
+  left: 135px;
   margin:0;
-  padding:2px 5px;
+  overflow: hidden;
+  padding: 0;
   position:absolute;
-  top:-22px;
+  top: -5px;
+  width: 276px;
   }
 .LSIEFix {
-  background:#fff;
-  border:1px solid #0d3b56;
-  padding:7px 0;
+  background: #f5f5f5;
+  border: 1px solid #738ea2;
+  border-radius: 3px;
+  box-shadow: 0 3px 8px rgba(1, 42, 67, 0.25);
+  padding: 11px 0 0;
   }
 .LSRow,
 #LSNothingFound {
-  padding:0 1em;
+  padding:0 17px;
+  width: 500px;
+  }
+.LSRow a:link {
+  color: #012a43;
+  vertical-align: middle;
+  }
+.icons-on .livesearchContainer .contenttype-news-item {
+  background-position: 0 -1288px;
+  }
+.icons-on .livesearchContainer .contenttype-document {
+  background-position: 0 7px;
+  }
+.icons-on .livesearchContainer .contenttype-folder {
+  background-position: 0 -640px;
+  }
+.icons-on .livesearchContainer .contenttype-topic {
+  background-position: 0 -1720px;
+  }
+.icons-on .livesearchContainer .contenttype-link {
+  background-position: 0 -1072px;
+  }
+.icons-on .contenttype-event {
+  background-position: 0 -208px;
+  }
+.LSRow a[href="search_form"] {
+  background-color: #e7e9ec;
+  border-top: 1px solid #d9dfe3;
+  display: block;
+  font-size: 12px;
+  font-weight: bold !important;
+  line-height: 16px;
+  margin: 10px -17px 0;
+  padding: 12px 17px 6px;
+  }
+.LSRow a[href="search_form"]:before {
+  background: url(&dtml-portal_url;/sprite.png) no-repeat -173px 0;
+  content: "";
+  display: inline-block;
+  height: 16px;
+  margin-right: 10px;
+  vertical-align: middle;
+  width: 15px;
+  }
+.LSRow a[href^="search?SearchableText="] {
+  background-color: #e7e9ec;
+  display: block;
+  font-size: 12px;
+  font-weight: bold !important;
+  line-height: 16px;
+  margin: 0 -17px;
+  padding: 0 17px 11px;
+  }
+.LSRow a[href^="search?SearchableText="]:before {
+  background: url(&dtml-portal_url;/sprite.png) no-repeat -173px -20px;
+  content: "";
+  display: inline-block;
+  height: 16px;
+  margin-right: 10px;
+  vertical-align: middle;
+  width: 15px;
+  }
+.LSRow:last-child a {
+  border-radius: 0 0 3px 3px;
+  padding-bottom: 11px;
+  }
+#LSResult .LSDescr {
+  color: #012a43;
+  font-size: 12px;
+  line-height: 16px;
   }
 
 /*----- Global Navigation -----*/
@@ -380,8 +465,9 @@ input.searchField {
 /*----- VNC Collab Header -----*/
 #vnccollab-header {
   background:url(&dtml-portal_url;/shadow.png) no-repeat 50% 100%;
+  background-size: 100% 25px;
   margin: 0 30px;
-  padding:0 0 30px;
+  padding:0 0 25px;
   position:relative;
   }
 .nccollab-hp-header .actionLink {
@@ -599,7 +685,8 @@ a.carousel-pager-button-next span {
 
 /*----- Bread Crumbs -----*/
 #portal-breadcrumbs {
-  background:url(&dtml-portal_url;/shadow.png) no-repeat 50% -2px;
+  background:url(&dtml-portal_url;/shadow.png) no-repeat 50% 0;
+  background-size: 100% 25px;
   font-size:12px;
   line-height:18px;
   margin:0 0 15px;
@@ -638,51 +725,60 @@ a.carousel-pager-button-next span {
 
 /* XMPP Socializing Viewlet */
 #xmpp-viewlet {
-  padding-top:15px;
+  padding: 17px 6px 0 0;
   }
-#xmpp-viewlet a#toggle-online-users {
-  border-radius:0 1em 1em 0;
+#xmpp-viewlet-container {
+  font-size: 0.75em;
+  line-height: 1.333em;
   }
-#xmpp-viewlet a#site-stream-link {
-  border-radius:1em 0 0 1em;
-  background-color:#012a43;
-  color:#fff;
-  text-shadow:1px 1px 1px #000;
-  }
-#xmpp-viewlet a#site-stream-link:hover {
-  background-color:rgba(1, 42, 67, 0.8);
-  }
-#xmpp-viewlet-container > a#site-stream-link.newStreamMessage {
-  background-color: darkOrange;
-  color: white;
-}
 div#xmpp-viewlet-container > a {
-  background-color:rgba(1, 42, 67, 0.2);
-  display:inline-block;
-  padding:0.35em 0.75em;
-  margin-left:1px;
+  background-color: transparent;
+  color: #012a43;
+  padding: 0 4px;
+  text-transform: uppercase;
+  vertical-align: middle;
   }
-div#xmpp-viewlet-container > a:hover {
-  background-color:rgba(1, 42, 67, 0.1);
+a#site-stream-link {
+  border-radius: 0;
   }
-#xmpp-viewlet-container a#toggle-online-users.active {
-  background:rgba(1, 42, 67, 0.1);
-  color:rgba(1, 42, 67, 1.0);
-  -webkit-border-bottom-right-radius:0;
-  border-bottom-right-radius:0;
+#site-stream-link:after {
+  content: " |";
+  display: inline-block;
+  margin-left: 7px;
+  vertical-align: top;
   }
-ul#online-users {
-  background-color:#012a43;
-  border:1px solid #012a43;
-  color:#fff;
-  box-shadow:0 1px 4px #000;
+#xmpp-viewlet-container > a.newStreamMessage {
+  background-color: transparent;
+  color: #012a43;
   }
-ul#online-users li > a {
+a#toggle-online-users {
+  border-radius: 0;
+  }
+a#toggle-online-users.active {
+  background: transparent;
+  color: #012a43;
+  }
+a#toggle-online-users:after {
+  content: "";
+  }
+#toggle-online-users span {
+  display: inline-block;
+  vertical-align: middle;
+  }
+#online-count {
+  background-color: #75a724;
+  border: 1px solid #558114;
+  border-radius: 16px;
   color: #fff;
-}
-ul#online-users li > a:hover {
-  color: #eee;
-}
+  min-width: 10px;
+  padding: 0 3px;
+  text-align: center;
+  }
+#online-users {
+  background-color:#fff;
+  border:1px solid #c1ccd5;
+  right: -8px;
+  }
 
 div.postItemWrapper {
   background-color:rgba(1, 42, 67, 0.3);
@@ -813,7 +909,7 @@ h1, h2 {
 
 /*----- Portlets Properties -----*/
 dl.portlet {
-  background:url(&dtml-portal_url;/p-s.png) repeat-x 0 100%;
+  border-bottom: 1px solid #c1ccd5;
   font-size:75%;
   line-height:1.5em;
   margin:0 0 7px;
@@ -871,6 +967,9 @@ dl.portlet dd.portletFooter {
 .portletStaticText .portletItem a:visited {
   color:#748fa2 !important;
   }
+.slimScrollBar {
+  border-radius: 20px !important;
+  }
 
 /*----- Portlet Toggle Styles -----*/
 .portlet .portletToggleLink {
@@ -889,6 +988,7 @@ dl.portlet dd.portletFooter {
 .portlet:hover .portletToggleLink {
   visibility: visible;
   }
+.closed .dashlet-actions-wrapper,
 .closed .portletBodyWrapper,
 .closed .portletBody,
 .closed .portletFooter,
@@ -934,6 +1034,7 @@ dl.portlet dd.portletFooter {
   }
 #dashboard-portlets .portlet {
   background: #fff;
+  border: 0;
   box-shadow: 1px 1px 8px 0 #c4cbd0;
   height: 278px;
   margin: 0 16px 16px 0;
@@ -990,6 +1091,7 @@ dl.portlet dd.portletFooter {
 #dashboard-portlets .portlet.managedPortlet {
   width:100%;
   float:none;
+  height: 21px;
   }
 
 /*----- Portlet Wide Narrow Link -----*/
@@ -1059,61 +1161,57 @@ dl.portlet dd.portletFooter {
 
 /*----- Portlet Navigation -----*/
 dl.portletNavigationTree dd.portletItem {
-  border-bottom:1px solid #cfd6db;
-  padding:0;
+  padding: 8px 0 3px;
   }
 dl.portlet .navTreeItem {
   margin:0;
   }
 dl.portlet ul.navTreeLevel0 > .navTreeItem {
-  border-top:1px solid #95a9b8;
   border-bottom:0;
-  line-height:2em;
   padding:0;
   }
-dl.portlet ul.navTreeLevel0 > .navTreeItem:first-child {
-  border:0;
+dl.portlet ul.navTreeLevel0 > .navTreeCurrentNode,
+dl.portlet ul.navTreeLevel0 > .navTreeItemInPath {
+  box-shadow: 0 3px 8px rgba(1, 42, 67, 0.25);
+  margin: 0 0 7px;
   }
 .portletNavigationTree .navTreeItem a,
 .portletNavigationTree .navTreeItem a:hover {
   color:#082736 !important;
+  font-size: 14px;
+  line-height: 17px;
+  padding: 5px 15px 5px 34px !important;
   }
 dl.portlet ul.navTreeLevel0 > .navTreeItem > a {
-  background-color:#efefef;
-  border-top:1px solid #fff;
-  font-size:15px;
-  line-height:21px;
-  padding:6px 15px 6px 38px !important;
-  }
-dl.portlet ul.navTreeLevel0 > .navTreeItem:first-child > a {
-  border:0;
-  }
-.icons-on .portletNavigationTree .navTreeLevel0 > .navTreeItem > .contenttype-folder {
-  background-position:11px -640px;
-  }
-.icons-on .portletNavigationTree .navTreeLevel0 > .navTreeItem > .contenttype-document {
-  background-position:11px 8px;
+  border: 1px solid transparent;
   }
 dl.portlet ul.navTree .navTreeCurrentItem {
   background-color:transparent;
   border:0;
   margin:0;
   }
-dl.portlet ul.navTreeLevel0 > .navTreeItem > a:hover,
-dl.portlet ul.navTreeLevel0 > .navTreeItem > a.navTreeCurrentItem {
-  background-color:#12425f;
+dl.portlet ul.navTreeLevel0 > .navTreeItem > a:hover {
+  background-color: #e7e9ec;
+  border-color: #d9dfe3;
+  }
+dl.portlet ul.navTreeLevel0 > .navTreeItem > a.navTreeCurrentItem,
+dl.portlet ul.navTreeLevel0 > .navTreeItem > a.navTreeItemInPath{
+  background-color: #6ea21b;
+  border-color: transparent;
   color:#fff !important;
   }
-.icons-on .portletNavigationTree .navTreeLevel0 > .navTreeItem > .contenttype-folder.navTreeCurrentItem,
-.icons-on .portletNavigationTree .navTreeLevel0 > .navTreeItem > .contenttype-folder:hover {
-  background-position: 11px -1933px;
+.icons-on .portletNavigationTree .contenttype-folder {
+  background-position:11px -643px;
+  }
+.icons-on .portletNavigationTree .contenttype-document {
+  background-position:11px 4px;
   }
 .navTreeLevel1 {
-  background-color:#a3b4c1;
+  background-color: #fff;
   padding:0 0 4px;
   }
 dl.portlet ul.navTreeLevel1 .navTreeItem {
-  padding:0 13px 0 35px;
+  padding:0 13px 0 26px;
   }
 dl.portlet ul.navTreeLevel1 > .navTreeItem:first-child {
   padding-top:4px;
@@ -1312,7 +1410,7 @@ dl.portlet ul.navTreeLevel1 > .navTreeItem:first-child {
   margin:0 15px;
   padding:7px 0;
   }
-.template-homepage_view .portletHeader {
+.template-homepage_view #content .portletHeader {
   font-size:29px;
   font-weight:normal !important;
   line-height:34px;
@@ -1798,7 +1896,7 @@ dl.portalMessage dd {
   bottom: -37px;
   left: 50%;
   margin-left: -97px;
-  opacity: 0.6;
+  opacity: 0.3;
   position: absolute;
   -webkit-transition:opacity 0.2s ease-out;  
   -moz-transition:opacity 0.2s ease-out;  
@@ -1816,5 +1914,159 @@ dl.portalMessage dd {
   }
   
 }
+
+/*---------- Stream Viewlet ----------*/
+#vnc-stream {
+  width: 100%;
+  position: relative;
+  display: block;
+  height: 327px;
+  overflow: hidden;
+  border-top: 1px solid #c1ccd5;
+  background-color: #ffffff;
+}
+
+#vnc-stream .vncStreamPostForm {
+  width: 49%;
+  float: left;
+  display: block;
+  height: 327px;
+}
+#vnc-stream .vncStreamMsgs {
+  width: 50%;
+  display: block;
+  height: 327px;
+  float: right;
+  border-left: 1px solid #c1ccd5;
+}
+
+ul.vncStreamTabs {
+  list-style: none outside none;
+  background-color: #f2f2f2;
+  margin: 0;
+  padding: 0;
+  font-size: 80%;
+  border-bottom: 1px solid #c1ccd5;
+  height: 34px;
+}
+
+ul.vncStreamTabs li {
+  display: block;
+  float: left;
+  padding: 10px 12px 8px 10px
+}
+
+ul.vncStreamTabs li.selected {
+  background-color: #ffffff;
+  border-left: 1px solid #c1ccd5;
+  border-right: 1px solid #c1ccd5;
+  border-bottom: 1px solid #FFFFFF;
+  padding-bottom: 8px;
+}
+
+.all ul.vncStreamTabs li.selected {
+  border-left: none;
+}
+
+ul.vncStreamBodyItems {
+  margin: 0;
+  padding: 0;
+  list-style: none outside none;
+}
+
+ul.vncStreamBodyItems li.vncStreamItem {
+  padding: 10px;
+  border-bottom: 1px solid #c1ccd5;
+  display: block;
+  position: relative;
+  clear: both;
+}
+
+.vncStreamItem:hover {
+  background-color: #f2f2f2;
+}
+
+.vncStreamItem:hover .vncStreamItemReplyIcon {
+  display: block;
+}
+
+.vncStreamItemImg {
+  float: left;
+  width: 32px;
+  height: 32px;
+}
+
+.vncStreamItemBody {
+  margin-left: 42px;
+}
+
+.vncStreamItemByline {
+  display: block;
+}
+
+a.vncStreamItemTitle {
+  display: block;
+  font-size: 90%;
+  color: #75ad0a !important;
+}
+
+.vncStreamItemDetails {
+  float: right;
+  color: #75ad0a;
+  font-size: 80%;
+  margin-right: 70px;
+}
+
+.vncStreamItemReplyIcon {
+  display: block;
+  width: 19px;
+  height: 12px;
+  position: absolute;
+  top: 6px;
+  right: 50px;
+  display: none;
+}
+
+.vncStreamItemDesc {
+  display: block;
+  font-size: 85%;
+}
+
+/* Stream Tabs Functional css rules */
+#vnc-stream ul.vncStreamBodyItems li {
+  display: none;
+}
+
+#vnc-stream .all ul.vncStreamBodyItems li {
+  display: block;
+}
+
+#vnc-stream .im ul.vncStreamBodyItems li.stream-type-im {
+  display: block;
+}
+
+#vnc-stream .zm ul.vncStreamBodyItems li.stream-type-zm {
+  display: block;
+}
+
+#vnc-stream .news ul.vncStreamBodyItems li.stream-type-news {
+  display: block;
+}
+
+#vnc-stream .tickets ul.vncStreamBodyItems li.stream-type-tickets {
+  display: block;
+}
+
+#vnc-stream .recent ul.vncStreamBodyItems li.stream-type-recent {
+  display: block;
+}
+
+#vnc-stream .comments ul.vncStreamBodyItems li.stream-type-comments {
+  display: block;
+}
+
+.hiddenStructure {
+  position: absolute;
+  }
 
 /* </dtml-with> */ 

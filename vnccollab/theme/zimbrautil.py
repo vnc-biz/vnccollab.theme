@@ -59,7 +59,7 @@ class ZimbraUtilClient:
         self.client.authenticate(username, password)
 
     def get_emails(self, folder=None, offset=0, limit=10,
-                  recip='1', sortBy='dateDesc'):
+                  recip='1', sortBy='dateDesc', types='conversation'):
         """Returns list of email conversations.
 
         Args:
@@ -71,7 +71,7 @@ class ZimbraUtilClient:
           @sort_by - sort result set by given field
         """
         query = {
-            'types': 'conversation',
+            'types': types,
             'limit': limit,
             'offset': offset,
             'recip': recip,
@@ -133,7 +133,9 @@ class ZimbraUtilClient:
     def _dict_from_mail(self, mail):
         """Converts a zimbra mail into a dictionary"""
         people = mail.e
-        if not isinstance(people, list):
+        if not people:
+            people = []
+        elif not isinstance(people, list):
             people = [people]
 
         dct = {
@@ -144,6 +146,7 @@ class ZimbraUtilClient:
             'unread': u'u' in (mail._getAttr('f') or ''),
             'id': mail._getAttr('_orig_id'),
             'date': mail._getAttr('d'),
+            'cid': mail._getAttr('cid'),
         }
         return dct
 

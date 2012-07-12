@@ -144,8 +144,12 @@ class FakeTicketBrain:
         self.id = dct.get('id', '')
         self.url = dct.get('url', '')
         self.Title = dct.get('title', '')
-        date = datetime.strptime(dct['date'], '%b %d, %Y %I:%M %p')
-        self.Date = date.isoformat()
+        try:
+            date = datetime.strptime(dct['date'],
+                '%b %d, %Y %I:%M %p').isoformat()
+        except Exception, e:
+            date = dct['date']
+        self.Date = date
         self.portal_type = 'Redmine Ticket'
         # html -> plain text
         portal_transforms = getToolByName(self, 'portal_transforms')

@@ -1,0 +1,100 @@
+<div id="vnc-stream"
+     i18n:domain="vnccollab.theme"
+     tal:define="purl context/portal_url">
+  <div class="vncStreamPostForm">
+    Post Form
+  </div>
+  <div class="vncStreamMsgs all">
+    <ul class="vncStreamTabs"
+         tal:define="tabs view/get_item_types"
+         tal:condition="tabs">
+      <tal:tabs repeat="tab tabs">
+      <li id="stream-tab"
+          class="selected"
+          tal:attributes="id string:${attrs/id}-${tab/id};
+                          class python:repeat['tab'].start and 'selected' or None">
+        <a href="#"
+           title=""
+           i18n:translate=""
+           i18n:attributes="title"
+           tal:attributes="title tab/desc"
+           tal:content="tab/title">All</a>
+      </li>
+      </tal:tabs>
+    </ul>
+    <div class="vncStreamBody"
+         tal:define="entries view/get_items">
+      <ul class="vncStreamBodyItems">
+        <metal:items define-macro="stream-items">
+        <tal:items repeat="entry entries">
+        <li class="vncStreamItem"
+            tal:attributes="class string:${attrs/class} stream-type-${entry/type}">
+          <div class="vncStreamItemImg">
+            <a href="" title=""
+               target="_blank"
+               i18n:attributes="title"
+               tal:define="image entry/image"
+               tal:condition="image"
+               tal:omit-tag="not:entry/url"
+               tal:attributes="title entry/title;
+                               href entry/url">
+              <img alt="" src=""
+                   width="32" height="32"
+                   i18n:attributes="alt"
+                   tal:attributes="alt image/alt;
+                                   src image/url" />
+            </a>
+          </div>
+          <div class="vncStreamItemBody">
+            <div class="vncStreamItemByline">
+              <div class="vncStreamItemDetails">
+                <span class="date" tal:content="entry/date">Jun 07, 2012</span>
+                |
+                <span class="time" tal:content="entry/time">12:34</span>
+                |
+                <!-- TODO: onclick load replies if more than 0 -->
+                <span class="rNum" tal:content="entry/replies_num">0</span>
+                <tal:comment replace="nothing">Do not remove below hidden
+                  elements. It's being used by javascript code.</tal:comment>
+                <span class="dt hiddenStructure" tal:content="entry/datetime" />
+                <span class="uid hiddenStructure" tal:content="entry/uid" />
+              </div>
+              <a class="vncStreamItemTitle"
+                 href="" title=""
+                 target="_blank"
+                 i18n:translate=""
+                 i18n:attributes="title"
+                 tal:attributes="href entry/url;
+                                 title entry/title"
+                 tal:content="entry/title">Stream Item Title</a>
+              <div class="vncStreamItemReplyIcon"
+                   tal:condition="entry/can_reply">
+                <a href="#"
+                   title="Click to Reply"
+                   i18n:attributes="title">
+                  <img src="add_content_area/stream_reply_icon.png"
+                       alt="Reply"
+                       i18n:attributes="alt"
+                       tal:attributes="src string:${purl}/${attrs/src}" />
+                </a>
+              </div>
+            </div>
+            <div class="vncStreamItemDesc"
+                 i18n:translate=""
+                 tal:content="entry/body">Stream Item Body</div>
+            <div class="vncStreamItemReplyForm"
+                 tal:condition="nothing">
+              <!-- TODO: implement reply form -->
+            </div>
+            <div class="vncStreamItemReplies"
+                 tal:condition="nothing">
+              <!-- TODO: add list of replies -->
+            </div>
+          </div>
+        </li>
+        </tal:items>
+        </metal:items>
+      </ul>
+    </div>
+  </div>
+</div>

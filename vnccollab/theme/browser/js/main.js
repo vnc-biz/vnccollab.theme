@@ -125,8 +125,8 @@ function init_textile_editor() {
 }
 
 function addSlimScrollingToDashboardPortlets() {
-  jq('#dashboard-portlets1 .portletBody:not(.noSlimScroll)').slimScroll({
-    'height': '300px'
+  jq('#dashboard-portlets .portletBody:not(.noSlimScroll)').slimScroll({
+    'height': '254px'
   });
 }
 
@@ -183,7 +183,7 @@ function initPortletDashlet() {
         // selecte current action
         jq(target).parents('ul').find('li').removeClass('selected');
         jq(target).parent().addClass('selected');
-        $content.find('.portletBody').slimScroll({'height': '300px'});
+        $content.find('.portletBody').slimScroll({'height': '213px'});
     });
     e.preventDefault();
   }
@@ -241,6 +241,134 @@ function attachNewTicketAction() {
   }); 
 }
 
+var vncStreamLoading = false;
+var vncStreamDelay = 10000;
+
+function checkVNCStream() {
+  // request is already in process
+  if (vncStreamLoading == true) {
+    return false;
+  }
+  
+  // mark request busy
+  vncStreamLoading = true;
+  
+  var stream = jq('#vnc-stream');
+  if (stream.length == 0) {
+    vncStreamLoading = false;
+    return false;
+  }
+  
+  // find first item in the stream
+  var item = jq('.vncStreamItem:first', stream);
+  var data = {};
+  if (item.length > 0) {
+    data = {'since': item.find('.dt').text(),
+      'uid': item.find('.uid').text()};
+  }
+  
+  // do ajax request to the server to get fresh stream items
+  jq.ajax({
+    'type': 'GET',
+    'dataType': 'html',
+    'url': portal_url + '/@@vnc-stream-check',
+    'data': data,
+    'success': function(data){
+      if (item.length > 0) {
+        item.before(data);
+      } else {
+        jq('.vncStreamBodyItems', stream).append(data);
+      }
+      vncStreamLoading = false;
+      setTimeout(checkVNCStream, vncStreamDelay);
+    },
+    'error': function(){
+      vncStreamLoading = false;
+      setTimeout(checkVNCStream, vncStreamDelay);
+    }
+  });
+  
+  return true;
+}
+
+function attachStreamButton() {
+  // xmpp Messages onclick load stream from the server
+  // do we need to load it from the server?
+  jq('#site-stream-link').click(function(event){
+    var stream = jq('#vnc-stream');
+    if (stream.length == 0) {
+      // it's already being loaded
+      if (vncStreamLoading) {
+        return false;
+      }
+      
+      // load from the server
+      vncStreamLoading = true;
+      
+      // add spinner
+      if (jq('#xmpp-viewlet-container .spinner').length == 0) {
+        jq('#xmpp-viewlet-container').prepend('<span class="spinner">' +
+          '<img src="' + portal_url + '/dots-white.gif" /></span>');
+      } else {
+        jq('#xmpp-viewlet-container .spinner').show();
+      }
+      
+      jq.ajax({
+        'url': portal_url + '/@@vnc-stream',
+        'dataType': 'html',
+        'success': function(data, textStatus, jqXHR){
+          jq('#portal-top').append(data);
+          attachStreamTabs();
+          jq('#vnc-stream').hide().slideDown();
+          // attach slim scrolling
+          jq('.vncStreamBodyItems').slimScroll({'height': '293px'});
+          vncStreamLoading = false;
+          // remove spinner
+          jq('#xmpp-viewlet-container .spinner').hide();
+          setTimeout(checkVNCStream, vncStreamDelay);
+        },
+        'error': function() {
+          alert('Sorry, something went wrong on the server. Please, try ' +
+            'a bit later.');
+          vncStreamLoading = false;
+          // remove spinner
+          jq('#xmpp-viewlet-container .spinner').hide();
+          setTimeout(checkVNCStream, vncStreamDelay);
+        },
+        'data': {}
+        });
+    } else if (stream.is(':visible')) {
+      stream.slideUp();
+    } else {
+      stream.slideDown();
+    }
+    return false;
+  });
+}
+
+function attachStreamTabs() {
+  var container = jq('.vncStreamTabs');
+  if (container.length == 0) {
+    return;
+  }
+  
+  jq('a', container).click(function(event){
+    var target = jq(event.target);
+    var parent = target.parents('li');
+    var klass = parent.attr('id').slice('stream-type-'.length-1);
+    
+    // change container class to display only filtered stream items
+    target.parents('.vncStreamMsgs').removeClass().addClass("vncStreamMsgs " +
+      klass);
+    
+    // add selected class to current tab
+    parent.parent().find('li').removeClass('selected');
+    parent.addClass('selected');
+    
+    return false;
+  })
+}
+
 jq(function() {
   attachNewTicketAction();
   attachHeaderViewletCloseOpen();
@@ -251,4 +379,6 @@ jq(function() {
   initPortletDashlet();
   initNewTicketForm();
   attachSocialBookmarksLink();
+  attachStreamButton();
+  attachStreamTabs();
 });

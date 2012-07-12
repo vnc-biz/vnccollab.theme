@@ -1,11 +1,5 @@
 /* <dtml-with base_properties> (do not remove this :) */
 /* <dtml-call "REQUEST.set('portal_url', portal_url())"> (not this either :) */
-.loginFormName,
-.loginFormEmail,
-.loginFormPassword {
-  padding:5px 3px;
-  }
-
 .headerLinksViewlet a {
   background:url(&dtml-portal_url;/ie-sprite.png) no-repeat 100% 0;
   display:inline-block;
@@ -58,6 +52,9 @@ a:visited,
   }
 #document-action-socialbookmark {
   background:#b3bfcb;
+  }
+#portal-personaltools-loggedin {
+  min-width: 350px;
   }
 
 /* </dtml-with> */ 

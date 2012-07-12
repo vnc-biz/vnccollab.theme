@@ -21,15 +21,12 @@
                            alt view/user_name" />
     </a>
   </div>
-  <div class="userHeader">
-    <a id="user-name"
-       tal:attributes="href view/homelink_url"
-       tal:content="view/user_name">
-        John
-    </a>
-  </div>
   <dl class="userPreferences">
-    <dt class="userPreferencesHeader">Preferences</dt>
+    <dt class="userPreferencesHeader">
+      <a id="user-name"
+       tal:attributes="href view/homelink_url"
+       tal:content="view/user_name">John</a>
+    </dt>
     <dd class="userPreferencesBody">
       <ul>
         <li tal:repeat="action view/user_actions"
@@ -44,30 +41,13 @@
       </ul>
     </dd>
   </dl>
-  <div class="actionMenuExtra">
-    <a class="logoutLink"
-       title="Click to logout"
-       tal:attributes="href string:${context/portal_url}/logout"
-       i18n:attributes="title"
-       i18n:translate="">Log out</a>
-    <tal:flags replace="structure view/languages " />
-  </div>
+  <tal:flags replace="structure view/languages " />
+  <a class="logoutLink"
+     title="Click to logout"
+     tal:attributes="href string:${context/portal_url}/logout"
+     i18n:attributes="title"
+     i18n:translate="">Log out</a>
   </tal:block>
 </div>
-
-<dl class="actionMenu deactivated" id="portal-personaltools-anonymous"
-    tal:condition="python:view.user_actions and view.anonymous">
-  <dt id="anon-personalbar">
-    <tal:actions repeat="action view/user_actions">
-        <a href=""
-           tal:attributes="href action/url;
-                           id string:personaltools-${action/id};"
-           tal:content="action/title"
-           i18n:translate="">
-            action title
-        </a>
-    </tal:actions>
-  </dt>
-</dl>
 
 </div>
