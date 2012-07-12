@@ -126,11 +126,7 @@ function init_textile_editor() {
 
 function addSlimScrollingToDashboardPortlets() {
   jq('#dashboard-portlets .portletBody:not(.noSlimScroll)').slimScroll({
-    height: '254px',
-    size: '10px',
-    color: '#012a43',
-    distance: '5px',
-    opacity: .2,
+    'height': '254px'
   });
 }
 
