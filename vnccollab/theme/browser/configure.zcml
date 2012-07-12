@@ -74,7 +74,7 @@
   <browser:page
       for="*"
       name="get_object_json"
-      class=".livesearch.GetObjectJson"
+      class=".zimbrajson.GetObjectJson"
       permission="zope2.View"
       />
 
