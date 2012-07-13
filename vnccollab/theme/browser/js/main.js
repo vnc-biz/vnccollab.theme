@@ -366,12 +366,47 @@ function attachStreamActions() {
       return false;
     });
   };
+  
   // TODO: make drag button increase stream area height
   // attach drag button click
   var drag = jq('#vnc-stream .dragButton');
   if (drag.length > 0) {
     drag.click(function(event){
       jq('#vnc-stream').slideUp();
+      return false;
+    });
+  };
+  
+  // attach form post handler
+  var form1 = jq('#vnc-stream form#stream-quick-post');
+  if (form1.length > 0) {
+    form1.submit(function(event){
+      var field = jq('[name="stream_quick_post_message"]:input', form1),
+          text = jq.trim(field.attr('value')),
+          node = field.attr('data-post-node'),
+          button = jq('[name="stream_quick_post_submit"]:input', form1);
+      
+      // skip empty input
+      if (!text) {
+        field.attr('value', '');
+        return false;
+      }
+      
+      // temporarily reset and disable form controls
+      field.attr('disabled', 'disabled');
+      field.attr('value', '');
+      button.attr('disabled', 'disabled');
+      
+      // actually post new message to the server
+      jarnxmpp.PubSub.publish(node, '',  text, null);
+      
+      // try to update vnc stream
+      setTimeout(checkVNCStream, 2000);
+      
+      // activate form again
+      field.attr('disabled', '');
+      button.attr('disabled', '');
+      
       return false;
     });
   }

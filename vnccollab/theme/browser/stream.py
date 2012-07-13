@@ -72,9 +72,12 @@ class StreamView(BrowserView):
             userid = member.getId()
             name = member.getProperty('fullname') or userid
         
+        escaper = getUtility(INodeEscaper)
         return {'name': _(safe_unicode(name)),
                 'url': '%s/author/%s' % (purl, userid),
-                'image': mtool.getPersonalPortrait(userid).absolute_url()}
+                'image': mtool.getPersonalPortrait(userid).absolute_url(),
+                'id': userid,
+                'safe_id': escaper.escape(userid)}
     
     def get_items(self, since=None, till=None, uid=None):
         """Returns list of stream item sorted by date reversed, so that latest
@@ -140,6 +143,7 @@ class StreamView(BrowserView):
         mtool = getToolByName(self.context, 'portal_membership')
         storage = getUtility(IPubSubStorage)
         escaper = getUtility(INodeEscaper)
+        convert = getToolByName(self, 'portal_transforms').convert
         
         # go over recent messages
         for item in storage.itemsFromNodes(['people'], start=0,
@@ -165,6 +169,10 @@ class StreamView(BrowserView):
                 else:
                     fullname = author
             
+            # strip down html code from message body
+            body = safe_unicode(item['content']).encode('utf-8')
+            body = safe_unicode(convert('html_to_text', body).getData())
+            
             result.append({
                 'uid': item['id'],
                 'type': 'im',
@@ -177,7 +185,7 @@ class StreamView(BrowserView):
                 'datetime': datetime,
                 'replies_num': 0,
                 'can_reply': True,
-                'body': _(safe_unicode(item['content']))
+                'body': body
             })
         
         return result

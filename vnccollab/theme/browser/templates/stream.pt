@@ -1,9 +1,9 @@
 <div id="vnc-stream"
      i18n:domain="vnccollab.theme"
      tal:define="purl context/portal_url">
-  <div class="vncStreamPostForm">
-    <div class="streamPostImgWrapper"
-         tal:define="user view/get_user_data">
+  <div class="vncStreamPostForm"
+       tal:define="user view/get_user_data">
+    <div class="streamPostImgWrapper">
       <a href="#"
          title=""
          i18n:attributes="title"
@@ -15,8 +15,14 @@
              i18n:attributes="alt" />
       </a>
     </div>
-    <form action="#" id="stream-quick-post">
-      <textarea id="stream-quick-post-message"></textarea>
+    <form action="" id="stream-quick-post" method="post">
+      <textarea id="stream-quick-post-message"
+                name="stream_quick_post_message"
+                data-post-node="current_user_id"
+                placeholder="What's New?"
+                i18n:attributes="placeholder"
+                i18n:translate=""
+                tal:attributes="data-post-node user/safe_id"></textarea>
       
       <tal:comment replace="nothing">TODO: make xmpp post to dedicated users and groups
       <div class="streamQuickPostSubjectsWrapper">
@@ -30,7 +36,10 @@
       </div>
       </tal:comment>
       
-      <input id="stream-quick-post-submit" type="submit" value="Send">
+      <input id="stream-quick-post-submit"
+             name="stream_quick_post_submit"
+             type="submit" value="Send"
+             i18n:attributes="value">
     </form>
   </div>
   <div class="vncStreamMsgs all">
