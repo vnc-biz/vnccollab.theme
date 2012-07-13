@@ -318,7 +318,7 @@ function attachStreamButton() {
         'dataType': 'html',
         'success': function(data, textStatus, jqXHR){
           jq('#portal-top').append(data);
-          attachStreamTabs();
+          attachStreamActions();
           jq('#vnc-stream').hide().slideDown();
           // attach slim scrolling
           jq('.vncStreamBodyItems').slimScroll({'height': '293px'});
@@ -346,27 +346,35 @@ function attachStreamButton() {
   });
 }
 
-function attachStreamTabs() {
-  var container = jq('.vncStreamTabs');
-  if (container.length == 0) {
-    return;
+function attachStreamActions() {
+  // attach stream tabs clicks
+  var tabs = jq('#vnc-stream .vncStreamTabs');
+  if (tabs.length > 0) {
+    jq('a', tabs).click(function(event){
+      var target = jq(event.target);
+      var parent = target.parents('li');
+      var klass = parent.attr('id').slice('stream-type-'.length-1);
+    
+      // change tabs class to display only filtered stream items
+      target.parents('.vncStreamMsgs').removeClass().addClass("vncStreamMsgs " +
+        klass);
+    
+      // add selected class to current tab
+      parent.parent().find('li').removeClass('selected');
+      parent.addClass('selected');
+    
+      return false;
+    });
+  };
+  // TODO: make drag button increase stream area height
+  // attach drag button click
+  var drag = jq('#vnc-stream .dragButton');
+  if (drag.length > 0) {
+    drag.click(function(event){
+      jq('#vnc-stream').slideUp();
+      return false;
+    });
   }
-  
-  jq('a', container).click(function(event){
-    var target = jq(event.target);
-    var parent = target.parents('li');
-    var klass = parent.attr('id').slice('stream-type-'.length-1);
-    
-    // change container class to display only filtered stream items
-    target.parents('.vncStreamMsgs').removeClass().addClass("vncStreamMsgs " +
-      klass);
-    
-    // add selected class to current tab
-    parent.parent().find('li').removeClass('selected');
-    parent.addClass('selected');
-    
-    return false;
-  })
 }
 
 jq(function() {
@@ -380,5 +388,5 @@ jq(function() {
   initNewTicketForm();
   attachSocialBookmarksLink();
   attachStreamButton();
-  attachStreamTabs();
+  attachStreamActions();
 });
