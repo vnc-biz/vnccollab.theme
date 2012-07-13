@@ -126,7 +126,7 @@ function init_textile_editor() {
 
 function addSlimScrollingToDashboardPortlets() {
   jq('#dashboard-portlets .portletBody:not(.noSlimScroll)').slimScroll({
-    'height': '254px'
+    'height': '246px'
   });
 }
 
@@ -183,7 +183,7 @@ function initPortletDashlet() {
         // selecte current action
         jq(target).parents('ul').find('li').removeClass('selected');
         jq(target).parent().addClass('selected');
-        $content.find('.portletBody').slimScroll({'height': '213px'});
+        $content.find('.portletBody').slimScroll({'height': '205px'});
     });
     e.preventDefault();
   }
