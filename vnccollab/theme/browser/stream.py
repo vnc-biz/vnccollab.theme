@@ -54,6 +54,28 @@ class StreamView(BrowserView):
     
     # methods used by stream template
     
+    def get_user_data(self, userid=''):
+        """Returns user name, url and image.
+        
+        If not given userid, return data of authenticated user.
+        """
+        mtool = getToolByName(self.context, 'portal_membership')
+        purl = self.purl()
+        
+        if userid:
+            member = mtool.getMemberById(userid)
+        else:
+            member = mtool.getAuthenticatedMember()
+        
+        name = userid
+        if member:
+            userid = member.getId()
+            name = member.getProperty('fullname') or userid
+        
+        return {'name': _(safe_unicode(name)),
+                'url': '%s/author/%s' % (purl, userid),
+                'image': mtool.getPersonalPortrait(userid).absolute_url()}
+    
     def get_items(self, since=None, till=None, uid=None):
         """Returns list of stream item sorted by date reversed, so that latest
         go first in the list.

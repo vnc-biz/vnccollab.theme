@@ -2087,7 +2087,7 @@ dl.portalMessage dd {
 .vncStreamPostForm {
   float: left;
   /*height: 327px;*/
-  padding: 30px 0 0;
+  padding: 80px 0 0;
   width: 50%;
   }
 .streamPostImgWrapper {
@@ -2099,6 +2099,7 @@ dl.portalMessage dd {
 .streamPostImgWrapper img {
   height: auto;
   width: 48px;
+  border-radius: 4px;
   }
 #stream-quick-post {
   margin: 0 48px 0 110px;
