@@ -1,6 +1,22 @@
 Changelog
 =========
 
+1.5 - July 13, 2012
+-------------------
+
+- Implemented new design.
+  [Serhiy Valchuk, Vitaliy Podoba]
+
+- First Alpha Version of Stream Viewlet implemented.
+  [Vitaliy Podoba]
+
+- Zimbra Task creation implemented.
+  [Jose Dinuncio]
+
+- Minor fixes to xmpp messaging applied.
+  [Taras Melnychuk]
+
+
 1.0dev (unreleased)
 -------------------
 
