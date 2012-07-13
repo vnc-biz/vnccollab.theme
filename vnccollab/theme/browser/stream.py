@@ -15,6 +15,8 @@ from Products.AdvancedQuery import Eq, Between, Le, Ge, In
 from plone.memoize.instance import memoize
 from plone.registry.interfaces import IRegistry
 
+from jarn.xmpp.core.interfaces import IPubSubStorage, INodeEscaper
+
 from vnccollab.theme.util import getZimbraUrl
 from vnccollab.theme.zimbrautil import IZimbraUtil
 from vnccollab.theme import messageFactory as _
@@ -25,7 +27,7 @@ logger = logging.getLogger('vnccollab.theme.VNCStream')
 
 DEFAULT_ITEMS_NUM = 20
 
-# TODO: implement real IM (from mysql db) mix with other events
+# TODO: implement subscriptions fetching for user node in IM tab
 # TODO: implement reply form
 # TODO: implement load replies 0 click
 # TODO: implement updating of existing in stream messages
@@ -70,8 +72,7 @@ class StreamView(BrowserView):
         if till is not None:
             till = DateTime(till)
         
-        # TODO: implement instant message tab
-        # result.extend(self._get_ims(since=since, till=till))
+        result.extend(self._get_ims(since=since, till=till))
         result.extend(self._get_zmails(since=since, till=till, uid=uid))
         result.extend(self._get_news(since=since, till=till, uid=uid))
         result.extend(self._get_rtickets(since=since, till=till, uid=uid))
@@ -91,9 +92,9 @@ class StreamView(BrowserView):
             {'id': 'all',
              'title': _(u"All"),
              'desc': _(u"Show All Items")},
-            # {'id': 'im',
-            #  'title': _(u"Instant Messages"),
-            #  'desc': _(u"Show Only IM messages")},
+            {'id': 'im',
+             'title': _(u"Instant Messages"),
+             'desc': _(u"Show Only IM messages")},
             {'id': 'zm',
              'title': _(u"Mail"),
              'desc': _(u"Show Only Zimra Emails")},
@@ -115,36 +116,48 @@ class StreamView(BrowserView):
         result = []
         purl = self.purl()
         mtool = getToolByName(self.context, 'portal_membership')
+        storage = getUtility(IPubSubStorage)
+        escaper = getUtility(INodeEscaper)
         
-        # check if we got since and till arguments, if so - add it to catalog
-        # query to get only recent or older items
-        extra_query = None
-        if since is not None:
-            extra_query = Ge('created', since) & (~ Eq('created', since))
-        elif till:
-            extra_query = Le('created', till) & (~ Eq('created', till))
-        
-        for brain in self._cp_items(('Document',), sort_on='created',
-            extra_query=extra_query):
-            datetime = brain.created.toZone('GMT')
-            time = datetime.strftime('%I:%M')
-            date = datetime.strftime('%b %d, %Y')
+        # go over recent messages
+        for item in storage.itemsFromNodes(['people'], start=0,
+            count=DEFAULT_ITEMS_NUM):
             
-            author = brain.Creator
+            # TODO: handle comments
+            if item.get('parent'):
+                continue
+            
+            datetime = DateTime(item['updated']).toZone('GMT')
+            
+            # TODO: handle till argument
+            if since and since >= datetime:
+                # we've got too old entry, break from the loop
+                break
+            
+            fullname = author = item['author']
+            if author:
+                author = escaper.unescape(author)
+                member = mtool.getMemberById(author)
+                if member:
+                    fullname = member.getProperty('fullname', None) or author
+                else:
+                    fullname = author
             
             result.append({
+                'uid': item['id'],
                 'type': 'im',
                 'image': {'url': mtool.getPersonalPortrait(author
                     ).absolute_url(), 'alt': _(safe_unicode(author))},
-                'url': '%s/author/%s' % (purl, author),
-                'title': _(safe_unicode(author)),
-                'date': date,
-                'time': time,
+                'url': '%s/@@pubsub-feed?node=%s' % (purl, author),
+                'title': _(safe_unicode(fullname)),
+                'date': datetime.strftime('%b %d, %Y'),
+                'time': datetime.strftime('%I:%M'),
                 'datetime': datetime,
                 'replies_num': 0,
                 'can_reply': True,
-                'body': _(safe_unicode(brain.Title))
+                'body': _(safe_unicode(item['content']))
             })
+        
         return result
 
     def _get_news(self, since=None, till=None, uid=None):
