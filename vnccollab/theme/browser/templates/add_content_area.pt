@@ -23,7 +23,7 @@
                      tal:attributes="value uid" />
               <label for="destination">Selected Container:</label>
               <span class="selectedContainer"
-                    tal:define="title folder/Title|string:No Title"
+                    tal:define="title python:view.getFolderTitle(folder)"
                     tal:content="python:uid and title or 'Site Root'">Context Title</span>
             </form>
           </div>
