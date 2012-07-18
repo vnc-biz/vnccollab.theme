@@ -97,5 +97,14 @@
       <role name="Owner"/>
       <role name="VNCEditor"/>
     </permission>
+    <permission name="WSAPI authenticated"
+                acquire="True">
+      <role name="Member"/>
+      <role name="Editor"/>
+      <role name="Manager"/>
+      <role name="Owner"/>
+      <role name="VNCEditor"/>
+    </permission>
+
   </permissions>
 </rolemap>
