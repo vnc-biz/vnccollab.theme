@@ -1944,6 +1944,9 @@ dl.portalMessage dd {
 .PullTab a:focus img {
   outline: none;
   }
+.ui-autocomplete {
+  z-index:30 !important;
+  }
 /*---------- Stream Viewlet ----------*/
 #vnc-stream {
   background-color: #fff;

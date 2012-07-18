@@ -5,7 +5,7 @@ from pyactiveresource.activeresource import ActiveResource
 from pytz import timezone
 from datetime import datetime
 
-from Acquisition import aq_base, aq_inner
+from Acquisition import aq_base, aq_inner, aq_parent
 from DateTime import DateTime
 
 from zope.interface import alsoProvides, Interface
@@ -470,6 +470,16 @@ class AddContentAreaViewlet(common.ViewletBase):
             data['column2'] = result[1]
 
         return data
+
+    def getFolderTitle(self, folder):
+        # add parent title
+        ptitle = ''
+        parent = aq_parent(aq_inner(folder))
+        if parent:
+            ptitle = getattr(parent, 'Title', lambda:'')()
+            if ptitle:
+                ptitle = ' (%s)' % ptitle
+        return '%s%s' % (getattr(folder, 'Title', lambda:'')(), ptitle)
 
     @memoize
     def getFolder(self):

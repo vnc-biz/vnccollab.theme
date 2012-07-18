@@ -1,6 +1,6 @@
 import simplejson
 
-from Acquisition import aq_inner
+from Acquisition import aq_inner, aq_parent
 from BTrees.OOBTree import OOBTree
 from persistent.dict import PersistentDict
 from AccessControl import getSecurityManager
@@ -110,11 +110,23 @@ class VNCCollabUtilView(BrowserView):
         r = quote_bad_chars(r) + '*'
 
         data = []
+        parents = {}
         for brain in catalog(SearchableText=r, is_folderish=True,
             sort_on='sortable_title', sort_limit=limit)[:limit]:
+            parent = parents.get(brain.UID)
+            if not parent:
+                parent = parents[brain.UID] = \
+                    aq_parent(aq_inner(brain.getObject()))
+            
+            ptitle = ''
+            if parent:
+                ptitle = getattr(parent, 'Title', lambda:'')()
+                if ptitle:
+                    ptitle = ' (%s)' % ptitle
+            
             data.append({
                 'value': brain.UID,
-                'label': brain.Title,
+                'label': '%s%s' % (brain.Title, ptitle),
                 'desc': brain.Description})
         
         return simplejson.dumps(data)
