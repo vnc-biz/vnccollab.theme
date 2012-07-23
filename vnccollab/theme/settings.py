@@ -104,3 +104,33 @@ class WorldClockSettingsEditForm(controlpanel.RegistryEditForm):
 class WorldClockSettingsControlPanel(controlpanel.ControlPanelFormWrapper):
     form = WorldClockSettingsEditForm
 
+
+class IOpenERPSettings(Interface):
+    ''' Global OpenERP Settings.
+
+    Here you define that action ids associate with the database.
+    '''
+    openerpActions = schema.List(
+            title = u'OpenERP Actions',
+            description = u"Actions, one for line in the format 'id,description'. "
+                          u"DO NOT use commas in the description",
+            value_type = schema.TextLine(),
+            required = True,
+            default = [],
+            )
+
+
+class OpenERPSettingsEditForm(controlpanel.RegistryEditForm):
+    schema = IOpenERPSettings
+    label = u'OpenERP Settings'
+    description = _(u"""""")
+
+    def updateFields(self):
+        super(OpenERPSettingsEditForm, self).updateFields()
+
+    def updateWidgets(self):
+        super(OpenERPSettingsEditForm, self).updateWidgets()
+
+
+class OpenERPSettingsControlPanel(controlpanel.ControlPanelFormWrapper):
+        form = OpenERPSettingsEditForm

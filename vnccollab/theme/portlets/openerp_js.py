@@ -4,7 +4,7 @@ import traceback
 from urlparse import urlparse, parse_qs
 
 from zope.formlib import form
-from zope.interface import implements, Interface
+from zope.interface import implements, Interface, classProvides
 from zope.component import getUtility
 from zope import schema
 from zope.annotation.interfaces import IAnnotations, IAttributeAnnotatable
@@ -20,7 +20,9 @@ from Products.CMFPlone.utils import safe_unicode
 from plone.memoize.instance import memoize
 from plone.portlets.interfaces import IPortletDataProvider
 from plone.app.portlets.portlets import base
+from plone.registry.interfaces import IRegistry
 
+from vnccollab.theme.settings import IOpenERPSettings
 from vnccollab.theme import messageFactory as _
 
 
@@ -192,10 +194,18 @@ OPENERP_VOCAB = [
 ]
 
 class OpenERPJSPortletVocabulary():
-    implements(IVocabularyFactory)
+    classProvides(IVocabularyFactory)
 
     def __call__(self, context):
-        items = [SimpleTerm(value, title, title) for (value, title) in OPENERP_VOCAB]
+        vocabularyItems = self._getVocabularyItems()
+        items = [SimpleTerm(value=value, token=value, title=title)
+                    for (value, title) in vocabularyItems]
         return SimpleVocabulary(items)
 
-openerp_vocabulary = OpenERPJSPortletVocabulary()
+    def _getVocabularyItems(self):
+        registry = getUtility(IRegistry)
+        settings = registry.forInterface(IOpenERPSettings)
+        openerpActions = settings.openerpActions
+        items = [(x+',???,???').split(',')[:2] for x in openerpActions]
+        return items
+

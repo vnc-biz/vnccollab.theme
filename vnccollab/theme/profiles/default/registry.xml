@@ -14,6 +14,7 @@
     <value key="radius_3">35</value>
     <value key="no_seconds_3">False</value>
   </records>
+  <records interface="vnccollab.theme.settings.IOpenERPSettings" />
   <!-- Delete legacy records -->
   <record name="vnccollab.theme.header_clock.tz_1" delete="true" />
   <record name="vnccollab.theme.header_clock.radius_1" delete="true" />

@@ -105,7 +105,8 @@
       />
 
   <utility
-    component=".openerp_js.openerp_vocabulary"
+    factory=".openerp_js.OpenERPJSPortletVocabulary"
+    provides="zope.schema.interfaces.IVocabularyFactory"
     name="vnccollab.theme.openerp_js.openerp_vocabulary"
     />
 

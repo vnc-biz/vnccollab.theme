@@ -17,4 +17,15 @@
             <permission>Manage portal</permission>
     </configlet>
 
+    <configlet
+        title="OpenERP"
+        action_id="openerp"
+        appId="vnccollab.theme.openerp"
+        category="Products"
+        condition_expr=""
+        url_expr="string:${portal_url}/@@openerp-settings"
+        visible="True"
+        i18n:attributes="title">
+            <permission>Manage portal</permission>
+    </configlet>
 </object>

@@ -3,6 +3,8 @@ Changelog
 
 1.5 - July 13, 2012
 -------------------
+- Implemented Control Panel for OpenERP actions.
+  [Jose Dinuncio]
 
 - Implemented new design.
   [Serhiy Valchuk, Vitaliy Podoba]
