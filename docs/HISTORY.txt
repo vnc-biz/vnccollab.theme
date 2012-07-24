@@ -1,10 +1,26 @@
 Changelog
 =========
 
-1.5 - July 13, 2012
--------------------
+1.5.1 - July 24, 2012
+---------------------
+
+- Fixed Create Content Area z-index.
+  [Vitaliy Podoba]
+
+- Add parent container titles to Add Content Area dropdown items.
+  [Vitaliy Podoba]
+
+- Updated portlet styles.
+  [Serhiy Valchuk]
+
 - Implemented Control Panel for OpenERP actions.
   [Jose Dinuncio]
+
+- Fixed VNC Zimlet related code security issues.
+  [Jose Dinuncio]
+
+1.5 - July 13, 2012
+-------------------
 
 - Implemented new design.
   [Serhiy Valchuk, Vitaliy Podoba]
