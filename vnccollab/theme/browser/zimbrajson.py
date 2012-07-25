@@ -20,15 +20,21 @@ result encoded as JSON.
 class LiveSearchReplyJson(BrowserView):
     OMIT_TYPES = ['Folder']
 
-    def search(self, query):
-        '''Returns the objects in the catalog that satisfy the query'''
-        catalog = self.context.portal_catalog
+    def search_string(self, string):
+        '''Returns the objects that satisfy the query indicated by the
+        string.'''
         plone_utils = getToolByName(self.context, 'plone_utils')
         friendly_types = plone_utils.getUserFriendlyTypes()
-        r = ' AND '.join(query.split())
-        params = {'SearchableText': r,
-                  'portal_type': friendly_types,}
-        results = catalog(**params)
+        keys = ' AND '.join(string.split())
+        dct = {'SearchableText': keys,
+               'portal_type': friendly_types,}
+        return self.search_dict(dct)
+
+    def search_dict(self, dct):
+        '''Returns the objects that satisfy the query indicated by the
+        dictionary.'''
+        catalog = self.context.portal_catalog
+        results = catalog(**dct)
         return results
 
     def _get_lost_icon(self, brain):
@@ -39,8 +45,8 @@ class LiveSearchReplyJson(BrowserView):
     def _tuples_from_brains(self, brains):
         '''Converts a list of brains to a list of tuples'''
         plone_view = self.context.restrictedTraverse('@@plone')
-        ploneUtils = getToolByName(self.context, 'plone_utils')
-        pretty_title_or_id = ploneUtils.pretty_title_or_id
+        plone_utils = getToolByName(self.context, 'plone_utils')
+        pretty_title_or_id = plone_utils.pretty_title_or_id
 
         tuples = []
 
@@ -55,8 +61,8 @@ class LiveSearchReplyJson(BrowserView):
 
         return tuples
 
-    def _get_query_string(self, query):
-        '''Cleans the query string sanitized'''
+    def _sanitize_query_string(self, query):
+        '''Cleans the query string'''
         multispace = u'\u3000'.encode('utf-8')
         for char in ('?', '-', '+', '*', multispace):
                 query = query.replace(char, ' ')
@@ -64,7 +70,11 @@ class LiveSearchReplyJson(BrowserView):
 
     def __call__(self, REQUEST, RESPONSE):
         '''Returns a JSON representation of the objects that satisfy the query'''
-        brains = self.search(self._get_query_string(REQUEST))
+        if type(REQUEST) == str:
+            query = self._sanitize_query_string(REQUEST)
+            brains = self.search_string(query)
+        elif type(REQUEST) == dict:
+            brains = self.search_dict(REQUEST)
         results = self._tuples_from_brains(brains)
         RESPONSE.setHeader('Content-Type', 'application/json')
         return json.dumps(results)
@@ -94,7 +104,6 @@ class GetObjectJson(BrowserView):
     SANITIZE_FIELDS = ['DateTime']
 
     def _sanitize_results(self, result):
-        #import pdb; pdb.set_trace()
         for k,v in result.items():
             if v.__class__.__name__ in self.SANITIZE_FIELDS:
                 result[k] = str(v)
