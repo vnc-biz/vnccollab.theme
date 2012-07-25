@@ -4,6 +4,10 @@ Changelog
 1.5.2 - July 25, 2012
 ---------------------
 
+- GetTreeJson modified to indicate in which folders the user
+  has permissions to create objects.
+  [Jose Dinuncio]
+
 - Renamed titles in "Create Task" window.
   [Jose Dinuncio]
 

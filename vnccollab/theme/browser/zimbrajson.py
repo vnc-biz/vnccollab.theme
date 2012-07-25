@@ -1,10 +1,12 @@
 import json
 import base64
 
+from AccessControl import getSecurityManager
 from zope.interface import Interface, implements
 from Products.Five.browser import BrowserView
 from Products.CMFCore.utils import getToolByName
 from Products.CMFPlone import utils
+from Products.CMFCore import permissions
 
 from wsapi4plone.core.browser.app import ApplicationAPI
 
@@ -130,7 +132,19 @@ class GetTreeJson(BrowserView):
                 'title' : brain.Title,
                 'path' : brain.getPath(),
                 'portal_type': brain.portal_type,
+                'writable' : self._is_container_writable(brain),
                 'content' : []}
+
+    def _is_container_writable(self, brain):
+        '''True if the current user can write in the brain's container.
+
+        NOTE: We need to access to the associate object, and this could
+        be time consuming. In case of degradation of speed, check here.
+        '''
+        obj = brain.getObject()
+        perm = getSecurityManager().checkPermission(
+                        permissions.AddPortalContent, obj)
+        return perm == 1
 
     def _sorted(self, lst, reverse=False):
         '''Returns the folders sorted by the lenght of its path'''
