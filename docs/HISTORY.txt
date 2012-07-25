@@ -3,6 +3,10 @@ Changelog
 
 1.5 - July 13, 2012
 -------------------
+
+- Renamed titles in "Create Task" window.
+  [Jose Dinuncio]
+
 - Implemented Control Panel for OpenERP actions.
   [Jose Dinuncio]
 

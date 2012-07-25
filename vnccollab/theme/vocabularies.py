@@ -205,8 +205,8 @@ ZIMBRA_PRIORITIES_VOCAB = [
 ZIMBRA_PERCENTAGE_VOCAB = [(str(x), str(x)+'%') for x in range(0, 100, 10)]
 
 NEW_TICKET_VOCAB = [
-        ('zimbra', 'Zimbra'),
-        ('redmine', 'Redmine')
+        ('zimbra', 'CloudMail'),
+        ('redmine', 'CloudProject')
     ]
 
 StatusZimbraTaskVocabulary = SimpleVocabularyFactory(ZIMBRA_STATUS_VOCAB)
