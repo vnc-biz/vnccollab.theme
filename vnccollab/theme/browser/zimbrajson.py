@@ -33,7 +33,7 @@ class LiveSearchReplyJson(BrowserView):
     def search_dict(self, dct):
         '''Returns the objects that satisfy the query indicated by the
         dictionary.'''
-        catalog = self.context.portal_catalog
+        catalog = getToolByName(self.context, 'portal_catalog')
         results = catalog(**dct)
         return results
 
@@ -78,7 +78,6 @@ class LiveSearchReplyJson(BrowserView):
         results = self._tuples_from_brains(brains)
         RESPONSE.setHeader('Content-Type', 'application/json')
         return json.dumps(results)
-
 
 
 class GetObjectJson(BrowserView):
@@ -127,7 +126,7 @@ class GetTreeJson(BrowserView):
 
     def _get_tree(self):
         # TODO: Search only below context
-        catalog = self.context.portal_catalog
+        catalog = getToolByName(self.context, 'portal_catalog')
         params = {'portal_type': self.CONTAINER_TYPES,}
         results = [self._dict_from_brain(x) for x in catalog(**params)]
         results = self._sorted(results, reverse=True)
@@ -202,4 +201,58 @@ class SetFilenameJson(BrowserView):
             result = str(e)
         RESPONSE.setHeader('Content-Type', 'application/json')
         return json.dumps(result)
+
+
+class GetListOfSearchParameters(BrowserView):
+    '''Get the list of valid tags, item types and review status for a search.'''
+
+    def __call__(self, REQUEST, RESPONSE):
+        '''Returns a JSON representation of the current object'''
+        result = []
+        try:
+            context = self.context
+            if REQUEST == 'Subject':
+                result = self._get_subject()
+            elif REQUEST == 'portal_type':
+                result = self._get_portal_type()
+            elif REQUEST == 'review_state':
+                result = self._get_review_state()
+            else:
+                resulst = []
+        except Exception, e:
+            result = str(e)
+        RESPONSE.setHeader('Content-Type', 'application/json')
+        return json.dumps(result)
+
+    def _get_subject(self):
+        '''Returns a list of (id, title) of all Tags.'''
+        portal_catalog = getToolByName(self.context, 'portal_catalog')
+        return [(x,x) for x in portal_catalog.uniqueValuesFor('Subject')]
+
+    def _get_portal_type(self):
+        '''Returns a list of (id, title) of all Portal Types.'''
+        portal_types = getToolByName(self.context, 'portal_types')
+        portal_properties = getToolByName(self.context, 'portal_properties')
+        metaTypesNotToList = portal_properties.navtree_properties.metaTypesNotToList
+        types = [x for x in portal_types.keys()
+                   if x not in metaTypesNotToList]
+        return [(x, portal_types[x].title) for x in types]
+
+    def _get_review_state(self):
+        '''Returns a list of (id, title) of all Review states.'''
+        portal_workflow = getToolByName(self.context, 'portal_workflow')
+        workflows = [portal_workflow[x[0]]
+                        for x in portal_workflow.workflows_in_use() if x]
+        states_list = [wf.states.items() for wf in workflows]
+        # state_list is a list of lists of states. Let's make it plain
+        states = []
+        for st in states_list:
+            states.extend(st)
+        state_info = [(s[0], s[1].title) for s in states]
+        # Some states have different names, we'll use the first one
+        states = []
+        for st in state_info:
+            if st[0] not in [s[0] for s in states]:
+                states.append(st)
+        return states
 

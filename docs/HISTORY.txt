@@ -4,6 +4,9 @@ Changelog
 1.5.2 - July 25, 2012
 ---------------------
 
+- New view GetListOfSearchParameters added.
+  [Jose Dinuncio]
+
 - livesearch_reply_json now accepts dictionaries, becoming an advanced search.
   [Jose Dinuncio]
 
