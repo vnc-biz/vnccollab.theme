@@ -87,7 +87,7 @@
 
   <browser:page
       for="*"
-      name="get_list_of_search_parametes"
+      name="get_list_of_search_parameters"
       class=".zimbrajson.GetListOfSearchParameters"
       permission="zope2.View"
       />
