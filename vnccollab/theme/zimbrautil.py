@@ -1,5 +1,6 @@
 import urlparse
 from pyzimbra.z.client import ZimbraClient
+from pyzimbra.soap import SoapException
 
 from zope.interface import implements, Interface
 from Products.CMFCore.utils import getToolByName
@@ -39,6 +40,26 @@ class ZimbraUtil:
         client = ZimbraUtilClient(url, username, password)
         return client
 
+def refreshAuthToken(func, *args, **kw):
+    """Catches SoapException from passed function call and if the error is
+    identified as Token Expiration error - authenticate client and then repeat
+    the call.
+    """
+    def decorated(*args, **kw):
+        try:
+            result = func(*args, **kw)
+        except SoapException, e:
+            msg = unicode(e)
+            if u'no valid authtoken present' in msg or u'AUTH_REQUIRED' in msg:
+                # authenticate, args[0] is func's method object
+                args[0].authenticate()
+                return func(*args, **kw)
+            else:
+                raise e
+        else:
+            return result
+    
+    return decorated
 
 class ZimbraUtilClient:
     '''
@@ -51,13 +72,15 @@ class ZimbraUtilClient:
         p = urlparse.urlparse(self.url)
         self.server_url = '{0}://{1}'.format(p.scheme, p.netloc)
         self.client = ZimbraClient(url)
-
+        self.username = username
+        self.password = password
         if username:
-            self.authenticate(username, password)
+            self.authenticate()
 
-    def authenticate(self, username, password):
-        self.client.authenticate(username, password)
+    def authenticate(self):
+        self.client.authenticate(self.username, self.password)
 
+    @refreshAuthToken
     def get_emails(self, folder=None, offset=0, limit=10,
                   recip='1', sortBy='dateDesc', types='conversation'):
         """Returns list of email conversations.
@@ -91,6 +114,7 @@ class ZimbraUtilClient:
 
         return [self._dict_from_mail(x) for x in result]
 
+    @refreshAuthToken
     def get_email(self, eid):
         """Returns email by given id.
 
@@ -105,6 +129,7 @@ class ZimbraUtilClient:
 
         return result
 
+    @refreshAuthToken
     def get_email_thread(self, eid):
         """Returns conversation emails by given id.
 
@@ -150,6 +175,7 @@ class ZimbraUtilClient:
         }
         return dct
 
+    @refreshAuthToken
     def create_task(self, dct):
         """Creates a task, given its description as a dictionary"""
         task = dict(**dct)
@@ -190,6 +216,7 @@ class ZimbraUtilClient:
         task = self._taskFromGetMsgResponse(response)
         return task
 
+    @refreshAuthToken
     def get_message(self, id):
         '''Returns a message (mail, task, etc), given its id.'''
         query = {"_jsns":"urn:zimbraMail",
@@ -198,6 +225,7 @@ class ZimbraUtilClient:
                 'GetMsgRequest', query)
         return response
 
+    @refreshAuthToken
     def get_all_tasks(self):
         '''Returns all the zimbra tasks of the authenticated user.'''
         query = {'query': 'in:"tasks"', 'types':'task',}

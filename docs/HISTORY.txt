@@ -1,8 +1,14 @@
 Changelog
 =========
 
-1.5.2 - July 25, 2012
----------------------
+1.5.2 - Unreleased
+------------------
+
+- Refresh Zimbra SOAP API call auth token when expired.
+  [Vitaliy Podoba]
+
+- Fixed TinyMCE popup styles.
+  [Serhiy Valchuk]
 
 - New view GetListOfSearchParameters added.
   [Jose Dinuncio]
