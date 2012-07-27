@@ -427,7 +427,7 @@ class ZopeEditViewlet(common.ViewletBase):
     def external_editor_url(self):
         path = self.context.absolute_url_path()
         parent = os.path.dirname(path)
-        me = os.path.basename(path)
+        me = os.path.basename(path) + '.zem'
         return os.path.join(parent, 'externalEdit_', me)
 
 class AddContentAreaViewlet(common.ViewletBase):
