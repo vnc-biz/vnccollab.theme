@@ -10,6 +10,10 @@ body {
   font:100% "Myriad Pro", Arial, FreeSans, sans-serif;
   min-width: 1060px;
   }
+#ploneimage,
+#plonelink {
+  min-width: 0;
+  }
 #portal-top {
   width: 100%;
   }
