@@ -162,12 +162,15 @@ class ZimbraUtilClient:
             people = []
         elif not isinstance(people, list):
             people = [people]
+        
+        # prepare subject
+        subject = getattr(mail, 'su', '') or 'No Subject'
 
         dct = {
-            'subject': su(mail.su),
+            'subject': su(subject),
             'body': u'%s (%s) - %s - %s' % (u', '.join([p._getAttr('d')
                     for p in people]), mail._getAttr('n'), su(mail.su),
-                    su(mail.fr)),
+                    su(getattr(mail, 'fr', ''))),
             'unread': u'u' in (mail._getAttr('f') or ''),
             'id': mail._getAttr('_orig_id'),
             'date': mail._getAttr('d'),
