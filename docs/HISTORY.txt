@@ -4,6 +4,9 @@ Changelog
 1.5.2 - Unreleased
 ------------------
 
+- Activate external editor globally and for new users.
+  [Jose Dinuncio]
+
 - Fix zimbra mail not to break on emails w/o body and subject.
   [Vitaliy Podoba]
 
