@@ -1,5 +1,6 @@
 <?xml version="1.0"?>
 <object name="portal_memberdata" meta_type="Plone Memberdata Tool">
+ <property name="ext_editor" type="boolean">True</property>
  <property name="zimbra_username" type="string"/>
  <property name="zimbra_password" type="string"/>
  <property name="etherpad_url" type="string"/>
