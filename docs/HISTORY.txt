@@ -4,6 +4,9 @@ Changelog
 1.5.2 - Unreleased
 ------------------
 
+- Update styles for Users Portlet.
+  [Serhiy Valchuk]
+
 - Activate external editor globally and for new users.
   [Jose Dinuncio]
 
