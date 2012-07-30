@@ -4,6 +4,9 @@ Changelog
 1.5.2 - Unreleased
 ------------------
 
+- Add slim scrolling to Recent Messages portlet.
+  [Vitaliy Podoba]
+
 - Update styles for Users Portlet.
   [Serhiy Valchuk]
 
