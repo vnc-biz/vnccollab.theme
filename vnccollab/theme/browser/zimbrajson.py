@@ -91,11 +91,10 @@ class GetObjectJson(BrowserView):
     def __call__(self, REQUEST, RESPONSE):
         '''Returns a JSON representation of the current object'''
         wsapi = ApplicationAPI(self.context, self.request)
-        my_path =self.context.absolute_url_path()
-        results = wsapi.get_object([my_path])
+        results = wsapi.get_object()
         # One result is a tuple (object_data, object_type, extra_info)
         # We're interested only in object_data
-        result = results[my_path][0]
+        result = results.values()[0][0]
         self._sanitize_results(result)
         RESPONSE.setHeader('Content-Type', 'application/json')
         return json.dumps(result)

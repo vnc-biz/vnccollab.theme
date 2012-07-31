@@ -4,6 +4,9 @@ Changelog
 1.5.2 - Unreleased
 ------------------
 
+- Change implementation of get_object_json to be path independent.
+  [Jose Dinuncio]
+
 - Add slim scrolling to Recent Messages portlet.
   [Vitaliy Podoba]
 
