@@ -3,6 +3,8 @@
     xmlns:browser="http://namespaces.zope.org/browser"
     i18n_domain="vnccollab.theme">
 
+  <include package="collective.z3cform.datepicker" />
+
   <!-- 'VNC Collaboration Theme' Zope 3 browser layer -->
   <interface
       interface=".interfaces.IThemeSpecific"

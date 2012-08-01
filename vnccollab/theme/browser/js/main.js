@@ -200,10 +200,106 @@ function attachSocialBookmarksLink() {
   });
 }
 
-function initNewTicketForm() {
-  var $zimbraTaskForm = jq('#zimbra-contents'),
-      $redmineTaskForm = jq('#redmine-contents'),
-      $typeOfTicket = jq('#form-widgets-type_of_ticket');
+function attachCalendarWidgets(container) {
+  if (!container || container.length == 0) {
+    var container = jq('body');
+  }
+  
+  jq('input.datepicker-widget', container).each(function(elem, ids){
+    var for_display = jq(this), field = for_display.parent();
+    var input = field.find('input[type=hidden]'), iid = input.attr('id');
+    
+    // skip if widget is already initialized
+    if (field.find('img.ui-datepicker-trigger').length > 0) {
+      return;
+    }
+    
+    // attach date picker
+    // TODO: get below options from server side widget factory
+    // TODO: add i18n
+    var datepicker = input.datepicker({
+      'dateFormat': "dd/mm/yy",
+      'altField': for_display,
+      // 'altField': "#" + iid + "-for-display",
+      'shortYearCutoff': 10,
+      'showAnim': "show",
+      'maxDate': null,
+      'isRTL': false,
+      'dayNamesShort': ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'],
+      'changeYear': true,
+      'duration': "normal",
+      'monthNames': ['January', 'February', 'March', 'April', 'May', 'June',
+        'July', 'August', 'September', 'October', 'November',
+        'December'],
+      'dayNames': ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday',
+        'Friday', 'Saturday'],
+      'constrainInput': true,
+      'stepMonths': 1,
+      'showButtonPanel': false,
+      'changeFirstDay': true,
+      'altFormat': "DD, d MM, yy",
+      'beforeShowDay': null,
+      'changeMonth': true,
+      'monthNamesShort': ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul',
+        'Aug', 'Sep', 'Oct', 'Nov', 'Dec'],
+      'gotoCurrent': false,
+      'defaultDate': null,
+      'yearRange': "-10:+10",
+      'hideIfNoPrevNext': false,
+      'showOtherMonths': false,
+      'showOptions': {},
+      'showInline': false,
+      'buttonImageOnly': true,
+      'numberOfMonths': 1,
+      'prevText': "<Prev",
+      'nextText': "Next>",
+      'minDate': null,
+      'buttonImage': "popup_calendar.gif",
+      'beforeShow': null,
+      'navigationAsDateFormat': false,
+      'buttonText': "...",
+      'firstDay': 0,
+      'dayNamesMin': ['Su', 'Mo', 'Tu', 'We', 'Th', 'Fr', 'Sa'],
+      'currentText': "Today",
+      'calculateWeek': "$.datepicker.iso8601Week",
+      'closeText': "Close",
+      'showOn': "both"
+    });
+    // set for-display field to read-only mode
+    for_display.attr("readonly", "readonly");
+    // add embed class to it
+    for_display.addClass('embed');
+    // and set it's value based on hidden widget value
+    for_display.each(function() {
+      jq(this).val(jq.datepicker.formatDate("DD, d MM, yy",
+        input.datepicker('getDate'),
+        {'shortYearCutoff': 10,
+         'dayNamesShort': ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'],
+         'dayNames': ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday',
+           'Friday', 'Saturday'],
+         'monthNamesShort': ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul',
+           'Aug', 'Sep', 'Oct', 'Nov', 'Dec'],
+         'monthNames': ['January', 'February', 'March', 'April', 'May', 'June',
+           'July', 'August', 'September', 'October', 'November', 'December']}
+      ));
+    });
+    // attach calendar delete control
+    jq("#" + iid + "-clear", container).click(function() {
+      input.val('');
+      for_display.val('');
+    });
+  
+  });
+}
+
+function initNewTicketForm(container) {
+  if (!container || container.length == 0) {
+    var container = jq('body');
+  }
+  
+  var $zimbraTaskForm = jq('#zimbra-contents', container),
+      $redmineTaskForm = jq('#redmine-contents', container),
+      $typeOfTicket = jq('#form-widgets-type_of_ticket', container);
 
   function toggleSubforms(toShow) {
     if (toShow == 'zimbra'){
@@ -234,11 +330,17 @@ function attachNewTicketAction() {
       'filter': '#content>*',
       'formselector': 'form',
       'noform': function(el) {return noformerrorshow(el, 'reload');},
-      'afterpost' : initNewTicketForm,
-      'config' : {
-          'onBeforeLoad' : initNewTicketForm
+      'afterpost' : function(el) {
+          initNewTicketForm(el);
+          attachCalendarWidgets(el);
       },
-  }); 
+      'config' : {
+          'onBeforeLoad' : function(){
+            initNewTicketForm();
+            attachCalendarWidgets();
+          }
+      }
+  });
 }
 
 var vncStreamLoading = false;

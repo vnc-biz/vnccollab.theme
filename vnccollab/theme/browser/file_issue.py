@@ -20,6 +20,8 @@ from plone.registry.interfaces import IRegistry
 from plone.memoize.instance import memoize
 from plone.memoize import ram
 
+from collective.z3cform.datepicker.widget import DatePickerFieldWidget
+
 from vnccollab.theme import messageFactory as _
 from vnccollab.theme.portlets.zimbra_mail import logException
 
@@ -97,6 +99,9 @@ class FileTicketForm(form.Form):
     successMessage = _(u"Ticket was created successfully.")
 
     fields = field.Fields(IFileTicketForm)
+
+    fields['start_date'].widgetFactory = DatePickerFieldWidget
+    fields['due_date'].widgetFactory = DatePickerFieldWidget
 
     @property
     def action(self):

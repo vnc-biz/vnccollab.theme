@@ -6,7 +6,8 @@ from z3c.form import form, field, button
 from z3c.form.interfaces import IErrorViewSnippet
 from Products.CMFCore.utils import getToolByName
 from Products.statusmessages.interfaces import IStatusMessage
-from collective.z3cform import datetimewidget
+
+from collective.z3cform.datepicker.widget import DatePickerFieldWidget
 
 from vnccollab.theme import messageFactory as _
 from vnccollab.theme.zimbrautil import IZimbraUtil
@@ -53,7 +54,6 @@ class IZimbraTaskForm(Interface):
     startDate = schema.Date(
         title = _(u"Start date"),
         description = u'',
-        #widget = datetimewidget.DateFieldWidget,
         required = False)
 
     endDate = schema.Date(
@@ -78,6 +78,11 @@ class IZimbraTaskForm(Interface):
 class ZimbraTaskForm(form.Form):
     implements(IZimbraTaskForm)
     fields = field.Fields(IZimbraTaskForm)
+
+    fields['startDate'].widgetFactory = DatePickerFieldWidget
+    fields['endDate'].widgetFactory = DatePickerFieldWidget
+
+
     label = _("New Zimbra Task")
     prefix = 'zimbra_task_form'
 
