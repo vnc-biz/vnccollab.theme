@@ -4,6 +4,9 @@ Changelog
 1.5.2 - Unreleased
 ------------------
 
+- Add calendar widgets to Create Task popup forms.
+  [Vitaliy Podoba]
+
 - Change implementation of get_object_json to be path independent.
   [Jose Dinuncio]
 
