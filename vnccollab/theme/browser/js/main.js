@@ -328,7 +328,7 @@ function attachNewTicketAction() {
   jq('#document-action-new_ticket a').prepOverlay({
       'subtype': 'ajax',
       'filter': '#content>*',
-      'formselector': 'form',
+      'formselector': 'form#zimbra_task_form,form#file_ticket_form,form#new_ticket_form',
       'noform': function(el) {return noformerrorshow(el, 'reload');},
       'afterpost' : function(el) {
           initNewTicketForm(el);
