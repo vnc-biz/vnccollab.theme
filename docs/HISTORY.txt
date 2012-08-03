@@ -1,8 +1,8 @@
 Changelog
 =========
 
-1.5.2 - Unreleased
-------------------
+1.5.2 - August 3, 2012
+----------------------
 
 - Add calendar widgets to Create Task popup forms.
   [Vitaliy Podoba]
@@ -46,6 +46,7 @@ Changelog
 
 - Fixed VNC Zimlet related code security issues.
   [Jose Dinuncio]
+
 
 1.5.1 - July 24, 2012
 ---------------------
