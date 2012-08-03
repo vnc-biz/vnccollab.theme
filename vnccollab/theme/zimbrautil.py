@@ -50,7 +50,8 @@ def refreshAuthToken(func, *args, **kw):
             result = func(*args, **kw)
         except SoapException, e:
             msg = unicode(e)
-            if u'no valid authtoken present' in msg or u'AUTH_REQUIRED' in msg:
+            if u'auth credentials have expired' in msg or \
+               u'AUTH_EXPIRED' in msg:
                 # authenticate, args[0] is func's method object
                 args[0].authenticate()
                 return func(*args, **kw)
