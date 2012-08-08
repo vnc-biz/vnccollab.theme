@@ -51,13 +51,21 @@ class LiveSearchReplyJson(BrowserView):
         tuples = []
 
         for brain in brains:
-            icon = plone_view.getIcon(brain).url or self._get_lost_icon(brain)
             type_ = brain.portal_type
-            title = pretty_title_or_id(brain)
-            url = brain.getURL()
 
             if type_ not in self.OMIT_TYPES:
-                tuples.append((icon, type_, title, url))
+                title = pretty_title_or_id(brain)
+                url = brain.getURL()
+                icon = plone_view.getIcon(brain).url or self._get_lost_icon(brain)
+                description = brain.Description
+                subject = brain.Subject
+                creator = brain.Creator
+                creationDate = brain.CreationDate
+                modificationDate = brain.ModificationDate
+
+                tuples.append((icon, type_, title, url, description,
+                               subject,
+                               creator, creationDate, modificationDate))
 
         return tuples
 

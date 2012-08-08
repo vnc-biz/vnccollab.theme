@@ -1,6 +1,13 @@
 Changelog
 =========
 
+1.5.3 - Unreleased
+------------------
+
+- Add description, subject, creator, creationDate and modificationDate to
+  LiveSearchReplyJson results.
+  [Jose Dinuncio]
+
 1.5.2 - August 3, 2012
 ----------------------
 
