@@ -4,6 +4,9 @@ Changelog
 1.5.3 - Unreleased
 ------------------
 
+- Reverse comments order.
+  [Jose Dinuncio]
+
 - Add description, subject, creator, creationDate and modificationDate to
   LiveSearchReplyJson results.
   [Jose Dinuncio]
