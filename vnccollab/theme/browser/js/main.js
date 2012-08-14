@@ -423,7 +423,8 @@ function attachStreamButton() {
           attachStreamActions();
           jq('#vnc-stream').hide().slideDown();
           // attach slim scrolling
-          jq('.vncStreamBodyItems').slimScroll({'height': '293px'});
+          jq('.vncStreamBodyItems:not(.noSlimScroll)').slimScroll({
+            'height': '293px'});
           vncStreamLoading = false;
           // remove spinner
           jq('#xmpp-viewlet-container .spinner').hide();

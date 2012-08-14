@@ -2063,6 +2063,41 @@ dl.portalMessage dd {
   font-size: 0.875em;
   }
 
+/* Social Streams */
+#content #vnc-social-stream {
+  margin: 0;
+}
+#vnc-social-stream li {
+  list-style-type: none;
+}
+#vnc-social-stream .vncStreamItemByline {
+  margin-bottom: 2px;
+}
+#vnc-social-stream .vncStreamItemReplyIcon {
+  display: none;
+}
+#vnc-social-stream .vncStreamItemTitle {
+  font-size: 13px;
+}
+#vnc-social-stream .vncStreamItemDesc {
+  font-size: 13px;
+}
+#vnc-social-stream .vncStreamItemCommentLink {
+  display: block;
+  margin-top: 6px;
+}
+#vnc-social-stream .vncStreamItemDetails {
+  font-size: 11px;
+  margin-right: 0;
+}
+#vnc-social-stream .vncStreamItemImg {
+  height: 45px;
+  width: 45px;
+}
+#vnc-social-stream .vncStreamItemBody {
+  margin-left: 55px;
+}
+
 /* Stream Tabs Functional css rules */
 .vncStreamItem {
   display: none;
