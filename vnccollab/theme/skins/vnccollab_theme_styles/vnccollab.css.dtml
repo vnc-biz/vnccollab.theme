@@ -2105,6 +2105,7 @@ dl.portalMessage dd {
   width: 90px;
   padding: 33px 0 0 9px;
   overflow: hidden;
+  line-height: 1.2em;
 }
 
 #vnc-social-stream-user .userImageWrapper {
@@ -2133,16 +2134,15 @@ dl.portalMessage dd {
 }
 #social-stream-add-form .shareBody {
   display: block;
-  padding: 5px 6px 0;
+  padding: 5px 6px;
 }
 #social-stream-add-form .shareBody textarea {
-  dispaly: block;
+  display: block;
   border: medium none;
   resize: none;
   width: 99%;
   background-color: #F2F2F2;
-  height: 60px;
-  overflow: hidden;
+  height: 51px;
   line-height: 1.5;
   margin: 0;
   padding: 0;
