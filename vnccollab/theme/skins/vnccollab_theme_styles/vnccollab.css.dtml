@@ -2098,6 +2098,116 @@ dl.portalMessage dd {
   margin-left: 55px;
 }
 
+/* Social Stream User Details Box */
+#vnc-social-stream-user {
+  display: block;
+  float: left;
+  width: 90px;
+  padding: 33px 0 0 9px;
+  overflow: hidden;
+}
+
+#vnc-social-stream-user .userImageWrapper {
+  display: block;
+  width: 70px;
+  height: 70px;
+}
+#vnc-social-stream-user a.userName,
+#vnc-social-stream-user a.userDashboard {
+  display: block;
+  width: 90px;
+  overflow: hidden;
+}
+#vnc-social-stream-user .userName {
+  margin-top: 3px;
+  font-weight: bold;
+}
+
+/* Social Stream Add Form Area */
+#vnc-social-stream-add {
+  margin: 0 0 10px 100px;
+}
+
+#social-stream-add-form {
+  border: 2px solid #CBCBC7;
+}
+#social-stream-add-form .shareBody {
+  display: block;
+  padding: 5px 6px 0;
+}
+#social-stream-add-form .shareBody textarea {
+  dispaly: block;
+  border: medium none;
+  resize: none;
+  width: 99%;
+  background-color: #F2F2F2;
+  height: 60px;
+  overflow: hidden;
+  line-height: 1.5;
+  margin: 0;
+  padding: 0;
+  outline: medium none;
+  font-size: 1em;
+}
+#social-stream-add-form .shareFooter {
+  display: block;
+  height: 36px;
+  background-color: #E6E9EE;
+  border-top: 1px solid #CBCBC7;
+  line-height: 36px;
+}
+#social-stream-add-form .shareActions {
+  float: left;
+  display: block;
+  margin: 0;
+  padding: 0;
+  width: 100px;
+  list-style: none;
+}
+#social-stream-add-form .shareActions li {
+  border-right: 1px solid #CBCBC7;
+  display: block;
+  float: left;
+  height: 36px;
+  margin: 0;
+  width: 36px;
+}
+#social-stream-add-form .shareActions li a {
+  width: 36px;
+  text-indent: -9999px;
+  height: 36px;
+  display: block;
+  background: url(&dtml-portal_url;/sb_footer_icons.png) no-repeat;
+}
+#social-stream-add-form .shareActions li a.shareAddPerson {
+  background-position: 9px -35px;
+}
+#social-stream-add-form .shareActions li a.shareAddTag {
+  background-position: 9px -79px;
+}
+#social-stream-add-form .shareButton {
+  float: right;
+  background-color: #dee2e8;
+  background-image: -moz-linear-gradient(#dee2e8,#cfd6dd);
+  background-image: -ms-linear-gradient(#dee2e8,#cfd6dd);
+  background-image: -o-linear-gradient(#dee2e8,#cfd6dd);
+  background-image: -webkit-linear-gradient(#dee2e8,#cfd6dd);
+  background-image: linear-gradient(#dee2e8,#cfd6dd);
+  border: 1px solid #738ea2;
+  border-radius: 5px;
+  box-shadow: 0 1px #e6e9ee inset;
+  color: #012a43;
+  cursor: pointer;
+  display: block;
+  margin: 3px;
+  outline: none;
+  padding: 6px 0;
+  width: 95px;
+  font-size: 14px;
+  font-weight: bold;
+}
+
+
 /* Stream Tabs Functional css rules */
 .vncStreamItem {
   display: none;
