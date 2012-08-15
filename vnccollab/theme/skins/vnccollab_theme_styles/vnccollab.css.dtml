@@ -2070,6 +2070,25 @@ dl.portalMessage dd {
 #vnc-social-stream li {
   list-style-type: none;
 }
+#vnc-social-stream li a.messageLink {
+  color: #863020;
+}
+#vnc-social-stream li a.tagLink {
+  color: #8F896F;
+}
+#vnc-social-stream li a.userLink {
+  color: #863020;
+}
+#vnc-social-stream li a.meLink {
+  background-color: #B53B22;
+  border-bottom: 0 none !important;
+  border-radius: 8px 8px 8px 8px;
+  color: #FFFFFF !important;
+  font-size: 12px;
+  font-weight: normal;
+  padding: 1px 5px 1px 4px;
+}
+
 #vnc-social-stream .vncStreamItemByline {
   margin-bottom: 2px;
 }
@@ -2097,6 +2116,7 @@ dl.portalMessage dd {
 #vnc-social-stream .vncStreamItemBody {
   margin-left: 55px;
 }
+
 
 /* Social Stream User Details Box */
 #vnc-social-stream-user {
