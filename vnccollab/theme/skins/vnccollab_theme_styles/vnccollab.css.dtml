@@ -2069,6 +2069,8 @@ dl.portalMessage dd {
 }
 #vnc-social-stream li {
   list-style-type: none;
+  position: relative;
+  line-height: 18px;
 }
 #vnc-social-stream li a.messageLink {
   color: #863020;
@@ -2097,6 +2099,7 @@ dl.portalMessage dd {
 }
 #vnc-social-stream .vncStreamItemTitle {
   font-size: 13px;
+  font-weight: bold;
 }
 #vnc-social-stream .vncStreamItemDesc {
   font-size: 13px;
@@ -2117,6 +2120,98 @@ dl.portalMessage dd {
   margin-left: 55px;
 }
 
+/* Social Stream Comments */
+#vnc-social-stream .comments {
+  margin: 0;
+  padding: 0;
+}
+#vnc-social-stream .comments li.comment {
+  background-color: #E6E9EE;
+  border-color: #F2F2F2;
+  border-width: 0 0 1px;
+  border-style: solid;
+  padding: 10px;
+  clear: left;
+  position: relative;
+  margin: 0;
+  line-height: 16px;
+}
+#vnc-social-stream .comments .avatar {
+  display: inline;
+  float: left;
+  width: 30px;
+  height: 30px;
+  margin-right: 9px;
+}
+#vnc-social-stream .comments .avatar img {
+  display: inline;
+  float: left;
+  width: 30px;
+  height: 30px;
+}
+#vnc-social-stream .comments .details {
+  padding: 0;
+  margin: 0;
+  font-size: 11px;
+  margin-left: 39px;
+}
+#vnc-social-stream .comments .date {
+  color: #75AD0A;
+  float: right;
+}
+#vnc-social-stream .comments .title {
+  color: #75AD0A;
+  font-weight: bold;
+}
+
+/* Social Stream Comment Form */
+#vnc-social-stream .commentForm {
+  display: block;
+  overflow: hidden;
+  padding: 9px;
+  background-color: #E6E9EE;
+}
+#vnc-social-stream .commentForm.hidden {
+  display: none;
+}
+#vnc-social-stream .commentForm .commentBodyWrapper {
+  display: block;
+  margin-bottom: 6px;
+}
+#vnc-social-stream .commentForm .commentBodyWrapper textarea {
+  font-size: 12px;
+  height: 32px;
+  line-height: 16px;
+  outline: 0 none;
+  padding: 4px 1%;
+  width: 99.5%;
+  border: 2px solid #F2F2F2;
+  padding: 0;
+  margin: 1px 0 0 0;
+  resize: none;
+  background-color: #F2F2F2;
+}
+#vnc-social-stream .commentForm .shareButton {
+  float: right;
+  background-color: #dee2e8;
+  background-image: -moz-linear-gradient(#dee2e8,#cfd6dd);
+  background-image: -ms-linear-gradient(#dee2e8,#cfd6dd);
+  background-image: -o-linear-gradient(#dee2e8,#cfd6dd);
+  background-image: -webkit-linear-gradient(#dee2e8,#cfd6dd);
+  background-image: linear-gradient(#dee2e8,#cfd6dd);
+  border: 1px solid #738ea2;
+  border-radius: 5px;
+  box-shadow: 0 1px #e6e9ee inset;
+  color: #738EA2;
+  cursor: pointer;
+  display: block;
+  margin: 2px 0 -1px 0
+  outline: none;
+  padding: 3px 0;
+  width: 65px;
+  font-size: 12px;
+  font-weight: bold;
+}
 
 /* Social Stream User Details Box */
 #vnc-social-stream-user {
@@ -2216,7 +2311,7 @@ dl.portalMessage dd {
   border: 1px solid #738ea2;
   border-radius: 5px;
   box-shadow: 0 1px #e6e9ee inset;
-  color: #012a43;
+  color: #738EA2;
   cursor: pointer;
   display: block;
   margin: 3px;
