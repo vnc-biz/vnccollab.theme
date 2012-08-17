@@ -1,8 +1,8 @@
 Changelog
 =========
 
-1.5.3 - Unreleased
-------------------
+1.5.3 - August 17, 2012
+-----------------------
 
 - Reverse comments order.
   [Jose Dinuncio]
