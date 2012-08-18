@@ -1,0 +1,61 @@
+<!--style type="text/css">
+</style-->
+<div id="vnc-chat">
+  <div id="chatpanel"
+    tal:define="portal_url context/portal_url">
+
+    <div id="collective-xmpp-chat-data" 
+         tal:define="
+                portal context/@@plone_portal_state/portal;
+                member context/@@plone_portal_state/member;
+                username member/getId;
+                base_url python:context.portal_url();"
+         tal:attributes="
+                username username;
+                base_url base_url;
+                "></div>
+    <div id="online-users-container" class="chatbox">
+        <div class="chat-head oc-chat-head"> 
+            <ul class="tabs">
+                <li><a class="s" href="#users">Contacts</a></li>
+                <li><a class="s" href="#chatrooms">Rooms</a></li>
+            </ul>
+            <a href="javascript:void(0)" class="close-controlbox-button" data-recipient="staalburger@devbox">X</a>
+        </div> 
+
+        <div class="panes">
+            <div id="users" class="oc-chat-content">
+                <form class="set-xmpp-status" action="" method="post">
+                    <span id="xmpp-status-holder">
+                        <select id="select-xmpp-status">
+                            <option value="online">Online</option>
+                            <option value="busy">Busy</option>
+                            <option value="away">Away</option>
+                            <option value="offline">Offline</option>
+                        </select>
+                    </span>
+                </form>
+                <div class="add-xmpp-contact">
+                    <a class="add-xmpp-contact" href="#" title="Click to search for new users to add as chat contacts">Add a contact</a>
+                    <form class="search-xmpp-contact" style="display:none">
+                        <input type="text" name="identifier" class="username" placeholder="Contact name"/>
+                        <button type="submit">Search</button>
+                        <ul id="found-users"></ul>
+                    </form>
+                </div>
+                <dl id="xmppchat-roster"></dl>
+            </div> 
+
+            <div id="chatrooms">
+                <form class="add-chatroom" action="" method="post">
+                    <input type="text" name="chatroom" class="new-chatroom-name" placeholder="Chat room name"/>
+                    <button type="submit">Join</button>
+                </form>
+                <dl id="available-chatrooms">
+                    <dt>Available chatrooms</dt>
+                </dl>
+            </div>
+        </div>
+    </div>
+  </div>
+</div>

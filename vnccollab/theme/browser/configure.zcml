@@ -50,6 +50,14 @@
       />
 
   <browser:page
+      for="Products.CMFCore.interfaces.ISiteRoot"
+      class=".chat.ChatView"
+      name="vnc-chat"
+      layer=".interfaces.IThemeSpecific"
+      permission="jarn.xmpp.core.XMPPView"
+      />
+
+  <browser:page
       for="*"
       name="upload-file"
       class=".util.VNCCollabUtilView"

@@ -421,7 +421,12 @@ function attachStreamButton() {
         'success': function(data, textStatus, jqXHR){
           jq('#portal-top').append(data);
           attachStreamActions();
-          jq('#vnc-stream').hide().slideDown();
+          $chat = $('#vnc-chat')
+          if ($chat.length>0 && $chat.is(':visible')) {
+              $chat.hide();
+          } else {
+            jq('#vnc-stream').hide().slideDown();
+          }
           // attach slim scrolling
           jq('.vncStreamBodyItems:not(.noSlimScroll)').slimScroll({
             'height': '293px'});
@@ -443,7 +448,13 @@ function attachStreamButton() {
     } else if (stream.is(':visible')) {
       stream.slideUp();
     } else {
-      stream.slideDown();
+      $chat = $('#vnc-chat')
+      if ($chat.length>0 && $chat.is(':visible')) {
+        $chat.hide();
+        stream.show();
+      }else {
+        stream.slideDown();
+      }
     }
     return false;
   });
@@ -469,7 +480,7 @@ function attachStreamActions() {
       return false;
     });
   };
-  
+
   // TODO: make drag button increase stream area height
   // attach drag button click
   var drag = jq('#vnc-stream .dragButton');
@@ -515,6 +526,118 @@ function attachStreamActions() {
   }
 }
 
+function renderVncChat(xmppchat) {
+    var chatdata = jQuery('div#collective-xmpp-chat-data'),
+        $toggle = $('a#toggle-online-users');
+    $toggle.unbind('click');
+
+    xmppchat.username = chatdata.attr('username');
+    xmppchat.base_url = chatdata.attr('base_url');
+    xmppchat.connection.xmlInput = function (body) { console.log(body); };
+    xmppchat.connection.xmlOutput = function (body) { console.log(body); };
+
+    xmppchat.connection.bare_jid = Strophe.getBareJidFromJid(xmppchat.connection.jid);
+    xmppchat.connection.domain = Strophe.getDomainFromJid(xmppchat.connection.jid);
+    //// XXX: Better if configurable?
+    xmppchat.connection.muc_domain = 'conference.' +  xmppchat.connection.domain;
+
+    xmppchat.roster = xmppchat.Roster(_, $, console);
+    xmppchat.rosterview = Backbone.View.extend(xmppchat.RosterView(xmppchat.roster, _, $, console));
+    xmppchat.connection.addHandler(
+            $.proxy(function (presence) {
+                this.roster.presenceHandler(presence);
+                return true;
+            }, xmppchat), null, 'presence', null);
+    xmppchat.connection.roster.registerCallback(xmppchat.roster.rosterHandler);
+    xmppchat.roster.getRoster();
+
+    xmppchat.chatboxes = new xmppchat.ChatBoxes();
+    xmppchat.chatboxesview = new xmppchat.ChatBoxesView({
+        'model': xmppchat.chatboxes
+    });
+
+    xmppchat.connection.addHandler(
+            $.proxy(function (message) { 
+                this.chatboxesview.messageReceived(message);
+                return true;
+            }, xmppchat), null, 'message', 'chat');
+    // XMPP Status 
+    xmppchat.xmppstatus = new xmppchat.XMPPStatus();
+    xmppchat.xmppstatusview = new xmppchat.XMPPStatusView({
+        'model': xmppchat.xmppstatus
+    });
+
+    xmppchat.xmppstatus.sendPresence();
+
+    // Controlbox toggler
+    xmppchat.chatboxesview.openChat('online-users-container');
+    //$toggle.bind('click', $.proxy(function (e) {
+    //    e.preventDefault();
+    //    if ($("div#online-users-container").is(':visible')) {
+    //        this.chatboxesview.closeChat('online-users-container');
+    //    } else {
+    //        this.chatboxesview.openChat('online-users-container');
+    //    }
+    //}, xmppchat));
+};
+var chatLoaded = false;
+function attachIMButton() {
+  jq('#im-messages').click(function(event) {
+    event.preventDefault();
+    var $chat = jq('#vnc-chat');
+    if ($chat.length == 0) {
+      if (chatLoaded) {
+        return false;
+      }
+      chatLoaded = true;
+
+      //if (jq('#xmpp-viewlet-container .spinner').length == 0) {
+      //  jq('#xmpp-viewlet-container').prepend('<span class="spinner">' +
+      //    '<img src="' + portal_url + '/dots-white.gif" /></span>');
+      //} else {
+      //  jq('#xmpp-viewlet-container .spinner').show();
+      //}
+
+      jq.ajax({
+        'url': portal_url + '/@@vnc-chat',
+        'dataType': 'html',
+        'success': function(data, textStatus, jqXHR){
+          jq('#portal-top').append(data);
+          $stream = jq('#vnc-stream')
+          if ($stream.length>0 && $stream.is(':visible')) {
+              $stream.hide();
+          } else {
+            jq('#vnc-chat').hide().slideDown();
+          }
+          //jq('#xmpp-viewlet-container .spinner').hide();
+          //setTimeout(checkVNCStream, vncStreamDelay);
+          renderVncChat(xmppchat);
+        },
+        'error': function() {
+          alert('Sorry, something went wrong on the server. Please, try ' +
+            'a bit later.');
+          chatLoaded = false;
+          //jq('#xmpp-viewlet-container .spinner').hide();
+          //setTimeout(checkVNCStream, vncStreamDelay);
+        },
+        'data': {}
+        });
+    } else if ($chat.is(':visible')) {
+      $chat.slideUp();
+    } else {
+      $stream = $('#vnc-stream')
+      if ($stream.length>0 && $stream.is(':visible')) {
+          $stream.hide();
+          $chat.show();
+      } else {
+        $chat.slideDown();
+      }
+    }
+    return false;
+    alert('hello');
+    });
+};
+
 jq(function() {
   attachNewTicketAction();
   attachHeaderViewletCloseOpen();
@@ -527,4 +650,5 @@ jq(function() {
   attachSocialBookmarksLink();
   attachStreamButton();
   attachStreamActions();
+  attachIMButton();
 });

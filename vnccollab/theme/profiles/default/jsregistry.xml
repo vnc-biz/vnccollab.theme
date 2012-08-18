@@ -7,12 +7,18 @@
   <javascript id="++resource++vnccollab.theme.js/jquery.textchange.js"
               insert-before="++resource++vnccollab.theme.js/main.js"
               enabled="True" />
-  <javascript id="++resource++vnccollab.theme.js/main.js"
-              enabled="True" />
   <javascript id="++resource++vnccollab.theme.js/zimbra_mail_portlet.js"
               enabled="True" />
   <javascript id="++resource++vnccollab.theme.js/jquery.markitup.js"
               enabled="True" />
   <javascript id="++resource++vnccollab.theme.js/slimScroll.js"
               enabled="True" />
+  <javascript
+      id="++resource++vnccollab.theme.js/vnc_chat.js"
+      insert-after="++resource++collective.xmpp.chat.javascripts/converse.js"
+      authenticated="True"/>
+  <javascript id="++resource++vnccollab.theme.js/main.js"
+              insert-after="++resource++vnccollab.theme.js/vnc_chat.js"
+              enabled="True" />
+
 </object>

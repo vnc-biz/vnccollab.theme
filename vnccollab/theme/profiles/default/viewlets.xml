@@ -52,5 +52,7 @@
     <viewlet name="plone.site_actions"/>
     <viewlet name="plone.colophon" />
     <viewlet name="plone.footer" remove="True" />
+    <viewlet name="collective.xmpp.chat.onlinecontacts" />
+    <viewlet name="collective.xmpp.chat.onlineusers" />
   </hidden>
 </object>
