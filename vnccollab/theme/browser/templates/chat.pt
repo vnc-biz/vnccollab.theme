@@ -1,5 +1,17 @@
 <!-- Temporary style fixes -->
 <style type="text/css">
+    div.chatroom {
+        display: block;
+        float: left;
+        height: 311px;
+        margin-right: 15px;
+        width: 700px;
+        z-index: 3;
+    }
+    .chatroom .chat-area {
+        float: left;
+        width: 600px;
+    }
     .chat-textarea {
         border: 0 none;
         height: 48px;
