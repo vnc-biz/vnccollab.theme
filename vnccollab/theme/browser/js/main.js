@@ -526,51 +526,51 @@ function attachStreamActions() {
   }
 }
 
-function renderVncChat(xmppchat) {
+function renderVncChat(vncchat) {
     var chatdata = jQuery('div#collective-xmpp-chat-data'),
         $toggle = $('a#toggle-online-users');
     $toggle.unbind('click');
 
-    xmppchat.username = chatdata.attr('username');
-    xmppchat.base_url = chatdata.attr('base_url');
-    xmppchat.connection.xmlInput = function (body) { console.log(body); };
-    xmppchat.connection.xmlOutput = function (body) { console.log(body); };
+    vncchat.username = chatdata.attr('username');
+    vncchat.base_url = chatdata.attr('base_url');
+    vncchat.connection.xmlInput = function (body) { console.log(body); };
+    vncchat.connection.xmlOutput = function (body) { console.log(body); };
 
-    xmppchat.connection.bare_jid = Strophe.getBareJidFromJid(xmppchat.connection.jid);
-    xmppchat.connection.domain = Strophe.getDomainFromJid(xmppchat.connection.jid);
+    vncchat.connection.bare_jid = Strophe.getBareJidFromJid(vncchat.connection.jid);
+    vncchat.connection.domain = Strophe.getDomainFromJid(vncchat.connection.jid);
     //// XXX: Better if configurable?
-    xmppchat.connection.muc_domain = 'conference.' +  xmppchat.connection.domain;
+    vncchat.connection.muc_domain = 'conference.' +  vncchat.connection.domain;
 
-    xmppchat.roster = xmppchat.Roster(_, $, console);
-    xmppchat.rosterview = Backbone.View.extend(xmppchat.RosterView(xmppchat.roster, _, $, console));
-    xmppchat.connection.addHandler(
+    vncchat.roster = vncchat.Roster(_, $, console);
+    vncchat.rosterview = Backbone.View.extend(vncchat.RosterView(vncchat.roster, _, $, console));
+    vncchat.connection.addHandler(
             $.proxy(function (presence) {
                 this.roster.presenceHandler(presence);
                 return true;
-            }, xmppchat), null, 'presence', null);
-    xmppchat.connection.roster.registerCallback(xmppchat.roster.rosterHandler);
-    xmppchat.roster.getRoster();
+            }, vncchat), null, 'presence', null);
+    vncchat.connection.roster.registerCallback(vncchat.roster.rosterHandler);
+    vncchat.roster.getRoster();
 
-    xmppchat.chatboxes = new xmppchat.ChatBoxes();
-    xmppchat.chatboxesview = new xmppchat.ChatBoxesView({
-        'model': xmppchat.chatboxes
+    vncchat.chatboxes = new vncchat.ChatBoxes();
+    vncchat.chatboxesview = new vncchat.VncChatBoxesView({
+        'model': vncchat.chatboxes
     });
 
-    xmppchat.connection.addHandler(
+    vncchat.connection.addHandler(
             $.proxy(function (message) { 
                 this.chatboxesview.messageReceived(message);
                 return true;
-            }, xmppchat), null, 'message', 'chat');
+            }, vncchat), null, 'message', 'chat');
     // XMPP Status 
-    xmppchat.xmppstatus = new xmppchat.XMPPStatus();
-    xmppchat.xmppstatusview = new xmppchat.XMPPStatusView({
-        'model': xmppchat.xmppstatus
+    vncchat.xmppstatus = new vncchat.XMPPStatus();
+    vncchat.xmppstatusview = new vncchat.XMPPStatusView({
+        'model': vncchat.xmppstatus
     });
 
-    xmppchat.xmppstatus.sendPresence();
+    vncchat.xmppstatus.sendPresence();
 
     // Controlbox toggler
-    xmppchat.chatboxesview.openChat('online-users-container');
+    vncchat.chatboxesview.openChat('online-users-container');
     //$toggle.bind('click', $.proxy(function (e) {
     //    e.preventDefault();
     //    if ($("div#online-users-container").is(':visible')) {
@@ -578,7 +578,7 @@ function renderVncChat(xmppchat) {
     //    } else {
     //        this.chatboxesview.openChat('online-users-container');
     //    }
-    //}, xmppchat));
+    //}, vncchat));
 };
 var chatLoaded = false;
 function attachIMButton() {
@@ -611,7 +611,7 @@ function attachIMButton() {
           }
           //jq('#xmpp-viewlet-container .spinner').hide();
           //setTimeout(checkVNCStream, vncStreamDelay);
-          renderVncChat(xmppchat);
+          renderVncChat(vncchat);
         },
         'error': function() {
           alert('Sorry, something went wrong on the server. Please, try ' +

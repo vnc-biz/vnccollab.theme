@@ -1,5 +1,26 @@
-<!--style type="text/css">
-</style-->
+<!-- Temporary style fixes -->
+<style type="text/css">
+    .chat-textarea {
+        border: 0 none;
+        height: 48px;
+        overflow: hidden;
+        padding: 3px;
+        width: 100%;
+    }
+    span.messageTimeStamp {
+      float:right;
+    }
+    div.chatbox {
+      float:left;
+    }
+    div.vncChatbox {
+        width: 700px;
+        z-index: 3; /* So that it's higher than the content actions */
+        height: 311px;
+        margin-right: 15px;
+        float:left;
+   }
+</style>
 <div id="vnc-chat">
   <div id="chatpanel"
     tal:define="portal_url context/portal_url">
