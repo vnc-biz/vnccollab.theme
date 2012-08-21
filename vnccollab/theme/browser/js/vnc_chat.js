@@ -39,17 +39,64 @@ var vncchat = (function (jarnxmpp, $, console) {
     return ob;
 })(jarnxmpp || {}, jQuery, console || {log: function(){}});
 
-vncchat.VncChatBoxView = vncchat.ChatBoxView.extend({
+vncchat.VncChatTab = Backbone.View.extend({
 
+    tagName:'li',
+    className:'chatTab',
+
+    template: _.template( '<a href="#<%=box_id%>" class="tabLink"><%=user_id%></a>' +
+                          '<a href="javascript:void(0)" class="chatbox-button ' +
+                            'close-chatbox-button">X</a>'),
+    events: {
+        'click .tabLink': 'activate',
+        'click .close-chatbox-button': 'closeTab',
+    },
+    initialize: function (body_view) {
+        this.body = body_view.body
+    },
+    render: function () {
+        $(this.el).attr('id', 'tab-' + this.body.model.get('box_id'));
+        $(this.el).html(this.template(this.body.model.toJSON()));
+        return this;
+    },
+
+    show: function() {
+        this.$el.show();
+    },
+
+    activate: function(event) {
+        event.preventDefault();
+        this.$el.addClass('selected');
+        var jid = this.body.model.get('id');
+        vncchat.chatboxesview.showChat(jid);
+    },
+
+    closeTab: function() {
+      $('#tab-'+this.body.model.get('box_id')).hide('fast');
+      this.body.closeChat();
+    },
+
+});
+
+vncchat.VncChatRoomTab = vncchat.VncChatTab.extend({
+
+    template: _.template( '<a href="#<%=box_id%>" class="tabLink"><%=name%></a>' +
+                          '<a href="javascript:void(0)" class="chatbox-button ' +
+                            'close-chatbox-button">X</a>'),
+
+});
+
+vncchat.VncChatBoxView = vncchat.ChatBoxView.extend({
     tagName: 'div',
     className: 'vncChatbox',
 
     template: _.template(
-                '<div class="chat-head chat-head-chatbox">' +
+    // TODO: custom message implementation.
+    /*            '<div class="chat-head chat-head-chatbox">' +
                     '<div class="chat-title"> <%= user_id %> </div>' +
                     '<a href="javascript:void(0)" class="chatbox-button close-chatbox-button">X</a>' +
                     '<p class="user-custom-message"><p/>' +
-                '</div>' + 
+                '</div>' + */
                 '<div id="history-box">' +
                    '<span>View Erlier Messages</span>' +
                    '<ul>' +
@@ -81,6 +128,29 @@ vncchat.VncChatBoxView = vncchat.ChatBoxView.extend({
         'click .historyControl':'getHistory'
     },
 
+    initialize: function (){
+        $('body').append($(this.el).hide());
+        this.tab = new vncchat.VncChatTab({ body:this });
+        xmppchat.roster.on('change', function (item, changed) {
+            if (_.has(changed.changes, 'presence_type')) {
+                if (this.$el.is(':visible')) {
+                    if (item.get('presence_type') === 'offline') {
+                        this.insertStatusNotification(this.model.get('user_id'), 'has gone offline');
+                    } else if (item.get('presence_type') === 'away') {
+                        this.insertStatusNotification(this.model.get('user_id'), 'has gone away');
+                    } else if ((item.get('presence_type') === 'busy') || (item.get('presence_type') === 'dnd')) {
+                        this.insertStatusNotification(this.model.get('user_id'), 'is busy');
+                    } else if (item.get('presence_type') === 'online') {
+                        this.$el.find('div.chat-event').remove();
+                    }
+                }
+            } else if (_.has(changed.changes, 'status')) {
+                if (item.get('jid') ===  this.model.get('jid')) {
+                    this.$el.find('p.user-custom-message').text(item.get('status'));
+                }
+            }
+        }, this);
+    },
     getHistoryDate: function(timedelta) {
         date = new Date();
         if (timedelta.hasOwnProperty('years') && timedelta.years > 0) {
@@ -167,35 +237,76 @@ vncchat.VncChatBoxView = vncchat.ChatBoxView.extend({
            this.loadHistoryMessages()
         }
     },
-
+    render: function () {
+        this.tab.render();
+        $(this.el).attr('id', this.model.get('box_id'));
+        $(this.el).html(this.template(this.model.toJSON()));
+        this.insertClientStoredMessages();
+        return this;
+    },
+    show: function() {
+        $(this.el).show();
+        this.tab.show();
+    },
+    closeChat: function () {
+        $('#'+this.model.get('box_id')).hide();
+        this.removeChatFromCookie(this.model.get('id'));
+    }
 });
 
+
+
 vncchat.VncChatBoxesView = vncchat.ChatBoxesView.extend({
+    el: '#chat-block',
+
+    initialize: function () {
+        this.options.model.on("add", function (item) {
+            this.showChat(item.get('id'));
+        }, this);
+
+        this.tabs = {};
+        this.views = {};
+        this.restoreOpenChats();
+    },
 
     renderChat: function (jid) {
-        var box, view;
-        if (jid === 'online-users-container') {
-            box = new xmppchat.ControlBox({'id': jid, 'jid': jid});
-            view = new xmppchat.ControlBoxView({
-                model: box 
-            });
+        var box, view, tab;
+        if (this.isChatRoom(jid)) {
+            box = new vncchat.ChatRoom(jid);
+            view = new vncchat.VncChatRoomView({ model: box });
         } else {
-            if (this.isChatRoom(jid)) {
-                box = new vncchat.ChatRoom(jid);
-                view = new vncchat.VncChatRoomView({
-                    'model': box
-                });
-            } else {
-                box = new vncchat.ChatBox({'id': jid, 'jid': jid});
-                view = new vncchat.VncChatBoxView({
-                    model: box
-                });
-            }
+            box = new vncchat.ChatBox({'id': jid, 'jid': jid});
+            view = new vncchat.VncChatBoxView({ model:box });
         }
         this.views[jid] = view.render();
+        view.tab.$el.appendTo('#chat-tabs');
         view.$el.appendTo(this.$el);
         this.options.model.add(box);
         return view;
+    },
+
+    showChat: function (jid) {
+        var chat = this.views[jid];
+        if (chat.isVisible()) {
+            chat.focus();
+        }
+        else {
+            chat.show();
+            chat.addChatToCookie();
+        }
+        $.each(this.views, function(name, view) {
+            if (name != jid) {
+                view.closeChat();
+            }
+        });
+        return chat;
+    },
+
+    closeChat: function (jid) {
+        var view = this.views[jid];
+        if (view) {
+            view.closeChat();
+        }
     },
 });
 
@@ -205,11 +316,12 @@ vncchat.VncChatRoomView = vncchat.VncChatBoxView.extend({
     className: 'chatroom',
 
     template: _.template(
-            '<div class="chat-head chat-head-chatroom">' +
+        //TODO: chat room topic
+        /*    '<div class="chat-head chat-head-chatroom">' +
                 '<div class="chat-title"> <%= name %> </div>' +
                 '<a href="javascript:void(0)" class="chatbox-button close-chatbox-button">X</a>' +
                 '<p class="chatroom-topic"><p/>' +
-            '</div>' +
+            '</div>' +*/
             '<div id="history-box">' +
                '<span>View Erlier Messages</span>' +
                '<ul>' +
@@ -246,6 +358,7 @@ vncchat.VncChatRoomView = vncchat.VncChatBoxView.extend({
     },
 
     initialize: function () {
+        this.tab = new vncchat.VncChatRoomTab({ body:this });
         xmppchat.connection.muc.join(
                         this.model.get('jid'), 
                         this.model.get('nick'), 
@@ -394,16 +507,13 @@ vncchat.VncChatRoomView = vncchat.VncChatBoxView.extend({
         return true;
     },
 
-    show: function () {
-        this.$el.css({'opacity': 0});
-        this.$el.css({'display': 'inline'});
-        this.$el.animate({
-            opacity: '1'
-        }, 200);
-        return this;
+    show: function() {
+        $(this.el).show();
+        this.tab.show();
     },
 
     render: function () {
+        this.tab.render();
         $(this.el).attr('id', this.model.get('box_id'));
         $(this.el).html(this.template(this.model.toJSON()));
         return this;

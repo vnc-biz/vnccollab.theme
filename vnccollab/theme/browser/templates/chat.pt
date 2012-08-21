@@ -23,14 +23,57 @@
       float:right;
     }
     div.chatbox {
-      float:left;
+       margin-right:0px;
     }
     div.vncChatbox {
-        width: 700px;
-        z-index: 3; /* So that it's higher than the content actions */
-        height: 311px;
-        margin-right: 15px;
+        height: 293px;
+        overflow: hidden;
+        position: relative;
+        width: auto;
+        position:absolute;
+   }
+   #chat-tabs li{
         float:left;
+        height:33px;
+   }
+   #chat-block{
+       float:right;
+       width:80%;
+   }
+   #online-users-container{
+       display:block;
+       float: left;
+       width: 20%;
+   }
+   #chat-tabs {
+       background-color: #F5F5F5;
+       border-bottom: 1px solid #C1CCD5;
+       font-size: 0.75em;
+       height: 33px;
+       line-height: 1.25em;
+   }
+   .chat-content {
+       height:150px;
+   }
+   .close-chatbox-button {
+       background: -moz-linear-gradient(center top , #FFFFFF 5%, #F6F6F6 100%) repeat scroll 0 0 #FFFFFF;
+       border: 1px solid #888888;
+       border-radius: 6px 6px 6px 6px;
+       box-shadow: 0 1px 0 0 #FFFFFF inset;
+       color: #666666 !important;
+       display: inline-block;
+       float: right;
+       font-family: arial;
+       font-size: 12px;
+       font-weight: bold;
+       margin-right: 0.5em;
+       margin-top: 0.2em;
+       padding: 0 4px;
+       text-decoration: none;
+       text-shadow: 1px 1px 0 #FFFFFF;
+   }
+   #chatpanel {
+     position:relative;
    }
 </style>
 <div id="vnc-chat">
@@ -46,8 +89,8 @@
          tal:attributes="
                 username username;
                 base_url base_url;
-                "></div>
-    <div id="online-users-container" class="chatbox">
+                ">
+      <div id="online-users-container" class="chatbox">
         <div class="chat-head oc-chat-head"> 
             <ul class="tabs">
                 <li><a class="s" href="#users">Contacts</a></li>
@@ -57,38 +100,41 @@
         </div> 
 
         <div class="panes">
-            <div id="users" class="oc-chat-content">
-                <form class="set-xmpp-status" action="" method="post">
-                    <span id="xmpp-status-holder">
-                        <select id="select-xmpp-status">
-                            <option value="online">Online</option>
-                            <option value="busy">Busy</option>
-                            <option value="away">Away</option>
-                            <option value="offline">Offline</option>
-                        </select>
-                    </span>
-                </form>
-                <div class="add-xmpp-contact">
-                    <a class="add-xmpp-contact" href="#" title="Click to search for new users to add as chat contacts">Add a contact</a>
-                    <form class="search-xmpp-contact" style="display:none">
-                        <input type="text" name="identifier" class="username" placeholder="Contact name"/>
-                        <button type="submit">Search</button>
-                        <ul id="found-users"></ul>
-                    </form>
-                </div>
-                <dl id="xmppchat-roster"></dl>
-            </div> 
-
-            <div id="chatrooms">
-                <form class="add-chatroom" action="" method="post">
-                    <input type="text" name="chatroom" class="new-chatroom-name" placeholder="Chat room name"/>
-                    <button type="submit">Join</button>
-                </form>
-                <dl id="available-chatrooms">
-                    <dt>Available chatrooms</dt>
-                </dl>
+          <div id="users" class="oc-chat-content">
+            <form class="set-xmpp-status" action="" method="post">
+              <span id="xmpp-status-holder">
+                <select id="select-xmpp-status">
+                  <option value="online">Online</option>
+                  <option value="busy">Busy</option>
+                  <option value="away">Away</option>
+                  <option value="offline">Offline</option>
+                </select>
+              </span>
+            </form>
+            <div class="add-xmpp-contact">
+              <a class="add-xmpp-contact" href="#" title="Click to search for new users to add as chat contacts">Add a contact</a>
+              <form class="search-xmpp-contact" style="display:none">
+                <input type="text" name="identifier" class="username" placeholder="Contact name"/>
+                <button type="submit">Search</button>
+                <ul id="found-users"></ul>
+              </form>
             </div>
+            <dl id="xmppchat-roster"></dl>
+          </div> 
+          <div id="chatrooms">
+            <form class="add-chatroom" action="" method="post">
+              <input type="text" name="chatroom" class="new-chatroom-name" placeholder="Chat room name"/>
+              <button type="submit">Join</button>
+            </form>
+            <dl id="available-chatrooms">
+              <dt>Available chatrooms</dt>
+            </dl>
+          </div>
         </div>
+      </div>
+      <div id="chat-block">
+        <ul id="chat-tabs"></ul>
+      </div>
     </div>
   </div>
 </div>

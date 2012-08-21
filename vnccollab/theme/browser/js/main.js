@@ -569,16 +569,11 @@ function renderVncChat(vncchat) {
 
     vncchat.xmppstatus.sendPresence();
 
-    // Controlbox toggler
-    vncchat.chatboxesview.openChat('online-users-container');
-    //$toggle.bind('click', $.proxy(function (e) {
-    //    e.preventDefault();
-    //    if ($("div#online-users-container").is(':visible')) {
-    //        this.chatboxesview.closeChat('online-users-container');
-    //    } else {
-    //        this.chatboxesview.openChat('online-users-container');
-    //    }
-    //}, vncchat));
+    // Controlbox 
+    controlbox = new xmppchat.ControlBox({'id': 'online-users-container',
+                                          'jid': 'online-users-container'});
+    control_view = new xmppchat.ControlBoxView({ model: controlbox });
+    control_view.render();
 };
 var chatLoaded = false;
 function attachIMButton() {
