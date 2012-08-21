@@ -75,6 +75,9 @@
    #chatpanel {
      position:relative;
    }
+   .roomParticipants > span {
+     float:left;
+   }
 </style>
 <div id="vnc-chat">
   <div id="chatpanel"

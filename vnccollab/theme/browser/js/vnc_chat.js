@@ -322,6 +322,10 @@ vncchat.VncChatRoomView = vncchat.VncChatBoxView.extend({
                 '<a href="javascript:void(0)" class="chatbox-button close-chatbox-button">X</a>' +
                 '<p class="chatroom-topic"><p/>' +
             '</div>' +*/
+            '<div class="roomParticipants">' +
+                '<span>Participants:</span>' +
+                '<ul class="participant-list"></ul>' +
+            '</div>' +
             '<div id="history-box">' +
                '<span>View Erlier Messages</span>' +
                '<ul>' +
@@ -345,9 +349,6 @@ vncchat.VncChatRoomView = vncchat.VncChatBoxView.extend({
                         'class="chat-textarea" ' +
                         'placeholder="Message"/>' +
                 '</form>' +
-            '</div>' +
-            '<div class="participants">' +
-                '<ul class="participant-list"></ul>' +
             '</div>' +
             '</div>'),
 
@@ -502,7 +503,10 @@ vncchat.VncChatRoomView = vncchat.VncChatBoxView.extend({
         }
         this.$el.find('.participant-list').empty();
         for (var i=0; i<_.size(roster); i++) {
-            this.$el.find('.participant-list').append('<li>' + _.keys(roster)[i] + '</li>');
+            this.$el.find('.participant-list')
+                .append('<li>' + _.keys(roster)[i] +
+                          '<a href="javascript:void(0)">X</a>' +
+                        '</li>');
         }
         return true;
     },
