@@ -570,9 +570,9 @@ function renderVncChat(vncchat) {
     vncchat.xmppstatus.sendPresence();
 
     // Controlbox 
-    controlbox = new xmppchat.ControlBox({'id': 'online-users-container',
+    controlbox = new vncchat.ControlBox({'id': 'online-users-container',
                                           'jid': 'online-users-container'});
-    control_view = new xmppchat.ControlBoxView({ model: controlbox });
+    control_view = new vncchat.VncControlBoxView({ model: controlbox });
     control_view.render();
 };
 var chatLoaded = false;

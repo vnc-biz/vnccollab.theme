@@ -540,3 +540,23 @@ vncchat.VncChatRoomView = vncchat.VncChatBoxView.extend({
         }));
     }
 });
+
+vncchat.VncRoomsPanel = vncchat.RoomsPanel.extend({
+
+    createChatRoom: function (ev) {
+        vncchat.RoomsPanel.prototype.createChatRoom(ev);
+        this.updateRoomsList();
+    }
+});
+
+vncchat.VncControlBoxView = vncchat.ControlBoxView.extend({
+
+    initialize: function () {
+        var userspanel; 
+        $('ul.tabs').tabs('div.panes > div');
+        this.contactspanel = new xmppchat.ContactsPanel();
+        this.roomspanel = new xmppchat.VncRoomsPanel();
+        this.settingspanel = new xmppchat.SettingsPanel();
+    },
+
+});
