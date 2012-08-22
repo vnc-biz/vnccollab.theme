@@ -324,7 +324,9 @@ vncchat.VncChatRoomView = vncchat.VncChatBoxView.extend({
             '</div>' +*/
             '<div class="roomParticipants">' +
                 '<span>Participants:</span>' +
-                '<ul class="participant-list"></ul>' +
+                '<ul class="participant-list">' +
+                  '<li>Add ...</li>' +
+                '</ul>' +
             '</div>' +
             '<div id="history-box">' +
                '<span>View Erlier Messages</span>' +
@@ -355,7 +357,8 @@ vncchat.VncChatRoomView = vncchat.VncChatBoxView.extend({
     events: {
         'click .close-chatbox-button': 'closeChatRoom',
         'keypress textarea.chat-textarea': 'keyPressed',
-        'click .historyControl':'getHistory'
+        'click .historyControl':'getHistory',
+        'click .addParticipants':'addParticipants'
     },
 
     initialize: function () {
@@ -501,13 +504,19 @@ vncchat.VncChatRoomView = vncchat.VncChatBoxView.extend({
         if (controlboxview) {
             controlboxview.roomspanel.trigger('update-rooms-list');
         }
-        this.$el.find('.participant-list').empty();
+        $participants = this.$el.find('.participant-list')
+        $participants.empty();
         for (var i=0; i<_.size(roster); i++) {
-            this.$el.find('.participant-list')
-                .append('<li>' + _.keys(roster)[i] +
-                          '<a href="javascript:void(0)">X</a>' +
-                        '</li>');
+            $participants.append('<li>' + _.keys(roster)[i] +
+                                  '<a href="javascript:void(0)">X</a>' +
+                                 '</li>');
         }
+        $participants
+            .append('<li>' +
+                      '<a href="javascript:void(0)" class="addParticipants">' +
+                        'Add ...' +
+                      '</a>' +
+                    '</li>');
         return true;
     },
 
@@ -538,7 +547,75 @@ vncchat.VncChatRoomView = vncchat.VncChatBoxView.extend({
             'username':vncchat.username,
             'extra_classes': ''
         }));
-    }
+    },
+
+    recipients_template: _.template('<input type="checkbox" name="<%=node%>" ' +
+                                   'value="<%=jid%>" /><%=node%></br>'),
+
+    addParticipants: function (event) {
+        event.preventDefault();
+        var participants,
+            $participants =this.$el.find('.participant-list li')
+                .clone().children().remove().end();
+            recipients = [];
+        participants = {};
+        $participants.each(function() {
+            name = $(this).text();
+            if (name) { participants[name] = 1 };
+        });
+        roster = vncchat.roster.sort().models;
+        for (var i=0;i<roster.length;i++) {
+            jid = roster[i].id
+            node = Strophe.getNodeFromJid(jid);
+            if  (node in participants) { continue; };
+            recipients.push({'name':node, 'jid':jid});
+        };
+        $request_dialog = $('<html>' +
+                              '<body>' +
+                                '<form action="">' +
+                                  '<p>Nobody to invite</p>' +
+                                '</form>' +
+                              '</body>' +
+                            '</html>');
+        if (recipients.length == 0) {
+            $request_dialog.dialog();
+        } else {
+            $request_dialog.empty();
+            var that = this;
+            $.each(recipients, function (index, recipient) {
+               $request_dialog
+                .append(that.recipients_template('{"node":"'+recipient.name+'",' +
+                                                '"jid":"'+recipient.jid+'"}'));
+            });
+            var that = this;
+            $request_dialog.dialog({
+                resizable: false,
+                buttons : {
+                    'join' : {
+                        'text':'Join',
+                        'click': function() {
+                            selected = $('input', this)
+                                .filter(function (){
+                                    return $(this).attr('checked');
+                                });
+                            if (selected.length == 0) { 
+                                alert('Please select someone');
+                            } else {
+                                selected.each(function(index, input) {
+                                    vncchat.connection.muc
+                                    .invite(that.model.get('jid'),
+                                                    $(input).attr('value'));
+                                });
+                                $(this).dialog('close');
+                            }
+                        },
+                    },
+                }
+            });
+
+        }
+    },
+
 });
 
 vncchat.VncRoomsPanel = vncchat.RoomsPanel.extend({
@@ -546,7 +623,35 @@ vncchat.VncRoomsPanel = vncchat.RoomsPanel.extend({
     createChatRoom: function (ev) {
         vncchat.RoomsPanel.prototype.createChatRoom(ev);
         this.updateRoomsList();
-    }
+    },
+
+    invintationReceived: function (invintation) {
+        var room = $(invintation).attr('from');
+            from = $(invintation).find('invite').attr('from');
+            that = this;
+        $("<span></span>").dialog({
+            title: from + ' invites you to join ' + room + ' room.',
+            dialogClass: 'roomInvintationDialog',
+            resizable: false,
+            width: 200,
+            position: {
+                my: 'center',
+                at: 'center',
+                of: '#online-users-container'
+                },
+            modal: true,
+            buttons: {
+                "Join": function() {
+                     vncchat.chatboxesview.openChat(room);
+                     vncchat.controlbox_view.roomspanel.updateRoomsList();
+                    $(this).dialog( "close" );
+                },
+                "Cancel": function() {
+                    $(this).dialog( "close" );
+                }
+            }
+        });
+    },
 });
 
 vncchat.VncControlBoxView = vncchat.ControlBoxView.extend({

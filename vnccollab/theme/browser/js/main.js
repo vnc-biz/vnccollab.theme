@@ -548,6 +548,7 @@ function renderVncChat(vncchat) {
                 this.roster.presenceHandler(presence);
                 return true;
             }, vncchat), null, 'presence', null);
+
     vncchat.connection.roster.registerCallback(vncchat.roster.rosterHandler);
     vncchat.roster.getRoster();
 
@@ -572,8 +573,14 @@ function renderVncChat(vncchat) {
     // Controlbox 
     controlbox = new vncchat.ControlBox({'id': 'online-users-container',
                                           'jid': 'online-users-container'});
-    control_view = new vncchat.VncControlBoxView({ model: controlbox });
-    control_view.render();
+    vncchat.controlbox_view = new vncchat.VncControlBoxView({ model: controlbox });
+    vncchat.controlbox_view.render();
+    vncchat.connection.addHandler(
+            $.proxy(function (invintation) {
+                vncchat.controlbox_view
+                    .roomspanel.invintationReceived(invintation);
+                return true;
+            }, vncchat), 'http://jabber.org/protocol/muc#user', 'message', null);
 };
 var chatLoaded = false;
 function attachIMButton() {
