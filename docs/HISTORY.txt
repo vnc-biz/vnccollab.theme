@@ -4,6 +4,9 @@ Changelog
 1.5.3 - August 17, 2012
 -----------------------
 
+- Add mail notification for plone.app.discussion.
+  [Jose Dinuncio]
+
 - Reverse comments order.
   [Jose Dinuncio]
 
