@@ -1,11 +1,14 @@
 Changelog
 =========
 
-1.5.3 - August 17, 2012
------------------------
+1.5.4 - Unreleased
+------------------
 
 - Add mail notification for plone.app.discussion.
   [Jose Dinuncio]
+
+1.5.3 - August 17, 2012
+-----------------------
 
 - Reverse comments order.
   [Jose Dinuncio]
