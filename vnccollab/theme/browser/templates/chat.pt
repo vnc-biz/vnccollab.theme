@@ -5,12 +5,12 @@
         float: left;
         height: 311px;
         margin-right: 15px;
-        width: 700px;
+        width: 100%;
         z-index: 3;
     }
     .chatroom .chat-area {
         float: left;
-        width: 600px;
+        width: 100%;
     }
     .chat-textarea {
         border: 0 none;
@@ -29,7 +29,7 @@
         height: 293px;
         overflow: hidden;
         position: relative;
-        width: auto;
+        width: 70%;
         position:absolute;
    }
    #chat-tabs li{
@@ -38,12 +38,13 @@
    }
    #chat-block{
        float:right;
-       width:80%;
+       width:70%;
    }
    #online-users-container{
        display:block;
        float: left;
-       width: 20%;
+       width: 30%;
+       height:327px;
    }
    #chat-tabs {
        background-color: #F5F5F5;
@@ -53,30 +54,66 @@
        line-height: 1.25em;
    }
    .chat-content {
-       height:150px;
+       height:180px;
    }
-   .close-chatbox-button {
-       background: -moz-linear-gradient(center top , #FFFFFF 5%, #F6F6F6 100%) repeat scroll 0 0 #FFFFFF;
-       border: 1px solid #888888;
-       border-radius: 6px 6px 6px 6px;
-       box-shadow: 0 1px 0 0 #FFFFFF inset;
+   .vncChatbox .chat-content {
+       height:196px;
+   }
+   .close-chattab-button {
        color: #666666 !important;
-       display: inline-block;
-       float: right;
-       font-family: arial;
-       font-size: 12px;
-       font-weight: bold;
        margin-right: 0.5em;
-       margin-top: 0.2em;
        padding: 0 4px;
-       text-decoration: none;
-       text-shadow: 1px 1px 0 #FFFFFF;
    }
    #chatpanel {
      position:relative;
    }
+   #history-box {
+     background-color: #FFFFFF;
+   }
+   #history-box > span {
+     float:left;
+   }
+   .roomParticipants {
+     background-color: #FFFFFF;
+   }
    .roomParticipants > span {
      float:left;
+   }
+   #chat-tabs li.selected {
+         background-color: #FFFFFF;
+         border-bottom: 1px solid #FFFFFF;
+         border-left: 1px solid #C1CCD5;
+         border-right: 1px solid #C1CCD5;
+   }
+   #chat-tabs a {
+         color: #012A43;
+         display: block;
+         padding: 9px 15px;
+         float:left;
+   }
+   #chat-tabs a.close-chattab-button {
+         padding: 0px;
+   }
+   .panes div#users, .panes div#chatrooms, .panes div#settings {
+         background-color: white;
+         border: 1px solid #999999;
+         border-bottom-left-radius: 0.5em;
+         border-bottom-right-radius: 0.5em;
+         font-size: 14px;
+         width: 100%;
+       }
+   .oc-chat-content {
+        height: 293px !important;
+   }
+   .oc-chat-head {
+        background-color: #FFFFFF;
+        width: 100%;
+   }
+   ul.tabs li {
+        width: 50%;
+   }
+   ul.tabs {
+        width: 100%;
    }
 </style>
 <div id="vnc-chat">
@@ -99,9 +136,7 @@
                 <li><a class="s" href="#users">Contacts</a></li>
                 <li><a class="s" href="#chatrooms">Rooms</a></li>
             </ul>
-            <a href="javascript:void(0)" class="close-controlbox-button" data-recipient="staalburger@devbox">X</a>
-        </div> 
-
+        </div>
         <div class="panes">
           <div id="users" class="oc-chat-content">
             <form class="set-xmpp-status" action="" method="post">

@@ -576,9 +576,9 @@ function renderVncChat(vncchat) {
     vncchat.controlbox_view = new vncchat.VncControlBoxView({ model: controlbox });
     vncchat.controlbox_view.render();
     vncchat.connection.addHandler(
-            $.proxy(function (invintation) {
+            $.proxy(function (invitation) {
                 vncchat.controlbox_view
-                    .roomspanel.invintationReceived(invintation);
+                    .roomspanel.invitationReceived(invitation);
                 return true;
             }, vncchat), 'http://jabber.org/protocol/muc#user', 'message', null);
 };

@@ -45,11 +45,10 @@ vncchat.VncChatTab = Backbone.View.extend({
     className:'chatTab',
 
     template: _.template( '<a href="#<%=box_id%>" class="tabLink"><%=user_id%></a>' +
-                          '<a href="javascript:void(0)" class="chatbox-button ' +
-                            'close-chatbox-button">X</a>'),
+                          '<a href="javascript:void(0)" class="close-chattab-button">X</a>'),
     events: {
         'click .tabLink': 'activate',
-        'click .close-chatbox-button': 'closeTab',
+        'click .close-chattab-button': 'closeTab',
     },
     initialize: function (body_view) {
         this.body = body_view.body
@@ -66,14 +65,13 @@ vncchat.VncChatTab = Backbone.View.extend({
 
     activate: function(event) {
         event.preventDefault();
-        this.$el.addClass('selected');
         var jid = this.body.model.get('id');
         vncchat.chatboxesview.showChat(jid);
     },
 
     closeTab: function() {
       $('#tab-'+this.body.model.get('box_id')).hide('fast');
-      this.body.closeChat();
+      vncchat.chatboxesview.closeChat(this.body.model.get('jid'));
     },
 
 });
@@ -81,8 +79,12 @@ vncchat.VncChatTab = Backbone.View.extend({
 vncchat.VncChatRoomTab = vncchat.VncChatTab.extend({
 
     template: _.template( '<a href="#<%=box_id%>" class="tabLink"><%=name%></a>' +
-                          '<a href="javascript:void(0)" class="chatbox-button ' +
-                            'close-chatbox-button">X</a>'),
+                          '<a href="javascript:void(0)" class="close-chattab-button">X</a>'),
+
+    closeTab: function() {
+      $('#tab-'+this.body.model.get('box_id')).remove();
+      vncchat.chatboxesview.closeChat(this.body.model.get('jid'));
+    },
 
 });
 
@@ -123,7 +125,7 @@ vncchat.VncChatBoxView = vncchat.ChatBoxView.extend({
                             '<p class="chat-message-content"><%=message%></p>' + 
                         '</div>'),
     events: {
-        'click .close-chatbox-button': 'closeChat',
+        'click .close-chattab-button': 'closeChat',
         'keypress textarea.chat-textarea': 'keyPressed',
         'click .historyControl':'getHistory'
     },
@@ -247,10 +249,12 @@ vncchat.VncChatBoxView = vncchat.ChatBoxView.extend({
     show: function() {
         $(this.el).show();
         this.tab.show();
+        this.tab.$el.addClass('selected');
     },
     closeChat: function () {
         $('#'+this.model.get('box_id')).hide();
         this.removeChatFromCookie(this.model.get('id'));
+        this.tab.$el.removeClass('selected');
     }
 });
 
@@ -264,7 +268,7 @@ vncchat.VncChatBoxesView = vncchat.ChatBoxesView.extend({
             this.showChat(item.get('id'));
         }, this);
 
-        this.tabs = {};
+        this.tabs = [];
         this.views = {};
         this.restoreOpenChats();
     },
@@ -282,6 +286,7 @@ vncchat.VncChatBoxesView = vncchat.ChatBoxesView.extend({
         view.tab.$el.appendTo('#chat-tabs');
         view.$el.appendTo(this.$el);
         this.options.model.add(box);
+        this.tabs.push(jid);
         return view;
     },
 
@@ -289,6 +294,7 @@ vncchat.VncChatBoxesView = vncchat.ChatBoxesView.extend({
         var chat = this.views[jid];
         if (chat.isVisible()) {
             chat.focus();
+            chat.tab.$el.addClass('selected');
         }
         else {
             chat.show();
@@ -299,14 +305,24 @@ vncchat.VncChatBoxesView = vncchat.ChatBoxesView.extend({
                 view.closeChat();
             }
         });
+        this.tabs.push(jid);
         return chat;
     },
 
     closeChat: function (jid) {
         var view = this.views[jid];
         if (view) {
-            view.closeChat();
+            if (this.isChatRoom(jid)) {
+                view.closeChatRoom();
+            } else {
+                view.closeChat();
+            }
+            this.tabs = $(this.tabs).filter( function() {
+                return this != jid
+            });
         }
+        var tab = $.makeArray(this.tabs).pop();
+        if (tab) { this.showChat(tab); }
     },
 });
 
@@ -355,7 +371,7 @@ vncchat.VncChatRoomView = vncchat.VncChatBoxView.extend({
             '</div>'),
 
     events: {
-        'click .close-chatbox-button': 'closeChatRoom',
+        'click .close-chattab-button': 'closeChatRoom',
         'keypress textarea.chat-textarea': 'keyPressed',
         'click .historyControl':'getHistory',
         'click .addParticipants':'addParticipants'
@@ -381,6 +397,7 @@ vncchat.VncChatRoomView = vncchat.VncChatBoxView.extend({
         delete xmppchat.chatboxesview.views[this.model.get('jid')];
         xmppchat.chatboxesview.model.remove(this.model.get('jid'));
         this.remove();
+        vncchat.controlbox_view.roomspanel.updateRoomsList();
     },
 
     keyPressed: function (ev) {
@@ -523,6 +540,7 @@ vncchat.VncChatRoomView = vncchat.VncChatBoxView.extend({
     show: function() {
         $(this.el).show();
         this.tab.show();
+        this.tab.$el.addClass('selected');
     },
 
     render: function () {
@@ -625,13 +643,13 @@ vncchat.VncRoomsPanel = vncchat.RoomsPanel.extend({
         this.updateRoomsList();
     },
 
-    invintationReceived: function (invintation) {
-        var room = $(invintation).attr('from');
-            from = $(invintation).find('invite').attr('from');
+    invitationReceived: function (invitation) {
+        var room = $(invitation).attr('from');
+            from = $(invitation).find('invite').attr('from');
             that = this;
         $("<span></span>").dialog({
             title: from + ' invites you to join ' + room + ' room.',
-            dialogClass: 'roomInvintationDialog',
+            dialogClass: 'roomInvitationDialog',
             resizable: false,
             width: 200,
             position: {
@@ -643,7 +661,7 @@ vncchat.VncRoomsPanel = vncchat.RoomsPanel.extend({
             buttons: {
                 "Join": function() {
                      vncchat.chatboxesview.openChat(room);
-                     vncchat.controlbox_view.roomspanel.updateRoomsList();
+                     that.updateRoomsList();
                     $(this).dialog( "close" );
                 },
                 "Cancel": function() {
