@@ -36,6 +36,9 @@
         float:left;
         height:33px;
    }
+   #chat-tabs li.newMessage {
+       background-color: green;
+   }
    #chat-block{
        float:right;
        width:70%;

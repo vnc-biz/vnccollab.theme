@@ -67,6 +67,7 @@ vncchat.VncChatTab = Backbone.View.extend({
         event.preventDefault();
         var jid = this.body.model.get('id');
         vncchat.chatboxesview.showChat(jid);
+        this.$el.removeClass('newMessage');
     },
 
     closeTab: function() {
@@ -324,6 +325,30 @@ vncchat.VncChatBoxesView = vncchat.ChatBoxesView.extend({
         var tab = $.makeArray(this.tabs).pop();
         if (tab) { this.showChat(tab); }
     },
+
+    messageReceived: function (message) {
+        var jid = $(message).attr('from'),
+            bare_jid = Strophe.getBareJidFromJid(jid),
+            resource = Strophe.getResourceFromJid(jid),
+            view = this.views[bare_jid];
+
+        if (!view) {
+            view = this.renderChat(bare_jid);
+        } else {
+            if ($.makeArray(this.tabs).length == 0) {
+                this.showChat(bare_jid);
+            } else {
+                if (!view.isVisible()) {
+                    view.tab.show();
+                    view.tab.$el.addClass('newMessage');
+                }
+            };
+
+        }
+        view.messageReceived(message);
+        // XXX: Is this the right place for this? Perhaps an event?
+        xmppchat.roster.addResource(bare_jid, resource);
+    },
 });
 
 vncchat.VncChatRoomView = vncchat.VncChatBoxView.extend({
@@ -512,6 +537,9 @@ vncchat.VncChatRoomView = vncchat.VncChatBoxView.extend({
                 }
                 $chat_content.scrollTop($chat_content[0].scrollHeight);
             }
+        }
+        if (!this.$el.is(':visible')) {
+            this.tab.$el.addClass('newMessage');
         }
         return true;
     },
