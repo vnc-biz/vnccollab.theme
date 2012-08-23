@@ -653,7 +653,8 @@ function initializeXmppMessageHandler(vncchat) {
                             this.chatboxesview.messageReceived(message);
                         }, this), function () {});
                     }
-                   if (!isVncChatVisible()) {
+                   if (!isVncChatVisible() && $(message)
+                       .find('composing').length == 0) {
                        this.unread_message_counter += 1;
                         if (jq('#unread-messages').length > 0) { 
                             jq('#unread-messages').remove()

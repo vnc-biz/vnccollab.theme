@@ -154,6 +154,22 @@ vncchat.VncChatBoxView = vncchat.ChatBoxView.extend({
             }
         }, this);
     },
+    formatTimeStamp: function(date) {
+        if (date.toLocaleFormat) {
+            return date.toLocaleFormat('%d.%m.%Y %H:%M')
+        } else {
+            var month = date.getMonth() + 1;
+            var minutes = date.getMinutes();
+            month = month.toString().length == 1 ? '0'+ month: month
+            minutes = minutes.toString().length == 1 ? '0' + minutes: minutes
+            return date.getDate() + '.' +
+                   month + '.' +
+                   date.getFullYear() +' ' +
+                   date.getHours() + ':' +
+                   minutes;
+        }
+
+    },
     getHistoryDate: function(timedelta) {
         date = new Date();
         if (timedelta.hasOwnProperty('years') && timedelta.years > 0) {
@@ -185,7 +201,7 @@ vncchat.VncChatBoxView = vncchat.ChatBoxView.extend({
         $chat_content = $(this.el).find('.chat-content')
         $chat_content.append(this.message_template({
             'sender': sender,
-            'time': time.toLocaleFormat('%d.%m.%Y %H:%M'),
+            'time': this.formatTimeStamp(time),
             'message': $('body', message).text(), 
             'username': sender_username,
             'extra_classes': ''
@@ -274,7 +290,7 @@ vncchat.VncChatBoxView = vncchat.ChatBoxView.extend({
         }
 
         if (minutes.length==1) {minutes = '0'+minutes;}
-        time = now.toLocaleFormat('%d.%m.%Y %H:%M'),
+        time = this.formatTimeStamp(now),
         $chat_content = $(this.el).find('.chat-content');
         $chat_content.find('div.chat-event').remove();
 
@@ -298,6 +314,55 @@ vncchat.VncChatBoxView = vncchat.ChatBoxView.extend({
                             }));
         }
         $chat_content.scrollTop($chat_content[0].scrollHeight);
+    },
+
+    messageReceived: function (message) {
+        /* XXX: event.mtype should be 'xhtml' for XHTML-IM messages, 
+            but I only seem to get 'text'. 
+
+            XXX: Some messages might be delayed, we must get the time from the event.
+        */
+        var body = $(message).children('body').text(),
+            jid = $(message).attr('from'),
+            composing = $(message).find('composing'),
+            $chat_content = $(this.el).find('.chat-content'),
+            user_id = Strophe.getNodeFromJid(jid);
+
+        if (xmppchat.xmppstatus.getOwnStatus() === 'offline') {
+            // only update the UI if the user is not offline
+            return;
+        }
+        if (!body) {
+            if (composing.length > 0) {
+                this.insertStatusNotification(user_id, 'is typing');
+                return;
+            }
+        } else {
+            // TODO: ClientStorage 
+            xmppchat.messages.ClientStorage.addMessage(jid, body, 'from');
+            $chat_content.find('div.chat-event').remove();
+
+            match = body.match(/^\/(.*?)(?: (.*))?$/);
+            if ((match) && (match[1] === 'me')) {
+                $chat_content.append(this.action_template({
+                            'sender': 'them', 
+                            'time': this.formatTimeStamp(new Date()),
+                            'message': body.replace(/^\/me/, '*'+user_id).replace(/<br \/>/g, ""),
+                            'username': xmppchat.username,
+                            'extra_classes': ($(message).find('delay').length > 0) && 'delayed' || ''
+                        }));
+            } else {
+                $chat_content.append(
+                        this.message_template({
+                            'sender': 'them', 
+                            'time': this.formatTimeStamp(new Date()),
+                            'message': body.replace(/<br \/>/g, ""),
+                            'username': user_id,
+                            'extra_classes': ($(message).find('delay').length > 0) && 'delayed' || ''
+                        }));
+            }
+            $chat_content.scrollTop($chat_content[0].scrollHeight);
+        }
     },
 });
 
