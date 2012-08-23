@@ -762,6 +762,12 @@ div#xmpp-viewlet-container > a {
   text-align: center;
   vertical-align: bottom;
   }
+#im-messages:after {
+  content: " |";
+  display: inline-block;
+  margin-left: 7px;
+  vertical-align: top;
+  }
 a#site-stream-link {
   border-radius: 0;
   }
@@ -790,6 +796,19 @@ a#toggle-online-users:after {
   vertical-align: middle;
   }
 #online-count {
+  background-color: #75a724;
+  border: 1px solid #558114;
+  border-radius: 16px;
+  color: #fff;
+  min-width: 10px;
+  padding: 0 3px;
+  text-align: center;
+  }
+#im-messages span {
+  display: inline-block;
+  vertical-align: middle;
+  }
+#unread-messages {
   background-color: #75a724;
   border: 1px solid #558114;
   border-radius: 16px;

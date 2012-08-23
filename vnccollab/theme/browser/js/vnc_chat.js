@@ -256,7 +256,49 @@ vncchat.VncChatBoxView = vncchat.ChatBoxView.extend({
         $('#'+this.model.get('box_id')).hide();
         this.removeChatFromCookie(this.model.get('id'));
         this.tab.$el.removeClass('selected');
-    }
+    },
+
+    appendMessage: function (message) {
+        var time, 
+            now = new Date(),
+            minutes = now.getMinutes().toString(),
+            list,
+            $chat_content,
+            match;
+        message = message.replace(/</g,"&lt;").replace(/>/g,"&gt;").replace(/\"/g,"&quot;").replace(/^\s*/, "");
+        list = message.match(/\b(http:\/\/www\.\S+\.\w+|www\.\S+\.\w+|http:\/\/(?=[^w]){3}\S+[\.:]\S+)[^ ]+\b/g);
+        if (list) {
+            for (i = 0; i < list.length; i++) {
+                message = message.replace(list[i], "<a target='_blank' href='" + escape( list[i] ) + "'>"+ list[i] + "</a>" );
+            }
+        }
+
+        if (minutes.length==1) {minutes = '0'+minutes;}
+        time = now.toLocaleFormat('%d.%m.%Y %H:%M'),
+        $chat_content = $(this.el).find('.chat-content');
+        $chat_content.find('div.chat-event').remove();
+
+        match = message.match(/^\/(.*?)(?: (.*))?$/);
+        if ((match) && (match[1] === 'me')) {
+            message = message.replace(/^\/me/, '*'+xmppchat.username);
+            $chat_content.append(this.action_template({
+                                'sender': 'me', 
+                                'time': time, 
+                                'message': message, 
+                                'username': xmppchat.username,
+                                'extra_classes': ''
+                            }));
+        } else {
+            $chat_content.append(this.message_template({
+                                'sender': 'me', 
+                                'time': time, 
+                                'message': message, 
+                                'username': 'me',
+                                'extra_classes': ''
+                            }));
+        }
+        $chat_content.scrollTop($chat_content[0].scrollHeight);
+    },
 });
 
 

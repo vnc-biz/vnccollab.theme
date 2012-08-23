@@ -422,7 +422,7 @@ function attachStreamButton() {
           jq('#portal-top').append(data);
           attachStreamActions();
           $chat = $('#vnc-chat')
-          if ($chat.length>0 && $chat.is(':visible')) {
+          if (isVncChatVisible()) {
               $chat.hide();
           } else {
             jq('#vnc-stream').hide().slideDown();
@@ -449,7 +449,7 @@ function attachStreamButton() {
       stream.slideUp();
     } else {
       $chat = $('#vnc-chat')
-      if ($chat.length>0 && $chat.is(':visible')) {
+      if (isVncChatVisible()) {
         $chat.hide();
         stream.show();
       }else {
@@ -526,18 +526,68 @@ function attachStreamActions() {
   }
 }
 
-function renderVncChat(vncchat) {
-    var chatdata = jQuery('div#collective-xmpp-chat-data'),
-        $toggle = $('a#toggle-online-users');
-    $toggle.unbind('click');
+function loadVncChat(sucess_callback, error_callback) {
+    jq.ajax({
+        'url': portal_url + '/@@vnc-chat',
+        'dataType': 'html',
+        'success': function(data, textStatus, jqXHR){
+                     jq('#portal-top').append(data);
+                     jq('#vnc-chat').hide();
+                     sucess_callback();
+                   },
+      'error': function() {
+                 alert('Sorry, something went wrong on the server.' + 
+                       'Please, try a bit later.');
+                 error_callback();
+               },
+      'data': {}
+      });
+};
 
+function isVncChatLoaded() {
+    return jq('#vnc-chat').length > 0;
+};
+
+function isVncChatVisible() {
+    return isVncChatLoaded() && jq('#vnc-chat').is(':visible');
+};
+
+function IMButtonHandler(vncchat) {
+    var $chat = jq('#vnc-chat');
+    if (!isVncChatLoaded()) {
+
+        loadVncChat( function () {
+          $stream = jq('#vnc-stream');
+          if ($stream.length>0 && $stream.is(':visible')) {
+              $stream.hide();
+          } else {
+            jq('#vnc-chat').hide().slideDown();
+          }
+          runVncChat(vncchat);
+        },
+        function () {});
+
+    } else if (isVncChatVisible()) {
+        $chat.slideUp();
+    } else {
+        $stream = $('#vnc-stream')
+      if ($stream.length>0 && $stream.is(':visible')) {
+          $stream.hide();
+          $chat.show();
+      } else {
+        $chat.slideDown();
+      }
+    }
+    jq('#unread-messages').remove();
+    vncchat.unread_message_counter = 0;
+    return false;
+};
+
+function runVncChat(vncchat) {
+    var chatdata = jQuery('div#collective-xmpp-chat-data');
     vncchat.username = chatdata.attr('username');
     vncchat.base_url = chatdata.attr('base_url');
-    vncchat.connection.xmlInput = function (body) { console.log(body); };
-    vncchat.connection.xmlOutput = function (body) { console.log(body); };
 
-    vncchat.connection.bare_jid = Strophe.getBareJidFromJid(vncchat.connection.jid);
-    vncchat.connection.domain = Strophe.getDomainFromJid(vncchat.connection.jid);
     //// XXX: Better if configurable?
     vncchat.connection.muc_domain = 'conference.' +  vncchat.connection.domain;
 
@@ -557,24 +607,20 @@ function renderVncChat(vncchat) {
         'model': vncchat.chatboxes
     });
 
-    vncchat.connection.addHandler(
-            $.proxy(function (message) { 
-                this.chatboxesview.messageReceived(message);
-                return true;
-            }, vncchat), null, 'message', 'chat');
-    // XMPP Status 
     vncchat.xmppstatus = new vncchat.XMPPStatus();
+    vncchat.xmppstatus.sendPresence();
     vncchat.xmppstatusview = new vncchat.XMPPStatusView({
         'model': vncchat.xmppstatus
     });
 
-    vncchat.xmppstatus.sendPresence();
-
     // Controlbox 
     controlbox = new vncchat.ControlBox({'id': 'online-users-container',
                                           'jid': 'online-users-container'});
-    vncchat.controlbox_view = new vncchat.VncControlBoxView({ model: controlbox });
+    vncchat.controlbox_view = new vncchat.VncControlBoxView({
+        model: controlbox
+    });
     vncchat.controlbox_view.render();
+
     vncchat.connection.addHandler(
             $.proxy(function (invitation) {
                 vncchat.controlbox_view
@@ -582,62 +628,50 @@ function renderVncChat(vncchat) {
                 return true;
             }, vncchat), 'http://jabber.org/protocol/muc#user', 'message', null);
 };
-var chatLoaded = false;
+
+function initializeXmppMessageHandler(vncchat) {
+
+    $(document).unbind('jarnxmpp.connected');
+    $(document).bind('jarnxmpp.connected', $.proxy(function () {
+        this.connection.bare_jid = Strophe.getBareJidFromJid(this.connection.jid);
+        this.connection.domain = Strophe.getDomainFromJid(this.connection.jid);
+        this.connection.xmlInput = function (body) { console.log(body); };
+        this.connection.xmlOutput = function (body) { console.log(body); };
+
+        //Let's tell everyone that we are online ;)
+        this.xmppstatus = new this.XMPPStatus();
+        this.xmppstatus.sendPresence();
+
+        this.unread_message_counter = 0
+        this.connection.addHandler(
+                $.proxy(function (message) { 
+                    if (isVncChatLoaded()){
+                        this.chatboxesview.messageReceived(message);
+                    } else {
+                        loadVncChat($.proxy(function () {
+                            runVncChat(this);
+                            this.chatboxesview.messageReceived(message);
+                        }, this), function () {});
+                    }
+                   if (!isVncChatVisible()) {
+                       this.unread_message_counter += 1;
+                        if (jq('#unread-messages').length > 0) { 
+                            jq('#unread-messages').remove()
+                        };
+                        jq('#im-messages')
+                          .prepend('<span id="unread-messages">'+
+                                   this.unread_message_counter + '</span>');
+                   };
+                    return true;
+                }, this), null, 'message', 'chat');
+    }, vncchat));
+};
+
 function attachIMButton() {
   jq('#im-messages').click(function(event) {
     event.preventDefault();
-    var $chat = jq('#vnc-chat');
-    if ($chat.length == 0) {
-      if (chatLoaded) {
-        return false;
-      }
-      chatLoaded = true;
-
-      //if (jq('#xmpp-viewlet-container .spinner').length == 0) {
-      //  jq('#xmpp-viewlet-container').prepend('<span class="spinner">' +
-      //    '<img src="' + portal_url + '/dots-white.gif" /></span>');
-      //} else {
-      //  jq('#xmpp-viewlet-container .spinner').show();
-      //}
-
-      jq.ajax({
-        'url': portal_url + '/@@vnc-chat',
-        'dataType': 'html',
-        'success': function(data, textStatus, jqXHR){
-          jq('#portal-top').append(data);
-          $stream = jq('#vnc-stream')
-          if ($stream.length>0 && $stream.is(':visible')) {
-              $stream.hide();
-          } else {
-            jq('#vnc-chat').hide().slideDown();
-          }
-          //jq('#xmpp-viewlet-container .spinner').hide();
-          //setTimeout(checkVNCStream, vncStreamDelay);
-          renderVncChat(vncchat);
-        },
-        'error': function() {
-          alert('Sorry, something went wrong on the server. Please, try ' +
-            'a bit later.');
-          chatLoaded = false;
-          //jq('#xmpp-viewlet-container .spinner').hide();
-          //setTimeout(checkVNCStream, vncStreamDelay);
-        },
-        'data': {}
-        });
-    } else if ($chat.is(':visible')) {
-      $chat.slideUp();
-    } else {
-      $stream = $('#vnc-stream')
-      if ($stream.length>0 && $stream.is(':visible')) {
-          $stream.hide();
-          $chat.show();
-      } else {
-        $chat.slideDown();
-      }
-    }
-    return false;
-    alert('hello');
-    });
+    IMButtonHandler(vncchat);
+  });
 };
 
 jq(function() {
@@ -652,5 +686,6 @@ jq(function() {
   attachSocialBookmarksLink();
   attachStreamButton();
   attachStreamActions();
-  attachIMButton();
+  initializeXmppMessageHandler(vncchat);
+  attachIMButton(vncchat);
 });
