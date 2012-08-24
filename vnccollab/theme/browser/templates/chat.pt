@@ -128,9 +128,11 @@
                 portal context/@@plone_portal_state/portal;
                 member context/@@plone_portal_state/member;
                 username member/getId;
+                fullname python:member.getProperty('fullname');
                 base_url python:context.portal_url();"
          tal:attributes="
                 username username;
+                fullname fullname;
                 base_url base_url;
                 ">
       <div id="online-users-container" class="chatbox">

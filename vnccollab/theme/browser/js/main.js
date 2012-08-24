@@ -587,12 +587,13 @@ function IMButtonHandler(vncchat) {
 function runVncChat(vncchat) {
     var chatdata = jQuery('div#collective-xmpp-chat-data');
     vncchat.username = chatdata.attr('username');
+    vncchat.fullname = chatdata.attr('fullname');
     vncchat.base_url = chatdata.attr('base_url');
 
     //// XXX: Better if configurable?
     vncchat.connection.muc_domain = 'conference.' +  vncchat.connection.domain;
 
-    vncchat.rosterview = Backbone.View.extend(vncchat.RosterView(vncchat.roster, _, $, console));
+    vncchat.rosterview = Backbone.View.extend(vncchat.VncRosterView(vncchat.roster, _, $, console));
 
     vncchat.connection.roster.registerCallback(vncchat.roster.rosterHandler);
     vncchat.roster.getRoster(vncchat.roster.rosterHandler);
@@ -650,7 +651,7 @@ function initializeXmppMessageHandler(vncchat) {
 
         }, this);
 
-        this.roster = this.Roster(_, $, console);
+        this.roster = this.VncRoster(_, $, console);
         this.connection.addHandler(
             $.proxy(function (presence) {
                 this.subscriptionNotifier(presence);

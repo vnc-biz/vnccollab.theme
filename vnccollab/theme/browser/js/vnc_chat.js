@@ -39,12 +39,33 @@ var vncchat = (function (jarnxmpp, $, console) {
     return ob;
 })(jarnxmpp || {}, jQuery, console || {log: function(){}});
 
+vncchat.VncChatBox = vncchat.ChatBox.extend({
+
+    initialize: function () {
+        var jid = Strophe.getNodeFromJid(this.get('jid'));
+        this.set({
+            'user_id' : jid,
+            'box_id' : this.hash(this.get('jid')),
+            'fullname': jid,
+            'portrait': ''
+        });
+        var that = this;
+        vncchat.Presence.getUserInfo(Strophe.unescapeNode(jid), function(data) {
+            that.set({
+                'fullname': data.fullname,
+                'portrait': data.portrait_url
+            });
+        });
+    }
+
+});
+
 vncchat.VncChatTab = Backbone.View.extend({
 
     tagName:'li',
     className:'chatTab',
 
-    template: _.template( '<a href="#<%=box_id%>" class="tabLink"><%=user_id%></a>' +
+    template: _.template( '<a href="#<%=box_id%>" class="tabLink"><%=fullname%></a>' +
                           '<a href="javascript:void(0)" class="close-chattab-button">X</a>'),
     events: {
         'click .tabLink': 'activate',
@@ -188,10 +209,10 @@ vncchat.VncChatBoxView = vncchat.ChatBoxView.extend({
             seneder_username;
         if (message.tagName == 'to' ){
             sender = 'me';
-            sender_username = vncchat.username;
+            sender_username = vncchat.fullname;
         } else if (message.tagName == 'from') {
             sender = 'them';
-            sender_username = this.model.get('jid');
+            sender_username = this.model.get('fullname');
         } else {
             return;
         }
@@ -296,12 +317,12 @@ vncchat.VncChatBoxView = vncchat.ChatBoxView.extend({
 
         match = message.match(/^\/(.*?)(?: (.*))?$/);
         if ((match) && (match[1] === 'me')) {
-            message = message.replace(/^\/me/, '*'+xmppchat.username);
+            message = message.replace(/^\/me/, '*'+xmppchat.fullname);
             $chat_content.append(this.action_template({
                                 'sender': 'me', 
                                 'time': time, 
                                 'message': message, 
-                                'username': xmppchat.username,
+                                'username': vncchat.fullname,
                                 'extra_classes': ''
                             }));
         } else {
@@ -316,17 +337,10 @@ vncchat.VncChatBoxView = vncchat.ChatBoxView.extend({
         $chat_content.scrollTop($chat_content[0].scrollHeight);
     },
 
-    messageReceived: function (message) {
-        /* XXX: event.mtype should be 'xhtml' for XHTML-IM messages, 
-            but I only seem to get 'text'. 
-
-            XXX: Some messages might be delayed, we must get the time from the event.
-        */
+    showReceivedMessage: function (from_jid, from_name, message) {
         var body = $(message).children('body').text(),
-            jid = $(message).attr('from'),
-            composing = $(message).find('composing'),
             $chat_content = $(this.el).find('.chat-content'),
-            user_id = Strophe.getNodeFromJid(jid);
+            composing = $(message).find('composing');
 
         if (xmppchat.xmppstatus.getOwnStatus() === 'offline') {
             // only update the UI if the user is not offline
@@ -334,12 +348,12 @@ vncchat.VncChatBoxView = vncchat.ChatBoxView.extend({
         }
         if (!body) {
             if (composing.length > 0) {
-                this.insertStatusNotification(user_id, 'is typing');
+                this.insertStatusNotification(from_name, 'is typing');
                 return;
             }
         } else {
             // TODO: ClientStorage 
-            xmppchat.messages.ClientStorage.addMessage(jid, body, 'from');
+            xmppchat.messages.ClientStorage.addMessage(from_jid, body, 'from');
             $chat_content.find('div.chat-event').remove();
 
             match = body.match(/^\/(.*?)(?: (.*))?$/);
@@ -347,8 +361,8 @@ vncchat.VncChatBoxView = vncchat.ChatBoxView.extend({
                 $chat_content.append(this.action_template({
                             'sender': 'them', 
                             'time': this.formatTimeStamp(new Date()),
-                            'message': body.replace(/^\/me/, '*'+user_id).replace(/<br \/>/g, ""),
-                            'username': xmppchat.username,
+                            'message': body.replace(/^\/me/, '*'+from_name).replace(/<br \/>/g, ""),
+                            'username': vncchat.fullname,
                             'extra_classes': ($(message).find('delay').length > 0) && 'delayed' || ''
                         }));
             } else {
@@ -357,12 +371,31 @@ vncchat.VncChatBoxView = vncchat.ChatBoxView.extend({
                             'sender': 'them', 
                             'time': this.formatTimeStamp(new Date()),
                             'message': body.replace(/<br \/>/g, ""),
-                            'username': user_id,
+                            'username': from_name,
                             'extra_classes': ($(message).find('delay').length > 0) && 'delayed' || ''
                         }));
             }
             $chat_content.scrollTop($chat_content[0].scrollHeight);
         }
+    },
+    messageReceived: function (message) {
+        /* XXX: event.mtype should be 'xhtml' for XHTML-IM messages, 
+            but I only seem to get 'text'. 
+
+            XXX: Some messages might be delayed, we must get the time from the event.
+        */
+        var jid = $(message).attr('from'),
+            user_id = Strophe.unescapeNode(Strophe.getNodeFromJid(jid));
+            fullname = user_id;
+
+        var that = this;
+        vncchat.Presence.getUserInfo(user_id, function (data) {
+            if (data.fullname) {
+                fullname = data.fullname;
+            }
+            that.showReceivedMessage(jid, fullname, message);
+        });
+
     },
 });
 
@@ -387,7 +420,7 @@ vncchat.VncChatBoxesView = vncchat.ChatBoxesView.extend({
             box = new vncchat.ChatRoom(jid);
             view = new vncchat.VncChatRoomView({ model: box });
         } else {
-            box = new vncchat.ChatBox({'id': jid, 'jid': jid});
+            box = new vncchat.VncChatBox({'id': jid, 'jid': jid});
             view = new vncchat.VncChatBoxView({ model:box });
         }
         this.views[jid] = view.render();
@@ -456,6 +489,36 @@ vncchat.VncChatBoxesView = vncchat.ChatBoxesView.extend({
         // XXX: Is this the right place for this? Perhaps an event?
         xmppchat.roster.addResource(bare_jid, resource);
     },
+});
+
+vncchat.VncRosterItem = Backbone.Model.extend({
+
+    initialize: function (jid, subscription, ask) {
+        // FIXME: the fullname is set to user_id for now...
+        var user_id = Strophe.unescapeNode(Strophe.getNodeFromJid(jid))
+        this.set({
+            'id': jid,
+            'jid': jid,
+            'ask': ask,
+            'bare_jid': Strophe.getBareJidFromJid(jid),
+            'user_id': user_id,
+            'subscription': subscription,
+            'fullname': user_id,
+            'resources': [],
+            'presence_type': 'offline',
+            'status': 'offline',
+            'portrait':'',
+        }, {'silent': true});
+
+        var that = this;
+        vncchat.Presence.getUserInfo(user_id, function(data) {
+            that.set({
+                'fullname': data.fullname,
+                'portrait': data.portrait_url
+            });
+        });
+
+    }
 });
 
 vncchat.VncChatRoomView = vncchat.VncChatBoxView.extend({
@@ -606,45 +669,54 @@ vncchat.VncChatRoomView = vncchat.VncChatBoxView.extend({
             $chat_content = $(this.el).find('.chat-content'),
             sender = Strophe.getResourceFromJid(jid),
             subject = $(message).children('subject').text();
+            user_id = Strophe.unescapeNode(sender);
+            fullname = user_id;
 
-        if (subject) {
-            this.$el.find('.chatroom-topic').text(subject);
-        }
-        if (!body) {
-            if (composing.length > 0) {
-                this.insertStatusNotification(sender, 'is typing');
-                return true;
+        var that = this;
+        vncchat.Presence.getUserInfo(user_id, function (data) {
+            if (data && data.fullname) {
+                fullname = data.fullname
             }
-        } else {
-            if (sender === this.model.get('nick')) {
-                this.appendMessage(body);
-            } else {
-                $chat_content.find('div.chat-event').remove();
-
-                match = body.match(/^\/(.*?)(?: (.*))?$/);
-                if ((match) && (match[1] === 'me')) {
-                    body = body.replace(/^\/me/, '*'+sender);
-                    $chat_content.append(
-                            this.action_template({
-                                'sender': 'room', 
-                                'time': (new Date()).toLocaleTimeString().substring(0,5),
-                                'message': body, 
-                                'username': sender,
-                                'extra_classes': ($(message).find('delay').length > 0) && 'delayed' || ''
-                            }));
-                } else {
-                    $chat_content.append(
-                            this.message_template({
-                                'sender': 'room', 
-                                'time': (new Date()).toLocaleTimeString().substring(0,5),
-                                'message': body,
-                                'username': sender,
-                                'extra_classes': ($(message).find('delay').length > 0) && 'delayed' || ''
-                            }));
+            if (subject) {
+                that.$el.find('.chatroom-topic').text(subject);
+            }
+            if (!body) {
+                if (composing.length > 0) {
+                    that.insertStatusNotification(fullname, 'is typing');
+                    return true;
                 }
-                $chat_content.scrollTop($chat_content[0].scrollHeight);
+            } else {
+                if (fullname=== that.model.get('nick')) {
+                    that.appendMessage(body);
+                } else {
+                    $chat_content.find('div.chat-event').remove();
+
+                    match = body.match(/^\/(.*?)(?: (.*))?$/);
+                    if ((match) && (match[1] === 'me')) {
+                        body = body.replace(/^\/me/, '*'+fullname);
+                        $chat_content.append(
+                                that.action_template({
+                                    'sender': 'room', 
+                                    'time': that.formatTimeStamp(new Date()),
+                                    'message': body, 
+                                    'username': fullname,
+                                    'extra_classes': ($(message).find('delay').length > 0) && 'delayed' || ''
+                                }));
+                    } else {
+                        $chat_content.append(
+                                that.message_template({
+                                    'sender': 'room', 
+                                    'time': that.formatTimeStamp(new Date()),
+                                    'message': body,
+                                    'username': fullname,
+                                    'extra_classes': ($(message).find('delay').length > 0) && 'delayed' || ''
+                                }));
+                    }
+                    $chat_content.scrollTop($chat_content[0].scrollHeight);
+                }
             }
-        }
+
+        });
         if (!this.$el.is(':visible')) {
             this.tab.$el.addClass('newMessage');
         }
@@ -687,19 +759,26 @@ vncchat.VncChatRoomView = vncchat.VncChatBoxView.extend({
 
     showMessage: function(message, start) {
         var sender,
-            seneder_username;
-            $message = $(message);
-            from = $message.attr('name');
-            time = new Date(Date.parse(start));
+            seneder_username,
+            $message = $(message),
+            from = Strophe.unescapeNode($message.attr('name')),
+            time = new Date(Date.parse(start)),
+            fullname = from;
         time.setSeconds(time.getSeconds() + parseInt($(message).attr('secs')));
         $chat_content = $(this.el).find('.chat-content')
-        $chat_content.append(this.message_template({
-            'sender': (from == vncchat.username) ? 'me':'them',
-            'time': time.toLocaleFormat('%d.%m.%Y %H:%M'),
+        var that = this;
+        vncchat.Presence.getUserInfo(from, function (data) {
+            if (data) {
+                fullname = data.fullname;
+            }
+          $chat_content.append(that.message_template({
+            'sender': (Strophe.unescapeNode(from) == vncchat.username) ? 'me':'them',
+            'time': that.formatTimeStamp(time),
             'message': $('body', message).text(),
-            'username':vncchat.username,
+            'username':(Strophe.unescapeNode(from) == vncchat.username) ? vncchat.fullname:fullname,
             'extra_classes': ''
         }));
+        });
     },
 
     recipients_template: _.template('<input type="checkbox" name="<%=node%>" ' +
@@ -814,14 +893,312 @@ vncchat.VncRoomsPanel = vncchat.RoomsPanel.extend({
     },
 });
 
+vncchat.VncContactsPanel = vncchat.ContactsPanel.extend({
+    searchContacts: function (ev) {
+        ev.preventDefault();
+        $.getJSON(portal_url + "/search-users?q=" + $(ev.target).find('input.username').val(), function (data) {
+            var $results_el = $('#found-users');
+            $(data).each(function (idx, obj) {
+                if ($results_el.children().length > 0) {  
+                    $results_el.empty();
+                }
+                $results_el.append(
+                        $('<li></li>')
+                            .attr('id', 'found-users-'+obj.id)
+                            .append(
+                                $('<a class="subscribe-to-user" href="#" title="Click to add as a chat contact"></a>')
+                                    .attr('data-recipient', Strophe.escapeNode(obj.id)+'@'+xmppchat.connection.domain)
+                                    .text(obj.fullname)
+                            )
+                    );
+            });
+        });
+    },
+
+});
+
 vncchat.VncControlBoxView = vncchat.ControlBoxView.extend({
 
     initialize: function () {
         var userspanel; 
         $('ul.tabs').tabs('div.panes > div');
-        this.contactspanel = new xmppchat.ContactsPanel();
-        this.roomspanel = new xmppchat.VncRoomsPanel();
-        this.settingspanel = new xmppchat.SettingsPanel();
+        this.contactspanel = new vncchat.VncContactsPanel();
+        this.roomspanel = new vncchat.VncRoomsPanel();
+        this.settingspanel = new vncchat.SettingsPanel();
     },
 
+});
+
+vncchat.VncRoster = (function (_, $, console) {
+    var ob = {},
+        Collection = Backbone.Collection.extend({
+            model: xmppchat.RosterItem,
+            stropheRoster: xmppchat.connection.roster,
+
+            initialize: function () {
+                this._connection = xmppchat.connection;
+            },
+
+            comparator : function (rosteritem) {
+                var presence_type = rosteritem.get('presence_type'),
+                    rank = 4;
+                switch(presence_type) {
+                    case 'offline': 
+                        rank = 4;
+                        break;
+                    case 'unavailable':
+                        rank = 3;
+                        break;
+                    case 'away':
+                        rank = 2;
+                        break;
+                    case 'busy':
+                        rank = 1;
+                        break;
+                    case 'dnd':
+                        rank = 1;
+                        break;
+                    case 'online':
+                        rank = 0;
+                        break;
+                }
+                return rank;
+            },
+
+            isSelf: function (jid) {
+                return (Strophe.getBareJidFromJid(jid) === Strophe.getBareJidFromJid(xmppchat.connection.jid));
+            },
+
+            getRoster: function (callback) {
+                return xmppchat.connection.roster.get(callback);
+            },
+
+            getItem: function (id) {
+                return Backbone.Collection.prototype.get.call(this, id);
+            },
+
+            addRosterItem: function (jid, subscription, ask) {
+                var model = new vncchat.VncRosterItem(jid, subscription, ask);
+                this.add(model);
+            },
+
+            addResource: function (bare_jid, resource) {
+                var item = this.getItem(bare_jid),
+                    resources;
+                if (item) {
+                    resources = item.get('resources');
+                    if (resources) {
+                        if (_.indexOf(resources, resource) == -1) {
+                            resources.push(resource);
+                            item.set({'resources': resources});
+                        }
+                    } else  {
+                        item.set({'resources': [resource]});
+                    }
+                }
+            },
+
+            removeResource: function (bare_jid, resource) {
+                var item = this.getItem(bare_jid),
+                    resources,
+                    idx;
+                if (item) {
+                    resources = item.get('resources');
+                    idx = _.indexOf(resources, resource);
+                    if (idx !== -1) {
+                        resources.splice(idx, 1);
+                        item.set({'resources': resources});
+                        return resources.length;
+                    }
+                }
+                return 0;
+            },
+
+            clearResources: function (bare_jid) {
+                var item = this.getItem(bare_jid);
+                if (item) {
+                    item.set({'resources': []});
+                }
+            },
+
+            getTotalResources: function (bare_jid) {
+                var item = this.getItem(bare_jid);
+                if (item) {
+                    return _.size(item.get('resources'));
+                }
+            },
+
+            getNumOnlineContacts: function () {
+                var count = 0;
+                for (var i=0; i<this.models.length; i++) {
+                    if (_.indexOf(['offline', 'unavailable'], this.models[i].get('presence_type')) === -1) {
+                        count++;
+                    }
+                }
+                return count;
+            }
+
+        });
+
+    var collection = new Collection();
+    _.extend(ob, collection);
+    _.extend(ob, Backbone.Events);
+
+    ob.rosterHandler = function (items) {
+        var model, item;
+        for (var i=0; i<items.length; i++) {
+            item = items[i];
+            model = ob.getItem(item.jid);
+            if (!model) {
+                ob.addRosterItem(item.jid, item.subscription, item.ask);
+            } else {
+                model.set({'subscription': item.subscription, 'ask': item.ask});
+            }
+        }
+    };
+
+    ob.presenceHandler = function (presence) {
+        var jid = $(presence).attr('from'),
+            bare_jid = Strophe.getBareJidFromJid(jid),
+            resource = Strophe.getResourceFromJid(jid),
+            presence_type = $(presence).attr('type'),
+            show = $(presence).find('show'),
+            status_message = $(presence).find('status'),
+            item;
+
+        if ((($(presence).find('x').attr('xmlns') || '').indexOf(Strophe.NS.MUC) === 0) || (ob.isSelf(bare_jid))) {
+            // Ignore MUC or self-addressed stanzas
+            return true;
+        }
+
+        if (status_message.length > 0) {
+            model = ob.getItem(bare_jid);
+            model.set({'status': status_message.text()});
+        }
+
+        if ((presence_type === 'error') || 
+                (presence_type === 'subscribed') || 
+                (presence_type === 'unsubscribe')) {
+            return true;
+        } else if (presence_type === 'subscribe') {
+            if (ob.getItem(bare_jid)) { 
+                xmppchat.connection.roster.authorize(bare_jid);
+            } else {
+                ob.addRosterItem(bare_jid, 'none', 'request');
+            }
+        } else if (presence_type === 'unsubscribed') {
+            /* Upon receiving the presence stanza of type "unsubscribed", 
+             * the user SHOULD acknowledge receipt of that subscription state 
+             * notification by sending a presence stanza of type "unsubscribe" 
+             * this step lets the user's server know that it MUST no longer 
+             * send notification of the subscription state change to the user.
+             */
+            xmppchat.xmppstatus.sendPresence('unsubscribe');
+            if (xmppchat.connection.roster.findItem(bare_jid)) {
+                xmppchat.roster.remove(bare_jid);
+                xmppchat.connection.roster.remove(bare_jid);
+            }
+        } else { 
+            if ((presence_type === undefined) && (show)) {
+                if (show.text() === 'chat') {
+                    presence_type = 'online';
+                } else if (show.text() === 'dnd') {
+                    presence_type = 'busy';
+                } else if (show.text() === 'xa') {
+                    presence_type = 'offline';
+                } else {
+                    presence_type = show.text();
+                }
+            }
+
+            if ((presence_type !== 'offline')&&(presence_type !== 'unavailable')) {
+                ob.addResource(bare_jid, resource);
+                model = ob.getItem(bare_jid);
+                model.set({'presence_type': presence_type});
+            } else {
+                if (ob.removeResource(bare_jid, resource) === 0) {
+                    model = ob.getItem(bare_jid);
+                    model.set({'presence_type': presence_type});
+                }
+            }
+        }
+        return true;
+    };
+    return ob;
+});
+vncchat.VncRosterItemView = vncchat.RosterItemView.extend({
+
+    template: _.template(
+                '<img width="36" height="36" src="<%=portrait %>" />' +
+                '<a class="open-chat" title="Click to chat with this contact" href="#"><%= fullname %></a>' +
+                '<a class="remove-xmpp-contact" title="Click to remove this contact" href="#"></a>'),
+
+});
+
+vncchat.VncRosterView= (function (roster, _, $, console) {
+    var View = Backbone.View.extend({
+        el: $('#xmppchat-roster'),
+        model: roster,
+        rosteritemviews: {},
+
+        initialize: function () {
+            this.model.on("add", function (item) {
+                var view = new vncchat.VncRosterItemView({model: item});
+                this.rosteritemviews[item.id] = view;
+                if (item.get('ask') === 'request') {
+                    view.on('decline-request', function (item) {
+                        this.model.remove(item.id);
+                    }, this);
+                }
+                this.render();
+            }, this);
+
+            this.model.on('change', function (item) {
+                this.render();
+            }, this);
+
+            this.model.on("remove", function (item) {
+                delete this.rosteritemviews[item.id];
+                this.render();
+            }, this);
+        },
+
+        template: _.template('<dt id="xmpp-contact-requests">Contact requests</dt>' +
+                            '<dt id="xmpp-contacts">My contacts</dt>' +
+                            '<dt id="pending-xmpp-contacts">Pending contacts</dt>'),
+
+        render: function () {
+            this.$el.empty().html(this.template());
+            var models = this.model.sort().models,
+                children = $(this.el).children(),
+                my_contacts = this.$el.find('#xmpp-contacts').hide(),
+                contact_requests = this.$el.find('#xmpp-contact-requests').hide(),
+                pending_contacts = this.$el.find('#pending-xmpp-contacts').hide();
+
+            for (var i=0; i<models.length; i++) {
+                var model = models[i],
+                    user_id = Strophe.getNodeFromJid(model.id),
+                    view = this.rosteritemviews[model.id],
+                    ask = model.get('ask'),
+                    subscription = model.get('subscription');
+
+                if (ask === 'subscribe') {
+                    pending_contacts.after(view.render().el);
+                } else if (ask === 'request') {
+                    contact_requests.after(view.render().el);
+                } else if (subscription === 'both') {
+                    my_contacts.after(view.render().el);
+                } 
+            }
+            // Hide the headings if there are no contacts under them
+            _.each([my_contacts, contact_requests, pending_contacts], function (h) {
+                if (h.nextUntil('dt').length > 0) {
+                    h.show();
+                }
+            });
+            $('#online-count').text(this.model.getNumOnlineContacts());
+        }
+    });
+    var view = new View();
+    return view;
 });
