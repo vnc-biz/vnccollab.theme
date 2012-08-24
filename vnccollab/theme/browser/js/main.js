@@ -592,24 +592,16 @@ function runVncChat(vncchat) {
     //// XXX: Better if configurable?
     vncchat.connection.muc_domain = 'conference.' +  vncchat.connection.domain;
 
-    vncchat.roster = vncchat.Roster(_, $, console);
     vncchat.rosterview = Backbone.View.extend(vncchat.RosterView(vncchat.roster, _, $, console));
-    vncchat.connection.addHandler(
-            $.proxy(function (presence) {
-                this.roster.presenceHandler(presence);
-                return true;
-            }, vncchat), null, 'presence', null);
 
     vncchat.connection.roster.registerCallback(vncchat.roster.rosterHandler);
-    vncchat.roster.getRoster();
+    vncchat.roster.getRoster(vncchat.roster.rosterHandler);
 
     vncchat.chatboxes = new vncchat.ChatBoxes();
     vncchat.chatboxesview = new vncchat.VncChatBoxesView({
         'model': vncchat.chatboxes
     });
 
-    vncchat.xmppstatus = new vncchat.XMPPStatus();
-    vncchat.xmppstatus.sendPresence();
     vncchat.xmppstatusview = new vncchat.XMPPStatusView({
         'model': vncchat.xmppstatus
     });
@@ -639,11 +631,43 @@ function initializeXmppMessageHandler(vncchat) {
         this.connection.xmlInput = function (body) { console.log(body); };
         this.connection.xmlOutput = function (body) { console.log(body); };
 
+        this.unread_message_counter = 0
+        this.subscriptionNotifier = $.proxy(function(presence) {
+            if (isVncChatLoaded()){
+                this.roster.presenceHandler(presence);
+            } else {
+                //XXX What about other presence types???
+                //We need to think about users status update.
+                presence_type = $(presence).attr('type');
+                if (presence_type == 'subscribe') {
+                    loadVncChat($.proxy(function () {
+                        runVncChat(this);
+                        this.roster.presenceHandler(presence);
+                    }, this), function () {});
+                    this.unread_message_counter += 1;
+                    if (jq('#unread-messages').length > 0) { 
+                        jq('#unread-messages').remove()
+                    };
+                    jq('#im-messages')
+                      .prepend('<span id="unread-messages">'+
+                               this.unread_message_counter + '</span>');
+                };
+            };
+
+        }, this);
+
+        this.roster = this.Roster(_, $, console);
+        this.connection.addHandler(
+            $.proxy(function (presence) {
+                this.subscriptionNotifier(presence);
+                return true;
+            }, this), null, 'presence', null);
+
+
         //Let's tell everyone that we are online ;)
         this.xmppstatus = new this.XMPPStatus();
         this.xmppstatus.sendPresence();
 
-        this.unread_message_counter = 0
         this.connection.addHandler(
                 $.proxy(function (message) { 
                     if (isVncChatLoaded()){
