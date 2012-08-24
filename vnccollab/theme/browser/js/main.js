@@ -560,8 +560,9 @@ function IMButtonHandler(vncchat) {
           $stream = jq('#vnc-stream');
           if ($stream.length>0 && $stream.is(':visible')) {
               $stream.hide();
+              jq('#vnc-chat').show();
           } else {
-            jq('#vnc-chat').hide().slideDown();
+            jq('#vnc-chat').slideDown();
           }
           runVncChat(vncchat);
         },
