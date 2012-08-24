@@ -614,12 +614,6 @@ function runVncChat(vncchat) {
     });
     vncchat.controlbox_view.render();
 
-    vncchat.connection.addHandler(
-            $.proxy(function (invitation) {
-                vncchat.controlbox_view
-                    .roomspanel.invitationReceived(invitation);
-                return true;
-            }, vncchat), 'http://jabber.org/protocol/muc#user', 'message', null);
 };
 
 function initializeXmppMessageHandler(vncchat) {
@@ -690,6 +684,22 @@ function initializeXmppMessageHandler(vncchat) {
                    };
                     return true;
                 }, this), null, 'message', 'chat');
+
+        this.connection.addHandler(
+            $.proxy(function (invitation) {
+                    if (isVncChatLoaded()){
+                        this.controlbox_view
+                            .roomspanel.invitationReceived(invitation);
+                    } else {
+                        loadVncChat($.proxy(function () {
+                            runVncChat(this);
+                            this.controlbox_view
+                                .roomspanel.invitationReceived(invitation);
+                        }, this), function () {});
+                    }
+                return true;
+            }, this), 'http://jabber.org/protocol/muc#user', 'message', null);
+
     }, vncchat));
 };
 

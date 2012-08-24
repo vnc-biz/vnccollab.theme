@@ -798,6 +798,13 @@ vncchat.VncRoomsPanel = vncchat.RoomsPanel.extend({
                      vncchat.chatboxesview.openChat(room);
                      that.updateRoomsList();
                     $(this).dialog( "close" );
+                    if (!$('#vnc-chat').is(':visible')) {
+                        if ($('#vnc-stream').is(':visible')) {
+                            $('#vnc-chat').show();
+                        } else {
+                            $('#vnc-chat').slideDown();
+                        }
+                    }
                 },
                 "Cancel": function() {
                     $(this).dialog( "close" );
