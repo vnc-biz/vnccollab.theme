@@ -536,7 +536,11 @@ vncchat.VncChatRoomView = vncchat.VncChatBoxView.extend({
             '<div class="roomParticipants">' +
                 '<span>Participants:</span>' +
                 '<ul class="participant-list">' +
-                  '<li>Add ...</li>' +
+                '<li>' +
+                  '<a href="javascript:void(0)" class="addParticipants">' +
+                    'Add ...' +
+                  '</a>' +
+                '</li>' +
                 '</ul>' +
             '</div>' +
             '<div id="history-box">' +
@@ -578,8 +582,7 @@ vncchat.VncChatRoomView = vncchat.VncChatBoxView.extend({
                         this.model.get('jid'), 
                         this.model.get('nick'), 
                         $.proxy(this.onMessage, this), 
-                        $.proxy(this.onPresence, this), 
-                        $.proxy(this.onRoster, this));
+                        $.proxy(this.onPresence, this));
     },
 
     closeChatRoom: function () {
@@ -592,7 +595,10 @@ vncchat.VncChatRoomView = vncchat.VncChatBoxView.extend({
         delete xmppchat.chatboxesview.views[this.model.get('jid')];
         xmppchat.chatboxesview.model.remove(this.model.get('jid'));
         this.remove();
-        vncchat.controlbox_view.roomspanel.updateRoomsList();
+        var controlboxview = xmppchat.chatboxesview.views['online-users-container'];
+        if (controlboxview) {
+            controlboxview.roomspanel.trigger('update-rooms-list');
+        }
     },
 
     keyPressed: function (ev) {
@@ -649,15 +655,38 @@ vncchat.VncChatRoomView = vncchat.VncChatBoxView.extend({
 
     onPresence: function (presence, room) {
         var nick = room.nick,
-            from = $(presence).attr('from');
+            from = Strophe.getResourceFromJid($(presence).attr('from'));
+            node = Strophe.unescapeNode(from);
+            $participants = this.$el.find('.participant-list'),
+            participants = [];
+            fullname = node;
+
         if ($(presence).attr('type') !== 'error') {
             // check for status 110 to see if it's our own presence
             if ($(presence).find("status[code='110']").length > 0) {
                 // check if server changed our nick
                 if ($(presence).find("status[code='210']").length > 0) {
-                    this.model.set({'nick': Strophe.getResourceFromJid(from)});
+                    this.model.set({'nick': from});
                 }
             }
+        }
+
+        if ($(presence).attr('type') == 'unavailable') {
+            this.$el.find('.participant-list li#' + node).remove();
+        } else {
+            vncchat.Presence.getUserInfo(node, function (data) {
+                if (data && data.fullname) {
+                    fullname = data.fullname;
+                }
+                $participants.prepend('<li id="'+node+'">' + fullname +
+                                        '<a href="javascript:void(0)">X</a>' +
+                                        '</li>');
+            });
+        }
+
+        var controlboxview = xmppchat.chatboxesview.views['online-users-container'];
+        if (controlboxview) {
+            controlboxview.roomspanel.trigger('update-rooms-list');
         }
         return true;
     },
@@ -723,27 +752,6 @@ vncchat.VncChatRoomView = vncchat.VncChatBoxView.extend({
         return true;
     },
 
-    onRoster: function (roster, room) {
-        var controlboxview = xmppchat.chatboxesview.views['online-users-container'];
-        if (controlboxview) {
-            controlboxview.roomspanel.trigger('update-rooms-list');
-        }
-        $participants = this.$el.find('.participant-list')
-        $participants.empty();
-        for (var i=0; i<_.size(roster); i++) {
-            $participants.append('<li>' + _.keys(roster)[i] +
-                                  '<a href="javascript:void(0)">X</a>' +
-                                 '</li>');
-        }
-        $participants
-            .append('<li>' +
-                      '<a href="javascript:void(0)" class="addParticipants">' +
-                        'Add ...' +
-                      '</a>' +
-                    '</li>');
-        return true;
-    },
-
     show: function() {
         $(this.el).show();
         this.tab.show();
@@ -781,26 +789,27 @@ vncchat.VncChatRoomView = vncchat.VncChatBoxView.extend({
         });
     },
 
-    recipients_template: _.template('<input type="checkbox" name="<%=node%>" ' +
-                                   'value="<%=jid%>" /><%=node%></br>'),
 
     addParticipants: function (event) {
         event.preventDefault();
         var participants,
             $participants =this.$el.find('.participant-list li')
                 .clone().children().remove().end();
-            recipients = [];
-        participants = {};
+            recipients = [],
+            participants = {};
+
         $participants.each(function() {
             name = $(this).text();
             if (name) { participants[name] = 1 };
         });
+
         roster = vncchat.roster.sort().models;
         for (var i=0;i<roster.length;i++) {
-            jid = roster[i].id
+            jid = roster[i].id;
             node = Strophe.getNodeFromJid(jid);
-            if  (node in participants) { continue; };
-            recipients.push({'name':node, 'jid':jid});
+            var fullname = roster[i].attributes.fullname;
+            if  (fullname in participants) { continue; };
+            recipients.push({'name':fullname, 'jid':jid});
         };
         $request_dialog = $('<html>' +
                               '<body>' +
@@ -814,11 +823,13 @@ vncchat.VncChatRoomView = vncchat.VncChatBoxView.extend({
         } else {
             $request_dialog.empty();
             var that = this;
-            $.each(recipients, function (index, recipient) {
+            for (var i=0; i<recipients.length; i++) {
                $request_dialog
-                .append(that.recipients_template('{"node":"'+recipient.name+'",' +
-                                                '"jid":"'+recipient.jid+'"}'));
-            });
+                .append('<input type="checkbox" name="' + 
+                        recipients[i].name + '" ' +
+                        'value="'+recipients[i].jid+'" />' +
+                        recipients[i].name+'</br>');
+            }
             var that = this;
             $request_dialog.dialog({
                 resizable: false,
@@ -859,36 +870,47 @@ vncchat.VncRoomsPanel = vncchat.RoomsPanel.extend({
 
     invitationReceived: function (invitation) {
         var room = $(invitation).attr('from');
-            from = $(invitation).find('invite').attr('from');
-            that = this;
-        $("<span></span>").dialog({
-            title: from + ' invites you to join ' + room + ' room.',
-            dialogClass: 'roomInvitationDialog',
-            resizable: false,
-            width: 200,
-            position: {
-                my: 'center',
-                at: 'center',
-                of: '#online-users-container'
-                },
-            modal: true,
-            buttons: {
-                "Join": function() {
-                     vncchat.chatboxesview.openChat(room);
-                     that.updateRoomsList();
-                    $(this).dialog( "close" );
-                    if (!$('#vnc-chat').is(':visible')) {
-                        if ($('#vnc-stream').is(':visible')) {
-                            $('#vnc-chat').show();
-                        } else {
-                            $('#vnc-chat').slideDown();
-                        }
-                    }
-                },
-                "Cancel": function() {
-                    $(this).dialog( "close" );
-                }
+            from = Strophe.unescapeNode(
+                   Strophe.getNodeFromJid(
+                    $(invitation).find('invite').attr('from')));
+            fullname = from;
+
+        that = this;
+        vncchat.Presence.getUserInfo(from, function (data) {
+            if (data && data.fullname) {
+                fullname = data.fullname
             }
+            $("<span></span>").dialog({
+                title: fullname + ' invites you to join ' + 
+                     Strophe.getNodeFromJid(room) + ' room.',
+                dialogClass: 'roomInvitationDialog',
+                resizable: false,
+                width: 200,
+                position: {
+                    my: 'center',
+                    at: 'center',
+                    of: '#online-users-container'
+                    },
+                modal: true,
+                buttons: {
+                    "Join": function() {
+                         vncchat.chatboxesview.openChat(room);
+                         that.updateRoomsList();
+                        $(this).dialog( "close" );
+                        if (!$('#vnc-chat').is(':visible')) {
+                            if ($('#vnc-stream').is(':visible')) {
+                                $('#vnc-chat').show();
+                            } else {
+                                $('#vnc-chat').slideDown();
+                            }
+                        }
+                    },
+                    "Cancel": function() {
+                        $(this).dialog( "close" );
+                    }
+                }
+            });
+
         });
     },
 });
