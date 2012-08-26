@@ -1,5 +1,20 @@
 var vncchat = (function (jarnxmpp, $, console) {
     var ob = xmppchat;
+    ob.get_user_info  = function (user_id, callback) {
+        info = store.get(user_id);
+        if (info) {
+            callback(info);
+        } else {
+            ob.Presence.getUserInfo(user_id, function (data) {
+                if (data) {
+                    store.set(user_id, data);
+                    callback(data);
+                } else {
+                    callback(data);
+                }
+            })
+        }
+    };
     ob.collections.getCollections = function(jid, start, callback) {
         if (!start) {
             start = '';
@@ -50,7 +65,7 @@ vncchat.VncChatBox = vncchat.ChatBox.extend({
             'portrait': ''
         });
         var that = this;
-        vncchat.Presence.getUserInfo(Strophe.unescapeNode(jid), function(data) {
+        vncchat.get_user_info(Strophe.unescapeNode(jid), function(data) {
             that.set({
                 'fullname': data.fullname,
                 'portrait': data.portrait_url
@@ -220,13 +235,27 @@ vncchat.VncChatBoxView = vncchat.ChatBoxView.extend({
         time.setSeconds(time.getSeconds() +
                 parseInt($(message).attr('secs')));
         $chat_content = $(this.el).find('.chat-content')
-        $chat_content.append(this.message_template({
-            'sender': sender,
-            'time': this.formatTimeStamp(time),
-            'message': $('body', message).text(), 
-            'username': sender_username,
-            'extra_classes': ''
-        }));
+        body = $('body', message).text();
+        match = body.match(/^\/(.*?)(?: (.*))?$/);
+        if ((match) && (match[1] === 'me')) {
+            body = body.replace(/^\/me/, '*'+ sender_username);
+            $chat_content.append(this.action_template({
+                                'sender': 'me', 
+                                'time': this.formatTimeStamp(time),
+                                'message': body, 
+                                'username': sender_username,
+                                'extra_classes': ''
+                            }));
+        } else {
+            $chat_content.append(this.message_template({
+                'sender': sender,
+                'time': this.formatTimeStamp(time),
+                'message': body,
+                'username': sender_username,
+                'extra_classes': ''
+            }));
+        }
+        $chat_content.scrollTop($chat_content[0].scrollHeight);
     },
     loadHistoryMessages: function (start) {
         var that = this;
@@ -389,7 +418,7 @@ vncchat.VncChatBoxView = vncchat.ChatBoxView.extend({
             fullname = user_id;
 
         var that = this;
-        vncchat.Presence.getUserInfo(user_id, function (data) {
+        vncchat.get_user_info(user_id, function (data) {
             if (data.fullname) {
                 fullname = data.fullname;
             }
@@ -511,7 +540,7 @@ vncchat.VncRosterItem = Backbone.Model.extend({
         }, {'silent': true});
 
         var that = this;
-        vncchat.Presence.getUserInfo(user_id, function(data) {
+        vncchat.get_user_info(user_id, function(data) {
             that.set({
                 'fullname': data.fullname,
                 'portrait': data.portrait_url
@@ -674,7 +703,7 @@ vncchat.VncChatRoomView = vncchat.VncChatBoxView.extend({
         if ($(presence).attr('type') == 'unavailable') {
             this.$el.find('.participant-list li#' + node).remove();
         } else {
-            vncchat.Presence.getUserInfo(node, function (data) {
+            vncchat.get_user_info(node, function (data) {
                 if (data && data.fullname) {
                     fullname = data.fullname;
                 }
@@ -694,6 +723,7 @@ vncchat.VncChatRoomView = vncchat.VncChatBoxView.extend({
     onMessage: function (message) {
         var body = $(message).children('body').text(),
             jid = $(message).attr('from'),
+            bare_jid = Strophe.getBareJidFromJid(jid);
             composing = $(message).find('composing'),
             $chat_content = $(this.el).find('.chat-content'),
             sender = Strophe.getResourceFromJid(jid),
@@ -701,8 +731,13 @@ vncchat.VncChatRoomView = vncchat.VncChatBoxView.extend({
             user_id = Strophe.unescapeNode(sender);
             fullname = user_id;
 
+        if (bare_jid !== this.model.get('jid')) {
+            vncchat.chatboxesview.views[bare_jid].onMessage(message);
+            return true;
+        }
+
         var that = this;
-        vncchat.Presence.getUserInfo(user_id, function (data) {
+        vncchat.get_user_info(user_id, function (data) {
             if (data && data.fullname) {
                 fullname = data.fullname
             }
@@ -775,17 +810,32 @@ vncchat.VncChatRoomView = vncchat.VncChatBoxView.extend({
         time.setSeconds(time.getSeconds() + parseInt($(message).attr('secs')));
         $chat_content = $(this.el).find('.chat-content')
         var that = this;
-        vncchat.Presence.getUserInfo(from, function (data) {
+        vncchat.get_user_info(from, function (data) {
             if (data) {
                 fullname = data.fullname;
             }
-          $chat_content.append(that.message_template({
-            'sender': (Strophe.unescapeNode(from) == vncchat.username) ? 'me':'them',
-            'time': that.formatTimeStamp(time),
-            'message': $('body', message).text(),
-            'username':(Strophe.unescapeNode(from) == vncchat.username) ? vncchat.fullname:fullname,
-            'extra_classes': ''
-        }));
+            body = $('body', message).text();
+            node = Strophe.unescapeNode(from);
+            match = body.match(/^\/(.*?)(?: (.*))?$/);
+            if ((match) && (match[1] === 'me')) {
+                body = body.replace(/^\/me/, '*'+ ((node == vncchat.username) ? vncchat.fullname:fullname));
+                $chat_content.append(that.action_template({
+                                     'sender': (node == vncchat.username) ? 'me':'them',
+                                     'time': that.formatTimeStamp(time),
+                                     'message': body, 
+                                     'username': (node == vncchat.username) ? vncchat.fullname:fullname,
+                                     'extra_classes': ''
+                 }));
+            } else {
+                $chat_content.append(that.message_template({
+                  'sender': (node == vncchat.username) ? 'me':'them',
+                  'time': that.formatTimeStamp(time),
+                  'message': body,
+                  'username':(node == vncchat.username) ? vncchat.fullname:fullname,
+                  'extra_classes': ''
+                }));
+            }
+            $chat_content.scrollTop($chat_content[0].scrollHeight);
         });
     },
 
@@ -876,7 +926,7 @@ vncchat.VncRoomsPanel = vncchat.RoomsPanel.extend({
             fullname = from;
 
         that = this;
-        vncchat.Presence.getUserInfo(from, function (data) {
+        vncchat.get_user_info(from, function (data) {
             if (data && data.fullname) {
                 fullname = data.fullname
             }
