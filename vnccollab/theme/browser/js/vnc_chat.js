@@ -1214,6 +1214,17 @@ vncchat.VncRosterView= (function (roster, _, $, console) {
         rosteritemviews: {},
 
         initialize: function () {
+            for (var i=0; i<this.model.models.length;i++) {
+                var elem = this.model.models[i];
+                var view = new vncchat.VncRosterItemView({model: elem});
+                this.rosteritemviews[elem.id] = view;
+                if (elem.get('ask') === 'request') {
+                    view.on('decline-request', function (elem) {
+                        this.model.remove(elem.id);
+                    }, this);
+                }
+                this.render();
+            };
             this.model.on("add", function (item) {
                 var view = new vncchat.VncRosterItemView({model: item});
                 this.rosteritemviews[item.id] = view;

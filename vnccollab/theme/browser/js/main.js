@@ -592,12 +592,7 @@ function runVncChat(vncchat) {
 
     //// XXX: Better if configurable?
     vncchat.connection.muc_domain = 'conference.' +  vncchat.connection.domain;
-
     vncchat.rosterview = Backbone.View.extend(vncchat.VncRosterView(vncchat.roster, _, $, console));
-
-    vncchat.connection.roster.registerCallback(vncchat.roster.rosterHandler);
-    vncchat.roster.getRoster(vncchat.roster.rosterHandler);
-
     vncchat.chatboxes = new vncchat.ChatBoxes();
     vncchat.chatboxesview = new vncchat.VncChatBoxesView({
         'model': vncchat.chatboxes
@@ -628,27 +623,23 @@ function initializeXmppMessageHandler(vncchat) {
 
         this.unread_message_counter = 0
         this.subscriptionNotifier = $.proxy(function(presence) {
-            if (isVncChatLoaded()){
-                this.roster.presenceHandler(presence);
-            } else {
+            presence_type = $(presence).attr('type');
+            if (!isVncChatLoaded() && presence_type == 'subscribe'){
                 //XXX What about other presence types???
                 //We need to think about users status update.
-                presence_type = $(presence).attr('type');
-                if (presence_type == 'subscribe') {
-                    loadVncChat($.proxy(function () {
-                        runVncChat(this);
-                        this.roster.presenceHandler(presence);
-                    }, this), function () {});
-                    this.unread_message_counter += 1;
-                    if (jq('#unread-messages').length > 0) { 
-                        jq('#unread-messages').remove()
-                    };
-                    jq('#im-messages')
-                      .prepend('<span id="unread-messages">'+
-                               this.unread_message_counter + '</span>');
+                loadVncChat($.proxy(function () {
+                    runVncChat(this);
+                    this.roster.presenceHandler(presence);
+                }, this), function () {});
+                this.unread_message_counter += 1;
+                if (jq('#unread-messages').length > 0) { 
+                    jq('#unread-messages').remove()
                 };
+                jq('#im-messages').prepend('<span id="unread-messages">'+
+                                       this.unread_message_counter + '</span>');
+            } else {
+                this.roster.presenceHandler(presence);
             };
-
         }, this);
 
         this.roster = this.VncRoster(_, $, console);
@@ -657,6 +648,8 @@ function initializeXmppMessageHandler(vncchat) {
                 this.subscriptionNotifier(presence);
                 return true;
             }, this), null, 'presence', null);
+        this.connection.roster.registerCallback(this.roster.rosterHandler);
+        this.roster.getRoster(this.roster.rosterHandler);
 
 
         //Let's tell everyone that we are online ;)
