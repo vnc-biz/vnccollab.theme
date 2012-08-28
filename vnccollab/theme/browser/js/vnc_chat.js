@@ -426,6 +426,61 @@ vncchat.VncChatBoxView = vncchat.ChatBoxView.extend({
         });
 
     },
+
+    insertClientStoredMessages: function () {
+        vncchat.messages.getMessages(this.model.get('jid'), $.proxy(function (msgs) {
+            var $content = this.$el.find('.chat-content');
+            for (var i=0; i<_.size(msgs); i++) {
+                var msg = msgs[i], 
+                    msg_array = msg.split(' ', 2),
+                    date = msg_array[0],
+                    match;
+                msg = String(msg).replace(/(.*?\s.*?\s)/, '');
+                match = msg.match(/^\/(.*?)(?: (.*))?$/);
+                if (msg_array[1] == 'to') {
+                    if ((match) && (match[1] === 'me')) {
+                        $content.append(
+                            this.action_template({
+                                'sender': 'me', 
+                                'time': this.formatTimeStamp(new Date(Date.parse(date))),
+                                'message': msg.replace(/^\/me/, '*'+vncchat.fullname),
+                                'username': xmppchat.username,
+                                'extra_classes': 'delayed'
+                        }));
+                    } else {
+                        $content.append(
+                            this.message_template({
+                                'sender': 'me', 
+                                'time': this.formatTimeStamp(new Date(Date.parse(date))),
+                                'message': msg, 
+                                'username': 'me',
+                                'extra_classes': 'delayed'
+                        }));
+                    }
+                } else {
+                    if ((match) && (match[1] === 'me')) {
+                        $content.append(
+                            this.action_template({
+                                'sender': 'them', 
+                                'time': this.formatTimeStamp(new Date(Date.parse(date))),
+                                'message': msg.replace(/^\/me/, '*'+this.model.get('user_id')),
+                                'username': this.model.get('fullname'),
+                                'extra_classes': 'delayed'
+                            }));
+                    } else {
+                        $content.append(
+                            this.message_template({
+                                'sender': 'them', 
+                                'time': this.formatTimeStamp(new Date(Date.parse(date))),
+                                'message': msg,
+                                'username': this.model.get('fullname'),
+                                'extra_classes': 'delayed'
+                            }));
+                    }
+                }
+            }
+        }, this));
+    },
 });
 
 
@@ -607,11 +662,26 @@ vncchat.VncChatRoomView = vncchat.VncChatBoxView.extend({
 
     initialize: function () {
         this.tab = new vncchat.VncChatRoomTab({ body:this });
-        xmppchat.connection.muc.join(
-                        this.model.get('jid'), 
-                        this.model.get('nick'), 
-                        $.proxy(this.onMessage, this), 
-                        $.proxy(this.onPresence, this));
+        muc = vncchat.connection.muc;
+        muc.join(this.model.get('jid'), 
+                 this.model.get('nick'),
+                 $.proxy(this.onMessage, this),
+                 $.proxy(this.onPresence, this));
+        var that = this;
+        //XXX temporary room configuration.
+        muc.configure(this.model.get('jid'), function(configuration) {
+            $('field', configuration).each(function (index, field) {
+                if ($(field).attr('var') == 'muc#roomconfig_membersonly') {
+                    $('value', field).text('1');
+                }
+                if ($(field).attr('var') == 'muc#roomconfig_publicroom') {
+                    $('value', field).text('0');
+                }
+            });
+                muc.saveConfiguration(
+                    that.model.get('jid'),
+                    $('x', configuration).children());
+    });
     },
 
     closeChatRoom: function () {
@@ -1223,8 +1293,8 @@ vncchat.VncRosterView= (function (roster, _, $, console) {
                         this.model.remove(elem.id);
                     }, this);
                 }
-                this.render();
             };
+            this.render();
             this.model.on("add", function (item) {
                 var view = new vncchat.VncRosterItemView({model: item});
                 this.rosteritemviews[item.id] = view;
