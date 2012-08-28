@@ -4,7 +4,6 @@
     i18n_domain="vnccollab.theme">
 
     <genericsetup:upgradeSteps
-        description="Add vnc xmpp chat."
         source="1000"
         destination="1100"
         sortkey="1"
