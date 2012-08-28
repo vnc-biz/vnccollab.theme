@@ -1275,6 +1275,44 @@ vncchat.VncRosterItemView = vncchat.RosterItemView.extend({
                 '<a class="open-chat" title="Click to chat with this contact" href="#"><%= fullname %></a>' +
                 '<a class="remove-xmpp-contact" title="Click to remove this contact" href="#"></a>'),
 
+    render: function () {
+        var item = this.model,
+            ask = item.get('ask'),
+            that = this,
+            subscription = item.get('subscription');
+
+        $(this.el).addClass(item.get('presence_type')).attr('id', 'online-users-'+item.get('user_id'));
+
+        if (ask === 'subscribe') {
+            this.$el.addClass('pending-xmpp-contact');
+            $(this.el).html(this.template(item.toJSON()));
+        } else if (ask === 'request') {
+            this.$el.addClass('requesting-xmpp-contact');
+            $(this.el).html(this.request_template(item.toJSON()));
+            this.$el.find('.accept-xmpp-request').on('click', function (ev) {
+                ev.preventDefault();
+                that.acceptRequest();
+            });
+            this.$el.find('.decline-xmpp-request').on('click', function (ev) {
+                ev.preventDefault();
+                that.declineRequest();
+            });
+        } else if (subscription === 'both') {
+            this.$el.addClass('current-xmpp-contact');
+            this.$el.html(this.template(item.toJSON()));
+            this.$el.find('.open-chat').on('click', function (ev) {
+                ev.preventDefault();
+                that.openChat();
+            });
+        }
+
+        // Event handlers
+        this.$el.find('a.remove-xmpp-contact').on('click', function (ev) {
+            ev.preventDefault();
+            that.removeContact();
+        });
+        return this;
+    },
 });
 
 vncchat.VncRosterView= (function (roster, _, $, console) {
