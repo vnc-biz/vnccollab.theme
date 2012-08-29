@@ -1,8 +1,11 @@
 Changelog
 =========
 
-1.5.4 - Unreleased
-------------------
+1.5.4 - August 29
+-----------------
+
+- Fix popupforms.js selector. Should now work with newer jquery version.
+  [Vitaliy Podoba]
 
 - Add mail notification for plone.app.discussion.
   [Jose Dinuncio]
