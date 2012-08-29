@@ -697,12 +697,20 @@ function initializeXmppMessageHandler(vncchat) {
     }, vncchat));
 };
 
-function attachIMButton() {
+function attachIMButton(vncchat) {
   jq('#im-messages').click(function(event) {
     event.preventDefault();
     IMButtonHandler(vncchat);
   });
 };
+
+function setupVncChat() {
+    if (jq('#im-messages').length == 0) {
+        return false;
+    };
+    initializeXmppMessageHandler(vncchat);
+    attachIMButton(vncchat);
+}
 
 jq(function() {
   attachNewTicketAction();
@@ -716,6 +724,5 @@ jq(function() {
   attachSocialBookmarksLink();
   attachStreamButton();
   attachStreamActions();
-  initializeXmppMessageHandler(vncchat);
-  attachIMButton(vncchat);
+  setupVncChat();
 });
