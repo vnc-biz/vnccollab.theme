@@ -518,8 +518,8 @@ function attachStreamActions() {
       setTimeout(checkVNCStream, 2000);
       
       // activate form again
-      field.attr('disabled', '');
-      button.attr('disabled', '');
+      field.removeAttr('disabled');
+      button.removeAttr('disabled');
       
       return false;
     });
@@ -710,7 +710,42 @@ function setupVncChat() {
     };
     initializeXmppMessageHandler(vncchat);
     attachIMButton(vncchat);
-}
+};
+
+function rebindPubSubStreamHandlers () {
+    $(document).bind('jarnxmpp.connected', function () {
+        Strophe.addNamespace('PUBSUB', 'http://jabber.org/protocol/pubsub');
+        // PubSub
+        jarnxmpp.connection.addHandler(jarnxmpp.PubSub.eventReceived, null, 'message', null, null, jarnxmpp.pubsub_jid);
+        jarnxmpp.connection.addHandler(jarnxmpp.Roster.rosterSuggestedItem, 'http://jabber.org/protocol/rosterx', 'message', null);
+        jarnxmpp.connection.send($pres());
+
+        // Load stream.
+        $('.pubsubNode').each(function () {
+            // If this doesn't have a data-node it must a personal stream.
+            if (!$(this).attr('data-node')) {
+                var $node = $(this);
+                jarnxmpp.Storage.xmppSet('last_read_stream_on', jarnxmpp.PubSub._ISODateString(new Date()));
+                jarnxmpp.PubSub.getSubscriptions(function (following) {
+                    $node.attr('data-node', following.join(' '));
+                    $.ajax({url: portal_url + '/@@pubsub-items',
+                        data: {nodes: following},
+                        dataType: 'html',
+                        traditional: true,
+                        cache: false,
+                        success: function (data) {
+                            $node.hide();
+                            $node.html(data);
+                            $node.magicLinks();
+                            $('.prettyDate', $node).prettyDate();
+                            $node.slideDown("slow");
+                        }});
+                });
+            }
+        });
+    });
+
+};
 
 jq(function() {
   attachNewTicketAction();
@@ -725,4 +760,5 @@ jq(function() {
   attachStreamButton();
   attachStreamActions();
   setupVncChat();
+  rebindPubSubStreamHandlers();
 });
