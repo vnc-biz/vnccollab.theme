@@ -8,10 +8,10 @@
            i18n:translate="">Stream</a>
         <a id="im-messages"
            tal:attributes="href string:${portal_url}/@@muc"
-           i18n:translate=""> Messages </a>
-           <a href="#" id="toggle-online-users">
+           i18n:translate=""> Chat </a>
+           <!--a href="#" id="toggle-online-users">
             <span id="online-count">0</span>
             <span i18n:translate="">People online</span>
-        </a>
+        </a-->
     </div>
 </div>
