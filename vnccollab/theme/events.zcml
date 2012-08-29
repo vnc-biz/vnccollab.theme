@@ -1,0 +1,12 @@
+<configure
+    xmlns="http://namespaces.zope.org/zope"
+    i18n_domain="vnccollab.site">
+
+    <subscriber
+        for="plone.app.discussion.interfaces.IComment
+             zope.lifecycleevent.interfaces.IObjectAddedEvent"
+        handler="Products.CMFNotification.events.handlers.onDiscussionItemAddedEvent"
+        />
+                                         
+</configure>
+

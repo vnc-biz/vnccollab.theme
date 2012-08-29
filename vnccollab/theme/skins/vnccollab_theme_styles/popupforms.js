@@ -40,7 +40,7 @@ jQuery(function($){
     // After deletes we need to redirect to the target page.
     redirectbasehref = function (el, responseText) {
         // vipod: for File and Image content types return location
-        if ($('.portaltype-file, portaltype-image').length != 0) {
+        if ($('.portaltype-file, .portaltype-image').length != 0) {
           return location;
         }
         

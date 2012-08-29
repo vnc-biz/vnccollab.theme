@@ -12,6 +12,7 @@
   <include file="skins.zcml" />
   <include file="profiles.zcml" />
   <include file="implements.zcml" />
+  <include file="events.zcml" />
   <i18n:registerTranslations directory="locales" />
 
   <adapter name="avg_ratings" factory=".indexers.avg_ratings" />
