@@ -694,6 +694,26 @@ function initializeXmppMessageHandler(vncchat) {
                 return true;
             }, this), 'http://jabber.org/protocol/muc#user', 'message', null);
 
+        this.connection.addHandler($.proxy(function(stanza) {
+            //TODO this piece of code will be functional when
+            // user will not be leaving room on page reload
+            //from = stanza.getAttribute('from');
+            //if (!isVncChatLoaded()){
+            //    loadVncChat($.proxy(function () {
+            //        runVncChat(this);
+            //        this.chatboxesview.openChat(from);
+            //    }, this), function () {});
+            //}
+            if (!isVncChatVisible()) {
+                    this.unread_message_counter += 1;
+                    if (jq('#unread-messages').length > 0) {
+                            jq('#unread-messages').remove()
+                    };
+                jq('#im-messages').prepend('<span id="unread-messages">'+
+                        this.unread_message_counter + '</span>');
+            };
+            return true;
+        }, this), null, 'message', 'groupchat');
     }, vncchat));
 };
 
