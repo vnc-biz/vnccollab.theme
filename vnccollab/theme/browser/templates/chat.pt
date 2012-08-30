@@ -118,6 +118,12 @@
    ul.tabs {
         width: 100%;
    }
+   a.leaveRoom{
+        background: url("/delete_icon.png") no-repeat scroll right top transparent;
+        float: right;
+        margin: 0;
+        padding: 0.5em 1em 1em 0;
+   }
 </style>
 <div id="vnc-chat">
   <div id="chatpanel"

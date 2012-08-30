@@ -694,16 +694,17 @@ function initializeXmppMessageHandler(vncchat) {
                 return true;
             }, this), 'http://jabber.org/protocol/muc#user', 'message', null);
 
+
         this.connection.addHandler($.proxy(function(stanza) {
-            //TODO this piece of code will be functional when
-            // user will not be leaving room on page reload
-            //from = stanza.getAttribute('from');
-            //if (!isVncChatLoaded()){
-            //    loadVncChat($.proxy(function () {
-            //        runVncChat(this);
-            //        this.chatboxesview.openChat(from);
-            //    }, this), function () {});
-            //}
+            from = stanza.getAttribute('from');
+            if (isVncChatLoaded()){
+                this.chatboxesview.messageReceived(stanza);
+            } else {
+                loadVncChat($.proxy(function () {
+                    runVncChat(this);
+                    this.chatboxesview.messageReceived(stanza);
+                }, this), function () {});
+            };
             if (!isVncChatVisible()) {
                     this.unread_message_counter += 1;
                     if (jq('#unread-messages').length > 0) {
@@ -714,6 +715,24 @@ function initializeXmppMessageHandler(vncchat) {
             };
             return true;
         }, this), null, 'message', 'groupchat');
+
+        //We need to rejoin all joined rooms.
+        var username = Strophe.unescapeNode(
+                Strophe.getNodeFromJid(vncchat.connection.jid)),
+            room_cookie = jQuery.cookie('joined-rooms-'+ username),
+            joined_rooms = [];
+
+        if (room_cookie) {
+           //XXX we need to load chat because of history messages that we
+           //received after join.
+           loadVncChat($.proxy(function () {
+                       runVncChat(this);
+                       joined_rooms = room_cookie.split('|');
+                       for (var i=0;i<joined_rooms.length;i++) {
+                           vncchat.connection.muc.join(joined_rooms[i], username);
+                       }
+                }, this), function () {});
+            };
     }, vncchat));
 };
 
