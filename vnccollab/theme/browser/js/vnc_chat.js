@@ -1365,7 +1365,9 @@ vncchat.VncRoster = (function (_, $, console) {
 
         if (status_message.length > 0) {
             model = ob.getItem(bare_jid);
-            model.set({'status': status_message.text()});
+            if (model) {
+                model.set({'status': status_message.text()});
+            }
         }
 
         if ((presence_type === 'error') || 
