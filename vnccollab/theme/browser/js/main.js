@@ -381,6 +381,13 @@ function checkVNCStream() {
       } else {
         jq('.vncStreamBodyItems', stream).append(data);
       }
+      
+      // if stream is visible: mark STREAM icon as read
+      if (stream.is(':visible')) {
+        jq('#unread-message').remove();
+        jq('#site-stream-link').removeClass('newStreamMessage');
+      }
+      
       vncStreamLoading = false;
       setTimeout(checkVNCStream, vncStreamDelay);
     },
@@ -426,6 +433,9 @@ function attachStreamButton() {
               $chat.hide();
           } else {
             jq('#vnc-stream').hide().slideDown();
+            // mark stream icon as read
+            jq('#unread-message').remove();
+            jq('#site-stream-link').removeClass('newStreamMessage');
           }
           // attach slim scrolling
           jq('.vncStreamBodyItems:not(.noSlimScroll)').slimScroll({
@@ -452,9 +462,12 @@ function attachStreamButton() {
       if (isVncChatVisible()) {
         $chat.hide();
         stream.show();
-      }else {
+      } else {
         stream.slideDown();
       }
+      // mark stream icon as read
+      jq('#unread-message').remove();
+      jq('#site-stream-link').removeClass('newStreamMessage');
     }
     return false;
   });
