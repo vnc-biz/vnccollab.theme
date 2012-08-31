@@ -1,6 +1,17 @@
 <?xml version="1.0"?>
 <registry>
-  <records interface="vnccollab.theme.settings.IWorldClockSettings">
+  <record interface="Products.ResourceRegistries.interfaces.settings.IResourceRegistriesSettings" field="resourceBundlesForThemes">
+        <value purge="false">
+            <element key="(default)">
+                <element>jquery</element>
+                <element>default</element>
+            </element>
+            <element key="VNC Collaboration Theme">
+                <element>default</element>
+                <element>jquery</element>
+            </element>
+        </value>
+    </record>  <records interface="vnccollab.theme.settings.IWorldClockSettings">
     <value key="tz_1">Europe/Berlin</value>
     <value key="skin_1">vncHeaderViewlet</value>
     <value key="radius_1">35</value>
