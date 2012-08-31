@@ -1969,6 +1969,7 @@ dl.portalMessage dd {
   z-index:30 !important;
   }
 /*---------- Stream Viewlet ----------*/
+
 #vnc-stream {
   background-color: #fff;
   border-top: 1px solid #c1ccd5;
@@ -2080,6 +2081,280 @@ dl.portalMessage dd {
   color: #131313;
   font-size: 0.875em;
   }
+
+/*---------- Chat Viewlet ----------*/
+#vnc-chat {
+  background-color: #fff;
+  border-top: 1px solid #c1ccd5;
+  height: 327px;
+  position: relative;
+}
+#vnc-chat:after {
+  background-color: #C1CCD5;
+  bottom: 0;
+  content: "";
+  display: block;
+  left: 50%;
+  margin-left: -1px;
+  position: absolute;
+  top: 0;
+  width: 1px;
+}
+#chatpanel {
+  position: static;
+  height: 327px;
+}
+#collective-xmpp-chat-data {
+  position: static;
+  height: 327px;
+}
+#online-users-container {
+  display:block;
+  float: left;
+  height: 327px;
+  padding: 0;
+  margin: 0;
+  width: 50%;
+  z-index: auto;
+}
+#chat-block {
+  float: right;
+  width: 50%;
+}
+#chat-tabs {
+  background-color: #F5F5F5;
+  border-bottom: 1px solid #C1CCD5;
+  font-size: 0.75em;
+  height: 33px;
+  line-height: 1.25em;
+}
+#chat-tabs li {
+  float: left;
+  height: 33px;
+  padding-right: 2px;
+  position: relative;
+}
+#chat-tabs li.selected {
+  background-color: #FFFFFF;
+  border-bottom: 1px solid #FFFFFF;
+  border-left: 1px solid #C1CCD5;
+  border-right: 1px solid #C1CCD5;
+}
+#chat-tabs li.selected:first-child {
+  border-left: 0 none;
+}
+#chat-tabs a.tabLink {
+  color: #012A43;
+  display: block;
+  padding: 9px 15px;
+}
+#chat-tabs .selected a.tabLink {
+  padding: 9px 14px;
+}
+#chat-tabs .selected:first-child a.tabLink {
+  padding: 9px 14px 9px 15px;
+}
+#chat-tabs .close-chattab-button {
+  position: absolute;
+  top: -1px;
+  right: 3px;
+  font-size: 10px;
+  display: none;
+}
+#chat-tabs .selected .close-chattab-button {
+  display: block;
+}
+
+div.chatbody {
+  float: none;
+  height: auto;
+  width: auto;
+}
+.chat-content {
+  border: none;
+  padding: 0;
+  height: 180px;
+}
+.chat-message {
+  border-top: 1px solid #E5E5E5;
+  clear: both;
+  margin: -1px 0 0;
+  padding: 8px 10px;
+  position: relative;
+  font-size: 14px;
+}
+.chat-message:nth-child(odd) {
+  background-color: #ffffff;
+}
+.chat-message:nth-child(even) {
+  background-color: #f1f1f1;
+}
+.chat-message .chat-message-byline {
+  margin-bottom: 5px;
+}
+.chat-message .chat-message-byline.chat-message-me {
+  color: 3363ba;
+}
+.chat-message .chat-message-byline.chat-message-them {
+  color: #b16321;
+}
+.chat-message .chat-message-author {
+  font-weight: bold;
+}
+.chat-message .messageTimeStamp {
+  float: right;
+  font-size: 12px;
+  font-weight: normal;
+}
+.chat-message .chat-message-content {
+  color: #131313;
+}
+
+.sendXMPPMessage {
+  display: block;
+  height: 58px;
+  width: 100%;
+  padding: 13px 10px;
+}
+.sendXMPPMessage .chat-textarea {
+  height: 58px;
+  width: 100%;
+  display: block;
+  padding: 9px 14px;
+  border-radius: 14px;
+  border: 1px solid #E5E5E5;
+  border-top: 2px solid #E5E5E5;
+  resize: none;
+}
+
+
+/*    div.chatroom {
+        display: block;
+        float: left;
+        height: 311px;
+        margin-right: 15px;
+        width: 100%;
+        z-index: 3;
+    }
+    .chatroom .chat-area {
+        float: left;
+        width: 100%;
+    }
+    .chat-textarea {
+        border: 0 none;
+        height: 48px;
+        overflow: hidden;
+        padding: 3px;
+        width: 100%;
+    }
+    span.messageTimeStamp {
+      float:right;
+    }
+    div.chatbox {
+       margin-right:0px;
+    }
+    div.vncChatbox {
+        height: 293px;
+        overflow: hidden;
+        position: relative;
+        width: 70%;
+        position:absolute;
+   }
+   #chat-tabs li{
+        float:left;
+        height:33px;
+   }
+   #chat-tabs li.newMessage {
+       background-color: green;
+   }
+   #chat-block{
+       float:right;
+       width:70%;
+   }
+   #online-users-container{
+       display:block;
+       float: left;
+       width: 30%;
+       height:327px;
+   }
+   #chat-tabs {
+       background-color: #F5F5F5;
+       border-bottom: 1px solid #C1CCD5;
+       font-size: 0.75em;
+       height: 33px;
+       line-height: 1.25em;
+   }
+   .chat-content {
+       height:180px;
+   }
+   .vncChatbox .chat-content {
+       height:196px;
+   }
+   .close-chattab-button {
+       color: #666666 !important;
+       margin-right: 0.5em;
+       padding: 0 4px;
+   }
+   #chatpanel {
+     position:relative;
+   }
+   #history-box {
+     background-color: #FFFFFF;
+   }
+   #history-box > span {
+     float:left;
+   }
+   .roomParticipants {
+     background-color: #FFFFFF;
+   }
+   .roomParticipants > span {
+     float:left;
+   }
+   #chat-tabs li.selected {
+         background-color: #FFFFFF;
+         border-bottom: 1px solid #FFFFFF;
+         border-left: 1px solid #C1CCD5;
+         border-right: 1px solid #C1CCD5;
+   }
+   #chat-tabs a {
+         color: #012A43;
+         display: block;
+         padding: 9px 15px;
+         float:left;
+   }
+   #chat-tabs a.close-chattab-button {
+         padding: 0px;
+   }
+   .panes div#users, .panes div#chatrooms, .panes div#settings {
+         background-color: white;
+         border: 1px solid #999999;
+         border-bottom-left-radius: 0.5em;
+         border-bottom-right-radius: 0.5em;
+         font-size: 14px;
+         width: 100%;
+       }
+   .oc-chat-content {
+        height: 293px !important;
+   }
+   .oc-chat-head {
+        background-color: #FFFFFF;
+        width: 100%;
+   }
+   ul.tabs li {
+        width: 50%;
+   }
+   ul.tabs {
+        width: 100%;
+   }
+   a.leaveRoom{
+        background: url("/delete_icon.png") no-repeat scroll right top transparent;
+        float: right;
+        margin: 0;
+        padding: 0.5em 1em 1em 0;
+   }
+*/
+
+
 
 /* Social Streams */
 #content #vnc-social-stream {

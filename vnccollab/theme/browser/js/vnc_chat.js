@@ -123,7 +123,7 @@ vncchat.VncChatRoomTab = vncchat.VncChatTab.extend({
 
 vncchat.VncChatBoxView = vncchat.ChatBoxView.extend({
     tagName: 'div',
-    className: 'vncChatbox',
+    className: 'vncChatbox chatbody',
 
     template: _.template(
     // TODO: custom message implementation.
@@ -148,14 +148,16 @@ vncchat.VncChatBoxView = vncchat.ChatBoxView.extend({
                 '<textarea ' +
                     'type="text" ' +
                     'class="chat-textarea" ' +
-                    'placeholder="Personal message"/>'+
+                    'placeholder="Enter your message here..."/>'+
                 '</form>'),
 
     message_template: _.template(
                         '<div class="chat-message <%=extra_classes%>">' + 
-                            '<span class="chat-message-<%=sender%>"><%=username%></span>' + 
+                          '<div class="chat-message-byline chat-message-<%=sender%>">' +
                             '<span class="messageTimeStamp"><%=time%></span>' +
-                            '<p class="chat-message-content"><%=message%></p>' + 
+                            '<span class="chat-message-author"><%=username%></span>' + 
+                          '</div>' +
+                          '<p class="chat-message-content"><%=message%></p>' + 
                         '</div>'),
     events: {
         'click .close-chattab-button': 'closeChat',
@@ -680,7 +682,7 @@ vncchat.VncRosterItem = Backbone.Model.extend({
 vncchat.VncChatRoomView = vncchat.VncChatBoxView.extend({
     length: 300,
     tagName: 'div',
-    className: 'chatroom',
+    className: 'chatroom chatbody',
 
     template: _.template(
         //TODO: chat room topic
@@ -720,7 +722,7 @@ vncchat.VncChatRoomView = vncchat.VncChatBoxView.extend({
                     '<textarea ' +
                         'type="text" ' +
                         'class="chat-textarea" ' +
-                        'placeholder="Message"/>' +
+                        'placeholder="Enter your message here..."/>' +
                 '</form>' +
             '</div>' +
             '</div>'),
