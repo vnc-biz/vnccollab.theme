@@ -640,7 +640,10 @@ vncchat.VncChatBoxesView = vncchat.ChatBoxesView.extend({
             view.messageReceived(message);
             // XXX: Is this the right place for this? Perhaps an event?
             vncchat.roster.addResource(bare_jid, resource);
-        }
+        } else {
+            view.onMessage(message);
+        };
+
     },
 });
 
