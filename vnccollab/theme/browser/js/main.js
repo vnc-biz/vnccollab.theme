@@ -697,9 +697,7 @@ function initializeXmppMessageHandler(vncchat) {
 
         this.connection.addHandler($.proxy(function(stanza) {
             from = stanza.getAttribute('from');
-            if (isVncChatLoaded()){
-                this.chatboxesview.messageReceived(stanza);
-            } else {
+            if (!isVncChatLoaded()){
                 loadVncChat($.proxy(function () {
                     runVncChat(this);
                     this.chatboxesview.messageReceived(stanza);
@@ -725,14 +723,11 @@ function initializeXmppMessageHandler(vncchat) {
         if (room_cookie) {
            //XXX we need to load chat because of history messages that we
            //received after join.
-           loadVncChat($.proxy(function () {
-                       runVncChat(this);
-                       joined_rooms = room_cookie.split('|');
-                       for (var i=0;i<joined_rooms.length;i++) {
-                           vncchat.connection.muc.join(joined_rooms[i], username);
-                       }
-                }, this), function () {});
-            };
+           joined_rooms = room_cookie.split('|');
+           for (var i=0;i<joined_rooms.length;i++) {
+               vncchat.connection.muc.join(joined_rooms[i], username);
+           }
+        };
     }, vncchat));
 };
 
