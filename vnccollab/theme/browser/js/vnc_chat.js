@@ -589,8 +589,8 @@ vncchat.VncChatBoxesView = vncchat.ChatBoxesView.extend({
     showChat: function (jid) {
         var chat = this.views[jid];
         if (chat.isVisible()) {
-            chat.focus();
-            chat.tab.$el.addClass('selected');
+            // chat.focus();
+            // chat.tab.$el.addClass('selected');
         }
         else {
             chat.show();
