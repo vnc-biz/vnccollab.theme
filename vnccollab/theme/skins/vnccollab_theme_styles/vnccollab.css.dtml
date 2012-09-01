@@ -2154,6 +2154,10 @@ dl.portalMessage dd {
 #chat-tabs .selected:first-child a.tabLink {
   padding: 9px 14px 9px 15px;
 }
+#chat-tabs .newMessage a.tabLink {
+  color: red;
+}
+
 #chat-tabs .close-chattab-button {
   position: absolute;
   top: -1px;
@@ -2164,16 +2168,23 @@ dl.portalMessage dd {
 #chat-tabs .selected .close-chattab-button {
   display: block;
 }
-
 div.chatbody {
   float: none;
   height: auto;
   width: auto;
+  margin: 0;
+}
+.chatroom .chat-area {
+  width: auto;
+  float: none;
 }
 .chat-content {
   border: none;
   padding: 0;
-  height: 180px;
+  height: 194px;
+}
+.chat-area .chat-content {
+  height: 156px;
 }
 .chat-message {
   border-top: 1px solid #E5E5E5;
@@ -2210,21 +2221,27 @@ div.chatbody {
   color: #131313;
 }
 
-.sendXMPPMessage {
+form.sendXMPPMessage {
   display: block;
-  height: 58px;
-  width: 100%;
+  height: 35px;
   padding: 13px 10px;
+  border-left: none;
+  border-right: none;
+  border-bottom: none;
+  border-top: 1px solid #E5E5E5;
 }
-.sendXMPPMessage .chat-textarea {
-  height: 58px;
-  width: 100%;
+/* TODO: make textarea auto resizable */
+form.sendXMPPMessage .chat-textarea {
+  height: 13px;
   display: block;
   padding: 9px 14px;
-  border-radius: 14px;
+  border-radius: 17px;
   border: 1px solid #E5E5E5;
   border-top: 2px solid #E5E5E5;
   resize: none;
+  width: 95%;
+  font-size: 14px;
+  background-color: #F1F1F1;
 }
 
 
