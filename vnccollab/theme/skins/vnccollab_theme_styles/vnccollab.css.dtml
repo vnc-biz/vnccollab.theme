@@ -2083,6 +2083,8 @@ dl.portalMessage dd {
   }
 
 /*---------- Chat Viewlet ----------*/
+/* TODO: make stream and chat viewlets height customizable by user with slide
+   button */
 #vnc-chat {
   background-color: #fff;
   border-top: 1px solid #c1ccd5;
@@ -2183,12 +2185,52 @@ div.chatbody {
 .chat-content {
   border: none;
   padding: 0;
-  height: 232px;
+  height: 231px;
 }
 .chat-area .chat-content {
-  height: 156px;
+  height: 199px;
 }
-
+.roomParticipants {
+  padding: 10px 6px 0 6px;
+  color: #062943;
+  border-bottom: 1px solid #E5E5E5;
+}
+.roomParticipantsHeader {
+  margin-right: 10px;
+  text-transform: uppercase;
+  float: left;
+  font-size: 14px;
+}
+.roomParticipants ul {
+  background-color: #fff;
+  margin-left: 94px;
+}
+.roomParticipants ul:after {
+  content: "";
+  display: block;
+  clear: both;
+  visibility: hidden;
+}
+.roomParticipants ul li {
+  background-color: #e0e4e7;
+  float: left;
+  display: block;
+  padding: 3px 8px;
+  margin: -2px 8px 3px 0;
+  border-radius: 12px;
+  font-size: 12px;
+  font-weight: bold;
+}
+.roomParticipants ul li.addParticipantsItem {
+  background-color: #85b500;
+}
+.roomParticipants ul li.addParticipantsItem a.addParticipants {
+  color: #fff;
+}
+/* TODO: make it visible once it's implemented */
+.roomParticipants ul li .removeParticipantButton {
+  display: none;
+}
 .history-box {
   text-align: center;
   padding: 5px;
@@ -2244,6 +2286,8 @@ div.chatbody {
   color: #131313;
 }
 
+/* TODO: in chrome remove righ scrolling and make :focus highlighting also
+   rounded */
 form.sendXMPPMessage {
 /*  position: absolute;*/
 /*  bottom: 0;*/
@@ -2268,10 +2312,6 @@ form.sendXMPPMessage .chat-textarea {
   width: 95%;
   font-size: 14px;
   background-color: #F1F1F1;
-/*  white-space: pre-wrap;*/
-/*  word-wrap: break-word;*/
-/*  outline-offset: -2px;*/
-/*  outline: #95B2E0  auto 5px;*/
   overflow: visible;
 }
 

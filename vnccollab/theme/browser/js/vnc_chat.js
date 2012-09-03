@@ -722,11 +722,11 @@ vncchat.VncChatRoomView = vncchat.VncChatBoxView.extend({
                 '<p class="chatroom-topic"><p/>' +
             '</div>' +*/
             '<div class="roomParticipants">' +
-                '<span>Participants:</span>' +
+                '<span class="roomParticipantsHeader">Participants:</span>' +
                 '<ul class="participant-list">' +
-                '<li>' +
+                '<li class="addParticipantsItem">' +
                   '<a href="javascript:void(0)" class="addParticipants">' +
-                    'Add ...' +
+                    'Add...' +
                   '</a>' +
                 '</li>' +
                 '</ul>' +
@@ -896,7 +896,7 @@ vncchat.VncChatRoomView = vncchat.VncChatBoxView.extend({
                 if (that.$el.find( '.participant-list li#' +
                         escapeSelector(node)).length == 0) {
                     $participants.prepend('<li id="'+node+'">' + fullname +
-                                            '<a href="javascript:void(0)">X</a>' +
+                                            '<a class="removeParticipantButton" href="javascript:void(0)">X</a>' +
                                           '</li>');
                 }
             });
