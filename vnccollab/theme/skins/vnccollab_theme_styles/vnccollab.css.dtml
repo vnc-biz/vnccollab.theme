@@ -2211,8 +2211,6 @@ div.add-xmpp-contact {
   padding: 5px;
   margin-bottom: 2px;
 }
-form.search-xmpp-contact {
-}
 form.search-xmpp-contact input.username {
   background-color: #F1F1F1;
   border-radius: 6px;
@@ -2251,7 +2249,7 @@ form.search-xmpp-contact button {
   font-size: 14px;
   font-weight: normal;
   text-transform: uppercase;
-  padding-left: 24px;
+  padding-left: 8px;
   margin-top: 10px;
   background-color: #fff;
   clear: both;
@@ -2282,7 +2280,79 @@ form.search-xmpp-contact button {
 }
 #xmppchat-roster dd a.remove-xmpp-contact {
   margin: 5px 0px 0px 0px;
+  background: url(&dtml-portal_url;/delete_icon.png) no-repeat scroll right top transparent;
 }
+form.add-chatroom {
+  margin: 0.5em 0.5em 0.3em 0.5em;
+  padding: 5px;
+  border-radius: 7px;
+  border: 1px solid #DDDDDD;
+}
+form.add-chatroom .new-chatroom-name {
+  background-color: #F1F1F1;
+  border-radius: 6px;
+  padding: 0 5px;
+  margin-right: 6px;
+  width: 81%;
+  border: 1px solid #E5E5E5;
+  height: 25px;
+  font-size: 14px;
+  text-transform: capitalize;
+
+}
+form.add-chatroom button {
+  margin: 0;
+  padding: 0;
+  border: 0;
+  text-transform: uppercase;
+  font-size: 14px;
+  font-weight: normal;
+  color: #062943;
+  background: none;
+}
+#available-chatrooms {
+  height: 243px;
+  overflow-y: auto;
+}
+#available-chatrooms dt {
+  font-size: 14px;
+  font-weight: normal;
+  text-transform: uppercase;
+  padding: 0 0 0 8px;
+  margin-top: 10px;
+  background-color: #fff;
+  clear: both;
+}
+#available-chatrooms dd {
+  padding: 5px 10px 5px 37px;
+  clear: both;
+  background: transparent url(&dtml-portal_url;/chat/chat_room_icon.png) no-repeat scroll 9px 6px;
+}
+/*#available-chatrooms dd:nth-child(odd) {
+  background-color: #ffffff;
+}
+#available-chatrooms dd:nth-child(even) {
+  background-color: #f1f1f1;
+}
+*/
+#available-chatrooms dd:after {
+  content: "";
+  display: block;
+  visibility: hidden;
+  clear: both;
+}
+#available-chatrooms dd a.open-room {
+  display: block;
+  float: left;
+  margin: 6px 0px 5px 8px;
+}
+#available-chatrooms dd a.leaveRoom {
+  margin: 5px 0px 0px 0px;
+  background: url(&dtml-portal_url;/delete_icon.png) no-repeat scroll right top transparent;
+  float: right;
+  padding: 0.5em 1em 1em 0;
+}
+
 
 #chat-block {
   float: right;

@@ -45,11 +45,11 @@
           </div> 
           <div id="chatrooms">
             <form class="add-chatroom" action="" method="post">
-              <input type="text" name="chatroom" class="new-chatroom-name" placeholder="Chat room name"/>
+              <input type="text" name="chatroom" class="new-chatroom-name" placeholder="New room"/>
               <button type="submit">Join</button>
             </form>
             <dl id="available-chatrooms">
-              <dt>Available chatrooms</dt>
+              <dt>Available rooms</dt>
             </dl>
           </div>
         </div>
