@@ -2120,6 +2120,7 @@ dl.portalMessage dd {
 #chat-block {
   float: right;
   width: 50%;
+  height: 327px;
 }
 #chat-tabs {
   background-color: #F5F5F5;
@@ -2173,6 +2174,7 @@ div.chatbody {
   height: auto;
   width: auto;
   margin: 0;
+  position: relative;
 }
 .chatroom .chat-area {
   width: auto;
@@ -2181,11 +2183,32 @@ div.chatbody {
 .chat-content {
   border: none;
   padding: 0;
-  height: 194px;
+  height: 232px;
 }
 .chat-area .chat-content {
   height: 156px;
 }
+
+.history-box {
+  text-align: center;
+  padding: 5px;
+}
+.history-box-header {
+  color: #aaa;
+  font-weight: bold;
+}
+.history-box ul li {
+  margin-right: 8px;
+  border-right: 1px solid #aaa;
+  padding-right: 8px;
+}
+.history-box ul li:last-child {
+  border-right: none;
+}
+.history-box ul li:after {
+/*  content: "|";*/
+}
+
 .chat-message {
   border-top: 1px solid #E5E5E5;
   clear: both;
@@ -2222,6 +2245,9 @@ div.chatbody {
 }
 
 form.sendXMPPMessage {
+/*  position: absolute;*/
+/*  bottom: 0;*/
+/*  left: 0;*/
   display: block;
   height: 35px;
   padding: 13px 10px;
@@ -2242,6 +2268,11 @@ form.sendXMPPMessage .chat-textarea {
   width: 95%;
   font-size: 14px;
   background-color: #F1F1F1;
+/*  white-space: pre-wrap;*/
+/*  word-wrap: break-word;*/
+/*  outline-offset: -2px;*/
+/*  outline: #95B2E0  auto 5px;*/
+  overflow: visible;
 }
 
 

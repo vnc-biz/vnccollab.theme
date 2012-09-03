@@ -125,6 +125,33 @@ vncchat.VncChatBoxView = vncchat.ChatBoxView.extend({
     tagName: 'div',
     className: 'vncChatbox chatbody',
 
+    keyPressed: function (ev) {
+        var $textarea = $(ev.target),
+            message,
+            notify,
+            composing,
+            that = this;
+
+        if(ev.keyCode == 13) {
+            message = $textarea.val();
+            message = message.replace(/^\s+|\s+jQuery/g,"");
+            $textarea.val('').focus();
+            if (message !== '') {
+                this.sendMessage(message);
+            }
+            $(this.el).data('composing', false);
+            return false;
+        } else {
+            composing = $(this.el).data('composing');
+            if (!composing) {
+                notify = $msg({'to':this.model.get('jid'), 'type': 'chat'})
+                                .c('composing', {'xmlns':'http://jabber.org/protocol/chatstates'});
+                xmppchat.connection.send(notify);
+                $(this.el).data('composing', true);
+            }
+        }
+    },
+
     template: _.template(
     // TODO: custom message implementation.
     /*            '<div class="chat-head chat-head-chatbox">' +
@@ -132,18 +159,19 @@ vncchat.VncChatBoxView = vncchat.ChatBoxView.extend({
                     '<a href="javascript:void(0)" class="chatbox-button close-chatbox-button">X</a>' +
                     '<p class="user-custom-message"><p/>' +
                 '</div>' + */
-                '<div id="history-box">' +
-                   '<span>View Erlier Messages</span>' +
+                '<div class="chat-content">' +
+                '<div class="history-box">' +
+                   '<span class="history-box-header">View Earlier Messages</span>' +
                    '<ul>' +
-                   '<li><a id="one-day-history" class="historyControl" href="#">1 Day</a>|</li>' +
-                   '<li><a id="one-week-history" class="historyControl" href="#">1 Week</a>|</li>' +
-                   '<li><a id="two-weeks-history" class="historyControl" href="#">2 Weeks</a>|</li>' +
-                   '<li><a id="one-month-history" class="historyControl" href="#">1 Month</a>|</li>' +
-                   '<li><a id="six-months-history" class="historyControl" href="#">6 Months</a>|</li>' +
-                   '<li><a id="one-year-history" class="historyControl" href="#">1 Year</a>|</li>' +
-                   '<li><a id="forever-history"  class="historyControl" href="#">Forever</a></li>' +
+                   '<li><a class="historyControl one-day-history" href="#">1 Day</a></li>' +
+                   '<li><a class="historyControl one-week-history" href="#">1 Week</a></li>' +
+                   '<li><a class="historyControl two-weeks-history" href="#">2 Weeks</a></li>' +
+                   '<li><a class="historyControl one-month-history" href="#">1 Month</a></li>' +
+                   '<li><a class="historyControl six-months-history" href="#">6 Months</a></li>' +
+                   '<li><a class="historyControl one-year-history" href="#">1 Year</a></li>' +
+                   '<li><a class="historyControl all-history" href="#">All</a></li>' +
                 '</div>' +
-                '<div class="chat-content"></div>' +
+                '</div>' +
                 '<form class="sendXMPPMessage" action="" method="post">' +
                 '<textarea ' +
                     'type="text" ' +
@@ -281,28 +309,30 @@ vncchat.VncChatBoxView = vncchat.ChatBoxView.extend({
         // TODO: there should be better way to do this.
         event.preventDefault();
         jid = this.model.get('jid');
-        if (event.target.id == 'one-day-history') {
+        var control = $(event.target);
+        if (control.is('.one-day-history')) {
            this.loadHistoryMessages(this.getHistoryDate({days:1}))
         }
-        else if (event.target.id == 'one-week-history') {
+        else if (control.is('.one-week-history')) {
            this.loadHistoryMessages(this.getHistoryDate({days:7}))
         }
-        else if (event.target.id == 'two-weeks-history') {
+        else if (control.is('.two-weeks-history')) {
            this.loadHistoryMessages(this.getHistoryDate({days:14}))
         }
-        else if (event.target.id == 'one-month-history') {
+        else if (control.is('.one-month-history')) {
            this.loadHistoryMessages(this.getHistoryDate({months:1}))
         }
-        else if (event.target.id == 'six-months-history') {
+        else if (control.is('.six-months-history')) {
            this.loadHistoryMessages(this.getHistoryDate({months:6}))
         }
-        else if (event.target.id == 'one-year-history') {
+        else if (control.is('.one-year-history')) {
            this.loadHistoryMessages(this.getHistoryDate({years:1}))
         }
         //TODO: we need to think how to properly load all history
-        else if (event.target.id == 'forever-history') {
+        else if (control.is('.all-history')) {
            this.loadHistoryMessages()
         }
+        // TODO: remove clicked history link after messages load
     },
     render: function () {
         this.tab.render();
@@ -701,22 +731,22 @@ vncchat.VncChatRoomView = vncchat.VncChatBoxView.extend({
                 '</li>' +
                 '</ul>' +
             '</div>' +
-            '<div id="history-box">' +
-               '<span>View Erlier Messages</span>' +
-               '<ul>' +
-               '<li><a id="one-day-history" class="historyControl" href="#">1 Day</a>|</li>' +
-               '<li><a id="one-week-history" class="historyControl" href="#">1 Week</a>|</li>' +
-               '<li><a id="two-weeks-history" class="historyControl" href="#">2 Weeks</a>|</li>' +
-               '<li><a id="one-month-history" class="historyControl" href="#">1 Month</a>|</li>' +
-               '<li><a id="six-months-history" class="historyControl" href="#">6 Months</a>|</li>' +
-               '<li><a id="one-year-history" class="historyControl" href="#">1 Year</a>|</li>' +
-               '<li><a id="forever-history"  class="historyControl" href="#">Forever</a></li>' +
-            '</div>' +
             '<div>' +
             '<div class="chat-area">' +
                 '<div class="chat-content">' +
                     '<div class="room-name"></div>' +
                     '<div class="room-topic"></div>' +
+                    '<div class="history-box">' +
+                       '<span class="history-box-header">View Earlier Messages</span>' +
+                       '<ul>' +
+                       '<li><a class="historyControl one-day-history" href="#">1 Day</a></li>' +
+                       '<li><a class="historyControl one-week-history" href="#">1 Week</a></li>' +
+                       '<li><a class="historyControl two-weeks-history" href="#">2 Weeks</a></li>' +
+                       '<li><a class="historyControl one-month-history" href="#">1 Month</a></li>' +
+                       '<li><a class="historyControl six-months-history" href="#">6 Months</a></li>' +
+                       '<li><a class="historyControl one-year-history" href="#">1 Year</a></li>' +
+                       '<li><a class="historyControl all-history" href="#">All</a></li>' +
+                    '</div>' +
                 '</div>' +
                 '<form class="sendXMPPMessage" action="" method="post">' +
                     '<textarea ' +
@@ -798,7 +828,8 @@ vncchat.VncChatRoomView = vncchat.VncChatBoxView.extend({
             if (message !== '') {
                 this.sendGroupMessage(message);
             }
-        } 
+          return false;
+        }
     },
 
     sendGroupMessage: function (body) {
