@@ -2096,7 +2096,7 @@ dl.portalMessage dd {
   bottom: 0;
   content: "";
   display: block;
-  left: 50%;
+  left: 25%;
   margin-left: -1px;
   position: absolute;
   top: 0;
@@ -2116,12 +2116,177 @@ dl.portalMessage dd {
   height: 327px;
   padding: 0;
   margin: 0;
-  width: 50%;
+  width: 25%;
   z-index: auto;
 }
+#online-users-container .oc-chat-head {
+  background-color: #F5F5F5;
+  padding: 0;
+  width: 100%;
+  height: 33px;
+  line-height: 1.25em;
+  font-size: 0.75em;
+  border-bottom: 1px solid #C1CCD5;
+}
+#online-users-container .oc-chat-head ul.tabs {
+  height: 33px;
+  float: none;
+}
+#online-users-container .oc-chat-head ul.tabs li {
+  list-style: none;
+}
+#online-users-container .oc-chat-head ul.tabs li a {
+  height: 15px;
+  background-color: #F5F5F5;
+  border: none;
+  color: #012A43;
+  padding: 9px 15px;
+  display: block;
+  line-height: 1.25em;
+  -webkit-border-top-right-radius: 0;
+  -webkit-border-top-left-radius: 0;
+  border-radius-top-left: 0;
+  border-radius-top-right: 0;
+}
+#online-users-container .oc-chat-head ul.tabs li a.current {
+  font-weight: normal;
+  background-color: #FFFFFF;
+  border-bottom: 1px solid #FFFFFF;
+  border-left: 1px solid #C1CCD5;
+  border-right: 1px solid #C1CCD5;
+}
+#online-users-container .oc-chat-head ul.tabs li:first-child a.current {
+  border-left: none;
+}
+#online-users-container .panes div#users,
+#online-users-container .panes div#chatrooms,
+#online-users-container .panes div#settings {
+  background-color: #fff;
+  border: none;
+  -webkit-border-bottom-left-radius: 0;
+  -webkit-border-bottom-right-radius: 0;
+  border-bottom-left-radius: 0;
+  border-bottom-right-radius: 0;
+  width: 100%;
+}
+
+#fancy-xmpp-status-select {
+  border-radius: 6px;
+  padding: 5px;
+  height: 27px;
+}
+#fancy-xmpp-status-select div.xmpp-status {
+  padding: 6px;
+}
+#xmpp-status-holder dl dd ul li a {
+  margin-left: 11px;
+  padding-left: 21px;
+}
+form#set-custom-xmpp-status {
+  float: none;
+}
+#xmpp-status-holder .custom-xmpp-status {
+  background-color: #F1F1F1;
+  border-radius: 6px;
+  padding: 0 5px;
+  margin-right: 6px;
+  width: 81%;
+  border: 1px solid #E5E5E5;
+  height: 25px;
+  font-size: 14px;
+  text-transform: capitalize;
+}
+#set-custom-xmpp-status button {
+  margin: 0;
+  padding: 0;
+  border: 0;
+  text-transform: uppercase;
+  font-size: 14px;
+  font-weight: normal;
+  color: #062943;
+  background: none;
+}
+div.add-xmpp-contact {
+  border-radius: 6px;
+  padding: 5px;
+  margin-bottom: 2px;
+}
+form.search-xmpp-contact {
+}
+form.search-xmpp-contact input.username {
+  background-color: #F1F1F1;
+  border-radius: 6px;
+  padding: 0 5px;
+  margin-right: 6px;
+  width: 74%;
+  border: 1px solid #E5E5E5;
+  height: 25px;
+  font-size: 14px;
+  text-transform: capitalize;
+}
+form.search-xmpp-contact button {
+  margin: 0;
+  padding: 0;
+  border: 0;
+  text-transform: uppercase;
+  font-size: 14px;
+  font-weight: normal;
+  color: #062943;
+  background: none;
+}
+#xmppchat-roster {
+  height: 206px;
+  overflow-y: auto;
+  padding-top: 0;
+}
+#xmppchat-roster dd:after {
+  content: "";
+  display: block;
+  visibility: hidden;
+  clear: both;
+}
+#xmppchat-roster #xmpp-contact-requests,
+#xmppchat-roster #pending-xmpp-contacts,
+#xmppchat-roster #xmpp-contacts {
+  font-size: 14px;
+  font-weight: normal;
+  text-transform: uppercase;
+  padding-left: 24px;
+  margin-top: 10px;
+  background-color: #fff;
+  clear: both;
+}
+#xmppchat-roster dd:nth-child(odd) {
+  background-color: #ffffff;
+}
+#xmppchat-roster dd:nth-child(even) {
+  background-color: #f1f1f1;
+}
+#xmppchat-roster dd.requesting-xmpp-contact,
+#xmppchat-roster dd.pending-xmpp-contact,
+#xmppchat-roster dd.current-xmpp-contact {
+  padding: 5px 10px 5px 24px;
+  clear: both;
+}
+#xmppchat-roster dd img {
+  float: left;
+  border-radius: 6px;
+  display: block;
+  height: 28px;
+  width: 28px;
+}
+#xmppchat-roster dd a.open-chat {
+  display: block;
+  float: left;
+  margin: 6px 0px 5px 8px;
+}
+#xmppchat-roster dd a.remove-xmpp-contact {
+  margin: 5px 0px 0px 0px;
+}
+
 #chat-block {
   float: right;
-  width: 50%;
+  width: 75%;
   height: 327px;
 }
 #chat-tabs {
@@ -2314,135 +2479,6 @@ form.sendXMPPMessage .chat-textarea {
   background-color: #F1F1F1;
   overflow: visible;
 }
-
-
-/*    div.chatroom {
-        display: block;
-        float: left;
-        height: 311px;
-        margin-right: 15px;
-        width: 100%;
-        z-index: 3;
-    }
-    .chatroom .chat-area {
-        float: left;
-        width: 100%;
-    }
-    .chat-textarea {
-        border: 0 none;
-        height: 48px;
-        overflow: hidden;
-        padding: 3px;
-        width: 100%;
-    }
-    span.messageTimeStamp {
-      float:right;
-    }
-    div.chatbox {
-       margin-right:0px;
-    }
-    div.vncChatbox {
-        height: 293px;
-        overflow: hidden;
-        position: relative;
-        width: 70%;
-        position:absolute;
-   }
-   #chat-tabs li{
-        float:left;
-        height:33px;
-   }
-   #chat-tabs li.newMessage {
-       background-color: green;
-   }
-   #chat-block{
-       float:right;
-       width:70%;
-   }
-   #online-users-container{
-       display:block;
-       float: left;
-       width: 30%;
-       height:327px;
-   }
-   #chat-tabs {
-       background-color: #F5F5F5;
-       border-bottom: 1px solid #C1CCD5;
-       font-size: 0.75em;
-       height: 33px;
-       line-height: 1.25em;
-   }
-   .chat-content {
-       height:180px;
-   }
-   .vncChatbox .chat-content {
-       height:196px;
-   }
-   .close-chattab-button {
-       color: #666666 !important;
-       margin-right: 0.5em;
-       padding: 0 4px;
-   }
-   #chatpanel {
-     position:relative;
-   }
-   #history-box {
-     background-color: #FFFFFF;
-   }
-   #history-box > span {
-     float:left;
-   }
-   .roomParticipants {
-     background-color: #FFFFFF;
-   }
-   .roomParticipants > span {
-     float:left;
-   }
-   #chat-tabs li.selected {
-         background-color: #FFFFFF;
-         border-bottom: 1px solid #FFFFFF;
-         border-left: 1px solid #C1CCD5;
-         border-right: 1px solid #C1CCD5;
-   }
-   #chat-tabs a {
-         color: #012A43;
-         display: block;
-         padding: 9px 15px;
-         float:left;
-   }
-   #chat-tabs a.close-chattab-button {
-         padding: 0px;
-   }
-   .panes div#users, .panes div#chatrooms, .panes div#settings {
-         background-color: white;
-         border: 1px solid #999999;
-         border-bottom-left-radius: 0.5em;
-         border-bottom-right-radius: 0.5em;
-         font-size: 14px;
-         width: 100%;
-       }
-   .oc-chat-content {
-        height: 293px !important;
-   }
-   .oc-chat-head {
-        background-color: #FFFFFF;
-        width: 100%;
-   }
-   ul.tabs li {
-        width: 50%;
-   }
-   ul.tabs {
-        width: 100%;
-   }
-   a.leaveRoom{
-        background: url("/delete_icon.png") no-repeat scroll right top transparent;
-        float: right;
-        margin: 0;
-        padding: 0.5em 1em 1em 0;
-   }
-*/
-
-
 
 /* Social Streams */
 #content #vnc-social-stream {
