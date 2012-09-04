@@ -37,13 +37,13 @@ class IOpenERPJSPortlet(IPortletDataProvider):
         title=_(u"OpenERP URL"),
         description=_(u"Root url to your OpenERP service."),
         required=True,
-        default='http://demo.vnc.biz:8085')
+        default='https://erp.vnc.biz:443')
 
     dbname = schema.TextLine(
         title=_(u"Database Name"),
         description=_(u"Name of the database of your OpenERP service."),
         required=True,
-        default=u'openerp_v61_demo')
+        default=u'db_vnc_dummy_13')
 
     action_id = schema.Choice(
         title=_(u"Widget"),

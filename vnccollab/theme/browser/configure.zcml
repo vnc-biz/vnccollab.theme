@@ -110,14 +110,6 @@
 
   <browser:page
       for="*"
-      name="openerp-iframe-helper"
-      class=".openerp.IframeHelperView"
-      template="templates/openerp_iframe_helper_view.pt"
-      permission="zope2.View"
-      />
-
-  <browser:page
-      for="*"
       name="context-redmine-ticket"
       class=".file_issue.FileTicketFormView"
       permission="cmf.ModifyPortalContent"

@@ -1,6 +1,12 @@
 Changelog
 =========
 
+1.5.5 - September 7, 2012
+-------------------------
+
+- Fix OpenERP portlet look and feel.
+  [Jose Dinuncio]
+
 1.5.4 - August 29
 -----------------
 
