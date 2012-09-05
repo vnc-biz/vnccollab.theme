@@ -8,7 +8,7 @@ from plone.app.users.browser.account import AccountPanelForm
 from Products.Five.browser.pagetemplatefile import ViewPageTemplateFile
 from Products.CMFCore.utils import getToolByName
 
-from jarn.xmpp.core.interfaces import INodeEscaper
+#from jarn.xmpp.core.interfaces import INodeEscaper
 from jarn.xmpp.core.interfaces import IXMPPPasswordStorage
 
 class IMDetailsPanel(AccountPanelForm):
@@ -36,9 +36,9 @@ class IMDetailsPanel(AccountPanelForm):
         return '.'.join([c for c in cnetloc[1:] if c])
 
     def imDetails(self):
-        escaper = getUtility(INodeEscaper)
+#        escaper = getUtility(INodeEscaper)
         storage = getUtility(IXMPPPasswordStorage)
-        return [('username', escaper.escape(self._getMemberId())),
+        return [('username', ''),#escaper.escape(self._getMemberId())),
                 ('password', storage.get(self._getMemberId())),
                 ('domain', self.domain()),
                 ('port','5222')]

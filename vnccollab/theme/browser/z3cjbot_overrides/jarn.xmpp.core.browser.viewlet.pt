@@ -5,17 +5,13 @@
     <div id="xmpp-viewlet-container">
         <a id="site-stream-link"
            tal:attributes="href string:${portal_url}/@@pubsub-feed"
-           i18n:translate="">
-              Messages
-        </a><a href="#" id="toggle-online-users">
+           i18n:translate="">Stream</a>
+        <a id="im-messages"
+           tal:attributes="href string:${portal_url}/@@muc"
+           i18n:translate=""> Chat </a>
+           <!--a href="#" id="toggle-online-users">
             <span id="online-count">0</span>
             <span i18n:translate="">People online</span>
-        </a>
-        <div id="online-users-container"
-             class="autohide">
-            <ul id="online-users">
-                <li id="no-users-online">Nobody else online</li>
-            </ul>
-        </div>
+        </a-->
     </div>
 </div>

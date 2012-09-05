@@ -762,6 +762,11 @@ div#xmpp-viewlet-container > a {
   text-align: center;
   vertical-align: bottom;
   }
+#im-messages:after {
+  display: inline-block;
+  margin-left: 7px;
+  vertical-align: top;
+  }
 a#site-stream-link {
   border-radius: 0;
   }
@@ -790,6 +795,19 @@ a#toggle-online-users:after {
   vertical-align: middle;
   }
 #online-count {
+  background-color: #75a724;
+  border: 1px solid #558114;
+  border-radius: 16px;
+  color: #fff;
+  min-width: 10px;
+  padding: 0 3px;
+  text-align: center;
+  }
+#im-messages span {
+  display: inline-block;
+  vertical-align: middle;
+  }
+#unread-messages {
   background-color: #75a724;
   border: 1px solid #558114;
   border-radius: 16px;
@@ -1951,6 +1969,7 @@ dl.portalMessage dd {
   z-index:30 !important;
   }
 /*---------- Stream Viewlet ----------*/
+
 #vnc-stream {
   background-color: #fff;
   border-top: 1px solid #c1ccd5;
@@ -2062,6 +2081,474 @@ dl.portalMessage dd {
   color: #131313;
   font-size: 0.875em;
   }
+
+/*---------- Chat Viewlet ----------*/
+/* TODO: make stream and chat viewlets height customizable by user with slide
+   button */
+#vnc-chat {
+  background-color: #fff;
+  border-top: 1px solid #c1ccd5;
+  height: 327px;
+  position: relative;
+}
+#vnc-chat:after {
+  background-color: #C1CCD5;
+  bottom: 0;
+  content: "";
+  display: block;
+  left: 25%;
+  margin-left: -1px;
+  position: absolute;
+  top: 0;
+  width: 1px;
+}
+#chatpanel {
+  position: static;
+  height: 327px;
+}
+#collective-xmpp-chat-data {
+  position: static;
+  height: 327px;
+}
+#online-users-container {
+  display:block;
+  float: left;
+  height: 327px;
+  padding: 0;
+  margin: 0;
+  width: 25%;
+  z-index: auto;
+}
+#online-users-container .oc-chat-head {
+  background-color: #F5F5F5;
+  padding: 0;
+  width: 100%;
+  height: 33px;
+  line-height: 1.25em;
+  font-size: 0.75em;
+  border-bottom: 1px solid #C1CCD5;
+}
+#online-users-container .oc-chat-head ul.tabs {
+  height: 33px;
+  float: none;
+}
+#online-users-container .oc-chat-head ul.tabs li {
+  list-style: none;
+}
+#online-users-container .oc-chat-head ul.tabs li a {
+  height: 15px;
+  background-color: #F5F5F5;
+  border: none;
+  color: #012A43;
+  padding: 9px 15px;
+  display: block;
+  line-height: 1.25em;
+  -webkit-border-top-right-radius: 0;
+  -webkit-border-top-left-radius: 0;
+  border-radius-top-left: 0;
+  border-radius-top-right: 0;
+}
+#online-users-container .oc-chat-head ul.tabs li a.current {
+  font-weight: normal;
+  background-color: #FFFFFF;
+  border-bottom: 1px solid #FFFFFF;
+  border-left: 1px solid #C1CCD5;
+  border-right: 1px solid #C1CCD5;
+}
+#online-users-container .oc-chat-head ul.tabs li:first-child a.current {
+  border-left: none;
+}
+#online-users-container .panes div#users,
+#online-users-container .panes div#chatrooms,
+#online-users-container .panes div#settings {
+  background-color: #fff;
+  border: none;
+  -webkit-border-bottom-left-radius: 0;
+  -webkit-border-bottom-right-radius: 0;
+  border-bottom-left-radius: 0;
+  border-bottom-right-radius: 0;
+  width: 100%;
+}
+
+#fancy-xmpp-status-select {
+  border-radius: 6px;
+  padding: 5px;
+  height: 27px;
+}
+#fancy-xmpp-status-select div.xmpp-status {
+  padding: 6px;
+}
+#xmpp-status-holder dl dd ul li a {
+  margin-left: 11px;
+  padding-left: 21px;
+}
+form#set-custom-xmpp-status {
+  float: none;
+}
+#xmpp-status-holder .custom-xmpp-status {
+  background-color: #F1F1F1;
+  border-radius: 6px;
+  padding: 0 5px;
+  margin-right: 6px;
+  width: 81%;
+  border: 1px solid #E5E5E5;
+  height: 25px;
+  font-size: 14px;
+  text-transform: capitalize;
+}
+#set-custom-xmpp-status button {
+  margin: 0;
+  padding: 0;
+  border: 0;
+  text-transform: uppercase;
+  font-size: 14px;
+  font-weight: normal;
+  color: #062943;
+  background: none;
+}
+div.add-xmpp-contact {
+  border-radius: 6px;
+  padding: 5px;
+  margin-bottom: 2px;
+}
+form.search-xmpp-contact input.username {
+  background-color: #F1F1F1;
+  border-radius: 6px;
+  padding: 0 5px;
+  margin-right: 6px;
+  width: 74%;
+  border: 1px solid #E5E5E5;
+  height: 25px;
+  font-size: 14px;
+  text-transform: capitalize;
+}
+form.search-xmpp-contact button {
+  margin: 0;
+  padding: 0;
+  border: 0;
+  text-transform: uppercase;
+  font-size: 14px;
+  font-weight: normal;
+  color: #062943;
+  background: none;
+}
+#xmppchat-roster {
+  height: 206px;
+  overflow-y: auto;
+  padding-top: 0;
+}
+#xmppchat-roster dd:after {
+  content: "";
+  display: block;
+  visibility: hidden;
+  clear: both;
+}
+#xmppchat-roster #xmpp-contact-requests,
+#xmppchat-roster #pending-xmpp-contacts,
+#xmppchat-roster #xmpp-contacts {
+  font-size: 14px;
+  font-weight: normal;
+  text-transform: uppercase;
+  padding-left: 8px;
+  margin-top: 10px;
+  background-color: #fff;
+  clear: both;
+}
+#xmppchat-roster dd:nth-child(odd) {
+  background-color: #ffffff;
+}
+#xmppchat-roster dd:nth-child(even) {
+  background-color: #f1f1f1;
+}
+#xmppchat-roster dd.requesting-xmpp-contact,
+#xmppchat-roster dd.pending-xmpp-contact,
+#xmppchat-roster dd.current-xmpp-contact {
+  padding: 5px 10px 5px 24px;
+  clear: both;
+}
+#xmppchat-roster dd img {
+  float: left;
+  border-radius: 6px;
+  display: block;
+  height: 28px;
+  width: 28px;
+}
+#xmppchat-roster dd a.open-chat {
+  display: block;
+  float: left;
+  margin: 6px 0px 5px 8px;
+}
+#xmppchat-roster dd a.remove-xmpp-contact {
+  margin: 5px 0px 0px 0px;
+  background: url(&dtml-portal_url;/delete_icon.png) no-repeat scroll right top transparent;
+}
+form.add-chatroom {
+  margin: 0.5em 0.5em 0.3em 0.5em;
+  padding: 5px;
+  border-radius: 7px;
+  border: 1px solid #DDDDDD;
+}
+form.add-chatroom .new-chatroom-name {
+  background-color: #F1F1F1;
+  border-radius: 6px;
+  padding: 0 5px;
+  margin-right: 6px;
+  width: 81%;
+  border: 1px solid #E5E5E5;
+  height: 25px;
+  font-size: 14px;
+  text-transform: capitalize;
+
+}
+form.add-chatroom button {
+  margin: 0;
+  padding: 0;
+  border: 0;
+  text-transform: uppercase;
+  font-size: 14px;
+  font-weight: normal;
+  color: #062943;
+  background: none;
+}
+#available-chatrooms {
+  height: 243px;
+  overflow-y: auto;
+}
+#available-chatrooms dt {
+  font-size: 14px;
+  font-weight: normal;
+  text-transform: uppercase;
+  padding: 0 0 0 8px;
+  margin-top: 10px;
+  background-color: #fff;
+  clear: both;
+}
+#available-chatrooms dd {
+  padding: 5px 10px 5px 37px;
+  clear: both;
+  background: transparent url(&dtml-portal_url;/chat/chat_room_icon.png) no-repeat scroll 9px 6px;
+}
+/*#available-chatrooms dd:nth-child(odd) {
+  background-color: #ffffff;
+}
+#available-chatrooms dd:nth-child(even) {
+  background-color: #f1f1f1;
+}
+*/
+#available-chatrooms dd:after {
+  content: "";
+  display: block;
+  visibility: hidden;
+  clear: both;
+}
+#available-chatrooms dd a.open-room {
+  display: block;
+  float: left;
+  margin: 6px 0px 5px 8px;
+}
+#available-chatrooms dd a.leaveRoom {
+  margin: 5px 0px 0px 0px;
+  background: url(&dtml-portal_url;/delete_icon.png) no-repeat scroll right top transparent;
+  float: right;
+  padding: 0.5em 1em 1em 0;
+}
+
+
+#chat-block {
+  float: right;
+  width: 75%;
+  height: 327px;
+}
+#chat-tabs {
+  background-color: #F5F5F5;
+  border-bottom: 1px solid #C1CCD5;
+  font-size: 0.75em;
+  height: 33px;
+  line-height: 1.25em;
+}
+#chat-tabs li {
+  float: left;
+  height: 33px;
+  padding-right: 2px;
+  position: relative;
+}
+#chat-tabs li.selected {
+  background-color: #FFFFFF;
+  border-bottom: 1px solid #FFFFFF;
+  border-left: 1px solid #C1CCD5;
+  border-right: 1px solid #C1CCD5;
+}
+#chat-tabs li.selected:first-child {
+  border-left: 0 none;
+}
+#chat-tabs a.tabLink {
+  color: #012A43;
+  display: block;
+  padding: 9px 15px;
+}
+#chat-tabs .selected a.tabLink {
+  padding: 9px 14px;
+}
+#chat-tabs .selected:first-child a.tabLink {
+  padding: 9px 14px 9px 15px;
+}
+#chat-tabs .newMessage a.tabLink {
+  color: red;
+}
+
+#chat-tabs .close-chattab-button {
+  position: absolute;
+  top: -1px;
+  right: 3px;
+  font-size: 10px;
+  display: none;
+}
+#chat-tabs .selected .close-chattab-button {
+  display: block;
+}
+div.chatbody {
+  float: none;
+  height: auto;
+  width: auto;
+  margin: 0;
+  position: relative;
+}
+.chatroom .chat-area {
+  width: auto;
+  float: none;
+}
+.chat-content {
+  border: none;
+  padding: 0;
+  height: 231px;
+}
+.chat-area .chat-content {
+  height: 199px;
+}
+.roomParticipants {
+  padding: 10px 6px 0 6px;
+  color: #062943;
+  border-bottom: 1px solid #E5E5E5;
+}
+.roomParticipantsHeader {
+  margin-right: 10px;
+  text-transform: uppercase;
+  float: left;
+  font-size: 14px;
+}
+.roomParticipants ul {
+  background-color: #fff;
+  margin-left: 94px;
+}
+.roomParticipants ul:after {
+  content: "";
+  display: block;
+  clear: both;
+  visibility: hidden;
+}
+.roomParticipants ul li {
+  background-color: #e0e4e7;
+  float: left;
+  display: block;
+  padding: 3px 8px;
+  margin: -2px 8px 3px 0;
+  border-radius: 12px;
+  font-size: 12px;
+  font-weight: bold;
+}
+.roomParticipants ul li.addParticipantsItem {
+  background-color: #85b500;
+}
+.roomParticipants ul li.addParticipantsItem a.addParticipants {
+  color: #fff;
+}
+/* TODO: make it visible once it's implemented */
+.roomParticipants ul li .removeParticipantButton {
+  display: none;
+}
+.history-box {
+  text-align: center;
+  padding: 5px;
+}
+.history-box-header {
+  color: #aaa;
+  font-weight: bold;
+}
+.history-box ul li {
+  margin-right: 8px;
+  border-right: 1px solid #aaa;
+  padding-right: 8px;
+}
+.history-box ul li:last-child {
+  border-right: none;
+}
+.history-box ul li:after {
+/*  content: "|";*/
+}
+
+.chat-message {
+  border-top: 1px solid #E5E5E5;
+  clear: both;
+  margin: -1px 0 0;
+  padding: 8px 10px;
+  position: relative;
+  font-size: 14px;
+}
+.chat-message:nth-child(odd) {
+  background-color: #ffffff;
+}
+.chat-message:nth-child(even) {
+  background-color: #f1f1f1;
+}
+.chat-message .chat-message-byline {
+  margin-bottom: 5px;
+}
+.chat-message .chat-message-byline.chat-message-me {
+  color: 3363ba;
+}
+.chat-message .chat-message-byline.chat-message-them {
+  color: #b16321;
+}
+.chat-message .chat-message-author {
+  font-weight: bold;
+}
+.chat-message .messageTimeStamp {
+  float: right;
+  font-size: 12px;
+  font-weight: normal;
+}
+.chat-message .chat-message-content {
+  color: #131313;
+}
+
+/* TODO: in chrome remove righ scrolling and make :focus highlighting also
+   rounded */
+form.sendXMPPMessage {
+/*  position: absolute;*/
+/*  bottom: 0;*/
+/*  left: 0;*/
+  display: block;
+  height: 35px;
+  padding: 13px 10px;
+  border-left: none;
+  border-right: none;
+  border-bottom: none;
+  border-top: 1px solid #E5E5E5;
+}
+/* TODO: make textarea auto resizable */
+form.sendXMPPMessage .chat-textarea {
+  height: 13px;
+  display: block;
+  padding: 9px 14px;
+  border-radius: 17px;
+  border: 1px solid #E5E5E5;
+  border-top: 2px solid #E5E5E5;
+  resize: none;
+  width: 95%;
+  font-size: 14px;
+  background-color: #F1F1F1;
+  overflow: visible;
+}
 
 /* Social Streams */
 #content #vnc-social-stream {

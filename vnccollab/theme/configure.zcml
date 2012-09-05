@@ -8,6 +8,7 @@
   <five:registerPackage package="." initialize=".initialize" />
   <include package=".browser" />
   <include package=".portlets" />
+  <include package=".upgrades" />
   <include file="skins.zcml" />
   <include file="profiles.zcml" />
   <include file="implements.zcml" />

@@ -135,5 +135,7 @@
       </ul>
     </div>
   </div>
+  <tal:comment replace="nothing">No button so far
   <div class="dragButton"></div>
+  </tal:comment>
 </div>

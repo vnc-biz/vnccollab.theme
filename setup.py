@@ -39,6 +39,7 @@ setup(name='vnccollab.theme',
           'z3c.jbot',
           'tldextract',
           'Products.AdvancedQuery',
+          'collective.xmpp.chat',
           #'collective.z3cform.datetimewidget',
           #'jyu.z3cform.datepicker',
           # -*- Extra requirements: -*-
