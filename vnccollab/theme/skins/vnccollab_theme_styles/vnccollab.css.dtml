@@ -2485,10 +2485,6 @@ div.chatbody {
 .history-box ul li:last-child {
   border-right: none;
 }
-.history-box ul li:after {
-/*  content: "|";*/
-}
-
 .chat-message {
   border-top: 1px solid #E5E5E5;
   clear: both;
@@ -2552,6 +2548,55 @@ form.sendXMPPMessage .chat-textarea {
   background-color: #F1F1F1;
   overflow: visible;
 }
+
+/* Copy Chat Images from collective.xmpp.chat to make it absolute url */
+a.subscribe-to-user {
+    background: url(&dtml-portal_url;/add_icon.png) no-repeat 3px top;
+}
+div.add-xmpp-contact {
+    background: url(&dtml-portal_url;/add_icon.png) no-repeat 3px 3px;
+}
+#fancy-xmpp-status-select a.change-xmpp-status-message {
+    background: url(&dtml-portal_url;/pencil_icon.gif) no-repeat right top;
+}
+#xmppchat-roster dd.current-xmpp-contact,
+#xmppchat-roster dd.current-xmpp-contact:hover {
+    background: url(&dtml-portal_url;/++resource++collective.xmpp.chat.images/user_online_panel.png) no-repeat 5px 2px;
+}
+
+#xmppchat-roster dd.current-xmpp-contact.offline:hover,
+#xmppchat-roster dd.current-xmpp-contact.unavailable:hover,
+#xmppchat-roster dd.current-xmpp-contact.offline,
+#xmppchat-roster dd.current-xmpp-contact.unavailable {
+  background: url(&dtml-portal_url;/++resource++collective.xmpp.chat.images/user_offline_panel.png) no-repeat 5px 2px;
+}
+
+#xmppchat-roster dd.current-xmpp-contact.busy,
+#xmppchat-roster dd.current-xmpp-contact.busy:hover {
+  background: url(&dtml-portal_url;/++resource++collective.xmpp.chat.images/user_busy_panel.png) no-repeat 5px 2px;
+}
+
+#xmppchat-roster dd.current-xmpp-contact.away,
+#xmppchat-roster dd.current-xmpp-contact.away:hover {
+  background: url(&dtml-portal_url;/++resource++collective.xmpp.chat.images/user_away_panel.png) no-repeat 5px 2px;
+}
+.dropdown a.online { 
+  background: url(&dtml-portal_url;/++resource++collective.xmpp.chat.images/user_online_panel.png) no-repeat left;
+}
+
+.dropdown a.offline { 
+  background: url(&dtml-portal_url;/++resource++collective.xmpp.chat.images/user_offline_panel.png) no-repeat left;
+}
+
+.dropdown a.busy { 
+  background: url(&dtml-portal_url;/++resource++collective.xmpp.chat.images/user_busy_panel.png) no-repeat left;
+}
+
+.dropdown a.away { 
+  background: url(&dtml-portal_url;/++resource++collective.xmpp.chat.images/user_away_panel.png) no-repeat left;
+}
+
+
 
 /* Social Streams */
 #content #vnc-social-stream {
