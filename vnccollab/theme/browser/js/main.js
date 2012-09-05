@@ -735,7 +735,7 @@ function initializeXmppMessageHandler(vncchat) {
             room_cookie = jQuery.cookie('joined-rooms-'+
                           Strophe.unescapeNode(username)),
             joined_rooms = [];
-            chat_cookie = jQuery.cookie('chats-open-'+Strophe.unescapeNode(username)),
+            chat_cookie = jQuery.cookie('chats-open-'+Strophe.unescapeNode(username));
 
         if (room_cookie) {
             if (!isVncChatLoaded()){
