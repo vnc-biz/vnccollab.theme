@@ -2193,7 +2193,7 @@ form#set-custom-xmpp-status {
   border-radius: 6px;
   padding: 0 5px;
   margin-right: 6px;
-  width: 81%;
+  width: 75%;
   border: 1px solid #E5E5E5;
   height: 25px;
   font-size: 14px;
@@ -2219,7 +2219,7 @@ form.search-xmpp-contact input.username {
   border-radius: 6px;
   padding: 0 5px;
   margin-right: 6px;
-  width: 74%;
+  width: 68%;
   border: 1px solid #E5E5E5;
   height: 25px;
   font-size: 14px;
@@ -2296,11 +2296,11 @@ form.add-chatroom .new-chatroom-name {
   border-radius: 6px;
   padding: 0 5px;
   margin-right: 6px;
-  width: 81%;
+  width: 75%;
   border: 1px solid #E5E5E5;
   height: 25px;
   font-size: 14px;
-  text-transform: capitalize;
+  text-transform: none;
 
 }
 form.add-chatroom button {
