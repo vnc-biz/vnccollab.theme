@@ -727,19 +727,22 @@ function initializeXmppMessageHandler(vncchat) {
             return true;
         }, this), null, 'message', 'groupchat');
 
-        //We need to rejoin all joined rooms.
-        var username = Strophe.unescapeNode(
-                Strophe.getNodeFromJid(vncchat.connection.jid)),
-            room_cookie = jQuery.cookie('joined-rooms-'+ username),
+        var username = Strophe.getNodeFromJid(vncchat.connection.jid),
+            room_cookie = jQuery.cookie('joined-rooms-'+
+                          Strophe.unescapeNode(username)),
             joined_rooms = [];
 
         if (room_cookie) {
-           //XXX we need to load chat because of history messages that we
-           //received after join.
-           joined_rooms = room_cookie.split('|');
-           for (var i=0;i<joined_rooms.length;i++) {
-               vncchat.connection.muc.join(joined_rooms[i], username);
-           }
+            if (!isVncChatLoaded()){
+                loadVncChat($.proxy(function () {
+                    runVncChat(this);
+                    joined_rooms = room_cookie.split('|');
+                    for (var i=0;i<joined_rooms.length;i++) {
+                        vncchat.chatboxesview.openChat(joined_rooms[i]);
+                        vncchat.chatboxesview.views[joined_rooms[i]].tab.closeTab();
+                    }
+                }, this), function () {});
+            };
         };
     }, vncchat));
 };
