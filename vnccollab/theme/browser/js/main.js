@@ -544,9 +544,11 @@ function loadVncChat(sucess_callback, error_callback) {
         'url': portal_url + '/@@vnc-chat',
         'dataType': 'html',
         'success': function(data, textStatus, jqXHR){
-                     jq('#portal-top').append(data);
-                     jq('#vnc-chat').hide();
-                     sucess_callback();
+                     if (jq('#vnc-chat').length == 0) {
+                         jq('#portal-top').append(data);
+                         jq('#vnc-chat').hide();
+                         sucess_callback();
+                     }
                    },
       'error': function() {
                  alert('Sorry, something went wrong on the server.' + 
@@ -629,6 +631,8 @@ function initializeXmppMessageHandler(vncchat) {
 
     $(document).unbind('jarnxmpp.connected');
     $(document).bind('jarnxmpp.connected', $.proxy(function () {
+        // show chat control
+        jq('#im-messages').show();
         this.connection.bare_jid = Strophe.getBareJidFromJid(this.connection.jid);
         this.connection.domain = Strophe.getDomainFromJid(this.connection.jid);
         this.connection.xmlInput = function (body) { console.log(body); };

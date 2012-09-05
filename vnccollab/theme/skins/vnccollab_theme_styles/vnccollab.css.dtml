@@ -762,6 +762,9 @@ div#xmpp-viewlet-container > a {
   text-align: center;
   vertical-align: bottom;
   }
+div#xmpp-viewlet-container > a#im-messages {
+  display: none;
+  }
 #im-messages:after {
   display: inline-block;
   margin-left: 7px;
