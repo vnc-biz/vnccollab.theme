@@ -107,7 +107,7 @@ vncchat.VncChatTab = Backbone.View.extend({
     },
 
     closeTab: function() {
-      $('#tab-'+this.body.model.get('box_id')).hide('fast');
+      $('#tab-'+this.body.model.get('box_id')).hide();
       vncchat.chatboxesview.closeChat(this.body.model.get('jid'));
       this.body.removeChatFromCookie(this.body.model.get('id'));
     },
@@ -146,7 +146,7 @@ vncchat.VncChatBoxView = vncchat.ChatBoxView.extend({
             if (!composing) {
                 notify = $msg({'to':this.model.get('jid'), 'type': 'chat'})
                                 .c('composing', {'xmlns':'http://jabber.org/protocol/chatstates'});
-                xmppchat.connection.send(notify);
+                vncchat.connection.send(notify);
                 $(this.el).data('composing', true);
             }
         }
@@ -510,7 +510,7 @@ vncchat.VncChatBoxView = vncchat.ChatBoxView.extend({
     },
 
     addChatToCookie: function () {
-        var cookie = jQuery.cookie('chats-open-'+xmppchat.username),
+        var cookie = jQuery.cookie('chats-open-'+vncchat.username),
             jid = this.model.get('jid'),
             new_cookie,
             open_chats = [];
@@ -534,12 +534,12 @@ vncchat.VncChatBoxView = vncchat.ChatBoxView.extend({
             };
         };
         new_cookie = open_chats.join('|');
-        jQuery.cookie('chats-open-'+xmppchat.username, new_cookie, {path: '/'});
+        jQuery.cookie('chats-open-'+vncchat.username, new_cookie, {path: '/'});
         console.log('updated cookie = ' + new_cookie + '\n');
     },
 
     removeChatFromCookie: function () {
-        var cookie = jQuery.cookie('chats-open-'+xmppchat.username),
+        var cookie = jQuery.cookie('chats-open-'+vncchat.username),
             open_chats = [],
             new_chats = [];
 
@@ -552,10 +552,10 @@ vncchat.VncChatBoxView = vncchat.ChatBoxView.extend({
             }
         }
         if (new_chats.length) {
-            jQuery.cookie('chats-open-'+xmppchat.username, new_chats.join('|'), {path: '/'});
+            jQuery.cookie('chats-open-'+vncchat.username, new_chats.join('|'), {path: '/'});
         }
         else {
-            jQuery.cookie('chats-open-'+xmppchat.username, null, {path: '/'});
+            jQuery.cookie('chats-open-'+vncchat.username, null, {path: '/'});
         }
     },
 });
@@ -594,10 +594,10 @@ vncchat.VncChatBoxesView = vncchat.ChatBoxesView.extend({
     },
 
     restoreOpenChats: function () {
-        var cookie = jQuery.cookie('chats-open-'+xmppchat.username),
+        var cookie = jQuery.cookie('chats-open-'+vncchat.username),
             open_chats = [];
 
-        jQuery.cookie('chats-open-'+xmppchat.username, null, {path: '/'});
+        jQuery.cookie('chats-open-'+vncchat.username, null, {path: '/'});
         if (cookie) {
             open_chats = cookie.split('|');
             var current_chat;
@@ -773,14 +773,18 @@ vncchat.VncChatRoomView = vncchat.VncChatBoxView.extend({
                  $.proxy(this.onPresence, this));
         var that = this;
         //XXX temporary room configuration.
+        //XXX we showd do this only if we are the owner
         muc.configure(this.model.get('jid'), function(configuration) {
             $('field', configuration).each(function (index, field) {
                 if ($(field).attr('var') == 'muc#roomconfig_membersonly') {
                     $('value', field).text('1');
-                }
+                };
                 if ($(field).attr('var') == 'muc#roomconfig_publicroom') {
                     $('value', field).text('0');
-                }
+                };
+                if ($(field).attr('var') == 'muc#roomconfig_persistentroom') {
+                    $('value', field).text('1');
+                };
             });
 
             //XXX turn off history fetch.
@@ -971,7 +975,12 @@ vncchat.VncChatRoomView = vncchat.VncChatBoxView.extend({
 
         });
         if (!this.$el.is(':visible')) {
-            this.tab.$el.addClass('newMessage');
+            if ($.makeArray(vncchat.chatboxesview.tabs).length == 0) {
+                vncchat.chatboxesview.showChat(bare_jid);
+            } else {
+                this.tab.show();
+                this.tab.$el.addClass('newMessage');
+            }
         }
         return true;
     },
@@ -1157,8 +1166,22 @@ vncchat.VncRoomsPanel = vncchat.RoomsPanel.extend({
                         '<a class="leaveRoom" href="#" room-jid="<%=jid%>"></a></dd>'),
 
     createChatRoom: function (ev) {
-        vncchat.RoomsPanel.prototype.createChatRoom(ev);
-        this.updateRoomsList();
+        ev.preventDefault();
+        var name, jid;
+        if (ev.type === 'click') {
+            jid = $(ev.target).attr('room-jid');
+        } else {
+            // FIXME: Hardcoded
+            name = $(ev.target).find('input.new-chatroom-name').val();
+            if (name) {
+                name = Strophe.escapeNode(name);
+                jid = name + '@' + vncchat.connection.muc_domain;
+            }
+        }
+        if (jid) {
+            vncchat.chatboxesview.openChat(jid);
+            this.updateRoomsList();
+        }
     },
 
     closeChatRoom: function (ev) {
