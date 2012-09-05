@@ -1172,7 +1172,8 @@ vncchat.VncRoomsPanel = vncchat.RoomsPanel.extend({
             jid = $(ev.target).attr('room-jid');
         } else {
             // FIXME: Hardcoded
-            name = $(ev.target).find('input.new-chatroom-name').val();
+            name = $(ev.target).find('input.new-chatroom-name').val()
+                               .replace(/^\s+|\s+$/g, '');
             if (name) {
                 name = Strophe.escapeNode(name);
                 jid = name + '@' + vncchat.connection.muc_domain;
