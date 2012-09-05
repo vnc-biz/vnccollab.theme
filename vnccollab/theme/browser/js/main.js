@@ -735,6 +735,7 @@ function initializeXmppMessageHandler(vncchat) {
             room_cookie = jQuery.cookie('joined-rooms-'+
                           Strophe.unescapeNode(username)),
             joined_rooms = [];
+            chat_cookie = jQuery.cookie('chats-open-'+Strophe.unescapeNode(username)),
 
         if (room_cookie) {
             if (!isVncChatLoaded()){
@@ -742,6 +743,9 @@ function initializeXmppMessageHandler(vncchat) {
                     runVncChat(this);
                     joined_rooms = room_cookie.split('|');
                     for (var i=0;i<joined_rooms.length;i++) {
+                        if (chat_cookie && $.inArray(joined_rooms[i], chat_cookie.split('|'))) {
+                            continue;
+                        }
                         vncchat.chatboxesview.openChat(joined_rooms[i]);
                         vncchat.chatboxesview.views[joined_rooms[i]].tab.closeTab();
                     }
