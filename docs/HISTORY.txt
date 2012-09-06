@@ -1,6 +1,12 @@
 Changelog
 =========
 
+1.6.1 - September 6, 2012
+-------------------------
+
+- fixed member data fetch for roster items.
+  [Taras Melnychuk]
+
 1.6.0 - September 6, 2012
 -------------------------
 
