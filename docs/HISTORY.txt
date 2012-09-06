@@ -4,6 +4,9 @@ Changelog
 1.5.5 - September 7, 2012
 -------------------------
 
+- Fix Create Tasks to redirect to default view.
+  [Jose Dinuncio]
+
 - Fix OpenERP portlet look and feel.
   [Jose Dinuncio]
 

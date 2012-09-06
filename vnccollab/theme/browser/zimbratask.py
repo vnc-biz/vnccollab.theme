@@ -158,5 +158,5 @@ class ZimbraTaskForm(form.Form):
         self.status = self.successMessage
         IStatusMessage(self.request).addStatusMessage(self.successMessage,
             type='info')
-        return self.request.response.redirect(self.context.absolute_url())
+        return self.request.response.redirect(self.context.absolute_url() + '/view')
 
