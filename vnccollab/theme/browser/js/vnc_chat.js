@@ -286,7 +286,7 @@ vncchat.VncChatBoxView = vncchat.ChatBoxView.extend({
     loadHistoryMessages: function (start) {
         var that = this;
         $chat_content = $(this.el).find('.chat-content')
-        $chat_content.find('div.chat-message').delete();
+        $chat_content.find('div.chat-message').remove();
         vncchat.collections.getMessages(jid, start, function (results) {
             $results = $(results).find('chat')
             if ($results.length > 0) {
@@ -336,13 +336,13 @@ vncchat.VncChatBoxView = vncchat.ChatBoxView.extend({
         // remove currently clicked link + all previous links,
         // if All link was clicked: remove whole history controls area
         if (control.is('.all-history')) {
-          control.parents('.history-box').delete();
+          control.parents('.history-box').remove();
         } else {
           var klass = control.attr('class');
           control.parent().parent().find('.historyControl').each(
             function(idx, elem){
               var link = $(elem);
-              link.parent().delete();
+              link.parent().remove();
               // stop if this is current element
               if (link.attr('class') == klass) {
                 return false;
