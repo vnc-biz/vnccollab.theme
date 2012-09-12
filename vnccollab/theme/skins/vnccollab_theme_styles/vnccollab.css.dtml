@@ -2214,6 +2214,23 @@ div.add-xmpp-contact {
   padding: 5px;
   margin-bottom: 2px;
 }
+div.find-xmpp-contact {
+  border-radius: 6px;
+  padding: 5px;
+  margin-bottom: 2px;
+}
+div.find-xmpp-contact {
+    background: url("/search_icon.png") no-repeat scroll 3px 3px transparent;
+    border: 1px solid #DDDDDD;
+    clear: both;
+    display: block;
+    font-weight: bold;
+    margin: 0 0.5em;
+    padding: 3px;
+}
+div.find-xmpp-contact a.find-xmpp-contact {
+    padding-left: 1.5em;
+}
 form.search-xmpp-contact input.username {
   background-color: #F1F1F1;
   border-radius: 6px;
