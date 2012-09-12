@@ -1,3 +1,10 @@
+// add strip method to String class
+if(typeof(String.prototype.strip) === "undefined") {
+  String.prototype.strip = function(){
+    return String(this).replace(/^\s+|\s+$/g, '');
+  };
+};
+
 // add outerHTML support to jQuery
 jq.fn.outerHTML = function(s) {
   return (s) ? this.before(s).remove():
