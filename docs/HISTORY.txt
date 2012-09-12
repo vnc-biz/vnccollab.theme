@@ -6,6 +6,9 @@ Changelog
 - Add .strip method to js String class.
   [Vitaliy Podoba]
 
+- Fixed member data fetch for roster items.
+  [Taras Melnychuk]
+
 1.6.0 - September 6, 2012
 -------------------------
 

@@ -194,7 +194,8 @@ class FileTicketForm(form.Form):
             type='info')
 
         # redirect to success page to gather number of emailed pages
-        return self.request.response.redirect(self.context.absolute_url() + '/view')
+        came_from = self.request.get('HTTP_REFERER') or self.context.absolute_url()
+        return self.request.response.redirect(came_from)
 
     @memoize
     def getAuthCredentials(self):

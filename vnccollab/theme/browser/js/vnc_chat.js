@@ -66,10 +66,12 @@ vncchat.VncChatBox = vncchat.ChatBox.extend({
         });
         var that = this;
         vncchat.get_user_info(Strophe.unescapeNode(jid), function(data) {
-            that.set({
-                'fullname': data.fullname,
-                'portrait': data.portrait_url
-            });
+            if (data) {
+                that.set({
+                    'fullname': data.fullname,
+                    'portrait': data.portrait_url
+                });
+            };
         });
     }
 
@@ -717,10 +719,12 @@ vncchat.VncRosterItem = Backbone.Model.extend({
 
         var that = this;
         vncchat.get_user_info(user_id, function(data) {
-            that.set({
-                'fullname': data.fullname,
-                'portrait': data.portrait_url
-            });
+            if (data) {
+                that.set({
+                    'fullname': data.fullname,
+                    'portrait': data.portrait_url
+                });
+            };
         });
 
     }
