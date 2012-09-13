@@ -1,10 +1,12 @@
 Changelog
 =========
 
-1.6.1 - September 6, 2012
--------------------------
+1.6.1 - Unreleased
 
-- fixed member data fetch for roster items.
+- Add .strip method to js String class.
+  [Vitaliy Podoba]
+
+- Fixed member data fetch for roster items.
   [Taras Melnychuk]
 
 1.6.0 - September 6, 2012

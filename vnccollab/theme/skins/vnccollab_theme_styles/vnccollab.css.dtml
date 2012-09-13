@@ -3041,7 +3041,46 @@ div.add-xmpp-contact {
 .hiddenStructure {
   position: absolute;
   }
+
+
+/* Commenting Viewlet (plone.app.discussion) */
+.cell #dobulkaction {
+    margin: 0;
+}
+
+.cell #commenting {
+    font-size: 80%;
+}
+
+.cell #commenting .formControls {
+    margin: 0;
+}
+
+.cell #commenting textarea,
+.cell .discussion textarea {
+    font: 100% Monaco, "Courier New", Courier, monospace;
+    width: 100%;
+}
+
+.cell #commenting fieldset,
+.cell .discussion fieldset {
+    border: 0.1em solid #329fd7;
+    border-style: solid none none none;
+}
+
+.cell #commenting legend,
+.cell .discussion legend {
+    padding: 0.5em 0.5em 0.5em 0;
+    font-size: 85%;
+}
+
+.cell #commenting label,
+.cell .discussion label {
+    font-weight:bold;
+}
+
  
 }
+
 
 /* </dtml-with> */ 
