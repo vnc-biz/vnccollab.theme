@@ -1300,16 +1300,21 @@ vncchat.VncContactsPanel = vncchat.ContactsPanel.extend({
 
     searchContacts: function (ev) {
         ev.preventDefault();
+
+        // remove any previous search results or search messages
+        $('.startChatWith .search-msg').remove();
+        $('#found-users').remove();
+        
         var value = $.trim($(ev.target).find('input.username').val());
-        if (!value) {
-          return false;
+        if (value.length < 3) {
+            $(ev.target).after('<p class="search-msg">Please, enter at least ' +
+                '3 characters before search.</p>');
+            return false;
         }
         
         var contacts_models = $.grep(vncchat.roster.models, function(e, i) {
             return (e.get('subscription') == 'both')});
         $.getJSON(portal_url + "/search-contacts?q=" + value, function (data) {
-            $('#found-users').remove();
-            $('.startChatWith .search-msg').remove();
             var $results_el = $('<ul id="found-users"></ul>');
             $(data).each(function (idx, obj) {
                 // user is already in contacts list

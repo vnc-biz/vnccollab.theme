@@ -2223,8 +2223,16 @@ form.search-xmpp-contact {
   margin: 0;
 }
 ul#found-users {
-  margin: 0;
+  margin-top: 7px;
   padding: 0;
+  height: 70px;
+  overflow: auto;
+}
+ul#found-users li {
+  display: block;
+}
+ul#found-users li a.open-chat {
+  padding-left: 2em;
 }
 .startChatWith .search-msg {
   color: #B16321;
