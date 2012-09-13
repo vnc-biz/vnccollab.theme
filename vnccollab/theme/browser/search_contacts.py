@@ -1,7 +1,9 @@
 import json
 
 from Acquisition import aq_inner
+
 from zope.component import getMultiAdapter
+
 from Products.Five import BrowserView
 from Products.CMFCore.utils import getToolByName
 
@@ -20,5 +22,10 @@ class SearchContacts(BrowserView):
         results = search_view.membershipSearch(searchString=searchtext,
                                                searchGroups=False,
                                                ignore=[myself_id])
-        return json.dumps([{'fullname':m.getProperty('fullname'),
-                            'id':m.getId()} for m in results])
+        data = []
+        for m in results:
+            if m:
+                data.append({'fullname': m.getProperty('fullname'),
+                             'id': m.getId()})
+        
+        return json.dumps(data)
