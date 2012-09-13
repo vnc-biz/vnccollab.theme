@@ -33,20 +33,12 @@
                 </select>
               </span>
             </form>
-            <div class="add-xmpp-contact">
-              <a class="add-xmpp-contact" href="#" title="Click to search for new users to add as chat contacts">Add a contact</a>
+            <div class="startChatWith">
+              <a class="startChatWith" href="#" title="Click to start chat with contact.">Start chat with</a>
               <form class="search-xmpp-contact" style="display:none">
                 <input type="text" name="identifier" class="username" placeholder="Contact name"/>
-                <button type="submit">Search</button>
+                <button type="submit">Find</button>
                 <ul id="found-users"></ul>
-              </form>
-            </div>
-            <div class="find-xmpp-contact">
-              <a class="find-xmpp-contact" href="#" title="Click to search in contact list.">Find a contact</a>
-              <form class="find-xmpp-contact" style="display:none">
-                <input type="text" name="identifier" class="username" placeholder="Contact name"/>
-                <button type="submit">Search</button>
-                <ul id="found-contacts"></ul>
               </form>
             </div>
             <dl id="xmppchat-roster"></dl>
