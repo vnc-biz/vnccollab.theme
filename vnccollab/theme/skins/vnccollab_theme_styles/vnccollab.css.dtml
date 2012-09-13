@@ -2209,6 +2209,23 @@ form#set-custom-xmpp-status {
   color: #062943;
   background: none;
 }
+div.startChatWith {
+  border-radius: 6px;
+  padding: 5px;
+  margin-bottom: 2px;
+}
+div.startChatWith{
+    background: url("/search_icon.png") no-repeat scroll 3px 3px transparent;
+    border: 1px solid #DDDDDD;
+    clear: both;
+    display: block;
+    font-weight: bold;
+    margin: 0 0.5em;
+    padding: 3px;
+}
+div.startChatWith a.startChatWith {
+    padding-left: 1.5em;
+}
 div.add-xmpp-contact {
   border-radius: 6px;
   padding: 5px;

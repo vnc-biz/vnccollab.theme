@@ -193,6 +193,14 @@
       attribute="recordPortletState"
       permission="plone.app.portlets.ViewDashboard"
       />
+
+  <browser:view
+    for="*"
+    name="search-contacts"
+    class=".search_contacts.SearchContacts"
+    permission="zope2.View"
+    />
+
   <adapter
       factory=".portlet_manager.ColumnPortletManagerRenderer"
       provides="plone.portlets.interfaces.IPortletManagerRenderer"

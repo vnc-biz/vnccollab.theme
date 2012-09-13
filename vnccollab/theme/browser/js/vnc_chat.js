@@ -99,6 +99,8 @@ vncchat.VncChatTab = Backbone.View.extend({
 
     show: function() {
         this.$el.show();
+        vncchat.roster.trigger('show-contact',
+                               this.body.model.get('jid'));
     },
 
     activate: function(event) {
@@ -112,6 +114,7 @@ vncchat.VncChatTab = Backbone.View.extend({
       $('#tab-'+this.body.model.get('box_id')).hide();
       vncchat.chatboxesview.closeChat(this.body.model.get('jid'));
       this.body.removeChatFromCookie(this.body.model.get('id'));
+      vncchat.roster.trigger('hide-contact', this.body.model.get('jid'));
     },
 
 });
@@ -121,6 +124,15 @@ vncchat.VncChatRoomTab = vncchat.VncChatTab.extend({
     template: _.template( '<a href="#<%=box_id%>" class="tabLink"><%=name%></a>' +
                           '<a href="javascript:void(0)" class="close-chattab-button">X</a>'),
 
+    show: function() {
+        this.$el.show();
+    },
+
+    closeTab: function() {
+      $('#tab-'+this.body.model.get('box_id')).hide();
+      vncchat.chatboxesview.closeChat(this.body.model.get('jid'));
+      this.body.removeChatFromCookie(this.body.model.get('id'));
+    },
 });
 
 vncchat.VncChatBoxView = vncchat.ChatBoxView.extend({
@@ -609,6 +621,9 @@ vncchat.VncChatBoxesView = vncchat.ChatBoxesView.extend({
         this.options.model.add(box);
         this.tabs.push(jid);
         view.addChatToCookie();
+        if (!this.isChatRoom(jid)) {
+            vncchat.roster.trigger('show-contact', jid);
+        }
         return view;
     },
 
@@ -629,7 +644,7 @@ vncchat.VncChatBoxesView = vncchat.ChatBoxesView.extend({
                         chat = current_chat;
                     }
                 }
-                this.renderChat(chat);
+                this.openChat(chat);
             }
             if (current_chat) {
                 this.showChat(current_chat)
@@ -653,6 +668,9 @@ vncchat.VncChatBoxesView = vncchat.ChatBoxesView.extend({
             }
         });
         this.tabs.push(jid);
+        if (!this.isChatRoom(jid)) {
+            vncchat.roster.trigger('show-contact', jid);
+        }
         return chat;
     },
 
@@ -1264,25 +1282,77 @@ vncchat.VncRoomsPanel = vncchat.RoomsPanel.extend({
 });
 
 vncchat.VncContactsPanel = vncchat.ContactsPanel.extend({
+
+    events: {
+        'click a.startChatWith': 'toggleContactForm',
+        'submit form.search-xmpp-contact': 'searchContacts',
+        'click a.subscribe-to-user': 'subscribeToContact'
+    },
+
+    toggleContactForm: function (ev) {
+        ev.preventDefault();
+        this.$el.find('form.search-xmpp-contact').fadeToggle('medium').find('input.username').focus();
+        pmessage = $('div.startChatWith').find('#pending-contact-message');
+        if (pmessage.length > 0) {
+            pmessage.remove();
+        }
+    },
+
     searchContacts: function (ev) {
         ev.preventDefault();
-        $.getJSON(portal_url + "/search-users?q=" + $(ev.target).find('input.username').val(), function (data) {
+        var contacts_models = $.grep(vncchat.roster.models, function(e, i) {
+                               return (e.get('subscription') == 'both')});
+        $.getJSON(portal_url + "/search-contacts?q=" + $(ev.target).find('input.username').val(), function (data) {
             var $results_el = $('#found-users');
+            if ($results_el.children().length > 0) {
+                $results_el.empty();
+            }
             $(data).each(function (idx, obj) {
-                if ($results_el.children().length > 0) {  
-                    $results_el.empty();
+                if ($.inArray(Strophe.escapeNode(obj.id), $.map(contacts_models, function (e, i) {
+                    return Strophe.getNodeFromJid(e.get('id'))})) != -1) {
+                    $results_el.append(
+                                 $('<li></li>')
+                                     .attr('id', 'found-contacts-'+obj.id)
+                                     .append(
+                                         $('<a class="" href="#" title="Click to chat with contact"></a>')
+                                             .attr('data-recipient', Strophe.escapeNode(obj.id)+'@'+vncchat.connection.domain)
+                                             .text(obj.fullname).on('click', function (ev) {
+                                                 ev.preventDefault();
+                                                 jid = Strophe.escapeNode(obj.id)+'@'+vncchat.connection.domain;
+                                                 vncchat.chatboxesview.openChat(jid);
+                                                 $('form.search-xmpp-contact').hide();
+                                             })
+                                     )
+                             );
+                } else {
+                    $results_el.append(
+                            $('<li></li>')
+                                .attr('id', 'found-users-'+obj.id)
+                                .append(
+                                    $('<a class="subscribe-to-user" href="#" title="Click to add as a chat contact"></a>')
+                                        .attr('data-recipient', Strophe.escapeNode(obj.id)+'@'+vncchat.connection.domain)
+                                        .text(obj.fullname)
+                                )
+                        );
                 }
-                $results_el.append(
-                        $('<li></li>')
-                            .attr('id', 'found-users-'+obj.id)
-                            .append(
-                                $('<a class="subscribe-to-user" href="#" title="Click to add as a chat contact"></a>')
-                                    .attr('data-recipient', Strophe.escapeNode(obj.id)+'@'+vncchat.connection.domain)
-                                    .text(obj.fullname)
-                            )
-                    );
             });
         });
+    },
+
+    subscribeToContact: function (ev) {
+        ev.preventDefault();
+        var jid = $(ev.target).attr('data-recipient');
+        xmppchat.connection.roster.add(jid, '', [], function (iq) {
+            // XXX: We can set the name here!!!
+            xmppchat.connection.roster.subscribe(jid);
+        });
+        $(ev.target).parent().remove();
+        $('form.search-xmpp-contact').hide();
+        $('div.startChatWith').append('<p id="pending-contact-message">Contact was added to pending list.' +
+           'As soon as he approve your request you will be able to start chat with him.</p>')
+            .on('click', function (event) {
+                $(this).find('#pending-contact-message').remove()
+            });
     },
 
 });
@@ -1584,11 +1654,33 @@ vncchat.VncRosterView= (function (roster, _, $, console) {
                 delete this.rosteritemviews[item.id];
                 this.render();
             }, this);
+
+            this.model.on('show-contact', function (jid) {
+                var $opened_chats = this.$el.find('#opened-xmpp-chats'),
+                    view = this.rosteritemviews[jid];
+                if (!$('#opened-xmpp-chats').nextUntil('dt')
+                                           .is(view.render().$el)) {
+                    $opened_chats.after(view.render().el);
+                };
+                if (!$opened_chats.is(':visible')) {
+                    $opened_chats.show();
+                };
+            }, this);
+
+            this.model.on('hide-contact', function (jid) {
+                var $opened_chats = this.$el.find('#opened-xmpp-chats'),
+                    view = this.rosteritemviews[jid];
+                view.render().$el.remove();
+                if ($opened_chats.is(':visible') && $opened_chats.nextUntil('dt').length == 0) {
+                    $opened_chats.hide();
+                }
+            }, this);
+
         },
 
         template: _.template('<dt id="xmpp-contact-requests">Contact requests</dt>' +
-                            '<dt id="xmpp-contacts">My contacts</dt>' +
-                            '<dt id="pending-xmpp-contacts">Pending contacts</dt>'),
+                             '<dt id="opened-xmpp-chats">Opened chats</dt>' +
+                             '<dt id="pending-xmpp-contacts">Pending contacts</dt>'),
 
         render: function () {
             this.$el.empty().html(this.template());
@@ -1597,6 +1689,14 @@ vncchat.VncRosterView= (function (roster, _, $, console) {
                 my_contacts = this.$el.find('#xmpp-contacts').hide(),
                 contact_requests = this.$el.find('#xmpp-contact-requests').hide(),
                 pending_contacts = this.$el.find('#pending-xmpp-contacts').hide();
+                chats_cookie = jQuery.cookie('chats-open-'+vncchat.username),
+                open_chats = [];
+
+            if (chats_cookie) {
+                open_chats = $.map(chats_cookie.split('|'), function (el, i) {
+                    return el.split(':')[0];
+                });
+            };
 
             for (var i=0; i<models.length; i++) {
                 var model = models[i],
@@ -1609,9 +1709,10 @@ vncchat.VncRosterView= (function (roster, _, $, console) {
                     pending_contacts.after(view.render().el);
                 } else if (ask === 'request') {
                     contact_requests.after(view.render().el);
-                } else if (subscription === 'both') {
-                    my_contacts.after(view.render().el);
-                } 
+                } else if (subscription === 'both' &&
+                           $.inArray(model.id, open_chats) !== -1) {
+                    this.model.trigger('show-contact', model.id);
+                }
             }
             // Hide the headings if there are no contacts under them
             _.each([my_contacts, contact_requests, pending_contacts], function (h) {
