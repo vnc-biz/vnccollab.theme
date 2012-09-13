@@ -1300,42 +1300,58 @@ vncchat.VncContactsPanel = vncchat.ContactsPanel.extend({
 
     searchContacts: function (ev) {
         ev.preventDefault();
+        var value = $.trim($(ev.target).find('input.username').val());
+        if (!value) {
+          return false;
+        }
+        
         var contacts_models = $.grep(vncchat.roster.models, function(e, i) {
-                               return (e.get('subscription') == 'both')});
-        $.getJSON(portal_url + "/search-contacts?q=" + $(ev.target).find('input.username').val(), function (data) {
-            var $results_el = $('#found-users');
-            if ($results_el.children().length > 0) {
-                $results_el.empty();
-            }
+            return (e.get('subscription') == 'both')});
+        $.getJSON(portal_url + "/search-contacts?q=" + value, function (data) {
+            $('#found-users').remove();
+            $('.startChatWith .search-msg').remove();
+            var $results_el = $('<ul id="found-users"></ul>');
             $(data).each(function (idx, obj) {
-                if ($.inArray(Strophe.escapeNode(obj.id), $.map(contacts_models, function (e, i) {
-                    return Strophe.getNodeFromJid(e.get('id'))})) != -1) {
-                    $results_el.append(
-                                 $('<li></li>')
-                                     .attr('id', 'found-contacts-'+obj.id)
-                                     .append(
-                                         $('<a class="" href="#" title="Click to chat with contact"></a>')
-                                             .attr('data-recipient', Strophe.escapeNode(obj.id)+'@'+vncchat.connection.domain)
-                                             .text(obj.fullname).on('click', function (ev) {
-                                                 ev.preventDefault();
-                                                 jid = Strophe.escapeNode(obj.id)+'@'+vncchat.connection.domain;
-                                                 vncchat.chatboxesview.openChat(jid);
-                                                 $('form.search-xmpp-contact').hide();
-                                             })
-                                     )
-                             );
+                // user is already in contacts list
+                if ($.inArray(Strophe.escapeNode(obj.id), $.map(contacts_models,
+                    function (e, i) {return Strophe.getNodeFromJid(e.get('id'))}
+                    )) != -1) {
+                    $results_el.append($('<li></li>')
+                        .attr('id', 'found-contacts-'+obj.id)
+                        .append($('<a class="open-chat" href="#" title="' +
+                            'Click to chat with contact"></a>')
+                        .attr('data-recipient', Strophe.escapeNode(obj.id)+'@'+
+                            vncchat.connection.domain)
+                            .text(obj.fullname).on(
+                                'click', function (ev) {
+                                    ev.preventDefault();
+                                    jid = Strophe.escapeNode(obj.id)+'@'+
+                                        vncchat.connection.domain;
+                                    vncchat.chatboxesview.openChat(jid);
+                                    // remove search results
+                                    $('#found-users').remove();
+                                }
+                            )
+                        )
+                    );
                 } else {
-                    $results_el.append(
-                            $('<li></li>')
-                                .attr('id', 'found-users-'+obj.id)
-                                .append(
-                                    $('<a class="subscribe-to-user" href="#" title="Click to add as a chat contact"></a>')
-                                        .attr('data-recipient', Strophe.escapeNode(obj.id)+'@'+vncchat.connection.domain)
-                                        .text(obj.fullname)
-                                )
-                        );
+                  // user is not in contact list
+                    $results_el.append($('<li></li>')
+                        .attr('id', 'found-users-'+obj.id)
+                        .append($('<a class="subscribe-to-user" href="#" ' +
+                            'title="Click to add as a chat contact"></a>')
+                            .attr('data-recipient', Strophe.escapeNode(obj.id)+
+                                '@'+vncchat.connection.domain)
+                            .text(obj.fullname)
+                        )
+                    );
                 }
             });
+            if ($(data).length == 0) {
+              $results_el = '<p class="search-msg">No users found.</p>';
+            }
+            // add list to page DOM
+            $(ev.target).after($results_el);
         });
     },
 
@@ -1346,14 +1362,12 @@ vncchat.VncContactsPanel = vncchat.ContactsPanel.extend({
             // XXX: We can set the name here!!!
             xmppchat.connection.roster.subscribe(jid);
         });
-        $(ev.target).parent().remove();
-        $('form.search-xmpp-contact').hide();
-        $('div.startChatWith').append('<p id="pending-contact-message">Contact was added to pending list.' +
-           'As soon as he approve your request you will be able to start chat with him.</p>')
-            .on('click', function (event) {
-                $(this).find('#pending-contact-message').remove()
-            });
-    },
+        $(ev.target).parents('ul#found-users').remove();
+        $('div.startChatWith').append('<p class="search-msg">User has been ' +
+            'successfully added to pending list. As soon as user accepts your' +
+            ' request you will be able to start chat with him.</p>');
+        setTimeout('jQuery("div.startChatWith p.search-msg").remove();', 10000);
+    }
 
 });
 
@@ -1365,7 +1379,7 @@ vncchat.VncControlBoxView = vncchat.ControlBoxView.extend({
         this.contactspanel = new vncchat.VncContactsPanel();
         this.roomspanel = new vncchat.VncRoomsPanel();
         this.settingspanel = new vncchat.SettingsPanel();
-    },
+    }
 
 });
 
@@ -1612,7 +1626,7 @@ vncchat.VncRosterItemView = vncchat.RosterItemView.extend({
             that.removeContact();
         });
         return this;
-    },
+    }
 });
 
 vncchat.VncRosterView= (function (roster, _, $, console) {

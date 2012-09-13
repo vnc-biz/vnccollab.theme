@@ -34,11 +34,9 @@
               </span>
             </form>
             <div class="startChatWith">
-              <a class="startChatWith" href="#" title="Click to start chat with contact.">Start chat with</a>
-              <form class="search-xmpp-contact" style="display:none">
-                <input type="text" name="identifier" class="username" placeholder="Contact name"/>
+              <form class="search-xmpp-contact">
+                <input type="text" name="identifier" class="username" placeholder="Start chat with..."/>
                 <button type="submit">Find</button>
-                <ul id="found-users"></ul>
               </form>
             </div>
             <dl id="xmppchat-roster"></dl>

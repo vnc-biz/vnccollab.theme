@@ -2197,7 +2197,7 @@ form#set-custom-xmpp-status {
   border: 1px solid #E5E5E5;
   height: 25px;
   font-size: 14px;
-  text-transform: capitalize;
+  text-transform: none;
 }
 #set-custom-xmpp-status button {
   margin: 0;
@@ -2211,20 +2211,26 @@ form#set-custom-xmpp-status {
 }
 div.startChatWith {
   border-radius: 6px;
+  border: 1px solid #DDDDDD;
+  clear: both;
+  display: block;
+  font-weight: bold;
+  margin: 0 0.5em 0.5em 0.5em;
   padding: 5px;
-  margin-bottom: 2px;
 }
-div.startChatWith{
-    background: url("/search_icon.png") no-repeat scroll 3px 3px transparent;
-    border: 1px solid #DDDDDD;
-    clear: both;
-    display: block;
-    font-weight: bold;
-    margin: 0 0.5em;
-    padding: 3px;
+form.search-xmpp-contact {
+  padding: 0;
+  margin: 0;
 }
-div.startChatWith a.startChatWith {
-    padding-left: 1.5em;
+ul#found-users {
+  margin: 0;
+  padding: 0;
+}
+.startChatWith .search-msg {
+  color: #B16321;
+  font-weight: normal;
+  margin-top: 7px;
+}
 }
 div.add-xmpp-contact {
   border-radius: 6px;
@@ -2235,29 +2241,24 @@ div.find-xmpp-contact {
   border-radius: 6px;
   padding: 5px;
   margin-bottom: 2px;
-}
-div.find-xmpp-contact {
-    background: url("/search_icon.png") no-repeat scroll 3px 3px transparent;
-    border: 1px solid #DDDDDD;
-    clear: both;
-    display: block;
-    font-weight: bold;
-    margin: 0 0.5em;
-    padding: 3px;
-}
-div.find-xmpp-contact a.find-xmpp-contact {
-    padding-left: 1.5em;
+  background: url("/search_icon.png") no-repeat scroll 3px 3px transparent;
+  border: 1px solid #DDDDDD;
+  clear: both;
+  display: block;
+  font-weight: bold;
+  margin: 0 0.5em;
+  padding: 3px;
 }
 form.search-xmpp-contact input.username {
   background-color: #F1F1F1;
   border-radius: 6px;
   padding: 0 5px;
   margin-right: 6px;
-  width: 68%;
+  width: 75%;
   border: 1px solid #E5E5E5;
   height: 25px;
   font-size: 14px;
-  text-transform: capitalize;
+  text-transform: none;
 }
 form.search-xmpp-contact button {
   margin: 0;
@@ -2273,6 +2274,7 @@ form.search-xmpp-contact button {
   height: 206px;
   overflow-y: auto;
   padding-top: 0;
+  border-top: 1px solid #C1CCD5;
 }
 #xmppchat-roster dd:after {
   content: "";
@@ -2280,6 +2282,7 @@ form.search-xmpp-contact button {
   visibility: hidden;
   clear: both;
 }
+#xmppchat-roster #opened-xmpp-chats,
 #xmppchat-roster #xmpp-contact-requests,
 #xmppchat-roster #pending-xmpp-contacts,
 #xmppchat-roster #xmpp-contacts {
