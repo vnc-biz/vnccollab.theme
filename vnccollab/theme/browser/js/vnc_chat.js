@@ -1304,14 +1304,14 @@ vncchat.VncContactsPanel = vncchat.ContactsPanel.extend({
         // remove any previous search results or search messages
         $('.startChatWith .search-msg').remove();
         $('#found-users').remove();
-        
+
         var value = $.trim($(ev.target).find('input.username').val());
         if (value.length < 3) {
             $(ev.target).after('<p class="search-msg">Please, enter at least ' +
                 '3 characters before search.</p>');
             return false;
         }
-        
+
         var contacts_models = $.grep(vncchat.roster.models, function(e, i) {
             return (e.get('subscription') == 'both')});
         $.getJSON(portal_url + "/search-contacts?q=" + value, function (data) {
@@ -1356,6 +1356,8 @@ vncchat.VncContactsPanel = vncchat.ContactsPanel.extend({
               $results_el = '<p class="search-msg">No users found.</p>';
             }
             // add list to page DOM
+            $('.startChatWith .search-msg').remove();
+            $('#found-users').remove();
             $(ev.target).after($results_el);
         });
     },
@@ -1363,6 +1365,19 @@ vncchat.VncContactsPanel = vncchat.ContactsPanel.extend({
     subscribeToContact: function (ev) {
         ev.preventDefault();
         var jid = $(ev.target).attr('data-recipient');
+        //confirm subscription if user already
+        //send subscription reqest to us
+        subscriptions = $.grep(vncchat.roster.models, function(e, i) {
+                               return (e.get('id') == jid &&
+                                       e.get('ask') == 'request')});
+        if (subscriptions.length > 0) {
+            //accept subscription
+            vncchat.connection.roster.authorize(jid);
+            vncchat.connection.roster.subscribe(jid);
+            vncchat.chatboxesview.openChat(jid);
+            return
+        };
+
         xmppchat.connection.roster.add(jid, '', [], function (iq) {
             // XXX: We can set the name here!!!
             xmppchat.connection.roster.subscribe(jid);

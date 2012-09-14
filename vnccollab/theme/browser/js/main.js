@@ -634,127 +634,130 @@ function runVncChat(vncchat) {
 
 };
 
-function initializeXMPPMessageHandlers(vncchat) {
+function prepareGroupChats(vncchat) {
 
-   // show chat control
-   jq('#im-messages').show();
-   vncchat.connection.bare_jid = Strophe.getBareJidFromJid(vncchat.connection.jid);
-   vncchat.connection.domain = Strophe.getDomainFromJid(vncchat.connection.jid);
-   vncchat.connection.xmlInput = function (body) { console.log(body); };
-   vncchat.connection.xmlOutput = function (body) { console.log(body); };
+    var username = Strophe.getNodeFromJid(vncchat.connection.jid),
+        room_cookie = jQuery.cookie('joined-rooms-'+
+                      Strophe.unescapeNode(username)),
+        joined_rooms = [];
+        chat_cookie = jQuery.cookie('chats-open-'+Strophe.unescapeNode(username));
 
-   vncchat.unread_message_counter = 0
-   vncchat.subscriptionNotifier = $.proxy(function(presence) {
-       presence_type = $(presence).attr('type');
-       if (!isVncChatLoaded() && presence_type == 'subscribe'){
-           //XXX What about other presence types???
-           //We need to think about users status update.
-           loadVncChat($.proxy(function () {
-               runVncChat(this);
-               this.roster.presenceHandler(presence);
-           }, this), function () {});
-           this.unread_message_counter += 1;
-           if (jq('#unread-messages').length > 0) { 
-               jq('#unread-messages').remove()
-           };
-           jq('#im-messages').prepend('<span id="unread-messages">'+
-                                  this.unread_message_counter + '</span>');
-       } else {
-           this.roster.presenceHandler(presence);
-       };
-   }, vncchat);
-
-   vncchat.connection.addHandler(
-       $.proxy(function (presence) {
-           this.subscriptionNotifier(presence);
-           return true;
-       }, vncchat), null, 'presence', null);
-
-
-   vncchat.connection.addHandler(
-           $.proxy(function (message) { 
-               if (isVncChatLoaded()){
-                   this.chatboxesview.messageReceived(message);
-               } else {
-                   loadVncChat($.proxy(function () {
-                       runVncChat(this);
-                       this.chatboxesview.messageReceived(message);
-                   }, this), function () {});
-               }
-              if (!isVncChatVisible() && $(message)
-                  .find('composing').length == 0) {
-                  this.unread_message_counter += 1;
-                   if (jq('#unread-messages').length > 0) { 
-                       jq('#unread-messages').remove()
-                   };
-                   jq('#im-messages')
-                     .prepend('<span id="unread-messages">'+
-                              this.unread_message_counter + '</span>');
-              };
-               return true;
-           }, vncchat), null, 'message', 'chat');
-
-   vncchat.connection.addHandler(
-       $.proxy(function (invitation) {
-               if (isVncChatLoaded()){
-                   this.controlbox_view
-                       .roomspanel.invitationReceived(invitation);
-               } else {
-                   loadVncChat($.proxy(function () {
-                       runVncChat(this);
-                       this.controlbox_view
-                           .roomspanel.invitationReceived(invitation);
-                   }, this), function () {});
-               }
-           return true;
-       }, vncchat), 'http://jabber.org/protocol/muc#user', 'message', null);
-
-
-   vncchat.connection.addHandler($.proxy(function(stanza) {
-       from = stanza.getAttribute('from');
-       if (!isVncChatLoaded()){
-           loadVncChat($.proxy(function () {
-               runVncChat(this);
-               this.chatboxesview.messageReceived(stanza);
-           }, this), function () {});
-       };
-       if (!isVncChatVisible()) {
-               this.unread_message_counter += 1;
-               if (jq('#unread-messages').length > 0) {
-                       jq('#unread-messages').remove()
-               };
-           jq('#im-messages').prepend('<span id="unread-messages">'+
-                   this.unread_message_counter + '</span>');
-       };
-       return true;
-   }, vncchat), null, 'message', 'groupchat');
-
-   var username = Strophe.getNodeFromJid(vncchat.connection.jid),
-       room_cookie = jQuery.cookie('joined-rooms-'+
-                     Strophe.unescapeNode(username)),
-       joined_rooms = [];
-       chat_cookie = jQuery.cookie('chats-open-'+Strophe.unescapeNode(username));
-
-   if (room_cookie) {
-       if (!isVncChatLoaded()){
-           loadVncChat($.proxy(function () {
-               runVncChat(this);
-               joined_rooms = room_cookie.split('|');
-               for (var i=0;i<joined_rooms.length;i++) {
-                   if (chat_cookie && $.inArray(joined_rooms[i], chat_cookie.split('|'))) {
-                       continue;
-                   }
-                   vncchat.chatboxesview.openChat(joined_rooms[i]);
-                   vncchat.chatboxesview.views[joined_rooms[i]].tab.closeTab();
-               }
-           }, vncchat), function () {});
-       };
-   };
+    if (room_cookie) {
+        if (!isVncChatLoaded()){
+            loadVncChat($.proxy(function () {
+                runVncChat(this);
+                joined_rooms = room_cookie.split('|');
+                for (var i=0;i<joined_rooms.length;i++) {
+                    if (chat_cookie && $.inArray(joined_rooms[i], chat_cookie.split('|'))) {
+                        continue;
+                    }
+                    vncchat.chatboxesview.openChat(joined_rooms[i]);
+                    vncchat.chatboxesview.views[joined_rooms[i]].tab.closeTab();
+                }
+            }, vncchat), function () {});
+        };
+    };
 };
 
+function initializeChatHandlers(vncchat) {
+
+    // define and register handler for subscribe request notification
+    vncchat.subscriptionNotifier = $.proxy(function(presence) {
+        presence_type = $(presence).attr('type');
+        if (!isVncChatLoaded() && presence_type == 'subscribe'){
+            //XXX What about other presence types???
+            //We need to think about users status update.
+            loadVncChat($.proxy(function () {
+                runVncChat(this);
+                this.roster.presenceHandler(presence);
+            }, this), function () {});
+            this.unread_message_counter += 1;
+            if (jq('#unread-messages').length > 0) { 
+                jq('#unread-messages').remove()
+            };
+            jq('#im-messages').prepend('<span id="unread-messages">'+
+                                   this.unread_message_counter + '</span>');
+        } else {
+            this.roster.presenceHandler(presence);
+        };
+    }, vncchat);
+
+    vncchat.connection.addHandler(
+        $.proxy(function (presence) {
+            this.subscriptionNotifier(presence);
+            return true;
+        }, vncchat), null, 'presence', null);
+
+    vncchat.connection.addHandler(
+        $.proxy(function (message) {
+            if (isVncChatLoaded()){
+                this.chatboxesview.messageReceived(message);
+            } else {
+                loadVncChat($.proxy(function () {
+                    runVncChat(this);
+                    this.chatboxesview.messageReceived(message);
+                }, this), function () {});
+               }
+            if (!isVncChatVisible() && $(message)
+                  .find('composing').length == 0) {
+                this.unread_message_counter += 1;
+                if (jq('#unread-messages').length > 0) {
+                    jq('#unread-messages').remove()
+                };
+                jq('#im-messages').prepend('<span id="unread-messages">'+
+                    this.unread_message_counter + '</span>');
+            };
+            return true;
+        }, vncchat), null, 'message', 'chat');
+
+    vncchat.connection.addHandler(
+        $.proxy(function (invitation) {
+            if (isVncChatLoaded()){
+                this.controlbox_view.roomspanel.invitationReceived(invitation);
+            } else {
+                loadVncChat($.proxy(function () {
+                    runVncChat(this);
+                    this.controlbox_view
+                        .roomspanel.invitationReceived(invitation);
+                }, this), function () {});
+            };
+            return true;
+         }, vncchat), 'http://jabber.org/protocol/muc#user', 'message', null);
+
+
+    vncchat.connection.addHandler($.proxy(function(stanza) {
+        from = stanza.getAttribute('from');
+        if (!isVncChatLoaded()){
+            loadVncChat($.proxy(function () {
+                runVncChat(this);
+                this.chatboxesview.messageReceived(stanza);
+            }, this), function () {});
+        };
+        if (!isVncChatVisible()) {
+                this.unread_message_counter += 1;
+                if (jq('#unread-messages').length > 0) {
+                        jq('#unread-messages').remove()
+                };
+            jq('#im-messages').prepend('<span id="unread-messages">'+
+                    this.unread_message_counter + '</span>');
+        };
+        return true;
+    }, vncchat), null, 'message', 'groupchat');
+}
 function initializeChat(vncchat) {
     $(document).unbind('jarnxmpp.connected');
     $(document).bind('jarnxmpp.connected', $.proxy(function () {
+
+        vncchat.connection.bare_jid = Strophe.getBareJidFromJid(vncchat.connection.jid);
+        vncchat.connection.domain = Strophe.getDomainFromJid(vncchat.connection.jid);
+        vncchat.connection.xmlInput = function (body) { console.log(body); };
+        vncchat.connection.xmlOutput = function (body) { console.log(body); };
+
+        // show chat control
+        jq('#im-messages').show();
+
+        vncchat.unread_message_counter = 0
+        initializeChatHandlers(vncchat);
 
         //Let's tell everyone that we are online ;)
         this.xmppstatus = new this.XMPPStatus();
@@ -764,10 +767,10 @@ function initializeChat(vncchat) {
         this.roster = this.VncRoster(_, $, console);
         this.connection.roster.registerCallback(this.roster.rosterHandler);
         this.roster.getRoster($.proxy(function (items) {
-            this.roster.rosterHandler(items);
-            initializeXMPPMessageHandlers(vncchat);
-        }, this));
-    },vncchat))
+                 this.roster.rosterHandler(items);
+                 prepareGroupChats(vncchat);
+             }, this));
+         },vncchat))
 }
 
 function attachIMButton(vncchat) {
