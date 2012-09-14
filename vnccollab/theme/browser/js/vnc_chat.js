@@ -1375,6 +1375,7 @@ vncchat.VncContactsPanel = vncchat.ContactsPanel.extend({
             vncchat.connection.roster.authorize(jid);
             vncchat.connection.roster.subscribe(jid);
             vncchat.chatboxesview.openChat(jid);
+            $('#found-users').remove();
             return
         };
 
