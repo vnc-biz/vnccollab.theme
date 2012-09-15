@@ -4,6 +4,12 @@ Changelog
 1.6.1 - Unreleased
 ------------------
 
+- Style new chat contacts list functionality.
+  [Vitaliy Podoba]
+
+- Adopt mark_special_links.js script for new jquery 1.7.2 version.
+  [Vitaliy Podoba]
+
 - Add .strip method to js String class.
   [Vitaliy Podoba]
 
