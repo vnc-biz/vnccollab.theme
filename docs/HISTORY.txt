@@ -3,6 +3,12 @@ Changelog
 
 1.6.1 - Unreleased
 
+- Optimized roster rendering (refactored chat initialization)
+  [Taras Melnychuk]
+
+- Reimplemented contact panel user interface, make it more user friendly
+  [Taras Melnychuk]
+
 - Add .strip method to js String class.
   [Vitaliy Podoba]
 
