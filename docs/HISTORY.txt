@@ -1,8 +1,8 @@
 Changelog
 =========
 
-1.6.1 - Unreleased
-------------------
+1.6.1 - September 15, 2012
+--------------------------
 
 - Optimized roster rendering (refactored chat initialization)
   [Taras Melnychuk]
