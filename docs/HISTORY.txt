@@ -1,13 +1,11 @@
 Changelog
 =========
 
-1.6.2 - Unreleased
+1.6.1 - September 15, 2012
+--------------------------
 
 - Fixed bug with subscription request approval.
   [Taras Melnychuk]
-
-1.6.1 - September 15, 2012
---------------------------
 
 - Optimized roster rendering (refactored chat initialization)
   [Taras Melnychuk]
