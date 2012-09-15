@@ -748,29 +748,30 @@ function initializeChat(vncchat) {
     $(document).unbind('jarnxmpp.connected');
     $(document).bind('jarnxmpp.connected', $.proxy(function () {
 
-        vncchat.connection.bare_jid = Strophe.getBareJidFromJid(vncchat.connection.jid);
-        vncchat.connection.domain = Strophe.getDomainFromJid(vncchat.connection.jid);
-        vncchat.connection.xmlInput = function (body) { console.log(body); };
-        vncchat.connection.xmlOutput = function (body) { console.log(body); };
+        this.connection.bare_jid = Strophe.getBareJidFromJid(this.connection.jid);
+        this.connection.domain = Strophe.getDomainFromJid(this.connection.jid);
+        this.connection.xmlInput = function (body) { console.log(body); };
+        this.connection.xmlOutput = function (body) { console.log(body); };
 
         // show chat control
         jq('#im-messages').show();
+        this.unread_message_counter = 0
 
-        vncchat.unread_message_counter = 0
+        // initialize roster and message handlers
+        this.roster = this.VncRoster(_, $, console);
+        this.connection.roster.registerCallback(this.roster.rosterHandler);
         initializeChatHandlers(vncchat);
+
+        this.roster.getRoster($.proxy(function (items) {
+                 this.roster.rosterHandler(items);
+                 prepareGroupChats(vncchat);
+             }, this));
 
         //Let's tell everyone that we are online ;)
         this.xmppstatus = new this.XMPPStatus();
         this.xmppstatus.sendPresence();
 
-        // initialize roster and message handlers
-        this.roster = this.VncRoster(_, $, console);
-        this.connection.roster.registerCallback(this.roster.rosterHandler);
-        this.roster.getRoster($.proxy(function (items) {
-                 this.roster.rosterHandler(items);
-                 prepareGroupChats(vncchat);
-             }, this));
-         },vncchat))
+    },vncchat))
 }
 
 function attachIMButton(vncchat) {
