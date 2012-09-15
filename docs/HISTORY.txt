@@ -2,6 +2,19 @@ Changelog
 =========
 
 1.6.1 - Unreleased
+------------------
+
+- Style new chat contacts list functionality.
+  [Vitaliy Podoba]
+
+- Refactored and optimized chat contact list.
+  [Taras Melnychuk]
+
+- Adopt mark_special_links.js script for new jquery 1.7.2 version.
+  [Vitaliy Podoba]
+
+- Style commenting form.
+  [Vitaliy Podoba]
 
 - Optimized roster rendering (refactored chat initialization)
   [Taras Melnychuk]
@@ -11,6 +24,9 @@ Changelog
 
 - Add .strip method to js String class.
   [Vitaliy Podoba]
+
+- Sets a better handling for redirection when creating tickets.
+  [Jose Dinuncio]
 
 - Fixed member data fetch for roster items.
   [Taras Melnychuk]
