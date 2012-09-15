@@ -4,23 +4,20 @@ Changelog
 1.6.1 - Unreleased
 ------------------
 
+- Optimized roster rendering (refactored chat initialization)
+  [Taras Melnychuk]
+
+- Reimplemented contact panel user interface, make it more user friendly
+  [Taras Melnychuk]
+
 - Style new chat contacts list functionality.
   [Vitaliy Podoba]
-
-- Refactored and optimized chat contact list.
-  [Taras Melnychuk]
 
 - Adopt mark_special_links.js script for new jquery 1.7.2 version.
   [Vitaliy Podoba]
 
 - Style commenting form.
   [Vitaliy Podoba]
-
-- Optimized roster rendering (refactored chat initialization)
-  [Taras Melnychuk]
-
-- Reimplemented contact panel user interface, make it more user friendly
-  [Taras Melnychuk]
 
 - Add .strip method to js String class.
   [Vitaliy Podoba]
