@@ -2279,8 +2279,8 @@ form.search-xmpp-contact button {
   background: none;
 }
 #xmppchat-roster {
-  height: 206px;
-  overflow-y: auto;
+  height: 197px;
+  overflow: auto;
   padding-top: 0;
   border-top: 1px solid #C1CCD5;
 }
