@@ -1,6 +1,23 @@
 Changelog
 =========
 
+1.6.2 - Unreleased
+
+ - Fixed rooms participants list.
+  [Taras Melnychuk]
+
+ - Leave room on page reload.
+  [Taras Melnychuk]
+
+ - Fixed room rejoin.
+  [Taras Melnychuk]
+
+ - Unescaped nick name for room participant,
+   muc plugin escapes it for us.
+  [Taras Melnychuk]
+
+
+
 1.6.1 - September 15, 2012
 --------------------------
 
