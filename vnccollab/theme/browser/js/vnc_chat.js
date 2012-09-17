@@ -851,6 +851,13 @@ vncchat.VncChatRoomView = vncchat.VncChatBoxView.extend({
                   $('x', configuration).children());
         });
         this.save_joined_room(this.model.get('jid'));
+
+        //leave room on page reload
+        $(document).bind('jarnxmpp.disconnecting', $.proxy(function () {
+            vncchat.connection.muc.leave(this.model.get('jid'),
+                                         this.model.get('nick'));
+        }, this));
+
     },
 
     closeChatRoom: function () {
@@ -925,11 +932,15 @@ vncchat.VncChatRoomView = vncchat.VncChatBoxView.extend({
     },
 
     onPresence: function (presence, room) {
+        // XXX For some reasons (perhaps there is a bug in muc plugin)
+        // only last registered presence handler is called.
+        // We need check presence information manualy to find out for
+        // which room this presence inforamtion is for.
         var nick = room.nick,
-            from = Strophe.getResourceFromJid($(presence).attr('from'));
-            node = Strophe.unescapeNode(from);
-            $participants = this.$el.find('.participant-list'),
-            participants = [];
+            room_box = vncchat.chatboxesview.views[room.name],
+            from = Strophe.getResourceFromJid($(presence).attr('from')),
+            node = Strophe.unescapeNode(from),
+            participants = [],
             fullname = node;
 
         if ($(presence).attr('type') !== 'error') {
@@ -937,26 +948,26 @@ vncchat.VncChatRoomView = vncchat.VncChatBoxView.extend({
             if ($(presence).find("status[code='110']").length > 0) {
                 // check if server changed our nick
                 if ($(presence).find("status[code='210']").length > 0) {
-                    this.model.set({'nick': from});
+                    room_box.model.set({'nick': from});
                 }
             }
         }
 
         if ($(presence).attr('type') == 'unavailable') {
-            this.$el.find('.participant-list li#' + node).remove();
+            this.$el.find('.participant-list li#' + escapeSelector(node)).remove();
         } else {
-            var that = this;
-            vncchat.get_user_info(node, function (data) {
+            vncchat.get_user_info(node, $.proxy(function (data) {
                 if (data && data.fullname) {
                     fullname = data.fullname;
                 }
-                if (that.$el.find( '.participant-list li#' +
+                if (this.$el.find( '.participant-list li#' +
                         escapeSelector(node)).length == 0) {
-                    $participants.prepend('<li id="'+node+'">' + fullname +
-                                            '<a class="removeParticipantButton" href="javascript:void(0)">X</a>' +
-                                          '</li>');
+                    this.$el.find('.participant-list')
+                    .prepend('<li id="'+node+'">' + fullname +
+                               '<a class="removeParticipantButton" href="javascript:void(0)">X</a>' +
+                             '</li>');
                 }
-            });
+            }, room_box));
         }
 
         var controlboxview = vncchat.chatboxesview.views['online-users-container'];
