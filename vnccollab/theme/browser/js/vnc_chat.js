@@ -77,6 +77,20 @@ vncchat.VncChatBox = vncchat.ChatBox.extend({
 
 });
 
+vncchat.VncChatRoom = vncchat.VncChatBox.extend({
+    initialize: function (jid) {
+        var nick = Strophe.getNodeFromJid(vncchat.connection.jid);
+        this.set({
+            'id': jid,
+            'name': Strophe.getNodeFromJid(jid),
+            'nick': Strophe.unescapeNode(
+                    Strophe.getNodeFromJid(vncchat.connection.jid)),
+            'jid': jid,
+            'box_id' : this.hash(jid)
+        }, {'silent': true});
+    }
+});
+
 vncchat.VncChatTab = Backbone.View.extend({
 
     tagName:'li',
@@ -609,7 +623,7 @@ vncchat.VncChatBoxesView = vncchat.ChatBoxesView.extend({
     renderChat: function (jid) {
         var box, view, tab;
         if (this.isChatRoom(jid)) {
-            box = new vncchat.ChatRoom(jid);
+            box = new vncchat.VncChatRoom(jid);
             view = new vncchat.VncChatRoomView({ model: box });
         } else {
             box = new vncchat.VncChatBox({'id': jid, 'jid': jid});
