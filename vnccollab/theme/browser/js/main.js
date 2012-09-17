@@ -639,8 +639,15 @@ function prepareGroupChats(vncchat) {
     var username = Strophe.getNodeFromJid(vncchat.connection.jid),
         room_cookie = jQuery.cookie('joined-rooms-'+
                       Strophe.unescapeNode(username)),
-        joined_rooms = [];
-        chat_cookie = jQuery.cookie('chats-open-'+Strophe.unescapeNode(username));
+        joined_rooms = [],
+        chat_cookie = jQuery.cookie('chats-open-'+Strophe.unescapeNode(username)),
+        open_chats = [];
+
+    if (chat_cookie) {
+        open_chats = $.map(chat_cookie.split('|'), function (el, i) {
+            return el.split(':')[0];
+        });
+    };
 
     if (room_cookie) {
         if (!isVncChatLoaded()){
@@ -648,7 +655,7 @@ function prepareGroupChats(vncchat) {
                 runVncChat(this);
                 joined_rooms = room_cookie.split('|');
                 for (var i=0;i<joined_rooms.length;i++) {
-                    if (chat_cookie && $.inArray(joined_rooms[i], chat_cookie.split('|'))) {
+                    if (open_chats && $.inArray(joined_rooms[i], open_chats) !== -1) {
                         continue;
                     }
                     vncchat.chatboxesview.openChat(joined_rooms[i]);
