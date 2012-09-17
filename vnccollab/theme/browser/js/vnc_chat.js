@@ -954,7 +954,7 @@ vncchat.VncChatRoomView = vncchat.VncChatBoxView.extend({
         }
 
         if ($(presence).attr('type') == 'unavailable') {
-            this.$el.find('.participant-list li#' + escapeSelector(node)).remove();
+            room_box.$el.find('.participant-list li#' + escapeSelector(node)).remove();
         } else {
             vncchat.get_user_info(node, $.proxy(function (data) {
                 if (data && data.fullname) {
