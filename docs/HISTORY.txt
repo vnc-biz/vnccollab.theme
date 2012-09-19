@@ -1,16 +1,56 @@
 Changelog
 =========
 
-1.7.1 - Undecided
------------------
+1.6.2 - Unreleased
+------------------
 
 - Fixes event creation in root bug.
   [Jose Dinuncio]
 
-1.6.1 - September 6, 2012
--------------------------
+- Fixed rooms participants list.
+  [Taras Melnychuk]
 
-- fixed member data fetch for roster items.
+- Leave room on page reload.
+  [Taras Melnychuk]
+
+- Fixed room rejoin.
+  [Taras Melnychuk]
+
+- Unescaped nick name for room participant,
+  muc plugin escapes it for us.
+  [Taras Melnychuk]
+
+
+
+1.6.1 - September 15, 2012
+--------------------------
+
+- Fixed bug with subscription request approval.
+  [Taras Melnychuk]
+
+- Optimized roster rendering (refactored chat initialization)
+  [Taras Melnychuk]
+
+- Reimplemented contact panel user interface, make it more user friendly
+  [Taras Melnychuk]
+
+- Style new chat contacts list functionality.
+  [Vitaliy Podoba]
+
+- Adopt mark_special_links.js script for new jquery 1.7.2 version.
+  [Vitaliy Podoba]
+
+- Style commenting form.
+  [Vitaliy Podoba]
+
+- Add .strip method to js String class.
+  [Vitaliy Podoba]
+
+- Sets a better handling for redirection when creating tickets.
+  [Jose Dinuncio]
+>>>>>>> 15cbb36c1d58ede46c743b4f44e53f747c6039f4
+
+- Fixed member data fetch for roster items.
   [Taras Melnychuk]
 
 1.6.0 - September 6, 2012
