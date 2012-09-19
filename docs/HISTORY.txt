@@ -1,6 +1,12 @@
 Changelog
 =========
 
+1.7.1 - Undecided
+-----------------
+
+- Fixes event creation in root bug.
+  [Jose Dinuncio]
+
 1.6.1 - September 6, 2012
 -------------------------
 

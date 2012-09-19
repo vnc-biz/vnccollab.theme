@@ -10,9 +10,10 @@
           To upload a file, select the place you want to upload to and drag the file onto the drop zone.</p>
           <div class="Column First">
             <div class="label">Add new content to:</div></div>
-        
+
           <div class="Column Wide"
-               tal:define="uid folder/UID|string:">
+               tal:define="has_uid python: 'UID' in dir(folder);
+                           uid python: has_uid and folder.UID or '';">
             <form name="add_new_content_form">
               <input class="inputLabel" type="text" name="destination"
                      id="destination"
