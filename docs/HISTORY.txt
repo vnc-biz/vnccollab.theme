@@ -4,6 +4,9 @@ Changelog
 1.6.2 - Unreleased
 ------------------
 
+- Hide cloud tag if user is anonymous.
+  [Jose Dinuncio]
+
 - Fixes event creation in root bug.
   [Jose Dinuncio]
 
