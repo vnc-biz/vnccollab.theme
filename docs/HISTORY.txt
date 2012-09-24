@@ -1,8 +1,8 @@
 Changelog
 =========
 
-1.6.2 - Unreleased
-------------------
+1.6.2 - September 25, 2012
+--------------------------
 
 - Hide cloud tag if user is anonymous.
   [Jose Dinuncio]
