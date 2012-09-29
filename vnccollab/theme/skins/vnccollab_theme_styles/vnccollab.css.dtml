@@ -2792,6 +2792,10 @@ div.add-xmpp-contact {
   font-size: 12px;
   font-weight: bold;
 }
+#vnc-social-stream .commentForm .shareButton.disabled {
+  cursor: default;
+  opacity: 0.5;
+}
 
 /* Social Stream User Details Box */
 #vnc-social-stream-user {
@@ -2851,16 +2855,12 @@ div.add-xmpp-contact {
   padding: 0;
   margin: 0;
   list-style-type: none;
-  border-top: 1px dotted #CBCBC7;
 }
 #social-stream-add-form ul.attachments li {
   padding: 5px 30px 5px 2%;
   position: relative;
   border-top: 1px dotted #CBCBC7;
   margin: 0;
-}
-#social-stream-add-form ul.attachments li:first-child {
-  border-top: none;
 }
 #social-stream-add-form ul.attachments li a.attachment {
   display: inline-block;
@@ -2925,6 +2925,11 @@ a.attachment.txt {
   display: inline-block;
   text-indent: 2px;
   white-space: nowrap;
+  -webkit-transition:1s linear width;
+  -moz-transition:1s linear width;
+  -ms-transition:1s linear width;
+  -o-transition:1s linear width;
+  transition:1s linear width;
 }
 #social-stream-add-form ul.attachments .cancel_link {
   color: #A9A9A9;
@@ -3019,7 +3024,10 @@ a.attachment.txt {
   font-size: 14px;
   font-weight: bold;
 }
-
+#social-stream-add-form .shareButton.disabled {
+  cursor: default;
+  opacity: 0.5;
+}
 
 /* Stream Tabs Functional css rules */
 .vncStreamItem {
