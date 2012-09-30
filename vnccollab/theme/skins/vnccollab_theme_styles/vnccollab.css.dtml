@@ -2684,9 +2684,58 @@ div.add-xmpp-contact {
 #vnc-social-stream .vncStreamItemDesc {
   font-size: 13px;
 }
+#vnc-social-stream ul.vncStreamMediaGallery {
+  clear: both;
+  padding: 0;
+  margin: 0;
+  display: block;
+  list-style-type: none;
+}
+#vnc-social-stream ul.vncStreamMediaGallery li {
+  float: left;
+  padding-right: 6px;
+  display: inline;
+  margin: 9px 0 0;
+}
+#vnc-social-stream ul.vncStreamMediaGallery li a {
+  clear: both;
+  margin: 0;
+  height: 75px;
+  width: 75px;
+  display: block;
+  text-align: center;
+  vertical-align: middle;
+  overflow: hidden;
+  position: relative;
+  border: 3px solid #DDDDDD;
+  float: left;
+}
+#vnc-social-stream ul.vncStreamAttachments {
+  clear: both;
+  font-size: 11px;
+  overflow: hidden;
+  padding: 8px 0 0;
+  list-style: none;
+  margin: 0;
+}
+#vnc-social-stream ul.vncStreamAttachments li {
+  display: block;
+  line-height: 18px;
+}
+#vnc-social-stream ul.vncStreamAttachments li a {
+  color: #B53B22;
+  padding: 0 0 0 20px;
+  overflow: hidden;
+}
 #vnc-social-stream .vncStreamItemCommentLink {
   display: block;
   margin-top: 6px;
+  float: left;
+  clear: both;
+}
+#vnc-social-stream .interactions {
+  clear: both;
+  display: block;
 }
 #vnc-social-stream .vncStreamItemDetails {
   font-size: 11px;
@@ -2863,7 +2912,6 @@ div.add-xmpp-contact {
   margin: 0;
 }
 #social-stream-add-form ul.attachments li a.attachment {
-  display: inline-block;
   max-width: 80%;
   overflow: hidden;
   text-overflow: ellipsis;
@@ -2871,11 +2919,12 @@ div.add-xmpp-contact {
   width: auto;
   color: #B53B22;
   font-weight: normal;
-  line-height: 16px;
   padding: 0 0 0 18px;
 }
 
 a.attachment {
+  display: inline-block;
+  line-height: 16px;
   background-image: url(&dtml-portal_url;/cast_file.png);
   background-position: left center;
   background-repeat: no-repeat;
