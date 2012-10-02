@@ -3107,8 +3107,45 @@ div.add-xmpp-contact {
     font-weight:bold;
 }
 
- 
+/* See more button */
+
+#stream-batch-section {
+    text-align: center;
 }
 
+#stream-batch-control {
+    -moz-border-bottom-colors: none;
+    -moz-border-left-colors: none;
+    -moz-border-right-colors: none;
+    -moz-border-top-colors: none;
+    -moz-transition: all 0.2s linear 0s;
+    font-size: 14px;
+    color: #863020;
+    font-weight: bold;
+    background-color: #DEE2E8;
+    background-image: -moz-linear-gradient(center top , #DEE2E8, #C7C9CF);
+    background-repeat: repeat-x;
+    border-color: rgba(0, 0, 0, 0.1) rgba(0, 0, 0, 0.1) rgba(0, 0, 0, 0.25);
+    border-image: none;
+    border-radius: 4px 4px 4px 4px;
+    border-style: solid;
+    border-width: 1px;
+    box-shadow: 0 1px 0 rgba(255, 255, 255, 0.2) inset, 0 1px 2px rgba(0, 0, 0, 0.05);
+    color: #FFFFFF;
+    padding: 9px 18px;
+    width: 40%;
+    display: inline-block;
+}
+
+/* See more comments link */
+.moreComments {
+    background-color: #E6E9EE;
+    background-image: url("bubble.png");
+    background-position: 8px center;
+    background-repeat: no-repeat;
+    font-size: 11px;
+    line-height: 12px;
+    padding: 5px 5px 5px 26px;
+}
 
 /* </dtml-with> */ 
