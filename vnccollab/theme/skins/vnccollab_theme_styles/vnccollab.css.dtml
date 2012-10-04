@@ -2690,7 +2690,7 @@ div.add-xmpp-contact {
 }
 #vnc-social-stream .vncStreamItemDetails {
   font-size: 11px;
-  margin-right: 0;
+  margin-right: 10px;
 }
 #vnc-social-stream .vncStreamItemImg {
   height: 45px;
@@ -2734,6 +2734,7 @@ div.add-xmpp-contact {
   margin: 0;
   font-size: 11px;
   margin-left: 39px;
+  margin-right: 10px;
 }
 #vnc-social-stream .comments .date {
   color: #75AD0A;
@@ -3146,6 +3147,64 @@ div.add-xmpp-contact {
     font-size: 11px;
     line-height: 12px;
     padding: 5px 5px 5px 26px;
+}
+
+/* Stream side actions */
+.sideActions {
+    position: absolute;
+    right: 0;
+    top: 1px;
+    z-index: 500;
+}
+
+.sideActionsControl {
+    border-color: #FFFFFF;
+    border-radius: 2px 2px 2px 2px;
+    border-style: solid;
+    border-width: 1px;
+    display: block;
+    font-size: 12px;
+    height: 16px;
+    opacity: 0.5;
+    text-decoration: none;
+    text-indent: -9999em;
+    width: 16px;
+    background-image: url("settings.png");
+    background-position: 50% 2px;
+    background-repeat: no-repeat;
+    margin-top: 6px;
+}
+
+.comments .sideActionsControl {
+    margin-top: 8px;
+}
+
+.messageActions {
+    display: none;
+    background-color: #FFFFFF;
+    border: 1px solid #AAAAAA;
+    border-radius: 4px 4px 4px 4px;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.3);
+    padding: 5px;
+    position: absolute;
+    right: 0;
+    width: 175px;
+    z-index: 9999;
+}
+
+.messageActions a {
+    font-size: 11px;
+    text-indent: 0;
+}
+
+.editMessageAction {
+    background: url("pencil.png") no-repeat scroll 3px 40% transparent;
+    padding-left: 20px;
+}
+
+.deleteMessageAction {
+     background: url("trash.png") no-repeat scroll 3px 40% transparent;
+     padding-left: 20px;
 }
 
 /* </dtml-with> */ 
