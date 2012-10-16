@@ -3384,7 +3384,7 @@ a.attachment.txt {
 
 /* Stream message edit form */
 
-/*.editForm .shareBody {
+.editForm .shareBody {
   display: block;
   padding: 5px 6px;
 }
@@ -3522,7 +3522,7 @@ a.attachment.txt {
 }
 .editForm .shareActions li a {
   width: 36px;
-  text-indent: -9999px
+  text-indent: -9999px;
   height: 36px;
   display: block;
   background: url(&dtml-portal_url;/sb_footer_icons.png) no-repeat;
