@@ -1,6 +1,17 @@
 Changelog
 =========
 
+1.6.3 - Unreleased
+------------------
+
+- Added styles for cloudcast message actions.
+  [Taras Melnychuk]
+
+- Customize validate_integrity.vpy* scripts to allow redirect from event
+  subscribers. We need it to redirect to Cast Invite screen upon creation.
+  [Vitaliy Podoba]
+
+
 1.6.2 - September 25, 2012
 --------------------------
 
