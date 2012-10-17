@@ -2711,6 +2711,7 @@ div.add-xmpp-contact {
   border: 3px solid #DDDDDD;
   float: left;
 }
+.editForm ul.attachments,
 #vnc-social-stream ul.vncStreamAttachments {
   clear: both;
   font-size: 11px;
@@ -2719,10 +2720,12 @@ div.add-xmpp-contact {
   list-style: none;
   margin: 0;
 }
+.editForm ul.attachments li,
 #vnc-social-stream ul.vncStreamAttachments li {
   display: block;
   line-height: 18px;
 }
+.editForm ul.attachments li a,
 #vnc-social-stream ul.vncStreamAttachments li a {
   color: #B53B22;
   padding: 0 0 0 20px;
@@ -2944,6 +2947,14 @@ div.add-xmpp-contact {
 #social-stream-add-form {
   border: 2px solid #CBCBC7;
 }
+label.attachmentsLabel,
+#social-stream-add-form label.messageBodyInputLabel {
+  display: none;
+}
+.editForm label.attachmentsLabel,
+.editForm label.messageBodyInputLabel {
+  display: block;
+}
 #social-stream-add-form .shareBody {
   display: block;
   padding: 5px 6px;
@@ -3104,6 +3115,7 @@ a.attachment.txt {
 #social-stream-add-form .shareActions li a.shareAddFile {
   background-position: 9px 11px;
 }
+.editForm input[type="file"],
 #social-stream-add-form .shareActions #cloudcast_file_uploader {
   position: absolute;
   top: 0;
@@ -3186,7 +3198,120 @@ a.attachment.txt {
 
 
 /* Stream message edit form */
+#vnc-social-stream li form.editForm {
+  background-color: #FFFFCC;
+  border:none;
+  padding: 6px 9px 3px;
+}
 .editForm .shareBody {
+  margin-bottom: 0 0 9px;
+  width: 99%;
+  display: block;
+  padding: 5px 6px;
+}
+#vnc-social-stream .editForm .shareBody textarea {
+  background-color: #ffffff;
+  font-size: 1em;
+  line-height: 1.5;
+  margin: 0;
+  width: 99%;
+  resize: none;
+  border-color: #A6A6A6 #C4C4C4 #DCDCDC;
+  border-style: solid;
+  border-width: 1px;
+  padding: 4px 3px 3px;
+}
+.editForm label.attachmentsLabel,
+.editForm label.messageBodyInputLabel {
+  margin-bottom: 3px;
+  font-size: 13px;
+  color: #8F896F;
+}
+#vnc-social-stream .editForm ul.attachments {
+  padding: 0;
+  margin: 0;
+}
+#vnc-social-stream .editForm ul.attachments li {
+/*  margin: 0;*/
+  clear: both;
+  float: left;
+  font-size: 11px;
+  margin-top: 2px;
+  width: 100%;
+}
+#vnc-social-stream .editForm ul.attachments li a.attachment {
+  color: #B53B22;
+  display: block;
+  max-width: 35%;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  width: auto;
+  float: left;
+}
+#vnc-social-stream .editForm ul.attachments li a.remove_link {
+  color: #A9A9A9;
+  font-size: 10px;
+  margin-left: 5px;
+  padding: 0;
+  display: block;
+  float: left;
+  overflow: none;
+}
+#vnc-social-stream .editForm ul.shareActions {
+  margin: 0 0 7px;
+  padding: 0;
+}
+#vnc-social-stream .editForm ul.shareActions li {
+  overflow: hidden;
+  position: relative;
+  display: block;
+  width: 50%;
+  background: url(&dtml-portal_url;/cast_clip.png) no-repeat scroll 0 50% transparent;
+}
+#vnc-social-stream .editForm ul.shareActions input[type="file"] {
+  left: -5000px;
+  top: 0;
+  position: absolute;
+}
+#vnc-social-stream .editForm ul.shareActions a.shareAddFile {
+  color: #B53B22;
+  padding-left: 12px;
+}
+#vnc-social-stream .editForm .shareButtons {
+  display: block;
+  overflow: hidden;
+  padding-top: 6px;
+  border-top: 1px solid #E5E5E5;
+  margin: 0 0 2px;
+}
+#vnc-social-stream .editForm .shareButtons a.cancelLink {
+  line-height: 25px;
+  float: right;
+  margin-left: 8px;
+  font-size: 12px;
+  text-decoration: underline;
+  color: #8F896F;
+}
+#vnc-social-stream .editForm .shareButtons .shareButton {
+  line-height: normal;
+  float: right;
+  margin-left: 6px;
+  background-color: #DEE2E8;
+  background-image: -moz-linear-gradient(#DEE2E8, #CFD6DD);
+  border: 1px solid #738EA2;
+  border-radius: 5px 5px 5px 5px;
+  box-shadow: 0 1px #E6E9EE inset;
+  color: #738EA2;
+  cursor: pointer;
+  display: block;
+  font-size: 12px;
+  font-weight: bold;
+  padding: 3px 0;
+  width: 65px;
+}
+
+/*.editForm .shareBody {
   display: block;
   padding: 5px 6px;
 }
@@ -3228,41 +3353,6 @@ a.attachment.txt {
   padding: 0 0 0 18px;
 }
 
-a.attachment {
-  display: inline-block;
-  line-height: 16px;
-  background-image: url(&dtml-portal_url;/cast_file.png);
-  background-position: left center;
-  background-repeat: no-repeat;
-}
-a.attachment.png, a.attachment.gif, a.attachment.jpg, a.attachment.jpeg 
-  background-image: url(&dtml-portal_url;/cast_image.png);
-}
-a.attachment.x-zip, a.attachment.zip, a.attachment.gz, a.attachment.bz,
-a.attachment.bz2, a.attachment.tar, a.attachment.rar {
-  background-image: url(&dtml-portal_url;/cast_zip.png);
-}
-a.attachment.pdf {
-  background-image: url(&dtml-portal_url;/cast_pdf.png);
-}
-a.attachment.msword, a.attachment.doc, a.attachment.docx, a.attachment.odt {
-  background-image: url(&dtml-portal_url;/cast_doc.png);
-}
-a.attachment.msexcel, a.attachment.xls, a.attachment.xlsx {
-  background-image: url(&dtml-portal_url;/cast_xls.png);
-}
-a.attachment.mspowerpoint, a.attachment.ppt, a.attachment.pptx {
-  background-image: url(&dtml-portal_url;/cast_ppt.png);
-}
-a.attachment.mpeg, a.attachment.mp4, a.attachment.mov, a.attachment.ogv {
-  background-image: url(&dtml-portal_url;/cast_video.png);
-}
-a.attachment.mp3, a.attachment.x-wav {
-  background-image: url(&dtml-portal_url;/cast_audio.png);
-}
-a.attachment.txt {
-  background-image: url(&dtml-portal_url;/cast_txt.png);
-}
 .editForm ul.attachments .progress {
   margin: 0 0 0 5px;
   background-color: #B53B22;
@@ -3375,11 +3465,7 @@ a.attachment.txt {
   cursor: default;
   opacity: 0.5;
 }
-#vnc-social-stream li form.editForm {
-    background: none repeat scroll 0 0 #FFFFCC;
-    border:none;
-    margin-left: 50px;
-}
+
 
 .editForm .shareFooter {
     background: #FFFFCC;
@@ -3406,7 +3492,7 @@ form[id*=social-stream-edit-form_] .shareActions {
   width: 150px;
   list-style: none;
 }
-
+*/
 
 
 
