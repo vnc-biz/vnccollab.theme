@@ -2249,7 +2249,7 @@ div.find-xmpp-contact {
   border-radius: 6px;
   padding: 5px;
   margin-bottom: 2px;
-  background: url("/search_icon.png") no-repeat scroll 3px 3px transparent;
+  background: url(&dtml-portal_url;/search_icon.png) no-repeat scroll 3px 3px transparent;
   border: 1px solid #DDDDDD;
   clear: both;
   display: block;
@@ -2794,6 +2794,68 @@ div.add-xmpp-contact {
   font-weight: bold;
 }
 
+/* Stream side actions */
+.sideActions {
+  position: absolute;
+  right: 1px;
+  top: 1px;
+}
+#vnc-social-stream a.sideActionsControl:link,
+#vnc-social-stream a.sideActionsControl {
+  border: 1px solid transparent;
+  background-color: transparent;
+  border-radius: 2px 2px 2px 2px;
+  display: block;
+  font-size: 12px;
+  height: 16px;
+  opacity: 0.5;
+  text-decoration: none;
+  text-indent: -9999em;
+  width: 16px;
+  background-image: url(&dtml-portal_url;/settings.png);
+  background-position: 50% 2px;
+  background-repeat: no-repeat;
+  margin-top: 6px;
+}
+#vnc-social-stream a.sideActionsControl:hover {
+  background-color: #F2F2F2;
+  border-color: #D9D9D9;
+  opacity: 1;
+}
+#vnc-social-stream .comments a.sideActionsControl:link,
+#vnc-social-stream .comments a.sideActionsControl {
+  margin-top: 7px;
+}
+
+.messageActions {
+  display: none;
+  background-color: #FFFFFF;
+  border: 1px solid #AAAAAA;
+  border-radius: 4px 4px 4px 4px;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.3);
+  padding: 5px;
+  position: absolute;
+  right: 0;
+  width: 175px;
+  z-index: 9999;
+}
+
+.messageActions a {
+  font-size: 11px;
+  text-indent: 0;
+}
+
+.editMessageAction {
+  background: url(&dtml-portal_url;/pencil.png) no-repeat scroll 3px 40% transparent;
+  padding-left: 20px;
+}
+
+.deleteMessageAction {
+   background: url(&dtml-portal_url;/trash.png) no-repeat scroll 3px 40% transparent;
+   padding-left: 20px;
+}
+
+
 /* Social Stream Comment Form */
 #vnc-social-stream .commentForm {
   display: block;
@@ -3079,311 +3141,50 @@ a.attachment.txt {
   opacity: 0.5;
 }
 
-/* Stream Tabs Functional css rules */
-.vncStreamItem {
-  display: none;
-  }
-.all .vncStreamItem {
-  display: block;
-  }
-.im .stream-type-im {
-  display: block;
-  }
-.zm .stream-type-zm {
-  display: block;
-  }
-.news .stream-type-news {
-  display: block;
-  }
-.tickets .stream-type-tickets {
-  display: block;
-  }
-.recent .stream-type-recent {
-  display: block;
-  }
-.comments .stream-type-comments {
-  display: block;
-  }
 
-/* Stream Post Form */
-.vncStreamPostForm {
-  float: left;
-  /*height: 327px;*/
-  padding: 80px 0 0;
-  width: 50%;
-  }
-.streamPostImgWrapper {
-  float: left;
-  height: 48px;
-  margin-left: 30px;
-  overflow: hidden;
-  }
-.streamPostImgWrapper img {
-  height: auto;
-  width: 48px;
-  border-radius: 4px;
-  }
-#stream-quick-post {
-  margin: 0 48px 0 110px;
-  position: relative;
-  }
-#stream-quick-post:before {
-  background: url(&dtml-portal_url;/sprite.png) no-repeat -320px 0;
-  content: "";
-  display: block;
-  height: 18px;
-  left: -9px;
-  position: absolute;
-  top: 8px;
-  width: 11px;
-  }
-#stream-quick-post-message {
-  border: 1px solid #c4c4c4;
-  -moz-box-sizing: border-box;
-  -webkit-box-sizing: border-box;
-  box-sizing: border-box;
-  box-shadow: 0 1px 2px #e9e9e9 inset;
-  height: 120px;
-  max-width: 100%;
-  padding: 5px 9px;
-  width: 100%;
-  }
-#stream-quick-post-message:focus {
-  background-color: #fff;
-  }
-.streamQuickPostSubjectsWrapper {
-  margin: 15px 0 0;
-  position: relative;
-  }
-.streamQuickPostSubjectsWrapper:after {
-  background: url(&dtml-portal_url;/sprite.png) no-repeat -331px 0;
-  content: "";
-  display: block;
-  height: 4px;
-  position: absolute;
-  right: 13px;
-  top: 15px;
-  width: 7px;
-  }
-#stream-quick-post-subject {
-  border: 1px solid #c4c4c4;
-  background-color: #fbfbfb;
-  background-image: -moz-linear-gradient(#f7f7f7,#fbfbfb);
-  background-image: -ms-linear-gradient(#f7f7f7,#fbfbfb);
-  background-image: -o-linear-gradient(#f7f7f7,#fbfbfb);
-  background-image: -webkit-linear-gradient(#f7f7f7,#fbfbfb);
-  background-image: linear-gradient(#f7f7f7,#fbfbfb);
-  -moz-box-sizing: border-box;
-  -webkit-box-sizing: border-box;
-  box-sizing: border-box;
-  color: #012a43;
-  font-size: 12px;
-  outline: none;
-  padding: 7px 25px 7px 9px;
-  width: 100%;
-  }
-.streamQuickPostSubjects {
-  background-color: #fff;
-  border: 1px solid #c4c4c4;
-  box-shadow: 0 2px 3px #cfcfcf;
-  color: #012a43;
-  display: none;
-  font-size: 12px;
-  margin-top: -1px;
-  padding: 5px 0 3px;
-  position: absolute;
-  width: 90%;
-  }
-.streamQuickPostSubjectsWrapper:hover .streamQuickPostSubjects {
-  display: block;
-  }
-.streamQuickPostSubjects li {
-  border-top: 1px solid #e5e5e5;
-  display: block;
-  padding: 5px 12px;
-  }
-.streamQuickPostSubjects li:first-child {
-  border-top: 0;
-  }
-#stream-quick-post-submit {
-  background-color: #dee2e8;
-  background-image: -moz-linear-gradient(#dee2e8,#cfd6dd);
-  background-image: -ms-linear-gradient(#dee2e8,#cfd6dd);
-  background-image: -o-linear-gradient(#dee2e8,#cfd6dd);
-  background-image: -webkit-linear-gradient(#dee2e8,#cfd6dd);
-  background-image: linear-gradient(#dee2e8,#cfd6dd);
-  border: 1px solid #738ea2;
-  border-radius: 5px;
-  box-shadow: 0 1px #e6e9ee inset;
-  color: #012a43;
-  cursor: pointer;
-  display: block;
-  margin: 15px auto;
-  outline: none;
-  padding: 5px 0;
-  width: 114px;
-  }
-  
-/* Drag Button */
-.dragButton {
-  background: url(&dtml-portal_url;/sprite.png) no-repeat -257px 0 #f2f2f2;
-  border-color: #c1ccd5;
-  border-style: solid;
-  border-width: 1px 1px 0;
-  border-radius: 5px 5px 0 0;
-  bottom: -1px;
-  cursor: pointer;
-  height: 19px;
-  left: 50%;
-  margin-left: -31px;
-  position: absolute;
-  width: 60px;
-  z-index: 1;
-  }
-
-/* hiddenStructure Fix */
-.hiddenStructure {
-  position: absolute;
-  }
-
-
-/* Commenting Viewlet (plone.app.discussion) */
-.cell #dobulkaction {
-    margin: 0;
-}
-
-.cell #commenting {
-    font-size: 80%;
-}
-
-.cell #commenting .formControls {
-    margin: 0;
-}
-
-.cell #commenting textarea,
-.cell .discussion textarea {
-    font: 100% Monaco, "Courier New", Courier, monospace;
-    width: 100%;
-}
-
-.cell #commenting fieldset,
-.cell .discussion fieldset {
-    border: 0.1em solid #329fd7;
-    border-style: solid none none none;
-}
-
-.cell #commenting legend,
-.cell .discussion legend {
-    padding: 0.5em 0.5em 0.5em 0;
-    font-size: 85%;
-}
-
-.cell #commenting label,
-.cell .discussion label {
-    font-weight:bold;
-}
-
-/* See more button */
-
+/* CloudCast Batching buttons and links */
 #stream-batch-section {
-    text-align: center;
+  border-top: 1px solid #E5E5E5;
+  padding-top: 13px;
+  text-align: center;
 }
-
 #stream-batch-control {
-    -moz-border-bottom-colors: none;
-    -moz-border-left-colors: none;
-    -moz-border-right-colors: none;
-    -moz-border-top-colors: none;
-    -moz-transition: all 0.2s linear 0s;
-    font-size: 14px;
-    color: #863020;
-    font-weight: bold;
-    background-color: #DEE2E8;
-    background-image: -moz-linear-gradient(center top , #DEE2E8, #C7C9CF);
-    background-repeat: repeat-x;
-    border-color: rgba(0, 0, 0, 0.1) rgba(0, 0, 0, 0.1) rgba(0, 0, 0, 0.25);
-    border-image: none;
-    border-radius: 4px 4px 4px 4px;
-    border-style: solid;
-    border-width: 1px;
-    box-shadow: 0 1px 0 rgba(255, 255, 255, 0.2) inset, 0 1px 2px rgba(0, 0, 0, 0.05);
-    color: #FFFFFF;
-    padding: 9px 18px;
-    width: 40%;
-    display: inline-block;
+  -moz-border-bottom-colors: none;
+  -moz-border-left-colors: none;
+  -moz-border-right-colors: none;
+  -moz-border-top-colors: none;
+  -moz-transition: all 0.2s linear 0s;
+  font-size: 14px;
+  color: #863020;
+  font-weight: bold;
+  background-color: #DEE2E8;
+  background-image: -moz-linear-gradient(center top , #DEE2E8, #C7C9CF);
+  background-repeat: repeat-x;
+  border-color: rgba(0, 0, 0, 0.1) rgba(0, 0, 0, 0.1) rgba(0, 0, 0, 0.25);
+  border-image: none;
+  border-radius: 4px 4px 4px 4px;
+  border-style: solid;
+  border-width: 1px;
+  box-shadow: 0 1px 0 rgba(255, 255, 255, 0.2) inset, 0 1px 2px rgba(0, 0, 0, 0.05);
+  color: #FFFFFF;
+  padding: 9px 18px;
+  width: 40%;
+  display: inline-block;
 }
-
-/* See more comments link */
 .moreComments {
-    background-color: #E6E9EE;
-    background-image: url("bubble.png");
-    background-position: 8px center;
-    background-repeat: no-repeat;
-    font-size: 11px;
-    line-height: 12px;
-    padding: 5px 5px 5px 26px;
+  background-color: #E6E9EE;
+  background-image: url(&dtml-portal_url;/bubble.png);
+  background-position: 8px center;
+  background-repeat: no-repeat;
+  font-size: 11px;
+  line-height: 12px;
+  padding: 5px 5px 5px 26px;
 }
 
-/* Stream side actions */
-.sideActions {
-    position: absolute;
-    right: 0;
-    top: 1px;
-    z-index: 500;
-}
 
-.sideActionsControl {
-    border-color: #FFFFFF;
-    border-radius: 2px 2px 2px 2px;
-    border-style: solid;
-    border-width: 1px;
-    display: block;
-    font-size: 12px;
-    height: 16px;
-    opacity: 0.5;
-    text-decoration: none;
-    text-indent: -9999em;
-    width: 16px;
-    background-image: url("settings.png");
-    background-position: 50% 2px;
-    background-repeat: no-repeat;
-    margin-top: 6px;
-}
 
-.comments .sideActionsControl {
-    margin-top: 8px;
-}
-
-.messageActions {
-    display: none;
-    background-color: #FFFFFF;
-    border: 1px solid #AAAAAA;
-    border-radius: 4px 4px 4px 4px;
-    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.3);
-    padding: 5px;
-    position: absolute;
-    right: 0;
-    width: 175px;
-    z-index: 9999;
-}
-
-.messageActions a {
-    font-size: 11px;
-    text-indent: 0;
-}
-
-.editMessageAction {
-    background: url("pencil.png") no-repeat scroll 3px 40% transparent;
-    padding-left: 20px;
-}
-
-.deleteMessageAction {
-     background: url("trash.png") no-repeat scroll 3px 40% transparent;
-     padding-left: 20px;
-}
 
 /* Stream message edit form */
-
 .editForm .shareBody {
   display: block;
   padding: 5px 6px;
@@ -3603,6 +3404,215 @@ form[id*=social-stream-edit-form_] .shareActions {
   padding: 0;
   width: 150px;
   list-style: none;
+}
+
+
+
+
+
+
+/* Stream Tabs Functional css rules */
+.vncStreamItem {
+  display: none;
+  }
+.all .vncStreamItem {
+  display: block;
+  }
+.im .stream-type-im {
+  display: block;
+  }
+.zm .stream-type-zm {
+  display: block;
+  }
+.news .stream-type-news {
+  display: block;
+  }
+.tickets .stream-type-tickets {
+  display: block;
+  }
+.recent .stream-type-recent {
+  display: block;
+  }
+.comments .stream-type-comments {
+  display: block;
+  }
+
+/* Stream Post Form */
+.vncStreamPostForm {
+  float: left;
+  /*height: 327px;*/
+  padding: 80px 0 0;
+  width: 50%;
+  }
+.streamPostImgWrapper {
+  float: left;
+  height: 48px;
+  margin-left: 30px;
+  overflow: hidden;
+  }
+.streamPostImgWrapper img {
+  height: auto;
+  width: 48px;
+  border-radius: 4px;
+  }
+#stream-quick-post {
+  margin: 0 48px 0 110px;
+  position: relative;
+  }
+#stream-quick-post:before {
+  background: url(&dtml-portal_url;/sprite.png) no-repeat -320px 0;
+  content: "";
+  display: block;
+  height: 18px;
+  left: -9px;
+  position: absolute;
+  top: 8px;
+  width: 11px;
+  }
+#stream-quick-post-message {
+  border: 1px solid #c4c4c4;
+  -moz-box-sizing: border-box;
+  -webkit-box-sizing: border-box;
+  box-sizing: border-box;
+  box-shadow: 0 1px 2px #e9e9e9 inset;
+  height: 120px;
+  max-width: 100%;
+  padding: 5px 9px;
+  width: 100%;
+  }
+#stream-quick-post-message:focus {
+  background-color: #fff;
+  }
+.streamQuickPostSubjectsWrapper {
+  margin: 15px 0 0;
+  position: relative;
+  }
+.streamQuickPostSubjectsWrapper:after {
+  background: url(&dtml-portal_url;/sprite.png) no-repeat -331px 0;
+  content: "";
+  display: block;
+  height: 4px;
+  position: absolute;
+  right: 13px;
+  top: 15px;
+  width: 7px;
+  }
+#stream-quick-post-subject {
+  border: 1px solid #c4c4c4;
+  background-color: #fbfbfb;
+  background-image: -moz-linear-gradient(#f7f7f7,#fbfbfb);
+  background-image: -ms-linear-gradient(#f7f7f7,#fbfbfb);
+  background-image: -o-linear-gradient(#f7f7f7,#fbfbfb);
+  background-image: -webkit-linear-gradient(#f7f7f7,#fbfbfb);
+  background-image: linear-gradient(#f7f7f7,#fbfbfb);
+  -moz-box-sizing: border-box;
+  -webkit-box-sizing: border-box;
+  box-sizing: border-box;
+  color: #012a43;
+  font-size: 12px;
+  outline: none;
+  padding: 7px 25px 7px 9px;
+  width: 100%;
+  }
+.streamQuickPostSubjects {
+  background-color: #fff;
+  border: 1px solid #c4c4c4;
+  box-shadow: 0 2px 3px #cfcfcf;
+  color: #012a43;
+  display: none;
+  font-size: 12px;
+  margin-top: -1px;
+  padding: 5px 0 3px;
+  position: absolute;
+  width: 90%;
+  }
+.streamQuickPostSubjectsWrapper:hover .streamQuickPostSubjects {
+  display: block;
+  }
+.streamQuickPostSubjects li {
+  border-top: 1px solid #e5e5e5;
+  display: block;
+  padding: 5px 12px;
+  }
+.streamQuickPostSubjects li:first-child {
+  border-top: 0;
+  }
+#stream-quick-post-submit {
+  background-color: #dee2e8;
+  background-image: -moz-linear-gradient(#dee2e8,#cfd6dd);
+  background-image: -ms-linear-gradient(#dee2e8,#cfd6dd);
+  background-image: -o-linear-gradient(#dee2e8,#cfd6dd);
+  background-image: -webkit-linear-gradient(#dee2e8,#cfd6dd);
+  background-image: linear-gradient(#dee2e8,#cfd6dd);
+  border: 1px solid #738ea2;
+  border-radius: 5px;
+  box-shadow: 0 1px #e6e9ee inset;
+  color: #012a43;
+  cursor: pointer;
+  display: block;
+  margin: 15px auto;
+  outline: none;
+  padding: 5px 0;
+  width: 114px;
+  }
+  
+/* Drag Button */
+.dragButton {
+  background: url(&dtml-portal_url;/sprite.png) no-repeat -257px 0 #f2f2f2;
+  border-color: #c1ccd5;
+  border-style: solid;
+  border-width: 1px 1px 0;
+  border-radius: 5px 5px 0 0;
+  bottom: -1px;
+  cursor: pointer;
+  height: 19px;
+  left: 50%;
+  margin-left: -31px;
+  position: absolute;
+  width: 60px;
+  z-index: 1;
+  }
+
+/* hiddenStructure Fix */
+.hiddenStructure {
+  position: absolute;
+  }
+
+
+/* Commenting Viewlet (plone.app.discussion) */
+.cell #dobulkaction {
+    margin: 0;
+}
+
+.cell #commenting {
+    font-size: 80%;
+}
+
+.cell #commenting .formControls {
+    margin: 0;
+}
+
+.cell #commenting textarea,
+.cell .discussion textarea {
+    font: 100% Monaco, "Courier New", Courier, monospace;
+    width: 100%;
+}
+
+.cell #commenting fieldset,
+.cell .discussion fieldset {
+    border: 0.1em solid #329fd7;
+    border-style: solid none none none;
+}
+
+.cell #commenting legend,
+.cell .discussion legend {
+    padding: 0.5em 0.5em 0.5em 0;
+    font-size: 85%;
+}
+
+.cell #commenting label,
+.cell .discussion label {
+    font-weight:bold;
 }
 
 /* </dtml-with> */

@@ -4,6 +4,9 @@ Changelog
 1.6.3 - Unreleased
 ------------------
 
+- Update styles for CloudCast actions toolbar.
+  [Vitaliy Podoba]
+
 - Added styles for cloudcast message actions.
   [Taras Melnychuk]
 
