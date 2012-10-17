@@ -3032,6 +3032,7 @@ a.attachment.mp3, a.attachment.x-wav {
 a.attachment.txt {
   background-image: url(&dtml-portal_url;/cast_txt.png);
 }
+#vnc-social-stream ul.attachments .progress,
 #social-stream-add-form ul.attachments .progress {
   margin: 0 0 0 5px;
   background-color: #B53B22;
@@ -3042,6 +3043,7 @@ a.attachment.txt {
   padding: 2px;
   width: 100px;
 }
+#vnc-social-stream ul.attachments .percent,
 #social-stream-add-form ul.attachments .percent {
   width: 0%;
   background-color: rgba(255, 255, 255, 0.4);
@@ -3055,6 +3057,7 @@ a.attachment.txt {
   -o-transition:1s linear width;
   transition:1s linear width;
 }
+#vnc-social-stream ul.attachments .cancel_link,
 #social-stream-add-form ul.attachments .cancel_link {
   color: #A9A9A9;
   margin-left: 5px;
@@ -3085,6 +3088,7 @@ a.attachment.txt {
   padding: 0;
   width: 150px;
   list-style: none;
+  font-size: 11px;
 }
 #social-stream-add-form .shareActions li {
   border-right: 1px solid #CBCBC7;
@@ -3221,6 +3225,9 @@ a.attachment.txt {
   border-width: 1px;
   padding: 4px 3px 3px;
 }
+#vnc-social-stream .comment .editForm .shareBody textarea {
+  font-size: 1.2em;
+}
 .editForm label.attachmentsLabel,
 .editForm label.messageBodyInputLabel {
   margin-bottom: 3px;
@@ -3277,6 +3284,7 @@ a.attachment.txt {
 #vnc-social-stream .editForm ul.shareActions a.shareAddFile {
   color: #B53B22;
   padding-left: 12px;
+  font-size: 11px;
 }
 #vnc-social-stream .editForm .shareButtons {
   display: block;
