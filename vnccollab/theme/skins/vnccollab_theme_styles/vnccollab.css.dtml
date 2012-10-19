@@ -3537,4 +3537,10 @@ a.attachment.txt {
     font-weight:bold;
 }
 
+/* Thickbox Styles */
+div.overlaybg div.close,
+div.overlay div.close {
+  text-indent: -1000px;
+}
+
 /* </dtml-with> */
