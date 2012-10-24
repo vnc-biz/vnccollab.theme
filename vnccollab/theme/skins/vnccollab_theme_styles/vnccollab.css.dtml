@@ -2708,7 +2708,7 @@ div.add-xmpp-contact {
   vertical-align: middle;
   overflow: hidden;
   position: relative;
-  border: 3px solid #DDDDDD;
+  border: 3px solid #DDDDDD !important;
   float: left;
 }
 .editForm ul.attachments,

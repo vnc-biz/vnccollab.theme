@@ -4,6 +4,9 @@ Changelog
 1.6.3 - Unreleased
 ------------------
 
+- Fix cloudcast gallery link styles.
+  [Vitaliy Podoba]
+
 - Update styles for CloudCast actions toolbar.
   [Vitaliy Podoba]
 
