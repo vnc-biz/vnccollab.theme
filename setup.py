@@ -40,9 +40,7 @@ setup(name='vnccollab.theme',
           'tldextract',
           'Products.AdvancedQuery',
           'collective.xmpp.chat',
-          #'collective.z3cform.datetimewidget',
-          #'jyu.z3cform.datepicker',
-          # -*- Extra requirements: -*-
+          'collective.customizablePersonalizeForm',
       ],
       entry_points="""
       # -*- Entry points: -*-

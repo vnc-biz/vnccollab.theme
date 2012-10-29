@@ -12,12 +12,6 @@
       name="VNC Collaboration Theme"
       />
 
-  <adapter
-      provides="..userdataschema.IUserDataSchema"
-      for="plone.app.layout.navigation.interfaces.INavigationRoot"
-      factory=".personalpreferences.UserDataPanelAdapter"
-      />
-
   <include package="plone.app.portlets" />
 
   <include package="jarn.xmpp.core" />
