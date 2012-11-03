@@ -1,8 +1,14 @@
 Changelog
 =========
 
-1.6.3 - Unreleased
-------------------
+1.6.3 - October 24, 2012
+------------------------
+
+- Fix cloudcast gallery link styles.
+  [Vitaliy Podoba]
+
+- Modify userdataschema.py to use collective.customizablePersonalizeForm.
+  [Jose Dinuncio]
 
 - Update styles for CloudCast actions toolbar.
   [Vitaliy Podoba]
