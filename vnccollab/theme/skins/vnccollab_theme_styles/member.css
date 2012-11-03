@@ -24,38 +24,30 @@
 /* Pulldown menu state indicators */
 
 #plone-contentmenu-workflow .state-private {
-	padding: 0 0.5em;
-	background-color: Red;
-	border: 0.1em solid Red;
+	background-color: #b91900;
+	border: none;
 	color: White !important;
-	border-radius: 0.5em;
-	-webkit-border-radius: 0.5em;
-	-moz-border-radius: 0.5em;
+	font-size: 0.9em;
+	padding: 0.1em 0.5em;
 }
 #plone-contentmenu-workflow .state-visible {
-	padding: 0 0.5em;
 	background-color: #74AE0B;
-	border: 0.1em solid #74AE0B;
+	border: none;
 	color: White !important;
-	border-radius: 0.5em;
-	-webkit-border-radius: 0.5em;
-	-moz-border-radius: 0.5em;
+	font-size: 0.9em;
+	padding: 0.1em 0.5em;
 }
 #plone-contentmenu-workflow .state-published {
-	padding: 0 0.5em;
 	background-color: #436976;
-	border: 0.1em solid #436976;
+	border: none;
 	color: White !important;
-	border-radius: 0.5em;
-	-webkit-border-radius: 0.5em;
-	-moz-border-radius: 0.5em;
+	font-size: 0.9em;
+	padding: 0.1em 0.5em;
 }
 #plone-contentmenu-workflow .state-pending {
-	padding: 0 0.5em;
 	background-color: #FFA500;
-	border: 0.1em solid #FFA500;
+	border: none;
 	color: White !important;
-	border-radius: 0.5em;
-	-webkit-border-radius: 0.5em;
-	-moz-border-radius: 0.5em;
+	font-size: 0.9em;
+	padding: 0.1em 0.5em;
 }

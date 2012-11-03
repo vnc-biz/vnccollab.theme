@@ -75,10 +75,10 @@
                         <span tal:condition="not: reply/Creator">Anonymous</span>
                     </tal:name>
                     <tal:posted i18n:translate="label_says">says:</tal:posted>
-                    <div class="commentDate"
+                    <span class="commentDate"
                          tal:content="python:view.format_time(reply.modification_date)">
                          8/23/2001 12:40:44 PM
-                    </div>
+                    </span>
                 </div>
 
                 <div class="commentBody">

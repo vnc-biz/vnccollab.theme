@@ -457,7 +457,7 @@ input.searchField {
   line-height:23px;
   margin:0;
   box-sizing: border-box;
-  padding: 0 30px 0 30px;
+  padding: 0;
   text-transform: uppercase;
   }
 #portal-globalnav li a {
@@ -835,8 +835,10 @@ div.postItemWrapper {
   padding:1px;
   }
 #content h1.documentFirstHeading {
-  text-transform: capitalize;
   font-weight: 400;
+  margin: 0 0 2px;
+  padding: 0;
+  text-transform: uppercase;
 }
 #content .postItemWrapper fieldset {
   border:0;
@@ -870,8 +872,11 @@ div.postItemWrapper {
 .sc_social_bookmarks_viewlet,
 .documentActions {
   margin-bottom: 10px;
-  padding-bottom: 10px;
-  background: url(&dtml-portal_url;/p-s.png) repeat-x 0 100%;
+  padding: 30px;
+}
+
+#content-core {
+  border: 1px solid #CED5DB;
 }
 
 .sc_social_bookmarks_viewlet {
@@ -918,18 +923,19 @@ div.postItemWrapper {
 
 /*----- Content -----*/
 #content {
-  position: relative;
   font-size:0.75em;
   line-height:1.5em;
   margin:0;
+  padding: 0 2em;
+  position: relative;
   }
 #content .documentDescription,
 #content #description {
-  background:url(&dtml-portal_url;/p-s.png) repeat-x 0 100%;
   color:#082736;
   font-weight:normal;
-  margin-bottom:25px;
-  padding-bottom:20px;
+  font-style: italic;
+  margin-bottom:30px;
+  padding: 0;
   }
 a:link,
 #content a:link,
@@ -946,6 +952,18 @@ dl.portlet a:hover,
 #portal-footer a:hover {
   color:#012a43 !important;
   }
+
+
+#content-core {
+    margin-bottom: 10px;
+    padding: 30px;
+}
+
+.relatedItems, .sc_social_bookmarks_viewlet, .documentActions {
+    margin-bottom: 10px;
+    padding: 20px;
+}
+
 h1 {
   color:#012a43;
   font:30px/34px "Myriad Pro", Verdana, sans-serif;
@@ -1508,7 +1526,9 @@ dl.portlet ul.navTreeLevel1 > .navTreeItem:first-child {
 #contentActionMenus {
   background:transparent;
   margin:0 0 1em;
-  top:3px;
+  padding: 0;
+  right:0;
+  top:0;
   }
 dl.actionMenu.deactivated dt,
 dl.actionMenu.activated dt a,
@@ -1516,31 +1536,57 @@ dl.actionMenu.activated dd a,
 dl.actionMenu.activated dd div {
   margin:0;
   }
-#contentActionMenus dl.actionMenu dt a,
-#contentActionMenus dl.actionMenu.activated dd {
-  background-color:rgba(1, 42, 67, 0.4);
-  border-radius:1em;
-  line-height:22px;
-  padding:0 10px;
+
+dl.actionMenu {
+ float: right;
+ white-space: nowrap;
+ position: relative;
+ margin-left: 1px;
+}
+
+#contentActionMenus dl.actionMenu dt a {
+  background-color:#8599A5;
+  border-radius: 0;
+  line-height: 1.97em;
+  padding: 0 10px;
+  }
+#contentActionMenus dl.actionMenu.activated dt a {
+  background-color: #012A43;
+  color: #fff;
+  }
+#contentActionMenus dl.actionMenu.deactivated dt a:hover {
+  background-color:#012A43;
+  color: #fff
   }
 #contentActionMenus dl.actionMenu.activated dd {
   border:0;
-  padding:10px;
+  padding:0;
+  right: 0;
+  min-width: 8em;
   }
 #contentActionMenus dl.actionMenu.activated dd a {
-  background-color:transparent;
-  border-radius:1em;
+  -moz-border-radius: 0;
+  -webkit-border-radius: 0;
+  background-color: #012A43;
+  border-radius: 0;
   padding:0 10px;
   }
-#contentActionMenus dl.actionMenu.activated dd a:hover,
+
 #contentActionMenus dl.actionMenu.activated dd .actionMenuSelected,
 #contentActionMenus dl.actionMenu a:hover {
-  background-color:#012a43 !important;
-  color:#fff;
+  background-color:#CED5DB;
+  color: #012a43;
   }
+
+#contentActionMenus dl.actionMenu.activated dd a:hover, #contentActionMenus dl.actionMenu.activated dd .actionMenuSelected {
+    background-color: #CED5DB !important;
+    color: #012a43;
+}
+
 #plone-contentmenu-factories.actionMenu.activated dd.actionMenuContent ul li a {
   padding-left:0;
   }
+
   
 /************
 
@@ -1737,7 +1783,7 @@ dl.actionMenu.activated dd div {
 
 /*----- rating -----*/
 .thumb-rating {
-  margin: 5px 0 5px 10px;
+  margin: 0px 30px 5px 10px;
   }
 input.like-button,
 input.dislike-button {
@@ -1970,7 +2016,7 @@ dl.portalMessage dd {
   outline: none;
   }
 .ui-autocomplete {
-  z-index:30 !important;
+  z-index:30;
   }
 /*---------- Stream Viewlet ----------*/
 
@@ -3536,5 +3582,397 @@ a.attachment.txt {
 .cell .discussion label {
     font-weight:bold;
 }
+
+/* @group Tabs */
+
+/* Color differences between the two tab types */
+#content ul.formTabs {
+    background-color: #ddd;
+    border: 0.3em solid #ddd;
+}
+#edit-bar {
+    -moz-border-radius: 0;
+    -webkit-border-radius: 0;
+    background-color: #ced5db;
+    border-radius: 0;
+    border: none;
+    font-size: 0.87em;
+    margin-bottom: 2em;
+    min-height: 2em;
+    padding-top: 0;
+}
+#content-views {
+    float: left;
+    background: transparent;
+}
+
+#content-views a {
+    color: #012a43;
+}
+
+/* Shared CSS between the two tab types */
+#edit-bar,
+#content ul.formTabs,
+#content-core ul.formTabs {
+    -moz-border-radius: 0;
+    -webkit-border-radius: 0;
+    border: none;
+    border-radius: 0;
+    border-radius: 0;
+    display: block;
+    margin-left: 0;
+}
+#content li.formTab,
+#content-core li.formTab {
+    display: inline;
+    margin-right:0.25em;
+}
+#content-views a,
+#content li.formTab a,
+#content-core li.formTab a {
+    /* this isn't supported by all browsers, so we keep it in a separate rule */
+    display: inline-block;
+}
+#content-views a,
+#content li.formTab a,
+#content-core li.formTab a {
+    border: none;
+    line-height: 2em;
+    margin: 0 ;
+    padding: 0 1.0em;
+    text-decoration: none;
+}
+#content-views li.selected a,
+#content li.formTab a.selected,
+#content-core li.formTab a.selected {
+    font-weight: bold;
+}
+#content-views li.selected a,
+#content-views li a:hover,
+#content li.formTab a.selected,
+#content li.formTab a:hover,
+#content-core li.formTab a.selected,
+#content-core li.formTab a:hover {
+    -moz-border-radius: 0;
+    -webkit-border-radius: 0;
+    background: #8599a5;
+    border-radius: 0;
+    color: White;
+    height: 2em;
+}
+
+#content-views li.selected a:after {
+  
+  border: 10px solid transparent;
+  border-top-color: #333;
+
+  top: 100%;
+  left: 50%;
+  margin-left: -10px;
+}
+
+/* @end */
+
+
+.documentEditable {
+  background: #f9f9f9;
+}
+
+#content div.documentByLine {
+    color: #95A8B4;
+    display: block;
+    font-size: 1em;
+    font-weight: bold;
+    padding: 0 0 20px 0;
+}
+
+#link-presentation {
+  padding: 0;
+}
+
+
+
+
+
+ul.contentViews li {
+  display: inline-block;
+}
+
+ul.contentViews li.selected:after {
+    border-color: #8599A5 transparent transparent;
+    border-style: solid;
+    border-width: 13px 13px 0;
+    content: " ";
+    display: block;
+    height: 0;
+    margin: 0 auto;
+    position: relative;
+    width: 0;
+    z-index: 99;
+}
+
+
+
+.drop-shadow {
+            position:relative;
+            padding:1em;
+            margin:0;
+            background:#fff;
+            -webkit-box-shadow:0 1px 5px rgba(0, 0, 0, 0.15), 0 0 40px rgba(0, 0, 0, 0.05) inset;
+               -moz-box-shadow:0 1px 5px rgba(0, 0, 0, 0.15), 0 0 40px rgba(0, 0, 0, 0.05) inset;
+                    box-shadow:0 1px 5px rgba(0, 0, 0, 0.15), 0 0 40px rgba(0, 0, 0, 0.05) inset;
+        }
+
+        .drop-shadow:before,
+        .drop-shadow:after {
+            content:"";
+            position:absolute;
+            z-index:-2;
+        }
+
+        /* Curved shadows */
+
+        .curved:before {
+            top:10px;
+            bottom:10px;
+            left:0;
+            right:50%;
+            -webkit-box-shadow:0 0 15px rgba(0,0,0,0.6);
+            -moz-box-shadow:0 0 15px rgba(0,0,0,0.6);
+            box-shadow:0 0 15px rgba(0,0,0,0.6);
+            -moz-border-radius:10px / 100px;
+            border-radius:10px / 100px;
+        }
+
+        .curved-hz-2:before {
+            top:5px;
+            bottom:3px;
+            left:40px;
+            right:52px;
+            -moz-border-radius:100px / 10px;
+            border-radius:100px / 10px;
+        }
+
+/* action new ticket */
+
+li#document-action-new_ticket {
+  list-style: none;
+  text-align: right !important;
+}
+
+li#document-action-new_ticket, div.overlay, div.overlay-ajax  {
+  text-align: left;
+}
+
+
+li#document-action-new_ticket a.link-overlay {
+  background-color: #CED5DB;
+  border-radius: 14px;
+  border: none !important;
+  color: #4E6471;
+  cursor: pointer;
+  font-size: 0.98em;
+  padding: 5px 10px;
+}
+
+li#document-action-new_ticket a:hover.link-overlay  {
+  background-color: #4E6471;
+  color: #CED5DB !important;
+}
+
+
+/* comments */
+
+.discussion {
+    clear: both;
+    background-color: #e7e9ec;
+    border: 1px solid #C1CCD5;
+    border-top-left-radius: 5px;
+    border-top-right-radius: 5px;
+}
+
+
+#commenting {
+    clear: both;
+    background-color: #e7e9ec;
+    border: 1px solid #C1CCD5;
+    border-bottom-left-radius: 5px;
+    border-bottom-right-radius: 5px;
+}
+
+.commentImage {
+    background: none repeat scroll 0 0 #CED5DB;
+    float: left;
+    height: 2.4em;
+    margin: 0 15px;
+    padding: 3px;
+    text-align: center;
+    width: 2.4em;
+}
+
+.commentBody {
+    border-radius: 0.5em 0.5em 0.5em 0.5em;
+    box-shadow: none;
+    margin: 0.5em 0;
+    padding: 1em;
+}
+
+
+.discussion .documentByLine {
+    display: inline-block;
+    margin-bottom: 0.5em;
+    margin-left: 0;
+    min-width: 90%;
+    color: #CED5DB;
+}
+
+
+/* Content overlay */
+
+.pb-ajax {
+    background-color: #F9F9F9;
+}
+
+.pb-ajax #content-core {
+    background-color: #ffffff;
+    box-shadow: 0 1px 5px rgba(0, 0, 0, 0.15), 0 0 40px rgba(0, 0, 0, 0.05) inset;
+}
+
+.pb-ajax > div {
+    margin: 0 auto;
+    padding: 1em;
+    width: 92%;
+}
+
+
+/* Invite
+----------------------------------*/
+
+
+
+ul#invite-tags{
+  margin:0 0 1em 0 !important;
+  padding:0;
+  list-style:none !important;
+
+}
+ul#invite-tags li {
+  background-color: #eee;
+  border: 1px solid #CED5DB;
+  box-shadow: 1px 2px 2px rgba(221, 221, 221, 0.5);    
+  color:#555;
+  display: inline-block !important;
+  font-size:1.0em;
+  line-height:1em !important;
+  padding:5px 10px 6px 10px;
+  position:relative;
+  text-decoration:none;
+  margin: 0 4px 7px 0 !important;
+}
+ul#invite-tags li:hover {
+  background-color: #D1DBE0;
+  border: 1px solid #8599A5;
+  color: #000;
+}
+/*html.js body.template-view div#visual-portal-wrapper div#portal-columns.cell div#visual-column-wrapper div#portal-column-one div#portletwrapper-706c6f6e652e6c656674636f6c756d6e0a636f6e746578740a2f564e432f4d656d626572732f676f6e7a616c65632d3430676d61696c2e636f6d2f74657374696e672d73747265616d0a7061727469636970616e7473.portletWrapper dl.portlet dd.portletFooter div#pb_4.overlay div.pb-ajax div div#content-core form div.formHelp img
+
+*/
+ul#invite-tags li img, div.formHelp img {
+  background: none repeat scroll 0 0 transparent !important;
+  border-radius: 0 !important;
+  height: 16px !important;
+  width: 16px !important;
+}
+
+input.invite-delete-button {
+  background: url(icon-cross.png) no-repeat scroll 4px 1px transparent;
+  cursor: pointer;
+  width: 18px;
+  height: 18px;
+  border: none;
+  border-left: 1px solid #ccc;
+  padding: 0 19px 0 0;
+}
+
+#invite-user-group-search {
+  border: 1px solid #738EA2;
+  padding: 0.4em;
+}
+
+
+/* Autocomplete
+----------------------------------*/
+
+.ui-autocomplete {
+  background-color: #C8D4E7;
+  overflow: hidden;
+  z-index: 30;
+  position: absolute;
+  -webkit-box-shadow: 0px 3px 5px  rgba(50, 50, 50, 0.2);
+  box-shadow: 0px 3px 5px  rgba(50, 50, 50, 0.2);
+  border: 1px solid #CED5DB;
+  display: block: !important;
+}
+.ui-autocomplete ul { 
+  width: 100%; 
+  list-style-position: outside; 
+  list-style: none; 
+  padding: 0; 
+  margin: 0; 
+  display: block: !important;
+}
+
+.ui-autocomplete li {
+  background-color: #fff;
+  border-collapse: collapse; 
+  cursor: pointer;
+  display: block; 
+  line-height: 2.0em; 
+  margin: 1px 0; 
+  overflow: hidden; 
+  padding: 0; 
+}
+.ui-autocomplete li a {
+  color: #012A43;
+  font-size: 0.80em; 
+  display: block;
+  padding: 0 0 0 0.5em;
+}
+.ui-autocomplete li a:hover {
+  background-color: #DFE8EF; 
+}
+.ui-autocomplete li.ui-autocomplete-even { 
+  background-color: #fff; 
+}
+.ui-autocomplete li.ui-autocomplete-odd { 
+  background-color: #eee; 
+}
+
+.ui-autocomplete li.ui-autocomplete-state-default { 
+  background-color: #fff; 
+  border: 1px solid #fff; 
+  color: #212121; 
+}
+.ui-autocomplete li.ui-autocomplete-state-active { 
+  color: #000; 
+  background:#E6E6E6;) repeat-x; 
+  border:1px solid #D3D3D3; 
+}
+
+.ui-autocomplete-loading { 
+  background: white url(spinner.gif) right center no-repeat;
+}
+.ui-autocomplete-over { 
+  background-color: #0A246A; color: white; 
+}
+
+.defaultText {
+  color: #C8C8C8;
+}    
+
+
+div.overlaybg div.close a, div.overlay div.close a {
+  visibility: hidden;
+} 
 
 /* </dtml-with> */

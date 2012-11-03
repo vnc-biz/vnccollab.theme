@@ -115,7 +115,7 @@
                              </metal:description>                                                                         
 
                              <div tal:replace="structure provider:plone.abovecontentbody" tal:condition="not:ajax_load" />                              
-                             <div id="content-core">                                                                      
+                             <div id="content-core" class="drop-shadow">                                                                      
                                  <metal:text define-slot="content-core" tal:content="nothing">                            
                                      Page body text                                                                       
                                  </metal:text>                                                                            
