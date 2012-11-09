@@ -460,6 +460,9 @@ input.searchField {
   padding: 0;
   text-transform: uppercase;
   }
+  #portal-globalnav li:first-child {
+  margin-left: 30px;
+  }
 #portal-globalnav li a {
   background-color:transparent;
   border:0;
@@ -2910,7 +2913,7 @@ div.add-xmpp-contact {
     background-color: #ced5db;
     border-radius: 0;
     border: none;
-    font-size: 0.80em;
+    font-size: 0.84em;
     margin-bottom: 2em;
     min-height: 2em;
     padding-top: 0;
@@ -3010,10 +3013,6 @@ div.add-xmpp-contact {
   padding: 0;
 }
 
-
-
-
-
 ul.contentViews li {
   display: inline-block;
 }
@@ -3031,47 +3030,15 @@ ul.contentViews li.selected:after {
     z-index: 99;
 }
 
-
-
 .drop-shadow {
-            position:relative;
-            padding:1em;
-            margin:0;
-            background:#fff;
-            -webkit-box-shadow:0 1px 5px rgba(0, 0, 0, 0.15), 0 0 40px rgba(0, 0, 0, 0.03) inset;
-               -moz-box-shadow:0 1px 5px rgba(0, 0, 0, 0.15), 0 0 40px rgba(0, 0, 0, 0.03) inset;
-                    box-shadow:0 1px 5px rgba(0, 0, 0, 0.15), 0 0 40px rgba(0, 0, 0, 0.03) inset;
-        }
-
-        .drop-shadow:before,
-        .drop-shadow:after {
-            content:"";
-            position:absolute;
-            z-index:-2;
-        }
-
-        /* Curved shadows */
-
-        .curved:before {
-            top:10px;
-            bottom:10px;
-            left:0;
-            right:50%;
-            -webkit-box-shadow:0 0 15px rgba(0,0,0,0.6);
-            -moz-box-shadow:0 0 15px rgba(0,0,0,0.6);
-            box-shadow:0 0 15px rgba(0,0,0,0.6);
-            -moz-border-radius:10px / 100px;
-            border-radius:10px / 100px;
-        }
-
-        .curved-hz-2:before {
-            top:5px;
-            bottom:3px;
-            left:40px;
-            right:52px;
-            -moz-border-radius:100px / 10px;
-            border-radius:100px / 10px;
-        }
+  position:relative;
+  padding:1em;
+  margin:0;
+  background:#fff;
+  -webkit-box-shadow:0 1px 5px rgba(0, 0, 0, 0.15), 0 0 40px rgba(0, 0, 0, 0.03) inset;
+     -moz-box-shadow:0 1px 5px rgba(0, 0, 0, 0.15), 0 0 40px rgba(0, 0, 0, 0.03) inset;
+          box-shadow:0 1px 5px rgba(0, 0, 0, 0.15), 0 0 40px rgba(0, 0, 0, 0.03) inset;
+}
 
 /* action new ticket */
 
@@ -3184,7 +3151,7 @@ td.mceFirst a#text_style_text_text.mceText, td.mceLast a#text_style_text_open.mc
     color: #205C90;
 }
 
-/* From input elements */
+/* Form input elements */
 
 input[type="submit"], select {
   background-color: #CED5DB;
@@ -3206,13 +3173,12 @@ form.enabled input.like-button:hover, form.enabled .selected input.like-button {
   color: #4E6471 !important;
 }
 
-
 form.enabled input.dislike-button:hover, form.enabled .selected input.dislike-button {
   background-color: transparent;
   color: #4E6471 !important;
   }
 
-input[type="text"] {
+input[type="text"], input[type="password"], input[type="file"]  {
   border-radius: none;
   border: 1px solid #8599A5;
   color: #082736;
@@ -3227,13 +3193,6 @@ input[type="checkbox"] {
   border: 1px solid #8599A5;
   color: #082736;
   padding: 2px;
-  -moz-appearance:none;
-  -webkit-appearance:none;
-}
-
-input[type=radio], input[type=checkbox] {
-  background-color: -moz-field !important;
-  border: 2px inset threedface !important;
 }
 
 textarea {
