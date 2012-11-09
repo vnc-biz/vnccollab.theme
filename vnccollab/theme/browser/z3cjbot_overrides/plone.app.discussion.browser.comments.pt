@@ -74,18 +74,18 @@
                               tal:replace="reply/Creator" />
                         <span tal:condition="not: reply/Creator">Anonymous</span>
                     </tal:name>
-                    <tal:posted i18n:translate="label_says">says:</tal:posted>
+                    <span>&#32;&#8226;&#32;</span>
                     <span class="commentDate"
                          tal:content="python:view.format_time(reply.modification_date)">
                          8/23/2001 12:40:44 PM
-                    </span>
+                    </span><span>&#32;&#8226;&#32;</span>
                 </div>
 
                 <div class="commentBody">
-
                     <span tal:replace="structure reply/getText" />
+                </div>
 
-                    <div class="commentActions">
+                <div class="commentActions">
                         <form name="delete"
                               action=""
                               method="post"
@@ -118,9 +118,6 @@
                                    />
                         </form>
                     </div>
-
-
-                </div>
                 <!-- We don't allow replies, so we could have a comment list
                      instead of a comment tree. In this way we're sure we can
                      reverse the order and still make sense of it.
@@ -157,18 +154,11 @@
     </div>
 
     <div id="commenting" class="reply" tal:condition="python:isDiscussionAllowed and (isAnon and isAnonymousDiscussionAllowed or userHasReplyPermission)">
-
-        <fieldset>
-
-            <legend i18n:translate="label_add_comment">Add comment</legend>
-            <p tal:content="view/comment_transform_message">
-                You can add a comment by filling out the form below. Plain text
-                formatting.
-            </p>
-
-            <div tal:replace="structure view/form/render" />
-
-        </fieldset>
+      <p tal:content="view/comment_transform_message">
+          You can add a comment by filling out the form below. Plain text
+          formatting.
+      </p>
+      <div tal:replace="structure view/form/render" />
     </div>
 
 </tal:block>
