@@ -1,7 +1,15 @@
 <?xml version="1.0"?>
 <metadata>
-  <version>1100</version>
+  <version>1101</version>
   <dependencies>
     <dependency>profile-plone.app.registry:default</dependency>
+    <dependency>profile-jarn.xmpp.core:default</dependency>
+    <dependency>profile-jarn.jsi18n:default</dependency>
+    <dependency>profile-jarn.xmpp.collaboration:default</dependency>
+    <dependency>profile-cioppino.twothumbs:default</dependency>
+    <dependency>profile-Products.CMFNotification:default</dependency>
+    <dependency>profile-Products.Carousel:default</dependency>
+    <dependency>profile-wsapi4plone.core:default</dependency>
+    <dependency>profile-collective.customizablePersonalizeForm:default</dependency>
   </dependencies>
 </metadata>
