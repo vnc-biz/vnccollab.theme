@@ -46,6 +46,12 @@
               <input type="text" name="chatroom" class="new-chatroom-name" placeholder="New room"/>
               <button type="submit">Join</button>
             </form>
+            <div class="inviteParticipant">
+              <form class="searchParticipant">
+                <input type="text" name="identifier" class="username" placeholder="Add participants..."/>
+                <button type="submit">Find</button>
+              </form>
+            </div>
             <dl id="available-chatrooms">
               <dt>Available rooms</dt>
             </dl>

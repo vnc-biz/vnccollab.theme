@@ -615,14 +615,6 @@ function runVncChat(vncchat) {
     //// XXX: Better if configurable?
     vncchat.connection.muc_domain = 'conference.' +  vncchat.connection.domain;
     vncchat.rosterview = Backbone.View.extend(vncchat.VncRosterView(vncchat.roster, _, $, console));
-    vncchat.chatboxes = new vncchat.ChatBoxes();
-    vncchat.chatboxesview = new vncchat.VncChatBoxesView({
-        'model': vncchat.chatboxes
-    });
-
-    vncchat.xmppstatusview = new vncchat.XMPPStatusView({
-        'model': vncchat.xmppstatus
-    });
 
     // Controlbox 
     controlbox = new vncchat.ControlBox({'id': 'online-users-container',
@@ -632,6 +624,14 @@ function runVncChat(vncchat) {
     });
     vncchat.controlbox_view.render();
 
+    vncchat.chatboxes = new vncchat.ChatBoxes();
+    vncchat.chatboxesview = new vncchat.VncChatBoxesView({
+        'model': vncchat.chatboxes
+    });
+
+    vncchat.xmppstatusview = new vncchat.XMPPStatusView({
+        'model': vncchat.xmppstatus
+    });
 };
 
 function prepareGroupChats(vncchat) {

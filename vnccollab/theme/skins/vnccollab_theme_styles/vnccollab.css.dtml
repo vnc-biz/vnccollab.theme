@@ -2263,6 +2263,7 @@ form#set-custom-xmpp-status {
   color: #062943;
   background: none;
 }
+div.inviteParticipant,
 div.startChatWith {
   border-radius: 6px;
   border: 1px solid #DDDDDD;
@@ -2272,6 +2273,7 @@ div.startChatWith {
   margin: 0 0.5em 0.5em 0.5em;
   padding: 5px;
 }
+form.searchParticipant,
 form.search-xmpp-contact {
   padding: 0;
   margin: 0;
@@ -2288,6 +2290,7 @@ ul#found-users li {
 ul#found-users li a.open-chat {
   padding-left: 2em;
 }
+.inviteParticipant .search-msg,
 .startChatWith .search-msg {
   color: #B16321;
   font-weight: normal;
@@ -2311,6 +2314,7 @@ div.find-xmpp-contact {
   margin: 0 0.5em;
   padding: 3px;
 }
+form.searchParticipant input.username,
 form.search-xmpp-contact input.username {
   background-color: #F1F1F1;
   border-radius: 6px;
@@ -2322,6 +2326,7 @@ form.search-xmpp-contact input.username {
   font-size: 14px;
   text-transform: none;
 }
+form.searchParticipant button,
 form.search-xmpp-contact button {
   margin: 0;
   padding: 0;
@@ -3360,6 +3365,14 @@ table.listing td:last-child {
 
 div.overlaybg div.close a, div.overlay div.close a {
   visibility: hidden;
+}
+
+#online-users-container div.inviteParticipant {
+  display:none;
+}
+
+#online-users-container.inRoom div.inviteParticipant {
+  display:block;
 }
 
 /* </dtml-with> */

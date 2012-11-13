@@ -129,6 +129,8 @@ vncchat.VncChatTab = Backbone.View.extend({
       vncchat.chatboxesview.closeChat(this.body.model.get('jid'));
       this.body.removeChatFromCookie(this.body.model.get('id'));
       vncchat.roster.trigger('hide-contact', this.body.model.get('jid'));
+      vncchat.controlbox_view.$el.removeClass('inChat');
+
     },
 
 });
@@ -144,6 +146,7 @@ vncchat.VncChatRoomTab = vncchat.VncChatTab.extend({
 
     closeTab: function() {
       $('#tab-'+this.body.model.get('box_id')).hide();
+      vncchat.controlbox_view.$el.removeClass('inRoom');
       vncchat.chatboxesview.closeChat(this.body.model.get('jid'));
       this.body.removeChatFromCookie(this.body.model.get('id'));
     },
@@ -390,6 +393,10 @@ vncchat.VncChatBoxView = vncchat.ChatBoxView.extend({
         $(this.el).show();
         this.tab.show();
         this.tab.$el.addClass('selected');
+        if (vncchat.controlbox_view.$el.hasClass('inRoom')) {
+            vncchat.controlbox_view.$el.removeClass('inRoom');
+        };
+        vncchat.controlbox_view.$el.addClass('inChat');
     },
     closeChat: function () {
         $('#'+this.model.get('box_id')).hide();
@@ -777,11 +784,12 @@ vncchat.VncChatRoomView = vncchat.VncChatBoxView.extend({
             '<div class="roomParticipants">' +
                 '<span class="roomParticipantsHeader">Participants:</span>' +
                 '<ul class="participant-list">' +
-                '<li class="addParticipantsItem">' +
-                  '<a href="javascript:void(0)" class="addParticipants">' +
-                    'Add...' +
-                  '</a>' +
-                '</li>' +
+                // Moved to room panel control box
+                //'<li class="addParticipantsItem">' +
+                //  '<a href="javascript:void(0)" class="addParticipants">' +
+                //    'Add...' +
+                //  '</a>' +
+                //'</li>' +
                 '</ul>' +
             '</div>' +
             '<div>' +
@@ -1053,6 +1061,11 @@ vncchat.VncChatRoomView = vncchat.VncChatBoxView.extend({
         $(this.el).show();
         this.tab.show();
         this.tab.$el.addClass('selected');
+        if (vncchat.controlbox_view.$el.hasClass('inChat')) {
+            vncchat.controlbox_view.$el.removeClass('inChat');
+        }
+        vncchat.controlbox_view.$el.addClass('inRoom');
+
     },
 
     render: function () {
@@ -1219,8 +1232,10 @@ vncchat.VncRoomsPanel = vncchat.RoomsPanel.extend({
 
     events: {
         'submit form.add-chatroom': 'createChatRoom',
+        'submit form.searchParticipant': 'addParticipants',
         'click a.open-room': 'createChatRoom',
-        'click a.leaveRoom': 'closeChatRoom'
+        'click a.leaveRoom': 'closeChatRoom',
+        'click a.subscribe-to-user': 'subscribeToContact'
     },
 
     room_template: _.template(
@@ -1247,6 +1262,122 @@ vncchat.VncRoomsPanel = vncchat.RoomsPanel.extend({
             vncchat.chatboxesview.openChat(jid);
             this.updateRoomsList();
         }
+    },
+
+    addParticipants: function (ev) {
+        ev.preventDefault();
+        // remove any previous search results or search messages
+        $('.inviteParticipant .search-msg').remove();
+        $('#found-users').remove();
+
+        var tabs = vncchat.chatboxesview.tabs;
+        if (tabs.length > 0) {
+            var active_chat = vncchat.chatboxesview
+                              .views[tabs[tabs.length - 1]];
+            if (vncchat.chatboxesview.isChatRoom(active_chat.model.id)) {
+                var value = $.trim($(ev.target).find('input.username').val());
+                if (value.length < 3) {
+                    $(ev.target).after('<p class="search-msg">' +
+                     'Please, enter at least 3 characters before search.</p>');
+                    return false;
+                }
+                var participants,
+                    $participants = active_chat
+                        .$el.find('.participant-list li')
+                        .clone().children().remove().end(),
+                    recipients = [],
+                    participants = {};
+                $participants.each(function() {
+                    name = $(this).text();
+                    if (name) { participants[name] = 1 };
+                });
+                var contacts_models = $.grep(vncchat.roster.models, function(e, i) {
+                    return (e.get('subscription') == 'both')});
+                $.getJSON(portal_url + "/search-contacts?q=" + value, function (data) {
+                    var $results_el = $('<ul id="found-users"></ul>');
+                    $(data).each(function (idx, obj) {
+                        // user is already in contacts list
+                        if ($.inArray(Strophe.escapeNode(obj.id), $.map(contacts_models,
+                            function (e, i) {return Strophe.getNodeFromJid(e.get('id'))}
+                            )) != -1) {
+                            if (!(obj.fullname in participants)) {
+                                $results_el.append($('<li></li>')
+                                    .attr('id', 'found-contacts-'+obj.id)
+                                    .append($('<a class="open-chat" href="#" title="' +
+                                        'Click to chat with contact"></a>')
+                                    .attr('data-recipient', Strophe.escapeNode(obj.id)+'@'+
+                                        vncchat.connection.domain)
+                                        .text(obj.fullname).on(
+                                            'click', function (ev) {
+                                                ev.preventDefault();
+                                                jid = Strophe.escapeNode(obj.id)+'@'+
+                                                    vncchat.connection.domain;
+                                                vncchat.connection.muc.invite(active_chat.model.get('jid'), jid);
+                                                $('div.inviteParticipant').append('<p class="search-msg">Subscription request has been ' +
+                                                    'successfully sent to user. As soon as user accepts your' +
+                                                    ' request you will see him in the room.</p>');
+                                                setTimeout('jQuery("div.inviteParticipant p.search-msg").remove();', 10000);
+                                                // remove search results
+                                                $('#found-users').remove();
+                                            }
+                                        )
+                                    )
+                                );
+                            }
+                        } else {
+                            // user is not in contact list
+                            $results_el.append($('<li></li>')
+                                .attr('id', 'found-users-'+obj.id)
+                                .append($('<a class="subscribe-to-user" href="#" ' +
+                                    'title="Click to add as a chat contact"></a>')
+                                    .attr('data-recipient', Strophe.escapeNode(obj.id)+
+                                        '@'+vncchat.connection.domain)
+                                    .text(obj.fullname)
+                                )
+                            );
+                        }
+                    });
+                    if ($(data).length == 0) {
+                    $results_el = '<p class="search-msg">No users found.</p>';
+                    }
+                    // add list to page DOM
+                    $('.inviteParticipant .search-msg').remove();
+                    $('#found-users').remove();
+                    $(ev.target).after($results_el);
+                });
+            }
+        };
+    },
+
+    //XXX temporary this function was copied from contact panel and modified
+    // we should move main functionality in separate function
+    subscribeToContact: function (ev) {
+        ev.preventDefault();
+        var jid = $(ev.target).attr('data-recipient');
+        //confirm subscription if user already
+        //send subscription reqest to us
+        subscriptions = $.grep(vncchat.roster.models, function(e, i) {
+                               return (e.get('id') == jid &&
+                                       e.get('ask') == 'request')});
+        if (subscriptions.length > 0) {
+            //accept subscription
+            vncchat.connection.roster.authorize(jid);
+            vncchat.connection.roster.subscribe(jid);
+            vncchat.chatboxesview.openChat(jid);
+            $('#found-users').remove();
+            return
+        };
+
+        xmppchat.connection.roster.add(jid, '', [], function (iq) {
+            // XXX: We can set the name here!!!
+            xmppchat.connection.roster.subscribe(jid);
+        });
+        $(ev.target).parents('ul#found-users').remove();
+        $('div.inviteParticipant').append('<p class="search-msg">User has been ' +
+            'successfully added to pending list. As soon as user accepts your' +
+            ' request you will be able to start chat with him or add as' +
+            ' participant to your room.</p>');
+        setTimeout('jQuery("div.inviteParticipant p.search-msg").remove();', 10000);
     },
 
     closeChatRoom: function (ev) {
