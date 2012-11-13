@@ -1,6 +1,29 @@
 Changelog
 =========
 
+1.6.4 - November 13, 2012
+-------------------------
+
+- Adjust css: Global navigation, inputs elem, content shadows.
+  [Cesar Gonzalez]
+
+- Change css&layout Action Menu, content, comment box. Fix invite overlay
+  autocomplete.
+  [Cesar Gonzalez]
+
+- Add images (#5092)
+  [Cesar Gonzalez]
+
+- Modifies css&layout: Action Menu, content, comment box.(#5092)
+  [Cesar Gonzalez]
+
+- Modifies userdataschema.py to use collective.customizablePersonalizeForm.
+  [Jose Dinuncio]
+
+- Move images and styles to cloudcast package.
+  [Vitaliy Podoba]
+
+
 1.6.3 - October 24, 2012
 ------------------------
 
