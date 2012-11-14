@@ -10,6 +10,7 @@
     <dependency>profile-Products.CMFNotification:default</dependency>
     <dependency>profile-Products.Carousel:default</dependency>
     <dependency>profile-wsapi4plone.core:default</dependency>
+    <dependency>profile-collective.js.jqueryui:default</dependency>
     <dependency>profile-collective.customizablePersonalizeForm:default</dependency>
   </dependencies>
 </metadata>
