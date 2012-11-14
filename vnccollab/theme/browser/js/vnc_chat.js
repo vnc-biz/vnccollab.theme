@@ -1313,7 +1313,7 @@ vncchat.VncRoomsPanel = vncchat.RoomsPanel.extend({
                                                 jid = Strophe.escapeNode(obj.id)+'@'+
                                                     vncchat.connection.domain;
                                                 vncchat.connection.muc.invite(active_chat.model.get('jid'), jid);
-                                                $('div.inviteParticipant').append('<p class="search-msg">Subscription request has been ' +
+                                                $('div.inviteParticipant').append('<p class="search-msg">Join request has been ' +
                                                     'successfully sent to user. As soon as user accepts your' +
                                                     ' request you will see him in the room.</p>');
                                                 setTimeout('jQuery("div.inviteParticipant p.search-msg").remove();', 10000);
