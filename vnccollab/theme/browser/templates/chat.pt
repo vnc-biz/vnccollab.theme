@@ -53,7 +53,7 @@
               </form>
             </div>
             <dl id="available-chatrooms">
-              <dt>Available rooms</dt>
+              <dt>Active rooms</dt>
             </dl>
           </div>
         </div>

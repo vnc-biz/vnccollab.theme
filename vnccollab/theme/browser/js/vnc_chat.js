@@ -129,8 +129,9 @@ vncchat.VncChatTab = Backbone.View.extend({
       vncchat.chatboxesview.closeChat(this.body.model.get('jid'));
       this.body.removeChatFromCookie(this.body.model.get('id'));
       vncchat.roster.trigger('hide-contact', this.body.model.get('jid'));
-      vncchat.controlbox_view.$el.removeClass('inChat');
-
+      if (vncchat.controlbox_view) {
+          vncchat.controlbox_view.trigger('context-changed');
+      }
     },
 
 });
@@ -146,9 +147,12 @@ vncchat.VncChatRoomTab = vncchat.VncChatTab.extend({
 
     closeTab: function() {
       $('#tab-'+this.body.model.get('box_id')).hide();
-      vncchat.controlbox_view.$el.removeClass('inRoom');
       vncchat.chatboxesview.closeChat(this.body.model.get('jid'));
       this.body.removeChatFromCookie(this.body.model.get('id'));
+      vncchat.controlbox_view.roomspanel.trigger('update-rooms-list');
+      if (vncchat.controlbox_view) {
+          vncchat.controlbox_view.trigger('context-changed');
+      };
     },
 });
 
@@ -393,10 +397,6 @@ vncchat.VncChatBoxView = vncchat.ChatBoxView.extend({
         $(this.el).show();
         this.tab.show();
         this.tab.$el.addClass('selected');
-        if (vncchat.controlbox_view.$el.hasClass('inRoom')) {
-            vncchat.controlbox_view.$el.removeClass('inRoom');
-        };
-        vncchat.controlbox_view.$el.addClass('inChat');
     },
     closeChat: function () {
         $('#'+this.model.get('box_id')).hide();
@@ -645,6 +645,9 @@ vncchat.VncChatBoxesView = vncchat.ChatBoxesView.extend({
         if (!this.isChatRoom(jid)) {
             vncchat.roster.trigger('show-contact', jid);
         }
+        if (vncchat.controlbox_view) {
+            vncchat.controlbox_view.trigger('context-changed');
+        };
         return view;
     },
 
@@ -692,6 +695,9 @@ vncchat.VncChatBoxesView = vncchat.ChatBoxesView.extend({
         if (!this.isChatRoom(jid)) {
             vncchat.roster.trigger('show-contact', jid);
         }
+        if (vncchat.controlbox_view) {
+            vncchat.controlbox_view.trigger('context-changed');
+        };
         return chat;
     },
 
@@ -1061,11 +1067,6 @@ vncchat.VncChatRoomView = vncchat.VncChatBoxView.extend({
         $(this.el).show();
         this.tab.show();
         this.tab.$el.addClass('selected');
-        if (vncchat.controlbox_view.$el.hasClass('inChat')) {
-            vncchat.controlbox_view.$el.removeClass('inChat');
-        }
-        vncchat.controlbox_view.$el.addClass('inRoom');
-
     },
 
     render: function () {
@@ -1244,6 +1245,29 @@ vncchat.VncRoomsPanel = vncchat.RoomsPanel.extend({
                         '<%=name%></a>' +
                         '<a class="leaveRoom" href="#" room-jid="<%=jid%>"></a></dd>'),
 
+    updateRoomsList: function () {
+        var chatrooms = this.$el.find('#available-chatrooms');
+        jq('.chatroom', chatrooms).remove();
+        var tabs = vncchat.chatboxesview.tabs;
+        var rooms = $.grep(tabs, function(tab, i) {
+                    return (vncchat.chatboxesview.isChatRoom(tab))});
+        if (rooms.length > 0) {
+            this.$el.find('#available-chatrooms dt').show();
+        } else {
+            this.$el.find('#available-chatrooms dt').hide();
+        }
+        for (var i=0; i<rooms.length; i++) {
+            var name = Strophe.getNodeFromJid(rooms[i]);
+            var open_rooms = jq.map(jq('.chatroom a.open-room'), function(el, i) {
+                return jq(el).attr('room-jid')
+            });
+            if (jq.inArray(rooms[i], open_rooms) == -1) {
+                this.$el.find('#available-chatrooms')
+                .append(this.room_template({'name':name,
+                                            'jid':rooms[i]}));
+            }
+        }
+    },
     createChatRoom: function (ev) {
         ev.preventDefault();
         var name, jid;
@@ -1386,6 +1410,9 @@ vncchat.VncRoomsPanel = vncchat.RoomsPanel.extend({
         if (vncchat.chatboxesview.views[jid]) {
             vncchat.chatboxesview.views[jid].tab.closeTab();
             vncchat.chatboxesview.views[jid].closeChatRoom();
+            if (vncchat.controlbox_view) {
+                vncchat.controlbox_view.trigger('context-changed');
+        }
         }
         this.updateRoomsList();
     },
@@ -1556,6 +1583,28 @@ vncchat.VncControlBoxView = vncchat.ControlBoxView.extend({
         this.contactspanel = new vncchat.VncContactsPanel();
         this.roomspanel = new vncchat.VncRoomsPanel();
         this.settingspanel = new vncchat.SettingsPanel();
+
+        this.on('context-changed', function(ev) {
+            var tabs = vncchat.chatboxesview.tabs;
+            if (tabs.length > 0) {
+                var active_tab = tabs[tabs.length - 1];
+                if (vncchat.chatboxesview.isChatRoom(active_tab)) {
+                    if (this.$el.hasClass('inChat')) {
+                        this.$el.removeClass('inChat');
+                    }
+                    this.$el.addClass('inRoom');
+                } else {
+                    if (this.$el.hasClass('inRoom')) {
+                        this.$el.removeClass('inRoom');
+                    }
+                    this.$el.addClass('inChat');
+                }
+
+             } else {
+                 this.$el.removeClass('inChat inRoom');
+             }
+        });
+        this.trigger('context-changed');
     }
 
 });
