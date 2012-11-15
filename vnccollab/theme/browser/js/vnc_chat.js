@@ -847,7 +847,7 @@ vncchat.VncChatRoomView = vncchat.VncChatBoxView.extend({
                     $('value', field).text('1');
                 };
                 if ($(field).attr('var') == 'muc#roomconfig_publicroom') {
-                    $('value', field).text('0');
+                    $('value', field).text('1');
                 };
                 if ($(field).attr('var') == 'muc#roomconfig_persistentroom') {
                     $('value', field).text('1');
@@ -1245,6 +1245,34 @@ vncchat.VncRoomsPanel = vncchat.RoomsPanel.extend({
                         '<%=name%></a>' +
                         '<a class="leaveRoom" href="#" room-jid="<%=jid%>"></a></dd>'),
 
+    initialize: function () {
+        this.on('update-rooms-list', function (ev) {
+            this.updateRoomsList();
+        });
+        this.trigger('update-rooms-list');
+
+        // setup autocomplete for participants form.
+        this.on('update-rooms-autocompletion', function(ev) {
+            xmppchat.connection.muc.listRooms(xmppchat.connection.muc_domain,
+                                            $.proxy(function (iq) {
+                var name,
+                    rnames = [],
+                    rooms = $(iq).find('query').find('item');
+                for (var i=0; i<rooms.length; i++) {
+                    name = $(rooms[i]).attr('name');
+                    name = jq.trim(name.slice(0, name.lastIndexOf('(')));
+                    rnames.push(name);
+                    if (rnames.length > 0) {
+                        jq('input.new-chatroom-name').autocomplete({
+                            'source':rnames});
+                    }
+                }
+                return true;
+            }, this));
+        });
+        this.trigger('update-rooms-autocompletion');
+    },
+
     updateRoomsList: function () {
         var chatrooms = this.$el.find('#available-chatrooms');
         jq('.chatroom', chatrooms).remove();
@@ -1319,12 +1347,14 @@ vncchat.VncRoomsPanel = vncchat.RoomsPanel.extend({
                     return (e.get('subscription') == 'both')});
                 $.getJSON(portal_url + "/search-contacts?q=" + value, function (data) {
                     var $results_el = $('<ul id="found-users"></ul>');
+                    var new_participants = false;
                     $(data).each(function (idx, obj) {
                         // user is already in contacts list
                         if ($.inArray(Strophe.escapeNode(obj.id), $.map(contacts_models,
                             function (e, i) {return Strophe.getNodeFromJid(e.get('id'))}
                             )) != -1) {
                             if (!(obj.fullname in participants)) {
+                                new_participants = true;
                                 $results_el.append($('<li></li>')
                                     .attr('id', 'found-contacts-'+obj.id)
                                     .append($('<a class="open-chat" href="#" title="' +
@@ -1350,6 +1380,7 @@ vncchat.VncRoomsPanel = vncchat.RoomsPanel.extend({
                             }
                         } else {
                             // user is not in contact list
+                            new_participants = true;
                             $results_el.append($('<li></li>')
                                 .attr('id', 'found-users-'+obj.id)
                                 .append($('<a class="subscribe-to-user" href="#" ' +
@@ -1361,7 +1392,7 @@ vncchat.VncRoomsPanel = vncchat.RoomsPanel.extend({
                             );
                         }
                     });
-                    if ($(data).length == 0) {
+                    if ($(data).length == 0 || !new_participants) {
                     $results_el = '<p class="search-msg">No users found.</p>';
                     }
                     // add list to page DOM

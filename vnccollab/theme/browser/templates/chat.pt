@@ -35,7 +35,7 @@
             </form>
             <div class="startChatWith">
               <form class="search-xmpp-contact">
-                <input type="text" name="identifier" class="username" placeholder="Start chat with..."/>
+                <input type="text" name="identifier" class="username" placeholder="Start chat with..." autocomplete="off"/>
                 <button type="submit">Find</button>
               </form>
             </div>
