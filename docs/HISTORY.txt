@@ -1,6 +1,22 @@
 Changelog
 =========
 
+1.6.5 - Unreleased
+------------------
+
+- Reset JOIN and FIND chat form fields after successful posts.
+  [Vitaliy Podoba]
+
+- Applied existing rooms autosuggestion list to JOIN room form.
+  [Taras Melnychuk]
+
+- Refactored Available Rooms into Active Rooms list.
+  [Taras Melnychuk]
+
+- Move add participants button in cloudchat to Rooms pane.
+  [Taras Melnychuk]
+
+
 1.6.4 - November 13, 2012
 -------------------------
 
