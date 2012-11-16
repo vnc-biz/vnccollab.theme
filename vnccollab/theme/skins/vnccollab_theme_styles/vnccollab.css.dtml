@@ -2367,6 +2367,7 @@ form.search-xmpp-contact button {
 #xmppchat-roster dd:nth-child(even) {
   background-color: #f1f1f1;
 }
+#available-chatrooms dd.open-room,
 #xmppchat-roster dd.requesting-xmpp-contact,
 #xmppchat-roster dd.pending-xmpp-contact,
 #xmppchat-roster dd.current-xmpp-contact {
@@ -2417,21 +2418,24 @@ form.add-chatroom button {
   color: #062943;
   background: none;
 }
-#available-chatrooms {
-  height: 243px;
+#chatrooms #available-chatrooms {
+  height: 193px;
   overflow-y: auto;
+  border-top: 1px solid #C1CCD5;
+  text-transform: none;
 }
 #available-chatrooms dt {
   font-size: 14px;
   font-weight: normal;
   text-transform: uppercase;
-  padding: 0 0 0 8px;
+  padding: 4px 7px 4px 8px;
   margin-top: 10px;
   background-color: #fff;
   clear: both;
 }
 #available-chatrooms dd {
-  padding: 5px 10px 5px 37px;
+  padding: 5px 10px 5px 36px;
+  margin-left: 15px;
   clear: both;
   background: transparent url(&dtml-portal_url;/chat/chat_room_icon.png) no-repeat scroll 9px 6px;
 }
@@ -2451,7 +2455,7 @@ form.add-chatroom button {
 #available-chatrooms dd a.open-room {
   display: block;
   float: left;
-  margin: 6px 0px 5px 8px;
+  margin: 6px 0 5px 10px;
 }
 #available-chatrooms dd a.leaveRoom {
   margin: 5px 0px 0px 0px;
