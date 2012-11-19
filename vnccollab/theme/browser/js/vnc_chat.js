@@ -969,6 +969,16 @@ vncchat.VncChatRoomView = vncchat.VncChatBoxView.extend({
                     room_box.model.set({'nick': from});
                 }
             }
+        } else {
+           this.tab.closeTab();
+           this.closeChatRoom();
+           if (vncchat.controlbox_view) {
+                vncchat.controlbox_view.trigger('context-changed');
+                vncchat.controlbox_view.roomspanel.trigger('update-rooms-list');
+           }
+           var $error = $(presence).find('error'),
+               code = $error.attr('code');
+           alert('Error ' + code + ': ' + $error.find('text').text());
         }
 
         if ($(presence).attr('type') == 'unavailable') {
