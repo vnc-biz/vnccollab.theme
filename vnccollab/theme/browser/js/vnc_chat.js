@@ -1263,7 +1263,7 @@ vncchat.VncRoomsPanel = vncchat.RoomsPanel.extend({
                     rnames = [],
                     rooms = $(iq).find('query').find('item');
                 for (var i=0; i<rooms.length; i++) {
-                    name = $(rooms[i]).attr('name');
+                    name = Strophe.unescapeNode($(rooms[i]).attr('name'));
                     name = jq.trim(name.slice(0, name.lastIndexOf('(')));
                     rnames.push(name);
                     if (rnames.length > 0) {
