@@ -697,6 +697,7 @@ vncchat.VncChatBoxesView = vncchat.ChatBoxesView.extend({
         }
         if (vncchat.controlbox_view) {
             vncchat.controlbox_view.trigger('context-changed');
+            vncchat.controlbox_view.roomspanel.trigger('update-rooms-list');
         };
         return chat;
     },
