@@ -30,4 +30,7 @@
   <javascript id="++resource++vnccollab.theme.js/main.js"
               insert-after="++resource++vnccollab.theme.js/vnc_chat.js"
               enabled="True" />
+  <javascript id="++resource++vnccollab.theme.js/jquery.blockUI.js"
+              insert-before="++resource++vnccollab.theme.js/vnc_chat.js"
+              enabled="True" />
 </object>

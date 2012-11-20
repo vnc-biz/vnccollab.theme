@@ -153,6 +153,9 @@ vncchat.VncChatRoomTab = vncchat.VncChatTab.extend({
       if (vncchat.controlbox_view) {
           vncchat.controlbox_view.trigger('context-changed');
       };
+      if (this.body.$el.find('div.blockUI').length > 0) {
+          this.body.$el.unblock({that:this.body});
+      }
     },
 });
 
@@ -644,6 +647,19 @@ vncchat.VncChatBoxesView = vncchat.ChatBoxesView.extend({
         view.addChatToCookie();
         if (!this.isChatRoom(jid)) {
             vncchat.roster.trigger('show-contact', jid);
+        } else {
+            // block user interface until we get confirmation that room
+            // creation is sucessfully finished;
+            this.views[jid].$el.block({css: { border: 'none',
+                                              margin: 0,
+                                              padding: '15px',
+                                              textAlign: 'center',
+                                              backgroundColor: '#000',
+                                              '-webkit-border-radius': '10px',
+                                              '-moz-border-radius': '10px',
+                                              opacity: .5,
+                                              color: '#fff'}
+                                      });
         }
         if (vncchat.controlbox_view) {
             vncchat.controlbox_view.trigger('context-changed');
@@ -842,6 +858,8 @@ vncchat.VncChatRoomView = vncchat.VncChatBoxView.extend({
                  this.model.get('nick'),
                  $.proxy(this.onMessage, this),
                  $.proxy(this.onPresence, this));
+
+
         var that = this;
         //XXX temporary room configuration.
         //XXX we showd do this only if we are the owner
@@ -968,17 +986,35 @@ vncchat.VncChatRoomView = vncchat.VncChatBoxView.extend({
                 if ($(presence).find("status[code='210']").length > 0) {
                     room_box.model.set({'nick': from});
                 }
+                room_box.$el.unblock();
             }
         } else {
-           this.tab.closeTab();
-           this.closeChatRoom();
-           if (vncchat.controlbox_view) {
-                vncchat.controlbox_view.trigger('context-changed');
-                vncchat.controlbox_view.roomspanel.trigger('update-rooms-list');
-           }
-           var $error = $(presence).find('error'),
-               code = $error.attr('code');
-           alert('Error ' + code + ': ' + $error.find('text').text());
+           var $error = $(presence).find('error');
+           room_box.$el.block({message:$error.find('text').text(),
+                               css: { border: 'none',
+                                      margin: 0,
+                                      padding: '15px',
+                                      textAlign: 'center',
+                                      backgroundColor: '#000',
+                                      '-webkit-border-radius': '10px',
+                                      '-moz-border-radius': '10px',
+                                      opacity: .5,
+                                      cursor:'default',
+                                      color: '#fff'},
+                               overlayCSS: { backgroundColor:'#000',
+                                             opacity: 0.6,
+                                             cursor:'default'
+                               },
+                               onUnblock: function(el, options) {
+                                      that = options.that
+                                      that.tab.closeTab();
+                                      that.closeChatRoom();
+                                      if (vncchat.controlbox_view) {
+                                          vncchat.controlbox_view.trigger('context-changed');
+                                          vncchat.controlbox_view.roomspanel.trigger('update-rooms-list');
+                                      }
+                               }
+                          });
         }
 
         if ($(presence).attr('type') == 'unavailable') {
