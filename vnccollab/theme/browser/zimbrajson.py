@@ -1,12 +1,13 @@
 import json
 import base64
+import os.path
 
 from AccessControl import getSecurityManager
-from zope.interface import implements
 from Products.Five.browser import BrowserView
 from Products.CMFCore.utils import getToolByName
 from Products.CMFPlone import utils
 from Products.CMFCore import permissions
+from plone.memoize.instance import memoize
 
 from wsapi4plone.core.browser.app import ApplicationAPI
 
@@ -136,10 +137,86 @@ class GetTreeJson(BrowserView):
         # TODO: Search only below context
         catalog = getToolByName(self.context, 'portal_catalog')
         params = {'portal_type': self.CONTAINER_TYPES, }
-        results = [self._dict_from_brain(x) for x in catalog(**params)]
+        brains = catalog(**params)
+
+        brains_and_parents = [self._brain_and_parents(x) for x in brains]
+        brains_and_parents = [x for sublist in brains_and_parents
+                                for x in sublist]
+        brains = self._remove_repeated_brains(brains_and_parents)
+
+        results = [self._dict_from_brain(x) for x in brains]
         results = self._sorted(results, reverse=True)
         tree = self._create_tree(results)
+        tree = self._prune_tree(tree)
         tree = self._sort_tree(tree)
+        return tree
+
+    def _brain_and_parents(self, brain):
+        '''Returns a list of a brain and all its parents.'''
+        path = os.path.dirname(brain.getPath())
+        parent = self._brain_from_path(path)
+
+        if not parent:
+            return [brain]
+        else:
+            return [brain] + self._brain_and_parents(parent)
+
+    def _remove_repeated_brains(self, brains):
+        '''Returns a list of unique brains.'''
+        paths = []
+        new_brains = []
+        for brain in brains:
+            path = brain.getPath()
+            if path not in paths:
+                paths.append(path)
+                new_brains.append(brain)
+
+        return new_brains
+
+    @memoize
+    def _brain_from_path(self, path):
+        '''Returns a brain given its path or None'''
+        catalog = getToolByName(self.context, 'portal_catalog')
+        query = dict(path={"query": path, "depth": 0})
+        brains = catalog(**query)
+
+        if len(brains) == 1:
+            return brains[0]
+        else:
+            return None
+
+    def _prune_tree(self, tree):
+        '''Prunes a tree from unwanted nodes'''
+        new_tree = []
+        for item in tree:
+            if item['portal_type'] not in self.CONTAINER_TYPES:
+                continue
+            content = self._prune_tree(item['content'])
+            new_item = dict(item)
+            new_item['content'] = content
+            new_tree.append(new_item)
+
+        return new_tree
+
+    def _sorted(self, lst, reverse=False):
+        '''Returns the folders sorted by the lenght of its path'''
+        return sorted(lst, lambda x, y: cmp(len(x['path']), len(y['path'])),
+                      reverse=reverse)
+
+    def _inside(self, son, father):
+        '''True if the folder son is inside father'''
+        return os.path.dirname(son['path']) == father['path']
+
+    def _create_tree(self, lst):
+        '''Creates the folder tree.'''
+        tree = []
+        for i, e in enumerate(lst):
+            for f in lst[i + 1:]:
+                if self._inside(e, f):
+                    f['content'].append(e)
+                    break
+            else:
+                tree.append(e)
         return tree
 
     def _dict_from_brain(self, brain):
@@ -161,27 +238,6 @@ class GetTreeJson(BrowserView):
         perm = getSecurityManager().checkPermission(
                         permissions.AddPortalContent, obj)
         return perm == 1
-
-    def _sorted(self, lst, reverse=False):
-        '''Returns the folders sorted by the lenght of its path'''
-        return sorted(lst, lambda x, y: cmp(len(x['path']), len(y['path'])),
-                      reverse=reverse)
-
-    def _inside(self, son, father):
-        '''True if the folder son is inside father'''
-        return son['path'].startswith(father['path'])
-
-    def _create_tree(self, lst):
-        '''Creates the folder tree.'''
-        tree = []
-        for i, e in enumerate(lst):
-            for f in lst[i + 1:]:
-                if self._inside(e, f):
-                    f['content'].append(e)
-                    break
-            else:
-                tree.append(e)
-        return tree
 
     def _sort_tree(self, tree):
         tree = sorted(tree, lambda x, y: cmp(x['title'], y['title']))
@@ -263,4 +319,3 @@ class GetListOfSearchParameters(BrowserView):
             if st[0] not in [s[0] for s in states]:
                 states.append(st)
         return states
-
