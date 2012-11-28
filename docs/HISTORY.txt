@@ -4,6 +4,9 @@ Changelog
 1.6.5 - Unreleased
 ------------------
 
+- New code for zimbra_get_tree_json view.
+  [Jose Dinuncio]
+
 - Do not allow to create rooms in which user has no permissions to participate.
   [Taras Melnychuk]
 
