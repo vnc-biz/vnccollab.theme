@@ -2,7 +2,7 @@ import json
 import base64
 
 from AccessControl import getSecurityManager
-from zope.interface import Interface, implements
+from zope.interface import implements
 from Products.Five.browser import BrowserView
 from Products.CMFCore.utils import getToolByName
 from Products.CMFPlone import utils
@@ -17,6 +17,7 @@ All these views are server as XMLRPC methods. They return a string with the
 result encoded as JSON.
 '''
 
+
 class LiveSearchReplyJson(BrowserView):
     OMIT_TYPES = ['Folder']
 
@@ -27,7 +28,7 @@ class LiveSearchReplyJson(BrowserView):
         friendly_types = plone_utils.getUserFriendlyTypes()
         keys = ' AND '.join(string.split())
         dct = {'SearchableText': keys,
-               'portal_type': friendly_types,}
+               'portal_type': friendly_types, }
         return self.search_dict(dct)
 
     def search_dict(self, dct):
@@ -110,7 +111,7 @@ class GetObjectJson(BrowserView):
     SANITIZE_FIELDS = ['DateTime']
 
     def _sanitize_results(self, result):
-        for k,v in result.items():
+        for k, v in result.items():
             if v.__class__.__name__ in self.SANITIZE_FIELDS:
                 result[k] = str(v)
 
@@ -132,9 +133,10 @@ class GetTreeJson(BrowserView):
         return json.dumps(result)
 
     def _get_tree(self):
+        '''Returns a tree structure with the container types allowed.'''
         # TODO: Search only below context
         catalog = getToolByName(self.context, 'portal_catalog')
-        params = {'portal_type': self.CONTAINER_TYPES,}
+        params = {'portal_type': self.CONTAINER_TYPES, }
         results = [self._dict_from_brain(x) for x in catalog(**params)]
         results = self._sorted(results, reverse=True)
         tree = self._create_tree(results)
@@ -144,11 +146,11 @@ class GetTreeJson(BrowserView):
     def _dict_from_brain(self, brain):
         '''Returns a dict representing the folder, given a brain'''
         return {'id': brain.getId,
-                'title' : brain.Title,
-                'path' : brain.getPath(),
+                'title': brain.Title,
+                'path': brain.getPath(),
                 'portal_type': brain.portal_type,
-                'writable' : self._is_container_writable(brain),
-                'content' : []}
+                'writable': self._is_container_writable(brain),
+                'content': []}
 
     def _is_container_writable(self, brain):
         '''True if the current user can write in the brain's container.
@@ -171,9 +173,10 @@ class GetTreeJson(BrowserView):
         return son['path'].startswith(father['path'])
 
     def _create_tree(self, lst):
+        '''Creates the folder tree.'''
         tree = []
         for i, e in enumerate(lst):
-            for f in lst[i+1:]:
+            for f in lst[i + 1:]:
                 if self._inside(e, f):
                     f['content'].append(e)
                     break
