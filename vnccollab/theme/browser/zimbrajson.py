@@ -129,7 +129,6 @@ class GetTreeJson(BrowserView):
     def __call__(self, REQUEST, RESPONSE):
         result = self._get_tree()
         RESPONSE.setHeader('Content-Type', 'application/json')
-        #return result
         return json.dumps(result)
 
     def _get_tree(self):
@@ -220,7 +219,6 @@ class GetListOfSearchParameters(BrowserView):
         '''Returns a JSON representation of the current object'''
         result = []
         try:
-            context = self.context
             if REQUEST == 'Subject':
                 result = self._get_subject()
             elif REQUEST == 'portal_type':
@@ -228,7 +226,7 @@ class GetListOfSearchParameters(BrowserView):
             elif REQUEST == 'review_state':
                 result = self._get_review_state()
             else:
-                resulst = []
+                result = []
         except Exception, e:
             result = str(e)
         RESPONSE.setHeader('Content-Type', 'application/json')
@@ -237,7 +235,7 @@ class GetListOfSearchParameters(BrowserView):
     def _get_subject(self):
         '''Returns a list of (id, title) of all Tags.'''
         portal_catalog = getToolByName(self.context, 'portal_catalog')
-        return [(x,x) for x in portal_catalog.uniqueValuesFor('Subject')]
+        return [(x, x) for x in portal_catalog.uniqueValuesFor('Subject')]
 
     def _get_portal_type(self):
         '''Returns a list of (id, title) of all Portal Types.'''
