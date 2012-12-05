@@ -1,8 +1,8 @@
 Changelog
 =========
 
-1.6.5 - Unreleased
-------------------
+1.6.5 - December 5, 2012
+------------------------
 
 - New code for zimbra_get_tree_json view.
   [Jose Dinuncio]
