@@ -192,23 +192,28 @@ class ZimbraUtilClient:
         query = {
             'm': {
               #'l' : '24486', # List id. It could be ommited
-              'inv' : {
-                'comp' : {
-                  'name' : task.get('subject', ''),
-                  'loc'  : task.get('location', ''),
-                  'percentComplete' : task.get('percentComplete', '0'),
-                  'status' : task.get('status', 'NEED'),    # Not started
-                  'priority' : task.get('priority', '5'),   # Normal
-                  'or' : {'a' : task['author'],             # Required
-                        'd' : task.get('authorName', ''),
+              'inv': {
+                'comp': {
+                  'name': task.get('subject', ''),
+                  'loc': task.get('location', ''),
+                  'percentComplete': task.get('percentComplete', '0'),
+                  'status': task.get('status', 'NEED'),    # Not started
+                  'priority': task.get('priority', '5'),   # Normal
+                  'or': {'a': task['author'],              # Required
+                         'd': task.get('authorName', ''),
                   },
                 },
               },
+              'mp': {
+                'ct': 'multipart/alternative',
+                'mp': {
+                    'ct': 'text/plain',
+                    'content': task.get('content', '')}},
             }
         }
         if task['content']:
             query['m']['mp'] = {'ct': 'text/plain',
-                                'content' : task['content']}
+                                'content': task['content']}
         if task['startDate']:
             query['m']['inv']['comp']['s'] = {'d': task['startDate']}
         if task['endDate']:

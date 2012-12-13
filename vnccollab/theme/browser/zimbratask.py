@@ -98,7 +98,7 @@ class ZimbraTaskForm(form.Form):
 
     @button.buttonAndHandler(_(u"Create"), name='create')
     def handleCreate(self, action):
-        """Create redmine ticket using REST API."""
+        """Create zimbra task using SOAP API."""
         data, errors = self.extractData()
         if errors:
             self.status = self.formErrorsMessage
@@ -126,9 +126,14 @@ class ZimbraTaskForm(form.Form):
             zimbraUtil = getUtility(IZimbraUtil)
             client = zimbraUtil.get_client(url, username, password)
             email = util.getZimbraEmail(self.context)
+            url = self.context.absolute_url()
+            description = self.context.Description()
+            content = u'%s\n\n%s' % (url, description)
+
             data['author'] = email
             data['subject'] = data['subject_']
             data['priority'] = data['priority_']
+            data['content'] = content
             task = client.create_task(data)
             util.addZimbraAnnotatedTasks(self.context, task)
             created = True
