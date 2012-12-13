@@ -13,6 +13,7 @@ from vnccollab.theme import messageFactory as _
 from vnccollab.theme.zimbrautil import IZimbraUtil
 import vnccollab.theme.util as util
 
+
 class BothDatesError(Invalid):
     __doc__ == _(u'''Either both or none dates must be provided''')
 
@@ -22,50 +23,50 @@ class IZimbraTaskForm(Interface):
 
     # we end it with _ to avoid conflicts in newtask.py
     subject_ = schema.TextLine(
-        title = _(u'Subject'),
-        description = u'',
-        required = True)
+        title=_(u'Subject'),
+        description=u'',
+        required=True)
 
     location = schema.TextLine(
-        title = _(u'Location'),
-        description = _('Task Location'),
-        required = False)
+        title=_(u'Location'),
+        description=_('Task Location'),
+        required=False)
 
     status = schema.Choice(
-        title = _(u"Status"),
-        description = u'',
-        vocabulary = 'vnccollab.theme.vocabularies.StatusZimbraTaskVocabulary',
-        required = True)
+        title=_(u"Status"),
+        description=u'',
+        vocabulary='vnccollab.theme.vocabularies.StatusZimbraTaskVocabulary',
+        required=True)
 
     # we end it with _ to avoid conflicts in newtask.py
     priority_ = schema.Choice(
-        title = _(u"Priority"),
-        description = u'',
-        vocabulary = 'vnccollab.theme.vocabularies.PrioritiesZimbraTaskVocabulary',
-        default = '5',
-        required = True)
+        title=_(u"Priority"),
+        description=u'',
+        vocabulary='vnccollab.theme.vocabularies.PrioritiesZimbraTaskVocabulary',
+        default='5',
+        required=True)
 
     percentComplete = schema.Choice(
-        title = _(u"Percentage of Completion"),
-        description = u'',
-        vocabulary = 'vnccollab.theme.vocabularies.PercentageZimbraTaskVocabulary',
-        required = True)
+        title=_(u"Percentage of Completion"),
+        description=u'',
+        vocabulary='vnccollab.theme.vocabularies.PercentageZimbraTaskVocabulary',
+        required=True)
 
     startDate = schema.Date(
-        title = _(u"Start date"),
-        description = u'',
-        required = False)
+        title=_(u"Start date"),
+        description=u'',
+        required=False)
 
     endDate = schema.Date(
-        title = _(u"Due date"),
-        description = u'',
-        required = False)
+        title=_(u"Due date"),
+        description=u'',
+        required=False)
 
     content = schema.Text(
-        title = _(u"Description"),
-        description = u'',
-        required = False,
-        default = u'')
+        title=_(u"Description"),
+        description=u'',
+        required=False,
+        default=u'')
 
     @invariant
     def validateBothDates(data):
@@ -81,7 +82,6 @@ class ZimbraTaskForm(form.Form):
 
     fields['startDate'].widgetFactory = DatePickerFieldWidget
     fields['endDate'].widgetFactory = DatePickerFieldWidget
-
 
     label = _("New Zimbra Task")
     prefix = 'zimbra_task_form'
@@ -133,11 +133,11 @@ class ZimbraTaskForm(form.Form):
             util.addZimbraAnnotatedTasks(self.context, task)
             created = True
 
-        except Exception, e:
+        except Exception:
             plone_utils = getToolByName(self.context, 'plone_utils')
             exception = plone_utils.exceptionString()
             self.status = _(u"Unable create issue: ${exception}",
-                mapping={u'exception' : exception})
+                mapping={u'exception': exception})
             error = getMultiAdapter((Invalid(u''), self.request, None,
                 None, self, self.context), IErrorViewSnippet)
             error.update()
@@ -160,4 +160,3 @@ class ZimbraTaskForm(form.Form):
             type='info')
         came_from = self.request.get('HTTP_REFERER') or self.context.absolute_url()
         return self.request.response.redirect(came_from)
-
