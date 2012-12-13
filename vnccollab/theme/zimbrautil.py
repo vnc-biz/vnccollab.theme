@@ -3,7 +3,6 @@ from pyzimbra.z.client import ZimbraClient
 from pyzimbra.soap import SoapException
 
 from zope.interface import implements, Interface
-from Products.CMFCore.utils import getToolByName
 from Products.CMFPlone.utils import safe_unicode as su
 from plone.memoize.instance import memoize
 
@@ -25,7 +24,6 @@ class ZimbraUtil:
     """Zimbra Utility."""
     implements(IZimbraUtil)
 
-
     @memoize
     def get_client(self, url=VNC_ZIMBRA_URL, username='', password=''):
         '''Returns a ZimbraUserClient.
@@ -39,6 +37,7 @@ class ZimbraUtil:
         url = url + '/service/soap'
         client = ZimbraUtilClient(url, username, password)
         return client
+
 
 def refreshAuthToken(func, *args, **kw):
     """Catches SoapException from passed function call and if the error is
@@ -59,8 +58,9 @@ def refreshAuthToken(func, *args, **kw):
                 raise e
         else:
             return result
-    
+
     return decorated
+
 
 class ZimbraUtilClient:
     '''
@@ -143,7 +143,7 @@ class ZimbraUtilClient:
             from_ = [su(e._getAttr('p')) for e in item.e
                         if e._getAttr('t') == 'f']
             from_ = from_[0] if len(from_) else ''
-            to =  u', '.join([su(e._getAttr('d')) for e in item.e
+            to = u', '.join([su(e._getAttr('d')) for e in item.e
                         if e._getAttr('t') == 't'])
 
             thread.append({
@@ -163,7 +163,7 @@ class ZimbraUtilClient:
             people = []
         elif not isinstance(people, list):
             people = [people]
-        
+
         # prepare subject
         subject = getattr(mail, 'su', '') or 'No Subject'
 
@@ -183,7 +183,7 @@ class ZimbraUtilClient:
     def create_task(self, dct):
         """Creates a task, given its description as a dictionary"""
         task = dict(**dct)
-        for k,v in task.items():
+        for k, v in task.items():
             if v is None:
                 task[k] = u''
         task['startDate'] = self._stringFromDate(task['startDate'])
@@ -223,8 +223,8 @@ class ZimbraUtilClient:
     @refreshAuthToken
     def get_message(self, id):
         '''Returns a message (mail, task, etc), given its id.'''
-        query = {"_jsns":"urn:zimbraMail",
-                 "m":{'id': id, 'html': 1, 'needExp': 1, 'max':250000}}
+        query = {"_jsns": "urn:zimbraMail",
+                 "m": {'id': id, 'html': 1, 'needExp': 1, 'max': 250000}}
         response, attrs = self.client.invoke('urn:zimbraMail',
                 'GetMsgRequest', query)
         return response
@@ -232,10 +232,10 @@ class ZimbraUtilClient:
     @refreshAuthToken
     def get_all_tasks(self):
         '''Returns all the zimbra tasks of the authenticated user.'''
-        query = {'query': 'in:"tasks"', 'types':'task',}
+        query = {'query': 'in:"tasks"', 'types': 'task', }
         response, _ = self.client.invoke('urn:zimbraMail',
                 'SearchRequest', query)
-        if type(response) <> list:
+        if type(response) != list:
             response = [response]
         return [self._taskFromSearchResponse(x) for x in response]
 
@@ -275,7 +275,7 @@ class ZimbraTask:
         if len(self.body) < 10:
             body = repr(self.body)
         else:
-            body = repr(self.body[:10]+'...')
+            body = repr(self.body[:10] + '...')
         return 'ZimbraTask({0}, {1}, {2})'.format(repr(self.id),
                 repr(self.title), body)
 
