@@ -1,6 +1,13 @@
 Changelog
 =========
 
+1.6.6 - Unreleased
+------------------
+
+- Fixed notices styles.
+  [Vitaliy Podoba]
+
+
 1.6.5 - December 5, 2012
 ------------------------
 
