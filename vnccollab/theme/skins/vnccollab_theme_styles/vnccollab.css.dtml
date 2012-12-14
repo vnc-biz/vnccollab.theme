@@ -3379,4 +3379,13 @@ div.overlaybg div.close a, div.overlay div.close a {
   display:block;
 }
 
+/* Site-Wide Notices Styles */
+#notices-viewlet {
+  padding: 5px;
+}
+#notices-container fieldset.notice {
+  padding: 0 1em 1em;
+}
+
+
 /* </dtml-with> */
