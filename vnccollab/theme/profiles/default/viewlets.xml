@@ -4,6 +4,7 @@
     <viewlet name="vnccollab.theme.addcontentarea"/>
     <viewlet name="plone.header"/>
     <viewlet name="vnccollab.theme.header"/>
+    <viewlet name="collective.notices"/>
   </order>
   <order manager="vnccollab.theme.htmlhead" skinname="VNC Collaboration Theme">
     <viewlet name="vnccollab.theme.headertime"/>
