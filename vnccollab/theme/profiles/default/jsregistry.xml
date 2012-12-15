@@ -35,4 +35,6 @@
               enabled="True" />
   <javascript id="++resource++plone.formwidget.autocomplete/jquery.autocomplete.min.js"
               enabled="False" />
+  <javascript id="++resource++plone.app.jquerytools.dateinput.js"
+              enabled="True" />
 </object>

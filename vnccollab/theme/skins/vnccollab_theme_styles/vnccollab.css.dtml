@@ -3387,5 +3387,14 @@ div.overlaybg div.close a, div.overlay div.close a {
   padding: 0 1em 1em;
 }
 
+/* jquery tools calendar widget styles */
+a.caltrigger {
+  padding: 0;
+}
+#calroot select#calmonth,
+#calroot select#calyear {
+  margin-right: 10px;
+  width: auto;
+}
 
 /* </dtml-with> */

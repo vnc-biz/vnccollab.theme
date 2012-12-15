@@ -22,4 +22,6 @@
     insert-before="ploneCustom.css"/>
  <stylesheet id="++resource++plone.formwidget.autocomplete/jquery.autocomplete.css"
     enabled="False" />
+ <stylesheet id="++resource++plone.app.jquerytools.dateinput.css"
+    enabled="True" />
 </object>
