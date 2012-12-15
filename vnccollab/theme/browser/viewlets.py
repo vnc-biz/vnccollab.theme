@@ -2,10 +2,8 @@ from urllib import quote_plus
 import logging
 import os.path
 from pyactiveresource.activeresource import ActiveResource
-from pytz import timezone
-from datetime import datetime
 
-from Acquisition import aq_base, aq_inner, aq_parent
+from Acquisition import aq_inner, aq_parent
 from DateTime import DateTime
 
 from zope.interface import alsoProvides, Interface
@@ -29,11 +27,7 @@ from plone.memoize.instance import memoize
 from plone.registry.interfaces import IRegistry
 from plone.portlets.interfaces import IPortletManager, IPortletRenderer
 
-from Products.Carousel.config import CAROUSEL_ID
-from Products.Carousel.interfaces import ICarousel
 from Products.Carousel.browser.viewlet import CarouselViewlet
-
-from cioppino.twothumbs.rate import getTally
 
 from vnccollab.theme.portlets.zimbra_mail import logException
 from vnccollab.theme import messageFactory as _
@@ -335,7 +329,7 @@ class RelatedRedmineTicketsViewlet(common.ViewletBase):
                 # fetch opened issues belonging to authenticated user
                 data = Issue.find(**{'cf_%d' % field_id: self.context.UID(),
                     'status_id': 'o', 'sort': 'updated_on:desc'})
-            except Exception, e:
+            except Exception:
                 logException(_(u"Error during fetching redmine tickets %s" %
                     url), context=self.context, logger=logger)
                 return
@@ -391,7 +385,7 @@ class WorldClockViewlet(common.ViewletBase):
         registry = getUtility(IRegistry)
         try:
             settings = registry.forInterface(IWorldClockSettings)
-        except KeyError, e:
+        except KeyError:
             # in case settings are not there yet
             self.world_clock = ''
             return
@@ -426,9 +420,9 @@ class ZopeEditViewlet(common.ViewletBase):
     """Link for external editor"""
     def external_editor_url(self):
         path = self.context.absolute_url_path()
-        parent = os.path.dirname(path)
+        p = os.path.dirname(path)
         me = os.path.basename(path) + '.zem'
-        return os.path.join(parent, 'externalEdit_', me)
+        return os.path.join(p, 'externalEdit_', me)
 
 class AddContentAreaViewlet(common.ViewletBase):
     """Add new content form"""
@@ -474,9 +468,9 @@ class AddContentAreaViewlet(common.ViewletBase):
     def getFolderTitle(self, folder):
         # add parent title
         ptitle = ''
-        parent = aq_parent(aq_inner(folder))
-        if parent:
-            ptitle = getattr(parent, 'Title', lambda:'')()
+        p = aq_parent(aq_inner(folder))
+        if p:
+            ptitle = getattr(p, 'Title', lambda:'')()
             if ptitle:
                 ptitle = ' (%s)' % ptitle
         return '%s%s' % (getattr(folder, 'Title', lambda:'')(), ptitle)
