@@ -41,6 +41,7 @@ setup(name='vnccollab.theme',
           'Products.AdvancedQuery',
           'collective.xmpp.chat',
           'collective.customizablePersonalizeForm',
+          'collective.notices',
       ],
       entry_points="""
       # -*- Entry points: -*-

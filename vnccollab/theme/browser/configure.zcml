@@ -483,4 +483,19 @@
       permission="cmf.ManagePortal"
       />
 
+  <browser:view
+      name="edit"
+      for="collective.notices.interfaces.INotice"
+      class=".notices.EditNotice"
+      layer=".interfaces.IThemeSpecific"
+      permission="cmf.ManagePortal"
+      />
+  <browser:view
+      name="add"
+      for="collective.notices.interfaces.INoticesStorage"
+      class=".notices.AddNotice"
+      layer=".interfaces.IThemeSpecific"
+      permission="cmf.ManagePortal"
+      />
+
 </configure>

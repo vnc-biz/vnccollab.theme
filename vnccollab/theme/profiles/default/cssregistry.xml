@@ -20,4 +20,6 @@
     cacheable="True" compression="safe" cookable="True"
     enabled="1" expression=""
     insert-before="ploneCustom.css"/>
+ <stylesheet id="++resource++plone.formwidget.autocomplete/jquery.autocomplete.css"
+    enabled="False" />
 </object>

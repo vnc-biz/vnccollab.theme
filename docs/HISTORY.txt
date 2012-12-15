@@ -4,6 +4,10 @@ Changelog
 1.6.6 - Unreleased
 ------------------
 
+- Disable plone.formwidget.autocomplete resources. It conflicts
+  with jquery UI Tools autocomplete widget.
+  [Vitaliy Podoba]
+
 - Fixed notices styles.
   [Vitaliy Podoba]
 

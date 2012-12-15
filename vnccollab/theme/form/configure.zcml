@@ -1,0 +1,12 @@
+<configure
+    xmlns="http://namespaces.zope.org/zope"
+    xmlns:browser="http://namespaces.zope.org/browser"
+    i18n_domain="vnccollab.theme">
+
+    <browser:resourceDirectory
+        name="plone.formwidget.autocomplete"
+        directory="jquery-autocomplete"
+        layer="..browser.interfaces.IThemeSpecific"
+        />
+
+</configure>

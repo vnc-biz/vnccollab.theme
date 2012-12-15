@@ -33,4 +33,6 @@
   <javascript id="++resource++vnccollab.theme.js/jquery.blockUI.js"
               insert-before="++resource++vnccollab.theme.js/vnc_chat.js"
               enabled="True" />
+  <javascript id="++resource++plone.formwidget.autocomplete/jquery.autocomplete.min.js"
+              enabled="False" />
 </object>
