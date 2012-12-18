@@ -4,6 +4,18 @@ Changelog
 1.6.6 - Unreleased
 ------------------
 
+- Adds Products.CMFNotification as dependency.
+  [Jose Dinuncio]
+
+- Adds cioppino.twothumbs as dependency.
+  [Jose Dinuncio]
+
+- Adds Products.Carousel as dependency.
+  [Jose Dinuncio]
+
+- Adds jarn (xmpp.core, jsi18n and xmpp.collaboration) as dependencies.
+  [Jose Dinuncio]
+
 - Made datetime widget work on notices control panel forms.
   [Vitaliy Podoba]
 
