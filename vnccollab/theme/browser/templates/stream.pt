@@ -86,7 +86,7 @@
           <div class="vncStreamItemBody">
             <div class="vncStreamItemByline">
               <div class="vncStreamItemDetails">
-                <span class="date" tal:content="entry/date">Jun 07, 2012</span>
+                <span class="vncStreamDate" tal:content="entry/date">Jun 07, 2012</span>
                 |
                 <span class="time" tal:content="entry/time">12:34</span>
                 |
