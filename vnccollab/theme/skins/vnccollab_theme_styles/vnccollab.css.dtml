@@ -3397,4 +3397,23 @@ a.caltrigger {
   width: auto;
 }
 
+/* Popup Mode Styles */
+.popupMode {
+  width: 100%;
+  min-width: 700px;
+}
+.popupMode #portal-columns.width-3\:4.position-0:before,
+.popupMode #portal-columns.width-1\:2:before {
+  background-image: none;
+}
+.popupMode #portal-content {
+  margin: 0;
+}
+.popupMode #portal-columns {
+  padding: 0;
+}
+.popupMode #vnc-cast-goback {
+  display: none;
+}
+
 /* </dtml-with> */

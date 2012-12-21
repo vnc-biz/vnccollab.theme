@@ -61,6 +61,14 @@
 
   <browser:page
       for="*"
+      name="is-popup-mode-on"
+      class=".util.VNCCollabUtilView"
+      attribute="isPopupModeOn"
+      permission="zope.Public"
+      />
+
+  <browser:page
+      for="*"
       name="addcontentarea_viewlet"
       class=".util.VNCCollabUtilView"
       attribute="renderAddContentAreaViewlet"

@@ -187,3 +187,7 @@ class VNCCollabUtilView(BrowserView):
         else:
             return self.request.response.redirect('%s/edit' %
                 obj.absolute_url())
+
+    def isPopupModeOn(self):
+        """Returns whether popup mode is enabled"""
+        return self.request.get('popup_mode') == '1'
