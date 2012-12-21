@@ -3412,8 +3412,6 @@ a.caltrigger {
 .popupMode #portal-columns {
   padding: 0;
 }
-.popupMode #vnc-cast-goback {
-  display: none;
-}
+
 
 /* </dtml-with> */
