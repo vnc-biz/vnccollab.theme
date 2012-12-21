@@ -4,6 +4,9 @@ Changelog
 1.6.6 - Unreleased
 ------------------
 
+- Introduce popup mode.
+  [Vitaliy Podoba]
+
 - Adds Products.CMFNotification as dependency.
   [Jose Dinuncio]
 
