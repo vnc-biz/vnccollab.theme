@@ -1,8 +1,11 @@
 Changelog
 =========
 
-1.6.6 - Unreleased
-------------------
+1.6.6 - December 24, 2012
+-------------------------
+
+- Introduce popup mode.
+  [Vitaliy Podoba]
 
 - Adds Products.CMFNotification as dependency.
   [Jose Dinuncio]
