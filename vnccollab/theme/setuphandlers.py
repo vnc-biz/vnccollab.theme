@@ -29,6 +29,9 @@ def add_catalog_indexes(context, logger=None):
     this method can also be used as upgrade step, in which case
     'context' will be portal_setup and 'logger' will be None.
     """
+    if context.readDataFile('vnccollab.theme_catalog_indexes.txt') is None:
+        return
+
     if logger is None:
         # Called as upgrade step: define our own logger.
         logger = logging.getLogger('vnccollab.theme')
