@@ -3,6 +3,9 @@
      tal:define="portal_url context/portal_url"
      tal:condition="not: view/anonymous">
     <div id="xmpp-viewlet-container">
+        <a id="site-stream-link"
+           tal:attributes="href string:${portal_url}/@@pubsub-feed"
+           i18n:translate="">Stream</a>
         <a id="im-messages"
            href="#"
            i18n:translate="">Chat</a>
