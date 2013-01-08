@@ -6,6 +6,9 @@
     i18n_domain="vnccollab.theme">
 
   <five:registerPackage package="." initialize=".initialize" />
+
+  <include package="collective.customizablePersonalizeForm" />
+
   <include package=".browser" />
   <include package=".portlets" />
   <include package=".upgrades" />

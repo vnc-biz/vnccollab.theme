@@ -2,6 +2,8 @@
 <metadata>
   <version>1101</version>
   <dependencies>
+    <dependency>profile-collective.plonetruegallery</dependency>
+    <dependency>profile-plone.app.jquery:default</dependency>
     <dependency>profile-plone.app.jquerytools:default</dependency>
     <dependency>profile-plone.app.registry:default</dependency>
     <dependency>profile-jarn.xmpp.core:default</dependency>
