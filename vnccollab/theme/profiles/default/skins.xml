@@ -12,13 +12,52 @@
     meta_type="Filesystem Directory View"
     directory="vnccollab.theme:skins/vnccollab_theme_styles"/>
 
- <skin-path name="VNC Collaboration Theme" based-on="Sunburst Theme">
-  <layer name="vnccollab_theme_custom_images"
-     insert-after="custom"/>
-  <layer name="vnccollab_theme_custom_templates"
-     insert-after="vnccollab_theme_custom_images"/>
-  <layer name="vnccollab_theme_styles"
-     insert-after="vnccollab_theme_custom_templates"/>
+ <skin-path name="VNC Collaboration Theme">
+  <layer name="custom" />
+  <layer name="vnccollab_cloudstream" />
+  <layer name="collective_customizable_personalize_form" />
+  <layer name="vnccollab_theme_custom_images" />
+  <layer name="vnccollab_theme_custom_templates" />
+  <layer name="vnccollab_theme_styles" />
+  <layer name="vnccollab_content" />
+  <layer name="tinymce" />
+  <layer name="archetypes" />
+  <layer name="archetypes_kss" />
+  <layer name="mimetypes_icons" />
+  <layer name="externaleditor" />
+  <layer name="keyword_manager" />
+  <layer name="autocompletewidget" />
+  <layer name="cmf_notification" />
+  <layer name="formalworkflow" />
+  <layer name="solgemafullcalendar/colorpicker/images" />
+  <layer name="solgemafullcalendar/colorpicker/js" />
+  <layer name="solgemafullcalendar/colorpicker/css" />
+  <layer name="solgemafullcalendar/colorpicker" />
+  <layer name="solgemafullcalendar" />
+  <layer name="ContextualContentMenu" />
+  <layer name="sunburst_images" />
+  <layer name="sunburst_templates" />
+  <layer name="sunburst_styles" />
+  <layer name="referencebrowser" />
+  <layer name="cmfeditions_views" />
+  <layer name="CMFEditions" />
+  <layer name="LanguageTool" />
+  <layer name="plone_kss" />
+  <layer name="ATContentTypes" />
+  <layer name="PasswordReset" />
+  <layer name="plone_ecmascript" />
+  <layer name="plone_wysiwyg" />
+  <layer name="plone_prefs" />
+  <layer name="plone_templates" />
+  <layer name="plone_styles" />
+  <layer name="plone_form_scripts" />
+  <layer name="plone_scripts" />
+  <layer name="plone_forms" />
+  <layer name="plone_images" />
+  <layer name="plone_content" />
+  <layer name="plone_login" />
+  <layer name="plone_deprecated" />
+  <layer name="plone_3rdParty" />
+  <layer name="cmf_legacy" />
  </skin-path>
-
 </object>

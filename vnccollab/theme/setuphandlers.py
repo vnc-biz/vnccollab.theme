@@ -19,7 +19,7 @@ def setupVarious(context):
 
     # Add additional setup code here
 
-def add_catalog_indexes(context, logger=None):
+def import_catalog_indexes(context, logger=None):
     """Method to add our wanted indexes to the portal_catalog.
 
     @parameters:
