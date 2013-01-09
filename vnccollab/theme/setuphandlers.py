@@ -41,10 +41,11 @@ def import_catalog_indexes(context, logger=None):
     # the registration of our import step in zcml, but doing it in
     # code makes this method usable as upgrade step as well.
     # Remove these lines when you have no catalog.xml file.
-    setup = getToolByName(context, 'portal_setup')
+    portal = context.getSite()
+    setup = getToolByName(portal, 'portal_setup')
     setup.runImportStepFromProfile(PROFILE_ID, 'catalog')
 
-    catalog = getToolByName(context, 'portal_catalog')
+    catalog = getToolByName(portal, 'portal_catalog')
     indexes = catalog.indexes()
     indexables = []
     for name, meta_type in CATALOG_INDEXES:
