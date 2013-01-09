@@ -15,7 +15,6 @@
  <skin-path name="VNC Collaboration Theme">
   <layer name="custom" />
   <layer name="vnccollab_cloudstream" />
-  <layer name="collective_customizable_personalize_form" />
   <layer name="vnccollab_theme_custom_images" />
   <layer name="vnccollab_theme_custom_templates" />
   <layer name="vnccollab_theme_styles" />
