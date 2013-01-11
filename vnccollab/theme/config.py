@@ -9,3 +9,9 @@ PORTLETS_STATES_ANNO_KEY = 'vnccollab.theme.portlets.states'
 
 # 30 minutes to cache redmine enumerators (in seconds)
 REDMINE_ENUMERATORS_CACHE_TIME = 0.5 * 60 * 60
+
+# catalog indexes to add
+CATALOG_INDEXES = (
+    ('avg_ratings', 'FieldIndex'),
+    ('total_down_ratings', 'FieldIndex'),
+)
