@@ -307,38 +307,45 @@ input[type="file"] > input[type="button"]::-moz-focus-inner {
 #portal-searchbox {
   background-color:#f5f5f5;
   border:1px solid #738ea2;
-  border-radius: 3px;
+  border-radius: 5px;
   box-shadow: 1px 1px 2px #d9d9d9 inset;
   font-size:1em;
   margin: 0 -134px 0 0;
-  padding: 6px 4px;
+  padding: 0;
   position: absolute;
   right: 50%;
   top: 51px;
   width: 268px;
   }
 #portal-searchbox .searchField {
-  background-color:#f5f5f5;
-  border:0;
-  color:#738ea2;
-  font-size:17px;
-  outline:none;
-  padding: 0 7px;
-  vertical-align:top;
-  width:230px;
+  background-color: transparent;
+  border: 0;
+  color: #738EA2;
+  font-size: 17px;
+  outline: none;
+  padding: 10px;
+  vertical-align: top;
+  width: 215px;
+  display: inline-block;
   }
 input.searchField {
   -moz-appearance: none;
   }
 #portal-searchbox .searchButton {
-  background:url(&dtml-portal_url;/sprite.png) no-repeat -154px 0;
-  border:0;
-  height:0;
-  overflow:hidden;
-  padding-top:20px;
-  vertical-align:top;
-  width:19px;
+  background: url(&dtml-portal_url;/sprite.png) no-repeat -154px 10px;
+  border: 0;
+  color: #738EA2;
+  font-size: 17px;
+  outline: none;
+  padding: 10px;
+  vertical-align: top;
+  width: 20px;
+  display: inline-block;
+  color: transparent;
   }
+#portal-searchbox  input[type="submit"]:hover {
+  color: transparent !important;
+}
 .searchSection {
   display:none;
   }
@@ -346,7 +353,7 @@ input.searchField {
   background:none;
   margin:0;
   right: -125px;
-  top:30px;
+  top:35px;
   z-index: 1;
   }
 #LSResult fieldset {
@@ -360,13 +367,13 @@ input.searchField {
   box-shadow: 3px 0 2px -2px #D9D9D9 inset;
   color: #f5f5f5;
   height: 6px;
-  left: 135px;
+  left: 143px;
   margin:0;
   overflow: hidden;
   padding: 0;
   position:absolute;
-  top: -5px;
-  width: 276px;
+  top: -4px;
+  width: 268px;
   }
 .LSIEFix {
   background: #f5f5f5;
