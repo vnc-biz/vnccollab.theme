@@ -1,0 +1,9 @@
+<?xml version="1.0"?>
+<import-steps>
+  <import-step id="choosehelp.content.catalog_indexes"
+               version="20130108-01"
+               handler="vnccollab.theme.setuphandlers.import_catalog_indexes"
+               title="VNCCollab Theme: import catalog indexes">
+    Import catalog indexes and reindex them afterwards.
+  </import-step>
+</import-steps>

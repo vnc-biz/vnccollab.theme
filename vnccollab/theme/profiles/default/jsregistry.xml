@@ -9,7 +9,7 @@
     id="++resource++jarn.xmpp.collaboration.js/jarnxmpp.collaboration.protocol.js" />
   <javascript enabled="False"
     id="++resource++jarn.xmpp.collaboration.js/jarnxmpp.collaboration.collaborate.js" />
-
+  <javascript enabled="False" id="jquery.js" />
   <javascript id="jquery.autocomplete.min.js"
               enabled="False" />
   <javascript id="++resource++vnccollab.theme.js/openerp_generic_portlet.js"

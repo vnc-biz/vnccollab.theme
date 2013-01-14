@@ -374,7 +374,7 @@
       permission="zope2.View"
       /> -->
   
-  <browser:viewlet
+  <!-- <browser:viewlet
       for="plone.app.folder.folder.IATUnifiedFolder"
       name="vnccollab.theme.toprated"
       manager="plone.app.layout.viewlets.interfaces.IBelowContent"
@@ -394,7 +394,7 @@
       template="templates/actionslist.pt"
       layer=".interfaces.IThemeSpecific"
       permission="zope2.View"
-      />
+      /> -->
 
   <browser:viewlet
       name="plone.loginviewlet"
@@ -427,11 +427,11 @@
     />
   
   <browser:viewlet
-		name="cioppino.twothumbs"
-	 	for="cioppino.twothumbs.interfaces.ILoveThumbsDontYou"
-	 	manager="plone.app.layout.viewlets.interfaces.IAboveContentTitle"
-	 	class="cioppino.twothumbs.viewlets.thumbs.ThumbsViewlet"
-		permission="zope2.View"
+    name="cioppino.twothumbs"
+    for="cioppino.twothumbs.interfaces.ILoveThumbsDontYou"
+    manager="plone.app.layout.viewlets.interfaces.IAboveContentTitle"
+    class="cioppino.twothumbs.viewlets.thumbs.ThumbsViewlet"
+    permission="zope2.View"
     />
 
     <!-- This are the classes we want to edit with zopeedit-->
