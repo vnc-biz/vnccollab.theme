@@ -3297,7 +3297,8 @@ table.listing td:last-child {
     border-top-left-radius: 5px;
     border-top-right-radius: 5px;
     border-bottom: none;
-    margin: 30px 30px 0 30px;
+    margin: 30px 0 0 0;
+    min-height: 4px;
 }
 
 
@@ -3308,18 +3309,20 @@ table.listing td:last-child {
     border-bottom-left-radius: 5px;
     border-bottom-right-radius: 5px;
     border-top: none;
-    margin: 0 30px 30px 30px;
+    margin: 0 0 30px 0;
+    padding: 15px 23px 10px 70px;
 }
 
 .commentImage {
-    background: none repeat scroll 0 0 #CED5DB;
-    float: left;
-    height: 2.4em;
-    margin: 0 15px;
-    padding: 3px;
+    background: none repeat scroll 0 0 #b8bfc3;
+    height: 32px;
+    width: 32px;
+    margin: 0 1.2em 1.5em 0;
+    padding: 0;
     text-align: center;
-    width: 2.4em;
+    float: left;
 }
+
 
 .commentBody {
     border-radius: none;
@@ -3331,18 +3334,20 @@ table.listing td:last-child {
 }
 
 .discussion .comment {
-    border-bottom: 1px solid #C1CCD5;
-    clear: both;
-    margin: 0; 
-    padding: 1.3em 0;
+    margin: 0;
+    font-size: 1.0em;
+    border-bottom: 1px solid #C1C5C8;
+    position: relative;
+    min-height: 0;
+    width: auto;
+    padding: 1.0em;
 }
 
 .discussion .documentByLine {
-    color: #748FA2;
-    display: inline-block;
-    margin-bottom: 0.5em;
-    margin-left: 0;
-    min-width: 90%;
+    font-weight: normal;
+    font-size: 0.9em;
+    float: none !important;
+    margin-left: 50px;
 }
 
 .discussion .documentByLine a {
@@ -3350,6 +3355,14 @@ table.listing td:last-child {
     font-weight: bold;
 }
 
+.discussion .commentBody {
+    color: #092637 !important;
+    clear: none;
+    display: block;
+    font-weight: normal;
+    padding-bottom: 0.5em;
+    word-wrap: break-word;
+}
 
 .discussion .documentByLine .commentDate {
     display: inline-block;
@@ -3358,6 +3371,36 @@ table.listing td:last-child {
     padding: 0;
 }
 
+.discussion input[type="submit"] {
+    background-color: #CED5DB;
+    border-radius: 14px;
+    border: none !important;
+    color: #4E6471;
+    cursor: pointer;
+    font-size: 0.7em;
+    padding: 5px 12px;
+}
+
+#commenting textarea {
+    border-radius: 3px;
+    border: 1px solid #8599A5;
+    color: #082736;
+    font-weight: normal;
+    padding: 3px;
+    width: auto;
+}
+
+#commenting input {
+    background-color: #092637;
+    border: medium none !important;
+    border-radius: 3px 3px 3px 3px;
+    color: #FFFFFF;
+    cursor: pointer;
+    float: right;
+    font-size: 0.9em;
+    margin: 0 -7px 0 10px;
+    padding: 5px 12px;
+}
 
 /* Content overlay */
 
