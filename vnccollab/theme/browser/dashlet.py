@@ -1,23 +1,16 @@
 from datetime import datetime
 
-from zope.interface import Interface, implements
 from zope.component import getUtility, getMultiAdapter, queryMultiAdapter
 
 from Products.Five.browser import BrowserView
-from Products.Five.browser.pagetemplatefile import ViewPageTemplateFile
 from Products.CMFCore.utils import getToolByName
-from Products.CMFPlone.utils import safe_unicode
 from Acquisition import aq_inner
 
-from plone.portlets.interfaces import IPortletDataProvider
 from plone.portlets.interfaces import IPortletManager, IPortletRenderer
-from plone.app.portlets.portlets import base
 from plone.memoize.instance import memoize
 
 from vnccollab.theme.zimbrautil import IZimbraUtil
-from vnccollab.theme.browser.zimbra import ZimbraMailPortletView
 from vnccollab.theme.portlets import redmine_tickets
-from vnccollab.theme import messageFactory as _
 
 
 class Dashlet(BrowserView):
@@ -35,15 +28,14 @@ class Dashlet(BrowserView):
         self.portal_state = portal_state
         self.friendlyTypes = portal_state.friendly_types()
 
-
     def items(self):
         type_ = self.type_
         if type_ == 'all':
             items = self.all_items()
         elif type_ == 'mails':
-            items =  self.all_mails()
+            items = self.all_mails()
         elif type_ == 'news':
-            items =  self.all_news()
+            items = self.all_news()
         elif type_ == 'recent':
             items = self.all_recents()
         elif type_ == 'tickets':
@@ -51,7 +43,6 @@ class Dashlet(BrowserView):
         else:
             items = []
         return items
-
 
     def all_items(self):
         """Return the last Tickets, Mails, News and Items"""
@@ -147,7 +138,7 @@ class FakeTicketBrain:
         try:
             date = datetime.strptime(dct['date'],
                 '%b %d, %Y %I:%M %p').isoformat()
-        except Exception, e:
+        except Exception:
             date = dct['date']
         self.Date = date
         self.portal_type = 'Redmine Ticket'
@@ -168,6 +159,7 @@ class FakeTicketBrain:
     def getURL(self):
         return self.url
 
+
 class FakeMailBrain:
     '''Wrapper for zimbra mail implementing the minimum attributes
     of brains.'''
@@ -177,7 +169,7 @@ class FakeMailBrain:
         self.Title = dct.get('subject', '')
         # TODO: html -> plain text
         self.Description = dct.get('body', '')
-        date = datetime.fromtimestamp(int(dct['date'])/1000)
+        date = datetime.fromtimestamp(int(dct['date']) / 1000)
         self.Date = date.isoformat()
         self.portal_type = 'Mail'
 
