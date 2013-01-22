@@ -82,12 +82,14 @@ class ZimbraUtilClient:
         self.client.authenticate(self.username, self.password)
 
     @refreshAuthToken
-    def get_emails(self, folder=None, offset=0, limit=10,
-                  recip='1', sortBy='dateDesc', types='conversation'):
+    def get_raw_emails(self, folder=None, searchable_text='',
+                   offset=0, limit=10,
+                   recip='1', sortBy='dateDesc', types='conversation'):
         """Returns list of email conversations.
 
         Args:
           @folder - if given, return list of emails from inside this folder
+          @serchable_text - Text the email should have to be shown.
           @offset - if given, return list of emails starting from start
           @limit - return 'limit' number of emails
           @recip - whether to return 'to' email adress instead of 'from' for
@@ -101,19 +103,52 @@ class ZimbraUtilClient:
             'recip': recip,
             'sortBy': sortBy,
         }
+
         if folder:
             query['query'] = 'in:%s' % folder
+
+        if searchable_text:
+            query['query'] = searchable_text
+
+        result = self.search(query)
+        return result
+
+    @refreshAuthToken
+    def get_emails(self, folder=None, searchable_text='',
+                   offset=0, limit=10,
+                   recip='1', sortBy='dateDesc', types='conversation'):
+        result = self.get_raw_emails(folder=folder,
+                searchable_text=searchable_text, offset=offset, limit=limit,
+                recip=recip, sortBy=sortBy, types=types)
+        return [self._dict_from_mail(x) for x in result]
+
+    @refreshAuthToken
+    def get_address_book(self, offset=0, limit=100):
+        '''Returns the address book of the user.'''
+        query = {
+            'types': 'contact',
+            'sortBy': 'nameAsc',
+            'offset': offset,
+            'limit': limit,
+            'query': 'in:contacts'
+        }
+        result = self.search(query)
+        return result
+
+    @refreshAuthToken
+    def search(self, query):
+        '''Returns the result of making the given query.'''
         result = self.client.invoke('urn:zimbraMail', 'SearchRequest', query)
         # if we have activated returnAllAttrs, result is a tuple.
         # We're interested here only in its first element
         if type(result) == tuple:
             result = result[0]
 
-        # if result contains only one item then it won't be list
+        # Get the result out of the list
         if not isinstance(result, list):
             result = [result]
 
-        return [self._dict_from_mail(x) for x in result]
+        return result
 
     @refreshAuthToken
     def get_email(self, eid):

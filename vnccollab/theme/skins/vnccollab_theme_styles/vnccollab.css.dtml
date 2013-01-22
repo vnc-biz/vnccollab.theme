@@ -969,6 +969,8 @@ dl.portlet a:hover,
 #content-core {
     margin-bottom: 10px;
     padding: 30px;
+    margin-right: -24px;
+    margin-left: -24px;
 }
 
 .relatedItems, .sc_social_bookmarks_viewlet, .documentActions {
@@ -2888,74 +2890,74 @@ div.add-xmpp-contact {
 }
 
 .cell #commenting {
-    font-size: 80%;
+  font-size: 80%;
 }
 
 .cell #commenting .formControls {
-    margin: 0;
+  margin: 0;
 }
 
 .cell #commenting textarea,
 .cell .discussion textarea {
-    font: 100% Monaco, "Courier New", Courier, monospace;
-    width: 100%;
+  font: 100% Monaco, "Courier New", Courier, monospace;
+  width: 100%;
 }
 
 .cell #commenting fieldset,
 .cell .discussion fieldset {
-    border: 0.1em solid #329fd7;
-    border-style: solid none none none;
+  border: 0.1em solid #329fd7;
+  border-style: solid none none none;
 }
 
 .cell #commenting legend,
 .cell .discussion legend {
-    padding: 0.5em 0.5em 0.5em 0;
-    font-size: 85%;
+  padding: 0.5em 0.5em 0.5em 0;
+  font-size: 85%;
 }
 
 .cell #commenting label,
 .cell .discussion label {
-    font-weight:bold;
+  font-weight:bold;
 }
 
 /* @group Tabs */
 
 /* Color differences between the two tab types */
 #content ul.formTabs {
-    background-color: #eee;
-    border: none;
+  background-color: #eee;
+  border: none;
 }
 #edit-bar {
-    -moz-border-radius: 0;
-    -webkit-border-radius: 0;
-    background-color: #ced5db;
-    border-radius: 0;
-    border: none;
-    font-size: 0.84em;
-    margin-bottom: 2em;
-    min-height: 2em;
-    padding-top: 0;
+  -moz-border-radius: 0;
+  -webkit-border-radius: 0;
+  background-color: #ced5db;
+  border-radius: 0;
+  border: none;
+  font-size: 0.84em;
+  margin-bottom: 2em;
+  min-height: 2em;
+  padding-top: 0;
 }
 #content-views {
-    float: left;
-    background: transparent;
+  float: left;
+  background: transparent;
 }
 
 #content-views a {
-    color: #012a43;
+  color: #012a43;
 }
 
 /* Shared CSS between the two tab types */
 #edit-bar,
 #content ul.formTabs,
 #content-core ul.formTabs {
-    -moz-border-radius: 0;
-    -webkit-border-radius: 0;
-    border: none;
-    border-radius: 0;
-    border-radius: 0;
-    display: block;
-    margin-left: 0;
+  -moz-border-radius: 0;
+  -webkit-border-radius: 0;
+  border: none;
+  border-radius: 0;
+  border-radius: 0;
+  display: block;
+  margin-left: 0;
 }
 
 #content ul.formTabs,
@@ -2965,28 +2967,28 @@ div.add-xmpp-contact {
 
 #content li.formTab,
 #content-core li.formTab {
-    display: inline;
-    margin-right:0;
+  display: inline;
+  margin-right:0;
 }
 #content-views a,
 #content li.formTab a,
 #content-core li.formTab a {
-    /* this isn't supported by all browsers, so we keep it in a separate rule */
-    display: inline-block;
+  /* this isn't supported by all browsers, so we keep it in a separate rule */
+  display: inline-block;
 }
 #content-views a,
 #content li.formTab a,
 #content-core li.formTab a {
-    border: none;
-    line-height: 2em;
-    margin: 0 ;
-    padding: 0 1.0em;
-    text-decoration: none;
+  border: none;
+  line-height: 2em;
+  margin: 0 ;
+  padding: 0 1.0em;
+  text-decoration: none;
 }
 #content-views li.selected a,
 #content li.formTab a.selected,
 #content-core li.formTab a.selected {
-    font-weight: bold;
+  font-weight: bold;
 }
 #content-views li.selected a,
 #content-views li a:hover,
@@ -2994,12 +2996,12 @@ div.add-xmpp-contact {
 #content li.formTab a:hover,
 #content-core li.formTab a.selected,
 #content-core li.formTab a:hover {
-    -moz-border-radius: 0;
-    -webkit-border-radius: 0;
-    background: #8599a5;
-    border-radius: 0;
-    color: White;
-    height: 2em;
+  -moz-border-radius: 0;
+  -webkit-border-radius: 0;
+  background: #8599a5;
+  border-radius: 0;
+  color: White;
+  height: 2em;
 }
 
 #content-views li.selected a:after {
@@ -3020,11 +3022,11 @@ div.add-xmpp-contact {
 }
 
 #content div.documentByLine {
-    color: #95A8B4;
-    display: block;
-    font-size: 1em;
-    font-weight: bold;
-    padding: 0 0 20px 0;
+  color: #95A8B4;
+  display: block;
+  font-size: 1em;
+  font-weight: bold;
+  padding: 0 0 20px 0;
 }
 
 #link-presentation {
@@ -3036,16 +3038,16 @@ ul.contentViews li {
 }
 
 ul.contentViews li.selected:after {
-    border-color: #8599A5 transparent transparent;
-    border-style: solid;
-    border-width: 13px 13px 0;
-    content: " ";
-    display: block;
-    height: 0;
-    margin: 0 auto;
-    position: relative;
-    width: 0;
-    z-index: 99;
+  border-color: #8599A5 transparent transparent;
+  border-style: solid;
+  border-width: 13px 13px 0;
+  content: " ";
+  display: block;
+  height: 0;
+  margin: 0 auto;
+  position: relative;
+  width: 0;
+  z-index: 99;
 }
 
 .drop-shadow {
@@ -3240,50 +3242,50 @@ select {
 }
 
 #content optgroup {
-    color: #FFFFFF;
+  color: #FFFFFF;
 }
 
 /* @group Data tables */
 table.listing {
-    border-bottom: 1px solid #8599A5;
-    border-left: 1px solid #8599A5;
+  border-bottom: 1px solid #8599A5;
+  border-left: 1px solid #8599A5;
 }
 
 table.listing thead th {
-    text-align: left;
-    color: #012A43;
-    border: 0.1em solid #8599A5;
-    background: #CED5DB;
+  text-align: left;
+  color: #012A43;
+  border: 0.1em solid #8599A5;
+  background: #CED5DB;
 }
 
 table.listing th {
-    text-align: left;
-    color: #012A43;
-    border: 0.1em solid #8599A5;
-    border-style: solid solid none;
-    background: #CED5DB;
+  text-align: left;
+  color: #012A43;
+  border: 0.1em solid #8599A5;
+  border-style: solid solid none;
+  background: #CED5DB;
 }
 
 table.listing td {
-    border-right: 1px solid #CED5DB;
+  border-right: 1px solid #CED5DB;
 }
 
 table.invisible th, table.plain th, table.listing th {
-    padding: 0.7em 1em;
-    vertical-align: top;
+  padding: 0.7em 1em;
+  vertical-align: top;
 }
 
 table.invisible td, table.plain td, table.listing td {
-    padding: 0.5em 1em;
-    vertical-align: top;
+  padding: 0.5em 1em;
+  vertical-align: top;
 }
 
 table.listing td:last-child {
-    border-right: 1px solid #8599A5;
+  border-right: 1px solid #8599A5;
 }
 
 #content p, #content table, #content dl, dl.portlet p, dl.portlet {
-    margin-bottom: 1.5em;
+  margin-bottom: 1.5em;
 }
 
 /* @end */
@@ -3291,136 +3293,221 @@ table.listing td:last-child {
 /* comments */
 
 .discussion {
-    clear: both;
-    background-color: #e7e9ec;
-    border: 1px solid #C1CCD5;
-    border-top-left-radius: 5px;
-    border-top-right-radius: 5px;
-    border-bottom: none;
-    margin: 30px 0 0 0;
-    min-height: 4px;
+  clear: both;
+  background-color: #e7e9ec;
+  border: 1px solid #C1CCD5;
+  border-top-left-radius: 5px;
+  border-top-right-radius: 5px;
+  border-bottom: none;
+  margin: 30px 0 0 0;
+  min-height: 4px;
 }
 
 
 #commenting {
-    clear: both;
-    background-color: #e7e9ec;
-    border: 1px solid #C1CCD5;
-    border-bottom-left-radius: 5px;
-    border-bottom-right-radius: 5px;
-    border-top: none;
-    margin: 0 0 30px 0;
-    padding: 15px 23px 10px 70px;
+  clear: both;
+  background-color: #e7e9ec;
+  border: 1px solid #C1CCD5;
+  border-bottom-left-radius: 5px;
+  border-bottom-right-radius: 5px;
+  border-top: none;
+  margin: 0 0 30px 0;
+  padding: 15px 23px 10px 70px;
 }
 
 .commentImage {
-    background: none repeat scroll 0 0 #b8bfc3;
-    height: 32px;
-    width: 32px;
-    margin: 0 1.2em 1.5em 0;
-    padding: 0;
-    text-align: center;
-    float: left;
+  background: none repeat scroll 0 0 #b8bfc3;
+  height: 32px;
+  width: 32px;
+  margin: 0 1.2em 1.5em 0;
+  padding: 0;
+  text-align: center;
+  float: left;
 }
 
 
 .commentBody {
-    border-radius: none;
-    box-shadow: none;
-    color: #012A43;
-    display: inline-block;
-    margin: 0;
-    padding: 0;
+  border-radius: none;
+  box-shadow: none;
+  color: #012A43;
+  display: inline-block;
+  margin: 0;
+  padding: 0;
 }
 
 .discussion .comment {
-    margin: 0;
-    font-size: 1.0em;
-    border-bottom: 1px solid #C1C5C8;
-    position: relative;
-    min-height: 0;
-    width: auto;
-    padding: 1.0em;
+  margin: 0;
+  font-size: 1.0em;
+  border-bottom: 1px solid #C1C5C8;
+  position: relative;
+  min-height: 0;
+  width: auto;
+  padding: 1.0em;
 }
 
 .discussion .documentByLine {
-    font-weight: normal;
-    font-size: 0.9em;
-    float: none !important;
-    margin-left: 50px;
+  font-weight: normal;
+  font-size: 0.9em;
+  float: none !important;
+  margin-left: 50px;
 }
 
 .discussion .documentByLine a {
-    color: #6EA21B;
-    font-weight: bold;
+  color: #6EA21B;
+  font-weight: bold;
 }
 
 .discussion .commentBody {
-    color: #092637 !important;
-    clear: none;
-    display: block;
-    font-weight: normal;
-    padding-bottom: 0.5em;
-    word-wrap: break-word;
+  color: #092637 !important;
+  clear: none;
+  display: block;
+  font-weight: normal;
+  padding-bottom: 0.5em;
+  word-wrap: break-word;
 }
 
 .discussion .documentByLine .commentDate {
-    display: inline-block;
-    color: #748FA2;
-    line-height: 1.0em;
-    padding: 0;
+  display: inline-block;
+  color: #748FA2;
+  line-height: 1.0em;
+  padding: 0;
 }
 
 .discussion input[type="submit"] {
-    background-color: #CED5DB;
-    border-radius: 14px;
-    border: none !important;
-    color: #4E6471;
-    cursor: pointer;
-    font-size: 0.7em;
-    padding: 5px 12px;
+  background-color: #CED5DB;
+  border-radius: 14px;
+  border: none !important;
+  color: #4E6471;
+  cursor: pointer;
+  font-size: 0.7em;
+  padding: 5px 12px;
 }
 
 #commenting textarea {
-    border-radius: 3px;
-    border: 1px solid #8599A5;
-    color: #082736;
-    font-weight: normal;
-    padding: 3px;
-    width: auto;
+  border-radius: 3px;
+  border: 1px solid #8599A5;
+  color: #082736;
+  font-weight: normal;
+  padding: 3px;
+  width: auto;
 }
 
 #commenting input {
-    background-color: #092637;
-    border: medium none !important;
-    border-radius: 3px 3px 3px 3px;
-    color: #FFFFFF;
-    cursor: pointer;
-    float: right;
-    font-size: 0.9em;
-    margin: 0 -7px 0 10px;
-    padding: 5px 12px;
+  background-color: #092637;
+  border: medium none !important;
+  border-radius: 3px 3px 3px 3px;
+  color: #FFFFFF;
+  cursor: pointer;
+  float: right;
+  font-size: 0.9em;
+  margin: 0 -7px 0 10px;
+  padding: 5px 12px;
 }
 
 /* Content overlay */
 
 .pb-ajax {
-    background-color: #F9F9F9;
+  background-color: #F9F9F9;
+  border: 1px solid rgba(45, 72, 87, 0.59);
+  border-radius: 5px;
 }
 
 .pb-ajax #content-core {
-    background-color: #ffffff;
-    box-shadow: 0 1px 5px rgba(0, 0, 0, 0.15), 0 0 40px rgba(0, 0, 0, 0.05) inset;
+  margin-right: 0;
+  margin-left: 0;
+  margin-bottom: 0;
+  padding: 10px 30px 10px;
+  font-size: 12px;
 }
 
 .pb-ajax > div {
-    margin: 0 auto;
-    padding: 1em;
-    width: 92%;
+  margin: 0;
+  padding: 0;
+  width: 100%;
+}
+
+#content .pb-ajax h1.documentFirstHeading, .pb-ajax h1.documentFirstHeading {
+  font-size: 21px; 
+  margin: 0;
+  padding: 0.5em 0 0.3em 0;
+  text-transform: uppercase;
+  text-align: center;
+  background-color: #012A43;
+  color: white;
+  text-shadow: none;
+}
+
+#content .pb-ajax h1.sendError, .pb-ajax h1.sendError {
+    background-color: #b91900;
+} 
+
+#content .pb-ajax h1.mailSent, .pb-ajax h1.mailSent {
+    background-color: #012A43;
+} 
+
+#content .pb-ajax .documentDescription,
+#content .pb-ajax #description,
+.pb-ajax .documentDescription {
+  color: rgb(58, 58, 58);
+  font-weight: normal;
+  font-style: italic;
+  margin: 0;
+  padding: 0.7em;
+  background-color: #dee3e8;
+  background-image: -moz-linear-gradient(#dee3e8,#cfd6dd);
+  background-image: -ms-linear-gradient(#dee2e8,#cfd6dd);
+  background-image: -o-linear-gradient(#dee2e8,#cfd6dd);
+  background-image: -webkit-linear-gradient(#dee2e8,#cfd6dd);
+  background-image: linear-gradient(#dee2e8,#cfd6dd);
+  text-align: center;
+  font-size: 12px;
+  border-top: 1px solid rgba(255, 255, 255, 0.58);
+}
+
+.pb-ajax #content-core label {
+  font-size: 14px;
+  font-weight: normal;
+}
+
+.pb-ajax #content-core .field {
+ clear: both;
+ margin: 0 0 1.5em 0;
+}
+
+#content .pb-ajax fieldset {
+ border: none;
+ padding: 0;
+}
+
+#content .pb-ajax legend {
+ font-size: 14px;
+ font-weight: bold;
+ padding-left: 0;
+}
+
+#content .pb-ajax .formHelp {
+  color: rgba(1,42,67,0.5);
+}
+
+.pb-ajax input[type="text"], 
+.pb-ajax input[type="password"], 
+.pb-ajax input[type="file"] , 
+.pb-ajax textarea, 
+.pb-ajax select {
+  border-radius: 3px;
+  padding: 6px !important;
+}
+
+.pb-ajax div.formControls {
+  margin: 1.5em 1em 0 0;
 }
 
 div.overlaybg div.close a, div.overlay div.close a {
   visibility: hidden;
+}
+
+div.overlay div.close {
+  z-index: 2;
 }
 
 #online-users-container div.inviteParticipant {

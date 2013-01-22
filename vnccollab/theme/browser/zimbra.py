@@ -1,10 +1,6 @@
 import types
 import simplejson
-
-from pyzimbra.z.client import ZimbraClient
-
 from Acquisition import aq_inner
-from DateTime import DateTime
 
 from zope.component import getUtility
 from Products.Five.browser import BrowserView
@@ -113,7 +109,9 @@ class ZimbraMailPortletView(BrowserView):
           @sort_by - sort result set by given field
         """
 
-        emails = self.client.get_emails(folder, offset, limit, recip, sortBy)
+        emails = self.client.get_emails(folder=folder, offset=offset,
+                                        limit=limit, recip=recip,
+                                        sortBy=sortBy)
         return {'emails': self._emails_template(emails=emails).encode('utf-8')}
 
     def get_email(self, eid):
@@ -130,7 +128,7 @@ class ZimbraMailPortletView(BrowserView):
             from_ = [su(e._getAttr('p')) for e in item.e
                         if e._getAttr('t') == 'f']
             from_ = from_[0] if len(from_) else ''
-            to =  u', '.join([su(e._getAttr('d')) for e in item.e
+            to = u', '.join([su(e._getAttr('d')) for e in item.e
                         if e._getAttr('t') == 't'])
 
             thread.append({
@@ -141,7 +139,7 @@ class ZimbraMailPortletView(BrowserView):
                 'date': item._getAttr('d'),
             })
 
-        return {'conversation': '<br />'.join([t['from']+': '+t['body']
+        return {'conversation': '<br />'.join([t['from'] + ': ' + t['body']
             for t in thread])}
 
     def create_email(self):
