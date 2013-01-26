@@ -72,6 +72,7 @@ class TopRatedViewlet(common.ViewletBase):
 
         self.elems = tuple(elems)
 
+
 class ActionsListViewlet(common.ViewletBase):
     """Renders internal ActionsItem List object view.
 
@@ -84,6 +85,7 @@ class ActionsListViewlet(common.ViewletBase):
             if getattr(obj, 'portal_type', '') == 'ActionItemList':
                 self.todo = obj
                 break
+
 
 class LoginViewlet(common.ViewletBase):
     """Most methods are copied over from login portlet renderer"""
@@ -160,6 +162,7 @@ class LoginViewlet(common.ViewletBase):
         acl_users = getToolByName(self.context, 'acl_users')
         return getattr(acl_users, 'credentials_cookie_auth', None)
 
+
 class HeaderTimeViewlet(common.ViewletBase):
     """Returns current date and time in local format"""
 
@@ -174,15 +177,17 @@ class HeaderTimeViewlet(common.ViewletBase):
             default=safe_unicode(date.DayOfWeek()))
         self.datetime = self.toLocalizedTime(date, long_format=True)
 
-    def toLocalizedTime(self, time, long_format=None, time_only = None):
+    def toLocalizedTime(self, time, long_format=None, time_only=None):
         """Convert time to localized time
         """
         util = getToolByName(self.context, 'translation_service')
         return util.ulocalized_time(time, long_format, time_only, self.context,
                                     domain='plonelocales')
 
+
 class PathBarViewlet(common.PathBarViewlet):
     render = ViewPageTemplateFile('templates/path_bar.pt')
+
 
 class FooterViewlet(common.FooterViewlet):
     index = ViewPageTemplateFile('templates/footer.pt')
@@ -246,6 +251,7 @@ class FooterViewlet(common.FooterViewlet):
 
         self.columns = columns
 
+
 class PersonalBarViewlet(common.PersonalBarViewlet):
     index = ViewPageTemplateFile('templates/personal_bar.pt')
 
@@ -281,15 +287,17 @@ class PersonalBarViewlet(common.PersonalBarViewlet):
 
         if self.user_image is not None:
             img_name = os.path.basename(self.user_image)
-            if img_name <> 'defaultUser.png':
+            if img_name != 'defaultUser.png':
                 img = context.portal_memberdata.portraits[img_name]
                 avatar = getUtility(IAvatarUtil)
                 self.avatar_width, self.avatar_height, self.avatar_style = avatar.style(img, (80, 80))
+
 
 class VNCCarouselViewlet(CarouselViewlet):
     """Customize template to fix javascript code"""
 
     index = ViewPageTemplateFile('templates/carousel_viewlet.pt')
+
 
 class VNCCollabHeaderViewlet(common.ViewletBase):
     """Viewlet that inserts vnc header manager into plone header manager"""
@@ -308,6 +316,7 @@ class VNCCollabHeaderViewlet(common.ViewletBase):
         viewlet = viewlet.__of__(context)
         viewlet.update()
         return viewlet.available
+
 
 class RelatedRedmineTicketsViewlet(common.ViewletBase):
     """Lists redmine tickets assigned to current object"""
@@ -413,8 +422,10 @@ class WorldClockViewlet(common.ViewletBase):
         renderer.update()
         self.world_clock = renderer.render()
 
+
 class IExternalEditable(Interface):
     """Marker Interface for objects than can be edited by zopeedit."""
+
 
 class ZopeEditViewlet(common.ViewletBase):
     """Link for external editor"""
@@ -423,6 +434,7 @@ class ZopeEditViewlet(common.ViewletBase):
         p = os.path.dirname(path)
         me = os.path.basename(path) + '.zem'
         return os.path.join(p, 'externalEdit_', me)
+
 
 class AddContentAreaViewlet(common.ViewletBase):
     """Add new content form"""
@@ -470,10 +482,10 @@ class AddContentAreaViewlet(common.ViewletBase):
         ptitle = ''
         p = aq_parent(aq_inner(folder))
         if p:
-            ptitle = getattr(p, 'Title', lambda:'')()
+            ptitle = getattr(p, 'Title', lambda: '')()
             if ptitle:
                 ptitle = ' (%s)' % ptitle
-        return '%s%s' % (getattr(folder, 'Title', lambda:'')(), ptitle)
+        return '%s%s' % (getattr(folder, 'Title', lambda: '')(), ptitle)
 
     @memoize
     def getFolder(self):
