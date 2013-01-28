@@ -4,6 +4,9 @@ Changelog
 1.6.7 - Unreleased
 ------------------
 
+- Moves email_autocomplete_json from cloudstream to theme.
+  [Jose Dinuncio]
+
 - Modifies Add wizard.
   [Jose Dinuncio, Cesar Gonzalez]
 

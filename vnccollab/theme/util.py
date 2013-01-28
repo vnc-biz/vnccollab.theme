@@ -1,10 +1,12 @@
 """Miscellaneous utility functions"""
 from math import ceil
+from pyzimbra.auth import AuthException
+
 from zope.component import getUtility
 from zope.annotation.interfaces import IAnnotations
 
-from Products.CMFCore.utils import getToolByName
 from Products.CMFPlone.utils import safe_unicode
+from Products.CMFCore.utils import getToolByName
 
 from vnccollab.theme.zimbrautil import IZimbraUtil
 
@@ -40,6 +42,17 @@ def getZimbraEmail(context):
     member = mtool.getAuthenticatedMember()
     email = member.getProperty('email')
     return email
+
+
+def getZimbraClient(context):
+    username, password = getZimbraCredentials(context)
+
+    try:
+        client = getUtility(IZimbraUtil).get_client(username=username,
+                                                    password=password)
+    except AuthException:
+        client = None
+    return client
 
 
 def getZimbraCredentials(context):
