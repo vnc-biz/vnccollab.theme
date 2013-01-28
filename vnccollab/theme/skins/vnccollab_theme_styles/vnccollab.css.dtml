@@ -3552,5 +3552,334 @@ a.caltrigger {
   padding: 0;
 }
 
+/* Create New Content Wizzard */
+.addContentArea {
+  position: relative;
+}
+.wizardContentArea {
+  background: url(++resource++vnccollab.cloudstream.images/bg_metabox.png);
+}
+#createWizard {
+  width: 960px;
+  height: 400px;
+  margin: 0 auto;
+  padding: 20px 0 10px 0; 
+  border-bottom: 1px solid rgba(1,42,67,0.2);
+  display: none;
+  position: relative;
+  overflow: hidden;
+
+}
+#createWizard #wizard-steps {
+  width:2940px;
+  height: 400px;
+  float: left;
+  color: rgba(255, 255, 255, 0.5);
+  margin: auto;
+  overflow: hidden;
+
+}
+#createWizard .step {
+  padding:0;
+  width: 960px;
+  height: 400px;
+  float: left;
+  overflow-x: hidden; 
+  overflow-y: auto;
+}
+
+#createWizard #error-msg {
+  float: right;
+  height: 35px;
+  margin-top: -45px;
+  margin-right: 10px;
+  display: none;
+}
+
+#createWizard .nav {
+  float: right;
+  height: 35px;
+  margin-top: -45px;
+  margin-right: 10px;
+}
+
+#createWizard .tab {
+  display: inline-block;
+  height: 35px;
+  width: 20px;
+  color: white;
+  font-size: 1.8em;
+  font-weight: bold;
+  text-shadow: 1px 1px 1px rgba(0,0,0,0.9);
+}
+
+#createWizard .tab a {
+  height: 35px;
+  color: white;
+}
+
+#createWizard a.blocked:hover {
+  color: #747474 !important;
+  cursor: default;
+}
+
+#createWizard a.tab_link:hover {
+  color: #6E9F20;
+}
+
+#createWizard a.active {
+  color: #6E9F20;
+}
+#createWizard a.inactive {
+  color: #ffffff;
+}
+#createWizard a.blocked {
+  color: #747474;
+}
+#createWizard h1 {
+  color: #fff;
+  font-size: 26px;
+  margin-bottom: 20px;
+  text-shadow: 1px 1px 1px rgba(0,0,0,0.9);
+}
+#createWizard h2 {
+  border-top: 1px solid rgba(255, 255, 255, 0.1);
+  clear: left;
+  color: #fff;
+  font-size: 20px;
+  font-weight: normal;
+  margin-bottom: 20px;
+  text-shadow: 1px 1px 1px rgba(0,0,0,0.9);
+  padding-top: 20px;
+}
+#createWizard h3 {
+  color: #fff;
+  font-size: 14px;
+  margin-bottom: 10px;
+  text-shadow: 1px 1px 1px rgba(0,0,0,0.9);
+}
+#createWizard input, #createWizard textarea {
+  padding: 0 !important;
+  font-size: 1.2em;
+}
+
+#createWizard .Column {
+  margin-top: 20px;
+  margin-right: 30px;
+  margin-bottom: 20px;
+}
+#createWizard .Column.Wide {
+  margin-right: 30px;
+  width: 610px;
+}
+#createWizard .Column.First {
+  margin-left: 0;
+}
+.#createWizard form label,
+#createWizard .label {
+  color: rgba(255, 255, 255, 0.8);
+  display: inline-block;
+  font-weight: normal;
+  font-size: 14px;
+  letter-spacing: 1px;
+}
+#createWizard a.Item {
+  background: rgba(255, 255, 255, 0.0);
+  border-radius: 5px;
+  color: rgba(255, 255, 255, 0.5);
+  display: inline-block;
+  padding: 10px;
+  width: 230px;
+  min-height: 37px;
+  vertical-align: top;
+  -webkit-transition:all 0.2s ease-out;  
+  -moz-transition:all 0.2s ease-out;  
+  -o-transition:all 0.2s ease-out;  
+  transition:all 0.2s ease-out;
+}
+#createWizard a.Item:hover {
+  background: rgba(255, 255, 255, 0.1);
+  color: rgba(255, 255, 255, 1.0);
+}
+#createWizard a.Item p.Label {
+  color: #fff;
+  font-size: 14px;
+  font-weight: 600;
+  margin-bottom: 2px;
+}
+#createWizard a.Item p.Desc {
+  font-size:11px;
+  margin:0;
+}
+#createWizard a.Item:Hover p.Desc {
+  font-size:13px;
+}
+#createWizard a.Item img {
+  float:left;
+  margin-right:13px;
+  opacity: 0.4;
+}
+#createWizard a.Item:hover img {
+  height:auto;
+  margin-right:10px;
+  opacity: 1;
+  width: 35px;
+}
+#createWizard #fieldset-default {
+  border: none;
+  padding: 0;
+}
+#createWizard  #fieldsetlegend-default {
+  display: none;
+}
+
+#createWizard span.selectedContainer {
+  color: white;
+}
+
+/* Dynatree CSS */
+#createWizard #tree {
+  padding-bottom: 20px;
+  width: 700px;
+  display: inline-block;
+  vertical-align: top;
+}
+#createWizard .dynatree-container {
+  border: none;
+  border-radius: 4px;
+  padding: 8px;
+  margin-left: 1em;
+  box-shadow: 1px 1px 6px #464646 inset;
+}
+#createWizard .dynatree-container li {
+  line-height: 16px;
+}
+#createWizard ul.dynatree-container li {
+  background-image: url(++resource++vnccollab.cloudcast.images/dynatree/vline.gif);
+}
+#createWizard span.dynatree-node {
+  display: block;
+}
+#createWizard span.dynatree-empty,
+#createWizard span.dynatree-vline,
+#createWizard span.dynatree-connector,
+#createWizard span.dynatree-expander,
+#createWizard span.dynatree-icon,
+#createWizard span.dynatree-checkbox,
+#createWizard span.dynatree-radio,
+#createWizard span.dynatree-drag-helper-img,
+#createWizard #dynatree-drop-marker {
+  background-image: url(++resource++vnccollab.cloudcast.images/dynatree/icons.gif);
+}
+#createWizard .dynatree-statusnode-wait span.dynatree-icon,
+#createWizard .dynatree-loading span.dynatree-expander {
+  background-image: url(++resource++vnccollab.cloudcast.images/dynatree/loading.gif);
+}
+#createWizard .dynatree-title {
+  margin-left: 4px;
+}
+
+#createWizard #tree span.disabled a
+{
+    color:#bbb !important;
+    font-weight: normal;
+}
+
+#createWizard #tree span.disabled a:hover
+{
+    border-color:transparent;
+    background-color:transparent;
+}
+
+#createWizard input, #createWizard textarea {
+  border: none !important;
+  border-radius: 4px;
+  padding: 0 6px !important;
+  box-shadow: 1px 1px 6px #464646 inset;
+  min-height: 40px;
+}
+
+#createWizard input.error-required, #createWizard textarea.error-required {
+  border: 1px solid red !important;
+}
+
+#createWizard input[type=button] {
+  border: 1px solid #132330;
+  border-radius: 5px;
+  box-shadow: 1px 1px 2px #D9D9D9 inset;
+  color: #fff;
+  cursor: pointer;
+
+  font-size: 1.0em;
+  margin: 0;
+  padding: 0 !important;
+  width: 97px;
+  height: 40px;
+  line-height: 40px;
+  overflow: hidden;
+  text-align: center;
+
+  background: #9bc061;
+  background: -moz-linear-gradient(top, #9bc061 0%, #82ad3f 44%, #679819 100%);
+  background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,#9bc061), color-stop(44%,#82ad3f), color-stop(100%,#679819));
+  background: -webkit-linear-gradient(top, #9bc061 0%,#82ad3f 44%,#679819 100%);
+  background: -o-linear-gradient(top, #9bc061 0%,#82ad3f 44%,#679819 100%);
+  background: -ms-linear-gradient(top, #9bc061 0%,#82ad3f 44%,#679819 100%);
+  background: linear-gradient(to bottom, #9bc061 0%,#82ad3f 44%,#679819 100%);
+  filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#9bc061', endColorstr='#679819',GradientType=0 );
+}
+
+#createWizard #send-step2{
+  margin: 43px 60px 0 40px;
+}
+#createWizard #send-wizard {
+  margin: 0 60px 0 40px;
+}
+
+#createWizard form[name='edit_form'] {
+  width: 700px;
+  display: inline-block;
+  vertical-align: top;
+}
+
+#createWizard input[name='form.button.save'], #createWizard input[name='form.button.cancel'] {
+  display: none;
+}
+
+.wizard-overlay {
+  background-color: #0A212F;
+  bottom: -1px;
+  display: none;
+  left: -1px;
+  opacity: 0.5;
+  position: absolute;
+  right: -1px;
+  top: -1px;
+  z-index: 10;
+}
+.wizard-overlay.ajaxLoadImage {
+  left: 50%;
+  height: 32px;
+  margin: -16px 0 0 -16px;
+  position: absolute;
+  top: 50%;
+  width: 32px;
+  z-index: 103;
+}
+.wizard-overlay .spinnerAddContentArea {
+  height: 100px;
+  margin: -50px 0 0 -50px;
+  width: 100px;
+}
+
+#createWizard .destination-label {
+  display: block;
+}
+
+#createWizard .fieldErrorBox{
+  color: red;
+  font-size: 0.8em;
+  display: none;
+}
 
 /* </dtml-with> */
