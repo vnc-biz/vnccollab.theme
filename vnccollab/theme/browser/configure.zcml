@@ -235,7 +235,7 @@
       layer=".interfaces.IThemeSpecific"
       permission="zope2.View"
       />
-  
+
   <browser:page
       for="*"
       name="you-know-you-like-it"
@@ -296,7 +296,7 @@
       layer=".interfaces.IThemeSpecific"
       permission="zope2.View"
       />
-  
+
   <browser:viewlet
       name="plone.footer"
       for="*"
@@ -305,16 +305,7 @@
       layer=".interfaces.IThemeSpecific"
       permission="zope2.View"
       />
-  
-  <!-- <browser:viewlet
-      name="vnccollab.theme.header"
-      manager="plone.app.layout.viewlets.interfaces.IPortalTop"
-      class=".viewlets.VNCCollabHeaderViewlet"
-      template="templates/vnccollab_header.pt"
-      layer=".interfaces.IThemeSpecific"
-      permission="zope2.View"
-      /> -->
-  
+
   <browser:viewlet
       view=".homepage.IHomePageView"
       name="vnccollab.theme.header"
@@ -323,22 +314,13 @@
       layer=".interfaces.IThemeSpecific"
       permission="zope2.View"
       />
-  
+
   <browser:viewlet
     name="plone.path_bar"
     manager="plone.app.layout.viewlets.interfaces.IPortalHeader"
     class=".viewlets.PathBarViewlet"
     permission="zope2.View"
     />
-  
-  <!-- <browser:viewlet
-      name="vnccollab.theme.headertime"
-      manager=".interfaces.IVNCCollabHtmlHead"
-      template="templates/header_time.pt"
-      class=".viewlets.HeaderTimeViewlet"
-      layer=".interfaces.IThemeSpecific"
-      permission="zope2.View"
-      /> -->
 
   <browser:viewlet
       name="vnccollab.theme.headertimeshort"
@@ -348,7 +330,7 @@
       layer=".interfaces.IThemeSpecific"
       permission="zope2.View"
       />
-      
+
   <browser:viewlet
       name="vnccollab.theme.headercarousel"
       manager=".interfaces.IVNCCollabHtmlHead"
@@ -356,7 +338,7 @@
       layer=".interfaces.IThemeSpecific"
       permission="zope2.View"
       />
-      
+
   <browser:viewlet
       name="vnccollab.theme.worldclock"
       manager=".interfaces.IVNCCollabHtmlHead"
@@ -365,36 +347,6 @@
       template="templates/worldclock.pt"
       permission="zope2.View"
       />
-      
-  <!-- <browser:viewlet
-      name="vnccollab.theme.headerlinks"
-      manager=".interfaces.IVNCCollabHtmlHead"
-      template="templates/header_links.pt"
-      layer=".interfaces.IThemeSpecific"
-      permission="zope2.View"
-      /> -->
-  
-  <!-- <browser:viewlet
-      for="plone.app.folder.folder.IATUnifiedFolder"
-      name="vnccollab.theme.toprated"
-      manager="plone.app.layout.viewlets.interfaces.IBelowContent"
-      view="plone.app.layout.globals.interfaces.IViewView"
-      class=".viewlets.TopRatedViewlet"
-      template="templates/toprated.pt"
-      layer=".interfaces.IThemeSpecific"
-      permission="zope2.View"
-      />
-
-  <browser:viewlet
-      for="plone.app.folder.folder.IATUnifiedFolder"
-      name="vnccollab.theme.actionslist"
-      manager="plone.app.layout.viewlets.interfaces.IBelowContent"
-      view="plone.app.layout.globals.interfaces.IViewView"
-      class=".viewlets.ActionsListViewlet"
-      template="templates/actionslist.pt"
-      layer=".interfaces.IThemeSpecific"
-      permission="zope2.View"
-      /> -->
 
   <browser:viewlet
       name="plone.loginviewlet"
@@ -425,12 +377,21 @@
     layer=".interfaces.IThemeSpecific"
     permission="cmf.SetOwnProperties"
     />
-  
+
   <browser:viewlet
     name="cioppino.twothumbs"
     for="cioppino.twothumbs.interfaces.ILoveThumbsDontYou"
     manager="plone.app.layout.viewlets.interfaces.IAboveContentTitle"
     class="cioppino.twothumbs.viewlets.thumbs.ThumbsViewlet"
+    permission="zope2.View"
+    />
+
+  <browser:viewlet
+    name="vnccollab.theme.addbutton"
+    for="*"
+    manager="plone.app.layout.viewlets.interfaces.IPortalHeader"
+    layer=".interfaces.IThemeSpecific"
+    class=".viewlets.AddButtonViewlet"
     permission="zope2.View"
     />
 
@@ -447,7 +408,7 @@
       directory="images"
       layer=".interfaces.IThemeSpecific"
       />
-      
+
   <browser:resourceDirectory
       name="vnccollab.theme.js"
       directory="js"

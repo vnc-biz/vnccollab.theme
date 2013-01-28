@@ -4,6 +4,9 @@ Changelog
 1.6.7 - Unreleased
 ------------------
 
+- Modifies Add wizard.
+  [Jose Dinuncio, Cesar Gonzalez]
+
 - Dump initial setup installation profile.
   [Vitaliy Podoba]
 

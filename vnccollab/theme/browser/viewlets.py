@@ -3,7 +3,7 @@ import logging
 import os.path
 from pyactiveresource.activeresource import ActiveResource
 
-from Acquisition import aq_inner, aq_parent
+from Acquisition import aq_inner
 from DateTime import DateTime
 
 from zope.interface import alsoProvides, Interface
@@ -36,7 +36,7 @@ from vnccollab.theme.config import FOOTER_LINKS_CAT
 from vnccollab.theme.browser.interfaces import IVNCCollabHtmlHead
 from vnccollab.theme.portlets import world_clock
 from vnccollab.theme.settings import IWorldClockSettings
-from vnccollab.theme.util import groupList, getZimbraLiveAnnotatedTasks
+from vnccollab.theme.util import getZimbraLiveAnnotatedTasks
 
 
 _pl = MessageFactory('plonelocales')
@@ -72,6 +72,7 @@ class TopRatedViewlet(common.ViewletBase):
 
         self.elems = tuple(elems)
 
+
 class ActionsListViewlet(common.ViewletBase):
     """Renders internal ActionsItem List object view.
 
@@ -84,6 +85,7 @@ class ActionsListViewlet(common.ViewletBase):
             if getattr(obj, 'portal_type', '') == 'ActionItemList':
                 self.todo = obj
                 break
+
 
 class LoginViewlet(common.ViewletBase):
     """Most methods are copied over from login portlet renderer"""
@@ -160,6 +162,7 @@ class LoginViewlet(common.ViewletBase):
         acl_users = getToolByName(self.context, 'acl_users')
         return getattr(acl_users, 'credentials_cookie_auth', None)
 
+
 class HeaderTimeViewlet(common.ViewletBase):
     """Returns current date and time in local format"""
 
@@ -174,15 +177,17 @@ class HeaderTimeViewlet(common.ViewletBase):
             default=safe_unicode(date.DayOfWeek()))
         self.datetime = self.toLocalizedTime(date, long_format=True)
 
-    def toLocalizedTime(self, time, long_format=None, time_only = None):
+    def toLocalizedTime(self, time, long_format=None, time_only=None):
         """Convert time to localized time
         """
         util = getToolByName(self.context, 'translation_service')
         return util.ulocalized_time(time, long_format, time_only, self.context,
                                     domain='plonelocales')
 
+
 class PathBarViewlet(common.PathBarViewlet):
     render = ViewPageTemplateFile('templates/path_bar.pt')
+
 
 class FooterViewlet(common.FooterViewlet):
     index = ViewPageTemplateFile('templates/footer.pt')
@@ -246,6 +251,7 @@ class FooterViewlet(common.FooterViewlet):
 
         self.columns = columns
 
+
 class PersonalBarViewlet(common.PersonalBarViewlet):
     index = ViewPageTemplateFile('templates/personal_bar.pt')
 
@@ -281,15 +287,17 @@ class PersonalBarViewlet(common.PersonalBarViewlet):
 
         if self.user_image is not None:
             img_name = os.path.basename(self.user_image)
-            if img_name <> 'defaultUser.png':
+            if img_name != 'defaultUser.png':
                 img = context.portal_memberdata.portraits[img_name]
                 avatar = getUtility(IAvatarUtil)
                 self.avatar_width, self.avatar_height, self.avatar_style = avatar.style(img, (80, 80))
+
 
 class VNCCarouselViewlet(CarouselViewlet):
     """Customize template to fix javascript code"""
 
     index = ViewPageTemplateFile('templates/carousel_viewlet.pt')
+
 
 class VNCCollabHeaderViewlet(common.ViewletBase):
     """Viewlet that inserts vnc header manager into plone header manager"""
@@ -308,6 +316,7 @@ class VNCCollabHeaderViewlet(common.ViewletBase):
         viewlet = viewlet.__of__(context)
         viewlet.update()
         return viewlet.available
+
 
 class RelatedRedmineTicketsViewlet(common.ViewletBase):
     """Lists redmine tickets assigned to current object"""
@@ -413,8 +422,10 @@ class WorldClockViewlet(common.ViewletBase):
         renderer.update()
         self.world_clock = renderer.render()
 
+
 class IExternalEditable(Interface):
     """Marker Interface for objects than can be edited by zopeedit."""
+
 
 class ZopeEditViewlet(common.ViewletBase):
     """Link for external editor"""
@@ -424,24 +435,64 @@ class ZopeEditViewlet(common.ViewletBase):
         me = os.path.basename(path) + '.zem'
         return os.path.join(p, 'externalEdit_', me)
 
+
 class AddContentAreaViewlet(common.ViewletBase):
     """Add new content form"""
+    index = ViewPageTemplateFile('templates/add_content_area.pt')
 
     def getAddLinks(self):
-        """Returns tuple containing list of links for 1st, 2nd and file zone
-        areas.
+        """Returns list with info of the allowed types to create using
+        the add wizard.
         """
+        result = self._get_default_allowed_types()
+        ids = [x['id'] for x in result]
+
+        # Adds allowed types in current context
         context = aq_inner(self.context)
+        extend = self._allowed_types(context)
+
+        for item in extend:
+            if item['id'] not in ids:
+                result.append(item)
+
+        return result
+
+    def _get_default_allowed_types(self):
+        '''Default allowed types: the ones you can add to your
+        member folder.'''
+        member_folder = self._get_member_home()
+        if member_folder is None:
+            return []
+        else:
+            return self._allowed_types(member_folder)
+
+    def _get_member_home(self):
+        '''Returns the cuerrent user's folder.'''
+        mtool = getToolByName(self.context, 'portal_membership')
+        member = mtool.getAuthenticatedMember()
+        if member is None:
+            return None
+
+        portal = getToolByName(self.context, 'portal_url').getPortalObject()
+        try:
+            id = member.id.replace('@', '-40')
+            home = portal['Members'][id]
+        except:
+            home = None
+
+        return home
+
+    def _allowed_types(self, context):
+        '''Return info of the types that can be added to the context.'''
         submenu = FactoriesSubMenuItem(context, self.request)
-        folder = self.getFolder()
+        folder = self.getFolder(context)
         folder_url = folder.absolute_url()
+
         idnormalizer = getUtility(IIDNormalizer)
         result = []
-        add_file = ''
+
         for atype in submenu._addableTypesInContext(folder):
             id = atype.getId()
-            if id == 'File':
-                add_file = '%s/upload-file' % folder_url
             result.append({
                 'id': id,
                 'title': atype.Title(),
@@ -452,33 +503,17 @@ class AddContentAreaViewlet(common.ViewletBase):
                     self.site_url, idnormalizer.normalize(id))
             })
 
-        if len(result) == 0:
-            return {}
-
-        # group result by columns
-        result = groupList(result, groups_number=2)
-        data = {'column1': result[0],
-                'column2': (),
-                'column3': add_file}
-        if len(result) > 1:
-            data['column2'] = result[1]
-
-        return data
-
-    def getFolderTitle(self, folder):
-        # add parent title
-        ptitle = ''
-        p = aq_parent(aq_inner(folder))
-        if p:
-            ptitle = getattr(p, 'Title', lambda:'')()
-            if ptitle:
-                ptitle = ' (%s)' % ptitle
-        return '%s%s' % (getattr(folder, 'Title', lambda:'')(), ptitle)
+        return result
 
     @memoize
-    def getFolder(self):
-        context = aq_inner(self.context)
+    def getFolder(self, context):
+        context = aq_inner(context)
         submenu = FactoriesSubMenuItem(context, self.request)
         if submenu.context_state.is_default_page():
             return parent(context)
         return submenu._addContext()
+
+
+class AddButtonViewlet(common.ViewletBase):
+    '''Overrides SearchBoxViewlet for folders in Stream Mode.'''
+    index = ViewPageTemplateFile('templates/addbutton.pt')
