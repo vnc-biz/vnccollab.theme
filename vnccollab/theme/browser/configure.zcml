@@ -196,6 +196,13 @@
       permission="plone.app.portlets.ViewDashboard"
       />
 
+  <browser:page
+      for="*"
+      name="email_autocomplete_json"
+      class=".autocomplete.EmailAutoCompleteView"
+      permission="zope2.View"
+      />
+
   <browser:view
     for="*"
     name="search-contacts"
