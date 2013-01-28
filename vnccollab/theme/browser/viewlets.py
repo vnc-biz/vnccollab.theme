@@ -3,7 +3,7 @@ import logging
 import os.path
 from pyactiveresource.activeresource import ActiveResource
 
-from Acquisition import aq_inner, aq_parent
+from Acquisition import aq_inner
 from DateTime import DateTime
 
 from zope.interface import alsoProvides, Interface
@@ -36,7 +36,7 @@ from vnccollab.theme.config import FOOTER_LINKS_CAT
 from vnccollab.theme.browser.interfaces import IVNCCollabHtmlHead
 from vnccollab.theme.portlets import world_clock
 from vnccollab.theme.settings import IWorldClockSettings
-from vnccollab.theme.util import groupList, getZimbraLiveAnnotatedTasks
+from vnccollab.theme.util import getZimbraLiveAnnotatedTasks
 
 
 _pl = MessageFactory('plonelocales')
@@ -512,3 +512,8 @@ class AddContentAreaViewlet(common.ViewletBase):
         if submenu.context_state.is_default_page():
             return parent(context)
         return submenu._addContext()
+
+
+class AddButtonViewlet(common.ViewletBase):
+    '''Overrides SearchBoxViewlet for folders in Stream Mode.'''
+    index = ViewPageTemplateFile('templates/addbutton.pt')

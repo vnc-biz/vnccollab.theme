@@ -386,6 +386,15 @@
     permission="zope2.View"
     />
 
+  <browser:viewlet
+    name="vnccollab.theme.addbutton"
+    for="*"
+    manager="plone.app.layout.viewlets.interfaces.IPortalHeader"
+    layer=".interfaces.IThemeSpecific"
+    class=".viewlets.AddButtonViewlet"
+    permission="zope2.View"
+    />
+
     <!-- This are the classes we want to edit with zopeedit-->
     <class class="plone.app.blob.content.ATBlob">
         <implements interface=".viewlets.IExternalEditable"/>

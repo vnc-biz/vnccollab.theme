@@ -18,6 +18,7 @@
     <viewlet name="plone.app.i18n.locales.languageselector"/>
     <viewlet name="plone.loginviewlet"/>
     <viewlet name="plone.logo"/>
+    <viewlet name="vnccollab.theme.addbutton"/>
     <viewlet name="plone.searchbox"/>
     <viewlet name="plone.global_sections"/>
     <viewlet name="jarn.xmpp.core.ui"/>

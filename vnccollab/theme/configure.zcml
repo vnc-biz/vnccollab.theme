@@ -78,4 +78,5 @@
       name="vnccollab.theme.vocabularies.NewTicketVocabulary"
       />
 
+  <!--include file="upgrades.zcml" /-->
 </configure>
