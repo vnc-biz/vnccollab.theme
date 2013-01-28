@@ -78,6 +78,9 @@ def _mail_info_from_user(user):
 
 def _mail_info_from_zimbra(user):
     name = user._getAttr('fileAsStr')
+    if name is None:
+        return None
+
     # Coverts 'Surname, Name' in 'Name Surname'
     name = ' '.join([a.strip() for a in name.split(',')[::-1]])
     # TODO: How #$%"/& to get the mail?
@@ -89,3 +92,4 @@ def _mail_info_from_zimbra(user):
     # TODO: zimbra is not returning unicode
     title = safe_unicode('{0} <{1}>'.format(name, email))
     return (email, title)
+
