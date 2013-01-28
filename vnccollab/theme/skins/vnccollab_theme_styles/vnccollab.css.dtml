@@ -1860,144 +1860,6 @@ dl.portalMessage dd {
   height: 240px;
   }
 
-/*----- Content Add Area -----*/
-.addContentArea {
-  position: relative;
-  }
-.MetaBox {
-  background:url(&dtml-portal_url;/add_content_area/bg_metabox.png) #1a3443;
-  border-bottom: 1px solid rgba(1,42,67,0.2);
-  display: none;
-  position: relative;
-  }
-.MetaContent {
-  color: rgba(255,255,255,0.5);
-  margin: auto;
-  overflow: hidden;
-  padding: 20px 0;
-  width: 960px;
-  }
-.MetaContent p {
-  font-size: 12px;
-  letter-spacing: 1px;
-  line-height: 18px;
-  margin-bottom: 20px;
-  text-shadow: 1px 1px 1px rgba(0,0,0,0.8);
-  }
-.MetaContent h1 {
-  color: #fff;
-  font-size: 26px;
-  margin-bottom: 20px;
-  text-shadow: 1px 1px 1px rgba(0,0,0,0.9);
-  }
-.MetaContent h2 {
-  border-top: 1px solid rgba(255, 255, 255, 0.1);
-  clear: left;
-  color: #fff;
-  font-size: 20px;
-  font-weight: normal;
-  margin-bottom: 20px;
-  text-shadow: 1px 1px 1px rgba(0,0,0,0.9);
-  padding-top: 20px;
-  }
-.MetaContent h3 {
-  color: #fff;
-  font-size: 16px;
-  text-shadow: 1px 1px 1px rgba(0,0,0,0.9);
-  }
-.MetaContent .Column {
-  float: left;
-  margin-right: 30px;
-  margin-bottom: 20px;
-  width: 290px;
-  }
-.MetaContent .Column.Wide {
-  margin-right: 30px;
-  width: 610px;
-  }
-.MetaContent .Column.First {
-  margin-left: 0;
-  }
-.MetaContent form label,
-.MetaContent .label {
-  color: rgba(255, 255, 255, 0.8);
-  display: inline-block;
-  font-weight: normal;
-  font-size: 14px;
-  letter-spacing: 1px;
-  }
-.MetaContent a.Item {
-  background: rgba(255, 255, 255, 0.0);
-  border-radius: 5px;
-  color: rgba(255, 255, 255, 0.5);
-  display: block;
-  padding: 10px;
-  -webkit-transition:all 0.2s ease-out;  
-  -moz-transition:all 0.2s ease-out;  
-  -o-transition:all 0.2s ease-out;  
-  transition:all 0.2s ease-out;
-  }
-.MetaContent a.Item:hover {
-  background: rgba(255, 255, 255, 0.1);
-  color: rgba(255, 255, 255, 1.0);
-  }
-.MetaContent a.Item p.Label {
-  color: #fff;
-  font-size: 14px;
-  font-weight: 600;
-  margin-bottom: 2px;
-  }
-.MetaContent a.Item p.Desc {
-  font-size:11px;
-  margin:0;
-  }
-.MetaContent a.Item:Hover p.Desc {
-  font-size:13px;
-  }
-.MetaContent a.Item img {
-  float:left;
-  margin-right:13px;
-  opacity: 0.4;
-  }
-.MetaContent a.Item:hover img {
-  height:auto;
-  margin-right:10px;
-  opacity: 1;
-  width: 35px;
-  }
-.MetaContent form input {
-  background: rgba(255, 255, 255, 0.7);
-  border: 1px solid rgba(255, 255, 255, 1.0);
-  border-radius: 5px;
-  color: rgba(1,42,67,1.0);
-  font-size:14px;
-  margin-top: -6px;
-  padding: 6px;
-  }
-#destination {
-  margin-bottom: 4px;
-  width: 100%;
-  }
-.MetaContent .DropZone {
-  border:3px dashed rgba(255,255,255,0.3);
-  border-radius:10px;
-  padding: 50px 10px;
-  text-align: center;
-  }
-.MetaContent .DropZone input {
-  max-width: 250px;
-  }
-.MetaBoxOverlay {
-  background-color: #aaa;
-  bottom: -1px;
-  display: none;
-  left: -1px;
-  opacity: 0.5;
-  position: absolute;
-  right: -1px;
-  top: -1px;
-  z-index: 10;
-  }
 .ajaxLoadImage {
   left: 50%;
   height: 32px;
@@ -3639,6 +3501,7 @@ a.caltrigger {
   overflow: hidden;
 
 }
+
 #createWizard #wizard-steps {
   width:2940px;
   height: 400px;
@@ -3648,6 +3511,7 @@ a.caltrigger {
   overflow: hidden;
 
 }
+
 #createWizard .step {
   padding:0;
   width: 960px;
@@ -3655,6 +3519,10 @@ a.caltrigger {
   float: left;
   overflow-x: hidden; 
   overflow-y: auto;
+}
+
+#createWizard .step-content {
+  padding-bottom: 60px;
 }
 
 #createWizard #error-msg {
