@@ -16,5 +16,17 @@
 
     </genericsetup:upgradeSteps>
 
+    <genericsetup:upgradeSteps
+      source="1101"
+      destination="1103"
+      sortkey="2"
+      profile="vnccollab.theme:default">
+
+        <genericsetup:upgradeDepends
+          title="Adds AddButtonViewlet"
+          import_steps="jsregistry viewlets"
+          />
+    </genericsetup:upgradeSteps>
+
 </configure>
 
