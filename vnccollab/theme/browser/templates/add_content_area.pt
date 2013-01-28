@@ -1,5 +1,5 @@
 <div class="addContentArea wizardContentArea"
-   i18n:domain="vnccollab.cloudtheme"
+   i18n:domain="vnccollab.theme"
    tal:define="purl context/portal_url;
                 types  view/getAddLinks;">
 
@@ -14,7 +14,7 @@
         </div>
         <div id="error-msg">Please complete the current Step for continue</div>
         <div id="wizard-steps">
-
+            
             <div class="step step1">
               <H3>SELECT CONTENT TYPE</H3>
               <div class="step-content">
@@ -38,11 +38,10 @@
                          i18n:translate="add_content_area_link_desc">Create a new <tal:type i18n:name="type" replace="link/title">folder</tal:type></p>
                     </a>
                     </tal:links>
-
+        
                 </div>
 
-
-
+            
               </div>
             </div>
             <div class="step step2">
@@ -80,4 +79,3 @@
     </div>
     <div id="add-arrow"></div>
 </div>
-
