@@ -438,22 +438,61 @@ class ZopeEditViewlet(common.ViewletBase):
 
 class AddContentAreaViewlet(common.ViewletBase):
     """Add new content form"""
+    index = ViewPageTemplateFile('templates/add_content_area.pt')
 
     def getAddLinks(self):
-        """Returns tuple containing list of links for 1st, 2nd and file zone
-        areas.
+        """Returns list with info of the allowed types to create using
+        the add wizard.
         """
+        result = self._get_default_allowed_types()
+        ids = [x['id'] for x in result]
+
+        # Adds allowed types in current context
         context = aq_inner(self.context)
+        extend = self._allowed_types(context)
+
+        for item in extend:
+            if item['id'] not in ids:
+                result.append(item)
+
+        return result
+
+    def _get_default_allowed_types(self):
+        '''Default allowed types: the ones you can add to your
+        member folder.'''
+        member_folder = self._get_member_home()
+        if member_folder is None:
+            return []
+        else:
+            return self._allowed_types(member_folder)
+
+    def _get_member_home(self):
+        '''Returns the cuerrent user's folder.'''
+        mtool = getToolByName(self.context, 'portal_membership')
+        member = mtool.getAuthenticatedMember()
+        if member is None:
+            return None
+
+        portal = getToolByName(self.context, 'portal_url').getPortalObject()
+        try:
+            id = member.id.replace('@', '-40')
+            home = portal['Members'][id]
+        except:
+            home = None
+
+        return home
+
+    def _allowed_types(self, context):
+        '''Return info of the types that can be added to the context.'''
         submenu = FactoriesSubMenuItem(context, self.request)
-        folder = self.getFolder()
+        folder = self.getFolder(context)
         folder_url = folder.absolute_url()
+
         idnormalizer = getUtility(IIDNormalizer)
         result = []
-        add_file = ''
+
         for atype in submenu._addableTypesInContext(folder):
             id = atype.getId()
-            if id == 'File':
-                add_file = '%s/upload-file' % folder_url
             result.append({
                 'id': id,
                 'title': atype.Title(),
@@ -464,32 +503,11 @@ class AddContentAreaViewlet(common.ViewletBase):
                     self.site_url, idnormalizer.normalize(id))
             })
 
-        if len(result) == 0:
-            return {}
-
-        # group result by columns
-        result = groupList(result, groups_number=2)
-        data = {'column1': result[0],
-                'column2': (),
-                'column3': add_file}
-        if len(result) > 1:
-            data['column2'] = result[1]
-
-        return data
-
-    def getFolderTitle(self, folder):
-        # add parent title
-        ptitle = ''
-        p = aq_parent(aq_inner(folder))
-        if p:
-            ptitle = getattr(p, 'Title', lambda: '')()
-            if ptitle:
-                ptitle = ' (%s)' % ptitle
-        return '%s%s' % (getattr(folder, 'Title', lambda: '')(), ptitle)
+        return result
 
     @memoize
-    def getFolder(self):
-        context = aq_inner(self.context)
+    def getFolder(self, context):
+        context = aq_inner(context)
         submenu = FactoriesSubMenuItem(context, self.request)
         if submenu.context_state.is_default_page():
             return parent(context)

@@ -1,101 +1,75 @@
-<div class="addContentArea"
-     i18n:domain="vnccollab.theme"
-     tal:define="purl context/portal_url;
-                 links view/getAddLinks;
-                 folder view/getFolder">
-  <div class="MetaBox" id="metaBox">
-      <div class="MetaContent">
-          <H1><strong>CREATE</strong> NEW CONTENT...</H1>
-          <p>To add new content, please select the place you want to add that content to, and then click one of the content types below. <br>
-          To upload a file, select the place you want to upload to and drag the file onto the drop zone.</p>
-          <div class="Column First">
-            <div class="label">Add new content to:</div></div>
+<div class="addContentArea wizardContentArea"
+   i18n:domain="vnccollab.cloudtheme"
+   tal:define="purl context/portal_url;
+                types  view/getAddLinks;">
 
-          <div class="Column Wide"
-               tal:define="has_uid python: 'UID' in dir(folder);
-                           uid python: has_uid and folder.UID or '';">
-            <form name="add_new_content_form">
-              <input class="inputLabel" type="text" name="destination"
-                     id="destination"
-                     title="Start typing the name of the destination."
-                     value="" />
-              <input type="hidden" name="selected_destination"
-                     value=""
-                     tal:attributes="value uid" />
-              <label for="destination">Selected Container:</label>
-              <span class="selectedContainer"
-                    tal:define="title python:view.getFolderTitle(folder)"
-                    tal:content="python:uid and title or 'Site Root'">Context Title</span>
-            </form>
-          </div>
-        
-          <h2>Content Types</h2>
-        
-          <div class="Column Wide noTypesToAddMessage"
-               tal:condition="not:links"
-               i18n:translate="">You are not allowed to add any content into
-            selected container. Please, choose another container or contact site
-            administrator.
-          </div>
-        
-          <div class="Column First"
-               tal:condition="links"
-               tal:define="col1 python:links.get('column1')">
-            <tal:links repeat="link col1">
-            <a href="#" class="Item"
-               tal:attributes="href link/url">
-              <img src=""
-                   alt="Add %s"
-                   i18n:attributes="alt"
-                   tal:attributes="src link/icon;
-                                   alt python:attrs['alt'] % link['title']" />
-              <p class="Label"
-                 tal:content="link/title"
-                 i18n:translate="">Folder</p>
-              <p class="Desc"
-                 i18n:translate="add_content_area_link_desc">Create a new <tal:type i18n:name="type" replace="link/title">folder</tal:type></p>
-            </a>
-            </tal:links>
-          </div>
-        
-          <div class="Column"
-               tal:condition="links"
-               tal:define="col2 python:links.get('column2')">
-            <tal:links repeat="link col2">
-            <a href="#" class="Item"
-               tal:attributes="href link/url">
-              <img src=""
-                   alt="Add %s"
-                   i18n:attributes="alt"
-                   tal:attributes="src link/icon;
-                                   alt python:attrs['alt'] % link['title']" />
-              <p class="Label"
-                 tal:content="link/title"
-                 i18n:translate="">Folder</p>
-              <p class="Desc"
-                 i18n:translate="add_content_area_link_desc">Create a new <tal:type i18n:name="type" replace="link/title">folder</tal:type></p>
-            </a>
-            </tal:links>
-          </div>
-        
-          <div class="Column"
-               tal:condition="links"
-               tal:define="link python:links.get('column3')">
-              <div class="DropZone"
-                   tal:condition="link">
-                  <p>Drop file to upload into this zone or</p>
-                  <form action="" method="post"
-                        tal:attributes="action link"
-                        enctype="multipart/form-data">
-                      <input type="file" value="Click here to select file..."
-                             name="file" />
-                  </form>
+   <div id="createWizard">
+        <H1><strong>CREATE</strong> NEW CONTENT...</H1>
+        <div class="nav">
+          <ul>
+            <li class="tab"><a class="tab_link active" id="tab_1" href="" rel="1">1</a></li>
+            <li class="tab"><a class="tab_link blocked" id="tab_2" href="" rel="2">2</a></li>
+            <li class="tab"><a class="tab_link blocked" id="tab_3" href="" rel="3">3</a></li>
+        </ul>
+        </div>
+        <div id="error-msg">Please complete the current Step for continue</div>
+        <div id="wizard-steps">
+
+            <div class="step step1">
+              <H3>SELECT CONTENT TYPE</H3>
+              <div class="step-content">
+                <p>To add new content, please select the place you want to add that content to, and then click one of the content types below. <br>
+                To upload a file, select the place you want to upload to and drag the file onto the drop zone.</p>
+                <div class="Column First"
+                    tal:condition="types">
+                    <tal:links repeat="link types">
+                    <a href="#" class="Item"
+                        tal:attributes="href link/url;
+                                        data link/id">
+                      <img src=""
+                           alt="Add %s"
+                           i18n:attributes="alt"
+                           tal:attributes="src link/icon;
+                                           alt python:attrs['alt'] % link['title']" />
+                      <p class="Label"
+                         tal:content="link/title"
+                         i18n:translate="">Folder</p>
+                      <p class="Desc"
+                         i18n:translate="add_content_area_link_desc">Create a new <tal:type i18n:name="type" replace="link/title">folder</tal:type></p>
+                    </a>
+                    </tal:links>
+
+                </div>
+
+
+
               </div>
-          </div>
-        
-      </div>
+            </div>
+            <div class="step step2">
+                <H3>ENTER CONTENT INFORMATION</H3>
+                 <div class="step-content">
+                    <input type="button" name="send-step2" id="send-step2" value="OK"/>
+                 </div>
+            </div>
+            <div class="step step3">
+                <H3>WHERE DO YOU WANT TO PUT THE NEW ITEM?</H3>
+                <div class="step-content">
+                    <label class="formQuestion" for="tree">
+                        Destination
+                        <span class="required" title="Required">&nbsp;</span>
+                        <span class="formHelp" id="destination_help"></span>
+                    </label>
+                    <div id="tree" name="tree"></div>
+                    <input type="button" name="send-wizard" id="send-wizard" value="OK"/>
+                    <input type="hidden" name="selected_destination" value=""/>
+                    <label class="destination-label" for="destination">Selected Container:</label>
+                    <span class="selectedContainer"></span>
+                </div>
+            </div>
+        </div>
+    </div>
 
-      <div class="MetaBoxOverlay">
+    <div class="wizard-overlay">
         <div class="ajaxLoadImage">
           <img class="spinnerAddContentArea"
                alt="Loading..."
@@ -103,120 +77,7 @@
                tal:attributes="src string:${context/portal_url}/${attrs/src}"
                />
         </div>
-      </div>
-
-  </div>
-
-  <div class="PullTab" id="metaBoxButton">    
-    <a href="#" rel="nofollow">
-      <img src="add_content_area/head_pulltab.png"
-           alt="VNC and You."
-           i18n:attributes="alt"
-           tal:attributes="src string:${purl}/${attrs/src}" />
-    </a>
-  </div>
-
-<script type="text/javascript">
-jq('#metaBoxButton').click(function() {
-  if (jq("#metaBox").is(":hidden")) {
-    jq('#metaBox').slideDown("fast");
-    jq(this).addClass("open");
-  } else {
-    jq('#metaBox').slideUp("fast");
-    jq(this).removeClass("open");
-  }
-  return false;
-});
-function attachAddContentTypeAreaAutocomplete() {
-  jq('form[name=add_new_content_form] input#destination').autocomplete({
-    'source': portal_url + '/@@search-containers.json',
-    'minLength': 2,
-    'select': function(event, ui) {
-      // show overlay and ajax spinner
-      jq('.MetaBoxOverlay').show();
-      jq.ajax({
-        'url': portal_url + '/@@addcontentarea_viewlet',
-        'method': 'GET',
-        'data': {'uid': ui.item.value},
-        'success': function(data) {
-          if (data) {
-            jq('.addContentArea').outerHTML(data);
-            jq("#metaBox").show();
-          } else {
-            alert('Requested container does not exist.');
-            jq('.MetaBoxOverlay').hide();
-          }
-        },
-        'error': function() {
-          // hide overlay and spinner
-          jq('.MetaBoxOverlay').hide();
-          return true;
-        }
-      });
-      attachAddContentTypeAreaAutocomplete();
-      attachDnDFile();
-      jq(event.target).val(ui.item.label);
-      return false;
-    },
-    'focus': function(event, ui) {
-      jq(event.target).val(ui.item.label);
-      return false;
-    }
-  }).data("autocomplete")._renderItem = function(ul, item) {
-    return jq("<"+"li><"+"/li>").data("item.autocomplete", item)
-      .append("<"+"a><" + "strong>" + item.label + "<" + "/strong><"+"br>" + item.desc + "<"+"/a>").appendTo(ul);
-    };
-};
-attachAddContentTypeAreaAutocomplete();
-
-var dndSupported = function () {
-  var div = document.createElement('div');
-  return ('draggable' in div) || ('ondragstart' in div && 'ondrop' in div);
-};
-
-function attachDnDFile() {
-  // post file on input File change
-  jq('.DropZone form input[name=file]').change(function(event){
-    jq('.MetaBoxOverlay').show();
-    jq(this).parents('form').submit();
-  });
-  
-  // also attach drag and drop functionality if supported by browser
-  if (dndSupported()) {
-    var zone = jq('.DropZone');
-    if (zone.length == 0) {
-      return;
-    }
-    zone[0].ondragover = function () {return false;};
-    zone[0].ondragend = function () {return false;};
-    zone[0].ondrop = function (event) {
-      event.preventDefault && event.preventDefault();
-      var file = event.dataTransfer.files[0];
-      if (!file) {
-        return false;
-      }
-      
-      // send file to server
-      var formData = new FormData();
-      formData.append('file', file);
-      formData.append('ajax_call', '1');
-
-      var xhr = new XMLHttpRequest();
-      xhr.open('POST', jq('.DropZone form').attr('action'), true);
-      xhr.onload = function(e) {
-        // redirect to file edit form
-        window.location.href = jq.trim(this.responseText);
-      };
-      // show overlay
-      jq('.MetaBoxOverlay').show();
-      xhr.send(formData);  // multipart/form-data
-
-      return false;
-    }
-  }
-};
-
-attachDnDFile();
-</script>
-
+    </div>
+    <div id="add-arrow"></div>
 </div>
+
