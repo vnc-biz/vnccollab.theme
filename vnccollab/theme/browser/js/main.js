@@ -845,6 +845,46 @@ function animateContentWizardStep( stepNum, prevStepNum ) {
 }
 
 //
+// simpleValidateFormWizard
+//
+function simpleValidateFormWizard() {
+  var resp = true;
+
+  jq('.wizard-required').find('input[type=text]').each(function() { 
+    if(jq(this).val() == '') {
+      jq(this).addClass('error-required');
+      jq(this).prev('.fieldErrorBox').show().html('This field is required !');
+      resp = false;
+    } else {
+      jq(this).prev('.fieldErrorBox').hide();
+      jq(this).removeClass('error-required');
+    } 
+  });
+  jq('.wizard-required').find('textarea').each(function() { 
+    if(jq(this).val() == '') {
+      jq(this).addClass('error-required');
+      jq(this).prev('.fieldErrorBox').show().html('This field is required !');
+      resp = false;
+    }  else {
+      jq(this).prev('.fieldErrorBox').hide();
+      jq(this).removeClass('error-required');
+    }
+  });
+  jq('.wizard-required').find('input[type=file]').each(function() { 
+    if(jq(this).val() == '') {
+      jq(this).addClass('error-required');
+      jq(this).parent().siblings('.fieldErrorBox').show().html('This file is required !');
+      resp = false;
+    } else {
+      jq(this).parent().siblings('.fieldErrorBox').hide();
+      jq(this).removeClass('error-required');
+    } 
+  });
+
+  return resp;
+}
+
+//
 // loadCreateWizard
 //
 function loadCreateWizard(href, callback) {
@@ -879,12 +919,12 @@ function loadCreateWizard(href, callback) {
 
       callback();
 
-      //jq('.step2 .step-content').html(data);
-      //jq('.step2 .step-content').html(jq(data).find('form[name=edit_form]')
-      //                          .addClass('done'))
-      //                          .fadeIn('slow');
     },
-    error: ajaxErrorHandler
+    error: function(){
+      alert('Sorry, something went wrong on the server. Please, try ' +
+            'a bit later.');
+      jq('.wizard-overlay').hide();
+    }
 
   });
 
@@ -896,7 +936,7 @@ function loadCreateWizard(href, callback) {
 function setHandlersWizard() {
 
   var wizard_container = jq('#createWizard');
-  if (wizard_container.length == 1) {
+  if (wizard_container.length == 0) {
     return false;
   } 
 
