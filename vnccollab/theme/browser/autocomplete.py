@@ -52,7 +52,8 @@ class EmailAutoCompleteView(BrowserView):
 
     @instance.memoize
     def mail_info_from_zimbra_address_book(self):
-        '''Returns the mail info from the zimbra address book of the current user.'''
+        '''Returns the mail info from the zimbra address book of the current
+        user.'''
         client = getZimbraClient(self.context)
         if client is None:
             return []
