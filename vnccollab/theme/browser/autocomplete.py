@@ -93,5 +93,5 @@ def _mail_info_from_zimbra(user):
     # TODO: zimbra is not returning unicode
     name = safe_unicode(name)
     email = safe_unicode(email)
-    title = '{0} <{1}>'.format(name, email)
+    title = u'{0} <{1}>'.format(name, email)
     return (email, title)
