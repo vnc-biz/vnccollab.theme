@@ -1,6 +1,30 @@
 Changelog
 =========
 
+1.6.7 - January 30, 2013
+------------------------
+
+- Moves email_autocomplete_json from cloudstream to theme.
+  [Jose Dinuncio]
+
+- Modifies Add wizard.
+  [Jose Dinuncio, Cesar Gonzalez]
+
+- Dump initial setup installation profile.
+  [Vitaliy Podoba]
+
+- Fix comment layout.
+  [Cesar Gonzalez]
+
+- Fix search box style in Dashboard Mode.
+  [Cesar Gonzalez]
+
+- Disable top rated and action list viewlets.
+  [Vitaliy Podoba]
+
+- Fix indexes installation.
+  [Vitaliy Podoba]
+
 1.6.6 - December 24, 2012
 -------------------------
 

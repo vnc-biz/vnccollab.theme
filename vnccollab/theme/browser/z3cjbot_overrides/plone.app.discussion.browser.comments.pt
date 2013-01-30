@@ -62,28 +62,6 @@
                                          alt reply/Creator" />
                 </div>
 
-                <div class="documentByLine" i18n:domain="plone.app.discussion">
-                    <tal:name>
-                        <a href=""
-                           tal:condition="has_author_link"
-                           tal:content="reply/Creator"
-                           tal:attributes="href author_home_url">
-                            Poster Name
-                        </a>
-                        <span tal:condition="not: has_author_link"
-                              tal:replace="reply/Creator" />
-                        <span tal:condition="not: reply/Creator">Anonymous</span>
-                    </tal:name>
-                    <span>&#32;&#8226;&#32;</span>
-                    <span class="commentDate"
-                         tal:content="python:view.format_time(reply.modification_date)">
-                         8/23/2001 12:40:44 PM
-                    </span><span>&#32;&#8226;&#32;</span>
-                </div>
-
-                <div class="commentBody">
-                    <span tal:replace="structure reply/getText" />
-                </div>
 
                 <div class="commentActions">
                         <form name="delete"
@@ -117,7 +95,30 @@
                                    i18n:attributes="value"
                                    />
                         </form>
-                    </div>
+                </div>
+
+                <div class="documentByLine" i18n:domain="plone.app.discussion">
+                    <tal:name>
+                        <a href=""
+                           tal:condition="has_author_link"
+                           tal:content="reply/Creator"
+                           tal:attributes="href author_home_url">
+                            Poster Name
+                        </a>
+                        <span tal:condition="not: has_author_link"
+                              tal:replace="reply/Creator" />
+                        <span tal:condition="not: reply/Creator">Anonymous</span>
+                    </tal:name>
+                    <span>&#32;&#8226;&#32;</span>
+                    <span class="commentDate"
+                         tal:content="python:view.format_time(reply.modification_date)">
+                         8/23/2001 12:40:44 PM
+                    </span><span>&#32;&#8226;&#32;</span>
+                    <div class="commentBody">
+                    <span tal:replace="structure reply/getText" />
+                </div>
+                </div>
+
                 <!-- We don't allow replies, so we could have a comment list
                      instead of a comment tree. In this way we're sure we can
                      reverse the order and still make sense of it.
@@ -141,6 +142,9 @@
 
     </div>
 
+     <div class="discussion"
+         tal:condition="not:has_replies">&#32;</div>
+
     <div class="reply"
          tal:condition="python:has_replies and (isAnon and not isAnonymousDiscussionAllowed)">
         <form tal:attributes="action view/login_action">
@@ -159,6 +163,7 @@
           formatting.
       </p>
       <div tal:replace="structure view/form/render" />
+      <div class="clear"></div>
     </div>
 
 </tal:block>

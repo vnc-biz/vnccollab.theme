@@ -1,7 +1,7 @@
 from setuptools import setup, find_packages
 import os
 
-version = '1.6.6'
+version = '1.6.7'
 
 setup(name='vnccollab.theme',
       version=version,
@@ -41,13 +41,18 @@ setup(name='vnccollab.theme',
           'tldextract',
           'Products.AdvancedQuery',
           'collective.xmpp.chat',
-          'cioppino.twothumbs',
+          'plone.api',
+          'plone.app.jquery',
+          'plone.app.jquerytools',
           'jarn.xmpp.core',
           'jarn.jsi18n',
           'jarn.xmpp.collaboration',
           'collective.js.jqueryui',
+          'collective.plonetruegallery',
+          'collective.z3cform.datepicker',
           'collective.customizablePersonalizeForm',
           'collective.notices',
+          'sc.social.bookmarks',
       ],
       entry_points="""
       # -*- Entry points: -*-

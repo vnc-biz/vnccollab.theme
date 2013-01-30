@@ -16,5 +16,27 @@
 
     </genericsetup:upgradeSteps>
 
+    <genericsetup:upgradeSteps
+      source="1101"
+      destination="1103"
+      sortkey="2"
+      profile="vnccollab.theme:default">
+
+        <genericsetup:upgradeDepends
+          title="Adds AddButtonViewlet"
+          import_steps="jsregistry viewlets"
+          />
+    </genericsetup:upgradeSteps>
+
+    <genericsetup:upgradeStep
+      title="vnccollab.theme.addcontent on"
+      description="Forces vnccollab.theme.addcontent viewlet visibility"
+      source="1103"
+      destination="1104"
+      handler="vnccollab.theme.upgrades.upgrades.upgrade_1103_1104"
+      sortkey="3"
+      profile="vnccollab.theme:default"
+      />
+
 </configure>
 
