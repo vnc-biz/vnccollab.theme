@@ -3336,18 +3336,20 @@ table.listing td:last-child {
  margin: 0 0 1.5em 0;
 }
 
-#content .pb-ajax fieldset {
+#content .pb-ajax fieldset, .documentEditable .pb-ajax fieldset {
  border: none;
  padding: 0;
 }
 
-#content .pb-ajax legend {
+#content .pb-ajax legend, .documentEditable .pb-ajax legend {
  font-size: 14px;
  font-weight: bold;
  padding-left: 0;
 }
 
-#content .pb-ajax .formHelp {
+#content .pb-ajax .formHelp, .documentEditable .pb-ajax .formHelp {
+  color: rgba(1,42,67,0.5);
+} {
   color: rgba(1,42,67,0.5);
 }
 
