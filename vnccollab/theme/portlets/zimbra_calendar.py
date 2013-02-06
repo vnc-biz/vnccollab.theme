@@ -116,7 +116,6 @@ class Renderer(base.Renderer):
 
     render = ZopeTwoPageTemplateFile('templates/zimbra_calendar.pt')
 
-    @memoize
     def getAuthCredentials(self):
         """Returns username and password for zimbra user."""
         username, password = self.data.username, self.data.password
