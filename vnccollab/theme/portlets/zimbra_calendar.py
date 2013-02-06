@@ -1,28 +1,15 @@
-import time
-import sys
-from urllib2 import urlopen, Request
-import logging
-import base64
-import simplejson
-from datetime import datetime
-
-from DateTime import DateTime
-
-from zope.formlib import form
-from zope.interface import implements, Interface
-from zope.component import getUtility
 from zope import schema
+from zope.formlib import form
+from zope.interface import implements
 
-from Products.Five.browser.pagetemplatefile import ZopeTwoPageTemplateFile
 from Products.CMFCore.utils import getToolByName
 from Products.CMFPlone.utils import safe_unicode
+from Products.Five.browser.pagetemplatefile import ZopeTwoPageTemplateFile
 
-from plone.memoize.instance import memoize
 from plone.portlets.interfaces import IPortletDataProvider
 from plone.app.portlets.portlets import base
 
 from vnccollab.theme import messageFactory as _
-
 
 
 class IZimbraCalendarPortlet(IPortletDataProvider):
@@ -86,18 +73,9 @@ class IZimbraCalendarPortlet(IPortletDataProvider):
         required=True,
         default=5)
 
+
 class Assignment(base.Assignment):
     implements(IZimbraCalendarPortlet)
-
-    header = u'Zimbra Calendar'
-    url = 'https://zcs.vnc.biz'
-    mail_domain = u'vnc.biz'
-    username = ''
-    password = u''
-    calendar_name = u''
-    timeout = 5
-    request_timeout = 15
-    failure_delay = 5
 
     @property
     def title(self):
@@ -118,6 +96,7 @@ class Assignment(base.Assignment):
         self.request_timeout = request_timeout
         self.failure_delay = failure_delay
 
+
 class AddForm(base.AddForm):
     form_fields = form.Fields(IZimbraCalendarPortlet)
     label = _(u"Add Zimbra Calendar Portlet")
@@ -125,6 +104,7 @@ class AddForm(base.AddForm):
 
     def create(self, data):
         return Assignment(**data)
+
 
 class EditForm(base.EditForm):
     form_fields = form.Fields(IZimbraCalendarPortlet)
@@ -158,7 +138,7 @@ class Renderer(base.Renderer):
     def src(self):
         '''Returs the url of the zimbra calendar'''
         username, password = self.getAuthCredentials()
-        return '%s/service/home/%s@%s/%s.html' % (
+        src = '%s/service/home/%s@%s/%s.html' % (
                self.data.url, username, self.data.mail_domain,
                self.data.calendar_name)
-
+        return src
