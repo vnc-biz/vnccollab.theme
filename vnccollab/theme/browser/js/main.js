@@ -453,8 +453,11 @@ function attachStreamButton() {
           setTimeout(checkVNCStream, vncStreamDelay);
         },
         'error': function() {
-          alert('Sorry, something went wrong on the server. Please, try ' +
-            'a bit later.');
+          // TODO: make smart alert only when something really goes wrong
+          //       Now we get alerts even when user reloads page before ajax
+          //       call hasn't finished
+          // alert('Sorry, something went wrong on the server. Please, try ' +
+          //   'a bit later.');
           vncStreamLoading = false;
           // remove spinner
           jq('#xmpp-viewlet-container .spinner').hide();
@@ -558,8 +561,11 @@ function loadVncChat(sucess_callback, error_callback) {
                      }
                    },
       'error': function() {
-                 alert('Sorry, something went wrong on the server.' + 
-                       'Please, try a bit later.');
+                // TODO: make smart alert only when something really goes wrong
+                //       Now we get alerts even when user reloads page before
+                //       ajax call hasn't finished
+                 // alert('Sorry, something went wrong on the server.' + 
+                 //       'Please, try a bit later.');
                  error_callback();
                },
       'data': {}
@@ -925,8 +931,11 @@ function loadCreateWizard(href, callback) {
 
     },
     error: function(){
-      alert('Sorry, something went wrong on the server. Please, try ' +
-            'a bit later.');
+      // TODO: make smart alert only when something really goes wrong
+      //       Now we get alerts even when user reloads page before ajax
+      //       call hasn't finished
+      // alert('Sorry, something went wrong on the server. Please, try ' +
+      //       'a bit later.');
       jq('.wizard-overlay').hide();
     }
 

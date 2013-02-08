@@ -1,6 +1,15 @@
 Changelog
 =========
 
+1.6.8 - Unreleased
+------------------
+
+- Add Group details page.
+  [Vitaliy Podoba]
+
+- Do not alert on ajax errors.
+  [Vitaliy Podoba]
+
 1.6.7 - January 30, 2013
 ------------------------
 
