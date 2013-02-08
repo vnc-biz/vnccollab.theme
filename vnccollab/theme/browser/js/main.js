@@ -834,8 +834,12 @@ function rebindPubSubStreamHandlers () {
 //
 // animateContentWizardStep
 //
-function animateContentWizardStep( stepNum, prevStepNum ) {
-  jq('.tab_link').filter('.active').removeClass('active').addClass('inactive');
+function animateContentWizardStep( stepNum, reset ) {
+  if ( reset ) {
+   jq('.tab_link').addClass('blocked').removeClass('inactive').removeClass('active'); 
+  } else {
+   jq('.tab_link').filter('.active').removeClass('active').addClass('inactive'); 
+ }
   jq('#tab_'+stepNum).addClass('active').removeClass('blocked');
   jq('#tab_'+stepNum).removeClass('inactive');
 
@@ -973,6 +977,17 @@ function setHandlersWizard() {
   jq('.tab').on('click', '.active', function( event ) {
      event.preventDefault();
      event.stopPropagation();
+  });
+
+  //set close Wizard
+  jq('.close_link').click(function() {
+    event.preventDefault();
+    animateContentWizardStep(1);
+    jq('#createWizard').slideUp('fast');
+      jq(this).removeClass('open');
+      jq('#add-arrow').removeClass('open');
+      
+      animateContentWizardStep(1, true);
   });
 
 

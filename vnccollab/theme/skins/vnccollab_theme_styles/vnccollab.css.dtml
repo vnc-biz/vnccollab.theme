@@ -3550,6 +3550,7 @@ a.caltrigger {
   font-size: 1.8em;
   font-weight: bold;
   text-shadow: 1px 1px 1px rgba(0,0,0,0.9);
+  vertical-align: top;
 }
 
 #createWizard .tab a {
@@ -3557,13 +3558,33 @@ a.caltrigger {
   color: white;
 }
 
+#createWizard .tab_close {
+  height: 35px;
+  color: white;
+  display: inline-block;
+  vertical-align: top;
+}
+
 #createWizard a.blocked:hover {
-  color: #747474 !important;
+  color: #8997a0 !important;
   cursor: default;
 }
 
 #createWizard a.tab_link:hover {
   color: #6E9F20;
+}
+
+#createWizard a.close_link {
+  background: url(&dtml-portal_url;/createpanel_close_off.png) no-repeat 5px 5px;
+  color: transparent;
+  text-shadow: none;
+  height: 35px;
+  width: 35px;
+  display: inline-block;
+}
+
+#createWizard a.close_link:hover {
+  background: url(&dtml-portal_url;/createpanel_close_on.png) no-repeat 6px 6px;
 }
 
 #createWizard a.active {
@@ -3573,7 +3594,7 @@ a.caltrigger {
   color: #ffffff;
 }
 #createWizard a.blocked {
-  color: #747474;
+  color: #8997a0;
 }
 #createWizard h1 {
   color: #fff;
