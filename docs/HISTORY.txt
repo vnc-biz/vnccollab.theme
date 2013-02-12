@@ -4,6 +4,9 @@ Changelog
 1.6.8 - Unreleased
 ------------------
 
+- Add Cast link right before Chat.
+  [Vitaliy Podoba]
+
 - Add Group details page.
   [Vitaliy Podoba]
 

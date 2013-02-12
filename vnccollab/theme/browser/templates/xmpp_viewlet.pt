@@ -1,0 +1,20 @@
+<div id="xmpp-viewlet"
+     i18n:domain="jarn.xmpp.core"
+     tal:define="portal_url context/portal_url"
+     tal:condition="not: view/anonymous">
+    <div id="xmpp-viewlet-container">
+        <a id="site-cast-link"
+           href="#"
+           title="Click to open up Cast"
+           tal:define="cast_url view/cast_url"
+           tal:condition="cast_url"
+           tal:attributes="href cast_url"
+           i18n:attributes="title"
+           i18n:translate="">Cast</a>
+        <a id="im-messages"
+           href="#"
+           title="Click to open up Chat"
+           i18n:attributes="title"
+           i18n:translate="">Chat</a>
+    </div>
+</div>
