@@ -4,6 +4,9 @@ Changelog
 1.6.8 - Unreleased
 ------------------
 
+- Fixed styles for Document Table Of Contents viewlet.
+  [Vitaliy Podoba]
+
 - Add Cast link right before Chat.
   [Vitaliy Podoba]
 
