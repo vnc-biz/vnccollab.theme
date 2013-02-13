@@ -965,6 +965,10 @@ dl.portlet a:hover,
   color:#012a43 !important;
   }
 
+/* Table of Contents for Document body */
+dl#document-toc {
+  z-index: 1000;
+}
 
 #content-core {
     margin-bottom: 10px;

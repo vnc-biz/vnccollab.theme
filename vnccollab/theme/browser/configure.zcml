@@ -67,6 +67,14 @@
       permission="zope.Public"
       />
 
+  <browser:viewlet
+      name="jarn.xmpp.core.ui"
+      manager="plone.app.layout.viewlets.interfaces.IPortalHeader"
+      class=".viewlets.CustomXMPPViewlet"
+      permission="jarn.xmpp.core.XMPPView"
+      layer=".interfaces.IThemeSpecific"
+      />
+
   <browser:page
       for="*"
       name="addcontentarea_viewlet"
