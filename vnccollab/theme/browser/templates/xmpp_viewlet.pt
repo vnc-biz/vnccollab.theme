@@ -4,14 +4,16 @@
      tal:condition="not: view/anonymous">
     <div id="xmpp-viewlet-container">
         <a id="site-cast-link"
+           class="site-cast-link cloud-package-link"
            href="#"
            title="Click to open up Cast"
            tal:define="cast_url view/cast_url"
-           tal:condition="cast_url"
+           tal:condition="not:cast_url"
            tal:attributes="href cast_url"
            i18n:attributes="title"
            i18n:translate="">Cast</a>
         <a id="im-messages"
+           class="im-message cloud-package-link"
            href="#"
            title="Click to open up Chat"
            i18n:attributes="title"

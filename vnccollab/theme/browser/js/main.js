@@ -999,7 +999,6 @@ function setHandlersWizard() {
       animateContentWizardStep(1, true);
   });
 
-
   // set Add New Content button handler
   jq('#add-plus').click(function() {
     if( jq('#createWizard').is(':hidden') ) {
