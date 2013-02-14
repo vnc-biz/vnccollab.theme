@@ -1,11 +1,20 @@
 Changelog
 =========
 
-1.6.8 - Unreleased
-------------------
+1.6.8 - February 14, 2013
+-------------------------
+
+- Style Cast and Chat links.
+  [Cesar Gonzalez]
 
 - Fixed styles for Document Table Of Contents viewlet.
   [Vitaliy Podoba]
+
+- Add more prominent close button to CREATE NEW WIZARD.
+  [Cesar Gonzalez]
+
+- Try to prevent zimbra calendar portlet issue.
+  [Jose Dinuncio]
 
 - Add Cast link right before Chat.
   [Vitaliy Podoba]
