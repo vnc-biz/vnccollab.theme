@@ -8,7 +8,7 @@
            href="#"
            title="Click to open up Cast"
            tal:define="cast_url view/cast_url"
-           tal:condition="not:cast_url"
+           tal:condition="cast_url"
            tal:attributes="href cast_url"
            i18n:attributes="title"
            i18n:translate="">Cast</a>
