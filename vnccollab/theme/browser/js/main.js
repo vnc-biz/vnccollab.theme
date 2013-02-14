@@ -453,8 +453,11 @@ function attachStreamButton() {
           setTimeout(checkVNCStream, vncStreamDelay);
         },
         'error': function() {
-          alert('Sorry, something went wrong on the server. Please, try ' +
-            'a bit later.');
+          // TODO: make smart alert only when something really goes wrong
+          //       Now we get alerts even when user reloads page before ajax
+          //       call hasn't finished
+          // alert('Sorry, something went wrong on the server. Please, try ' +
+          //   'a bit later.');
           vncStreamLoading = false;
           // remove spinner
           jq('#xmpp-viewlet-container .spinner').hide();
@@ -558,8 +561,11 @@ function loadVncChat(sucess_callback, error_callback) {
                      }
                    },
       'error': function() {
-                 alert('Sorry, something went wrong on the server.' + 
-                       'Please, try a bit later.');
+                // TODO: make smart alert only when something really goes wrong
+                //       Now we get alerts even when user reloads page before
+                //       ajax call hasn't finished
+                 // alert('Sorry, something went wrong on the server.' + 
+                 //       'Please, try a bit later.');
                  error_callback();
                },
       'data': {}
@@ -834,8 +840,12 @@ function rebindPubSubStreamHandlers () {
 //
 // animateContentWizardStep
 //
-function animateContentWizardStep( stepNum, prevStepNum ) {
-  jq('.tab_link').filter('.active').removeClass('active').addClass('inactive');
+function animateContentWizardStep( stepNum, reset ) {
+  if ( reset ) {
+   jq('.tab_link').addClass('blocked').removeClass('inactive').removeClass('active'); 
+  } else {
+   jq('.tab_link').filter('.active').removeClass('active').addClass('inactive'); 
+ }
   jq('#tab_'+stepNum).addClass('active').removeClass('blocked');
   jq('#tab_'+stepNum).removeClass('inactive');
 
@@ -921,8 +931,11 @@ function loadCreateWizard(href, callback) {
 
     },
     error: function(){
-      alert('Sorry, something went wrong on the server. Please, try ' +
-            'a bit later.');
+      // TODO: make smart alert only when something really goes wrong
+      //       Now we get alerts even when user reloads page before ajax
+      //       call hasn't finished
+      // alert('Sorry, something went wrong on the server. Please, try ' +
+      //       'a bit later.');
       jq('.wizard-overlay').hide();
     }
 
@@ -975,6 +988,15 @@ function setHandlersWizard() {
      event.stopPropagation();
   });
 
+  // set close Wizard
+  jq('.close_link').click(function(event) {
+    event.preventDefault();
+    animateContentWizardStep(1);
+    jq('#createWizard').slideUp('fast');
+    jq(this).removeClass('open');
+    jq('#add-arrow').removeClass('open');
+    animateContentWizardStep(1, true);
+  });
 
   // set Add New Content button handler
   jq('#add-plus').click(function() {

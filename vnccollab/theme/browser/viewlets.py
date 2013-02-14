@@ -28,6 +28,7 @@ from plone.registry.interfaces import IRegistry
 from plone.portlets.interfaces import IPortletManager, IPortletRenderer
 
 from Products.Carousel.browser.viewlet import CarouselViewlet
+from jarn.xmpp.core.browser.viewlet import XMPPViewlet
 
 from vnccollab.theme.portlets.zimbra_mail import logException
 from vnccollab.theme import messageFactory as _
@@ -517,3 +518,37 @@ class AddContentAreaViewlet(common.ViewletBase):
 class AddButtonViewlet(common.ViewletBase):
     '''Overrides SearchBoxViewlet for folders in Stream Mode.'''
     index = ViewPageTemplateFile('templates/addbutton.pt')
+
+try:
+    import vnccollab.cloudcast
+except ImportError:
+    CAST_ENABLED = False
+else:
+    CAST_ENABLED = True
+
+class CustomXMPPViewlet(XMPPViewlet):
+
+    index = ViewPageTemplateFile('templates/xmpp_viewlet.pt')
+
+    def update(self):
+        super(CustomXMPPViewlet, self).update()
+
+        # prepare link to first cast container on the site, of course if cast
+        # feature is enabled
+        self.cast_url = ''
+        if not CAST_ENABLED:
+            return
+
+        catalog = getToolByName(self.context, 'portal_catalog')
+        portal_path = getToolByName(self.context, 'portal_url').getPortalPath()
+        casts = catalog(portal_type='CastsContainer', path={'query':
+            portal_path, 'depth': 1}, sort_on='getObjPositionInParent')
+        if len(casts) > 0:
+            self.cast_url = casts[0].getURL()
+            return
+
+        # no casts container in site root, search for any other casts container
+        casts = catalog(portal_type='CastsContainer',
+            sort_on='getObjPositionInParent')
+        if len(casts) > 0:
+            self.cast_url = casts[0].getURL()
