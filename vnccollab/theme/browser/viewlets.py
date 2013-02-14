@@ -543,7 +543,12 @@ class CustomXMPPViewlet(XMPPViewlet):
         portal_path = getToolByName(self.context, 'portal_url').getPortalPath()
         casts = catalog(portal_type='CastsContainer', path={'query':
             portal_path, 'depth': 1}, sort_on='getObjPositionInParent')
-        if len(casts) == 0:
+        if len(casts) > 0:
+            self.cast_url = casts[0].getURL()
             return
 
-        self.cast_url = casts[0].getURL()
+        # no casts container in site root, search for any other casts container
+        casts = catalog(portal_type='CastsContainer',
+            sort_on='getObjPositionInParent')
+        if len(casts) > 0:
+            self.cast_url = casts[0].getURL()

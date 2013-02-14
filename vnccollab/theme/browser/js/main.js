@@ -988,15 +988,14 @@ function setHandlersWizard() {
      event.stopPropagation();
   });
 
-  //set close Wizard
-  jq('.close_link').click(function() {
+  // set close Wizard
+  jq('.close_link').click(function(event) {
     event.preventDefault();
     animateContentWizardStep(1);
     jq('#createWizard').slideUp('fast');
-      jq(this).removeClass('open');
-      jq('#add-arrow').removeClass('open');
-      
-      animateContentWizardStep(1, true);
+    jq(this).removeClass('open');
+    jq('#add-arrow').removeClass('open');
+    animateContentWizardStep(1, true);
   });
 
   // set Add New Content button handler
