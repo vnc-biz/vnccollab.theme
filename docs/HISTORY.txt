@@ -1,6 +1,12 @@
 Changelog
 =========
 
+1.6.9 - Unreleased
+------------------
+
+- Make site root a dashboard.
+  [Vitaliy Podoba]
+
 1.6.8 - February 14, 2013
 -------------------------
 

@@ -1504,26 +1504,26 @@ dl.portlet ul.navTreeLevel1 > .navTreeItem:first-child {
   }
 
 /*----- Front Page -----*/
-.template-homepage_view #content .portlet {
+.template-homepage_view #homepage-anon-portlets .portlet {
   font-size:12px;
   line-height:18px;
   }
-.template-homepage_view #content .portletItem {
+.template-homepage_view #homepage-anon-portlets .portletItem {
   background:url(&dtml-portal_url;/h-s.gif) repeat-x 0 100%;
   border:0;
   margin:0 15px;
   padding:7px 0;
   }
-.template-homepage_view #content .portletHeader {
+.template-homepage_view #homepage-anon-portlets .portletHeader {
   font-size:29px;
   font-weight:normal !important;
   line-height:34px;
   }
-.template-homepage_view #content .portletHeader a,
-.template-homepage_view #content .portletItem a {
+.template-homepage_view #homepage-anon-portlets .portletHeader a,
+.template-homepage_view #homepage-anon-portlets .portletItem a {
   color:#012a43 !important;
   }
-.template-homepage_view #content .portletItemDetails {
+.template-homepage_view #homepage-anon-portlets .portletItemDetails {
   color:#658598;
   float:right;
   }

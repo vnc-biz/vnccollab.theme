@@ -23,6 +23,10 @@ function attachPortletButtons() {
     var portlet = a.parents('.portletWrapper');
     portlet.toggleClass('closed');
     
+    if (!portlet.attr('id')) {
+      return false;
+    }
+
     // record change on the server side
     var hash = portlet.attr('id').slice('portletwrapper-'.length);
     if (hash) {
