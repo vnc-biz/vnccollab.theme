@@ -3902,4 +3902,8 @@ a.caltrigger {
   background: url(&dtml-portal_url;/icon_chat_24_on.png) no-repeat 0 0;
 }
 
+#contentActionMenus dl.actionMenu a, #contentActionMenus dl.actionMenu.activated dd {
+  z-index: 99999 !important;
+}
+
 /* </dtml-with> */
