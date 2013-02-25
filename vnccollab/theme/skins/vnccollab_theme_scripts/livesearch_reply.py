@@ -124,7 +124,9 @@ else:
     write('''<ul class="LSTable">''')
     for result in results[:limit]:
 
-        icon = plone_view.getIcon(result)
+        #icon = plone_view.getIcon(result)
+        img_class = '%s-icon' % ploneUtils.normalizeString(result.portal_type)
+
         itemUrl = result.getURL()
         if result.portal_type in useViewAction:
             itemUrl += '/view'
@@ -132,7 +134,10 @@ else:
         itemUrl = itemUrl + searchterm_query
 
         write('''<li class="LSRow">''')
-        write(icon.html_tag() or '')
+        #write(icon.html_tag() or '')
+        write('''<div class="%s ls-content-icon"></div>''' % (img_class))
+        write('''<div class="ls-details">''')
+
         full_title = safe_unicode(pretty_title_or_id(result))
         if len(full_title) > MAX_TITLE:
             display_title = ''.join((full_title[:MAX_TITLE], '...'))
@@ -140,7 +145,8 @@ else:
             display_title = full_title
 
         full_title = full_title.replace('"', '&quot;')
-        klass = 'contenttype-%s' % ploneUtils.normalizeString(result.portal_type)
+        #klass = 'contenttype-%s' % ploneUtils.normalizeString(result.portal_type)
+        klass = 'ls-content-title'
         write('''<a href="%s" title="%s" class="%s">%s</a>''' % (itemUrl, full_title, klass, display_title))
         display_description = safe_unicode(result.Description)
         if len(display_description) > MAX_DESCRIPTION:
@@ -148,24 +154,42 @@ else:
 
         # need to quote it, to avoid injection of html containing javascript and other evil stuff
         display_description = html_quote(display_description)
-        write('''<div class="LSDescr">%s</div>''' % (display_description))
-        write('''</li>''')
-        full_title, display_title, display_description = None, None, None
+        #write('''<div class="LSDescr">%s</div>''' % (display_description))
 
-    write('''<li class="LSRow">''')
-    write('<a href="%s" style="font-weight:normal">%s</a>' %
+        display_description = html_quote(display_description)
+        write('''<div class="LSBreadcrumb">in %s</div>''' % (display_description))
+
+        write('''<div class="LSDescr">''')
+        display_type = html_quote(safe_unicode(result.Type))
+        write('''<span class="LSType">%s</span>''' % (display_type))
+
+        display_creator = html_quote(safe_unicode(result.Creator))
+        write('''<span class="LSCreator">Create by %s</span>''' % (display_creator))
+
+        display_modified = html_quote(safe_unicode(result.modified))
+        write('''<span class="LSModified">on %s</span>''' % (display_modified))
+        write('''</div>''')
+        write('''</div>''')
+        write('''</li>''')
+
+        full_title, display_title, display_description, display_type = None, None, None, None
+
+    if len(results) > limit:
+        # add a more... row
+        write('''<li class="LSRow lsrow-show-all">''')
+        searchquery = '@@search?SearchableText=%s&path=%s' % (searchterms, params['path'])
+        write('<b></b><a href="%s" style="font-weight:normal">%s</a>' % (
+                             searchquery,
+                             ts.translate(label_show_all, context=REQUEST)))
+        write('''</li>''')
+
+    write('''<li class="LSRow lsrow-adv-search">''')
+    write('<b></b><a href="%s" style="font-weight:normal">%s</a>' %
          (portal_url + '/@@search',
           ts.translate(label_advanced_search, context=REQUEST)))
     write('''</li>''')
 
-    if len(results) > limit:
-        # add a more... row
-        write('''<li class="LSRow">''')
-        searchquery = '@@search?SearchableText=%s&path=%s' % (searchterms, params['path'])
-        write('<a href="%s" style="font-weight:normal">%s</a>' % (
-                             searchquery,
-                             ts.translate(label_show_all, context=REQUEST)))
-        write('''</li>''')
+    
 
     write('''</ul>''')
     write('''</div>''')

@@ -351,7 +351,7 @@ input.searchField {
 #LSResult {
   background:none;
   margin:0;
-  right: -125px;
+  right: -127px;
   top:50px;
   z-index: 9999;
   }
@@ -368,7 +368,7 @@ input.searchField {
   border-right: 1px solid #738ea2;
   color: #f5f5f5;
   height: 15px;
-  left: 142px;
+  left: 130px;
   margin:0;
   overflow: hidden;
   padding: 0;
@@ -381,7 +381,7 @@ input.searchField {
   border: 1px solid #738ea2;
   border-radius: 3px;
   box-shadow: 0 3px 8px rgba(1, 42, 67, 0.25);
-  padding: 11px 0 0;
+  padding: 0;
   }
 .LSRow,
 #LSNothingFound {
@@ -2924,7 +2924,7 @@ ul.contentViews li.selected:after {
   margin: 0 auto;
   position: relative;
   width: 0;
-  z-index: 99;
+  z-index: 1;
 }
 
 .drop-shadow {
@@ -3900,5 +3900,150 @@ a.caltrigger {
 #contentActionMenus dl.actionMenu a, #contentActionMenus dl.actionMenu.activated dd {
   z-index: 99999 !important;
 }
+
+/* live search 2 */
+
+.ls-content-icon {
+  background-image: url(&dtml-portal_url;/content-type-sprites.png);
+  background-repeat: no-repeat;
+  display: inline-block;
+  vertical-align: top;
+  margin: 5px auto;
+  width: 43px;
+  height: 50px;
+}
+
+.ls-details {
+  display: inline-block;
+  vertical-align: top;
+  padding: 15px 8px;
+  width: 438px;
+}
+
+.folder-icon {
+  background-position: -123px -43px;  
+}
+
+.document-icon {
+  background-position: -158px 0;
+}
+
+.file-icon {
+  background-position: -195px 0;  
+}
+
+.image-icon {
+  background-position: -75px -47px;
+}
+
+.cast-update-icon {
+  background-position: -235px -43px;  
+}
+
+.cast-icon {
+  background-position: -235px -43px;  
+}
+
+.zimbra-mail-icon {
+  background-position: -238px 0;
+}
+
+.redmine-ticket-icon {
+  background-position: -108px 0;
+}
+
+.news-item-icon {
+  background-position: -10px 0; 
+}
+
+.event-icon {
+  background-position: -57px 0;   
+}
+
+a.ls-content-title {
+  font-size: 1.2em;
+}
+
+.LSRow {
+  border-top: 1px solid #d2d6d8;
+  color: #8997a4;
+  font-size: 14px;
+  line-height: 16px;
+  padding: 0 12px !important;
+}
+.LSRow:first-child {
+  border-top: none;
+}
+
+.lsrow-adv-search {
+  font-size: 14px;
+  line-height: 43px;
+  padding: 0;
+  text-align: center;
+  border-top: 1px solid #748ea1;
+
+  background: #9bc061;
+  background: -moz-linear-gradient(top, #9bc061 0%, #82ad3f 44%, #679819 100%);
+  background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,#9bc061), color-stop(44%,#82ad3f), color-stop(100%,#679819));
+  background: -webkit-linear-gradient(top, #9bc061 0%,#82ad3f 44%,#679819 100%);
+  background: -o-linear-gradient(top, #9bc061 0%,#82ad3f 44%,#679819 100%);
+  background: -ms-linear-gradient(top, #9bc061 0%,#82ad3f 44%,#679819 100%);
+  background: linear-gradient(to bottom, #9bc061 0%,#82ad3f 44%,#679819 100%);
+  filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#9bc061', endColorstr='#679819',GradientType=0 );
+}
+
+.LSRow.lsrow-adv-search  a {
+  color: #ffffff !important;
+}
+
+.lsrow-adv-search b {
+  background: url(&dtml-portal_url;/sprite.png) no-repeat -266px -19px;
+  display: inline-block;
+  width: 17px;
+  height: 17px;
+  vertical-align: top;
+  margin: 10px 5px 0 0;
+}
+
+.lsrow-show-all {
+  background-color: #e7e9ec;
+  font-size: 14px;
+  text-align: center;
+  border-bottom: none;
+  border-top: 1px solid #748ea1;
+  height: 43px;
+}
+
+.lsrow-show-all b {
+  background: url(&dtml-portal_url;/darkblue-cross.png) no-repeat 0 0;
+  display: inline-block;
+  width: 17px;
+  height: 17px;
+  vertical-align: top;
+  margin: 2px 5px 0 0;
+}
+
+.lsrow-show-all:before {
+  width: 11px;
+  height: 11px;
+  left: 236px;
+  top: -7px;
+
+  content: " ";
+  display: block;
+  position: relative;
+
+  border-color: transparent transparent #738EA2 #738EA2;
+  border-style: solid;
+  border-width: 1px;
+
+  background-color: #f5f5f5;
+
+  -webkit-transform: rotate(-45deg);
+  -moz-transform: rotate(-45deg);
+  -o-transform: rotate(-45deg);
+  transform: rotate(-45deg);
+}
+
 
 /* </dtml-with> */
