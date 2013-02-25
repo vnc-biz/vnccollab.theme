@@ -14,6 +14,10 @@ from Products.CMFPlone.utils import safe_unicode
 from Products.PythonScripts.standard import url_quote_plus
 from Products.PythonScripts.standard import html_quote
 
+# Note: this import requires special permissions in __init__.py
+from zope.component import getMultiAdapter
+
+
 ploneUtils = getToolByName(context, 'plone_utils')
 portal_url = getToolByName(context, 'portal_url')()
 pretty_title_or_id = ploneUtils.pretty_title_or_id
@@ -88,6 +92,9 @@ REQUEST = context.REQUEST
 RESPONSE = REQUEST.RESPONSE
 RESPONSE.setHeader('Content-Type', 'text/xml;charset=%s' % site_encoding)
 
+
+
+
 # replace named entities with their numbered counterparts, in the xml the named ones are not correct
 #   &darr;      --> &#8595;
 #   &hellip;    --> &#8230;
@@ -123,6 +130,15 @@ else:
     write('''<div class="LSIEFix">''')
     write('''<ul class="LSTable">''')
     for result in results[:limit]:
+        # breadcrumbs
+        obj = result.getObject()
+        breadcrumbs_view = getMultiAdapter((obj, REQUEST), name='breadcrumbs_view')
+        breadcrumbs = breadcrumbs_view.breadcrumbs()
+        is_folderish = result.is_folderish
+        if is_folderish:
+            length = len(obj)
+        else:
+            size = result.getObjSize
 
         #icon = plone_view.getIcon(result)
         img_class = '%s-icon' % ploneUtils.normalizeString(result.portal_type)
@@ -189,7 +205,7 @@ else:
           ts.translate(label_advanced_search, context=REQUEST)))
     write('''</li>''')
 
-    
+
 
     write('''</ul>''')
     write('''</div>''')
