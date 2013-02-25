@@ -34,6 +34,8 @@ MAX_DESCRIPTION = 93
 # generate a result set for the query
 catalog = context.portal_catalog
 
+mtool = getToolByName(context, 'portal_membership')
+
 friendly_types = ploneUtils.getUserFriendlyTypes()
 
 
@@ -127,6 +129,9 @@ else:
         #icon = plone_view.getIcon(result)
         img_class = '%s-icon' % ploneUtils.normalizeString(result.portal_type)
 
+        member = mtool.getMemberById(result.Creator)
+        fullname = member.getProperty('fullname')
+
         itemUrl = result.getURL()
         if result.portal_type in useViewAction:
             itemUrl += '/view'
@@ -154,17 +159,16 @@ else:
 
         # need to quote it, to avoid injection of html containing javascript and other evil stuff
         display_description = html_quote(display_description)
-        #write('''<div class="LSDescr">%s</div>''' % (display_description))
+        write('''<div class="LSDescr">%s</div>''' % (display_description))
 
-        display_description = html_quote(display_description)
         write('''<div class="LSBreadcrumb">in %s</div>''' % (display_description))
 
-        write('''<div class="LSDescr">''')
+        write('''<div class="LSMeta">''')
         display_type = html_quote(safe_unicode(result.Type))
         write('''<span class="LSType">%s</span>''' % (display_type))
 
-        display_creator = html_quote(safe_unicode(result.Creator))
-        write('''<span class="LSCreator">Create by %s</span>''' % (display_creator))
+        display_creator = html_quote(safe_unicode(fullname))
+        write('''<span class="LSCreator">&nbsp;&#8226;&nbsp;Create by %s</span>''' % (display_creator))
 
         display_modified = html_quote(safe_unicode(result.modified))
         write('''<span class="LSModified">on %s</span>''' % (display_modified))
@@ -188,8 +192,6 @@ else:
          (portal_url + '/@@search',
           ts.translate(label_advanced_search, context=REQUEST)))
     write('''</li>''')
-
-    
 
     write('''</ul>''')
     write('''</div>''')
