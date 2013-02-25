@@ -4045,5 +4045,12 @@ a.ls-content-title {
   transform: rotate(-45deg);
 }
 
+.LSBreadcrumb {
+  margin-top: 7px;
+}
+
+.LSMeta {
+
+}
 
 /* </dtml-with> */
