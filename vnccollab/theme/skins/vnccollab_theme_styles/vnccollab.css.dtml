@@ -3906,8 +3906,7 @@ a.caltrigger {
 .ls-content-icon {
   background-image: url(&dtml-portal_url;/content-type-sprites.png);
   background-repeat: no-repeat;
-  display: inline-block;
-  vertical-align: top;
+  float: left;
   margin: 5px auto;
   width: 43px;
   height: 50px;
@@ -3916,7 +3915,7 @@ a.caltrigger {
 .ls-details {
   display: inline-block;
   vertical-align: top;
-  padding: 15px 8px;
+  margin: 18px 0 13px 13px;
   width: 438px;
 }
 
@@ -3936,7 +3935,7 @@ a.caltrigger {
   background-position: -75px -47px;
 }
 
-.cast-update-icon {
+.cast-update-icon, .castcontainer-icon {
   background-position: -235px -43px;  
 }
 
@@ -3961,7 +3960,7 @@ a.caltrigger {
 }
 
 a.ls-content-title {
-  font-size: 1.2em;
+  font-size: 1.3em;
 }
 
 .LSRow {
@@ -3970,6 +3969,10 @@ a.ls-content-title {
   font-size: 14px;
   line-height: 16px;
   padding: 0 12px !important;
+  vertical-align: top;
+}
+.LSRow a:link {
+  vertical-align: top;
 }
 .LSRow:first-child {
   border-top: none;
@@ -4002,7 +4005,7 @@ a.ls-content-title {
   width: 17px;
   height: 17px;
   vertical-align: top;
-  margin: 10px 5px 0 0;
+  margin: 11px 5px 0 0;
 }
 
 .lsrow-show-all {
@@ -4020,7 +4023,7 @@ a.ls-content-title {
   width: 17px;
   height: 17px;
   vertical-align: top;
-  margin: 2px 5px 0 0;
+  margin: -1px 5px 0 0;
 }
 
 .lsrow-show-all:before {
@@ -4049,8 +4052,26 @@ a.ls-content-title {
   margin-top: 7px;
 }
 
-.LSMeta {
+.LSBreadcrumb a, .LSMeta a, .LSMeta a:link {
+  color: #6E9F20 !important;
+}
 
+.LSTable {
+  width: 524px;
+  max-height: 520px;
+  overflow-y: scroll;
+  overflow-x: hidden;
+}
+
+@media screen and (max-height: 800px) {
+  .LSTable {
+  max-height: 320px; 
+  }
+}
+
+.ls-foot{
+  margin-top: 7px;
+  border-top: 1px solid #738EA2;
 }
 
 /* </dtml-with> */

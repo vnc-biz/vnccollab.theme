@@ -17,7 +17,6 @@ from Products.PythonScripts.standard import html_quote
 # Note: this import requires special permissions in __init__.py
 from zope.component import getMultiAdapter
 
-
 ploneUtils = getToolByName(context, 'plone_utils')
 portal_url = getToolByName(context, 'portal_url')()
 pretty_title_or_id = ploneUtils.pretty_title_or_id
@@ -46,12 +45,15 @@ friendly_types = ploneUtils.getUserFriendlyTypes()
 def quotestring(s):
     return '"%s"' % s
 
-
 def quote_bad_chars(s):
     bad_chars = ["(", ")"]
     for char in bad_chars:
         s = s.replace(char, quotestring(char))
     return s
+
+def pretty_date(when):
+    result = ('%s %s, %s') % (DateTime(when).strftime('%B'), DateTime(when).strftime('%d'), DateTime(when).strftime('%Y'))
+    return result
 
 # for now we just do a full search to prove a point, this is not the
 # way to do this in the future, we'd use a in-memory probability based
@@ -131,16 +133,29 @@ else:
     write('''<legend id="livesearchLegend">%s</legend>''' % ts.translate(legend_livesearch, context=REQUEST))
     write('''<div class="LSIEFix">''')
     write('''<ul class="LSTable">''')
+    
+    
+    
     for result in results[:limit]:
         # breadcrumbs
         obj = result.getObject()
         breadcrumbs_view = getMultiAdapter((obj, REQUEST), name='breadcrumbs_view')
         breadcrumbs = breadcrumbs_view.breadcrumbs()
+        
+        ls_breadcrumb = ''
+
+        breadcrumbs_size = len(breadcrumbs)-1
+
+        if breadcrumbs_size > 0:
+            for ls_key in breadcrumbs[:breadcrumbs_size]:
+                ls_breadcrumb += ('''<a href="%s">%s</a> > ''' % (ls_key['absolute_url'], ls_key['Title']))
+
         is_folderish = result.is_folderish
+
         if is_folderish:
-            length = len(obj)
+            length_size = len(obj)
         else:
-            size = result.getObjSize
+            length_size = result.getObjSize
 
         #icon = plone_view.getIcon(result)
         img_class = '%s-icon' % ploneUtils.normalizeString(result.portal_type)
@@ -177,23 +192,34 @@ else:
         display_description = html_quote(display_description)
         write('''<div class="LSDescr">%s</div>''' % (display_description))
 
-        write('''<div class="LSBreadcrumb">in %s</div>''' % (display_description))
+        if breadcrumbs_size > 0:
+            write('''<div class="LSBreadcrumb">in %s</div>''' % (ls_breadcrumb[:-3]))
+        else:
+            write('''<div class="LSBreadcrumb">in Home</div>''')
 
         write('''<div class="LSMeta">''')
         display_type = html_quote(safe_unicode(result.Type))
         write('''<span class="LSType">%s</span>''' % (display_type))
 
-        display_creator = html_quote(safe_unicode(fullname))
-        write('''<span class="LSCreator">&nbsp;&#8226;&nbsp;Create by %s</span>''' % (display_creator))
+        if result.Type == 'File' or result.Type == 'Image':
+            write('''<span class="LSType"> &#8226; %s</span>''' % (length_size))
+        elif result.Type == 'Folder':
+            write('''<span class="LSType"> &#8226; %s item(s)</span>''' % (length_size))
 
-        display_modified = html_quote(safe_unicode(result.modified))
+        display_creator = html_quote(safe_unicode(fullname))
+        
+        if len(display_creator) > 0:
+            write(''' &#8226; Create by <a href="%s/author/%s" class="LSCreator">%s</a>''' % 
+                (portal_url, member.getProperty('id'), display_creator))
+
+        display_modified = html_quote(safe_unicode((pretty_date(result.modified))))
         write('''<span class="LSModified">on %s</span>''' % (display_modified))
         write('''</div>''')
         write('''</div>''')
         write('''</li>''')
 
         full_title, display_title, display_description, display_type = None, None, None, None
-
+    write('''</ul><ul class="ls-foot">''')
     if len(results) > limit:
         # add a more... row
         write('''<li class="LSRow lsrow-show-all">''')
