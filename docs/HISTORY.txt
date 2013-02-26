@@ -7,6 +7,9 @@ Changelog
 - Make site root a dashboard.
   [Vitaliy Podoba]
 
+- Refine Live Search Results
+  [Cesar Gonzalez]
+
 1.6.8 - February 14, 2013
 -------------------------
 
