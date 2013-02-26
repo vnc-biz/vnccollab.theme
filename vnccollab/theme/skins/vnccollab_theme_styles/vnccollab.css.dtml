@@ -383,10 +383,15 @@ input.searchField {
   box-shadow: 0 3px 8px rgba(1, 42, 67, 0.25);
   padding: 0;
   }
-.LSRow,
-#LSNothingFound {
+.LSRow {
   padding:0 17px;
   width: 500px;
+  }
+#LSNothingFound {
+  color: #8997a4;
+  padding:0;
+  width: 500px;
+  text-align: center;
   }
 .LSRow a:link {
   color: #012a43;
@@ -3935,7 +3940,7 @@ a.caltrigger {
   background-position: -75px -47px;
 }
 
-.cast-update-icon, .castcontainer-icon {
+.cast-update-icon, .castscontainer-icon {
   background-position: -235px -43px;  
 }
 
@@ -3953,6 +3958,10 @@ a.caltrigger {
 
 .news-item-icon {
   background-position: -10px 0; 
+}
+
+.collection-icon {
+  background-position: -6px -43px; 
 }
 
 .event-icon {

@@ -121,11 +121,13 @@ if not results:
     write('''<legend id="livesearchLegend">%s</legend>''' % ts.translate(legend_livesearch, context=REQUEST))
     write('''<div class="LSIEFix">''')
     write('''<div id="LSNothingFound">%s</div>''' % ts.translate(label_no_results_found, context=REQUEST))
-    write('''<div class="LSRow">''')
+    write('''<ul class="ls-foot">''')
+    write('''<li class="LSRow lsrow-adv-search">''')
     write('<a href="%s" style="font-weight:normal">%s</a>' %
          (portal_url + '/@@search',
           ts.translate(label_advanced_search, context=REQUEST)))
-    write('''</div>''')
+    write('''</li>''')
+    write('''</ul>''')
     write('''</div>''')
     write('''</fieldset>''')
 else:
