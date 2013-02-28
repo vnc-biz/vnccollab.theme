@@ -421,20 +421,17 @@
   <browser:resourceDirectory
       name="vnccollab.theme.images"
       directory="images"
-      layer=".interfaces.IThemeSpecific"
       />
 
   <browser:resourceDirectory
       name="vnccollab.theme.js"
       directory="js"
-      layer=".interfaces.IThemeSpecific"
       />
 
   <!-- Resource directory for stylesheets -->
   <browser:resourceDirectory
       name="vnccollab.theme.stylesheets"
       directory="stylesheets"
-      layer=".interfaces.IThemeSpecific"
       />
 
   <!-- z3c.jbot overrides -->
