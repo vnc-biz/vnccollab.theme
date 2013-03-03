@@ -29,7 +29,7 @@
    <for interface="plone.app.portlets.interfaces.IColumn" />
    <for interface="plone.app.portlets.interfaces.IDashboard" />
  </portlet>
- 
+
  <portlet
    addview="vnccollab.theme.portlets.ZimbraCalendarPortlet"
    title="Zimbra Calendar Portlet"
@@ -38,7 +38,7 @@
    <for interface="plone.app.portlets.interfaces.IColumn" />
    <for interface="plone.app.portlets.interfaces.IDashboard" />
  </portlet>
- 
+
  <portlet
    addview="vnccollab.theme.portlets.UsersBoxPortlet"
    title="Users Box portlet"
@@ -84,5 +84,13 @@
    <for interface="plone.app.portlets.interfaces.IDashboard" />
  </portlet>
 
- 
+ <portlet
+   addview="vnccollab.theme.portlets.GenericIframePortlet"
+   title="Generic Iframe portlet"
+   description="Renders an external page inside an IFrame."
+   i18n:attributes="title;description">
+   <for interface="plone.app.portlets.interfaces.IColumn" />
+   <for interface="plone.app.portlets.interfaces.IDashboard" />
+ </portlet>
+
 </portlets>
