@@ -37,7 +37,7 @@
       addview=".zimbra_mail.AddForm"
       editview=".zimbra_mail.EditForm"
       />
-  
+
   <plone:portlet
       name="vnccollab.theme.portlets.ZimbraCalendarPortlet"
       interface=".zimbra_calendar.IZimbraCalendarPortlet"
@@ -48,7 +48,7 @@
       addview=".zimbra_calendar.AddForm"
       editview=".zimbra_calendar.EditForm"
       />
-  
+
   <plone:portlet
       name="vnccollab.theme.portlets.UsersBoxPortlet"
       interface=".users_box.IUsersBoxPortlet"
@@ -70,7 +70,7 @@
       addview=".openerp_js.AddForm"
       editview=".openerp_js.EditForm"
       />
-  
+
   <plone:portlet
       name="vnccollab.theme.portlets.RedmineTicketsPortlet"
       interface=".redmine_tickets.IRedmineTicketsPortlet"
@@ -102,6 +102,17 @@
       renderer=".dashlet.Renderer"
       addview=".dashlet.AddForm"
       editview=".dashlet.EditForm"
+      />
+
+  <plone:portlet
+      name="vnccollab.theme.portlets.GenericIframePortlet"
+      interface=".generic_iframe.IGenericIframePortlet"
+      assignment=".generic_iframe.Assignment"
+      view_permission="zope2.View"
+      edit_permission="cmf.ManagePortal"
+      renderer=".generic_iframe.Renderer"
+      addview=".generic_iframe.AddForm"
+      editview=".generic_iframe.EditForm"
       />
 
   <utility
