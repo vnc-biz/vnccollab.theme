@@ -40,6 +40,8 @@ from vnccollab.theme.portlets import world_clock
 from vnccollab.theme.settings import IWorldClockSettings
 from vnccollab.theme.util import getZimbraLiveAnnotatedTasks
 
+from plone.app.layout.links.viewlets import FaviconViewlet
+
 
 _pl = MessageFactory('plonelocales')
 logger = logging.getLogger('vnccollab.theme.RelatedRedmineTicketsViewlet')
@@ -558,3 +560,7 @@ class CustomXMPPViewlet(XMPPViewlet):
             sort_on='getObjPositionInParent')
         if len(casts) > 0:
             self.cast_url = casts[0].getURL()
+
+class HeaderLinksIconsViewlet(FaviconViewlet):
+
+    render = ViewPageTemplateFile('templates/favicon.pt')
