@@ -4,6 +4,9 @@ Changelog
 1.6.9 - Unreleased
 ------------------
 
+- Add Generic IFrame portlet.
+  [Jose Dinuncio]
+
 - Updates to make mobile site version work.
   [Vitaliy Podoba, Cesar Gonzalez]
 
