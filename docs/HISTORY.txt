@@ -4,8 +4,33 @@ Changelog
 1.6.9 - Unreleased
 ------------------
 
+- Fixes livesearch style when no result found, add collection icon to sprite.
+  [Cesar Gonzalez]
+
+- Adds viewlet for custom favicon links & apple touch icons links.
+  [Cesar Gonzalez]
+
 - Add Generic IFrame portlet.
   [Jose Dinuncio]
+
+- Adds info for breadcrumbs and size in livesearch_reply.py
+  [Jose Dinuncio]
+
+- Adds fullname to livesearch result items.
+  [Cesar Gonzalez]
+
+- Adds style, content type icons to Live Search.
+  [Cesar Gonzalez]
+
+- Fixes display problem with document viewer and action menu.
+  [Cesar Gonzalez]
+
+- Fixes bug in RelatedRedmineTicketsViewlet.update trying to get UUID
+  from RootSite.
+  [Jose Dinuncio]
+
+- Limits tree height and show scrollbars. Keep Ok button in position.
+  [Cesar Gonzalez]
 
 - Updates to make mobile site version work.
   [Vitaliy Podoba, Cesar Gonzalez]
