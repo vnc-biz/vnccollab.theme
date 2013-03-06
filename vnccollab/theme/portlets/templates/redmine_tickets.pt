@@ -11,7 +11,7 @@
            class="tile"
            target="_blank"
            tal:attributes="href string:${view/getTicketsURL}"
-           tal:content="ve127iw/data/header"
+           tal:content="view/data/header"
            i18n:translate="">Redmine Tickets</a>
         <span class="portletTopRight"></span>
     </dt>
