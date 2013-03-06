@@ -1,8 +1,8 @@
 Changelog
 =========
 
-1.6.9 - Unreleased
-------------------
+1.6.9 - March 6, 2013
+---------------------
 
 - Fixes livesearch style when no result found, add collection icon to sprite.
   [Cesar Gonzalez]
