@@ -6,7 +6,7 @@ from pyactiveresource.activeresource import ActiveResource
 from Acquisition import aq_inner
 from DateTime import DateTime
 
-from zope.interface import alsoProvides, Interface
+from zope.interface import alsoProvides, providedBy, Interface
 from zope.component import getMultiAdapter, queryMultiAdapter, getUtility
 from zope.i18nmessageid import MessageFactory
 from zope.viewlet.interfaces import IViewlet
@@ -17,6 +17,7 @@ from Products.CMFCore.interfaces import IActionCategory, IAction
 from Products.CMFCore.ActionInformation import ActionInfo
 from Products.CMFPlone.utils import safe_unicode, normalizeString, parent
 from Products.CMFPlone.i18nl10n import monthname_msgid, weekdayname_msgid
+from Products.CMFPlone.interfaces.siteroot import IPloneSiteRoot
 
 from plone.i18n.normalizer.interfaces import IIDNormalizer
 from plone.app.contentmenu.menu import FactoriesSubMenuItem
@@ -38,6 +39,8 @@ from vnccollab.theme.browser.interfaces import IVNCCollabHtmlHead
 from vnccollab.theme.portlets import world_clock
 from vnccollab.theme.settings import IWorldClockSettings
 from vnccollab.theme.util import getZimbraLiveAnnotatedTasks
+
+from plone.app.layout.links.viewlets import FaviconViewlet
 
 
 _pl = MessageFactory('plonelocales')
@@ -324,6 +327,10 @@ class RelatedRedmineTicketsViewlet(common.ViewletBase):
 
     def update(self):
         self.tickets = ()
+
+        if IPloneSiteRoot in providedBy(self.context):
+            return
+
         tickets = []
         # check if settings are configured
         # check user redmine credentials and redmine url/field id
@@ -337,7 +344,8 @@ class RelatedRedmineTicketsViewlet(common.ViewletBase):
             # do actual calls to redmine
             try:
                 # fetch opened issues belonging to authenticated user
-                data = Issue.find(**{'cf_%d' % field_id: self.context.UID(),
+                uuid = self.context.UID()
+                data = Issue.find(**{'cf_%d' % field_id: uuid,
                     'status_id': 'o', 'sort': 'updated_on:desc'})
             except Exception:
                 logException(_(u"Error during fetching redmine tickets %s" %
@@ -552,3 +560,7 @@ class CustomXMPPViewlet(XMPPViewlet):
             sort_on='getObjPositionInParent')
         if len(casts) > 0:
             self.cast_url = casts[0].getURL()
+
+class HeaderLinksIconsViewlet(FaviconViewlet):
+
+    render = ViewPageTemplateFile('templates/favicon.pt')

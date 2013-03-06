@@ -2,7 +2,8 @@
      i18n:domain="vnccollab.theme"
      tal:define="purl context/portal_url;
                  plone_view context/@@plone_portal_state;
-                 anon plone_view/anonymous">
+                 anon plone_view/anonymous"
+     tal:condition="anon">
   <div class="hp-header-content">
     <div class="hp-header-welcome">
       <h2 i18n:translate="">Welcome to the VNC Community</h2>

@@ -410,6 +410,15 @@
     permission="zope2.View"
     />
 
+  <browser:viewlet
+    name="vnccollab.theme.headerlinksicons"
+    for="*"
+    manager="plone.app.layout.viewlets.interfaces.IHtmlHeadLinks"
+    layer=".interfaces.IThemeSpecific"
+    class=".viewlets.HeaderLinksIconsViewlet"
+    permission="zope2.View"
+    />
+
     <!-- This are the classes we want to edit with zopeedit-->
     <class class="plone.app.blob.content.ATBlob">
         <implements interface=".viewlets.IExternalEditable"/>
@@ -421,20 +430,17 @@
   <browser:resourceDirectory
       name="vnccollab.theme.images"
       directory="images"
-      layer=".interfaces.IThemeSpecific"
       />
 
   <browser:resourceDirectory
       name="vnccollab.theme.js"
       directory="js"
-      layer=".interfaces.IThemeSpecific"
       />
 
   <!-- Resource directory for stylesheets -->
   <browser:resourceDirectory
       name="vnccollab.theme.stylesheets"
       directory="stylesheets"
-      layer=".interfaces.IThemeSpecific"
       />
 
   <!-- z3c.jbot overrides -->

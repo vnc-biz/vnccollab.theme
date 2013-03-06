@@ -11,6 +11,9 @@
  <object name="vnccollab_theme_styles"
     meta_type="Filesystem Directory View"
     directory="vnccollab.theme:skins/vnccollab_theme_styles"/>
+ <object name="vnccollab_theme_scripts"
+    meta_type="Filesystem Directory View"
+    directory="vnccollab.theme:skins/vnccollab_theme_scripts"/>
 
  <skin-path name="VNC Collaboration Theme">
   <layer name="custom" />
@@ -18,6 +21,7 @@
   <layer name="vnccollab_theme_custom_images" />
   <layer name="vnccollab_theme_custom_templates" />
   <layer name="vnccollab_theme_styles" />
+  <layer name="vnccollab_theme_scripts" />
   <layer name="vnccollab_content" />
   <layer name="tinymce" />
   <layer name="archetypes" />

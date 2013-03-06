@@ -9,6 +9,9 @@
         <element key="VNC Collaboration Theme">
             <element>default</element>
             <element>jquery</element>
+            <element>cloudcast</element>
+            <element>cloudstream</element>
+            <element>cloudchat</element>
         </element>
     </value>
   </record>

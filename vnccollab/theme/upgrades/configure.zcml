@@ -38,5 +38,17 @@
       profile="vnccollab.theme:default"
       />
 
+    <genericsetup:upgradeSteps
+      source="1104"
+      destination="1105"
+      sortkey="4"
+      profile="vnccollab.theme:default">
+
+        <genericsetup:upgradeDepends
+          title="Adds AddButtonViewlet"
+          import_steps="skins"
+          />
+    </genericsetup:upgradeSteps>
+
 </configure>
 

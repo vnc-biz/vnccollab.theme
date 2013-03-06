@@ -12,6 +12,12 @@
     <viewlet name="vnccollab.theme.headerlinks"/>
     <viewlet name="vnccollab.theme.headertimeshort"/>
   </order>
+  <hidden manager="plone.htmlhead.links" skinname="VNC Collaboration Theme">
+    <viewlet name="plone.links.favicon" />
+  </hidden>
+  <order manager="plone.htmlhead.links" skinname="VNC Collaboration Theme">
+    <viewlet name="vnccollab.theme.headerlinksicons"/>
+  </order>
   <order manager="plone.portalheader" skinname="VNC Collaboration Theme">
     <viewlet name="plone.skip_links"/>
     <viewlet name="plone.personal_bar"/>

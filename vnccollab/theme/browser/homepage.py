@@ -4,18 +4,19 @@ from Products.Five.browser import BrowserView
 from Products.Five.browser.pagetemplatefile import ViewPageTemplateFile
 from Products.CMFCore.utils import getToolByName
 
-from vnccollab.theme.config import HP_NEWS_LIMIT
+from ..config import HP_NEWS_LIMIT
+from .dashboard import DashboardView
 
 
 class IHomePageView(Interface):
     """Homepage Default View"""
 
-class HomePageView(BrowserView):
+class HomePageView(DashboardView):
 
     implements(IHomePageView)
 
-    homepage = ViewPageTemplateFile('templates/homepage_view.pt')
-    dashboard = ViewPageTemplateFile('templates/dashboard.pt')
+    _welcome_template = ViewPageTemplateFile('templates/homepage_view.pt')
+    _dashboard_template = ViewPageTemplateFile('templates/dashboard.pt')
 
     def getNews(self):
         catalog = getToolByName(self.context, 'portal_catalog')
@@ -28,10 +29,9 @@ class HomePageView(BrowserView):
 
     def render(self):
         if self.is_anonymous():
-            return self.homepage()
+            return self._welcome_template()
         else:
-            dashboard_url = self.context.absolute_url() + '/dashboard'
-            return self.request.response.redirect(dashboard_url)
+            return self._dashboard_template()
 
     def is_anonymous(self):
         mt = getToolByName(self.context, 'portal_membership')
