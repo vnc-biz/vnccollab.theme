@@ -4,6 +4,9 @@ Changelog
 1.6.9 - Unreleased
 ------------------
 
+- Updates to make mobile site version work.
+  [Vitaliy Podoba, Cesar Gonzalez]
+
 - Make site root a dashboard.
   [Vitaliy Podoba]
 
