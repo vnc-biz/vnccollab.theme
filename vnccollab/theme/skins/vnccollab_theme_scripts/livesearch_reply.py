@@ -135,15 +135,15 @@ else:
     write('''<legend id="livesearchLegend">%s</legend>''' % ts.translate(legend_livesearch, context=REQUEST))
     write('''<div class="LSIEFix">''')
     write('''<ul class="LSTable">''')
-    
-    
-    
+
+
+
     for result in results[:limit]:
         # breadcrumbs
         obj = result.getObject()
         breadcrumbs_view = getMultiAdapter((obj, REQUEST), name='breadcrumbs_view')
         breadcrumbs = breadcrumbs_view.breadcrumbs()
-        
+
         ls_breadcrumb = ''
 
         breadcrumbs_size = len(breadcrumbs)-1
@@ -163,7 +163,10 @@ else:
         img_class = '%s-icon' % ploneUtils.normalizeString(result.portal_type)
 
         member = mtool.getMemberById(result.Creator)
-        fullname = member.getProperty('fullname')
+        if member is not None:
+            fullname = member.getProperty('fullname')
+        else:
+            fullname = ''
 
         itemUrl = result.getURL()
         if result.portal_type in useViewAction:
@@ -209,9 +212,9 @@ else:
             write('''<span class="LSType"> &#8226; %s item(s)</span>''' % (length_size))
 
         display_creator = html_quote(safe_unicode(fullname))
-        
+
         if len(display_creator) > 0:
-            write(''' &#8226; Create by <a href="%s/author/%s" class="LSCreator">%s</a>''' % 
+            write(''' &#8226; Create by <a href="%s/author/%s" class="LSCreator">%s</a>''' %
                 (portal_url, member.getProperty('id'), display_creator))
 
         display_modified = html_quote(safe_unicode((pretty_date(result.modified))))
