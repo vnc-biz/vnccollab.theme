@@ -4,6 +4,9 @@ Changelog
 1.6.9 - March 6, 2013
 ---------------------
 
+- Adds method post_and-index_object to replace WSAPI's post_object.
+  [Jose Dinuncio]
+
 - Fixes livesearch style when no result found, add collection icon to sprite.
   [Cesar Gonzalez]
 
