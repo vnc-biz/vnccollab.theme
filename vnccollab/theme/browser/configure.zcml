@@ -211,6 +211,15 @@
       permission="zope2.View"
       />
 
+  <browser:page
+      for="*"
+      class=".wsapi.WSAPIView"
+      layer=".interfaces.IThemeSpecific"
+      permission="wsapi.authenticated"
+      name="post_and_index_object"
+      attribute="post_and_index_object"
+      />
+
   <browser:view
     for="*"
     name="search-contacts"
@@ -487,5 +496,6 @@
       layer=".interfaces.IThemeSpecific"
       permission="cmf.ManagePortal"
       />
+
 
 </configure>

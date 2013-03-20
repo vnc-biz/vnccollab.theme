@@ -1,6 +1,15 @@
 Changelog
 =========
 
+1.7 - March 20, 2013
+--------------------
+
+- Fixes bug in livesearch_reply.py.
+  [Jose]
+
+- Adds method post_and-index_object to replace WSAPI's post_object.
+  [Jose Dinuncio]
+
 1.6.9 - March 6, 2013
 ---------------------
 
