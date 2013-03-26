@@ -3,6 +3,8 @@ Changelog
 
 1.7 - March 20, 2013
 --------------------
+- Change Tree Navigation style -Home button design update-.
+  [Cesag Gonzalez]
 
 - Fixes bug in livesearch_reply.py.
   [Jose]

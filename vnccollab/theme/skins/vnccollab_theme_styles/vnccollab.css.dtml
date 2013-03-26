@@ -45,6 +45,7 @@ body {
   right: 330px;
   top: 30px;
   width: 30px;
+  z-index: 1;
   }
 #visual-column-wrapper {
   float: left;
@@ -1279,9 +1280,21 @@ dl.portlet ul.navTreeLevel0 > .navTreeItem {
   border-bottom:0;
   padding:0;
   }
+dl.portlet ul.navTree .navTreeCurrentItem:before{
+  width: 0; 
+  height: 0; 
+  border-top: 18px solid transparent;
+  border-bottom: 18px solid transparent;
+  display: block;
+  border-left: 18px solid #6c9e29;
+  position: absolute;
+  left: -30px;
+  content: "";
+  margin-top: -10px;
+}
 dl.portlet ul.navTreeLevel0 > .navTreeCurrentNode,
 dl.portlet ul.navTreeLevel0 > .navTreeItemInPath {
-  box-shadow: 0 3px 8px rgba(1, 42, 67, 0.25);
+  box-shadow: none;
   margin: 0 0 7px;
   }
 .portletNavigationTree .navTreeItem a,
@@ -1289,34 +1302,31 @@ dl.portlet ul.navTreeLevel0 > .navTreeItemInPath {
   color:#082736 !important;
   font-size: 14px;
   line-height: 17px;
-  padding: 5px 15px 5px 34px !important;
+  padding: 7px 15px 7px 34px !important;
   }
 dl.portlet ul.navTreeLevel0 > .navTreeItem > a {
   border: 1px solid transparent;
+  border-radius: 3px;
   }
 dl.portlet ul.navTree .navTreeCurrentItem {
   background-color:transparent;
   border:0;
   margin:0;
+  color: #75AD0A !important;
+  font-weight: bold;
   }
 dl.portlet ul.navTreeLevel0 > .navTreeItem > a:hover {
   background-color: #e7e9ec;
   border-color: #d9dfe3;
   }
-dl.portlet ul.navTreeLevel0 > .navTreeItem > a.navTreeCurrentItem,
+dl.portlet ul.navTreeLevel0 > .navTreeItem > a.navTreeCurrentItem{
+  color: #75AD0A !important;
+  font-weight: bold;
+}
 dl.portlet ul.navTreeLevel0 > .navTreeItem > a.navTreeItemInPath{
-  background-color: #6ea21b;
-  border-color: transparent;
-  color:#fff !important;
-  }
-.icons-on .portletNavigationTree .contenttype-folder {
-  background-position:11px -643px;
-  }
-.icons-on .portletNavigationTree .contenttype-document {
-  background-position:11px 4px;
+  font-weight: normal;
   }
 .navTreeLevel1 {
-  background-color: #fff;
 /*  padding:0 0 4px;*/
   padding: 0;
   }
@@ -1494,16 +1504,6 @@ dl.portlet ul.navTreeLevel1 > .navTreeItem:first-child {
   }
   
 /*----- Portal Content -----*/
-.icons-on .contenttype-document,
-.icons-on .contenttype-folder {
-  padding-left:25px !important;
-  }
-.icons-on .contenttype-document {
-  background-position:0 3px;
-  }
-.icons-on .contenttype-folder {
-  background-position:0 -645px;
-  }
 #content li.formTab a:hover {
   color:#ffffff !important;
   }
@@ -1617,7 +1617,7 @@ dl.actionMenu {
 }
 
 #plone-contentmenu-factories.actionMenu.activated dd.actionMenuContent ul li a {
-  padding-left:7px;
+  padding-left:25px;
 }
 
 #contentActionMenus dt.actionMenuHeader a span.arrowDownAlternative {
@@ -4081,6 +4081,105 @@ a.ls-content-title {
 .ls-foot{
   margin-top: 7px;
   border-top: 1px solid #738EA2;
+}
+
+/* Content type sprites */
+
+.icons-on .contenttype-document {
+    background: no-repeat transparent 5px -290px url(sprites_16.png);
+}
+.icons-on .contenttype-event {
+    background: no-repeat transparent 5px -68px url(sprites_16.png);
+}
+.icons-on .contenttype-folder {
+    background: no-repeat transparent 5px -105px url(sprites_16.png);
+}
+.icons-on .contenttype-link {
+    background: no-repeat transparent 5px -1076px url(sprites_16.png);
+}
+.icons-on .contenttype-news-item {
+    background: no-repeat transparent 5px -32px url(sprites_16.png);
+}
+.icons-on .contenttype-plone-site {
+    background: no-repeat transparent 5px 3px url(sprites_16.png);
+}
+.icons-on .contenttype-collection {
+    background: no-repeat transparent 5px -254px url(sprites_16.png);
+}
+.icons-on .contenttype-topic {
+    background: no-repeat transparent 5px -1724px url(sprites_16.png);
+}
+.icons-on .contenttype-castscontainer,
+.icons-on .contenttype-cast {
+    background: no-repeat transparent 5px -363px url(sprites_16.png);
+}
+.icons-on .contenttype-image {
+    background: no-repeat transparent 5px -328px url(sprites_16.png);
+}
+
+.section-news > .contenttype-folder {
+    background: no-repeat transparent 5px -33px url(sprites_16.png);
+}
+.section-members > .contenttype-folder {
+    background: no-repeat transparent 5px -212px url(sprites_16.png);
+}
+.section-events > .contenttype-folder {
+    background: no-repeat transparent 5px -68px url(sprites_16.png);
+}
+.section-vnc-internal > .contenttype-folder,
+.section-internal > .contenttype-folder,
+.section-product-area > .contenttype-folder,
+.section-information > .contenttype-folder {
+    background: no-repeat transparent 5px -138px url(sprites_16.png);
+}
+
+.section-projects > .contenttype-folder {
+    background: no-repeat transparent 5px -176px url(sprites_16.png);
+}
+.section-partner > .contenttype-folder {
+    background: no-repeat transparent 5px -212px url(sprites_16.png);  
+}
+
+
+.navTreeItem > .contenttype-image > img,
+.navTreeItem > .contenttype-file > img {
+    display: none; 
+}
+.navTreeFolderish .contenttype-castscontainer > img,
+.navTreeFolderish .contenttype-cast > img {
+    display: none;
+}
+#plone-contentmenu-factories .contenttype-castscontainer img,
+#plone-contentmenu-factories .contenttype-cast img  {
+    display: none;
+}
+
+
+/* These should only appear in the add menu */
+.icons-on #plone-contentmenu-factories .contenttype-file {
+    background: no-repeat transparent 5px -328px url(sprites_16.png);
+}
+.icons-on #plone-contentmenu-factories .contenttype-image {
+    background: no-repeat transparent 5px -328px url(sprites_16.png);
+}
+
+.icons-on .contenttype-document,
+.icons-on .contenttype-event,
+.icons-on .contenttype-folder,
+.icons-on .contenttype-link,
+.icons-on .contenttype-news-item,
+.icons-on .contenttype-plone-site,
+.icons-on .contenttype-collection,
+.icons-on .contenttype-topic,
+.icons-on #plone-contentmenu-factories .contenttype-file,
+.icons-on #plone-contentmenu-factories .contenttype-image {
+    line-height: 2em;
+    display: inline-block;
+    padding-left: 25px !important;
+}
+
+.subMenuTitle {
+  padding-right: 20px;
 }
 
 /* </dtml-with> */
