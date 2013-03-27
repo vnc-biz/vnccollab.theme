@@ -56,8 +56,8 @@
         <span tal:replace="name" i18n:name="user_name" />&#8217;s dashboard
     </h1>
     
-    <div id="dashboard">                
-        <div id="dashboard-portlets" 
+    <div id="dashboard">
+        <div id="dashboard-portlets"
           tal:content="structure provider:plone.dashboard1" />
     </div>
 

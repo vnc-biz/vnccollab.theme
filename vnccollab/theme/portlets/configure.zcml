@@ -5,6 +5,9 @@
 
   <include package="plone.app.portlets" />
 
+  <!-- Custom CloudPortal dashboard portlets retriever -->
+  <adapter factory=".retriever.CloudPortalDashboardPortletRetriever" />
+
   <plone:portlet
       name="vnccollab.theme.portlets.WorldClockPortlet"
       interface=".world_clock.IWorldClockPortlet"

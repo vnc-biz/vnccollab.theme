@@ -1,6 +1,12 @@
 Changelog
 =========
 
+1.7.1 - Unreleased
+------------------
+
+- Display only Group Portlets on our home dashboard view.
+  [Vitaliy Podoba]
+
 1.7 - March 20, 2013
 --------------------
 
