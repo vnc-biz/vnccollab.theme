@@ -4,6 +4,9 @@ Changelog
 1.7.1 - Unreleased
 ------------------
 
+- Applies layout for Document content type (Wiki), add shadow image.
+  [Cesar Gonzalez]
+
 - Display only Group Portlets on our home dashboard view.
   [Vitaliy Podoba]
 

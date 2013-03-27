@@ -28,26 +28,31 @@
 	border: none;
 	color: White !important;
 	font-size: 0.9em;
-	padding: 0.1em 0.5em;
+	padding: 0.4em 0.5em;
+	border-radius: 4px;
 }
 #plone-contentmenu-workflow .state-visible {
 	background-color: #74AE0B;
 	border: none;
 	color: White !important;
 	font-size: 0.9em;
-	padding: 0.1em 0.5em;
+	padding: 0.4em 0.5em;
+	border-radius: 4px;
+
 }
 #plone-contentmenu-workflow .state-published {
 	background-color: #436976;
 	border: none;
 	color: White !important;
 	font-size: 0.9em;
-	padding: 0.1em 0.5em;
+	padding: 0.4em 0.5em;
+	border-radius: 4px;
 }
 #plone-contentmenu-workflow .state-pending {
 	background-color: #FFA500;
 	border: none;
 	color: White !important;
 	font-size: 0.9em;
-	padding: 0.1em 0.5em;
+	padding: 0.4em 0.5em;
+	border-radius: 4px;
 }

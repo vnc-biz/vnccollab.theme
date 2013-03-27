@@ -948,6 +948,18 @@ function loadCreateWizard(href, callback) {
 }
 
 //
+//
+//
+function addDocumentContentShadows(){
+  var document_container = jq('.portaltype-document #content-core');
+  if (document_container.length == 0) {
+    return false;
+  }
+    document_container.before('<div class="content-top-shadow"></div>');
+    document_container.after('<div class="content-bottom-shadow"></div>');
+}
+
+//
 // setHandlersWizard
 //
 function setHandlersWizard() {
@@ -1105,4 +1117,5 @@ jq(function() {
   setupVncChat();
   rebindPubSubStreamHandlers();
   setHandlersWizard();
+  addDocumentContentShadows();
 });
