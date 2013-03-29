@@ -4260,7 +4260,7 @@ a.ls-content-title {
     background: no-repeat transparent 5px -68px url(sprites_16.png);
 }
 .icons-on .contenttype-folder {
-    background: no-repeat transparent 5px -105px url(sprites_16.png);
+    background: no-repeat transparent 5px -103px url(sprites_16.png);
 }
 .icons-on .contenttype-link {
     background: no-repeat transparent 5px -1076px url(sprites_16.png);
