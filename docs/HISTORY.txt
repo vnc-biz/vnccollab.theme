@@ -4,8 +4,11 @@ Changelog
 1.7.1 - Unreleased
 ------------------
 
-- Change Tree Navigation style -Home button design update-.
-  [Cesag Gonzalez]
+- Makes "Create New" wizard tree selector lazy.
+  [Jose Dinuncio]
+
+- Changes Tree Navigation style -Home button design update-.
+  [Cesar Gonzalez]
 
 - Applies layout for Document content type (Wiki), add shadow image.
   [Cesar Gonzalez]
@@ -17,7 +20,7 @@ Changelog
 --------------------
 
 - Fixes bug in livesearch_reply.py.
-  [Jose]
+  [Jose Dinuncio]
 
 - Adds method post_and-index_object to replace WSAPI's post_object.
   [Jose Dinuncio]

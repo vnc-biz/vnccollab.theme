@@ -489,6 +489,7 @@
       layer=".interfaces.IThemeSpecific"
       permission="cmf.ManagePortal"
       />
+
   <browser:view
       name="add"
       for="collective.notices.interfaces.INoticesStorage"
@@ -497,5 +498,20 @@
       permission="cmf.ManagePortal"
       />
 
+  <browser:page
+      for="*"
+      name="wizard_get_initial_tree.json"
+      class=".wizardjson.GetTreeJson"
+      attribute="getInitialTree"
+      permission="zope2.View"
+      />
+
+  <browser:page
+      for="*"
+      name="wizard_get_tree.json"
+      class=".wizardjson.GetTreeJson"
+      attribute="getTree"
+      permission="zope2.View"
+      />
 
 </configure>
