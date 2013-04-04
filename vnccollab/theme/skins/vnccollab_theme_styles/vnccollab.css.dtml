@@ -3100,6 +3100,10 @@ ul.contentViews li.selected:after {
           box-shadow:0 1px 5px rgba(0, 0, 0, 0.15), 0 0 40px rgba(0, 0, 0, 0.03) inset;
 }
 
+#category {
+  margin: 13px 10px;
+}
+
 /* action new ticket */
 
 li#document-action-new_ticket {

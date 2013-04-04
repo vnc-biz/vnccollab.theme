@@ -4,6 +4,9 @@ Changelog
 1.7.1 - Unreleased
 ------------------
 
+- Fixes "File Under" tags position.
+  [Cesar Gonzalez]
+
 - Makes "Create New" wizard tree selector lazy.
   [Jose Dinuncio]
 
