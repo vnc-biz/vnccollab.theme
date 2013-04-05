@@ -7,6 +7,9 @@ Changelog
 - Current folder is the default destination for "Create Wizard".
   [Marcin Staniszczak, Jose Dinuncio]
 
+- Fixes "File Under" tags position.
+  [Cesar Gonzalez]
+
 - Makes "Create New" wizard tree selector lazy.
   [Jose Dinuncio]
 
