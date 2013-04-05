@@ -85,10 +85,21 @@ class GetTreeJson(BrowserView):
 
     def _info_from_content(self, content):
         selectable = self._is_container_writable(content)
-        i_am_context = IUUID(self.context) == content.uuid()
+        content_is_root = ISiteRoot.providedBy(content)
+        if content_is_root:
+            content_uid = '0'
+        else:
+            content_uid = content.uuid()
+        context_is_root = ISiteRoot.providedBy(self.context)
+        if context_is_root:
+            context_uid= '0'
+        else:
+            context_uid = IUUID(self.context)
+
+        i_am_context = context_uid == content_uid
 
         result = {
-                'key': content.uuid(),
+                'key': content_uid,
                 'id': content.getId(),
                 'title': safe_unicode(content.Title()).encode('utf-8'),
                 'tooltip': safe_unicode(content.Description()).encode('utf-8'),
@@ -99,7 +110,7 @@ class GetTreeJson(BrowserView):
                 'path': content.getPath(),
                 'url': content.getURL(),
                 'unselectable': not(selectable),
-                'select': selectable and i_am_context,
+                'activate': selectable and i_am_context,
                 'children': [],
             }
 

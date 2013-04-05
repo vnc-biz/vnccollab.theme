@@ -3921,6 +3921,11 @@ a.caltrigger {
 }
 #createWizard .dynatree-title {
   margin-left: 4px;
+  color: rgba(0,0,0,0.70);
+}
+
+#createWizard .dynatree-active .dynatree-title { 
+  color: rgba(0,0,255,0.80);
 }
 
 #createWizard #tree span.disabled a
