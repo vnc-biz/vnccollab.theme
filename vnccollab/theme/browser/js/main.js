@@ -1094,6 +1094,16 @@ function setHandlersWizard() {
         } else {
           jq('input#send-wizard').show();
         }
+        if (! isReloading) {
+            var opinode = jq('#tree').data().dynatree.getActiveNode();
+            var opinewcontainter = opinode.data.path;
+            var opinewcontenturl =  '/portal_factory' +  jq('form[name=edit_form]').attr('action').split('portal_factory')[1];
+            var opinewactionform = window.location.protocol + '//' + window.location.host + opinewcontainter + opinewcontenturl;
+
+            jq('.selectedContainer').html(opinewcontainter);
+            jq('input[name=selected_destination]').get(0).setAttribute('data', opinewcontainter);
+            jq('form[name=edit_form]').get(0).setAttribute('action', opinewactionform);
+        }
         return false;
       }
     });
