@@ -50,5 +50,17 @@
           />
     </genericsetup:upgradeSteps>
 
+    <genericsetup:upgradeSteps
+      source="1106"
+      destination="1106"
+      sortkey="5"
+      profile="vnccollab.theme:default">
+
+        <genericsetup:upgradeDepends
+          title="Upgrade JavaScript for wizard"
+          import_steps="jsregistry cssregistry"
+          />
+    </genericsetup:upgradeSteps>
+
 </configure>
 
