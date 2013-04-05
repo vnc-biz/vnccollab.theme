@@ -73,7 +73,7 @@ class GetTreeJson(BrowserView):
 
         if not container_path:
             portal = api.portal.get()
-            container_path = portal.absolute_url_path()
+            container_path = '/'.join(portal.getPhysicalPath())
 
         query = {'portal_type': self._get_container_types(),
                  'path': {'query': container_path, 'depth': 1}}
@@ -92,7 +92,7 @@ class GetTreeJson(BrowserView):
             content_uid = content.uuid()
         context_is_root = ISiteRoot.providedBy(self.context)
         if context_is_root:
-            context_uid= '0'
+            context_uid = '0'
         else:
             context_uid = IUUID(self.context)
 
