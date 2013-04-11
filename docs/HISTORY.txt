@@ -4,6 +4,9 @@ Changelog
 1.7.1 - Unreleased
 ------------------
 
+- Fixes upgrade step source number in configure.zcml.
+  [Cesar Gonzalez]
+
 - Current folder is the default destination for "Create Wizard".
   [Marcin Staniszczak, Jose Dinuncio]
 

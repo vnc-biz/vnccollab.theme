@@ -51,7 +51,7 @@
     </genericsetup:upgradeSteps>
 
     <genericsetup:upgradeSteps
-      source="1106"
+      source="1105"
       destination="1106"
       sortkey="5"
       profile="vnccollab.theme:default">
