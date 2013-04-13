@@ -4,6 +4,9 @@ Changelog
 1.7.1 - Unreleased
 ------------------
 
+- Fixes step 2 wizard error. From previous commit.
+  [Cesar Gonzalez]
+
 - Fixes step 2 wizard error in required field.
   [Cesar Gonzalez]
 
