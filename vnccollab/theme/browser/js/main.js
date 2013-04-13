@@ -916,19 +916,16 @@ function loadCreateWizard(href, callback) {
 
       var $newform = jq(data).find('form[name=edit_form]');
 
-      $newform.find('fieldset').not('#fieldset-default').remove();
-      $newform.find('.formTabs').remove();
-      $newform.find('.editionComment').remove();
+      $newform.find('fieldset').not('#fieldset-default').remove()
+              .find('.formTabs').remove()
+              .find('.editionComment').remove()
+              .find('.field:has(span.required)').addClass('wizard-required')
+              .find('#archetypes-fieldname-description').addClass('wizard-field')
+              .find('#archetypes-fieldname-title').addClass('wizard-field')
+              .find('.field:not(.wizard-required, .wizard-field)').hide();
 
       jq('#createWizard form[name="edit_form"]').remove();
-
       jq('.step2 .step-content').prepend($newform);
-
-      jq('.field:has(span.required)').addClass('wizard-required');
-      jq('#createWizard #archetypes-fieldname-description').addClass('wizard-field');
-      jq('#createWizard #archetypes-fieldname-title').addClass('wizard-field');
-      jq('.field:not(.wizard-required, .wizard-field)').hide();
-
       jq('.wizard-overlay').hide();
 
       callback();

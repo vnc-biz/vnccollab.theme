@@ -4,6 +4,9 @@ Changelog
 1.7.1 - Unreleased
 ------------------
 
+- Fixes step 2 wizard error in required field.
+  [Cesar Gonzalez]
+
 - Fixes upgrade step source number in configure.zcml.
   [Cesar Gonzalez]
 
