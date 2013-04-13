@@ -7,7 +7,7 @@ from Products.Five.browser import BrowserView
 from Products.CMFPlone.utils import safe_unicode
 from Products.CMFCore import permissions
 from Products.CMFCore.utils import getToolByName
-from Products.CMFCore.interfaces import ISiteRoot
+from Products.CMFCore.interfaces import ISiteRoot, IFolderish
 
 from plone import api
 from plone.uuid.interfaces import IUUID
@@ -20,7 +20,7 @@ class GetTreeJson(BrowserView):
 
     def getInitialTree(self):
         '''Returns the initial tree for the dynatree.'''
-        context = self.context
+        context = self.getFolderishParent(self.context)
         child_tree = None
         child_uid = None
 
@@ -44,6 +44,13 @@ class GetTreeJson(BrowserView):
             child_uid = uid
 
         return simplejson.dumps(tree)
+
+    def getFolderishParent(self, obj):
+        '''Returns obj or its nearest parent that is folderish.'''
+        while True:
+            if IFolderish.providedBy(obj):
+                return obj
+            obj = aq_parent(obj)
 
     def _insert_child_tree(self, tree, child_tree, child_uid):
         for branch in tree:
@@ -85,34 +92,37 @@ class GetTreeJson(BrowserView):
 
     def _info_from_content(self, content):
         selectable = self._is_container_writable(content)
+        context = self.getFolderishParent(self.context)
+
         content_is_root = ISiteRoot.providedBy(content)
         if content_is_root:
             content_uid = '0'
         else:
             content_uid = content.uuid()
-        context_is_root = ISiteRoot.providedBy(self.context)
+
+        context_is_root = ISiteRoot.providedBy(context)
         if context_is_root:
             context_uid = '0'
         else:
-            context_uid = IUUID(self.context)
+            context_uid = IUUID(context)
 
         i_am_context = context_uid == content_uid
 
         result = {
-                'key': content_uid,
-                'id': content.getId(),
-                'title': safe_unicode(content.Title()).encode('utf-8'),
-                'tooltip': safe_unicode(content.Description()).encode('utf-8'),
-                'icon': content.getIcon(),
-                'noLink': True,
-                'isFolder': True,
-                'isLazy': True,
-                'path': content.getPath(),
-                'url': content.getURL(),
-                'unselectable': not(selectable),
-                'activate': selectable and i_am_context,
-                'children': [],
-            }
+            'key': content_uid,
+            'id': content.getId(),
+            'title': safe_unicode(content.Title()).encode('utf-8'),
+            'tooltip': safe_unicode(content.Description()).encode('utf-8'),
+            'icon': content.getIcon(),
+            'noLink': True,
+            'isFolder': True,
+            'isLazy': True,
+            'path': content.getPath(),
+            'url': content.getURL(),
+            'unselectable': not(selectable),
+            'activate': selectable and i_am_context,
+            'children': [],
+        }
 
         return result
 
@@ -127,5 +137,5 @@ class GetTreeJson(BrowserView):
         '''
         obj = brain.getObject()
         perm = getSecurityManager().checkPermission(
-                        permissions.AddPortalContent, obj)
+            permissions.AddPortalContent, obj)
         return perm == 1
