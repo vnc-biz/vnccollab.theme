@@ -3232,6 +3232,23 @@ input[type="submit"]:hover  {
   color: #FFFFFF !important;
 }
 
+/* to solve tinyMCE form.type.button */
+.mceActionPanel input[type="button"] {
+  background-color: #CED5DB;
+  border-radius: 14px;
+  border: none !important;
+  color: #4E6471;
+  cursor: pointer;
+  font-size: 0.98em;
+  padding: 5px 12px;
+}
+
+/* to solve tinyMCE form.type.button */
+.mceActionPanel input[type="button"]:hover  {
+  background-color: #4E6471;
+  color: #FFFFFF !important;
+}
+
 form.enabled input.like-button:hover, form.enabled .selected input.like-button {
   background-color: transparent;
   color: #4E6471 !important;

@@ -4,6 +4,9 @@ Changelog
 1.7.1 - Unreleased
 ------------------
 
+- Fixes Cancel icon button on insert media.
+  [Cesar Gonzalez]
+
 - Fixes step 2 wizard error. From previous commit.
   [Cesar Gonzalez]
 
