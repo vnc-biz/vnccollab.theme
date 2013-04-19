@@ -22,7 +22,7 @@ function attachPortletButtons() {
     var a = jq(event.target);
     var portlet = a.parents('.portletWrapper');
     portlet.toggleClass('closed');
-    
+
     if (!portlet.attr('id')) {
       return false;
     }
@@ -45,7 +45,7 @@ function attachPortletButtons() {
     var a = jq(event.target);
     var portlet = a.parents('.portletWrapper');
     portlet.toggleClass('wide');
-    
+
     // record change on the server side
     var hash = portlet.attr('id').slice('portletwrapper-'.length);
     if (hash) {
@@ -64,18 +64,18 @@ function attachHeaderViewletCloseOpen() {
     jq('#vnccollab-header').append('<a class="actionLink closeLink" '+
       'title="Click to contract" href="#">Close</a>');
   }
-  
+
   jq('#vnccollab-header a.closeLink').click(function(event){
     var container = jq(event.target).parents('#vnccollab-header');
     if (container.length == 0) {
       return false;
     }
-    
+
     if (container.is('.opened')) {
       container.removeClass('opened').addClass('closed');
       createCookie('vnccollab_header_state', 'closed', 365);
     }
-    
+
     return false;
   });
   jq('#vnccollab-header a.openLink').click(function(event){
@@ -83,12 +83,12 @@ function attachHeaderViewletCloseOpen() {
     if (container.length == 0) {
       return false;
     }
-    
+
     if (container.is('.closed')) {
       container.removeClass('closed').addClass('opened');
       createCookie('vnccollab_header_state', 'opened', 365);
     }
-    
+
     return false;
   });
 }
@@ -103,20 +103,20 @@ textile_settings = {
         {name:'Heading 4', key:'4', openWith:'h4(!(([![Class]!]))!). ', placeHolder:'Your title here...' },
         {name:'Heading 5', key:'5', openWith:'h5(!(([![Class]!]))!). ', placeHolder:'Your title here...' },
         {name:'Heading 6', key:'6', openWith:'h6(!(([![Class]!]))!). ', placeHolder:'Your title here...' },
-        {name:'Paragraph', key:'P', openWith:'p(!(([![Class]!]))!). '}, 
+        {name:'Paragraph', key:'P', openWith:'p(!(([![Class]!]))!). '},
         {separator:'---------------' },
-        {name:'Bold', key:'B', closeWith:'*', openWith:'*'}, 
-        {name:'Italic', key:'I', closeWith:'_', openWith:'_'}, 
-        {name:'Stroke through', key:'S', closeWith:'-', openWith:'-'}, 
+        {name:'Bold', key:'B', closeWith:'*', openWith:'*'},
+        {name:'Italic', key:'I', closeWith:'_', openWith:'_'},
+        {name:'Stroke through', key:'S', closeWith:'-', openWith:'-'},
         {separator:'---------------' },
-        {name:'Bulleted list', openWith:'(!(* |!|*)!)'}, 
-        {name:'Numeric list', openWith:'(!(# |!|#)!)'}, 
+        {name:'Bulleted list', openWith:'(!(* |!|*)!)'},
+        {name:'Numeric list', openWith:'(!(# |!|#)!)'},
         {separator:'---------------' },
-        {name:'Picture', replaceWith:'![![Source:!:http://]!]([![Alternative text]!])!'}, 
+        {name:'Picture', replaceWith:'![![Source:!:http://]!]([![Alternative text]!])!'},
         {name:'Link', openWith:'"', closeWith:'([![Title]!])":[![Link:!:http://]!]', placeHolder:'Your text to link here...' },
         {separator:'---------------' },
-        {name:'Quotes', openWith:'bq(!(([![Class]!]))!). '}, 
-        {name:'Code', openWith:'@', closeWith:'@'}, 
+        {name:'Quotes', openWith:'bq(!(([![Class]!]))!). '},
+        {name:'Code', openWith:'@', closeWith:'@'},
     ]
 }
 
@@ -198,7 +198,7 @@ function initPortletDashlet() {
     });
     e.preventDefault();
   }
-  
+
   jq('.portletDashlet').delegate('.dashlet-action', 'click',
                                  reloadPortletDashletContent);
   jq('.dashlet-action').first().click();
@@ -215,16 +215,16 @@ function attachCalendarWidgets(container) {
   if (!container || container.length == 0) {
     var container = jq('body');
   }
-  
+
   jq('input.datepicker-widget', container).each(function(elem, ids){
     var for_display = jq(this), field = for_display.parent();
     var input = field.find('input[type=hidden]'), iid = input.attr('id');
-    
+
     // skip if widget is already initialized
     if (field.find('img.ui-datepicker-trigger').length > 0) {
       return;
     }
-    
+
     // attach date picker
     // TODO: get below options from server side widget factory
     // TODO: add i18n
@@ -299,7 +299,7 @@ function attachCalendarWidgets(container) {
       input.val('');
       for_display.val('');
     });
-  
+
   });
 }
 
@@ -307,7 +307,7 @@ function initNewTicketForm(container) {
   if (!container || container.length == 0) {
     var container = jq('body');
   }
-  
+
   var $zimbraTaskForm = jq('#zimbra-contents', container),
       $redmineTaskForm = jq('#redmine-contents', container),
       $typeOfTicket = jq('#form-widgets-type_of_ticket', container);
@@ -321,7 +321,7 @@ function initNewTicketForm(container) {
       $redmineTaskForm.show();
     }
   }
-  
+
   function onTypeOfTicketChange() {
     // Event to show the right subform
     if ($typeOfTicket.length == 0) {
@@ -330,7 +330,7 @@ function initNewTicketForm(container) {
     }
     toggleSubforms($typeOfTicket.val());
   }
-  
+
   $typeOfTicket.change(onTypeOfTicketChange);
   onTypeOfTicketChange();
 }
@@ -362,16 +362,16 @@ function checkVNCStream() {
   if (vncStreamLoading == true) {
     return false;
   }
-  
+
   // mark request busy
   vncStreamLoading = true;
-  
+
   var stream = jq('#vnc-stream');
   if (stream.length == 0) {
     vncStreamLoading = false;
     return false;
   }
-  
+
   // find first item in the stream
   var item = jq('.vncStreamItem:first', stream);
   var data = {};
@@ -379,7 +379,7 @@ function checkVNCStream() {
     data = {'since': item.find('.dt').text(),
       'uid': item.find('.uid').text()};
   }
-  
+
   // do ajax request to the server to get fresh stream items
   jq.ajax({
     'type': 'GET',
@@ -392,13 +392,13 @@ function checkVNCStream() {
       } else {
         jq('.vncStreamBodyItems', stream).append(data);
       }
-      
+
       // if stream is visible: mark STREAM icon as read
       if (stream.is(':visible')) {
         jq('#unread-message').remove();
         jq('#site-stream-link').removeClass('newStreamMessage');
       }
-      
+
       vncStreamLoading = false;
       setTimeout(checkVNCStream, vncStreamDelay);
     },
@@ -407,7 +407,7 @@ function checkVNCStream() {
       setTimeout(checkVNCStream, vncStreamDelay);
     }
   });
-  
+
   return true;
 }
 
@@ -421,10 +421,10 @@ function attachStreamButton() {
       if (vncStreamLoading) {
         return false;
       }
-      
+
       // load from the server
       vncStreamLoading = true;
-      
+
       // add spinner
       if (jq('#xmpp-viewlet-container .spinner').length == 0) {
         jq('#xmpp-viewlet-container').prepend('<span class="spinner">' +
@@ -432,7 +432,7 @@ function attachStreamButton() {
       } else {
         jq('#xmpp-viewlet-container .spinner').show();
       }
-      
+
       jq.ajax({
         'url': portal_url + '/@@vnc-stream',
         'dataType': 'html',
@@ -495,15 +495,15 @@ function attachStreamActions() {
       var target = jq(event.target);
       var parent = target.parents('li');
       var klass = parent.attr('id').slice('stream-type-'.length-1);
-    
+
       // change tabs class to display only filtered stream items
       target.parents('.vncStreamMsgs').removeClass().addClass("vncStreamMsgs " +
         klass);
-    
+
       // add selected class to current tab
       parent.parent().find('li').removeClass('selected');
       parent.addClass('selected');
-    
+
       return false;
     });
   };
@@ -517,7 +517,7 @@ function attachStreamActions() {
       return false;
     });
   };
-  
+
   // attach form post handler
   var form1 = jq('#vnc-stream form#stream-quick-post');
   if (form1.length > 0) {
@@ -526,28 +526,28 @@ function attachStreamActions() {
           text = jq.trim(field.attr('value')),
           node = field.attr('data-post-node'),
           button = jq('[name="stream_quick_post_submit"]:input', form1);
-      
+
       // skip empty input
       if (!text) {
         field.attr('value', '');
         return false;
       }
-      
+
       // temporarily reset and disable form controls
       field.attr('disabled', 'disabled');
       field.attr('value', '');
       button.attr('disabled', 'disabled');
-      
+
       // actually post new message to the server
       jarnxmpp.PubSub.publish(node, '',  text, null);
-      
+
       // try to update vnc stream
       setTimeout(checkVNCStream, 2000);
-      
+
       // activate form again
       field.removeAttr('disabled');
       button.removeAttr('disabled');
-      
+
       return false;
     });
   }
@@ -568,7 +568,7 @@ function loadVncChat(sucess_callback, error_callback) {
                 // TODO: make smart alert only when something really goes wrong
                 //       Now we get alerts even when user reloads page before
                 //       ajax call hasn't finished
-                 // alert('Sorry, something went wrong on the server.' + 
+                 // alert('Sorry, something went wrong on the server.' +
                  //       'Please, try a bit later.');
                  error_callback();
                },
@@ -688,7 +688,7 @@ function initializeChatHandlers(vncchat) {
                 this.roster.presenceHandler(presence);
             }, this), function () {});
             this.unread_message_counter += 1;
-            if (jq('#unread-messages').length > 0) { 
+            if (jq('#unread-messages').length > 0) {
                 jq('#unread-messages').remove()
             };
             jq('#im-messages').prepend('<span id="unread-messages">'+
@@ -846,9 +846,9 @@ function rebindPubSubStreamHandlers () {
 //
 function animateContentWizardStep( stepNum, reset ) {
   if ( reset ) {
-   jq('.tab_link').addClass('blocked').removeClass('inactive').removeClass('active'); 
+   jq('.tab_link').addClass('blocked').removeClass('inactive').removeClass('active');
   } else {
-   jq('.tab_link').filter('.active').removeClass('active').addClass('inactive'); 
+   jq('.tab_link').filter('.active').removeClass('active').addClass('inactive');
  }
   jq('#tab_'+stepNum).addClass('active').removeClass('blocked');
   jq('#tab_'+stepNum).removeClass('inactive');
@@ -864,7 +864,7 @@ function animateContentWizardStep( stepNum, reset ) {
 function simpleValidateFormWizard() {
   var resp = true;
 
-  jq('.wizard-required').find('input[type=text]').each(function() { 
+  jq('.wizard-required').find('input[type=text]').each(function() {
     if(jq(this).val() == '') {
       jq(this).addClass('error-required');
       jq(this).prev('.fieldErrorBox').show().html('This field is required !');
@@ -872,9 +872,9 @@ function simpleValidateFormWizard() {
     } else {
       jq(this).prev('.fieldErrorBox').hide();
       jq(this).removeClass('error-required');
-    } 
+    }
   });
-  jq('.wizard-required').find('textarea').each(function() { 
+  jq('.wizard-required').find('textarea').each(function() {
     if(jq(this).val() == '') {
       jq(this).addClass('error-required');
       jq(this).prev('.fieldErrorBox').show().html('This field is required !');
@@ -884,7 +884,7 @@ function simpleValidateFormWizard() {
       jq(this).removeClass('error-required');
     }
   });
-  jq('.wizard-required').find('input[type=file]').each(function() { 
+  jq('.wizard-required').find('input[type=file]').each(function() {
     if(jq(this).val() == '') {
       jq(this).addClass('error-required');
       jq(this).parent().siblings('.fieldErrorBox').show().html('This file is required !');
@@ -892,7 +892,7 @@ function simpleValidateFormWizard() {
     } else {
       jq(this).parent().siblings('.fieldErrorBox').hide();
       jq(this).removeClass('error-required');
-    } 
+    }
   });
 
   return resp;
@@ -919,16 +919,13 @@ function loadCreateWizard(href, callback) {
       $newform.find('fieldset').not('#fieldset-default').remove();
       $newform.find('.formTabs').remove();
       $newform.find('.editionComment').remove();
-    
+      $newform.find('.field:has(span.required)').addClass('wizard-required');
+      $newform.find('#archetypes-fieldname-description').addClass('wizard-field');
+      $newform.find('#archetypes-fieldname-title').addClass('wizard-field');
+      $newform.find('.field:not(.wizard-required, .wizard-field)').hide();
+
       jq('#createWizard form[name="edit_form"]').remove();
-
       jq('.step2 .step-content').prepend($newform);
-
-      jq('.field:has(span.required)').addClass('wizard-required');
-      jq('#createWizard #archetypes-fieldname-description').addClass('wizard-field');
-      jq('#createWizard #archetypes-fieldname-title').addClass('wizard-field');
-      jq('.field:not(.wizard-required, .wizard-field)').hide();
-
       jq('.wizard-overlay').hide();
 
       callback();
@@ -948,6 +945,18 @@ function loadCreateWizard(href, callback) {
 }
 
 //
+//
+//
+function addDocumentContentShadows(){
+  var document_container = jq('.portaltype-document #content-core');
+  if (document_container.length == 0) {
+    return false;
+  }
+    document_container.before('<div class="content-top-shadow"></div>');
+    document_container.after('<div class="content-bottom-shadow"></div>');
+}
+
+//
 // setHandlersWizard
 //
 function setHandlersWizard() {
@@ -955,12 +964,12 @@ function setHandlersWizard() {
   var wizard_container = jq('#createWizard');
   if (wizard_container.length == 0) {
     return false;
-  } 
+  }
 
   //set create Wizard handler
   jq('#wizard-steps').on('click', '.Item', function( event ) {
     event.preventDefault();
-    
+
     jq('#tree').attr('data', jq(this).attr('data'));
     jq('.selectedContainer').html('');
     jq('input[name=selected_destination]').get(0).setAttribute('data', '');
@@ -973,7 +982,7 @@ function setHandlersWizard() {
   });
 
   // set control Step Wizard handler
-  jq('.tab').on('click', '.inactive', function( event ) {  
+  jq('.tab').on('click', '.inactive', function( event ) {
     event.preventDefault();
 
     var stepNum = parseInt( jq(this).attr('rel'),10 );
@@ -1034,25 +1043,29 @@ function setHandlersWizard() {
 
     animateContentWizardStep(3);
 
-    var firstTree = false; 
+    var firstTree = false;
     if ( jq('#tree').find('.dynatree-container')[0] == undefined ) {
       firstTree = true;
     }
 
     jq("#tree").dynatree({
-      initAjax: { url: cloudstream_url+'/@@get_tree_json',
-                  data: { content_type: jq('#tree').attr('data') },
+      initAjax: { url: cloudstream_url+'/@@wizard_get_initial_tree.json',
                   cache: false
                 },
+      onLazyRead: function(node){
+                    node.appendAjax({
+                      'url': cloudstream_url+'/@@wizard_get_tree.json',
+                      'data': {'uid': node.data.key},
+                    });
+                },
       fx: { height: "toggle", duration: 200 },
-
       onRender: function(node, nodeSpan) {
         if( node.data.unselectable == true ){
           jq(nodeSpan).addClass("disabled")
           return false;
         }
       },
-      onClick: function(node, e){
+      onActivate: function(node, e){
 
         if( node.data.unselectable == true ){
           jq('.selectedContainer').html('');
@@ -1078,6 +1091,7 @@ function setHandlersWizard() {
         } else {
           jq('input#send-wizard').show();
         }
+        this.reactivate();
         return false;
       }
     });
@@ -1105,4 +1119,5 @@ jq(function() {
   setupVncChat();
   rebindPubSubStreamHandlers();
   setHandlersWizard();
+  addDocumentContentShadows();
 });

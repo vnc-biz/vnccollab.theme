@@ -1,11 +1,42 @@
 Changelog
 =========
 
+1.7.1 - April 19, 2013
+----------------------
+
+- Fixes Cancel icon button on insert media.
+  [Cesar Gonzalez]
+
+- Fixes step 2 wizard error in required field.
+  [Cesar Gonzalez]
+
+- Fixes upgrade step source number in configure.zcml.
+  [Cesar Gonzalez]
+
+- Current folder is the default destination for "Create Wizard".
+  [Jose Dinuncio]
+
+- Fixes "File Under" tags position.
+  [Cesar Gonzalez]
+
+- Makes "Create New" wizard tree selector lazy.
+  [Jose Dinuncio]
+
+- Changes Tree Navigation style -Home button design update-.
+  [Cesar Gonzalez]
+
+- Applies layout for Document content type (Wiki), add shadow image.
+  [Cesar Gonzalez]
+
+- Display only Group Portlets on our home dashboard view.
+  [Vitaliy Podoba]
+
+
 1.7 - March 20, 2013
 --------------------
 
 - Fixes bug in livesearch_reply.py.
-  [Jose]
+  [Jose Dinuncio]
 
 - Adds method post_and-index_object to replace WSAPI's post_object.
   [Jose Dinuncio]
