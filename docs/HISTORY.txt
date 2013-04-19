@@ -1,13 +1,10 @@
 Changelog
 =========
 
-1.7.1 - Unreleased
-------------------
+1.7.1 - April 19, 2013
+----------------------
 
 - Fixes Cancel icon button on insert media.
-  [Cesar Gonzalez]
-
-- Fixes step 2 wizard error. From previous commit.
   [Cesar Gonzalez]
 
 - Fixes step 2 wizard error in required field.
@@ -17,7 +14,7 @@ Changelog
   [Cesar Gonzalez]
 
 - Current folder is the default destination for "Create Wizard".
-  [Marcin Staniszczak, Jose Dinuncio]
+  [Jose Dinuncio]
 
 - Fixes "File Under" tags position.
   [Cesar Gonzalez]
@@ -33,6 +30,7 @@ Changelog
 
 - Display only Group Portlets on our home dashboard view.
   [Vitaliy Podoba]
+
 
 1.7 - March 20, 2013
 --------------------
