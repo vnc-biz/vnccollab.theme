@@ -3483,7 +3483,7 @@ table.listing td:last-child {
   border-radius: 5px;
 }
 
-.pb-ajax #content-core {
+.pb-ajax #content-core, .pb-ajax #skel-contents {
   margin-right: 0;
   margin-left: 0;
   margin-bottom: 0;
@@ -3495,6 +3495,10 @@ table.listing td:last-child {
   margin: 0;
   padding: 0;
   width: 100%;
+}
+
+.pb-ajax textarea {
+  box-sizing: border-box;
 }
 
 #content .pb-ajax h1.documentFirstHeading, .pb-ajax h1.documentFirstHeading {

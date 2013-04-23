@@ -1,6 +1,13 @@
 Changelog
 =========
 
+1.7.2 - undefined
+-----------------
+
+- Fixes Create Task overlay style. Add box-sizing to textarea in overlays.
+  [Cesar Gonzalez]
+
+
 1.7.1 - April 19, 2013
 ----------------------
 
