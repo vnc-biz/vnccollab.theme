@@ -945,7 +945,7 @@ function loadCreateWizard(href, callback) {
 }
 
 //
-//
+// addDocumentContentShadows
 //
 function addDocumentContentShadows(){
   var document_container = jq('.portaltype-document #content-core');
@@ -954,6 +954,18 @@ function addDocumentContentShadows(){
   }
     document_container.before('<div class="content-top-shadow"></div>');
     document_container.after('<div class="content-bottom-shadow"></div>');
+}
+
+//
+// fixGeneralUI
+//
+
+function fixGeneralUI(){
+  // removes wrong entry in Content TOC
+  var $last = jq('.toc').find('li').last();
+  if($last.text() == "Bookmark & Share") { 
+    $last.remove(); 
+  }
 }
 
 //
@@ -1120,4 +1132,5 @@ jq(function() {
   rebindPubSubStreamHandlers();
   setHandlersWizard();
   addDocumentContentShadows();
+  fixGeneralUI();
 });

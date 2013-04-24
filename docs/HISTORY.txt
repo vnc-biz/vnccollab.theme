@@ -4,6 +4,9 @@ Changelog
 1.7.2 - undefined
 -----------------
 
+- Remove wrong TOC entry "Bookmark & Share". TOC positioning at top. Format TOC levels.
+  [Cesar Gonzalez]
+
 - Fixes Create Task overlay style. Add box-sizing to textarea in overlays.
   [Cesar Gonzalez]
 
