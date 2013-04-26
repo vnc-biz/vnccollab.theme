@@ -1,7 +1,7 @@
 Changelog
 =========
 
-1.7.2 - undefined
+1.7.2 - Unreleased
 -----------------
 
 - Remove wrong TOC entry "Bookmark & Share". TOC positioning at top. Format TOC levels.
