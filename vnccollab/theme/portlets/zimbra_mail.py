@@ -1,15 +1,8 @@
-import time
 import sys
-from urllib2 import urlopen, Request
 import logging
-import base64
-import simplejson
-from datetime import datetime
-
-from DateTime import DateTime
 
 from zope.formlib import form
-from zope.interface import implements, Interface
+from zope.interface import implements
 from zope import schema
 
 from Products.Five.browser.pagetemplatefile import ZopeTwoPageTemplateFile
@@ -24,6 +17,8 @@ from vnccollab.theme import messageFactory as _
 
 
 MYLOGGER = logging.getLogger('vnccollab.theme.ZimbraMailPortlet')
+
+
 def logException(msg, context=None, logger=MYLOGGER):
     logger.exception(msg)
     if context is not None:
@@ -55,11 +50,11 @@ class IZimbraMailPortlet(IPortletDataProvider):
         default='inbox')
 
     count = schema.Int(
-       title=_(u"Number of items to display"),
-       description=_(u"How many items to list."),
-       required=True,
-       default=5)
-    
+        title=_(u"Number of items to display"),
+        description=_(u"How many items to list."),
+        required=True,
+        default=5)
+
     username = schema.ASCIILine(
         title=_(u"Username"),
         description=_(u"If not set, zimbra_username property of authenticated "
@@ -87,13 +82,14 @@ class IZimbraMailPortlet(IPortletDataProvider):
         description=_(u"How many seconds to wait for hanging Zimbra request."),
         required=True,
         default=15)
-    
+
     failure_delay = schema.Int(
         title=_(u"Failure delay"),
         description=_(u"Time in minutes before retry to load data from Zimbra "
                       "after a failure"),
         required=True,
         default=5)
+
 
 class Assignment(base.Assignment):
     implements(IZimbraMailPortlet)
@@ -127,6 +123,7 @@ class Assignment(base.Assignment):
         self.request_timeout = request_timeout
         self.failure_delay = failure_delay
 
+
 class Renderer(base.Renderer):
 
     render = ZopeTwoPageTemplateFile('templates/zimbra_mail.pt')
@@ -138,7 +135,7 @@ class Renderer(base.Renderer):
     def getAuthCredentials(self):
         """Returns username and password for zimbra user."""
         username, password = self.data.username, self.data.password
-        if not (username and password): 
+        if not (username and password):
             # take username and password from authenticated user Zimbra creds
             mtool = getToolByName(self.context, 'portal_membership')
             member = mtool.getAuthenticatedMember()
@@ -152,6 +149,7 @@ class Renderer(base.Renderer):
         """return title of feed for portlet"""
         return self.data.header
 
+
 class AddForm(base.AddForm):
     form_fields = form.Fields(IZimbraMailPortlet)
     label = _(u"Add Zimbra Mail Portlet")
@@ -159,6 +157,7 @@ class AddForm(base.AddForm):
 
     def create(self, data):
         return Assignment(**data)
+
 
 class EditForm(base.EditForm):
     form_fields = form.Fields(IZimbraMailPortlet)
