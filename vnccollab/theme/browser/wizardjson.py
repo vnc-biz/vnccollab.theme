@@ -59,7 +59,7 @@ class GetTreeJson(BrowserView):
                 branch['isLazy'] = False
                 branch['expand'] = True
 
-    def getTree(self, uid=None):
+    def getTree(self, uid=None, type_=None):
         '''Returns the (lazy) tree for a given node.
 
            params:
@@ -68,7 +68,7 @@ class GetTreeJson(BrowserView):
         results = self.get_tree(uid=uid)
         return simplejson.dumps(results)
 
-    def get_tree(self, uid=None):
+    def get_tree(self, uid=None, type_=None):
         catalog = getToolByName(self.context, 'portal_catalog')
 
         container_path = ''
@@ -86,12 +86,12 @@ class GetTreeJson(BrowserView):
                  'path': {'query': container_path, 'depth': 1}}
 
         results = IContentListing(catalog(**query))
-        results = [self._info_from_content(x) for x in results]
+        results = [self._info_from_content(x, type_) for x in results]
         results.sort(lambda x, y: cmp(x['title'], y['title']))
         return results
 
-    def _info_from_content(self, content):
-        selectable = self._is_container_writable(content)
+    def _info_from_content(self, content, type_=None):
+        selectable = self._is_container_selectable(content, type_)
         context = self.getFolderishParent(self.context)
 
         content_is_root = ISiteRoot.providedBy(content)
@@ -128,6 +128,19 @@ class GetTreeJson(BrowserView):
 
     def _get_container_types(self):
         return ['Folder']
+
+    def _is_container_selectable(self, container, type_):
+        writable = self._is_container_writable(container)
+        if not writable:
+            return False
+        return self._is_type_allowed_in_container(container, type_)
+
+    def _is_type_allowed_in_container(self, brain, type_):
+        if type_ is None:
+            return True
+
+        allowed_types = list(brain.getObject().getLocallyAllowedTypes())
+        return type_ in allowed_types
 
     def _is_container_writable(self, brain):
         '''True if the current user can write in the brain's container.
