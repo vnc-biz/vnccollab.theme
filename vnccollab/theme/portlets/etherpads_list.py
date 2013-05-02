@@ -15,6 +15,7 @@ from plone.portlets.interfaces import IPortletDataProvider
 from plone.app.portlets.portlets import base
 
 from vnccollab.theme import messageFactory as _
+from vnccollab.theme.portlets import deferred
 from vnccollab.theme.portlets.zimbra_mail import logException
 
 logger = logging.getLogger('vnccollab.theme.EtherpadListsPortlet')
@@ -81,13 +82,12 @@ class Assignment(base.Assignment):
         self.password = password
 
 
-class Renderer(base.Renderer):
+class Renderer(deferred.DeferredRenderer):
 
     render = ZopeTwoPageTemplateFile('templates/etherpads_list.pt')
 
-    @property
-    def available(self):
-        return len(self.getPads()) > 0
+    def refresh(self):
+        self.pads = self.getPads()
 
     @memoize
     def getPads(self):
@@ -99,7 +99,8 @@ class Renderer(base.Renderer):
         # try to request etherpad for page with table of pads
         try:
             content = self._getPadsPage()
-        except Exception, e:
+
+        except:
             logException(_(u"Error during fetching pads from %s" % url),
                 context=self.context, logger=logger)
             return ()
@@ -108,7 +109,8 @@ class Renderer(base.Renderer):
         try:
             pads = self._parsePadsPage(content, self.trail_url(url),
                 self.data.count)
-        except Exception, e:
+
+        except:
             logException(_(u"Error during parsing pads page from %s" % url),
                 context=self.context, logger=logger)
             return ()
