@@ -1116,10 +1116,68 @@ function setHandlersWizard() {
 
 }
 
+//
+// Deferred Portlets
+//
+function initDeferredPortlets() {
+  function deferredUrlInfo(elem) {
+    var $elem = jq(elem);
+    var manager = $elem.attr('portlet-manager');
+    var name    = $elem.attr('portlet-name');
+    var key     = $elem.attr('portlet-key');
+
+    if (!manager || ! name || !key) {
+      return '';
+    }
+
+    return ({
+      'url': window.location + '/portlet_deferred_render',
+      'data': {
+        'manager': manager,
+        'name': name,
+        'key': key
+      }
+    });
+  }
+
+  function updatePortlet(elem){
+    // Returns a funciton to update the portlet represented by elem DOM
+    var fn = function(data) {
+      var $elem = jq(elem);
+      $elem.replaceWith(data);
+      attachPortletButtons();
+      //var $data = jq(data);
+      //var new_portlet_content = $data.html();
+
+      //$elem.html(new_portlet_content);
+
+    }
+    return fn;
+  }
+
+  function deferredRender() {
+    // Starts the deferred render of the portlet,
+    // if it has enough info
+    var urlInfo = deferredUrlInfo(this);
+    if (!urlInfo) {
+      return;
+    }
+
+    var url = urlInfo.url;
+    var data = urlInfo.data;
+    jq.get(url, data, updatePortlet(this));
+  }
+
+  var deferredPortlets = jq('.portlet-deferred');
+  deferredPortlets.each(deferredRender);
+}
+
+
 jq(function() {
   attachNewTicketAction();
   attachHeaderViewletCloseOpen();
   attachPortletButtons();
+  initDeferredPortlets();
   init_textile_editor();
   addSlimScrollingToDashboardPortlets();
   init_special_rss_portlet();
