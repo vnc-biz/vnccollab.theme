@@ -16,6 +16,7 @@ from plone.memoize.instance import memoize
 from plone.portlets.interfaces import IPortletDataProvider
 from plone.app.portlets.portlets import base
 
+from vnccollab.theme.portlets import deferred
 from vnccollab.theme.portlets.zimbra_mail import logException
 from vnccollab.theme import messageFactory as _
 
@@ -61,13 +62,14 @@ class Assignment(base.Assignment):
         self.request_timeout = request_timeout
 
 
-class Renderer(base.Renderer):
+class Renderer(deferred.DeferredRenderer):
 
-    render = ZopeTwoPageTemplateFile('templates/redmine_tickets.pt')
+    render_preload = render_full = ZopeTwoPageTemplateFile(
+        'templates/redmine_tickets.pt')
 
-    @property
-    def available(self):
-        return len(self.getTickets()) > 0
+    def refresh(self):
+        '''Calculates the data needed for deferred_update.'''
+        self.getTickets()
 
     def getTicketsURL(self):
         """Returns tickets root url"""
