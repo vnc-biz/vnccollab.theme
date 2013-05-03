@@ -1,0 +1,8 @@
+msgid "Gallery View"
+msgstr "Bildergallerie"
+
+msgid "galleryview"
+msgstr "Bildergallerie"
+
+msgid "Users"
+msgstr "Benutzer"

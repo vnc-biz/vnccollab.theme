@@ -4,6 +4,9 @@ Changelog
 1.7.2 - Unreleased
 -----------------
 
+- Fixes translation of Display menu and global bar.
+  [Jose Dinuncio]
+
 - Remove wrong TOC entry "Bookmark & Share". TOC positioning at top. Format TOC levels.
   [Cesar Gonzalez]
 
