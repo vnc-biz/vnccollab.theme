@@ -108,7 +108,7 @@ class LiveSearchReplyView(BrowserView):
             write('''<div id="LSNothingFound">%s</div>''' % ts.translate(label_no_results_found, context=request))
             write('''<ul class="ls-foot">''')
             write('''<li class="LSRow lsrow-adv-search">''')
-            write('<a href="%s" style="font-weight:normal">%s</a>' %
+            write('<b></b><a href="%s" style="font-weight:normal">%s</a>' %
                  (portal_url + '/@@search',
                   ts.translate(label_advanced_search, context=request)))
             write('''</li>''')

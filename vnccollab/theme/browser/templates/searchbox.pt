@@ -1,36 +1,32 @@
-<div id="cloudtheme-searchbox"
+<div id="portal-searchbox"
      i18n:domain="plone"
      tal:define="search_input_id string:search_input">
 
      <form name="searchform" id="searchGadget_form"
            action=""
            tal:attributes="id string:${search_input_id}_form;">
+        <div class="LSBox">
+           <input name="SearchableText"
+                 id="searchGadget"
+                 type="text"
+                 size="18"
+                 value=""
+                 title="Find Content"
+                 placeholder="Find Content"
+                 accesskey="4"
+                 i18n:attributes="title title_search_site;
+                                  placeholder title_search_site"
+                 tal:attributes="value request/form/SearchableText|nothing"
+                 class="searchField"
+                 autocomplete="off" />
 
-         <input name="SearchableText"
-               type="text"
-               size="18"
-               value=""
-               title="Find Content"
-               placeholder="Find Content"
-               accesskey="4"
-               i18n:attributes="title title_search_site;
-                                placeholder title_search_site"
-               tal:attributes="value request/form/SearchableText|nothing;
-                               id search_input_id"
-               class="searchField"
-               autocomplete="off" />
-
-        <input class="searchButton"
-               type="submit"
-               value="Search"
-               i18n:attributes="value label_search;" />
+          <input class="searchButton"
+                 type="submit"
+                 value="Search"
+                 i18n:attributes="value label_search;" />
+          <div class="LSResult" id="LSResult" style="">
+            <div class="LSShadow" id="LSShadow"></div>
+          </div>
+        </div>
     </form>
-    <div class="find-content-tooltip">
-      <span class="explain">Did you find what you're looking for?<br>if not, try the following:</span>
-      <span class="advanced"><b></b>
-        <a href="ADVANCED_SEARCH" tal:attributes="href string:${context/absolute_url}/@@search">
-          Advanced Search...</a>
-      </span>
-      <!--span class="create"><b></b>Create Content Item </span-->
-    </div>
 </div>

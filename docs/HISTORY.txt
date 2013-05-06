@@ -1,8 +1,11 @@
 Changelog
 =========
 
-1.7.2 - undefined
------------------
+1.7.2 - Unreleased
+------------------
+
+- Applies livesearch overrides in theme package (frontend). Catch incorrect response from server.
+  [Cesar Gonzalez]
 
 - Overloads plone.searchbox viewlet.
   [Jose Dinuncio]
