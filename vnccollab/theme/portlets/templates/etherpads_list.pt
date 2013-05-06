@@ -20,12 +20,12 @@
     </dt>
 
     <dd class="portletBodyWrapper">
-      <ul class="portletBody"
+      <div class="portletLoading"
            tal:condition="view/initializing">
           <img tal:attributes="src string:${context/portal_url}/spinner.gif" alt="" />
-      </ul>
+      </div>
 
-      <ul class="portletBody"
+      <ul class="portletBody noSlimScroll"
           tal:condition="not:view/initializing">
         <tal:items tal:repeat="elem view/pads">
         <li tal:define="oddrow repeat/elem/odd"
@@ -57,7 +57,7 @@
       </ul>
     </dd>
 
-    <dd class="portletFooter">
+    <dd class="portletFooter" style="visibility:hidden">
         <span class="portletBottomLeft"></span>
         <a href="/ep/padlist/all-pads"
            title="Check all pads"

@@ -1143,14 +1143,11 @@ function initDeferredPortlets() {
   function updatePortlet(elem){
     // Returns a funciton to update the portlet represented by elem DOM
     var fn = function(data) {
-      var $elem = jq(elem);
-      $elem.replaceWith(data);
+      var $elem = jq(elem),
+          $data = jq(data);
+      $data.find('.portletBody').slimScroll({'height': '240px'});
+      $elem.replaceWith($data);
       attachPortletButtons();
-      //var $data = jq(data);
-      //var new_portlet_content = $data.html();
-
-      //$elem.html(new_portlet_content);
-
     }
     return fn;
   }

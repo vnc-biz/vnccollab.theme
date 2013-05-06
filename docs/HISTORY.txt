@@ -2,7 +2,10 @@ Changelog
 =========
 
 1.7.2 - Unreleased
------------------
+------------------
+
+- slimScroll attach to deferred portlets, spinner animation centering, template adjust.
+  [Cesar Gonzalez]
 
 - Fixes translation of Display menu and global bar.
   [Jose Dinuncio]

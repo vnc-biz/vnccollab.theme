@@ -19,12 +19,12 @@
     </dt>
 
     <dd class="portletBodyWrapper">
-      <ul class="portletBody"
+      <div class="portletLoading"
            tal:condition="view/initializing">
           <img tal:attributes="src string:${context/portal_url}/spinner.gif" alt="" />
-      </ul>
+      </div>
 
-      <ul class="portletBody"
+      <ul class="portletBody noSlimScroll"
           tal:condition="not:view/initializing">
         <tal:items tal:repeat="elem view/getTickets">
         <li class="portletItem"
@@ -51,7 +51,7 @@
       </ul>
     </dd>
 
-    <dd class="portletFooter">
+    <dd class="portletFooter" style="visibility:hidden">
         <span class="portletBottomLeft"></span>
         <a href="#"
            title="Check all issues"

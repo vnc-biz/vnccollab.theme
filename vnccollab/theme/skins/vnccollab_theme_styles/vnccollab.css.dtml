@@ -690,7 +690,7 @@ a.carousel-pager-button-next span {
 a.carousel-pager-button-next span {
   background-position:-18px -20px;
   }
-  
+
 .headerLinksViewlet {
   bottom:10px;
   font-size:0.69em;
@@ -1184,6 +1184,13 @@ dl.portlet dd.portletFooter {
   background-position: -94px -20px;
   }
 
+/*----- Portlet Spinner -----*/
+#dashboard-portlets .portletLoading {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+}
+
 /*----- Dashboard -----*/
 #dashboard {
   font-size:1.33em;
@@ -1276,7 +1283,7 @@ dl.portlet dd.portletFooter {
 #dashboard .portletFooter {
   padding: 8px 13px;
   }
-  
+
 /* portlets on manage-dashboard screens */
 #dashboard-portlets .portlet.managedPortlet {
   width:100%;
@@ -1299,7 +1306,7 @@ dl.portlet dd.portletFooter {
   background-position:-114px -20px;
   }
 .portlet:hover .portletWideNarrowLink {
- visibility: visible; 
+ visibility: visible;
  }
 
 /* Portlet Zimbra Calendar */
@@ -1361,8 +1368,8 @@ dl.portlet ul.navTreeLevel0 > .navTreeItem {
   padding:0;
   }
 dl.portlet ul.navTree .navTreeCurrentItem:before{
-  width: 0; 
-  height: 0; 
+  width: 0;
+  height: 0;
   border-top: 18px solid transparent;
   border-bottom: 18px solid transparent;
   display: block;
@@ -1582,7 +1589,7 @@ dl.portlet ul.navTreeLevel1 > .navTreeItem:first-child {
 #dashboard .special-rss-links li a:hover {
   color: #fff !important;
   }
-  
+
 /*----- Portal Content -----*/
 #content li.formTab a:hover {
   color:#ffffff !important;
@@ -1612,7 +1619,7 @@ dl.portlet ul.navTreeLevel1 > .navTreeItem:first-child {
   color:#658598;
   float:right;
   }
-  
+
 /*----- formTabs -----*/
 #content ul.formTabs {
   background:rgba(255, 255, 255, 0.5);
@@ -1716,11 +1723,11 @@ dl.actionMenu {
   content: "";
 }
 
-  
+
 /************
 
  Moved here from main.css
- 
+
 **************/
 
 /* Top Rated Viewlet Styles */
@@ -1784,7 +1791,7 @@ dl.actionMenu {
 .textile .markItUp {
   width: 100%;
 }
-  
+
 .textile #text.markItUpEditor {
   padding: 0;
   width: 100%;
@@ -1923,7 +1930,7 @@ dl.actionMenu {
   }
 
 .portaltype-document .thumb-rating {
-  margin: -10px 0px 5px 10px;       
+  margin: -10px 0px 5px 10px;
 }
 
 .portaltype-document .thumbs-rating input[type="submit"], select {
@@ -2010,9 +2017,9 @@ dl.portalMessage dd {
   margin-left: -97px;
   opacity: 0.3;
   position: absolute;
-  -webkit-transition:opacity 0.2s ease-out;  
-  -moz-transition:opacity 0.2s ease-out;  
-  -o-transition:opacity 0.2s ease-out;  
+  -webkit-transition:opacity 0.2s ease-out;
+  -moz-transition:opacity 0.2s ease-out;
+  -o-transition:opacity 0.2s ease-out;
   transition:opacity 0.2s ease-out;
   width: 194px;
   z-index: 3;
@@ -2691,19 +2698,19 @@ div.add-xmpp-contact {
 #xmppchat-roster dd.current-xmpp-contact.away:hover {
   background: url(&dtml-portal_url;/++resource++collective.xmpp.chat.images/user_away_panel.png) no-repeat 5px 2px;
 }
-.dropdown a.online { 
+.dropdown a.online {
   background: url(&dtml-portal_url;/++resource++collective.xmpp.chat.images/user_online_panel.png) no-repeat left;
 }
 
-.dropdown a.offline { 
+.dropdown a.offline {
   background: url(&dtml-portal_url;/++resource++collective.xmpp.chat.images/user_offline_panel.png) no-repeat left;
 }
 
-.dropdown a.busy { 
+.dropdown a.busy {
   background: url(&dtml-portal_url;/++resource++collective.xmpp.chat.images/user_busy_panel.png) no-repeat left;
 }
 
-.dropdown a.away { 
+.dropdown a.away {
   background: url(&dtml-portal_url;/++resource++collective.xmpp.chat.images/user_away_panel.png) no-repeat left;
 }
 
@@ -2852,7 +2859,7 @@ div.add-xmpp-contact {
   padding: 5px 0;
   width: 114px;
   }
-  
+
 /* Drag Button */
 .dragButton {
   background: url(&dtml-portal_url;/sprite.png) no-repeat -257px 0 #f2f2f2;
@@ -3037,7 +3044,7 @@ div.add-xmpp-contact {
 }
 
 #content-views li.selected a:after {
-  
+
   border: 10px solid transparent;
   border-top-color: #333;
 
@@ -3054,7 +3061,7 @@ div.add-xmpp-contact {
 
 .portaltype-document .documentEditable {
   background: rgba(255,255,255,0.7);
-  border: 1px solid rgba(0, 42, 67, 0.2); 
+  border: 1px solid rgba(0, 42, 67, 0.2);
 }
 
 #content div.documentByLine {
@@ -3065,9 +3072,9 @@ div.add-xmpp-contact {
   padding: 0 0 20px 0;
 }
 
-.portaltype-document #content div.documentByLine a,  
-.portaltype-document #content div.documentByLine a:Visited { 
-  color: #6ea21b;  
+.portaltype-document #content div.documentByLine a,
+.portaltype-document #content div.documentByLine a:Visited {
+  color: #6ea21b;
 }
 
 .portaltype-document #content div.documentByLine {
@@ -3202,7 +3209,7 @@ fieldset, .editionComment {
   width: auto;
 }
 
-/* Editor */ 
+/* Editor */
 span#text_parent.mceEditor {
   border-radius: none;
 }
@@ -3524,7 +3531,7 @@ table.listing td:last-child {
 }
 
 #content .pb-ajax h1.documentFirstHeading, .pb-ajax h1.documentFirstHeading {
-  font-size: 21px; 
+  font-size: 21px;
   margin: 0;
   padding: 0.5em 0 0.3em 0;
   text-transform: uppercase;
@@ -3536,11 +3543,11 @@ table.listing td:last-child {
 
 #content .pb-ajax h1.sendError, .pb-ajax h1.sendError {
     background-color: #b91900;
-} 
+}
 
 #content .pb-ajax h1.mailSent, .pb-ajax h1.mailSent {
     background-color: #012A43;
-} 
+}
 
 #content .pb-ajax .documentDescription,
 #content .pb-ajax #description,
@@ -3588,10 +3595,10 @@ table.listing td:last-child {
   color: rgba(1,42,67,0.5);
 }
 
-.pb-ajax input[type="text"], 
-.pb-ajax input[type="password"], 
-.pb-ajax input[type="file"] , 
-.pb-ajax textarea, 
+.pb-ajax input[type="text"],
+.pb-ajax input[type="password"],
+.pb-ajax input[type="file"] ,
+.pb-ajax textarea,
 .pb-ajax select {
   border-radius: 3px;
   padding: 6px !important;
@@ -3726,7 +3733,7 @@ a.caltrigger {
   width: 960px;
   height: 400px;
   margin: 0 auto;
-  padding: 20px 0 10px 0; 
+  padding: 20px 0 10px 0;
   border-bottom: 1px solid rgba(1,42,67,0.2);
   display: none;
   position: relative;
@@ -3749,7 +3756,7 @@ a.caltrigger {
   width: 960px;
   height: 400px;
   float: left;
-  overflow-x: hidden; 
+  overflow-x: hidden;
   overflow-y: auto;
 }
 
@@ -3882,9 +3889,9 @@ a.caltrigger {
   width: 230px;
   min-height: 37px;
   vertical-align: top;
-  -webkit-transition:all 0.2s ease-out;  
-  -moz-transition:all 0.2s ease-out;  
-  -o-transition:all 0.2s ease-out;  
+  -webkit-transition:all 0.2s ease-out;
+  -moz-transition:all 0.2s ease-out;
+  -o-transition:all 0.2s ease-out;
   transition:all 0.2s ease-out;
 }
 #createWizard a.Item:hover {
@@ -3971,7 +3978,7 @@ a.caltrigger {
   color: rgba(0,0,0,0.70);
 }
 
-#createWizard .dynatree-active .dynatree-title { 
+#createWizard .dynatree-active .dynatree-title {
   color: rgba(0,0,255,0.80);
 }
 
@@ -4111,7 +4118,7 @@ a.caltrigger {
 }
 
 .site-cast-link:hover {
-  background: url(&dtml-portal_url;/icon_cast_24_on.png) no-repeat 0 0;  
+  background: url(&dtml-portal_url;/icon_cast_24_on.png) no-repeat 0 0;
 }
 
 .im-message {
@@ -4145,7 +4152,7 @@ a.caltrigger {
 }
 
 .folder-icon {
-  background-position: -123px -43px;  
+  background-position: -123px -43px;
 }
 
 .document-icon {
@@ -4153,7 +4160,7 @@ a.caltrigger {
 }
 
 .file-icon {
-  background-position: -195px 0;  
+  background-position: -195px 0;
 }
 
 .image-icon {
@@ -4161,11 +4168,11 @@ a.caltrigger {
 }
 
 .cast-update-icon, .castscontainer-icon {
-  background-position: -235px -43px;  
+  background-position: -235px -43px;
 }
 
 .cast-icon {
-  background-position: -235px -43px;  
+  background-position: -235px -43px;
 }
 
 .zimbra-mail-icon {
@@ -4177,15 +4184,15 @@ a.caltrigger {
 }
 
 .news-item-icon {
-  background-position: -10px 0; 
+  background-position: -10px 0;
 }
 
 .collection-icon {
-  background-position: -6px -43px; 
+  background-position: -6px -43px;
 }
 
 .event-icon {
-  background-position: -57px 0;   
+  background-position: -57px 0;
 }
 
 a.ls-content-title {
@@ -4294,7 +4301,7 @@ a.ls-content-title {
 
 @media screen and (max-height: 800px) {
   .LSTable {
-  max-height: 320px; 
+  max-height: 320px;
   }
 }
 
@@ -4357,13 +4364,13 @@ a.ls-content-title {
     background: no-repeat transparent 5px -176px url(sprites_16.png);
 }
 .section-partner > .contenttype-folder {
-    background: no-repeat transparent 5px -212px url(sprites_16.png);  
+    background: no-repeat transparent 5px -212px url(sprites_16.png);
 }
 
 
 .navTreeItem > .contenttype-image > img,
 .navTreeItem > .contenttype-file > img {
-    display: none; 
+    display: none;
 }
 .navTreeFolderish .contenttype-castscontainer > img,
 .navTreeFolderish .contenttype-cast > img {
