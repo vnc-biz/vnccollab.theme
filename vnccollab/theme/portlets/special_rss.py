@@ -1,12 +1,8 @@
-from pytz import timezone
-from datetime import datetime
-
 from zope.formlib import form
-from zope.interface import implements, Interface
+from zope.interface import implements
 from zope import schema
 from plone.app.portlets.portlets.rss import RSSFeed
 
-from Products.CMFCore.utils import getToolByName
 from Products.Five.browser.pagetemplatefile import ZopeTwoPageTemplateFile
 
 from plone.portlets.interfaces import IPortletDataProvider
@@ -27,7 +23,7 @@ class ISpecialRSSPortlet(IPortletDataProvider):
         title=_(u"RSS Sources"),
         description=u'Please select links that point to RSS feeds',
         required=True,
-        value_type = schema.Choice(
+        value_type=schema.Choice(
             vocabulary='vnccollab.theme.vocabularies.ATLinkVocabulary',))
 
     count = schema.Int(title=_(u'Number of items to display'),
@@ -54,7 +50,7 @@ class Assignment(base.Assignment):
         """Return portlet header"""
         return self.header
 
-    def __init__(self, header=u'New in the Cloud', source = [],
+    def __init__(self, header=u'New in the Cloud', source=[],
                  count=5, timeout=15):
         self.header = header
         self.source = source
@@ -132,13 +128,15 @@ class EditForm(base.EditForm):
 
 from HTMLParser import HTMLParser
 
+
 class MLStripper(HTMLParser):
     '''Support class to convert HTML to ASCII'''
     def __init__(self):
         self.reset()
         self.fed = []
+
     def handle_data(self, d):
         self.fed.append(d)
+
     def get_data(self):
         return ''.join(self.fed)
-
