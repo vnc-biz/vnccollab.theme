@@ -104,6 +104,9 @@ class FollowingView(BrowserView):
         users = []
         for uid in following.get_followings(userid):
             user = acl_users.getUserById(uid)
+            name = uid
+            if user:
+                name = user.getProperty('fullname') or uid
 
             # prepare image url
             portrait = mtool.getPersonalPortrait()
@@ -112,7 +115,7 @@ class FollowingView(BrowserView):
 
             users.append({
                 'id': uid,
-                'name': user.getProperty('fullname') or uid,
+                'name': name,
                 'url': '%s/author/%s' % (purl, uid),
                 'img': img,
                 'following': following.is_following(auth, uid),
@@ -140,6 +143,9 @@ class FollowingView(BrowserView):
         users = []
         for uid in following.get_followers(userid):
             user = acl_users.getUserById(uid)
+            name = uid
+            if user:
+                name = user.getProperty('fullname') or uid
 
             # prepare image url
             portrait = mtool.getPersonalPortrait()
@@ -148,7 +154,7 @@ class FollowingView(BrowserView):
 
             users.append({
                 'id': uid,
-                'name': user.getProperty('fullname') or uid,
+                'name': name,
                 'url': '%s/author/%s' % (purl, uid),
                 'img': img,
                 'following': following.is_following(auth, uid),
