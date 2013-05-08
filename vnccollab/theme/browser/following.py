@@ -109,7 +109,7 @@ class FollowingView(BrowserView):
                 name = user.getProperty('fullname') or uid
 
             # prepare image url
-            portrait = mtool.getPersonalPortrait()
+            portrait = mtool.getPersonalPortrait(uid)
             if portrait is not None:
                 img = portrait.absolute_url()
 
@@ -148,7 +148,7 @@ class FollowingView(BrowserView):
                 name = user.getProperty('fullname') or uid
 
             # prepare image url
-            portrait = mtool.getPersonalPortrait()
+            portrait = mtool.getPersonalPortrait(uid)
             if portrait is not None:
                 img = portrait.absolute_url()
 
