@@ -17,6 +17,33 @@
   <include package="jarn.xmpp.core" />
 
   <browser:page
+      for="*"
+      class=".following.FollowingView"
+      name="follow_user"
+      layer=".interfaces.IThemeSpecific"
+      attribute="follow_user"
+      permission="cmf.SetOwnProperties"
+      />
+
+  <browser:page
+      for="*"
+      class=".following.FollowingView"
+      name="unfollow_user"
+      layer=".interfaces.IThemeSpecific"
+      attribute="unfollow_user"
+      permission="cmf.SetOwnProperties"
+      />
+
+  <browser:page
+      for="*"
+      class=".following.FollowingView"
+      name="follow_button"
+      layer=".interfaces.IThemeSpecific"
+      attribute="follow_button"
+      permission="cmf.SetOwnProperties"
+      />
+
+  <browser:page
       for="Products.CMFCore.interfaces.ISiteRoot"
       class=".stream.StreamView"
       name="vnc-stream-check"

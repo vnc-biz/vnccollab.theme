@@ -1169,6 +1169,45 @@ function initDeferredPortlets() {
   deferredPortlets.each(deferredRender);
 }
 
+function initFollowingControls() {
+  // attach hover actions
+  jq('a.followLink,a.unfollowLink').mouseover(function(event){
+    var link = $(event.target);
+    link.data('orig_label', link.text()).text(link.attr('title'));
+  }).mouseout(function(event){
+    var link = $(event.target);
+    if (link.data('orig_label')) {
+      link.text(link.data('orig_label'));
+    }
+  });
+
+  // attach click handlers to Follow/Unfollow buttons
+  jq('a.followLink,a.unfollowLink').click(function(event){
+    var link = $(event.target),
+      path = link.is('.followLink') ? '@@follow_user' : '@@unfollow_user';
+
+    jq.ajax({
+      'url': portal_url + '/' + path,
+      'type': 'POST',
+      'dataType': 'json',
+      'data': {'user1': '', 'user2': link.data('userid')},
+      'success': function(data, status, xhr){
+        link.text(data['label']).attr('title', data['title'])
+          .toggleClass('followLink', 'unfollowLink')
+          .data('orig_label', '');
+        return false;
+      },
+      'error': function(){
+        alert('Sorry, something went wrong on the server. Please, try a ' +
+          'bit later.');
+        return false;
+      }
+    });
+
+    return false;
+  });
+
+}
 
 jq(function() {
   attachNewTicketAction();
@@ -1188,4 +1227,5 @@ jq(function() {
   setHandlersWizard();
   addDocumentContentShadows();
   fixGeneralUI();
+  initFollowingControls();
 });
