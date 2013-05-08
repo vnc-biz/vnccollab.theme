@@ -4409,4 +4409,36 @@ a.ls-content-title {
   padding-right: 20px;
 }
 
+/* Profile Page */
+.backLink {
+  margin-bottom: 5px;
+}
+#content ul.followersList {
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
+}
+ul.followersList li {
+/*  border-bottom: 1px solid #C1CCD5;*/
+  padding: 5px;
+  margin-bottom: 10px;
+}
+ul.followersList .userImage {
+  float: left;
+  margin-right: 10px;
+}
+ul.followersList .userDetails {
+  float: left;
+  margin-right: 10px;
+}
+#content ul.followersList a.userName:link,
+#content ul.followersList a.userName {
+  color: #75AD0A;
+  font-size: 14px;
+}
+ul.followersList .followButtonWrapper {
+  display: block;
+}
+
+
 /* </dtml-with> */

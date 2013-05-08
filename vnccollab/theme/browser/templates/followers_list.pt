@@ -27,10 +27,14 @@
                 <h1 class="documentFirstHeading"
                     tal:content="options/title">Followers:</h1>
 
-                <div id="content-core">
+                <div id="content-core"
+                     tal:define="users options/users">
+
+                  <div class="emptyMessage"
+                       tal:condition="not:users">No Users Yet.</div>
 
                   <ul class="followersList"
-                      tal:define="users options/users">
+                      tal:condition="users">
                     <li tal:repeat="user users">
                       <a class="userImage" href="#"
                          tal:attributes="href user/url">
@@ -41,8 +45,12 @@
                            tal:attributes="href user/url"
                             tal:content="user/name" />
                         <div class="userEmail" tal:content="user/id" />
+                        <a class="userHomepage" href="" target="_blank"
+                           tal:condition="user/homepage"
+                           tal:attributes="href user/homepage">Homepage</a>
                       </div>
-                      <tal:if condition="user/show_button">
+                      <div class="followButtonWrapper"
+                            tal:condition="user/show_button">
                         <tal:if condition="user/following"> 
                           <a class="unfollowLink" title="Unfollow"
                              data-userid=""
@@ -55,7 +63,8 @@
                              tal:attributes="data-userid user/id;"
                              href="#">Follow</a>
                         </tal:if>
-                      </tal:if>
+                      </div>
+                      <div class="clear"><!-- --></div>
                     </li>
                   </ul>
 

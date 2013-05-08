@@ -105,8 +105,10 @@ class FollowingView(BrowserView):
         for uid in following.get_followings(userid):
             user = acl_users.getUserById(uid)
             name = uid
+            homepage = ''
             if user:
                 name = user.getProperty('fullname') or uid
+                homepage = user.getProperty('home_page') or ''
 
             # prepare image url
             portrait = mtool.getPersonalPortrait(uid)
@@ -118,6 +120,7 @@ class FollowingView(BrowserView):
                 'name': name,
                 'url': '%s/author/%s' % (purl, uid),
                 'img': img,
+                'homepage': homepage,
                 'following': following.is_following(auth, uid),
                 'show_button': auth != uid,
             })
@@ -144,8 +147,10 @@ class FollowingView(BrowserView):
         for uid in following.get_followers(userid):
             user = acl_users.getUserById(uid)
             name = uid
+            homepage = ''
             if user:
                 name = user.getProperty('fullname') or uid
+                homepage = user.getProperty('home_page') or ''
 
             # prepare image url
             portrait = mtool.getPersonalPortrait(uid)
@@ -157,6 +162,7 @@ class FollowingView(BrowserView):
                 'name': name,
                 'url': '%s/author/%s' % (purl, uid),
                 'img': img,
+                'homepage': homepage,
                 'following': following.is_following(auth, uid),
                 'show_button': auth != uid,
             })
