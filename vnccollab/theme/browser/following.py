@@ -27,7 +27,7 @@ class FollowingView(BrowserView):
             'application/javascript')                                                                       
         return json.dumps({
             'title': 'Unfollow',
-            'label': 'Following',
+            'label': 'Unfollow',
             'following': True,
         })
 
@@ -67,7 +67,7 @@ class FollowingView(BrowserView):
         if following.is_following(user, user1):
             button = {
                 'title': 'Unfollow',
-                'label': 'Following',
+                'label': 'Unfollow',
                 'following': True,
             }
         else:

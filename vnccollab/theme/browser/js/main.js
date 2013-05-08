@@ -1193,8 +1193,12 @@ function initFollowingControls() {
       'data': {'user1': '', 'user2': link.data('userid')},
       'success': function(data, status, xhr){
         link.text(data['label']).attr('title', data['title'])
-          .toggleClass('followLink', 'unfollowLink')
           .data('orig_label', '');
+        if (link.is('.followLink')) {
+          link.removeClass('followLink').addClass('unfollowLink');
+        } else {
+          link.removeClass('unfollowLink').addClass('followLink');
+        }
         return false;
       },
       'error': function(){
