@@ -101,7 +101,7 @@ class Following(Persistent):
         If user is None, get authenticated user id.
         """
         user = user if user else self._auth_user_id()
-        return self._my_subscribers.get(user, [])
+        return list(self._my_subscribers.get(user, []))
 
     def get_followings(self, user):
         """Get all users the user is following.
@@ -109,4 +109,4 @@ class Following(Persistent):
         If user is None, get authenticated user id.
         """
         user = user if user else self._auth_user_id()
-        return self._subscribed_to.get(user, [])
+        return list(self._subscribed_to.get(user, []))
