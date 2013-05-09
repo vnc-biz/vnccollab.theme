@@ -116,13 +116,13 @@
                     <a class="followersLink" href="#" title="User Followers"
                        tal:attributes="href string:${portal_url}/@@user-followers?userid=${author}">Followers</a>
                   </li>
-                  <li>
+                  <!-- <li>
                     <a class="userStreamLink" href="#" title="User Stream"
                        tal:attributes="href string:${portal_url}/@@user-stream?userid=${author}">Stream</a>
-                  </li>
+                  </li> -->
                   <li>
                     <a class="userCastLink" href="#" title="User Cast"
-                       tal:attributes="href string:${portal_url}/@@user-cast?userid=${author}">Cast</a>
+                       tal:attributes="href string:${portal_url}/@@user-cast?userid=${author}">User Cast</a>
                   </li>
                 </ul>
 
