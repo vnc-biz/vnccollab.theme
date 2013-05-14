@@ -5,7 +5,7 @@
     <object name="dashboard" meta_type="CMF Action" i18n:domain="plone" insert-before="*">
      <property name="title" i18n:translate="">Dashboard</property>
      <property name="description" i18n:translate=""></property>
-     <property name="url_expr">string:${portal_url}/set_stream_mode?mode=true</property>
+     <property name="url_expr">string:${portal_url}/set_stream_mode?mode=false</property>
      <property name="icon_expr"></property>
      <property name="available_expr">python:member is not None</property>
      <property name="permissions">
@@ -16,7 +16,7 @@
     <object name="my_profile" meta_type="CMF Action" i18n:domain="vnccollab.theme">
       <property name="title" i18n:translate="">My Profile</property>
       <property name="description" i18n:translate=""></property>
-      <property name="url_expr">string:${globals_view/navigationRootUrl}/@@personal-information</property>
+      <property name="url_expr">string:${portal_url}/author/${portal/portal_membership/getAuthenticatedMember}</property>
       <property name="icon_expr"></property>
       <property name="available_expr">python:member is not None</property>
       <property name="permissions">
