@@ -4,6 +4,10 @@ Changelog
 1.7.2 - Unreleased
 ------------------
 
+- Add Following Functionality to user profile pages.
+  TODO: add upgrade step to import local component registry
+  [Vitaliy Podoba]
+
 - slimScroll attach to deferred portlets, spinner animation centering, template adjust.
   [Cesar Gonzalez]
 
