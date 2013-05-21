@@ -4,6 +4,9 @@ Changelog
 1.7.2 - Unreleased
 ------------------
 
+- Fixes bug in zimbra viewlet after upgrade to Zimbra 8.
+  [Jose Dinuncio]
+
 - Add Following Functionality to user profile pages.
   TODO: add upgrade step to import local component registry
   [Vitaliy Podoba]
