@@ -69,6 +69,9 @@ class GetTreeJson(BrowserView):
         return simplejson.dumps(results)
 
     def get_tree(self, uid=None, type_=None):
+        if type_ is None:
+            type_ = self.request.get('type_', None)
+
         catalog = getToolByName(self.context, 'portal_catalog')
 
         container_path = ''
