@@ -14,6 +14,15 @@ Changelog
 - Fixes translation of Display menu and global bar.
   [Jose Dinuncio]
 
+- Sets pointer cursor and font style for selected item in tree.
+  [Cesar Gonzalez]
+
+- Adds new parameter type_ to ajax call for populate tree of wizard.
+  [Cesar Gonzalez]
+
+- Fixes bug "Disallowed subobject type" in wizard.
+  [Jose Dinuncio]
+
 - Remove wrong TOC entry "Bookmark & Share". TOC positioning at top. Format TOC levels.
   [Cesar Gonzalez]
 

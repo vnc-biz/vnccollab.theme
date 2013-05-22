@@ -3957,7 +3957,9 @@ a.caltrigger {
 }
 #createWizard span.dynatree-node {
   display: block;
+  cursor: pointer;
 }
+
 #createWizard span.dynatree-empty,
 #createWizard span.dynatree-vline,
 #createWizard span.dynatree-connector,
@@ -3979,7 +3981,8 @@ a.caltrigger {
 }
 
 #createWizard .dynatree-active .dynatree-title {
-  color: rgba(0,0,255,0.80);
+  color: #012a43;
+  font-weight: bold;
 }
 
 #createWizard #tree span.disabled a
