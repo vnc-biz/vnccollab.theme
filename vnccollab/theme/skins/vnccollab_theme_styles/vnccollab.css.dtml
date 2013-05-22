@@ -3958,6 +3958,7 @@ a.caltrigger {
 #createWizard span.dynatree-node {
   display: block;
 }
+
 #createWizard span.dynatree-empty,
 #createWizard span.dynatree-vline,
 #createWizard span.dynatree-connector,
@@ -3973,6 +3974,12 @@ a.caltrigger {
 #createWizard .dynatree-loading span.dynatree-expander {
   background-image: url(++resource++vnccollab.cloudcast.images/dynatree/loading.gif);
 }
+
+/* fix disabled dynatree, show a pointer cursor - issue #7379 */
+#createWizard .dynatree-title {
+  cursor: pointer;
+}
+
 #createWizard .dynatree-title {
   margin-left: 4px;
   color: rgba(0,0,0,0.70);
@@ -3980,6 +3987,13 @@ a.caltrigger {
 
 #createWizard .dynatree-active .dynatree-title {
   color: rgba(0,0,255,0.80);
+}
+
+/* fix disabled dynatree element - issue #7379 */
+/* change the color and show a not-allowed cursor */
+#createWizard .disabled .dynatree-title {
+  color: rgba(199, 199, 199, 1.0);
+  cursor: not-allowed;
 }
 
 #createWizard #tree span.disabled a

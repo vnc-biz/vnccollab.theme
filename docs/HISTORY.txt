@@ -4,6 +4,9 @@ Changelog
 1.7.2 - Unreleased
 ------------------
 
+- Improves styles in wizard dynatree [7379].
+  [Jose Dinuncio]
+
 - Add Following Functionality to user profile pages.
   TODO: add upgrade step to import local component registry
   [Vitaliy Podoba]
