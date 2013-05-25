@@ -963,8 +963,8 @@ function addDocumentContentShadows(){
 function fixGeneralUI(){
   // removes wrong entry in Content TOC
   var $last = jq('.toc').find('li').last();
-  if($last.text() == "Bookmark & Share") { 
-    $last.remove(); 
+  if($last.text() == "Bookmark & Share") {
+    $last.remove();
   }
 }
 
@@ -1145,9 +1145,15 @@ function initDeferredPortlets() {
     var fn = function(data) {
       var $elem = jq(elem),
           $data = jq(data);
-      $data.find('.portletBody').slimScroll({'height': '240px'});
-      $elem.replaceWith($data);
-      attachPortletButtons();
+
+      // We want to be sure we got the portlet and not an error page
+      if ($data.hasClass('portlet-deferred')) {
+        $data.find('.portletBody').slimScroll({'height': '240px'});
+        $elem.replaceWith($data);
+        attachPortletButtons();
+      } else {
+        $elem.find('.portletBodyWrapper').empty();
+      }
     }
     return fn;
   }

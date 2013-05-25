@@ -4,6 +4,9 @@ Changelog
 1.7.2 - Unreleased
 ------------------
 
+- Fixes bug in lazy portlets load [7483].
+  [Jose Dinuncio]
+
 - Fixes bug in zimbra viewlet after upgrade to Zimbra 8.
   [Jose Dinuncio]
 
