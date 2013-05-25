@@ -1131,7 +1131,7 @@ function initDeferredPortlets() {
     }
 
     return ({
-      'url': window.location + '/portlet_deferred_render',
+      'url': window.location.origin + window.location.pathname + '/portlet_deferred_render',
       'data': {
         'manager': manager,
         'name': name,
