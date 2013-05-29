@@ -1,0 +1,3 @@
+msgid "galleryview"
+msgstr "Gallery View"
+

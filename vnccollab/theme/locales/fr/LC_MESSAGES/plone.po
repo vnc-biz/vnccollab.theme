@@ -1,0 +1,8 @@
+msgid "Galerie Images"
+msgstr "Vista de Galería"
+
+msgid "galleryview"
+msgstr "Galerie Images"
+
+msgid "Users"
+msgstr "Utilisateurs"

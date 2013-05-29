@@ -2,7 +2,10 @@
       xmlns:tal="http://xml.zope.org/namespaces/tal"
       xmlns:i18n="http://xml.zope.org/namespaces/i18n"
       tal:omit-tag="">
-<dl class="portlet portletEtherpadsList"
+<dl class="portlet portlet-deferred portletEtherpadsList"
+    tal:attributes="portlet-manager view/metadata/manager;
+                    portlet-name    view/metadata/name;
+                    portlet-key     view/metadata/key;"
     i18n:domain="vnccollab.theme">
 
     <dt class="portletHeader">
@@ -17,8 +20,14 @@
     </dt>
 
     <dd class="portletBodyWrapper">
-      <ul class="portletBody">
-        <tal:items tal:repeat="elem view/getPads">
+      <div class="portletLoading"
+           tal:condition="view/initializing">
+          <img tal:attributes="src string:${context/portal_url}/spinner.gif" alt="" />
+      </div>
+
+      <ul class="portletBody noSlimScroll"
+          tal:condition="not:view/initializing">
+        <tal:items tal:repeat="elem view/pads">
         <li tal:define="oddrow repeat/elem/odd"
              tal:attributes="class python:oddrow and 'portletItem even' or 'portletItem odd'">
             <a href=""
@@ -48,7 +57,7 @@
       </ul>
     </dd>
 
-    <dd class="portletFooter">
+    <dd class="portletFooter" style="visibility:hidden">
         <span class="portletBottomLeft"></span>
         <a href="/ep/padlist/all-pads"
            title="Check all pads"

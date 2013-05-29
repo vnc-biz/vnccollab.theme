@@ -1,6 +1,34 @@
 Changelog
 =========
 
+1.7.2 - May 29, 2013
+--------------------
+
+- Fixes bug in lazy portlets load [7483].
+  [Jose Dinuncio]
+
+- Fixes bug in zimbra viewlet after upgrade to Zimbra 8.
+  [Jose Dinuncio]
+
+- Add Following Functionality to user profile pages.
+  [Vitaliy Podoba]
+
+- slimScroll attach to deferred portlets, spinner animation centering, template adjust.
+  [Cesar Gonzalez]
+
+- Fixes translation of Display menu and global bar.
+  [Jose Dinuncio]
+
+- Remove wrong TOC entry "Bookmark & Share". TOC positioning at top. Format TOC levels.
+  [Cesar Gonzalez]
+
+- Modifies dashboard's portlets to make a deferred render.
+  [Jose Dinuncio]
+
+- Fixes Create Task overlay style. Add box-sizing to textarea in overlays.
+  [Cesar Gonzalez]
+
+
 1.7.1 - April 19, 2013
 ----------------------
 

@@ -945,7 +945,7 @@ function loadCreateWizard(href, callback) {
 }
 
 //
-//
+// addDocumentContentShadows
 //
 function addDocumentContentShadows(){
   var document_container = jq('.portaltype-document #content-core');
@@ -954,6 +954,18 @@ function addDocumentContentShadows(){
   }
     document_container.before('<div class="content-top-shadow"></div>');
     document_container.after('<div class="content-bottom-shadow"></div>');
+}
+
+//
+// fixGeneralUI
+//
+
+function fixGeneralUI(){
+  // removes wrong entry in Content TOC
+  var $last = jq('.toc').find('li').last();
+  if($last.text() == "Bookmark & Share") {
+    $last.remove();
+  }
 }
 
 //
@@ -1104,10 +1116,114 @@ function setHandlersWizard() {
 
 }
 
+//
+// Deferred Portlets
+//
+function initDeferredPortlets() {
+  function deferredUrlInfo(elem) {
+    var $elem = jq(elem);
+    var manager = $elem.attr('portlet-manager');
+    var name    = $elem.attr('portlet-name');
+    var key     = $elem.attr('portlet-key');
+
+    if (!manager || ! name || !key) {
+      return '';
+    }
+
+    return ({
+      'url': window.location.origin + window.location.pathname + '/portlet_deferred_render',
+      'data': {
+        'manager': manager,
+        'name': name,
+        'key': key
+      }
+    });
+  }
+
+  function updatePortlet(elem){
+    // Returns a funciton to update the portlet represented by elem DOM
+    var fn = function(data) {
+      var $elem = jq(elem),
+          $data = jq(data);
+
+      // We want to be sure we got the portlet and not an error page
+      if ($data.hasClass('portlet-deferred')) {
+        $data.find('.portletBody').slimScroll({'height': '240px'});
+        $elem.replaceWith($data);
+        attachPortletButtons();
+      } else {
+        $elem.find('.portletBodyWrapper').empty();
+      }
+    }
+    return fn;
+  }
+
+  function deferredRender() {
+    // Starts the deferred render of the portlet,
+    // if it has enough info
+    var urlInfo = deferredUrlInfo(this);
+    if (!urlInfo) {
+      return;
+    }
+
+    var url = urlInfo.url;
+    var data = urlInfo.data;
+    jq.get(url, data, updatePortlet(this));
+  }
+
+  var deferredPortlets = jq('.portlet-deferred');
+  deferredPortlets.each(deferredRender);
+}
+
+function initFollowingControls() {
+  // attach hover actions
+  jq('a.followLink,a.unfollowLink').mouseover(function(event){
+    var link = $(event.target);
+    link.data('orig_label', link.text()).text(link.attr('title'));
+  }).mouseout(function(event){
+    var link = $(event.target);
+    if (link.data('orig_label')) {
+      link.text(link.data('orig_label'));
+    }
+  });
+
+  // attach click handlers to Follow/Unfollow buttons
+  jq('a.followLink,a.unfollowLink').click(function(event){
+    var link = $(event.target),
+      path = link.is('.followLink') ? '@@follow_user' : '@@unfollow_user';
+
+    jq.ajax({
+      'url': portal_url + '/' + path,
+      'type': 'POST',
+      'dataType': 'json',
+      'data': {'user1': '', 'user2': link.data('userid')},
+      'success': function(data, status, xhr){
+        link.text(data['label']).attr('title', data['title'])
+          .data('orig_label', '');
+        if (link.is('.followLink')) {
+          link.removeClass('followLink').addClass('unfollowLink');
+        } else {
+          link.removeClass('unfollowLink').addClass('followLink');
+        }
+        return false;
+      },
+      'error': function(){
+        alert('Sorry, something went wrong on the server. Please, try a ' +
+          'bit later.');
+        return false;
+      }
+    });
+
+    return false;
+  });
+
+}
+
 jq(function() {
   attachNewTicketAction();
   attachHeaderViewletCloseOpen();
   attachPortletButtons();
+  initDeferredPortlets();
   init_textile_editor();
   addSlimScrollingToDashboardPortlets();
   init_special_rss_portlet();
@@ -1120,4 +1236,6 @@ jq(function() {
   rebindPubSubStreamHandlers();
   setHandlersWizard();
   addDocumentContentShadows();
+  fixGeneralUI();
+  initFollowingControls();
 });
