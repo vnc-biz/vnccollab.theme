@@ -23,6 +23,7 @@
   <layer name="vnccollab_theme_styles" />
   <layer name="vnccollab_theme_scripts" />
   <layer name="vnccollab_content" />
+  <layer name="querywidget" />
   <layer name="tinymce" />
   <layer name="archetypes" />
   <layer name="archetypes_kss" />
