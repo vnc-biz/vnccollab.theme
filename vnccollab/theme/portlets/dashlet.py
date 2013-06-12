@@ -1,21 +1,12 @@
-from pytz import timezone
-from datetime import datetime
-
 from zope.formlib import form
-from zope.interface import implements, Interface
+from zope.interface import implements
 from zope import schema
-from Acquisition import aq_inner
-from zope.component import getUtility, getMultiAdapter, queryMultiAdapter
 
-from Products.CMFCore.utils import getToolByName
 from Products.Five.browser.pagetemplatefile import ZopeTwoPageTemplateFile
 
 from plone.portlets.interfaces import IPortletDataProvider
-from plone.portlets.interfaces import IPortletManager, IPortletRenderer
 from plone.app.portlets.portlets import base
-from plone.memoize.instance import memoize
 
-from vnccollab.theme.portlets import redmine_tickets
 from vnccollab.theme import messageFactory as _
 
 
@@ -27,6 +18,12 @@ class IDashletPortlet(IPortletDataProvider):
         required=True,
         default=u'My Dashlet')
 
+    zimbra_url = schema.URI(
+        title=_(u"Zimbra service URL"),
+        description=_(u"Root url to your Zimbra service."),
+        required=True,
+        default='https://zcs.vnc.biz')
+
     count = schema.Int(title=_(u'Number of items to display'),
         description=_(u'How many items to list.'),
         required=True,
@@ -37,6 +34,7 @@ class Assignment(base.Assignment):
     implements(IDashletPortlet)
 
     header = u'My Dashlet'
+    zimbra_url = 'https://zcs.vnc.biz'
     count = 5
 
     @property
