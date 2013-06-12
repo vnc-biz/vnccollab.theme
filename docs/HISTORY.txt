@@ -4,6 +4,9 @@ Changelog
 1.7.3 - Unreleased
 ------------------
 
+- Adds mail server property for Dashlet Portlet [7651].
+  [Jose Dinuncio]
+
 - Add querywidget to theme layers. This is requried by new style collections.
   [Vitaliy Podoba]
 

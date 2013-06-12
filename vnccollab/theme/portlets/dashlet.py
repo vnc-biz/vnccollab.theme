@@ -18,6 +18,12 @@ class IDashletPortlet(IPortletDataProvider):
         required=True,
         default=u'My Dashlet')
 
+    zimbra_url = schema.URI(
+        title=_(u"Zimbra service URL"),
+        description=_(u"Root url to your Zimbra service."),
+        required=True,
+        default='https://zcs.vnc.biz')
+
     count = schema.Int(title=_(u'Number of items to display'),
         description=_(u'How many items to list.'),
         required=True,
@@ -28,6 +34,7 @@ class Assignment(base.Assignment):
     implements(IDashletPortlet)
 
     header = u'My Dashlet'
+    zimbra_url = 'https://zcs.vnc.biz'
     count = 5
 
     @property
