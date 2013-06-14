@@ -1,8 +1,8 @@
 Changelog
 =========
 
-1.7.3 - Unreleased
-------------------
+1.7.3 - June 14, 2013
+---------------------
 
 - Adds mail server property for Dashlet Portlet [7651].
   [Jose Dinuncio]
