@@ -19,6 +19,7 @@ class Dashlet(BrowserView):
     def __init__(self, context, request):
         self.context = context
         self.request = request
+        self.zimbra_url = request.get('zimbra_url', 'https://zcs.vnc.biz')
         self.count = int(request.get('count', '5'))
         self.type_ = request.get('type', 'all')
 
@@ -92,25 +93,14 @@ class Dashlet(BrowserView):
 
     @memoize
     def all_mails(self):
-        '''
-        zimbra = ZimbraMailPortletView(self.context, self.request)
-        mtool = getToolByName(self.context, 'portal_membership')
-        member = mtool.getAuthenticatedMember()
-        username, password = member.getProperty('zimbra_username', ''), \
-            member.getProperty('zimbra_password', '')
-        data = {
-            'url' : 'https://zcs.vnc.biz',
-            'username' : username,
-            'password' : password,
-            }
-        '''
         mtool = getToolByName(self.context, 'portal_membership')
         member = mtool.getAuthenticatedMember()
         username = member.getProperty('zimbra_username', '')
         password = member.getProperty('zimbra_password', '')
         zimbraUtil = getUtility(IZimbraUtil)
         try:
-            client = zimbraUtil.get_client(username=username, password=password)
+            client = zimbraUtil.get_client(url=self.zimbra_url,
+                username=username, password=password)
             mails = client.get_emails(limit=self.count)
         except:
             mails = []

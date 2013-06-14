@@ -18,7 +18,8 @@
       <ul class="dashlet-actions"
           tal:define="portal_url  context/portal_url;
                       count       view/data/count;
-                      dashlet_url string:$portal_url/@@dashlet?count=$count&amp;type=">
+                      zimbra_url  view/data/zimbra_url;
+                      dashlet_url string:$portal_url/@@dashlet?zimbra_url=$zimbra_url&amp;count=$count&amp;type=">
         <li class="selected">
           <a class="dashlet-action"
              tal:attributes="href python:dashlet_url + 'all'">All</a></li>
