@@ -2,19 +2,38 @@
 <object name="portal_actions" meta_type="Plone Actions Tool"
    xmlns:i18n="http://xml.zope.org/namespaces/i18n">
   <object name="user" meta_type="CMF Action Category">
+    <object name="dashboard" meta_type="CMF Action" i18n:domain="plone" insert-before="*">
+     <property name="title" i18n:translate="">Dashboard</property>
+     <property name="description" i18n:translate=""></property>
+     <property name="url_expr">string:${portal_url}/set_stream_mode?mode=false</property>
+     <property name="icon_expr"></property>
+     <property name="available_expr">python:member is not None</property>
+     <property name="permissions">
+      <element value="Portlets: Manage own portlets"/>
+     </property>
+     <property name="visible">True</property>
+    </object>
+    <object name="my_profile" meta_type="CMF Action" i18n:domain="vnccollab.theme">
+      <property name="title" i18n:translate="">My Profile</property>
+      <property name="description" i18n:translate=""></property>
+      <property name="url_expr">string:${portal_url}/author/${portal/portal_membership/getAuthenticatedMember}</property>
+      <property name="icon_expr"></property>
+      <property name="available_expr">python:member is not None</property>
+      <property name="permissions">
+       <element value="View"/>
+      </property>
+      <property name="visible">True</property>
+     </object>
     <object name="login" meta_type="CMF Action" i18n:domain="plone">
       <property name="visible">False</property>
     </object>
     <object name="logout" meta_type="CMF Action" i18n:domain="plone">
       <property name="visible">False</property>
     </object>
-    <object name="join" meta_type="CMF Action"
-        i18n:domain="vnccollab.theme">
-      <property name="title"
-         i18n:translate="">Sign up</property>
+    <object name="join" meta_type="CMF Action" i18n:domain="vnccollab.theme">
+      <property name="title" i18n:translate="">Sign up</property>
       <property name="description" i18n:translate=""></property>
-      <property
-         name="url_expr">string:${globals_view/navigationRootUrl}/@@register</property>
+      <property name="url_expr">string:${globals_view/navigationRootUrl}/@@register</property>
       <property name="icon_expr"></property>
       <property name="available_expr">python:member is None</property>
       <property name="permissions">
@@ -22,19 +41,19 @@
       </property>
       <property name="visible">True</property>
      </object>
-    <object name="login_info" meta_type="CMF Action"
-        i18n:domain="vnccollab.theme">
-      <property name="title"
-         i18n:translate="">Get your login information</property>
+    <object name="login_info" meta_type="CMF Action" i18n:domain="vnccollab.theme">
+      <property name="title" i18n:translate="">Get your login information</property>
       <property name="description" i18n:translate=""></property>
-      <property
-         name="url_expr">string:${globals_view/navigationRootUrl}/mail_password_form</property>
+      <property name="url_expr">string:${globals_view/navigationRootUrl}/mail_password_form</property>
       <property name="icon_expr"></property>
       <property name="available_expr">python:member is None</property>
       <property name="permissions">
        <element value="View"/>
       </property>
       <property name="visible">True</property>
+     </object>
+    <object name="xmpp-profile" meta_type="CMF Action" i18n:domain="jarn.xmpp.core">
+      <property name="visible">False</property>
      </object>
   </object>
   <object name="join" meta_type="CMF Action" i18n:domain="plone">
@@ -47,13 +66,10 @@
     </object>
     <object name="column2" meta_type="CMF Action Category">
      <property name="title">Other VNC Destinations</property>
-     <object name="vnc_germany_website" meta_type="CMF Action"
-        i18n:domain="vnccollab.theme">
-      <property name="title"
-         i18n:translate="">VNC Germany Website</property>
+     <object name="vnc_germany_website" meta_type="CMF Action" i18n:domain="vnccollab.theme">
+      <property name="title" i18n:translate="">VNC Germany Website</property>
       <property name="description" i18n:translate=""></property>
-      <property
-         name="url_expr">string:http://www.vnc.de</property>
+      <property name="url_expr">string:http://www.vnc.de</property>
       <property name="icon_expr"></property>
       <property name="available_expr"></property>
       <property name="permissions">
@@ -61,13 +77,10 @@
       </property>
       <property name="visible">True</property>
      </object>
-     <object name="vnc_switzerland_website" meta_type="CMF Action"
-        i18n:domain="vnccollab.theme">
-      <property name="title"
-         i18n:translate="">VNC Switzerland Website</property>
+     <object name="vnc_switzerland_website" meta_type="CMF Action" i18n:domain="vnccollab.theme">
+      <property name="title" i18n:translate="">VNC Switzerland Website</property>
       <property name="description" i18n:translate=""></property>
-      <property
-         name="url_expr">string:http://www.vnc.biz</property>
+      <property name="url_expr">string:http://www.vnc.biz</property>
       <property name="icon_expr"></property>
       <property name="available_expr"></property>
       <property name="permissions">
@@ -75,13 +88,10 @@
       </property>
       <property name="visible">True</property>
      </object>
-     <object name="vnc_support_website" meta_type="CMF Action"
-        i18n:domain="vnccollab.theme">
-      <property name="title"
-         i18n:translate="">VNC Support &amp; Service Portal</property>
+     <object name="vnc_support_website" meta_type="CMF Action" i18n:domain="vnccollab.theme">
+      <property name="title" i18n:translate="">VNC Support &amp; Service Portal</property>
       <property name="description" i18n:translate=""></property>
-      <property
-         name="url_expr">string:https://redmine.vnc.biz/redmine</property>
+      <property name="url_expr">string:https://redmine.vnc.biz/redmine</property>
       <property name="icon_expr"></property>
       <property name="available_expr"></property>
       <property name="permissions">
@@ -92,13 +102,10 @@
    </object>
    <object name="column3" meta_type="CMF Action Category">
      <property name="title">Things to do</property>
-     <object name="dashboard" meta_type="CMF Action"
-        i18n:domain="vnccollab.theme">
-      <property name="title"
-         i18n:translate="">Go to your dashboard</property>
+     <object name="dashboard" meta_type="CMF Action" i18n:domain="vnccollab.theme">
+      <property name="title" i18n:translate="">Go to your dashboard</property>
       <property name="description" i18n:translate=""></property>
-      <property
-         name="url_expr">string:${portal_url}/dashboard</property>
+      <property name="url_expr">string:${portal_url}/dashboard</property>
       <property name="icon_expr"></property>
       <property name="available_expr">python:member is not None</property>
       <property name="permissions">
@@ -106,13 +113,10 @@
       </property>
       <property name="visible">True</property>
      </object>
-     <object name="preferences" meta_type="CMF Action"
-        i18n:domain="vnccollab.theme">
-      <property name="title"
-         i18n:translate="">Edit your preferences</property>
+     <object name="preferences" meta_type="CMF Action" i18n:domain="vnccollab.theme">
+      <property name="title" i18n:translate="">Edit your preferences</property>
       <property name="description" i18n:translate=""></property>
-      <property
-         name="url_expr">string:${globals_view/navigationRootUrl}/@@personal-preferences</property>
+      <property name="url_expr">string:${globals_view/navigationRootUrl}/@@personal-preferences</property>
       <property name="icon_expr"></property>
       <property name="available_expr">python:member is not None</property>
       <property name="permissions">
@@ -120,13 +124,10 @@
       </property>
       <property name="visible">True</property>
      </object>
-     <object name="ask_for_support" meta_type="CMF Action"
-        i18n:domain="vnccollab.theme">
-      <property name="title"
-         i18n:translate="">Ask for support</property>
+     <object name="ask_for_support" meta_type="CMF Action" i18n:domain="vnccollab.theme">
+      <property name="title" i18n:translate="">Ask for support</property>
       <property name="description" i18n:translate=""></property>
-      <property
-         name="url_expr">string:${portal_url}/contact-info</property>
+      <property name="url_expr">string:${portal_url}/contact-info</property>
       <property name="icon_expr"></property>
       <property name="available_expr"></property>
       <property name="permissions">
@@ -138,13 +139,10 @@
   </object>
   <object name="document_actions" meta_type="CMF Action Category">
     <object name="redmine_ticket" remove="True"/>
-    <object name="new_ticket" meta_type="CMF Action"
-            i18n:domain="vnccollab.theme">
-    <property name="title"
-       i18n:translate="">Create Task</property>
+    <object name="new_ticket" meta_type="CMF Action" i18n:domain="vnccollab.theme">
+    <property name="title" i18n:translate="">Create Task</property>
     <property name="description" i18n:translate="">Create a zimbra or redmine task related to this object.</property>
-    <property
-       name="url_expr">string:${object_url}/@@context-new-ticket</property>
+    <property name="url_expr">string:${object_url}/@@context-new-ticket</property>
     <property name="icon_expr"></property>
     <property name="available_expr"></property>
     <property name="permissions">

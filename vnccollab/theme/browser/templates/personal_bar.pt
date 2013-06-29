@@ -24,7 +24,7 @@
   <dl class="userPreferences">
     <dt class="userPreferencesHeader">
       <a id="user-name"
-       tal:attributes="href view/homelink_url"
+       tal:attributes="href string:${context/portal_url}/author/${user};"
        tal:content="view/user_name">John</a>
     </dt>
     <dd class="userPreferencesBody">

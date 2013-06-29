@@ -38,6 +38,9 @@ Changelog
 - Fixes Create Task overlay style. Add box-sizing to textarea in overlays.
   [Cesar Gonzalez]
 
+- Update User Actions List (user profile page, dashboard link, my-profile link)
+  [Dmitriy Ilyenkov]
+
 
 1.7.1 - April 19, 2013
 ----------------------
