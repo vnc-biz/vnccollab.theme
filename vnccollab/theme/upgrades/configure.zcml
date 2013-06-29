@@ -74,4 +74,16 @@
           />
     </genericsetup:upgradeSteps>
 
+    <genericsetup:upgradeSteps
+      source="1107"
+      destination="1108"
+      sortkey="6"
+      profile="vnccollab.theme:default">
+
+        <genericsetup:upgradeDepends
+          title="Upgrade user actions"
+          import_steps="actions"
+          />
+    </genericsetup:upgradeSteps>
+
 </configure>
