@@ -1,6 +1,13 @@
 Changelog
 =========
 
+1.7.4 - Unreleased
+---------------------
+
+- Adds multiple files upload into Create New Wizard [6229].
+  [Marcin Staniszczak]
+
+
 1.7.3 - June 14, 2013
 ---------------------
 

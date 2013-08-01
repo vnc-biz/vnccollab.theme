@@ -561,6 +561,19 @@
 
   <browser:page
       for="*"
+      name="wizard_uploader"
+      class=".wizarduploader.WizardUploadView"
+      permission="cmf.AddPortalContent"
+      />
+
+  <browser:page
+      for="*"
+      name="wizard_upload_init"
+      class=".wizarduploader.WizardUploadInit"
+      permission="cmf.AddPortalContent"/>
+
+  <browser:page
+      for="*"
       name="portlet_deferred_render"
       class=".deferred.PortletDeferredRendererHelperView"
       permission="zope2.View"

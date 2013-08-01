@@ -3731,7 +3731,7 @@ a.caltrigger {
 }
 #createWizard {
   width: 960px;
-  height: 400px;
+  height: 450px;
   margin: 0 auto;
   padding: 20px 0 10px 0;
   border-bottom: 1px solid rgba(1,42,67,0.2);
@@ -3743,7 +3743,7 @@ a.caltrigger {
 
 #createWizard #wizard-steps {
   width:2940px;
-  height: 400px;
+  height: 450px;
   float: left;
   color: rgba(255, 255, 255, 0.5);
   margin: auto;
@@ -3754,7 +3754,7 @@ a.caltrigger {
 #createWizard .step {
   padding:0;
   width: 960px;
-  height: 400px;
+  height: 450px;
   float: left;
   overflow-x: hidden;
   overflow-y: auto;
@@ -3855,11 +3855,14 @@ a.caltrigger {
   margin-bottom: 10px;
   text-shadow: 1px 1px 1px rgba(0,0,0,0.9);
 }
+#createWizard h3 span {
+  padding-left: 150px;
+  font-weight: normal;
+}
 #createWizard input, #createWizard textarea {
   padding: 0 !important;
   font-size: 1.2em;
 }
-
 #createWizard .Column {
   margin-top: 20px;
   margin-right: 30px;
@@ -3869,10 +3872,39 @@ a.caltrigger {
   margin-right: 30px;
   width: 610px;
 }
+
 #createWizard .Column.First {
   margin-left: 0;
+  width: 510px;
+  float:left;
 }
-.#createWizard form label,
+#createWizard .Column.Second {
+  margin-left: 80;
+  float:left;
+}
+#createWizard .Column.Second #upload-place {
+  border: 2px dashed rgba(255, 255, 255, 0.498039);
+  padding: 10px;
+  width: 360px;
+  height: 200px;
+  -webkit-border-radius: 15px;
+  -moz-border-radius: 15px;
+  border-radius: 15px;
+  text-align: center;
+}
+#createWizard .Column.Second #upload-place p {
+  padding-top: 25px;
+}
+#createWizard .Column.Second #upload-place input[type="file"] {
+  background-image: url(&dtml-portal_url;/browse-files.png);
+  cursor:pointer;
+  width: 138px;
+  height: 46px;
+  border: none;
+  text-indent: -99999px;
+  padding: 0px!important;
+}
+#createWizard form label,
 #createWizard .label {
   color: rgba(255, 255, 255, 0.8);
   display: inline-block;
@@ -3932,6 +3964,10 @@ a.caltrigger {
 
 #createWizard span.selectedContainer {
   color: white;
+}
+
+#createWizard .wizard_qq-upload-button input[type="file"] {
+  /* opacity: 100!important; */
 }
 
 /* Dynatree CSS */
@@ -4074,7 +4110,6 @@ a.caltrigger {
   margin: -50px 0 0 -50px;
   width: 100px;
 }
-
 #createWizard .destination-label {
   display: block;
 }
@@ -4083,6 +4118,231 @@ a.caltrigger {
   color: red;
   font-size: 0.8em;
   display: none;
+}
+
+
+#createWizard .quick-uploader {
+  position: relative;
+  height: 100%;
+  /* overflow-y: auto;
+  margin-left: -10px; */
+}
+
+#createWizard .wizard_qq-uploader { position:relative; width: 100%;}
+
+#createWizard .wizard_qq-upload-button {
+    display:block; /* or inline-block */
+    width: 105px; padding: 7px; text-align:center;
+    background:#880000; border-bottom:1px solid #ddd;color:#fff;
+    float: right;
+    cursor: pointer !important;
+    margin-top: 10px;
+    -moz-border-radius:5px;
+    -webkit-border-radius:5px;
+    border-radius:5px;
+}
+
+#createWizard .wizard_qq-upload-button input[type="file"],
+#createWizard .wizard_qq-upload-button input[type="file"]:hover {cursor: pointer !important;}
+#createWizard .wizard_qq-upload-button-hover {background:#cc0000;cursor: pointer !important;}
+#createWizard .wizard_qq-upload-button-focus {outline:1px dotted black;cursor: pointer !important;}
+
+#createWizard .wizard_qq-upload-button {
+  background: none;
+  display: block;
+  -moz-border-radius: 0px;
+  -webkit-border-radius: 0px;
+  border-radius: 0px;
+  border-bottom: none;
+  color: transparent;
+  padding: 0px;
+  margin: 0px;
+  width: 138px;
+  height: 46px;
+  margin-top: 25px;
+  margin-right: 108px;
+  background-image: url(&dtml-portal_url;/browse-files.png);
+  cursor:pointer;
+  width: 138px;
+  height: 46px;
+  border: none;
+  text-indent: -99999px;
+  padding: 0px!important;
+}
+
+#createWizard .wizard_qq-files-to-upload {
+
+}
+#createWizard .wizard_qq-upload-drop-area {
+    position:absolute;
+    width:100%;
+    height:100%;
+    min-height: 70px;
+    z-index:2;
+    text-align:center;
+    color: #fff;
+    padding: 15px;
+    left: -15px;
+    top: -15px;
+}
+#createWizard .Column.Second #upload-place .wizard_qq-upload-drop-area p {
+    /*margin-top: 60px;*/
+    line-height: 200px;
+    padding-top: 0;
+}
+#createWizard .wizard_qq-files-to-upload-container {
+  display: none;
+}
+#createWizard .hide-form {
+  display: none!important;
+}
+#createWizard .wizard_qq-upload-drop-area span {
+  display:block; position:absolute; top: 73%; width:100%; font-size:12px;
+}
+#createWizard .wizard_qq-upload-drop-area-active {}
+
+#createWizard .wizard_qq-upload-list {
+  display: block;
+  margin:15px 0;
+  padding:0;
+  list-style:disc;
+  clear: both;
+  list-style: none outside none
+}
+
+#createWizard .wizard_qq-upload-list li {
+  clear: both;
+  display: block;
+  list-style: none outside none;
+  background-color:#F5F5F5;
+  border:3px solid #E5E5E5;
+  margin:5px 0 0 0;
+  padding:5px 10px;
+  font-size: 11px;
+}
+
+#createWizard .uploadField {
+  float: left;
+}
+#createWizard .wizard_qq-upload-file {
+  margin-left: 45px;
+  font-size: 13px;
+}
+#createWizard .wizard_qq-upload-spinner {display:none; background: url("++resource++quickupload_static/loading.gif"); width:15px; height:15px; vertical-align:text-bottom; margin-left: 10px}
+#createWizard .wizard_qq-upload-size,.wizard_qq-upload-cancel {font-size:11px;}
+
+#createWizard .wizard_qq-files-to-upload .wizard_qq-upload-cancel {
+  display: block;
+  float: right;
+  width: 18px;
+  height: 18px;
+  background: transparent url(&dtml-portal_url;/delete-file.png) top left no-repeat;
+  float: left;
+  margin-left: 10px;
+}
+
+
+
+#createWizard .wizard_qq-upload-fail { background-color: #FDE5DD !important; }
+#createWizard .wizard_qq-upload-failed-text {display:none; margin-left: 10px;}
+#createWizard .wizard_qq-upload-fail .wizard_qq-upload-failed-text {display:inline; color: red;}
+
+
+#createWizard .wizard_qq-upload-list li .wizard_qq-upload-size {
+  clear: both;
+  min-height: 17px;
+}
+
+#createWizard .wizard_qq-upload-list li .sizeContainer {
+  background-color: #FFFFFF;
+  border-top: 1px solid #808080;
+  border-left: 1px solid #808080;
+  border-right: 1px solid #C5C5C5;
+  border-bottom: 1px solid #C5C5C5;
+  margin-top: 6px;
+  width: 75%;
+  height: 3px;
+  float: left;
+}
+#createWizard .wizard_qq-upload-list li .sizeContainer .sizeBar {
+  background-color: #0099FF;
+  width: 2px;
+  height: 3px;
+}
+
+#createWizard .wizard_qq-upload-fail .sizeBar { background-color: red !important; }
+
+#createWizard .wizard_qq-upload-list li .sizeTotal {
+ width: auto;
+ float: right;
+ text-align: right;
+}
+
+#createWizard .wizard_qq-upload-infos {
+  clear: both;
+  padding-bottom: 5px;
+}
+
+#createWizard .wizard_qq-upload-list li .server-error {
+  color: #880000;
+  clear: both;
+}
+
+#createWizard .Column.Second #upload-place .wizard_qq-files-to-upload-container {
+  text-align: left;
+  margin-left: -10px;
+  overflow-y: auto;
+  text-align: left;
+  height: 100%;
+}
+
+#createWizard .wizard_qq-uploadifybuttons {
+  text-align: center;
+}
+
+#createWizard .Column.Second #upload-place .wizard_qq-files-to-upload-container input#wizard-uploadify-upload,
+#createWizard .Column.Second #upload-place .wizard_qq-files-to-upload-container input#uploadify-clear-queue {
+  border: 1px soliod black;
+  border-radius: 4px 4px 4px 4px;
+  box-shadow: none;
+  min-height: 10px;
+  padding: none;
+  width: 70px;
+  font-size: 12px;
+  font-weight: bold;
+  height: 20px;
+  line-height: 20px;
+}
+
+#createWizard .Column.Second #upload-place .wizard_qq-files-to-upload-container input#uploadify-clear-queue {
+  background: #7d8c95;
+  background: -moz-linear-gradient(top, #7d8c95 0%, #73828c 44%, #62737d 100%);
+  background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,#7d8c95), color-stop(44%,#73828c), color-stop(100%,#62737d));
+  background: -webkit-linear-gradient(top, #7d8c95 0%,#73828c 44%,#62737d 100%);
+  background: -o-linear-gradient(top, #7d8c95 0%,#73828c 44%,#62737d 100%);
+  background: -ms-linear-gradient(top, #7d8c95 0%,#73828c 44%,#62737d 100%);
+  background: linear-gradient(to bottom, #7d8c95 0%,#73828c 44%,#62737d 100%);
+}
+
+#createWizard .Column.Second #upload-place .wizard_qq-files-to-upload-container label {
+  font-weight: normal;
+  color: white;
+  font-size: 15px;
+}
+
+#createWizard .Column.Second #upload-place .wizard_qq-files-to-upload-container input {
+  border: none;
+  border-radius: 4px 4px 4px 4px;
+  box-shadow: none;
+  min-height: 20px;
+  padding: none;
+  width: 250px;
+}
+
+#createWizard .Column.Second #upload-place .wizard_qq-files-to-upload-container p {
+  padding-top: 0px;
+  font-size: 15px;
+  padding-bottom: 5px;
 }
 
 .cloud-package-link {
