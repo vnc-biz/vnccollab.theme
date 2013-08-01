@@ -341,17 +341,23 @@ wizard_qq.WizardFileUploader.prototype = {
         return handler;
     },
     _onInputChange: function(input){
-
+        var self = this,
+            dropArea = this._getElement('drop'),
+            uploadForm = this._getElement(document, 'uploadForm');
         if (this._handler instanceof wizard_qq.WizardUploadHandlerXhr){
-
             this._addSelection(input.files);
 
+            dropArea.style.display = 'none';
+            wizard_qq.addClass(uploadForm, self._classes.hideForm);
+            if (jQuery('ul.wizard_qq-files-to-upload li').length == 0) {
+                wizard_qq.removeClass(uploadForm, self._classes.hideForm);
+            } else {
+                jQuery('.wizard_qq-files-to-upload-container').show();
+            }
         } else {
-
             if (this._validateFile(input)){
                 this._addFile(input);
             }
-
         }
 
         this._button.reset();
