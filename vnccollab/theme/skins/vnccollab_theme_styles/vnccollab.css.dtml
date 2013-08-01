@@ -4582,7 +4582,7 @@ a.ls-content-title {
     background: no-repeat transparent 5px -103px url(sprites_16.png);
 }
 .icons-on .contenttype-link {
-    background: no-repeat transparent 5px -1076px url(sprites_16.png);
+    background: no-repeat transparent 5px -403px url(sprites_16.png);
 }
 .icons-on .contenttype-news-item {
     background: no-repeat transparent 5px -32px url(sprites_16.png);
