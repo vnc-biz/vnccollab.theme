@@ -53,6 +53,7 @@ setup(name='vnccollab.theme',
           'collective.customizablePersonalizeForm',
           'collective.notices',
           'sc.social.bookmarks',
+          'vnccollab.common',
       ],
       entry_points="""
       # -*- Entry points: -*-
