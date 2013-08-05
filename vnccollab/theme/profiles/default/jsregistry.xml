@@ -21,9 +21,7 @@
               enabled="True" />
   <javascript id="++resource++vnccollab.theme.js/jquery.markitup.js"
               enabled="True" />
-  <javascript id="++resource++vnccollab.theme.js/slimScroll.js"
-              enabled="True" />
-  <javascript
+    <javascript
       id="++resource++vnccollab.theme.js/vnc_chat.js"
       insert-after="++resource++collective.xmpp.chat.javascripts/converse.js"
       authenticated="True"/>

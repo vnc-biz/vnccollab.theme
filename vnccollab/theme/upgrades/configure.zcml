@@ -94,4 +94,16 @@
       title="Upgrade JavaScript css/js for uploader in wizard"
       handler="vnccollab.theme.upgrades.upgrades.upgrade_1108_1109"
       />
+
+    <genericsetup:upgradeSteps
+      source="1109"
+      destination="1110"
+      sortkey="7"
+      profile="vnccollab.theme:default">
+
+        <genericsetup:upgradeDepends
+          title="Removes slimScroll from js"
+          import_steps="jsregistry"
+          />
+    </genericsetup:upgradeSteps>
 </configure>
