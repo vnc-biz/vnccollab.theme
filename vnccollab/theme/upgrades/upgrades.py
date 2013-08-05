@@ -28,7 +28,7 @@ def upgrade_1108_1109(context):
     portal = api.portal.get()
     installOrReinstallProduct(portal, 'collective.quickupload')
 
-def upgrade_1109_1110
+def upgrade_1109_1110(context):
     '''Installs vnccollab.common.'''
     portal = api.portal.get()
     installOrReinstallProduct(portal, 'vnccollab.common')

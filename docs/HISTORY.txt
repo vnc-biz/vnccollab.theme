@@ -1,6 +1,12 @@
 Changelog
 =========
 
+unreleased
+----------
+
+- Removes deferred portlet view.
+  [Jose Dinuncio]
+
 
 1.7.4 - September 12, 2013
 --------------------------

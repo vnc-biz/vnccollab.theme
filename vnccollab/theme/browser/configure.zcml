@@ -573,11 +573,4 @@
       permission="zope.Public"
       />
 
-  <browser:page
-      for="*"
-      name="portlet_deferred_render"
-      class=".deferred.PortletDeferredRendererHelperView"
-      permission="zope2.View"
-      />
-
 </configure>
