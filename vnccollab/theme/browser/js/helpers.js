@@ -171,7 +171,7 @@ WizardUpload.onUploadComplete = function(uploader, domelement, id, fileName, res
             // after the last upload, if no errors, reload the page
             var newlist = jQuery('li', uploadList);
             jQuery(document).trigger('wizard_qq-file-uploaded', responseJSON);
-            if (! newlist.length) window.setTimeout( PloneQuickUpload.onAllUploadsComplete, 5);
+            if (! newlist.length) window.setTimeout( WizardUpload.onAllUploadsComplete, 5);
         }, 50);
     }
 };
