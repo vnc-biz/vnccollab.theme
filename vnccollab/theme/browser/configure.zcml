@@ -563,14 +563,14 @@
       for="*"
       name="wizard_uploader"
       class=".wizarduploader.WizardUploadView"
-      permission="zope2.View"
+      permission="zope.Public"
       />
 
   <browser:page
       for="*"
       name="wizard_upload_init"
       class=".wizarduploader.WizardUploadInit"
-      permission="zope2.View"
+      permission="zope.Public"
       />
 
   <browser:page

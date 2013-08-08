@@ -13,7 +13,7 @@ class WizardUploadView(QuickUploadView):
 
     def script_content(self) :
         context = aq_inner(self.context)
-        return context.restrictedTraverse('@@wizard_upload_init')(for_id = self.uploader_id)
+        return context.unrestrictedTraverse('@@wizard_upload_init')(for_id = self.uploader_id)
 
 
 
