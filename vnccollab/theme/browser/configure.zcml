@@ -563,14 +563,15 @@
       for="*"
       name="wizard_uploader"
       class=".wizarduploader.WizardUploadView"
-      permission="cmf.AddPortalContent"
+      permission="zope2.View"
       />
 
   <browser:page
       for="*"
       name="wizard_upload_init"
       class=".wizarduploader.WizardUploadInit"
-      permission="cmf.AddPortalContent"/>
+      permission="zope2.View"
+      />
 
   <browser:page
       for="*"
