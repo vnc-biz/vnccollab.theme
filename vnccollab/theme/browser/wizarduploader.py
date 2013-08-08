@@ -1,8 +1,12 @@
 from Acquisition import aq_inner
 
+from Products.CMFCore.utils import getToolByName
 from Products.Five.browser.pagetemplatefile import ViewPageTemplateFile
+from Products.ATContentTypes.interfaces import IImageContent
+
+from collective.quickupload import siteMessageFactory as _
 from collective.quickupload.browser.quick_upload import QuickUploadView, \
-    QuickUploadInit
+    QuickUploadInit, _listTypesForInterface
 
 
 class WizardUploadView(QuickUploadView):
@@ -90,3 +94,68 @@ class WizardUploadInit(QuickUploadInit):
         if self.qup_prefs.use_flashupload or self.use_flash_as_fallback():
             return FLASH_UPLOAD_JS % settings
         return XHR_UPLOAD_JS % settings
+
+    def upload_settings(self):
+        context = aq_inner(self.context)
+        request = self.request
+        try:
+            session = request.get('SESSION', {})
+            mediaupload = session.get('mediaupload',
+                    request.get('mediaupload', ''))
+            typeupload = session.get('typeupload',
+                    request.get('typeupload', ''))
+        except SessionDataManagerErr:
+            logger.debug('Error occurred getting session data. Falling back to '
+                    'request.')
+            mediaupload = request.get('mediaupload', '')
+            typeupload = request.get('typeupload', '')
+        portal_url = getToolByName(context, 'portal_url')()
+
+        settings = dict(
+            portal_url             = portal_url,
+            typeupload             = '',
+            context_url            = context.absolute_url(),
+            physical_path          = "/".join(context.getPhysicalPath()),
+            ul_id                  = self.uploader_id,
+            ul_fill_titles         = self.qup_prefs.fill_titles and 'true' or 'false',
+            ul_fill_descriptions   = self.qup_prefs.fill_descriptions and 'true' or 'false',
+            ul_auto_upload         = self.qup_prefs.auto_upload and 'true' or 'false',
+            ul_size_limit          = self.qup_prefs.size_limit and str(self.qup_prefs.size_limit*1024) or '',
+            ul_xhr_size_limit      = self.qup_prefs.size_limit and str(self.qup_prefs.size_limit*1024) or '0',
+            ul_sim_upload_limit    = str(self.qup_prefs.sim_upload_limit),
+            ul_button_text         = self._translate(_(u'Browse')),
+            ul_draganddrop_text    = self._translate(_(u'Drag and drop files to upload')),
+            ul_msg_all_sucess      = self._translate(_(u'All files uploaded with success.')),
+            ul_msg_some_sucess     = self._translate(_(u' files uploaded with success, ')),
+            ul_msg_some_errors     = self._translate(_(u" uploads return an error.")),
+            ul_msg_failed          = self._translate(_(u"Failed")),
+            ul_error_try_again_wo  = self._translate(_(u"please select files again without it.")),
+            ul_error_try_again     = self._translate(_(u"please try again.")),
+            ul_error_empty_file    = self._translate(_(u"Selected elements contain an empty file or a folder:")),
+            ul_error_empty_extension = self._translate(_(u"This file has no extension:")),
+            ul_error_file_large    = self._translate(_(u"This file is too large:")),
+            ul_error_maxsize_is    = self._translate(_(u"maximum file size is:")),
+            ul_error_bad_ext       = self._translate(_(u"This file has invalid extension:")),
+            ul_error_onlyallowed   = self._translate(_(u"Only allowed:")),
+            ul_error_no_permission = self._translate(_(u"You don't have permission to add this content in this place.")),
+            ul_error_disallowed_type = self._translate(_(u"This type of element is not allowed in this folder.",)),
+            ul_error_already_exists = self._translate(_(u"This file already exists with the same name on server:")),
+            ul_error_zodb_conflict = self._translate(_(u"A data base conflict error happened when uploading this file:")),
+            ul_error_server        = self._translate(_(u"Server error, please contact support and/or try again.")),
+        )
+
+        settings['typeupload'] = typeupload
+        if typeupload :
+            imageTypes = _listTypesForInterface(context, IImageContent)
+            if typeupload in imageTypes :
+                ul_content_types_infos = self.ul_content_types_infos('image')
+            else :
+                ul_content_types_infos = self.ul_content_types_infos(mediaupload)
+        else :
+            ul_content_types_infos = self.ul_content_types_infos(mediaupload)
+
+        settings['ul_file_extensions'] = ul_content_types_infos[0]
+        settings['ul_file_extensions_list'] = str(ul_content_types_infos[1])
+        settings['ul_file_description'] = ul_content_types_infos[2]
+
+        return settings
