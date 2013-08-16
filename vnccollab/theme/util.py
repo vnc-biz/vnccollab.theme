@@ -2,11 +2,18 @@
 from math import ceil
 from pyzimbra.auth import AuthException
 
-from zope.component import getUtility
+from plone.memoize.instance import memoize
+from plone.app.layout.navigation.interfaces import INavtreeStrategy
+from plone.app.layout.navigation.interfaces import INavigationQueryBuilder
+from plone.app.layout.navigation.navtree import buildFolderTree
+
+from zope.component import getUtility, getMultiAdapter
 from zope.annotation.interfaces import IAnnotations
 
 from Products.CMFPlone.utils import safe_unicode
 from Products.CMFCore.utils import getToolByName
+
+from Acquisition import aq_inner
 
 from vnccollab.theme.zimbrautil import IZimbraUtil
 
@@ -154,3 +161,30 @@ def groupList(value, batch_size=None, groups_number=None):
     value[-1] = tuple([k for k in value[-1] if k != 0])
 
     return value
+
+
+def sortNavTree(tree):
+    result = sorted(tree, key=lambda e: e['Title'])
+    for element in result:
+        if 'children' in element:
+            element['children'] = sortNavTree(element['children'])
+    return result
+
+
+@memoize
+def getNavTree(self, _marker=[]):
+    u""" Pathed method from plone.app.portlets.portlets.navigation.Renderer
+         Sorting result alphabetically.
+    """
+    context = aq_inner(self.context)
+    queryBuilder = getMultiAdapter(
+        (context, self.data), INavigationQueryBuilder)
+    strategy = getMultiAdapter((context, self.data), INavtreeStrategy)
+
+    result = buildFolderTree(
+        context, obj=context, query=queryBuilder(), strategy=strategy)
+
+    if 'children' in result:
+        result['children'] = sortNavTree(result['children'])
+
+    return result
