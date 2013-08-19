@@ -20,6 +20,7 @@ Changelog
   [Cesar Gonzalez]
 
 - Update User Actions List (user profile page, dashboard link, my-profile link)
+  TODO: add upgrade step
   [Dmitriy Ilyenkov]
 
 
