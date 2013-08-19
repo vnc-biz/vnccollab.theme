@@ -62,5 +62,28 @@
           />
     </genericsetup:upgradeSteps>
 
-</configure>
+    <genericsetup:upgradeSteps
+      source="1106"
+      destination="1107"
+      sortkey="6"
+      profile="vnccollab.theme:default">
 
+        <genericsetup:upgradeDepends
+          title="Run component registry step and css/js"
+          import_steps="jsregistry cssregistry componentregistry"
+          />
+    </genericsetup:upgradeSteps>
+
+    <genericsetup:upgradeSteps
+      source="1107"
+      destination="1108"
+      sortkey="6"
+      profile="vnccollab.theme:default">
+
+        <genericsetup:upgradeDepends
+          title="Upgrade user actions"
+          import_steps="actions"
+          />
+    </genericsetup:upgradeSteps>
+
+</configure>

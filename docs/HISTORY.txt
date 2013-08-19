@@ -1,8 +1,27 @@
 Changelog
 =========
 
-1.7.2 - Unreleased
-------------------
+1.7.3 - June 14, 2013
+---------------------
+
+- Adds mail server property for Dashlet Portlet [7651].
+  [Jose Dinuncio]
+
+- Add querywidget to theme layers. This is requried by new style collections.
+  [Vitaliy Podoba]
+
+
+1.7.2 - May 29, 2013
+--------------------
+
+- Fixes bug in lazy portlets load [7483].
+  [Jose Dinuncio]
+
+- Fixes bug in zimbra viewlet after upgrade to Zimbra 8.
+  [Jose Dinuncio]
+
+- Add Following Functionality to user profile pages.
+  [Vitaliy Podoba]
 
 - slimScroll attach to deferred portlets, spinner animation centering, template adjust.
   [Cesar Gonzalez]
