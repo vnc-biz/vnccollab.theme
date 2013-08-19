@@ -1,6 +1,13 @@
 Changelog
 =========
 
+1.7.4
+-----
+
+- Adds root node to Create Wizard tree [8102].
+  [Jose Dinuncio]
+
+
 1.7.3 - June 14, 2013
 ---------------------
 

@@ -43,7 +43,14 @@ class GetTreeJson(BrowserView):
             child_tree = tree
             child_uid = uid
 
-        return simplejson.dumps(tree)
+        root_node = self.getRootNode()
+        root_node['children'] = tree
+        return simplejson.dumps(root_node)
+
+    def getRootNode(self):
+        portal = api.portal.get()
+        tree = self._info_from_content(portal)
+        return tree
 
     def getFolderishParent(self, obj):
         '''Returns obj or its nearest parent that is folderish.'''
@@ -94,15 +101,20 @@ class GetTreeJson(BrowserView):
         return results
 
     def _info_from_content(self, content, type_=None):
-        selectable = self._is_container_selectable(content, type_)
-        context = self.getFolderishParent(self.context)
-
         content_is_root = ISiteRoot.providedBy(content)
         if content_is_root:
             content_uid = '0'
+            obj = content
+            path = content.absolute_url_path()
+            url = content.absolute_url()
         else:
+            obj = content.getObject()
+            path = content.getPath()
+            url = content.getURL()
             content_uid = content.uuid()
 
+        selectable = self._is_container_selectable(obj, type_)
+        context = self.getFolderishParent(self.context)
         context_is_root = ISiteRoot.providedBy(context)
         if context_is_root:
             context_uid = '0'
@@ -120,8 +132,8 @@ class GetTreeJson(BrowserView):
             'noLink': True,
             'isFolder': True,
             'isLazy': True,
-            'path': content.getPath(),
-            'url': content.getURL(),
+            'path': path,
+            'url': url,
             'unselectable': not(selectable),
             'activate': selectable and i_am_context,
             'children': [],
@@ -138,20 +150,19 @@ class GetTreeJson(BrowserView):
             return False
         return self._is_type_allowed_in_container(container, type_)
 
-    def _is_type_allowed_in_container(self, brain, type_):
+    def _is_type_allowed_in_container(self, obj, type_):
         if type_ is None:
             return True
 
-        allowed_types = list(brain.getObject().getLocallyAllowedTypes())
+        allowed_types = list(obj.getLocallyAllowedTypes())
         return type_ in allowed_types
 
-    def _is_container_writable(self, brain):
-        '''True if the current user can write in the brain's container.
+    def _is_container_writable(self, obj):
+        '''True if the current user can write in the object container.
 
         NOTE: We need to access to the associate object, and this could
         be time consuming. In case of degradation of speed, check here.
         '''
-        obj = brain.getObject()
         perm = getSecurityManager().checkPermission(
             permissions.AddPortalContent, obj)
         return perm == 1
