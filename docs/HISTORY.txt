@@ -1,12 +1,15 @@
 Changelog
 =========
 
-1.7.4
------
+
+1.7.4 - Unreleased
+------------------
+
+- Items in navigation portlet should be sorted alphabetically [8047].
+  [Marcin Staniszczak]
 
 - Adds root node to Create Wizard tree [8102].
   [Jose Dinuncio]
-
 
 1.7.3 - June 14, 2013
 ---------------------
