@@ -845,11 +845,15 @@ function rebindPubSubStreamHandlers () {
 // animateContentWizardStep
 //
 function animateContentWizardStep( stepNum, reset ) {
+  if ( stepNum == 2 ) {
+    // delete upload marker
+    jq('#wizard-uploader-marker').remove();
+  }
   if ( reset ) {
-   jq('.tab_link').addClass('blocked').removeClass('inactive').removeClass('active');
+    jq('.tab_link').addClass('blocked').removeClass('inactive').removeClass('active');
   } else {
-   jq('.tab_link').filter('.active').removeClass('active').addClass('inactive');
- }
+    jq('.tab_link').filter('.active').removeClass('active').addClass('inactive');
+  }
   jq('#tab_'+stepNum).addClass('active').removeClass('blocked');
   jq('#tab_'+stepNum).removeClass('inactive');
 
@@ -1040,7 +1044,11 @@ function setHandlersWizard() {
 
   jq('#send-wizard').click(function() {
     if( jq('input[name=selected_destination]').attr('data') != undefined && jq('input[name=selected_destination]').attr('data') != "" ) {
-      if( simpleValidateFormWizard() ) {
+      if (jq("#wizard-uploader-marker").length > 0) {
+        // file upload
+        uploader = window[jq("#wizard-uploader-marker").val()];
+        WizardUpload.sendDataAndUpload(uploader, jq('input[name=selected_destination]').attr('data'));
+      } else if( simpleValidateFormWizard() ) {
         jq('form[name="edit_form"]').get(0).submit();
       } else {
         animateContentWizardStep(2);

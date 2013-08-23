@@ -11,6 +11,10 @@ Changelog
 - Adds root node to Create Wizard tree [8102].
   [Jose Dinuncio]
 
+- Adds multiple files upload into Create New Wizard [6229].
+  [Marcin Staniszczak]
+
+
 1.7.3 - June 14, 2013
 ---------------------
 

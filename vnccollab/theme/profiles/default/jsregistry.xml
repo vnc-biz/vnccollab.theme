@@ -27,6 +27,10 @@
       id="++resource++vnccollab.theme.js/vnc_chat.js"
       insert-after="++resource++collective.xmpp.chat.javascripts/converse.js"
       authenticated="True"/>
+  <javascript id="++resource++vnccollab.theme.js/helpers.js"
+              enabled="True" />
+  <javascript id="++resource++vnccollab.theme.js/fileuploader.js"
+              enabled="True" />
   <javascript id="++resource++vnccollab.theme.js/main.js"
               insert-after="++resource++vnccollab.theme.js/vnc_chat.js"
               enabled="True" />

@@ -86,4 +86,15 @@
           />
     </genericsetup:upgradeSteps>
 
+    <genericsetup:upgradeSteps
+      source="1108"
+      destination="1109"
+      sortkey="7"
+      profile="vnccollab.theme:default">
+
+        <genericsetup:upgradeDepends
+          title="Upgrade JavaScript css/js for uploader in wizard"
+          import_steps="jsregistry cssregistry"
+          />
+    </genericsetup:upgradeSteps>
 </configure>
