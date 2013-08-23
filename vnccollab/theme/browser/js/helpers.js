@@ -146,7 +146,7 @@ WizardUpload.sendDataAndUpload = function(uploader, action) { //, typeupload) {
 
 WizardUpload.onAllUploadsComplete = function(){
     jQuery(document).trigger('wizard_qq-allfiles-uploaded');
-    Browser.onUploadComplete();
+    window.location.href = jQuery('input[name=selected_destination]').attr('data');
 };
 
 WizardUpload.clearQueue = function(uploader, domelement) {

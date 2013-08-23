@@ -4173,6 +4173,10 @@ a.caltrigger {
 #createWizard .wizard_qq-files-to-upload {
 
 }
+#createWizard .wizard_qq-files-to-upload input.file_title_field {
+  font-size: 13px;
+}
+
 #createWizard .wizard_qq-upload-drop-area {
     position:absolute;
     width:100%;
