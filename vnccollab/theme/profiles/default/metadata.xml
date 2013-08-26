@@ -18,5 +18,6 @@
     <dependency>profile-collective.js.jqueryui:default</dependency>
     <dependency>profile-collective.customizablePersonalizeForm:default</dependency>
     <dependency>profile-collective.notices:default</dependency>
+    <dependency>profile-collective.quickupload:default</dependency>
   </dependencies>
 </metadata>
