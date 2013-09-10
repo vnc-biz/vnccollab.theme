@@ -91,7 +91,7 @@
      <object name="vnc_support_website" meta_type="CMF Action" i18n:domain="vnccollab.theme">
       <property name="title" i18n:translate="">VNC Support &amp; Service Portal</property>
       <property name="description" i18n:translate=""></property>
-      <property name="url_expr">string:https://redmine.vnc.biz/redmine</property>
+      <property name="url_expr">string:https://redmine.vnc.biz/</property>
       <property name="icon_expr"></property>
       <property name="available_expr"></property>
       <property name="permissions">
