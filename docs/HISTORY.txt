@@ -2,8 +2,8 @@ Changelog
 =========
 
 
-1.7.4 - Unreleased
-------------------
+1.7.4 - September 12, 2013
+--------------------------
 
 - Items in navigation portlet should be sorted alphabetically [8047].
   [Marcin Staniszczak]
