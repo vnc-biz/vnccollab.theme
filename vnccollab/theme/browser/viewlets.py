@@ -31,6 +31,8 @@ from plone.portlets.interfaces import IPortletManager, IPortletRenderer
 from Products.Carousel.browser.viewlet import CarouselViewlet
 from jarn.xmpp.core.browser.viewlet import XMPPViewlet
 
+from collective.quickupload.portlet.quickuploadportlet import JAVASCRIPT
+
 from vnccollab.theme.portlets.zimbra_mail import logException
 from vnccollab.theme import messageFactory as _
 from vnccollab.theme.avatar import IAvatarUtil
@@ -513,6 +515,19 @@ class AddContentAreaViewlet(common.ViewletBase):
             })
 
         return result
+
+    def getUploadUrl(self):
+        """
+        return upload url
+        in current folder
+        """
+        context = aq_inner(self.context)
+        ploneview = context.restrictedTraverse('@@plone')
+        folder_url = ploneview.getCurrentFolderUrl()
+        return '%s/@@wizard_uploader' % folder_url
+
+    def upload_javascript(self):
+        return JAVASCRIPT.replace('.QuickUploadPortlet', '#createWizard')
 
     @memoize
     def getFolder(self, context):

@@ -74,4 +74,24 @@
           />
     </genericsetup:upgradeSteps>
 
+    <genericsetup:upgradeSteps
+      source="1107"
+      destination="1108"
+      sortkey="6"
+      profile="vnccollab.theme:default">
+
+        <genericsetup:upgradeDepends
+          title="Upgrade user actions"
+          import_steps="actions"
+          />
+    </genericsetup:upgradeSteps>
+
+    <genericsetup:upgradeStep
+      source="1108"
+      destination="1109"
+      sortkey="7"
+      profile="vnccollab.theme:default"
+      title="Upgrade JavaScript css/js for uploader in wizard"
+      handler="vnccollab.theme.upgrades.upgrades.upgrade_1108_1109"
+      />
 </configure>

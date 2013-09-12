@@ -1,6 +1,6 @@
 <?xml version="1.0"?>
 <metadata>
-  <version>1107</version>
+  <version>1109</version>
   <dependencies>
     <dependency>profile-collective.plonetruegallery:default</dependency>
     <dependency>profile-plone.app.jquery:default</dependency>
@@ -18,5 +18,6 @@
     <dependency>profile-collective.js.jqueryui:default</dependency>
     <dependency>profile-collective.customizablePersonalizeForm:default</dependency>
     <dependency>profile-collective.notices:default</dependency>
+    <dependency>profile-collective.quickupload:default</dependency>
   </dependencies>
 </metadata>

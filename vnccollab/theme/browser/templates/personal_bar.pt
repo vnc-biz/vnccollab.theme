@@ -10,7 +10,7 @@
        tal:define="img view/user_image"
        tal:condition="img">
     <a id="user-image"
-       tal:attributes="href view/homelink_url;
+       tal:attributes="href string:${context/portal_url}/author/${user};
                        title view/user_name">
       <img width="80" height="80"
            src="defaultUser.gif"
@@ -24,7 +24,7 @@
   <dl class="userPreferences">
     <dt class="userPreferencesHeader">
       <a id="user-name"
-       tal:attributes="href view/homelink_url"
+       tal:attributes="href string:${context/portal_url}/author/${user};"
        tal:content="view/user_name">John</a>
     </dt>
     <dd class="userPreferencesBody">

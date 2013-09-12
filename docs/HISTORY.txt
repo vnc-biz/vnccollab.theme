@@ -1,6 +1,20 @@
 Changelog
 =========
 
+
+1.7.4 - September 12, 2013
+--------------------------
+
+- Items in navigation portlet should be sorted alphabetically [8047].
+  [Marcin Staniszczak]
+
+- Adds root node to Create Wizard tree [8102].
+  [Jose Dinuncio]
+
+- Adds multiple files upload into Create New Wizard [6229].
+  [Marcin Staniszczak]
+
+
 1.7.3 - June 14, 2013
 ---------------------
 
@@ -20,6 +34,9 @@ Changelog
 - Fixes bug in zimbra viewlet after upgrade to Zimbra 8.
   [Jose Dinuncio]
 
+- Improves styles in wizard dynatree [7379].
+  [Jose Dinuncio]
+
 - Add Following Functionality to user profile pages.
   [Vitaliy Podoba]
 
@@ -27,6 +44,15 @@ Changelog
   [Cesar Gonzalez]
 
 - Fixes translation of Display menu and global bar.
+  [Jose Dinuncio]
+
+- Sets pointer cursor and font style for selected item in tree.
+  [Cesar Gonzalez]
+
+- Adds new parameter type_ to ajax call for populate tree of wizard.
+  [Cesar Gonzalez]
+
+- Fixes bug "Disallowed subobject type" in wizard.
   [Jose Dinuncio]
 
 - Remove wrong TOC entry "Bookmark & Share". TOC positioning at top. Format TOC levels.
@@ -37,6 +63,10 @@ Changelog
 
 - Fixes Create Task overlay style. Add box-sizing to textarea in overlays.
   [Cesar Gonzalez]
+
+- Update User Actions List (user profile page, dashboard link, my-profile link)
+  TODO: add upgrade step
+  [Dmitriy Ilyenkov]
 
 
 1.7.1 - April 19, 2013

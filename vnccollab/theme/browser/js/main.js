@@ -845,11 +845,15 @@ function rebindPubSubStreamHandlers () {
 // animateContentWizardStep
 //
 function animateContentWizardStep( stepNum, reset ) {
+  if ( stepNum == 2 ) {
+    // delete upload marker
+    jq('#wizard-uploader-marker').remove();
+  }
   if ( reset ) {
-   jq('.tab_link').addClass('blocked').removeClass('inactive').removeClass('active');
+    jq('.tab_link').addClass('blocked').removeClass('inactive').removeClass('active');
   } else {
-   jq('.tab_link').filter('.active').removeClass('active').addClass('inactive');
- }
+    jq('.tab_link').filter('.active').removeClass('active').addClass('inactive');
+  }
   jq('#tab_'+stepNum).addClass('active').removeClass('blocked');
   jq('#tab_'+stepNum).removeClass('inactive');
 
@@ -927,6 +931,7 @@ function loadCreateWizard(href, callback) {
       jq('#createWizard form[name="edit_form"]').remove();
       jq('.step2 .step-content').prepend($newform);
       jq('.wizard-overlay').hide();
+      //jq('.step3 .destination-label').after(href);
 
       callback();
 
@@ -982,7 +987,7 @@ function setHandlersWizard() {
   jq('#wizard-steps').on('click', '.Item', function( event ) {
     event.preventDefault();
 
-    jq('#tree').attr('data', jq(this).attr('data'));
+    jq('#tree').data('contentType', jq(this).attr('data'));
     jq('.selectedContainer').html('');
     jq('input[name=selected_destination]').get(0).setAttribute('data', '');
 
@@ -1039,7 +1044,11 @@ function setHandlersWizard() {
 
   jq('#send-wizard').click(function() {
     if( jq('input[name=selected_destination]').attr('data') != undefined && jq('input[name=selected_destination]').attr('data') != "" ) {
-      if( simpleValidateFormWizard() ) {
+      if (jq("#wizard-uploader-marker").length > 0) {
+        // file upload
+        uploader = window[jq("#wizard-uploader-marker").val()];
+        WizardUpload.sendDataAndUpload(uploader, jq('input[name=selected_destination]').attr('data'));
+      } else if( simpleValidateFormWizard() ) {
         jq('form[name="edit_form"]').get(0).submit();
       } else {
         animateContentWizardStep(2);
@@ -1049,25 +1058,28 @@ function setHandlersWizard() {
 
   jq('#send-step2').click(function() {
 
+    var firstTree = false,
+        $tree = jq('#tree');
+
     if( !simpleValidateFormWizard() ) {
       return false;
     }
 
     animateContentWizardStep(3);
 
-    var firstTree = false;
-    if ( jq('#tree').find('.dynatree-container')[0] == undefined ) {
+    if ( $tree.find('.dynatree-container')[0] == undefined ) {
       firstTree = true;
     }
 
-    jq("#tree").dynatree({
+    $tree.dynatree({
       initAjax: { url: cloudstream_url+'/@@wizard_get_initial_tree.json',
-                  cache: false
+                  cache: false,
+                  'data': {'type_': $tree.data('contentType')}
                 },
       onLazyRead: function(node){
                     node.appendAjax({
                       'url': cloudstream_url+'/@@wizard_get_tree.json',
-                      'data': {'uid': node.data.key},
+                      'data': {'uid': node.data.key, 'type_': $tree.data('contentType')},
                     });
                 },
       fx: { height: "toggle", duration: 200 },
@@ -1109,7 +1121,7 @@ function setHandlersWizard() {
     });
 
     if( firstTree == false ) {
-     jq("#tree").dynatree("getTree").reload();
+     $tree.dynatree("getTree").reload();
     }
 
   });
