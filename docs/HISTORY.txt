@@ -1,6 +1,12 @@
 Changelog
 =========
 
+1.7.5 - unreleased
+------------------
+
+ - Change template for sendto [8084].
+   [Marcin Staniszczak]
+
 
 1.7.4 - September 12, 2013
 --------------------------
