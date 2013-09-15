@@ -188,3 +188,25 @@ def getNavTree(self, _marker=[]):
         result['children'] = sortNavTree(result['children'])
 
     return result
+
+
+def sendto(self, send_to_address, send_from_address, comment,
+           subject='Plone', **kwargs):
+    """Pathed method from Products.CMFPlone.PloneTool.PloneTool.
+       Sends a link of a page to someone."""
+    host = self.getMailHost()
+    template = getattr(self, 'sendto_template')
+    portal = getToolByName(self, 'portal_url').getPortalObject()
+    encoding = portal.getProperty('email_charset')
+    if 'envelope_from' in kwargs:
+        envelope_from = kwargs['envelope_from']
+    else:
+        envelope_from = send_from_address
+    # Cook from template
+    message = template(self, send_to_address=send_to_address,
+                       send_from_address=send_from_address,
+                       comment=comment, subject=subject, **kwargs)
+    message = message.encode(encoding)
+    host.send(message, mto=send_to_address,
+              mfrom=envelope_from, subject=subject,
+              charset=self.getSiteEncoding(), msg_type='text/html')
