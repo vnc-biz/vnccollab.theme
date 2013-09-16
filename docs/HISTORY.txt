@@ -1,6 +1,13 @@
 Changelog
 =========
 
+1.7.4 - unreleased
+------------------
+
+- Changes in users portled: changed a image sizes, and added a tooltip
+  with user details [8046].
+  [Marcin Staniszczak]
+
 
 1.7.4 - September 12, 2013
 --------------------------

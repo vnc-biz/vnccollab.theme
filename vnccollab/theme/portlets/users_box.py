@@ -115,7 +115,9 @@ class Renderer(base.Renderer):
             users.append({
                 'id': creator,
                 'img': mtool.getPersonalPortrait(id=creator),
-                'url': '%s/author/%s' % (purl, creator)
+                'url': '%s/author/%s' % (purl, creator),
+                'fullname': user.getProperty("fullname"),
+                'email': user.getProperty("email")
             })
             added.append(creator)
             counter += 1

@@ -1512,8 +1512,8 @@ dl.portlet ul.navTreeLevel1 > .navTreeItem:first-child {
 .portletUsersBox img {
   background:#fff;
   border-radius: 5px;
-  height:70px;
-  width: 70px;
+  height:55px;
+  width: 55px;
   }
 
 /*------ Specific Portlet Styles -----*/
@@ -4720,5 +4720,39 @@ ul.followersList .followButtonWrapper {
   display: block;
 }
 
+.bubbleInfo {
+    position: relative;
+}
+
+.bubbleinfo-popup {
+    position: absolute;
+    display: none; /* keeps the popup hidden if no JS available */
+    border: 1px solid #ddd;
+    background-color: white;
+    padding: 5px;
+}
+
+.bubbleinfo-popup ul dt,
+.bubbleinfo-popup ul dd {
+  line-height: 20px;
+}
+
+.bubbleinfo-popup ul dt {
+  font-weight: bold;
+  font-size: 10px;
+  padding: 0;
+  float: left;
+  width: 60px;
+  overflow: hidden;
+  clear: left;
+  text-align: right;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.bubbleinfo-popup ul dd {
+  font-size: 10px;
+  margin-left: 80px;
+}
 
 /* </dtml-with> */
