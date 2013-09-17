@@ -32,10 +32,16 @@ jQuery(function($){
           left: 0,
           display: 'block', // brings the popup back in to view
           'z-index': 10
-        })
+        });
+
+        position = popup.offset();
+        if (popup.width() + position.left > $(window).width()) {
+          new_left = (popup.width() + position.left) - $(window).width() + 20;
+          popup.css({left: -new_left});
+        }
 
         // (we're using chaining on the popup) now animate it's opacity and position
-        .animate({
+        popup.animate({
           top: '-=' + distance + 'px',
           opacity: 1
         }, time, 'swing', function() {
