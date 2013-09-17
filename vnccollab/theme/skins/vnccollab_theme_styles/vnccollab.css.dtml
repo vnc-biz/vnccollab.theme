@@ -4732,12 +4732,12 @@ ul.followersList .followButtonWrapper {
     padding: 5px;
 }
 
-.bubbleinfo-popup ul dt,
-.bubbleinfo-popup ul dd {
+.bubbleinfo-popup dl dt,
+.bubbleinfo-popup dl dd {
   line-height: 20px;
 }
 
-.bubbleinfo-popup ul dt {
+.bubbleinfo-popup dl dt {
   font-weight: bold;
   font-size: 10px;
   padding: 0;
@@ -4750,7 +4750,7 @@ ul.followersList .followButtonWrapper {
   white-space: nowrap;
 }
 
-.bubbleinfo-popup ul dd {
+.bubbleinfo-popup dl dd {
   font-size: 10px;
   margin-left: 80px;
 }
