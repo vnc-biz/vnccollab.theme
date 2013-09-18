@@ -2,11 +2,15 @@ Changelog
 =========
 
 
+1.7.5 - unreleased
+----------------
+
+- Fixes strange icons in list view, standard view and search result list [8349].
+  [Cesar Gonzalez]
+
+
 1.7.4 - September 12, 2013
 --------------------------
-
-- Fixes strange icons in list view and standard view [8349].
-  [Cesar Gonzalez]
 
 - Items in navigation portlet should be sorted alphabetically [8047].
   [Marcin Staniszczak]
