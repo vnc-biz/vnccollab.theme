@@ -8,10 +8,6 @@ Changelog
   with user details [8046].
   [Marcin Staniszczak]
 
-
-1.7.5 - unreleased
-----------------
-
 - Fixes strange icons in list view, standard view and search result list [8349].
   [Cesar Gonzalez]
 
