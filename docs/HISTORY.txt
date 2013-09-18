@@ -9,6 +9,13 @@ Changelog
   [Marcin Staniszczak]
 
 
+1.7.5 - unreleased
+----------------
+
+- Fixes strange icons in list view, standard view and search result list [8349].
+  [Cesar Gonzalez]
+
+
 1.7.4 - September 12, 2013
 --------------------------
 
