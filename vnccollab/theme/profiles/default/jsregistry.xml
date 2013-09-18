@@ -41,4 +41,6 @@
               enabled="False" />
   <javascript id="++resource++plone.app.jquerytools.dateinput.js"
               enabled="True" />
+  <javascript id="++resource++vnccollab.theme.js/bubbleinfo.js"
+              enabled="True" />
 </object>

@@ -27,3 +27,11 @@ def upgrade_1108_1109(context):
                                    run_dependencies=False)
     portal = api.portal.get()
     installOrReinstallProduct(portal, 'collective.quickupload')
+
+
+def upgrade_1109_1110(context):
+    setup = getToolByName(context, 'portal_setup')
+    setup.runImportStepFromProfile(DEFAULT_PROFILE, 'jsregistry',
+                                   run_dependencies=False)
+    setup.runImportStepFromProfile(DEFAULT_PROFILE, 'cssregistry',
+                                   run_dependencies=False)
