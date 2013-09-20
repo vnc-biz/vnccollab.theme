@@ -4,6 +4,10 @@ Changelog
 unreleased
 ----------
 
+- Adds custom event handler for portlet deferred loading complete event then
+  attach portlets buttons.
+  [Cesar Gonzalez]
+
 - Removes deferred portlet view.
   [Jose Dinuncio]
 

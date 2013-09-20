@@ -12,15 +12,25 @@ jq.fn.outerHTML = function(s) {
 };
 
 function attachPortletButtons() {
+  // Handle DeferredPorletLoaded event
+  jq('body').on('DeferredPorletLoaded', function(event, data) {
+    setPortletButtons('#' + data.id);
+  });
+
+  setPortletButtons('.portletWrapper');
+}
+
+function setPortletButtons(selector) {
+
   // add up/down and left/right links to portlet headers,
   // which will expand/contract and make portlets wide
-  jq('.portletWrapper dt.portletHeader .portletTopRight').before(
+  jq(selector + ' dt.portletHeader .portletTopRight').before(
     '<a href="#" class="portletToggleLink" title="Toggle ' +
     'Portlet">toggle</a>');
-  jq('.portletWrapper dt.portletHeader a.portletToggleLink').click(function(event){
+  jq(selector + ' dt.portletHeader a.portletToggleLink').click(function(event){
     // toggle html class
     var a = jq(event.target);
-    var portlet = a.parents('.portletWrapper');
+    var portlet = a.parents(selector);
     portlet.toggleClass('closed');
 
     if (!portlet.attr('id')) {
@@ -37,13 +47,13 @@ function attachPortletButtons() {
     }
     return false;
   });
-  jq('#dashboard .portletWrapper dt.portletHeader .portletTopRight').before(
+  jq('#dashboard ' + selector + ' dt.portletHeader .portletTopRight').before(
     '<a href="#" class="portletWideNarrowLink" title="Wide/Narrow">wide/narrow'
     + '</a>');
-  jq('#dashboard .portletWrapper dt.portletHeader a.portletWideNarrowLink').click(function(event){
+  jq('#dashboard ' + selector + ' dt.portletHeader a.portletWideNarrowLink').click(function(event){
     // toggle html class
     var a = jq(event.target);
-    var portlet = a.parents('.portletWrapper');
+    var portlet = a.parents('.portletwrapper');
     portlet.toggleClass('wide');
 
     // record change on the server side
