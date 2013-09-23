@@ -4,6 +4,9 @@ Changelog
 unreleased
 ----------
 
+- Fixes behaviour of the button *>* that makes the portlet wider.
+  [Cesar Gonzalez]
+
 - Adds custom event handler for portlet deferred loading complete event then
   attach portlets buttons.
   [Cesar Gonzalez]

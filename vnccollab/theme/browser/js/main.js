@@ -53,7 +53,7 @@ function setPortletButtons(selector) {
   jq('#dashboard ' + selector + ' dt.portletHeader a.portletWideNarrowLink').click(function(event){
     // toggle html class
     var a = jq(event.target);
-    var portlet = a.parents('.portletwrapper');
+    var portlet = a.parents('.portletWrapper');
     portlet.toggleClass('wide');
 
     // record change on the server side
