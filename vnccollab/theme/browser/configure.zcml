@@ -574,13 +574,6 @@
       />
 
   <browser:page
-      for="*"
-      name="portlet_deferred_render"
-      class=".deferred.PortletDeferredRendererHelperView"
-      permission="zope2.View"
-      />
-
-  <browser:page
       name="search"
       class="plone.app.search.browser.Search"
       permission="zope2.View"
