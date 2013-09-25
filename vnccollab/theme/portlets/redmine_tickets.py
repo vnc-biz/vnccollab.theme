@@ -16,7 +16,7 @@ from plone.memoize.instance import memoize
 from plone.portlets.interfaces import IPortletDataProvider
 from plone.app.portlets.portlets import base
 
-from vnccollab.theme.portlets import deferred
+from vnccollab.common.portlets import deferred
 from vnccollab.theme.portlets.zimbra_mail import logException
 from vnccollab.theme import messageFactory as _
 

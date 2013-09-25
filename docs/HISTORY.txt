@@ -1,6 +1,7 @@
 Changelog
 =========
 
+<<<<<<< HEAD
 1.7.4 - unreleased
 ------------------
 
@@ -11,6 +12,21 @@ Changelog
 - Fixes strange icons in list view, standard view and search result list [8349].
   [Cesar Gonzalez]
 
+=======
+unreleased
+----------
+
+- Fixes behaviour of the button *>* that makes the portlet wider.
+  [Cesar Gonzalez]
+
+- Adds custom event handler for portlet deferred loading complete event then
+  attach portlets buttons.
+  [Cesar Gonzalez]
+
+- Removes deferred portlet view.
+  [Jose Dinuncio]
+
+>>>>>>> feature/move-theme-7193
 
 1.7.4 - September 12, 2013
 --------------------------

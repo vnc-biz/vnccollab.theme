@@ -89,6 +89,7 @@
     <genericsetup:upgradeStep
       source="1108"
       destination="1109"
+      description="Forces vnccollab.theme.addcontent viewlet visibility"
       sortkey="7"
       profile="vnccollab.theme:default"
       title="Upgrade JavaScript css/js for uploader in wizard"
@@ -103,4 +104,17 @@
       title="Upgrade JavaScript css/js for users portlet"
       handler="vnccollab.theme.upgrades.upgrades.upgrade_1109_1110"
       />
+
+    <genericsetup:upgradeSteps
+      source="1109"
+      destination="1110"
+      sortkey="9"
+      profile="vnccollab.theme:default">
+
+        <genericsetup:upgradeDepends
+          title="Removes slimScroll from js"
+          import_steps="jsregistry"
+          />
+    </genericsetup:upgradeSteps>
+
 </configure>

@@ -30,8 +30,13 @@ def upgrade_1108_1109(context):
 
 
 def upgrade_1109_1110(context):
+    '''Installs vnccollab.common and upgrades css/js.'''
     setup = getToolByName(context, 'portal_setup')
     setup.runImportStepFromProfile(DEFAULT_PROFILE, 'jsregistry',
                                    run_dependencies=False)
     setup.runImportStepFromProfile(DEFAULT_PROFILE, 'cssregistry',
                                    run_dependencies=False)
+
+    portal = api.portal.get()
+    installOrReinstallProduct(portal, 'vnccollab.common')
+

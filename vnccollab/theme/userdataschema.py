@@ -83,15 +83,3 @@ class IUserDataSchema(Interface):
         description=_(u"We need this field in order to display your OpenERP "
                       "related information."),
         required=False)
-
-    redmine_username = schema.ASCIILine(
-        title=_("Redmine Username"),
-        description=_(u"We need this field in order to display your Redmine "
-                      "related information."),
-        required=False)
-
-    redmine_password = schema.Password(
-        title=_("Redmine Password"),
-        description=_(u"We need this field in order to display your Redmine "
-                      "related information."),
-        required=False)
