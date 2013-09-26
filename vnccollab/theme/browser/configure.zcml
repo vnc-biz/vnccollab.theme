@@ -575,7 +575,7 @@
 
   <browser:page
       name="search"
-      class="plone.app.search.browser.Search"
+      class="vnccollab.common.browser.search.Search"
       permission="zope2.View"
       for="*"
       template="templates/search.pt"
