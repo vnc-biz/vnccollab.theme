@@ -54,6 +54,7 @@ setup(name='vnccollab.theme',
           'collective.notices',
           'sc.social.bookmarks',
       ],
+      extras_require={'test': ['plone.app.testing']},
       entry_points="""
       # -*- Entry points: -*-
 
