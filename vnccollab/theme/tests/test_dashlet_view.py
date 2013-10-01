@@ -12,7 +12,11 @@ class TestDashletView(FunctionalTestCase):
     def test_dashlet(self):
         browser = self.login()
         browser.open(self.portal_url + '/@@dashlet')
-        print browser.contents
+        self.assertIn('>Users<', browser.contents)
+        self.assertIn('>Events<', browser.contents)
+        self.assertIn('>News<', browser.contents)
 
         browser.open(self.portal_url + '/@@dashlet?type=mails')
-        print browser.contents
+        self.assertNotIn('>Users<', browser.contents)
+        self.assertNotIn('>Events<', browser.contents)
+        self.assertNotIn('>News<', browser.contents)
