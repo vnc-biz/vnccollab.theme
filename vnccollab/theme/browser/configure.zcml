@@ -207,13 +207,13 @@
       permission="zope2.View"
       />
 
-  <browser:page
+  <!-- <browser:page
       for="*"
       name="zimbra-mail-portlet-view"
       class=".zimbra.ZimbraMailPortletView"
       layer=".interfaces.IThemeSpecific"
       permission="plone.app.portlets.ViewDashboard"
-      />
+      /> -->
 
   <!-- Override dashboard and dashboard management forms,
        we need only one column there -->
