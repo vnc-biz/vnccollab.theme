@@ -7,6 +7,9 @@ Changelog
 - Disable zimbra-mail-portlet-view from theme. Fixes History.txt.
   [Cesar Gonzalez]
 
+- Fixes license and adds AUTHORS.txt.
+  [Jose Dinuncio]
+
 - Changes in users portled: changed a image sizes, and added a tooltip
   with user details [8046].
   [Marcin Staniszczak]
