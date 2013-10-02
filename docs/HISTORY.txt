@@ -1,9 +1,11 @@
 Changelog
 =========
 
-<<<<<<< HEAD
 1.7.4 - unreleased
 ------------------
+
+- Fixes license and adds AUTHORS.txt.
+  [Jose Dinuncio]
 
 - Changes in users portled: changed a image sizes, and added a tooltip
   with user details [8046].
@@ -11,10 +13,6 @@ Changelog
 
 - Fixes strange icons in list view, standard view and search result list [8349].
   [Cesar Gonzalez]
-
-=======
-unreleased
-----------
 
 - Fixes behaviour of the button *>* that makes the portlet wider.
   [Cesar Gonzalez]
@@ -26,7 +24,6 @@ unreleased
 - Removes deferred portlet view.
   [Jose Dinuncio]
 
->>>>>>> feature/move-theme-7193
 
 1.7.4 - September 12, 2013
 --------------------------
