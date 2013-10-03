@@ -48,11 +48,3 @@ class TestLikeView(FunctionalTestCase):
         self.assertIn('<span class="tally-total">1</span> likes', browser.contents)
         self.assertIn('<span class="tally-total">0</span> dislikes', browser.contents)
         self.logout(browser)
-
-        browser = self.login('scott@tiger.com', 'secret')
-        browser.open(obj.absolute_url())
-        print browser.contents
-        browser.getControl(name='form.lovinit').click()
-        browser.open(obj.absolute_url())
-        print browser.contents
-        # self.assertIn('wizardContentArea', browser.contents)

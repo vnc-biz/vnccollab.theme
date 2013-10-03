@@ -27,7 +27,7 @@ class VNCThemeContent(PloneSandboxLayer):
                        'collective.vaporisation', 'collective.quickupload',
                        'plone.formwidget.autocomplete', 'Products.Carousel',
                        'vnccollab.theme', #'vnccollab.cloudstream', 
-                       'collective.autopermission',
+                       'collective.autopermission', 'Products.PloneLanguageTool',
                        'plone.app.iterate']
 
         for package in depedencies:
@@ -38,9 +38,10 @@ class VNCThemeContent(PloneSandboxLayer):
         #xmlconfig.file('configure.zcml',
         #               vnccollab.theme,
         #               context=configurationContext)
-        z2.installProduct(app, 'vnccollab.cloudstream')
+        #z2.installProduct(app, 'vnccollab.cloudstream')
         z2.installProduct(app, 'vnccollab.theme')
         z2.installProduct(app, 'Products.PythonScripts')
+        z2.installProduct(app, 'Products.PloneLanguageTool')
 
     def setUpPloneSite(self, portal):
         # Installs all the Plone stuff. Workflows etc.
