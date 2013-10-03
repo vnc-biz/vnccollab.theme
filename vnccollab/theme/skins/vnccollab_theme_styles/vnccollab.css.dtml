@@ -181,6 +181,19 @@ body {
   }
 
 /*----- Language Selector -----*/
+/* #personaltools-languageselector:after {
+  background: url(http://127.0.0.1:8080/Plone/sprite.png) no-repeat -206px -20px;
+  content: "";
+  display: block;
+  height: 8px;
+  position: relative;
+  right: -130px;
+  bottom: 15px;
+  width: 13px;
+  }
+#personaltools-languageselector:hover ul {
+  display: block;
+  }*/
 #portal-languageselector {
   background-color: #dee3e8;
   background-image: -moz-linear-gradient(#dee3e8,#cfd6dd);
@@ -198,7 +211,11 @@ body {
   margin-right: 10px;
   padding: 28px 24px 4px 0;
   width: 92px;
+  /*display: none;*/
   }
+select#vnc-languageselector {
+  width: 200px;
+}
 #portal-languageselector:after {
   background:url(&dtml-portal_url;/sprite.png) no-repeat -206px -20px;
   content: "";

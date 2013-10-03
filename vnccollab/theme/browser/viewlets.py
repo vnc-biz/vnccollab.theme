@@ -6,6 +6,7 @@ from pyactiveresource.activeresource import ActiveResource
 from Acquisition import aq_inner
 from DateTime import DateTime
 
+from zope.app.component.hooks import getSite
 from zope.interface import alsoProvides, providedBy, Interface
 from zope.component import getMultiAdapter, queryMultiAdapter, getUtility
 from zope.i18nmessageid import MessageFactory
@@ -279,7 +280,7 @@ class PersonalBarViewlet(common.PersonalBarViewlet):
         manager = BaseOrderedViewletManager()
         alsoProvides(manager, IPortalHeader)
         viewlet = queryMultiAdapter((context, self.request, self.view,
-            manager), IViewlet, name='plone.app.i18n.locales.languageselector')
+            manager), IViewlet, name='vnccollab.theme.languageselector')
         if viewlet is not None:
             viewlet = viewlet.__of__(context)
             viewlet.update()
@@ -544,12 +545,48 @@ class AddButtonViewlet(common.ViewletBase):
 
 try:
     import vnccollab.cloudcast
+    from vnccollab.cloudcast.interfaces import ICastContainer, ICastsContainer, ICast
 except ImportError:
     CAST_ENABLED = False
 else:
     CAST_ENABLED = True
 
-class CustomXMPPViewlet(XMPPViewlet):
+
+class CastViewletBase(object):
+
+    def get_cast_url(self):
+        if not CAST_ENABLED:
+            return False
+
+        catalog = getToolByName(self.context, 'portal_catalog')
+        portal_path = getToolByName(self.context, 'portal_url').getPortalPath()
+        casts = catalog(portal_type='CastsContainer', path={'query':
+            portal_path, 'depth': 1}, sort_on='getObjPositionInParent')
+        if len(casts) > 0:
+            return casts[0].getURL()
+
+        # no casts container in site root, search for any other casts container
+        casts = catalog(portal_type='CastsContainer',
+            sort_on='getObjPositionInParent')
+        if len(casts) > 0:
+            return casts[0].getURL()
+
+        return False
+
+    def check_in_cast(self):
+        if not CAST_ENABLED:
+            return False
+
+        cast_interfaces = [ICastsContainer, ICastContainer, ICast]
+
+        for cast in cast_interfaces:
+            if cast.providedBy(self.context):
+                return True
+
+        return False
+
+
+class CustomXMPPViewlet(XMPPViewlet, CastViewletBase):
 
     index = ViewPageTemplateFile('templates/xmpp_viewlet.pt')
 
@@ -558,24 +595,33 @@ class CustomXMPPViewlet(XMPPViewlet):
 
         # prepare link to first cast container on the site, of course if cast
         # feature is enabled
-        self.cast_url = ''
-        if not CAST_ENABLED:
-            return
+        self.cast_url = self.get_cast_url()
+        self.cast_url = self.cast_url if self.cast_url else ''
 
-        catalog = getToolByName(self.context, 'portal_catalog')
-        portal_path = getToolByName(self.context, 'portal_url').getPortalPath()
-        casts = catalog(portal_type='CastsContainer', path={'query':
-            portal_path, 'depth': 1}, sort_on='getObjPositionInParent')
-        if len(casts) > 0:
-            self.cast_url = casts[0].getURL()
-            return
-
-        # no casts container in site root, search for any other casts container
-        casts = catalog(portal_type='CastsContainer',
-            sort_on='getObjPositionInParent')
-        if len(casts) > 0:
-            self.cast_url = casts[0].getURL()
 
 class HeaderLinksIconsViewlet(FaviconViewlet):
 
     render = ViewPageTemplateFile('templates/favicon.pt')
+
+
+class TabsViewlet(common.ViewletBase, CastViewletBase):
+
+    index = ViewPageTemplateFile('templates/tabs.pt')
+
+    def update(self):
+        self.portal_tabs = [
+            {'name': 'Content',
+             'description': 'content',
+             'id': 'content',
+             'url': getSite().absolute_url(),
+             'selected': not self.check_in_cast()
+            }]
+
+        cast_url = self.get_cast_url()
+        if cast_url != False:
+            self.portal_tabs.append({
+                'name': 'Cast',
+                'description': 'cast',
+                'id': 'cast',
+                'url': cast_url,
+                'selected': self.check_in_cast()})

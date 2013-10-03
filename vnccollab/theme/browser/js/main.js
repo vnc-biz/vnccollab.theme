@@ -1182,6 +1182,16 @@ function initFollowingControls() {
 
 }
 
+function initFollowingControls() {
+  $("#vnc-languageselector").selectbox({
+    effect: "fade",
+    onChange: function (val, inst) {
+      console.log(val);
+      window.location = val;
+    }
+  });
+}
+
 jq(function() {
   attachNewTicketAction();
   attachHeaderViewletCloseOpen();

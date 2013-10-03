@@ -24,4 +24,9 @@
     enabled="False" />
  <stylesheet id="++resource++plone.app.jquerytools.dateinput.css"
     enabled="True" />
+ <stylesheet title=""
+    id="++resource++vnccollab.theme.stylesheets/jquery.selectbox.css"
+    media="screen" rel="stylesheet" rendering="link"
+    cacheable="True" compression="safe" cookable="True"
+    enabled="1" expression=""/>
 </object>

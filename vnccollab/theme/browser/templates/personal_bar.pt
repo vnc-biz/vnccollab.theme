@@ -6,26 +6,19 @@
 <div class="actionMenu deactivated" id="portal-personaltools-loggedin"
     tal:condition="python:view.user_actions and not view.anonymous">
   <tal:block condition="not: view/anonymous">
-  <div class="actionMenuUserImgWrapper"
-       tal:define="img view/user_image"
-       tal:condition="img">
-    <a id="user-image"
-       tal:attributes="href string:${context/portal_url}/author/${user};
-                       title view/user_name">
-      <img width="80" height="80"
+  <dl class="userPreferences">
+    <dt class="userPreferencesHeader" id="user-image">
+      <a id="user-name"
+         tal:define="img view/user_image"
+         tal:attributes="href string:${context/portal_url}/author/${user};">
+       <img width="80" height="80"
            src="defaultUser.gif"
            alt="default user image"
            tal:attributes="src img;
                            width  view/avatar_width;
                            height view/avatar_height;
                            alt view/user_name" />
-    </a>
-  </div>
-  <dl class="userPreferences">
-    <dt class="userPreferencesHeader">
-      <a id="user-name"
-       tal:attributes="href string:${context/portal_url}/author/${user};"
-       tal:content="view/user_name">John</a>
+     </a>
     </dt>
     <dd class="userPreferencesBody">
       <ul>
@@ -38,10 +31,12 @@
                 action title
             </a>
         </li>
+        <li id="personaltools-languageselector">
+          <tal:flags replace="structure view/languages " />
+        </li>
       </ul>
     </dd>
   </dl>
-  <tal:flags replace="structure view/languages " />
   <a class="logoutLink"
      title="Click to logout"
      tal:attributes="href string:${context/portal_url}/logout"
