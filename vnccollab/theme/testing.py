@@ -17,6 +17,13 @@ from plone.testing import z2
 
 from zope.configuration import xmlconfig
 
+try:
+    import vnccollab.cloudcast
+except ImportError:
+    CAST_ENABLED = False
+else:
+    CAST_ENABLED = True
+
 
 class VNCThemeContent(PloneSandboxLayer):
     defaultBases = (PLONE_FIXTURE,)
@@ -26,22 +33,26 @@ class VNCThemeContent(PloneSandboxLayer):
         depedencies = ['collective.customizablePersonalizeForm',
                        'collective.vaporisation', 'collective.quickupload',
                        'plone.formwidget.autocomplete', 'Products.Carousel',
-                       'vnccollab.theme', #'vnccollab.cloudstream', 
-                       'collective.autopermission', 'Products.PloneLanguageTool',
-                       'plone.app.iterate']
+                       'vnccollab.theme', 'collective.autopermission',
+                       'plone.app.iterate'] #, 'plone.i18n', 'plone.app.i18n']
+
+        if CAST_ENABLED:
+            depedencies.extend([
+                #'collective.customizablePersonalizeForm',
+                'plone.api', 'plone.app.discussion',
+                'collective.prettydate', 'five.grok',
+                'collective.autogroup','vnccollab.cloudcast',
+                'vnccollab.cloudmobile'])
 
         for package in depedencies:
             module = __import__(package, fromlist=[''])
             self.loadZCML(package=module)
 
-        #import vnccollab.theme
-        #xmlconfig.file('configure.zcml',
-        #               vnccollab.theme,
-        #               context=configurationContext)
-        #z2.installProduct(app, 'vnccollab.cloudstream')
+        if CAST_ENABLED:
+            z2.installProduct(app, 'vnccollab.cloudcast')
+
         z2.installProduct(app, 'vnccollab.theme')
         z2.installProduct(app, 'Products.PythonScripts')
-        z2.installProduct(app, 'Products.PloneLanguageTool')
 
     def setUpPloneSite(self, portal):
         # Installs all the Plone stuff. Workflows etc.
@@ -49,6 +60,8 @@ class VNCThemeContent(PloneSandboxLayer):
         # Install portal content. Including the Members folder!
         self.applyProfile(portal, 'Products.CMFPlone:plone-content')
         self.applyProfile(portal, 'vnccollab.theme:default')
+        if CAST_ENABLED:
+            self.applyProfile(portal, 'vnccollab.cloudcast:default')
 
 
 VNCCOLLAB_THEME_FIXTURE = VNCThemeContent()

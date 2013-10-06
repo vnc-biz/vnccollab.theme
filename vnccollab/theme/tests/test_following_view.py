@@ -2,8 +2,6 @@ import ast
 import json
 import urllib
 
-from Products.Five.testbrowser import Browser
-
 from vnccollab.theme.tests.base import FunctionalTestCase
 
 
