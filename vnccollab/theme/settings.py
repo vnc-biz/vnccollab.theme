@@ -1,4 +1,4 @@
-from zope.interface import implements, Interface
+from zope.interface import Interface
 from zope import schema
 
 from plone.app.registry.browser import controlpanel
@@ -138,7 +138,11 @@ class OpenERPSettingsControlPanel(controlpanel.ControlPanelFormWrapper):
 
 class IAnonymousHomepageSettings(Interface):
     """Anonymous Homepage Settings."""
-    #logo = None
+    logo = schema.Choice(
+        title=_(u'Homepage Logo'),
+        description=u'',
+        required=False,
+        source='vnccollab.theme.vocabularies.image_vocabulary')
 
     help_url = schema.URI(
         title = _(u'Help URL'),

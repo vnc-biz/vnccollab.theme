@@ -11,6 +11,7 @@ from zope.component import getUtility
 from Products.CMFCore.utils import getToolByName
 from Products.CMFPlone.utils import safe_unicode
 
+from plone import api
 from plone.registry.interfaces import IRegistry
 from plone.memoize import ram
 
@@ -160,7 +161,6 @@ class TimeZonesVocabularyFactory(object):
 
 TimeZonesVocabulary = TimeZonesVocabularyFactory()
 
-from Products.CMFCore.utils import getToolByName
 
 class ATLinkVocabularyFactory(object):
     '''Return vocabulary with references to ATLink objects'''
@@ -188,6 +188,7 @@ class SimpleVocabularyFactory:
         vocabulary = SimpleVocabulary(terms)
         return vocabulary
 
+
 ZIMBRA_STATUS_VOCAB = [
         ('NEED', 'Not initiated'),
         ('INPR', 'In process'),
@@ -213,3 +214,13 @@ StatusZimbraTaskVocabulary = SimpleVocabularyFactory(ZIMBRA_STATUS_VOCAB)
 PrioritiesZimbraTaskVocabulary = SimpleVocabularyFactory(ZIMBRA_PRIORITIES_VOCAB)
 PercentageZimbraTaskVocabulary = SimpleVocabularyFactory(ZIMBRA_PERCENTAGE_VOCAB)
 NewTicketVocabulary = SimpleVocabularyFactory(NEW_TICKET_VOCAB)
+
+def image_vocabulary(context):
+    """Returns a list of tuples (image url, image path)"""
+    catalog = api.portal.get_tool(name='portal_catalog')
+    images = catalog(portal_type='Image')
+    terms = [SimpleTerm(value=x.getURL(),
+                        token='{0} ({1})'.format(x.Title, x.getURL()))
+                                for x in images]
+    vocabulary = SimpleVocabulary(terms)
+    return vocabulary
