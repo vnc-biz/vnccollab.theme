@@ -43,4 +43,6 @@
   <record name="vnccollab.theme.header_clock.radius_3" delete="true" />
   <record name="vnccollab.theme.header_clock.no_seconds_3" delete="true" />
   <record name="vnccollab.theme.header_clock.skin_3" delete="true" />
+
+  <records interface="vnccollab.theme.settings.IAnonymousHomepageSettings" />
 </registry>

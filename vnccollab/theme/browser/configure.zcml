@@ -527,6 +527,13 @@
       permission="cmf.ManagePortal"
       />
 
+  <browser:page
+      name="anonhomepage-settings"
+      for="Products.CMFPlone.interfaces.IPloneSiteRoot"
+      class="vnccollab.theme.settings.AnonymousHomepageSettingsControlPanel"
+      permission="cmf.ManagePortal"
+      />
+
   <browser:view
       name="edit"
       for="collective.notices.interfaces.INotice"

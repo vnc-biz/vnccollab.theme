@@ -133,4 +133,31 @@ class OpenERPSettingsEditForm(controlpanel.RegistryEditForm):
 
 
 class OpenERPSettingsControlPanel(controlpanel.ControlPanelFormWrapper):
-        form = OpenERPSettingsEditForm
+    form = OpenERPSettingsEditForm
+
+
+class IAnonymousHomepageSettings(Interface):
+    """Anonymous Homepage Settings."""
+    #logo = None
+
+    help_url = schema.URI(
+        title = _(u'Help URL'),
+        description = _(u'URL of the page that shows the site help.'),
+        required = False,
+        )
+
+
+class AnonymousHomepageSettingsEditForm(controlpanel.RegistryEditForm):
+    schema = IAnonymousHomepageSettings
+    label = u'Anonymous Homepage Settings'
+    description = _(u"""""")
+
+    def updateFields(self):
+        super(AnonymousHomepageSettingsEditForm, self).updateFields()
+
+    def updateWidgets(self):
+        super(AnonymousHomepageSettingsEditForm, self).updateWidgets()
+
+
+class AnonymousHomepageSettingsControlPanel(controlpanel.ControlPanelFormWrapper):
+    form = AnonymousHomepageSettingsEditForm
