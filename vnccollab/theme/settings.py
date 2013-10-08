@@ -2,6 +2,7 @@ from zope.interface import Interface
 from zope import schema
 
 from plone.app.registry.browser import controlpanel
+from Products.Five.browser.pagetemplatefile import ViewPageTemplateFile
 
 from vnccollab.theme import messageFactory as _
 
@@ -164,4 +165,5 @@ class AnonymousHomepageSettingsEditForm(controlpanel.RegistryEditForm):
 
 
 class AnonymousHomepageSettingsControlPanel(controlpanel.ControlPanelFormWrapper):
+    index = ViewPageTemplateFile('browser/templates/anonhomepage_controlpanel_layout.pt')
     form = AnonymousHomepageSettingsEditForm
