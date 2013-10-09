@@ -17,6 +17,51 @@
   <include package="jarn.xmpp.core" />
 
   <browser:page
+      for="*"
+      class=".following.FollowingView"
+      name="user-following"
+      layer=".interfaces.IThemeSpecific"
+      attribute="user_following"
+      permission="cmf.SetOwnProperties"
+      />
+
+  <browser:page
+      for="*"
+      class=".following.FollowingView"
+      name="user-followers"
+      layer=".interfaces.IThemeSpecific"
+      attribute="user_followers"
+      permission="cmf.SetOwnProperties"
+      />
+
+  <browser:page
+      for="*"
+      class=".following.FollowingView"
+      name="follow_user"
+      layer=".interfaces.IThemeSpecific"
+      attribute="follow_user"
+      permission="cmf.SetOwnProperties"
+      />
+
+  <browser:page
+      for="*"
+      class=".following.FollowingView"
+      name="unfollow_user"
+      layer=".interfaces.IThemeSpecific"
+      attribute="unfollow_user"
+      permission="cmf.SetOwnProperties"
+      />
+
+  <browser:page
+      for="*"
+      class=".following.FollowingView"
+      name="follow_button"
+      layer=".interfaces.IThemeSpecific"
+      attribute="follow_button"
+      permission="cmf.SetOwnProperties"
+      />
+
+  <browser:page
       for="Products.CMFCore.interfaces.ISiteRoot"
       class=".stream.StreamView"
       name="vnc-stream-check"
@@ -529,6 +574,29 @@
       class=".livesearch.LiveSearchReplyView"
       attribute="result"
       permission="zope2.View"
+      />
+
+  <browser:page
+      for="*"
+      name="wizard_uploader"
+      class=".wizarduploader.WizardUploadView"
+      permission="zope.Public"
+      />
+
+  <browser:page
+      for="*"
+      name="wizard_upload_init"
+      class=".wizarduploader.WizardUploadInit"
+      permission="zope.Public"
+      />
+
+  <browser:page
+      name="search"
+      class="vnccollab.common.browser.search.Search"
+      permission="zope2.View"
+      for="*"
+      template="templates/search.pt"
+      layer=".interfaces.IThemeSpecific"
       />
 
 </configure>

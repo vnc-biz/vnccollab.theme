@@ -1,8 +1,82 @@
 Changelog
 =========
 
-1.7.2 - Unreleased
+1.7.5 - unreleased
 ------------------
+
+- Adds livesearch support for keyword searchs (user: and type:) [8045].
+  [Jose Dinuncio]
+
+- Changes in users portled: changed a image sizes, and added a tooltip
+  with user details [8046].
+  [Marcin Staniszczak]
+
+- Fixes strange icons in list view, standard view and search result list [8349].
+  [Cesar Gonzalez]
+
+- Fixes behaviour of the button *>* that makes the portlet wider.
+  [Cesar Gonzalez]
+
+- Adds custom event handler for portlet deferred loading complete event then
+  attach portlets buttons.
+  [Cesar Gonzalez]
+
+- Removes deferred portlet view.
+  [Jose Dinuncio]
+
+
+1.7.4 - September 12, 2013
+--------------------------
+
+- Items in navigation portlet should be sorted alphabetically [8047].
+  [Marcin Staniszczak]
+
+- Adds root node to Create Wizard tree [8102].
+  [Jose Dinuncio]
+
+- Adds multiple files upload into Create New Wizard [6229].
+  [Marcin Staniszczak]
+
+
+1.7.3 - June 14, 2013
+---------------------
+
+- Adds mail server property for Dashlet Portlet [7651].
+  [Jose Dinuncio]
+
+- Add querywidget to theme layers. This is requried by new style collections.
+  [Vitaliy Podoba]
+
+
+1.7.2 - May 29, 2013
+--------------------
+
+- Fixes bug in lazy portlets load [7483].
+  [Jose Dinuncio]
+
+- Fixes bug in zimbra viewlet after upgrade to Zimbra 8.
+  [Jose Dinuncio]
+
+- Improves styles in wizard dynatree [7379].
+  [Jose Dinuncio]
+
+- Add Following Functionality to user profile pages.
+  [Vitaliy Podoba]
+
+- slimScroll attach to deferred portlets, spinner animation centering, template adjust.
+  [Cesar Gonzalez]
+
+- Fixes translation of Display menu and global bar.
+  [Jose Dinuncio]
+
+- Sets pointer cursor and font style for selected item in tree.
+  [Cesar Gonzalez]
+
+- Adds new parameter type_ to ajax call for populate tree of wizard.
+  [Cesar Gonzalez]
+
+- Fixes bug "Disallowed subobject type" in wizard.
+  [Jose Dinuncio]
 
 - Applies livesearch overrides in theme package (frontend). Catch incorrect response from server.
   [Cesar Gonzalez]
@@ -13,8 +87,15 @@ Changelog
 - Remove wrong TOC entry "Bookmark & Share". TOC positioning at top. Format TOC levels.
   [Cesar Gonzalez]
 
+- Modifies dashboard's portlets to make a deferred render.
+  [Jose Dinuncio]
+
 - Fixes Create Task overlay style. Add box-sizing to textarea in overlays.
   [Cesar Gonzalez]
+
+- Update User Actions List (user profile page, dashboard link, my-profile link)
+  TODO: add upgrade step
+  [Dmitriy Ilyenkov]
 
 
 1.7.1 - April 19, 2013
@@ -295,7 +376,6 @@ Changelog
 
 - Sets a better handling for redirection when creating tickets.
   [Jose Dinuncio]
->>>>>>> 15cbb36c1d58ede46c743b4f44e53f747c6039f4
 
 - Fixed member data fetch for roster items.
   [Taras Melnychuk]

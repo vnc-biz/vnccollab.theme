@@ -1,7 +1,7 @@
 from setuptools import setup, find_packages
 import os
 
-version = '1.7.1'
+version = '1.7.4'
 
 setup(name='vnccollab.theme',
       version=version,
@@ -53,6 +53,7 @@ setup(name='vnccollab.theme',
           'collective.customizablePersonalizeForm',
           'collective.notices',
           'sc.social.bookmarks',
+          'vnccollab.common',
       ],
       entry_points="""
       # -*- Entry points: -*-

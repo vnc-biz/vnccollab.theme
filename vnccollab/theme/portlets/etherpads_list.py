@@ -1,16 +1,8 @@
-import time
-import sys
-from urllib2 import urlopen, Request
 import logging
-import base64
-import simplejson
-from datetime import datetime
 from BeautifulSoup import BeautifulSoup
 
-from DateTime import DateTime
-
 from zope.formlib import form
-from zope.interface import implements, Interface
+from zope.interface import implements
 from zope import schema
 from zope.testbrowser.browser import Browser
 
@@ -23,6 +15,7 @@ from plone.portlets.interfaces import IPortletDataProvider
 from plone.app.portlets.portlets import base
 
 from vnccollab.theme import messageFactory as _
+from vnccollab.common.portlets import deferred
 from vnccollab.theme.portlets.zimbra_mail import logException
 
 logger = logging.getLogger('vnccollab.theme.EtherpadListsPortlet')
@@ -49,7 +42,7 @@ class IEtherpadsListPortlet(IPortletDataProvider):
        description=u'',
        required=True,
        default=10)
-    
+
     username = schema.ASCIILine(
         title=_(u"Username"),
         description=_(u"If not set, etherpad_username property of "
@@ -63,6 +56,7 @@ class IEtherpadsListPortlet(IPortletDataProvider):
             " user will be used."),
         required=False,
         default=u'')
+
 
 class Assignment(base.Assignment):
     implements(IEtherpadsListPortlet)
@@ -87,13 +81,13 @@ class Assignment(base.Assignment):
         self.username = username
         self.password = password
 
-class Renderer(base.Renderer):
+
+class Renderer(deferred.DeferredRenderer):
 
     render = ZopeTwoPageTemplateFile('templates/etherpads_list.pt')
 
-    @property
-    def available(self):
-        return len(self.getPads()) > 0
+    def refresh(self):
+        self.pads = self.getPads()
 
     @memoize
     def getPads(self):
@@ -101,51 +95,53 @@ class Renderer(base.Renderer):
         username, password, url = self.getUserData()
         if not (username and password and url):
             return ()
-        
+
         # try to request etherpad for page with table of pads
         try:
             content = self._getPadsPage()
-        except Exception, e:
+
+        except:
             logException(_(u"Error during fetching pads from %s" % url),
                 context=self.context, logger=logger)
             return ()
-        
+
         # try to parse html page into pads
         try:
             pads = self._parsePadsPage(content, self.trail_url(url),
                 self.data.count)
-        except Exception, e:
+
+        except:
             logException(_(u"Error during parsing pads page from %s" % url),
                 context=self.context, logger=logger)
             return ()
-        
+
         return tuple(pads)
 
     def _parsePadsPage(self, content, base_url, limit):
         pads = []
         soup = BeautifulSoup(content)
-        
+
         # go over pads table rows, skipping first header row
         counter = 0
         for row in soup.find('table', id='padtable').findAll('tr')[1:]:
             if limit and limit <= counter:
                 break
-            
+
             # get row cells
             ctitle, cdate, ceditors = row.findAll('td')[:3]
-            
+
             if not (ctitle and cdate and ceditors):
                 continue
-            
+
             # prepare pad url
             link = ctitle.find('a')
             if not link:
                 continue
-            
+
             url = '%s%s' % (base_url, link.get('href'))
             if not url:
                 continue
-            
+
             # prepare editors
             editors = []
             for editor in ceditors.findAll('a'):
@@ -153,7 +149,7 @@ class Renderer(base.Renderer):
                     'name': editor.text,
                     'url': '%s%s' % (base_url, editor.get('href'))
                 })
-            
+
             pads.append({
                 'url': url,
                 'title': link.text,
@@ -161,29 +157,29 @@ class Renderer(base.Renderer):
                 'editors': tuple(editors)
             })
             counter += 1
-        
+
         return pads
 
     def _getPadsPage(self):
         username, password, url = self.getUserData()
-        
+
         # login
         browser = Browser()
         browser.open('%s/ep/account/sign-in' % self.trail_url(url))
         browser.getControl(name='email').value = username
         browser.getControl(name='password').value = password
         browser.getForm(id='signin-form').submit()
-        
+
         # open pads table page
         browser.getLink('Pads').click()
-        
+
         return safe_unicode(browser.contents)
 
     @memoize
     def root_url(self):
         """Return url w/o trailing slash prepared either from portlet or
         user settings.
-        
+
         Used in template.
         """
         return self.trail_url(self.getUserData()[2])
@@ -197,7 +193,7 @@ class Renderer(base.Renderer):
     @memoize
     def getUserData(self):
         """Returns username, password and root etherpad url for user.
-        
+
         Returns tuple of:
             (username, password, root etherpad url)
         """
@@ -205,16 +201,16 @@ class Renderer(base.Renderer):
         member = mtool.getAuthenticatedMember()
         username, password, url = self.data.username, self.data.password, \
             self.data.url
-        
+
         # take username and password from authenticated user Etherpad creds
-        if not (username and password): 
+        if not (username and password):
             username, password = member.getProperty('etherpad_username', ''), \
                 member.getProperty('etherpad_password', '')
-        
+
         # if not set globally, take url from user settings
         if not url:
             url = member.getProperty('etherpad_url', '')
-        
+
         # password could contain non-ascii chars, ensure it's properly encoded
         return username, safe_unicode(password).encode('utf-8'), url
 
@@ -223,6 +219,7 @@ class Renderer(base.Renderer):
         """return title of feed for portlet"""
         return self.data.header
 
+
 class AddForm(base.AddForm):
     form_fields = form.Fields(IEtherpadsListPortlet)
     label = _(u"Add Etherpad Lists portlet")
@@ -230,6 +227,7 @@ class AddForm(base.AddForm):
 
     def create(self, data):
         return Assignment(**data)
+
 
 class EditForm(base.EditForm):
     form_fields = form.Fields(IEtherpadsListPortlet)

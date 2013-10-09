@@ -193,7 +193,7 @@ class ZimbraUtilClient:
 
     def _dict_from_mail(self, mail):
         """Converts a zimbra mail into a dictionary"""
-        people = mail.e
+        people = getattr(mail, 'e', [])
         if not people:
             people = []
         elif not isinstance(people, list):

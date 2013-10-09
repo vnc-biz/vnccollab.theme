@@ -12,15 +12,25 @@ jq.fn.outerHTML = function(s) {
 };
 
 function attachPortletButtons() {
+  // Handle DeferredPorletLoaded event
+  jq('body').on('DeferredPorletLoaded', function(event, data) {
+    setPortletButtons('#' + data.id);
+  });
+
+  setPortletButtons('.portletWrapper');
+}
+
+function setPortletButtons(selector) {
+
   // add up/down and left/right links to portlet headers,
   // which will expand/contract and make portlets wide
-  jq('.portletWrapper dt.portletHeader .portletTopRight').before(
+  jq(selector + ' dt.portletHeader .portletTopRight').before(
     '<a href="#" class="portletToggleLink" title="Toggle ' +
     'Portlet">toggle</a>');
-  jq('.portletWrapper dt.portletHeader a.portletToggleLink').click(function(event){
+  jq(selector + ' dt.portletHeader a.portletToggleLink').click(function(event){
     // toggle html class
     var a = jq(event.target);
-    var portlet = a.parents('.portletWrapper');
+    var portlet = a.parents(selector);
     portlet.toggleClass('closed');
 
     if (!portlet.attr('id')) {
@@ -37,10 +47,10 @@ function attachPortletButtons() {
     }
     return false;
   });
-  jq('#dashboard .portletWrapper dt.portletHeader .portletTopRight').before(
+  jq('#dashboard ' + selector + ' dt.portletHeader .portletTopRight').before(
     '<a href="#" class="portletWideNarrowLink" title="Wide/Narrow">wide/narrow'
     + '</a>');
-  jq('#dashboard .portletWrapper dt.portletHeader a.portletWideNarrowLink').click(function(event){
+  jq('#dashboard ' + selector + ' dt.portletHeader a.portletWideNarrowLink').click(function(event){
     // toggle html class
     var a = jq(event.target);
     var portlet = a.parents('.portletWrapper');
@@ -845,11 +855,15 @@ function rebindPubSubStreamHandlers () {
 // animateContentWizardStep
 //
 function animateContentWizardStep( stepNum, reset ) {
+  if ( stepNum == 2 ) {
+    // delete upload marker
+    jq('#wizard-uploader-marker').remove();
+  }
   if ( reset ) {
-   jq('.tab_link').addClass('blocked').removeClass('inactive').removeClass('active');
+    jq('.tab_link').addClass('blocked').removeClass('inactive').removeClass('active');
   } else {
-   jq('.tab_link').filter('.active').removeClass('active').addClass('inactive');
- }
+    jq('.tab_link').filter('.active').removeClass('active').addClass('inactive');
+  }
   jq('#tab_'+stepNum).addClass('active').removeClass('blocked');
   jq('#tab_'+stepNum).removeClass('inactive');
 
@@ -927,6 +941,7 @@ function loadCreateWizard(href, callback) {
       jq('#createWizard form[name="edit_form"]').remove();
       jq('.step2 .step-content').prepend($newform);
       jq('.wizard-overlay').hide();
+      //jq('.step3 .destination-label').after(href);
 
       callback();
 
@@ -963,8 +978,8 @@ function addDocumentContentShadows(){
 function fixGeneralUI(){
   // removes wrong entry in Content TOC
   var $last = jq('.toc').find('li').last();
-  if($last.text() == "Bookmark & Share") { 
-    $last.remove(); 
+  if($last.text() == "Bookmark & Share") {
+    $last.remove();
   }
 }
 
@@ -982,7 +997,7 @@ function setHandlersWizard() {
   jq('#wizard-steps').on('click', '.Item', function( event ) {
     event.preventDefault();
 
-    jq('#tree').attr('data', jq(this).attr('data'));
+    jq('#tree').data('contentType', jq(this).attr('data'));
     jq('.selectedContainer').html('');
     jq('input[name=selected_destination]').get(0).setAttribute('data', '');
 
@@ -1039,7 +1054,11 @@ function setHandlersWizard() {
 
   jq('#send-wizard').click(function() {
     if( jq('input[name=selected_destination]').attr('data') != undefined && jq('input[name=selected_destination]').attr('data') != "" ) {
-      if( simpleValidateFormWizard() ) {
+      if (jq("#wizard-uploader-marker").length > 0) {
+        // file upload
+        uploader = window[jq("#wizard-uploader-marker").val()];
+        WizardUpload.sendDataAndUpload(uploader, jq('input[name=selected_destination]').attr('data'));
+      } else if( simpleValidateFormWizard() ) {
         jq('form[name="edit_form"]').get(0).submit();
       } else {
         animateContentWizardStep(2);
@@ -1049,25 +1068,28 @@ function setHandlersWizard() {
 
   jq('#send-step2').click(function() {
 
+    var firstTree = false,
+        $tree = jq('#tree');
+
     if( !simpleValidateFormWizard() ) {
       return false;
     }
 
     animateContentWizardStep(3);
 
-    var firstTree = false;
-    if ( jq('#tree').find('.dynatree-container')[0] == undefined ) {
+    if ( $tree.find('.dynatree-container')[0] == undefined ) {
       firstTree = true;
     }
 
-    jq("#tree").dynatree({
+    $tree.dynatree({
       initAjax: { url: cloudstream_url+'/@@wizard_get_initial_tree.json',
-                  cache: false
+                  cache: false,
+                  'data': {'type_': $tree.data('contentType')}
                 },
       onLazyRead: function(node){
                     node.appendAjax({
                       'url': cloudstream_url+'/@@wizard_get_tree.json',
-                      'data': {'uid': node.data.key},
+                      'data': {'uid': node.data.key, 'type_': $tree.data('contentType')},
                     });
                 },
       fx: { height: "toggle", duration: 200 },
@@ -1109,9 +1131,53 @@ function setHandlersWizard() {
     });
 
     if( firstTree == false ) {
-     jq("#tree").dynatree("getTree").reload();
+     $tree.dynatree("getTree").reload();
     }
 
+  });
+
+}
+
+function initFollowingControls() {
+  // attach hover actions
+  jq('a.followLink,a.unfollowLink').mouseover(function(event){
+    var link = $(event.target);
+    link.data('orig_label', link.text()).text(link.attr('title'));
+  }).mouseout(function(event){
+    var link = $(event.target);
+    if (link.data('orig_label')) {
+      link.text(link.data('orig_label'));
+    }
+  });
+
+  // attach click handlers to Follow/Unfollow buttons
+  jq('a.followLink,a.unfollowLink').click(function(event){
+    var link = $(event.target),
+      path = link.is('.followLink') ? '@@follow_user' : '@@unfollow_user';
+
+    jq.ajax({
+      'url': portal_url + '/' + path,
+      'type': 'POST',
+      'dataType': 'json',
+      'data': {'user1': '', 'user2': link.data('userid')},
+      'success': function(data, status, xhr){
+        link.text(data['label']).attr('title', data['title'])
+          .data('orig_label', '');
+        if (link.is('.followLink')) {
+          link.removeClass('followLink').addClass('unfollowLink');
+        } else {
+          link.removeClass('unfollowLink').addClass('followLink');
+        }
+        return false;
+      },
+      'error': function(){
+        alert('Sorry, something went wrong on the server. Please, try a ' +
+          'bit later.');
+        return false;
+      }
+    });
+
+    return false;
   });
 
 }
@@ -1133,4 +1199,5 @@ jq(function() {
   setHandlersWizard();
   addDocumentContentShadows();
   fixGeneralUI();
+  initFollowingControls();
 });

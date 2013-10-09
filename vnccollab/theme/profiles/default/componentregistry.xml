@@ -1,0 +1,9 @@
+<?xml version="1.0"?>
+<componentregistry>
+  <utilities>
+    <utility
+      interface="vnccollab.theme.interfaces.IFollowing"
+      factory="vnccollab.theme.following.Following"
+    />
+  </utilities>
+</componentregistry>
