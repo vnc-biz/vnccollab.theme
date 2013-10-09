@@ -10,6 +10,7 @@ from Products.PythonScripts.standard import html_quote
 from Products.CMFPlone.browser.navtree import getNavigationRoot
 from Products.Five import BrowserView
 
+from vnccollab.common.livesearch import get_query
 
 class LiveSearchReplyView(BrowserView):
     def result(self):
@@ -57,6 +58,7 @@ class LiveSearchReplyView(BrowserView):
             result = ('%s %s, %s') % (DateTime(when).strftime('%B'), DateTime(when).strftime('%d'), DateTime(when).strftime('%Y'))
             return result
 
+        searchable_text = q
         multispace = u'\u3000'.encode('utf-8')
         for char in ('?', '-', '+', '*', multispace):
             q = q.replace(char, ' ')
@@ -78,6 +80,7 @@ class LiveSearchReplyView(BrowserView):
             params['path'] = path
 
         # search limit+1 results to know if limit is exceeded
+        params = get_query(searchable_text, params)
         results = catalog(**params)
 
         searchterm_query = '?searchterm=%s' % url_quote_plus(q)
