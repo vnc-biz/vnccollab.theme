@@ -19,6 +19,10 @@ from Products.CMFPlone.utils import safe_unicode, normalizeString, parent
 from Products.CMFPlone.i18nl10n import monthname_msgid, weekdayname_msgid
 from Products.CMFPlone.interfaces.siteroot import IPloneSiteRoot
 
+from Products.PythonScripts.standard import url_quote_plus
+from Products.PythonScripts.standard import html_quote
+from Products.CMFPlone.browser.navtree import getNavigationRoot
+
 from plone.i18n.normalizer.interfaces import IIDNormalizer
 from plone.app.contentmenu.menu import FactoriesSubMenuItem
 from plone.app.viewletmanager.manager import BaseOrderedViewletManager
@@ -549,6 +553,7 @@ except ImportError:
 else:
     CAST_ENABLED = True
 
+
 class CustomXMPPViewlet(XMPPViewlet):
 
     index = ViewPageTemplateFile('templates/xmpp_viewlet.pt')
@@ -576,6 +581,13 @@ class CustomXMPPViewlet(XMPPViewlet):
         if len(casts) > 0:
             self.cast_url = casts[0].getURL()
 
+
 class HeaderLinksIconsViewlet(FaviconViewlet):
 
     render = ViewPageTemplateFile('templates/favicon.pt')
+
+
+class SearchBoxViewlet(common.ViewletBase):
+    '''Overrides SearchBoxViewlet for folders in Stream Mode.'''
+    index = ViewPageTemplateFile('templates/searchbox.pt')
+

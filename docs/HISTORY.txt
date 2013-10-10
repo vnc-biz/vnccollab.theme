@@ -1,13 +1,22 @@
 Changelog
 =========
 
-1.7.4 - unreleased
+1.7.5 - unreleased
 ------------------
 
 - Disable zimbra-mail-portlet-view from theme. Fixes History.txt.
   [Cesar Gonzalez]
 
 - Fixes license and adds AUTHORS.txt.
+  [Jose Dinuncio]
+
+- Fixes keyword livesearch tooltip arrow position.
+  [Cesar Gonzalez]
+
+- Adds tooltip with description of keyword livesearch support [8045].
+  [Cesar Gonzalez]
+
+- Adds livesearch support for keyword searchs (user: and type:) [8045].
   [Jose Dinuncio]
 
 - Changes in users portled: changed a image sizes, and added a tooltip
@@ -79,6 +88,12 @@ Changelog
   [Cesar Gonzalez]
 
 - Fixes bug "Disallowed subobject type" in wizard.
+  [Jose Dinuncio]
+
+- Applies livesearch overrides in theme package (frontend). Catch incorrect response from server.
+  [Cesar Gonzalez]
+
+- Overloads plone.searchbox viewlet.
   [Jose Dinuncio]
 
 - Remove wrong TOC entry "Bookmark & Share". TOC positioning at top. Format TOC levels.
@@ -373,7 +388,6 @@ Changelog
 
 - Sets a better handling for redirection when creating tickets.
   [Jose Dinuncio]
->>>>>>> 15cbb36c1d58ede46c743b4f44e53f747c6039f4
 
 - Fixed member data fetch for roster items.
   [Taras Melnychuk]
