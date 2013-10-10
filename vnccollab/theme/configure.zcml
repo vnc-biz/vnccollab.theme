@@ -78,11 +78,6 @@
       component=".vocabularies.NewTicketVocabulary"
       name="vnccollab.theme.vocabularies.NewTicketVocabulary"
       />
-  <utility
-      provides="zope.schema.interfaces.IVocabularyFactory"
-      component=".vocabularies.image_vocabulary"
-      name="vnccollab.theme.vocabularies.image_vocabulary"
-      />
 
   <monkey:patch
         description="Sort alphabetically elements in the navigation portlet"

@@ -1,10 +1,19 @@
-from zope.interface import Interface
 from zope import schema
+from zope.interface import Interface
+from zope.component import getUtility, provideAdapter
 
+from plone import api
+from plone.registry.interfaces import IRegistry
 from plone.app.registry.browser import controlpanel
+from plone.autoform.form import AutoExtensibleForm
+from z3c.form import form, button, datamanager
+from Products.statusmessages.interfaces import IStatusMessage
 from Products.Five.browser.pagetemplatefile import ViewPageTemplateFile
 
 from vnccollab.theme import messageFactory as _
+
+
+provideAdapter(datamanager.DictionaryField)
 
 
 class IWorldClockSettings(Interface):
@@ -133,29 +142,92 @@ class OpenERPSettingsControlPanel(controlpanel.ControlPanelFormWrapper):
 
 class IAnonymousHomepageSettings(Interface):
     """Anonymous Homepage Settings."""
-    logo = schema.Choice(
-        title=_(u'Homepage Logo'),
-        description=u'',
-        required=False,
-        source='vnccollab.theme.vocabularies.image_vocabulary')
-
     help_url = schema.URI(
-        title = _(u'Help URL'),
-        description = _(u'URL of the page that shows the site help.'),
-        required = False,
+        title=(u'Help URL'),
+        description=_(u'URL of the page that shows the site help.'),
+        required=False,
         )
 
 
-class AnonymousHomepageSettingsEditForm(controlpanel.RegistryEditForm):
-    schema = IAnonymousHomepageSettings
+class IAnonymousHomepageForm(IAnonymousHomepageSettings):
+    """Anonymous Homepage Form."""
+    logo = schema.Bytes(
+        title=_(u'Homepage Logo'),
+        description=_(u'Upload an image to set or replace the site logo'),
+        required=False,
+        )
+
+    delete_logo = schema.Bool(
+        title=_(u"Delete Logo"),
+        description=_(u"Delete the customized logo."),
+        required=False,
+        default=False)
+
+
+class AnonymousHomepageSettingsEditForm(AutoExtensibleForm, form.EditForm):
+    schema = IAnonymousHomepageForm
     label = u'Anonymous Homepage Settings'
     description = _(u"""""")
 
-    def updateFields(self):
-        super(AnonymousHomepageSettingsEditForm, self).updateFields()
+    # Internal fields: not to be configured.
+    control_panel_view = "plone_control_panel"
+    registry_key_base = 'vnccollab.theme.settings.IAnonymousHomepageSettings'
+    help_url_key = '{0}.help_url'.format(registry_key_base)
 
-    def updateWidgets(self):
-        super(AnonymousHomepageSettingsEditForm, self).updateWidgets()
+    def getContent(self):
+        registry = getUtility(IRegistry)
+        help_url = registry[self.help_url_key]
+        return {'help_url': help_url}
+
+    def applyChanges(self, data):
+        registry = getUtility(IRegistry)
+        help_url = data['help_url']
+        delete_logo = data['delete_logo']
+        logo = data['logo']
+
+        registry[self.help_url_key] = help_url
+
+        portal = api.portal.get()
+        #custom_skin = portal.portal_skins.custom
+        destination = portal
+
+        if delete_logo or logo:
+            current_logo = api.content.get(path='/logo.png')
+            if current_logo:
+                # logo.png could be not defined in ZODB, so current_logo
+                # could be not None and not deleteable
+                try:
+                    api.content.delete(current_logo)
+                except:
+                    pass
+
+        if logo:
+            destination.invokeFactory(type_name='Image', id='logo.png',
+                                      file=logo)
+
+    def updateActions(self):
+        super(AutoExtensibleForm, self).updateActions()
+        self.actions['save'].addClass("context")
+        self.actions['cancel'].addClass("standalone")
+
+    @button.buttonAndHandler(_(u"Save"), name='save')
+    def handleSave(self, action):
+        data, errors = self.extractData()
+        if errors:
+            self.status = self.formErrorsMessage
+            return
+        self.applyChanges(data)
+        IStatusMessage(self.request).addStatusMessage(_(u"Changes saved."), "info")
+        self.request.response.redirect("%s/%s" % (self.context.absolute_url(), self.control_panel_view))
+
+    @button.buttonAndHandler(_(u"Cancel"), name='cancel')
+    def handleCancel(self, action):
+        IStatusMessage(self.request).addStatusMessage(_(u"Edit cancelled."), "info")
+        self.request.response.redirect("%s/%s" % (self.context.absolute_url(), self.control_panel_view))
+
+    @button.buttonAndHandler(_(u'Edit Home Page'), name='edit')
+    def handleEdit(self, action):
+        self.request.response.redirect("%s/%s" % (self.context.absolute_url(), '@@manage-group-dashboard?key=AnonymousUsers'))
 
 
 class AnonymousHomepageSettingsControlPanel(controlpanel.ControlPanelFormWrapper):
