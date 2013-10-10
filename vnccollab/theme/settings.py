@@ -17,12 +17,12 @@ class IWorldClockSettings(Interface):
         default='Europe/Berlin')
 
     skin_1 = schema.Choice(
-       title=_(u"Clock 1 Skin"),
-       description=u'',
-       required=True,
-       values=('chunkySwiss', 'chunkySwissOnBlack', 'swissRail', 'vnc',
-           'vncHeaderViewlet'),
-       default='vncHeaderViewlet')
+        title=_(u"Clock 1 Skin"),
+        description=u'',
+        required=True,
+        values=('chunkySwiss', 'chunkySwissOnBlack', 'swissRail', 'vnc',
+                'vncHeaderViewlet'),
+        default='vncHeaderViewlet')
 
     radius_1 = schema.Int(
         title=_(u"Clock 1 Radius"),
@@ -44,12 +44,12 @@ class IWorldClockSettings(Interface):
         default='Asia/Mumbai')
 
     skin_2 = schema.Choice(
-       title=_(u"Clock 2 Skin"),
-       description=u'',
-       required=True,
-       values=('chunkySwiss', 'chunkySwissOnBlack', 'swissRail', 'vnc',
-           'vncHeaderViewlet'),
-       default='vncHeaderViewlet')
+        title=_(u"Clock 2 Skin"),
+        description=u'',
+        required=True,
+        values=('chunkySwiss', 'chunkySwissOnBlack', 'swissRail', 'vnc',
+                'vncHeaderViewlet'),
+        default='vncHeaderViewlet')
 
     radius_2 = schema.Int(
         title=_(u"Clock 2 Radius"),
@@ -71,12 +71,12 @@ class IWorldClockSettings(Interface):
         default='America/New_York')
 
     skin_3 = schema.Choice(
-       title=_(u"Clock 3 Skin"),
-       description=u'',
-       required=True,
-       values=('chunkySwiss', 'chunkySwissOnBlack', 'swissRail', 'vnc',
-           'vncHeaderViewlet'),
-       default='vncHeaderViewlet')
+        title=_(u"Clock 3 Skin"),
+        description=u'',
+        required=True,
+        values=('chunkySwiss', 'chunkySwissOnBlack', 'swissRail', 'vnc',
+            'vncHeaderViewlet'),
+        default='vncHeaderViewlet')
 
     radius_3 = schema.Int(
         title=_(u"Clock 3 Radius"),
@@ -125,12 +125,6 @@ class OpenERPSettingsEditForm(controlpanel.RegistryEditForm):
     schema = IOpenERPSettings
     label = u'OpenERP Settings'
     description = _(u"""""")
-
-    def updateFields(self):
-        super(OpenERPSettingsEditForm, self).updateFields()
-
-    def updateWidgets(self):
-        super(OpenERPSettingsEditForm, self).updateWidgets()
 
 
 class OpenERPSettingsControlPanel(controlpanel.ControlPanelFormWrapper):
