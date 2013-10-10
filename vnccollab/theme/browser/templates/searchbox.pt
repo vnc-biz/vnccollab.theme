@@ -29,4 +29,13 @@
           </div>
         </div>
     </form>
+    <div class="explain-prefix">
+        <p>TIP:</p>
+        <p>Write '<b>type:</b>&lt;thetype&gt;' to show only entries of these types.</p>
+        <p>Write '<b>user:</b>&lt;theuser&gt;' to show only entries created by those users.</p>
+        <p>Eg.:
+          <br><b>type:</b> links images news
+          <br><b>user:</b> Mary John
+        </p>
+    </div>
 </div>

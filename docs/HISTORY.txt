@@ -4,6 +4,9 @@ Changelog
 1.7.5 - unreleased
 ------------------
 
+- Adds tooltip with description of keyword livesearch support [8045].
+  [Cesar Gonzalez]
+
 - Adds livesearch support for keyword searchs (user: and type:) [8045].
   [Jose Dinuncio]
 
