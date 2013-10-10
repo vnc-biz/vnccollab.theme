@@ -242,6 +242,15 @@
       permission="plone.app.portlets.ManagePortlets"
       />
   <browser:page
+      for="*"
+      name="manage-portlets-macros"
+      class="plone.app.portlets.browser.manage.ManageContextualPortlets"
+      template="templates/manage-dashboard-edit-manager-macros.pt"
+      permission="plone.app.portlets.ManageOwnPortlets"
+      layer=".interfaces.IThemeSpecific"
+      />
+
+  <browser:page
       for="Products.CMFCore.interfaces.ISiteRoot"
       name="record-portlet-state"
       class=".util.VNCCollabUtilView"
