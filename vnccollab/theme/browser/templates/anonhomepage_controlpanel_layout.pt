@@ -18,7 +18,6 @@
     </a> &rsaquo;
 
     <h1 class="documentFirstHeading" tal:content="view/label">View Title</h1>
-    <h2>blah</h2>
 
     <div metal:use-macro="context/global_statusmessage/macros/portal_message">
       Portal status message
@@ -29,8 +28,6 @@
     <div id="layout-contents">
         <span tal:replace="structure view/contents" />
     </div>
-
-    <h2>blah</h2>
 
 </div>
 </body>

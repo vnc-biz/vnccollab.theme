@@ -202,8 +202,6 @@ class AnonymousHomepageSettingsEditForm(AutoExtensibleForm, form.EditForm):
                     pass
 
         if logo:
-            #destination.invokeFactory(type_name='Image', id='logo.png',
-            #                          file=logo)
             destination.manage_addProduct['OFSP'].manage_addImage('logo.png', logo)
 
     def updateActions(self):

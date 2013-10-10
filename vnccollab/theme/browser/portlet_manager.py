@@ -36,15 +36,16 @@ class ColumnPortletManagerRenderer(manager.ColumnPortletManagerRenderer):
         user = getSecurityManager().getUser()
         if not user or getattr(user, 'name', '') == 'Anonymous User':
             return {}
-        
+
         portal = getToolByName(self.context, 'portal_url').getPortalObject()
         annotations = IAnnotations(portal)
         users = annotations.get(PORTLETS_STATES_ANNO_KEY, None)
         if users is None:
             return {}
-        
+
         userid = getattr(user, '_id', user.getId())
         return users.get(userid, {})
+
 
 class DashboardPortletManagerRenderer(ColumnPortletManagerRenderer):
     """Render a column of the dashboard
@@ -52,14 +53,17 @@ class DashboardPortletManagerRenderer(ColumnPortletManagerRenderer):
     adapts(Interface, IThemeSpecific, IBrowserView, IDashboard)
     template = ViewPageTemplateFile('templates/portlets-dashboard-column.pt')
 
+
 class EditPortletManagerRenderer(editmanager.EditPortletManagerRenderer):
     adapts(Interface, IThemeSpecific, IManageColumnPortletsView,
         IPortletManager)
+
 
 class ContextualEditPortletManagerRenderer(
     editmanager.ContextualEditPortletManagerRenderer):
     adapts(Interface, IThemeSpecific, IManageContextualPortletsView,
         IPortletManager)
+
 
 class DashboardEditPortletManagerRenderer(
     editmanager.DashboardEditPortletManagerRenderer):
