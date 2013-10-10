@@ -4798,7 +4798,7 @@ ul.followersList .followButtonWrapper {
   width: 11px;
   height: 11px;
   left: -14px;
-  top: 21px;
+  top: 30px;
 
   content: " ";
   display: block;

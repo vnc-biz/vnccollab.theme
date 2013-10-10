@@ -4,6 +4,9 @@ Changelog
 1.7.5 - unreleased
 ------------------
 
+- Fixes keyword livesearch tooltip arrow position.
+  [Cesar Gonzalez]
+
 - Adds tooltip with description of keyword livesearch support [8045].
   [Cesar Gonzalez]
 
