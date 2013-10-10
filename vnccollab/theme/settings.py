@@ -188,11 +188,11 @@ class AnonymousHomepageSettingsEditForm(AutoExtensibleForm, form.EditForm):
         registry[self.help_url_key] = help_url
 
         portal = api.portal.get()
-        #custom_skin = portal.portal_skins.custom
-        destination = portal
+        custom_skin = portal.portal_skins.custom
+        destination = custom_skin
 
         if delete_logo or logo:
-            current_logo = api.content.get(path='/logo.png')
+            current_logo = api.content.get(path='/portal_skins/custom/logo.png')
             if current_logo:
                 # logo.png could be not defined in ZODB, so current_logo
                 # could be not None and not deleteable
@@ -202,8 +202,9 @@ class AnonymousHomepageSettingsEditForm(AutoExtensibleForm, form.EditForm):
                     pass
 
         if logo:
-            destination.invokeFactory(type_name='Image', id='logo.png',
-                                      file=logo)
+            #destination.invokeFactory(type_name='Image', id='logo.png',
+            #                          file=logo)
+            destination.manage_addProduct['OFSP'].manage_addImage('logo.png', logo)
 
     def updateActions(self):
         super(AutoExtensibleForm, self).updateActions()
