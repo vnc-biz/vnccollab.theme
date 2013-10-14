@@ -331,6 +331,15 @@ class VNCCarouselViewlet(CarouselViewlet):
 
     index = ViewPageTemplateFile('templates/carousel_viewlet.pt')
 
+class AnonHomepageCarouselViewlet(CarouselViewlet):
+    template = ViewPageTemplateFile('templates/carousel_viewlet.pt')
+
+    def render(self):
+        mt = getToolByName(self.context, 'portal_membership')
+        if mt.isAnonymousUser():
+            return self.template()
+        else:
+            return u''
 
 class VNCCollabHeaderViewlet(common.ViewletBase):
     """Viewlet that inserts vnc header manager into plone header manager"""

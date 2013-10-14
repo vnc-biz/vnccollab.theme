@@ -627,7 +627,7 @@ input.searchField {
   text-indent:9999px;
   }
 div.carousel {
-  background-color:#12425f;
+/*  background-color:#12425f;*/
   margin:0;
   }
 .carousel-banners {
@@ -4838,6 +4838,5 @@ ul.followersList .followButtonWrapper {
   color: #fff;
   background-color: #022c45;
 }
-
 
 /* </dtml-with> */

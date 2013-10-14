@@ -377,9 +377,9 @@
 
   <browser:viewlet
       view=".homepage.IHomePageView"
-      name="vnccollab.theme.header"
+      name="vnccollab.theme.homepage_carousel"
       manager="plone.app.layout.viewlets.interfaces.IPortalTop"
-      template="templates/vnccollab_header_homepage.pt"
+      class=".viewlets.AnonHomepageCarouselViewlet"
       layer=".interfaces.IThemeSpecific"
       permission="zope2.View"
       />
