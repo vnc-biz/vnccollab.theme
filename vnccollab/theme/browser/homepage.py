@@ -1,4 +1,4 @@
-from zope.interface import Interface, implements
+from zope.interface import Interface, implements, alsoProvides
 
 from Products.Five.browser import BrowserView
 from Products.Five.browser.pagetemplatefile import ViewPageTemplateFile
@@ -10,6 +10,9 @@ from .dashboard import DashboardView
 
 class IHomePageView(Interface):
     """Homepage Default View"""
+
+class IAnonymousHomePageView(IHomePageView):
+    """Marker interface for anonymous homepage version"""
 
 class HomePageView(DashboardView):
 
@@ -25,6 +28,8 @@ class HomePageView(DashboardView):
             sort_limit=HP_NEWS_LIMIT)[:HP_NEWS_LIMIT]
 
     def __call__(self):
+        if self.is_anonymous():
+            alsoProvides(self, IAnonymousHomePageView)
         return self.render()
 
     def render(self):

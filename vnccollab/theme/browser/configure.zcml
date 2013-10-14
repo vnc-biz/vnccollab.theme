@@ -420,9 +420,9 @@
   <browser:viewlet
       name="plone.loginviewlet"
       manager="plone.app.layout.viewlets.interfaces.IPortalHeader"
-      template="templates/login.pt"
       class=".viewlets.LoginViewlet"
       layer=".interfaces.IThemeSpecific"
+      attribute="render"
       permission="zope2.View"
       />
 
@@ -461,6 +461,7 @@
     manager="plone.app.layout.viewlets.interfaces.IPortalHeader"
     layer=".interfaces.IThemeSpecific"
     class=".viewlets.AddButtonViewlet"
+    attribute="render"
     permission="zope2.View"
     />
 
