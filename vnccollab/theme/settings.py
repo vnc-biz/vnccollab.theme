@@ -182,7 +182,7 @@ class AnonymousHomepageSettingsEditForm(AutoExtensibleForm, form.EditForm):
 
     def applyChanges(self, data):
         registry = getUtility(IRegistry)
-        help_url = data.get(self.help_url_key, '')
+        help_url = data.get('help_url', '')
         delete_logo = data['delete_logo']
         logo = data['logo']
 
