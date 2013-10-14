@@ -84,7 +84,7 @@ class IWorldClockSettings(Interface):
         description=u'',
         required=True,
         values=('chunkySwiss', 'chunkySwissOnBlack', 'swissRail', 'vnc',
-            'vncHeaderViewlet'),
+                'vncHeaderViewlet'),
         default='vncHeaderViewlet')
 
     radius_3 = schema.Int(
@@ -147,7 +147,7 @@ class IAnonymousHomepageSettings(Interface):
         title=(u'Help URL'),
         description=_(u'URL of the page that shows the site help.'),
         required=False,
-        )
+    )
 
 
 class IAnonymousHomepageForm(IAnonymousHomepageSettings):
@@ -156,7 +156,7 @@ class IAnonymousHomepageForm(IAnonymousHomepageSettings):
         title=_(u'Homepage Logo'),
         description=_(u'Upload an image to set or replace the site logo'),
         required=False,
-        )
+    )
 
     delete_logo = schema.Bool(
         title=_(u"Delete Logo"),
@@ -177,12 +177,12 @@ class AnonymousHomepageSettingsEditForm(AutoExtensibleForm, form.EditForm):
 
     def getContent(self):
         registry = getUtility(IRegistry)
-        help_url = registry[self.help_url_key]
+        help_url = registry.get(self.help_url_key, '')
         return {'help_url': help_url}
 
     def applyChanges(self, data):
         registry = getUtility(IRegistry)
-        help_url = data['help_url']
+        help_url = data.get(self.help_url_key, '')
         delete_logo = data['delete_logo']
         logo = data['logo']
 
@@ -193,7 +193,8 @@ class AnonymousHomepageSettingsEditForm(AutoExtensibleForm, form.EditForm):
         destination = custom_skin
 
         if delete_logo or logo:
-            current_logo = api.content.get(path='/portal_skins/custom/logo.png')
+            current_logo = api.content.get(
+                path='/portal_skins/custom/logo.png')
             if current_logo:
                 # logo.png could be not defined in ZODB, so current_logo
                 # could be not None and not deleteable
@@ -203,7 +204,8 @@ class AnonymousHomepageSettingsEditForm(AutoExtensibleForm, form.EditForm):
                     pass
 
         if logo:
-            destination.manage_addProduct['OFSP'].manage_addImage('logo.png', logo)
+            destination.manage_addProduct['OFSP'].manage_addImage('logo.png',
+                                                                  logo)
 
     def updateActions(self):
         super(AutoExtensibleForm, self).updateActions()
@@ -217,17 +219,22 @@ class AnonymousHomepageSettingsEditForm(AutoExtensibleForm, form.EditForm):
             self.status = self.formErrorsMessage
             return
         self.applyChanges(data)
-        IStatusMessage(self.request).addStatusMessage(_(u"Changes saved."), "info")
-        self.request.response.redirect("%s/%s" % (self.context.absolute_url(), self.control_panel_view))
+        IStatusMessage(self.request).addStatusMessage(_(u"Changes saved."),
+                                                      "info")
+        self.request.response.redirect("%s/%s" % (self.context.absolute_url(),
+                                                  self.control_panel_view))
 
     @button.buttonAndHandler(_(u"Cancel"), name='cancel')
     def handleCancel(self, action):
-        IStatusMessage(self.request).addStatusMessage(_(u"Edit cancelled."), "info")
-        self.request.response.redirect("%s/%s" % (self.context.absolute_url(), self.control_panel_view))
+        IStatusMessage(self.request).addStatusMessage(_(u"Edit cancelled."),
+                                                      "info")
+        self.request.response.redirect("%s/%s" % (self.context.absolute_url(),
+                                                  self.control_panel_view))
 
     @button.buttonAndHandler(_(u'Edit Home Page'), name='edit')
     def handleEdit(self, action):
-        self.request.response.redirect("%s/%s" % (self.context.absolute_url(), '@@manage-group-dashboard?key=AnonymousUsers'))
+        self.request.response.redirect("%s/%s" % (self.context.absolute_url(),
+            '@@manage-group-dashboard?key=AnonymousUsers'))
 
 
 class AnonymousHomepageSettingsControlPanel(controlpanel.ControlPanelFormWrapper):
