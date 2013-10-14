@@ -30,7 +30,7 @@
     </configlet>
 
     <configlet
-        title="Anonimous Homepage"
+        title="Anonymous Homepage"
         action_id="anonhomepage"
         appId="vnccollab.theme.anonhomepage"
         category="Products"
