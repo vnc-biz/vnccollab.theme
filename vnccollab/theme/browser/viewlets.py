@@ -139,8 +139,9 @@ class LoginViewlet(common.ViewletBase):
         return '%s/register' % self.portal_state.portal_url()
 
     def help_link(self):
-        # TODO: get url from plone.app.registry
-        return '%s/help' % self.portal_state.portal_url()
+        registry = getUtility(IRegistry)
+        return registry.get(
+            'vnccollab.theme.settings.IAnonymousHomepageSettings.help_url')
 
     def login_form(self):
         return '%s/login_form' % self.portal_state.portal_url()
