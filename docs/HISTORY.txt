@@ -4,6 +4,9 @@ Changelog
 1.7.5 - unreleased
 ------------------
 
+- Update Anonymous homepage view.
+  [Vitaliy Podoba]
+
 - Disable zimbra-mail-portlet-view from theme. Fixes History.txt.
   [Cesar Gonzalez]
 

@@ -20,13 +20,21 @@
 
   <div id="anon-dashboard">
     <div id="dashboard-portlets1" class="portlets-column"
-         tal:content="structure provider:plone.dashboard1" />
+         tal:define="col python:view.getColumn(name='plone.dashboard1')"
+         tal:condition="col"
+         tal:content="structure col" />
     <div id="dashboard-portlets2" class="portlets-column"
-         tal:content="structure provider:plone.dashboard2" />
+         tal:define="col python:view.getColumn(name='plone.dashboard2')"
+         tal:condition="col"
+         tal:content="structure col" />
     <div id="dashboard-portlets3" class="portlets-column"
-         tal:content="structure provider:plone.dashboard3" />
+         tal:define="col python:view.getColumn(name='plone.dashboard3')"
+         tal:condition="col"
+         tal:content="structure col" />
     <div id="dashboard-portlets4" class="portlets-column"
-         tal:content="structure provider:plone.dashboard4" />
+         tal:define="col python:view.getColumn(name='plone.dashboard4')"
+         tal:condition="col"
+         tal:content="structure col" />
   </div>
 
 </metal:block>
