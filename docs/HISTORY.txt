@@ -4,8 +4,11 @@ Changelog
 1.7.5 - unreleased
 ------------------
 
-- Update Anonymous homepage view.
+- Update Anonymous homepage view [8579].
   [Vitaliy Podoba]
+
+- Adds Site Setup add-on configuration for Anonymous Homepage [8578].
+  [Jose Dinuncio]
 
 - Disable zimbra-mail-portlet-view from theme. Fixes History.txt.
   [Cesar Gonzalez]

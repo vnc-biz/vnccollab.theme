@@ -117,4 +117,25 @@
           />
     </genericsetup:upgradeSteps>
 
+    <genericsetup:upgradeSteps
+      source="1110"
+      destination="1111"
+      sortkey="10"
+      profile="vnccollab.theme:default">
+
+        <genericsetup:upgradeDepends
+          title="Adds Anonymous Homepage Setup"
+          import_steps="controlpanel"
+          />
+    </genericsetup:upgradeSteps>
+
+    <genericsetup:upgradeStep
+      source="1110"
+      destination="1111"
+      sortkey="11"
+      profile="vnccollab.theme:default"
+      title="Upgrades registry"
+      handler="vnccollab.theme.upgrades.upgrades.upgrade_1110_1111"
+      />
+
 </configure>
