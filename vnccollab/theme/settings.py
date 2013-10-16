@@ -236,6 +236,12 @@ class AnonymousHomepageSettingsEditForm(AutoExtensibleForm, form.EditForm):
         self.request.response.redirect("%s/%s" % (self.context.absolute_url(),
             '@@manage-group-dashboard?key=AnonymousUsers'))
 
+    @button.buttonAndHandler(_(u'Edit Carousel'), name='carousel')
+    def handleCarousel(self, action):
+        portal = api.portal.get()
+        self.request.response.redirect("%s/%s" % (portal.absolute_url(),
+            '@@edit-carousel'))
+
 
 class AnonymousHomepageSettingsControlPanel(controlpanel.ControlPanelFormWrapper):
     index = ViewPageTemplateFile('browser/templates/anonhomepage_controlpanel_layout.pt')
