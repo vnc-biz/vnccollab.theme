@@ -15,6 +15,7 @@ def new_timezone(zone):
 
 # Granting permissions for importing zope.component in python scripts
 ModuleSecurityInfo("zope.component").declarePublic("getMultiAdapter")
+ModuleSecurityInfo("vnccollab.common.livesearch").declarePublic("get_query")
 
 
 # Monkey patching pytz.timezone and pytz.commont_timezones
