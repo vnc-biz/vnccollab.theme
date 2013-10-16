@@ -60,7 +60,9 @@
                 Edit Dashboard Portlets for <span i18n:name="group" tal:content="view/group" />
             </h1>
 
-            <div id="content-core">
+            <div id="content-core"
+                 tal:define="group_key  view/request/key|string:'';
+                             is_anonymous python:group_key == 'AnonymousUsers'">
                 <a href=""
                    class="link-parent"
                    tal:attributes="href string:$portal_url/@@usergroup-groupprefs"
@@ -68,10 +70,38 @@
                     Up to Groups Overview
                 </a>
 
-                <div id="dashboard">
-                    <div id="dashboard-portlets"
-                      tal:content="structure provider:plone.dashboard1" />
-                </div>
+                <tal:non-anonymous condition="not:is_anonymous">
+                  <div id="dashboard">
+                      <div id="dashboard-portlets"
+                        tal:content="structure provider:plone.dashboard1" />
+                  </div>
+                </tal:non-anonymous>
+
+                <tal:anonymous condition="is_anonymous">
+                  <h3>Column #1</h3>
+                  <div id="dashboard">
+                      <div id="dashboard-portlets"
+                        tal:content="structure provider:plone.dashboard1" />
+                  </div>
+
+                  <h3>Column #2</h3>
+                  <div id="dashboard2">
+                      <div id="dashboard-portlets-2"
+                        tal:content="structure provider:plone.dashboard2" />
+                  </div>
+
+                  <h3>Column #3</h3>
+                  <div id="dashboard3">
+                      <div id="dashboard-portlets-3"
+                        tal:content="structure provider:plone.dashboard3" />
+                  </div>
+
+                  <h3>Column #4</h3>
+                  <div id="dashboard4">
+                      <div id="dashboard-portlets-4"
+                        tal:content="structure provider:plone.dashboard4" />
+                  </div>
+                </tal:anonymous>
 
                 <div class="visualClear"><!-- --></div>
             </div>
