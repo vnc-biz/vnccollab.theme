@@ -4,6 +4,9 @@ Changelog
 1.7.4 - unreleased
 ------------------
 
+- Removes update step and jquery.selectbox pluging.
+  [Cesar Gonzalez]
+
 - Disable zimbra-mail-portlet-view from theme. Fixes History.txt.
   [Cesar Gonzalez]
 
