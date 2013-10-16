@@ -146,14 +146,14 @@
             <tal:entry define="result_url result/getURL;
                                result_type result/portal_type;
                                item_icon python:plone_view.getIcon(result);
+                               item_type_class python:'contenttype-' + normalizeString(result_type);
                                url python:result_url+'/view' if result_type in use_view_action else result_url">
-                <dt tal:define="item_wf_state_class string:state-${result/review_state};"
-                    tal:attributes="class python:'contenttype-' + normalizeString(result.portal_type)">
-                  <img tal:replace="structure item_icon/html_tag" />
+                <dt tal:define="item_wf_state_class string:state-${result/review_state};">
+                  <!-- <img tal:replace="structure item_icon/html_tag" /> -->
                    <a
                      href="#"
                      tal:attributes="href url;
-                                     class string:$item_wf_state_class"
+                                     class string:$item_type_class $item_wf_state_class"
                      tal:content="result/pretty_title_or_id" />
                    <span class="listItemRating">
                      <div class="listItemRatingLabel">Rating</div>

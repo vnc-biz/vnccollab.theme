@@ -1389,7 +1389,7 @@ dl.portlet ul.navTreeLevel0 > .navTreeItemInPath {
   color:#082736 !important;
   font-size: 14px;
   line-height: 17px;
-  padding: 7px 15px 7px 34px !important;
+  padding: 7px 15px 7px 32px !important;
   }
 dl.portlet ul.navTreeLevel0 > .navTreeItem > a {
   border: 1px solid transparent;
@@ -4601,6 +4601,9 @@ a.ls-content-title {
 
 /* Content type sprites */
 
+.icons-on .contenttype-file {
+    background: no-repeat transparent 5px -439px url(sprites_16.png);
+}
 .icons-on .contenttype-document {
     background: no-repeat transparent 5px -290px url(sprites_16.png);
 }
@@ -4626,11 +4629,13 @@ a.ls-content-title {
     background: no-repeat transparent 5px -1724px url(sprites_16.png);
 }
 .icons-on .contenttype-castscontainer,
-.icons-on .contenttype-cast {
+.icons-on .contenttype-cast,
+.icons-on .contenttype-cast-update,
+.icons-on .contenttype-cast-comment {
     background: no-repeat transparent 5px -363px url(sprites_16.png);
 }
 .icons-on .contenttype-image {
-    background: no-repeat transparent 5px -328px url(sprites_16.png);
+    background: no-repeat transparent 5px -327px url(sprites_16.png);
 }
 
 .section-news > .contenttype-folder {
@@ -4673,7 +4678,7 @@ a.ls-content-title {
 
 /* These should only appear in the add menu */
 .icons-on #plone-contentmenu-factories .contenttype-file {
-    background: no-repeat transparent 5px -328px url(sprites_16.png);
+    background: no-repeat transparent 5px -441px url(sprites_16.png);
 }
 .icons-on #plone-contentmenu-factories .contenttype-image {
     background: no-repeat transparent 5px -328px url(sprites_16.png);
@@ -4687,15 +4692,29 @@ a.ls-content-title {
 .icons-on .contenttype-plone-site,
 .icons-on .contenttype-collection,
 .icons-on .contenttype-topic,
+.icons-on .contenttype-image,
+.icons-on .contenttype-cast,
+.icons-on .contenttype-castscontainer,
+.icons-on .contenttype-cast-update,
+.icons-on .contenttype-cast-comment,
+.icons-on .contenttype-file,
 .icons-on #plone-contentmenu-factories .contenttype-file,
 .icons-on #plone-contentmenu-factories .contenttype-image {
-    line-height: 2em;
     display: inline-block;
     padding-left: 25px !important;
+    padding-top: 2px;
 }
 
 .subMenuTitle {
   padding-right: 20px;
+}
+
+.template-folder_listing span.summary a,
+.template-atct_album_view span.summary a,
+.template-search .searchResults a {
+  height: 27px;
+  line-height: 27px !important;
+  display: inline-block;
 }
 
 /* Profile Page */
@@ -4762,6 +4781,52 @@ ul.followersList .followButtonWrapper {
 .bubbleinfo-popup dl dd {
   font-size: 10px;
   margin-left: 80px;
+}
+
+
+/* Tooltip for explain search keywords */
+
+#portal-searchbox .explain-prefix {
+  background-color: #ffffca;
+  display: none;
+  font-size: 0.82em;
+  color: #000023;
+  position: absolute;
+  left: 290px;
+  top: -17px;
+  width: 250px;
+  padding: 0 7px 7px 7px;
+  border-radius: 3px;
+  box-shadow: 0 2px 11px #B4B4B4;
+  float: left;
+  height: auto;
+  z-index: 9999;
+}
+
+#portal-searchbox .explain-prefix:before {
+  width: 11px;
+  height: 11px;
+  left: -14px;
+  top: 30px;
+
+  content: " ";
+  display: block;
+  position: relative;
+
+  border-color: rgba(180, 180, 180, 0.75) rgba(0, 0, 0, 0) rgba(0, 0, 0, 0) rgba(180, 180, 180, 0.75);
+  border-style: solid;
+  border-width: 1px;
+
+  background-color: #ffffca;
+
+  -webkit-transform: rotate(-45deg);
+  -moz-transform: rotate(-45deg);
+  -o-transform: rotate(-45deg);
+  transform: rotate(-45deg);
+}
+
+#portal-searchbox .explain-prefix p {
+ margin-bottom: 5px;
 }
 
 /* </dtml-with> */

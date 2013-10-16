@@ -19,5 +19,6 @@
     <dependency>profile-collective.customizablePersonalizeForm:default</dependency>
     <dependency>profile-collective.notices:default</dependency>
     <dependency>profile-collective.quickupload:default</dependency>
+    <dependency>profile-vnccollab.common:default</dependency>
   </dependencies>
 </metadata>
