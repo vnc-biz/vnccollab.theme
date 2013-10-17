@@ -235,7 +235,7 @@
       />
   <browser:page
       for="Products.CMFCore.interfaces.ISiteRoot"
-      class=".dashboard.ManageGroupDashboardPortlets"
+      class="plone.app.portlets.browser.manage.ManageGroupDashboardPortlets"
       name="manage-group-dashboard"
       template="templates/manage-group-dashboard.pt"
       layer=".interfaces.IThemeSpecific"
