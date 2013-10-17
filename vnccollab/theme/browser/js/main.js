@@ -1182,6 +1182,11 @@ function initFollowingControls() {
 
 }
 
+function initLanguageSelector() {
+  var currentLanguage = jq('#vnc-languageselector').find('.currentLanguage').text();
+  jq('#selected-language').text(currentLanguage);
+}
+
 jq(function() {
   attachNewTicketAction();
   attachHeaderViewletCloseOpen();
@@ -1191,6 +1196,7 @@ jq(function() {
   init_special_rss_portlet();
   initPortletDashlet();
   initNewTicketForm();
+  initLanguageSelector();
   attachSocialBookmarksLink();
   attachStreamButton();
   attachStreamActions();

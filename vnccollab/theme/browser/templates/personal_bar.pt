@@ -11,7 +11,7 @@
       <a id="user-name"
          tal:define="img view/user_image"
          tal:attributes="href string:${context/portal_url}/author/${user};">
-       <img width="80" height="80"
+       <img width="45" height="45"
            src="defaultUser.gif"
            alt="default user image"
            tal:attributes="src img;
@@ -20,7 +20,8 @@
                            alt view/user_name" />
      </a>
     </dt>
-    <dd class="userPreferencesBody">
+    <dt class="userPreferencesBody">
+      <h3 tal:content="view/user_name">User Name</h3>
       <ul>
         <li tal:repeat="action view/user_actions"
             tal:attributes="id string:personaltools-${action/id}">
@@ -35,7 +36,7 @@
           <tal:flags replace="structure view/languages " />
         </li>
       </ul>
-    </dd>
+    </dt>
   </dl>
   <a class="logoutLink"
      title="Click to logout"

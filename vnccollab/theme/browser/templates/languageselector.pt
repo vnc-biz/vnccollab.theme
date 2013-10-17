@@ -1,20 +1,24 @@
 <tal:language tal:condition="view/available">
-<select id="vnc-languageselector"
+<span id="selected-language">
+    Selected languaje<b></b>
+</span>
+<ul id="vnc-languageselector"
     tal:define="showFlags view/showFlags;
                 languages view/languages;
                 here_url context/absolute_url;
                 portal_url view/portal_url;">
     <tal:language repeat="lang languages">
-    <option tal:define="code lang/code;
+    <li tal:define="code lang/code;
                     selected lang/selected;
                     codeclass string:language-${code};
                     current python: selected and 'currentLanguage ' or '';
                     name lang/native|lang/name;"
         tal:attributes="class string:${current}${codeclass};
-                        value string:${here_url}/switchLanguage?set_language=${code};
-                        selected python:selected and 'selected' or None">
-            <span tal:replace="name">language name</span>
-    </option>
+                        value string:${here_url}/switchLanguage?set_language=${code}">
+            <a href="" class="language-option"
+                tal:content="name"
+                tal:attributes="href string:${here_url}/switchLanguage?set_language=${code}">language name</a>
+    </li>
     </tal:language>
-</select>
+</ul>
 </tal:language>

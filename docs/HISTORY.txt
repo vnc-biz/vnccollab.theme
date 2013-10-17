@@ -4,6 +4,9 @@ Changelog
 1.7.4 - unreleased
 ------------------
 
+- Adds style to site header and change template.
+  [Cesar Gonzalez]
+
 - Removes update step and jquery.selectbox pluging.
   [Cesar Gonzalez]
 
