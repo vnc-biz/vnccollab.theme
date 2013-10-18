@@ -20,10 +20,6 @@ from Products.CMFPlone.utils import safe_unicode, normalizeString, parent
 from Products.CMFPlone.i18nl10n import monthname_msgid, weekdayname_msgid
 from Products.CMFPlone.interfaces.siteroot import IPloneSiteRoot
 
-from Products.PythonScripts.standard import url_quote_plus
-from Products.PythonScripts.standard import html_quote
-from Products.CMFPlone.browser.navtree import getNavigationRoot
-
 from plone.i18n.normalizer.interfaces import IIDNormalizer
 from plone.app.contentmenu.menu import FactoriesSubMenuItem
 from plone.app.viewletmanager.manager import BaseOrderedViewletManager
@@ -589,7 +585,8 @@ class AddButtonViewlet(common.ViewletBase):
 
 try:
     import vnccollab.cloudcast
-    from vnccollab.cloudcast.interfaces import ICastContainer, ICastsContainer, ICast
+    from vnccollab.cloudcast.interfaces import ICastContainer, \
+        ICastsContainer, ICast
 except ImportError:
     CAST_ENABLED = False
 else:
@@ -652,7 +649,20 @@ class TabsViewlet(common.ViewletBase, CastViewletBase):
 
     index = ViewPageTemplateFile('templates/tabs.pt')
 
+    @property
+    def available(self):
+        mt = getToolByName(self.context, 'portal_membership')
+        if mt.isAnonymousUser():
+            return False
+        else:
+            return True
+
+
     def update(self):
+        self.portal_tabs = []
+        if not self.available:
+            return
+
         self.portal_tabs = [
             {'name': 'Content',
              'description': 'content',
