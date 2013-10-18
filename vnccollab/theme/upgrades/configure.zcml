@@ -117,15 +117,13 @@
           />
     </genericsetup:upgradeSteps>
 
-    <genericsetup:upgradeSteps
+    <genericsetup:upgradeStep
       source="1110"
       destination="1111"
-      sortkey="10"
-      profile="vnccollab.theme:default">
+      sortkey="11"
+      profile="vnccollab.theme:default"
+      title="Control panel, css, js registries, viewlets"
+      handler="vnccollab.theme.upgrades.upgrades.upgrade_1110_1111"
+      />
 
-        <genericsetup:upgradeDepends
-          title="Re-imports cssregistry, jsregistry, and viewlets step from the profile"
-          import_steps="jsregistry cssregistry viewlets"
-          />
-    </genericsetup:upgradeSteps>
 </configure>

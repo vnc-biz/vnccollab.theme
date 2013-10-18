@@ -101,6 +101,9 @@ class ActionsListViewlet(common.ViewletBase):
 class LoginViewlet(common.ViewletBase):
     """Most methods are copied over from login portlet renderer"""
 
+    template = ViewPageTemplateFile('templates/login.pt')
+    anon_template = ViewPageTemplateFile('templates/anon_login.pt')
+
     def __init__(self, *args, **kw):
         super(LoginViewlet, self).__init__(*args, **kw)
 
@@ -111,6 +114,13 @@ class LoginViewlet(common.ViewletBase):
             name=u'plone_portal_state')
         self.pas_info = getMultiAdapter((self.context, self.request),
             name=u'pas_info')
+
+    def render(self):
+        mt = getToolByName(self.context, 'portal_membership')
+        if mt.isAnonymousUser():
+            return self.anon_template()
+        else:
+            return self.template()
 
     def show(self):
         if not self.portal_state.anonymous():
@@ -125,6 +135,14 @@ class LoginViewlet(common.ViewletBase):
     @property
     def available(self):
         return self.auth() is not None and self.show()
+
+    def signup_link(self):
+        return '%s/register' % self.portal_state.portal_url()
+
+    def help_link(self):
+        registry = getUtility(IRegistry)
+        return registry.get(
+            'vnccollab.theme.settings.IAnonymousHomepageSettings.help_url')
 
     def login_form(self):
         return '%s/login_form' % self.portal_state.portal_url()
@@ -197,8 +215,14 @@ class HeaderTimeViewlet(common.ViewletBase):
 
 
 class PathBarViewlet(common.PathBarViewlet):
-    render = ViewPageTemplateFile('templates/path_bar.pt')
+    template = ViewPageTemplateFile('templates/path_bar.pt')
 
+    def render(self):
+        mt = getToolByName(self.context, 'portal_membership')
+        if mt.isAnonymousUser():
+            return u''
+        else:
+            return self.template()
 
 class FooterViewlet(common.FooterViewlet):
     index = ViewPageTemplateFile('templates/footer.pt')
@@ -309,6 +333,15 @@ class VNCCarouselViewlet(CarouselViewlet):
 
     index = ViewPageTemplateFile('templates/carousel_viewlet.pt')
 
+class AnonHomepageCarouselViewlet(CarouselViewlet):
+    template = ViewPageTemplateFile('templates/carousel_viewlet.pt')
+
+    def render(self):
+        mt = getToolByName(self.context, 'portal_membership')
+        if mt.isAnonymousUser():
+            return self.template()
+        else:
+            return u''
 
 class VNCCollabHeaderViewlet(common.ViewletBase):
     """Viewlet that inserts vnc header manager into plone header manager"""
@@ -545,7 +578,14 @@ class AddContentAreaViewlet(common.ViewletBase):
 
 class AddButtonViewlet(common.ViewletBase):
     '''Overrides SearchBoxViewlet for folders in Stream Mode.'''
-    index = ViewPageTemplateFile('templates/addbutton.pt')
+    template = ViewPageTemplateFile('templates/addbutton.pt')
+
+    def render(self):
+        mt = getToolByName(self.context, 'portal_membership')
+        if mt.isAnonymousUser():
+            return u''
+        else:
+            return self.template()
 
 try:
     import vnccollab.cloudcast
@@ -632,5 +672,21 @@ class TabsViewlet(common.ViewletBase, CastViewletBase):
 
 
 class SearchBoxViewlet(common.ViewletBase):
-    '''Overrides SearchBoxViewlet for folders in Stream Mode.'''
-    index = ViewPageTemplateFile('templates/searchbox.pt')
+    """Overrides SearchBoxViewlet for folders in Stream Mode."""
+    template = ViewPageTemplateFile('templates/searchbox.pt')
+
+    def render(self):
+        mt = getToolByName(self.context, 'portal_membership')
+        if mt.isAnonymousUser():
+            return u''
+        else:
+            return self.template()
+
+class EmptyViewlet(common.ViewletBase):
+    """Empty viewlet to remove previous registrations"""
+
+    def update(self):
+        pass
+
+    def render(self):
+        return u''

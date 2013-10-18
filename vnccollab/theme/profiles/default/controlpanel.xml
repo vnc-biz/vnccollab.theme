@@ -28,4 +28,16 @@
         i18n:attributes="title">
             <permission>Manage portal</permission>
     </configlet>
+
+    <configlet
+        title="Anonymous Homepage"
+        action_id="anonhomepage"
+        appId="vnccollab.theme.anonhomepage"
+        category="Products"
+        condition_expr=""
+        url_expr="string:${portal_url}/@@anonhomepage-settings"
+        visible="True"
+        i18n:attributes="title">
+            <permission>Manage portal</permission>
+    </configlet>
 </object>

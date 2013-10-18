@@ -792,7 +792,7 @@ input.searchField {
   text-indent:9999px;
   }
 div.carousel {
-  background-color:#12425f;
+/*  background-color:#12425f;*/
   margin:0;
   }
 .carousel-banners {
@@ -4990,6 +4990,25 @@ ul.followersList .followButtonWrapper {
 
 #portal-searchbox .explain-prefix p {
  margin-bottom: 5px;
+}
+
+.anonActions {
+  float: right;
+  margin: 15px 0 0 0;
+  padding: 15px;
+  font-size: 19px;
+}
+.anonActions li {
+  display: inline-block;
+/*  margin-right: 15px;*/
+}
+.anonActions li a {
+  color: #022c45;
+  padding: 10px 15px;
+}
+.anonActions li a:hover {
+  color: #fff;
+  background-color: #022c45;
 }
 
 /* </dtml-with> */
