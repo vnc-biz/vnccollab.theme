@@ -652,7 +652,20 @@ class TabsViewlet(common.ViewletBase, CastViewletBase):
 
     index = ViewPageTemplateFile('templates/tabs.pt')
 
+    @property
+    def available(self):
+        mt = getToolByName(self.context, 'portal_membership')
+        if mt.isAnonymousUser():
+            return False
+        else:
+            return True
+
+
     def update(self):
+        self.portal_tabs = []
+        if not self.available:
+            return
+
         self.portal_tabs = [
             {'name': 'Content',
              'description': 'content',
