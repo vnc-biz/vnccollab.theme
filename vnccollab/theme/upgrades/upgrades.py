@@ -42,6 +42,14 @@ def upgrade_1109_1110(context):
 
 
 def upgrade_1110_1111(context):
-    '''Upgrades registry.xml.'''
+    '''Upgrades registry and other settings'''
     setup = getToolByName(context, 'portal_setup')
     setup.runImportStepFromProfile(DEFAULT_PROFILE, 'plone.app.registry')
+    setup.runImportStepFromProfile(DEFAULT_PROFILE, 'jsregistry',
+        run_dependencies=False)
+    setup.runImportStepFromProfile(DEFAULT_PROFILE, 'cssregistry',
+        run_dependencies=False)
+    setup.runImportStepFromProfile(DEFAULT_PROFILE, 'controlpanel',
+        run_dependencies=False)
+    setup.runImportStepFromProfile(DEFAULT_PROFILE, 'viewlets',
+        run_dependencies=False)

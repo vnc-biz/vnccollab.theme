@@ -6,8 +6,6 @@ from zope.component import getUtility
 
 from plone.portlets.interfaces import IPortletType
 
-from Products.Five.testbrowser import Browser
-
 from vnccollab.theme.tests.base import FunctionalTestCase
 from vnccollab.theme.testing import createObject
 

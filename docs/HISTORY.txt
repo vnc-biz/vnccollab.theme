@@ -4,6 +4,12 @@ Changelog
 1.7.5 - unreleased
 ------------------
 
+- Adds style to site header and change template.
+  [Cesar Gonzalez]
+
+- Removes update step and jquery.selectbox pluging.
+  [Cesar Gonzalez]
+
 - Update Anonymous homepage view [8579].
   [Vitaliy Podoba]
 
@@ -42,6 +48,8 @@ Changelog
 - Removes deferred portlet view.
   [Jose Dinuncio]
 
+- Update site header coding [8509].
+  [Marcin Staniszczak]
 
 1.7.4 - September 12, 2013
 --------------------------

@@ -1182,6 +1182,11 @@ function initFollowingControls() {
 
 }
 
+function initLanguageSelector() {
+  var currentLanguage = jq('#vnc-languageselector').find('.currentLanguage').text();
+  jq('#selected-language').text(currentLanguage);
+}
+
 function initSearchTooltip() {
     // set search tooltip event handler
   jq('.explain-prefix').css('display','none');
@@ -1203,6 +1208,7 @@ jq(function() {
   init_special_rss_portlet();
   initPortletDashlet();
   initNewTicketForm();
+  initLanguageSelector();
   attachSocialBookmarksLink();
   attachStreamButton();
   attachStreamActions();
@@ -1212,5 +1218,4 @@ jq(function() {
   setHandlersWizard();
   addDocumentContentShadows();
   fixGeneralUI();
-  initFollowingControls();
 });

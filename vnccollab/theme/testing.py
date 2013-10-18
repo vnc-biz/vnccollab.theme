@@ -2,8 +2,10 @@ import sys
 import transaction
 from StringIO import StringIO
 
+#import zope.component
+#from zope.publisher.http import HTTPCharsets
 from zope.interface import alsoProvides
-from zope.publisher.browser import setDefaultSkin
+from zope.publisher.browser import setDefaultSkin #, BrowserLanguages
 from z3c.form.interfaces import IFormLayer
 from ZPublisher.HTTPResponse import HTTPResponse
 from ZPublisher.HTTPRequest import HTTPRequest
@@ -17,37 +19,60 @@ from plone.testing import z2
 
 from zope.configuration import xmlconfig
 
+try:
+    import vnccollab.cloudcast
+except ImportError:
+    CAST_ENABLED = False
+else:
+    CAST_ENABLED = True
+
 
 class VNCThemeContent(PloneSandboxLayer):
     defaultBases = (PLONE_FIXTURE,)
 
     def setUpZope(self, app, configurationContext):
+        # zope.component.provideAdapter(HTTPCharsets)
+        # zope.component.provideAdapter(BrowserLanguages)
         # Load ZCML
         depedencies = ['collective.customizablePersonalizeForm',
                        'collective.vaporisation', 'collective.quickupload',
                        'plone.formwidget.autocomplete', 'Products.Carousel',
-                       'vnccollab.theme', #'vnccollab.cloudstream', 
-                       'collective.autopermission',
-                       'plone.app.iterate']
+                       'vnccollab.theme', 'collective.autopermission',
+                       'plone.app.iterate',
+                       'Products.PloneLanguageTool'] #, 'plone.i18n', 'plone.app.i18n']
+
+        if CAST_ENABLED:
+            depedencies.extend([
+                #'collective.customizablePersonalizeForm',
+                'plone.api', 'plone.app.discussion',
+                'collective.prettydate', 'five.grok',
+                'collective.autogroup','vnccollab.cloudcast',
+                'vnccollab.cloudmobile'])
 
         for package in depedencies:
             module = __import__(package, fromlist=[''])
             self.loadZCML(package=module)
 
-        #import vnccollab.theme
-        #xmlconfig.file('configure.zcml',
-        #               vnccollab.theme,
-        #               context=configurationContext)
-        z2.installProduct(app, 'vnccollab.cloudstream')
+        if CAST_ENABLED:
+            z2.installProduct(app, 'vnccollab.cloudcast')
+
+        z2.installProduct(app, 'Products.PloneLanguageTool')
+        z2.installProduct(app, 'plone.app.locales')
+        # z2.installProduct(app, 'plone.app.layout')
+        # z2.installProduct(app, 'plone.app.i18n')
         z2.installProduct(app, 'vnccollab.theme')
         z2.installProduct(app, 'Products.PythonScripts')
+
 
     def setUpPloneSite(self, portal):
         # Installs all the Plone stuff. Workflows etc.
         self.applyProfile(portal, 'Products.CMFPlone:plone')
         # Install portal content. Including the Members folder!
         self.applyProfile(portal, 'Products.CMFPlone:plone-content')
+        #self.applyProfile(portal, 'Products.PloneLanguageTool:plone-default')
         self.applyProfile(portal, 'vnccollab.theme:default')
+        if CAST_ENABLED:
+            self.applyProfile(portal, 'vnccollab.cloudcast:default')
 
 
 VNCCOLLAB_THEME_FIXTURE = VNCThemeContent()

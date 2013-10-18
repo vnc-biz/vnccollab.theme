@@ -29,6 +29,7 @@ class BaseTestCase(unittest.TestCase):
         self.portal_url = self.portal.absolute_url()
         self.membership = getToolByName(self.portal, 'portal_membership') 
         setRoles(self.portal, TEST_USER_ID, ['Manager'])
+        self.request = self.app.REQUEST
 
         # create members if needed
         if hasattr(self, 'members') and self.members:

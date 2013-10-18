@@ -616,4 +616,20 @@
       layer=".interfaces.IThemeSpecific"
       />
 
+  <browser:viewlet  
+      name="vnccollab.theme.languageselector"
+      manager="plone.app.layout.viewlets.interfaces.IPortalHeader"
+      class="plone.app.i18n.locales.browser.selector.LanguageSelector"
+      permission="zope2.View"
+      template="templates/languageselector.pt"
+      layer=".interfaces.IThemeSpecific"
+      />
+
+  <browser:viewlet
+      name="vnccollab.theme.toptabs"
+      manager="plone.app.layout.viewlets.interfaces.IPortalHeader"
+      class=".viewlets.TabsViewlet"
+      permission="zope2.View"
+      />
+
 </configure>

@@ -2,8 +2,6 @@ import ast
 import urllib
 import transaction
 
-from Products.Five.testbrowser import Browser
-
 from vnccollab.theme.tests.base import FunctionalTestCase
 from vnccollab.theme.testing import createObject
 
