@@ -25,10 +25,11 @@ print 'Patching pytz'
 ZONE_MAP = {'Asia/Mumbai': 'Asia/Kolkata',}
 
 import pytz
-original_timezone = pytz.timezone
-pytz.common_timezones.extend(ZONE_MAP.keys())
-pytz.common_timezones.sort()
+if pytz.timezone.__doc__ != ' Monkey patching replacement for pytz.timezone':
+    original_timezone = pytz.timezone
+    pytz.common_timezones.extend(ZONE_MAP.keys())
+    pytz.common_timezones.sort()
 
-pytz.timezone = new_timezone
-print '*'*80
+    pytz.timezone = new_timezone
+    print '*'*80
 
