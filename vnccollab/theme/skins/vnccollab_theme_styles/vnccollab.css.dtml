@@ -1177,22 +1177,26 @@ dl.portlet dd.portletFooter {
 .closed .portletItem {
   display:none;
   }
-#dashboard .portletToggleLink {
+#dashboard .portletToggleLink,
+.dashboard-generic .portletToggleLink {
   background-position: -94px 0;
   }
-#dashboard .closed .portletToggleLink {
+#dashboard .closed .portletToggleLink,
+.dashboard-generic .closed .portletToggleLink {
   background-position: -94px -20px;
   }
 
 /*----- Portlet Spinner -----*/
-#dashboard-portlets .portletLoading {
+#dashboard-portlets .portletLoading,
+.dashboard-portlets-generic .portletLoading {
   position: absolute;
   top: 50%;
   left: 50%;
 }
 
 /*----- Dashboard -----*/
-#dashboard {
+#dashboard,
+.dashboard-generic {
   font-size:1.33em;
   line-height:1.5em;
   margin-right: -10px;
@@ -1207,21 +1211,25 @@ dl.portlet dd.portletFooter {
   margin-right:3px;
   vertical-align:middle;
   }
-#dashboard-portlets:after {
+#dashboard-portlets:after,
+.dashboard-portlets-generic:after {
   clear: both;
   content: "";
   display: block;
   visibility: visible;
   }
-#dashboard-portlets .portletWrapper {
+#dashboard-portlets .portletWrapper,
+.dashboard-portlets-generic .portletWrapper {
   float:left;
   overflow: hidden;
   width:50%;
   }
-#dashboard-portlets .wide {
+#dashboard-portlets .wide,
+.dashboard-portlets-generic .wide {
   width:100%;
   }
-#dashboard-portlets .portlet {
+#dashboard-portlets .portlet,
+.dashboard-portlets-generic .portlet {
   background: #fff;
   border: 0;
   box-shadow: 0 1px 6px rgba(0,0,0,0.3);
@@ -1230,16 +1238,21 @@ dl.portlet dd.portletFooter {
   overflow: hidden;
   padding: 0;
   }
-#dashboard-portlets .closed .portlet {
+#dashboard-portlets .closed .portlet,
+.dashboard-portlets-generics .closed .portlet {
   height: auto;
   }
 #dashboard .portlet a:link,
 #dashboard .portlet a:visited,
-#dashboard .portlet a:hover {
+#dashboard .portlet a:hover,
+.dashboard-generic .portlet a:link,
+.dashboard-generic .portlet a:visited,
+.dashboard-generic .portlet a:hover {
   color:#012a43 !important;
   text-decoration:none;
   }
-#dashboard .portletHeader {
+#dashboard .portletHeader,
+.dashboard-generic div.portletAssignments div.portletHeader.portletHeader {
   background-color: #d0d6dd;
   border-bottom: 1px solid #dadfe4;
   color: #7791a6;
@@ -1254,38 +1267,50 @@ dl.portlet dd.portletFooter {
   letter-spacing: 1px;
   text-shadow: 0 1px 1px rgba(255, 255, 255, 1);
   }
-#dashboard .closed .portletHeader {
+#dashboard .closed .portletHeader,
+.dashboard-generic .closed .portletHeader {
   border-bottom: 1px solid #dadfe4;
   }
 #dashboard .portletHeader a:link,
 #dashboard .portletHeader a:visited,
-#dashboard .portletHeader a:hover {
+#dashboard .portletHeader a:hover,
+.dashboard-generic .portletHeader a:link,
+.dashboard-generic .portletHeader a:visited,
+.dashboard-generic .portletHeader a:hover {
   color: #7791a6 !important;
   }
-#dashboard .portletToggleLink {
+#dashboard .portletToggleLink,
+.dashboard-generic .portletToggleLink {
   right:27px;
   }
-#dashboard-portlets .portletBody {
+#dashboard-portlets .portletBody,
+.dashboard-portlets-generic .portletBody {
   height: 300px;
   overflow: hidden;
   }
-#dashboard .portletItem {
+#dashboard .portletItem,
+.dashboard-generic .portletItem {
   padding: 8px 13px;
   }
 #dashboard .even,
-#dashboard li.portletItem:nth-child(even) {
+#dashboard li.portletItem:nth-child(even),
+.dashboard-generic .even,
+.dashboard-generic li.portletItem:nth-child(even) {
   background-color: #f5f5f5;
   }
-#dashboard .portletItem a {
+#dashboard .portletItem a,
+.dashboard-generic .portletItem a {
   font-size: 14px;
   line-height: 18px;
   }
-#dashboard .portletFooter {
+#dashboard .portletFooter,
+.dashboard-generic .portletFooter {
   padding: 8px 13px;
   }
 
 /* portlets on manage-dashboard screens */
-#dashboard-portlets .portlet.managedPortlet {
+#dashboard-portlets .portlet.managedPortlet,
+.dashboard-portlets-generic .portlet.managedPortlet {
   width:100%;
   float:none;
   height: auto;
@@ -4820,11 +4845,13 @@ ul.followersList .followButtonWrapper {
  margin-bottom: 5px;
 }
 
+ /* Anonymous homepage */
+
 .anonActions {
   float: right;
-  margin: 15px 0 0 0;
+  margin: 30px 0 0 0;
   padding: 15px;
-  font-size: 19px;
+  font-size: 1.05em;
 }
 .anonActions li {
   display: inline-block;
@@ -4838,5 +4865,33 @@ ul.followersList .followButtonWrapper {
   color: #fff;
   background-color: #022c45;
 }
+
+#anon-dashboard {
+  width: 100%;
+  display: table;
+  position: relative;
+  table-layout: fixed;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+#anon-dashboard .portlets-column {
+  float: none !important;
+  width: auto !important;
+  display: table-cell !important;
+  padding: 10px;
+}
+
+.template-homepage_view #portal-columns {
+  background-color: transparent;
+}
+
+#anon-dashboard dl.portlet dt, #anon-dashboard dl.portlet dt a {
+  text-transform: none;
+  color: #012a43;
+  font-size: 18px;
+  padding: 0.5em;
+}
+
 
 /* </dtml-with> */

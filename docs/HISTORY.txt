@@ -4,6 +4,9 @@ Changelog
 1.7.5 - unreleased
 ------------------
 
+- Adds style to anonymous homepage. Fixes admin column style.
+  [Cesar Gonzalez]
+
 - Update Anonymous homepage view [8579].
   [Vitaliy Podoba]
 
