@@ -4856,6 +4856,15 @@ ul.followersList .followButtonWrapper {
 
  /* Anonymous homepage */
 
+.anonymousMode #portal-header {
+  margin: 0 auto;
+  max-width: 1200px
+ }
+
+.anonymousMode .carousel-banners {
+  margin: 0 auto;
+}
+
 .anonActions {
   float: right;
   margin: 30px 0 0 0;
@@ -4891,7 +4900,7 @@ ul.followersList .followButtonWrapper {
   padding: 10px;
 }
 
-.template-homepage_view #portal-columns {
+.anonymousMode .template-homepage_view #portal-columns {
   background-color: transparent;
 }
 

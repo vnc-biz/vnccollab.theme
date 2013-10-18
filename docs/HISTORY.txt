@@ -4,6 +4,9 @@ Changelog
 1.7.5 - unreleased
 ------------------
 
+- Fixes centering carousel. Limit header and content to 1200px.
+  [Cesar Gonzalez]
+
 - Adds style to anonymous homepage. Fixes admin column style.
   [Cesar Gonzalez]
 
