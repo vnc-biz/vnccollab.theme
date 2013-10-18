@@ -4,6 +4,9 @@ Changelog
 1.7.5 - unreleased
 ------------------
 
+- Fixes bug in dashlet portlet.
+  [Jose Dinuncio]
+
 - Adds style to site header and change template.
   [Cesar Gonzalez]
 

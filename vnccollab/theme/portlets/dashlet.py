@@ -42,9 +42,11 @@ class Assignment(base.Assignment):
         """Return portlet header"""
         return self.header
 
-    def __init__(self, header=u'My Dashlet', count=5):
+    def __init__(self, header=u'My Dashlet', zimbra_url=None, count=5):
         self.header = header
         self.count = count
+        if zimbra_url is not None:
+            self.zimbra_url = zimbra_url
 
 
 class Renderer(base.Renderer):
