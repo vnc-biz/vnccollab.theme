@@ -1187,6 +1187,18 @@ function initLanguageSelector() {
   jq('#selected-language').text(currentLanguage);
 }
 
+function initSearchTooltip() {
+    // set search tooltip event handler
+  jq('.explain-prefix').css('display','none');
+  jq('#portal-searchbox #searchGadget').focus( function(){
+    jq('.explain-prefix').delay(1300).fadeTo(500, 1).delay(7000).fadeTo(300, 0);
+  });
+
+  jq('#portal-searchbox #searchGadget').blur( function(){
+    jq('.explain-prefix').css('display', 'none');
+  });
+}
+
 jq(function() {
   attachNewTicketAction();
   attachHeaderViewletCloseOpen();
@@ -1200,6 +1212,7 @@ jq(function() {
   attachSocialBookmarksLink();
   attachStreamButton();
   attachStreamActions();
+  initSearchTooltip();
   setupVncChat();
   rebindPubSubStreamHandlers();
   setHandlersWizard();

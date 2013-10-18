@@ -16,6 +16,7 @@ from Products.PythonScripts.standard import html_quote
 
 # Note: this import requires special permissions in __init__.py
 from zope.component import getMultiAdapter
+from vnccollab.common.livesearch import get_query
 
 ploneUtils = getToolByName(context, 'plone_utils')
 portal_url = getToolByName(context, 'portal_url')()
@@ -67,6 +68,7 @@ def pretty_date(when):
 # But we strip these and these so that the catalog does
 # not interpret them as metachars
 # See http://dev.plone.org/plone/ticket/9422 for an explanation of '\u3000'
+searchable_text = q
 multispace = u'\u3000'.encode('utf-8')
 for char in ('?', '-', '+', '*', multispace):
     q = q.replace(char, ' ')
@@ -88,6 +90,7 @@ else:
     params['path'] = path
 
 # search limit+1 results to know if limit is exceeded
+params = get_query(searchable_text, params)
 results = catalog(**params)
 
 searchterm_query = '?searchterm=%s' % url_quote_plus(q)
@@ -95,7 +98,6 @@ searchterm_query = '?searchterm=%s' % url_quote_plus(q)
 REQUEST = context.REQUEST
 RESPONSE = REQUEST.RESPONSE
 RESPONSE.setHeader('Content-Type', 'text/xml;charset=%s' % site_encoding)
-
 
 
 

@@ -207,13 +207,13 @@
       permission="zope2.View"
       />
 
-  <browser:page
+  <!-- <browser:page
       for="*"
       name="zimbra-mail-portlet-view"
       class=".zimbra.ZimbraMailPortletView"
       layer=".interfaces.IThemeSpecific"
       permission="plone.app.portlets.ViewDashboard"
-      />
+      /> -->
 
   <!-- Override dashboard and dashboard management forms,
        we need only one column there -->
@@ -473,6 +473,15 @@
     permission="zope2.View"
     />
 
+  <browser:viewlet
+    name="plone.searchbox"
+    for="*"
+    manager="plone.app.layout.viewlets.interfaces.IPortalHeader"
+    layer=".interfaces.IThemeSpecific"
+    class=".viewlets.SearchBoxViewlet"
+    permission="zope2.View"
+    />
+
     <!-- This are the classes we want to edit with zopeedit-->
     <class class="plone.app.blob.content.ATBlob">
         <implements interface=".viewlets.IExternalEditable"/>
@@ -561,6 +570,14 @@
 
   <browser:page
       for="*"
+      name="livesearch_result"
+      class=".livesearch.LiveSearchReplyView"
+      attribute="result"
+      permission="zope2.View"
+      />
+
+  <browser:page
+      for="*"
       name="wizard_uploader"
       class=".wizarduploader.WizardUploadView"
       permission="zope.Public"
@@ -575,7 +592,7 @@
 
   <browser:page
       name="search"
-      class="plone.app.search.browser.Search"
+      class="vnccollab.common.browser.search.Search"
       permission="zope2.View"
       for="*"
       template="templates/search.pt"
