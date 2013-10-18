@@ -78,6 +78,7 @@ class DashboardEditPortletManagerRenderer(
     The name is the last part of the path in the <option> value.
     '''
     allowed_portlets = [
+        'plone.portlet.static.Static',
         'portlets.Calendar',
         'portlets.Events',
         'portlets.News',
