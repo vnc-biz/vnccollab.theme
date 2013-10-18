@@ -13,6 +13,9 @@ Changelog
 - Removes update step and jquery.selectbox pluging.
   [Cesar Gonzalez]
 
+- Adds style to anonymous homepage. Fixes admin column style.
+  [Cesar Gonzalez]
+
 - Update Anonymous homepage view [8579].
   [Vitaliy Podoba]
 
