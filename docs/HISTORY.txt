@@ -4,6 +4,9 @@ Changelog
 1.7.4 - unreleased
 ------------------
 
+- Fixes circle user image.
+  [Cesar Gonzalez]
+
 - Adds style to site header and change template.
   [Cesar Gonzalez]
 
