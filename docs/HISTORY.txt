@@ -4,6 +4,9 @@ Changelog
 1.7.5 - unreleased
 ------------------
 
+- Fixes circle user image.
+  [Cesar Gonzalez]
+
 - Fixes bug in dashlet portlet.
   [Jose Dinuncio]
 
