@@ -4858,7 +4858,7 @@ ul.followersList .followButtonWrapper {
 
 .anonymousMode #portal-header {
   margin: 0 auto;
-  max-width: 1200px
+  max-width: 1400px
  }
 
 .anonymousMode .carousel-banners {
@@ -4867,8 +4867,8 @@ ul.followersList .followButtonWrapper {
 
 .anonActions {
   float: right;
-  margin: 30px 0 0 0;
-  padding: 15px;
+  margin: 34px 30px 0 0;
+  padding: 0;
   font-size: 1.05em;
 }
 .anonActions li {
@@ -4877,7 +4877,7 @@ ul.followersList .followButtonWrapper {
 }
 .anonActions li a {
   color: #022c45;
-  padding: 10px 15px;
+  padding: 13px 17px;
 }
 .anonActions li a:hover {
   color: #fff;
@@ -4889,9 +4889,22 @@ ul.followersList .followButtonWrapper {
   display: table;
   position: relative;
   table-layout: fixed;
-  max-width: 1200px;
+  max-width: 960px;
   margin: 0 auto;
 }
+#anon-dashboard.columns1 {
+  max-width: 960px;
+}
+#anon-dashboard.columns2 {
+  max-width: 960px;
+}
+#anon-dashboard.columns3  {
+  max-width: 960px;
+}
+#anon-dashboard.columns4  {
+  max-width: 1200px;
+}
+
 
 #anon-dashboard .portlets-column {
   float: none !important;
@@ -4900,15 +4913,23 @@ ul.followersList .followButtonWrapper {
   padding: 10px;
 }
 
-.anonymousMode .template-homepage_view #portal-columns {
-  background-color: transparent;
+.anonymousMode #portal-columns {
+  background-color: transparent !important;
+}
+
+.anonymousMode dl.portlet {
+  border:none;
 }
 
 #anon-dashboard dl.portlet dt, #anon-dashboard dl.portlet dt a {
   text-transform: none;
   color: #012a43;
   font-size: 18px;
-  padding: 0.5em;
+  padding: 0.5em 0;
+}
+
+.anonymousMode dl.portlet .portletItem {
+  font-size: 1.4em;
 }
 
 
