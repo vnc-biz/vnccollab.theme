@@ -4,6 +4,13 @@ Changelog
 1.7.5 - unreleased
 ------------------
 
+- Sets anon action menu position. Columns content using max width from
+  container. Removes portlet separator line.
+  [Cesar Gonzalez]
+
+- Fixes centering carousel. Limit header and content to 1200px.
+  [Cesar Gonzalez]
+
 - Fixes circle user image.
   [Cesar Gonzalez]
 
