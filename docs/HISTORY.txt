@@ -1,8 +1,8 @@
 Changelog
 =========
 
-1.7.5 - unreleased
-------------------
+1.7.5 - October 24, 2013
+------------------------
 
 - Add columns classes to Anonymous Welcome Page.
   [Vitaliy Podoba]
