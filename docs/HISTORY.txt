@@ -4,6 +4,9 @@ Changelog
 1.7.5 - unreleased
 ------------------
 
+- Fixes portal mode menu and user dropdown.
+  [Cesar Gonzalez]
+
 - Sets anon action menu position. Columns content using max width from
   container. Removes portlet separator line.
   [Cesar Gonzalez]

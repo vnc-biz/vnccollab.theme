@@ -179,6 +179,9 @@ body {
   transition-duration:0.3s, 0.2s, 0.3s, 0.2s;
   transition-timing-function: ease-in-out, ease-in-out, ease-in-out, ease-in-out;
 
+  transform: perspective(700px);
+  -webkit-transform: perspective(700px);
+
   background: #ffffff; /* Old browsers */
   background: -moz-linear-gradient(top, #ffffff 0%, #ffffff 50%, #f2f2f2 50%, #f2f2f2 100%); /* FF3.6+ */
   background: -ms-linear-gradient(top, #ffffff 0%,#ffffff 50%,#f2f2f2 50%,#f2f2f2 100%); /* IE10+ */
