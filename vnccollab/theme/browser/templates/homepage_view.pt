@@ -6,64 +6,37 @@
       metal:use-macro="context/main_template/macros/master"
       i18n:domain="plone">
 
+<head>
+    <metal:block fill-slot="top_slot"
+                 tal:define="dummy python:request.set('disable_border',1);
+                             disable_column_one python:request.set('disable_plone.leftcolumn',1);
+                             disable_column_two python:request.set('disable_plone.rightcolumn',1);" />
+</head>
+
 <body>
 
 <metal:content-core fill-slot="main">
-<metal:block define-macro="main"
-             tal:define="news view/getNews">
-    
-  <div class="portletWrapper" id="homepage-anon-portlets">
-    <dl class="portlet portletNews wide"
-        i18n:domain="plone">
+<metal:block define-macro="main">
 
-        <dt class="portletHeader">
-            <span class="portletTopLeft"></span>
-            <a href="news"
-                   i18n:translate="vnc_news"
-                   tal:attributes="href string:${context/portal_url}/${attrs/href}">VNC News</a>
-            <span class="portletTopRight"></span>
-        </dt>
-
-        <tal:newsitems  tal:define="toLocalizedTime nocall:context/@@plone/toLocalizedTime;
-                                    plone_view context/@@plone"
-                        tal:repeat="obj news">
-        <dd tal:define="oddrow repeat/obj/odd"
-             tal:attributes="class python:oddrow and 'portletItem even' or 'portletItem odd'">
-
-            <a href=""
-               class="tile"
-               tal:attributes="href obj/getURL;
-                               title obj/Description">
-                <span tal:replace="obj/pretty_title_or_id">
-                Plone 2.1 announced!
-                </span>
-            </a>
-            <span class="portletItemDetails"
-                  tal:content="python:toLocalizedTime(obj.Date)">May 5</span>
-        
-        </dd>
-        </tal:newsitems>
-
-        <dd class="portletFooter"
-            tal:condition="news">
-            <span class="portletBottomLeft"></span>
-            <a href="news"
-               tal:attributes="href string:${context/portal_url}/${attrs/href}"
-               i18n:translate="box_more_news_link">
-              All news &#187;
-            </a>
-            <span class="portletBottomRight"></span>
-        </dd>
-        
-        <metal:empty metal:define-slot="no_items_in_listing">
-        <dd class="portletItem even"
-           tal:condition="not:news"
-           i18n:translate="description_no_items_in_folder">
-            There are currently no news here.
-        </dd>
-        </metal:empty>
-        
-    </dl>
+  <div id="anon-dashboard" class="columns"
+       tal:define="col1 python:view.getColumn(name='plone.dashboard1');
+                   col2 python:view.getColumn(name='plone.dashboard2');
+                   col3 python:view.getColumn(name='plone.dashboard3');
+                   col4 python:view.getColumn(name='plone.dashboard4');
+                   num python:len([c for c in (col1, col2, col3, col4) if c]);"
+       tal:attributes="class string:${attrs/class}${num}">
+    <div id="dashboard-portlets1" class="portlets-column"
+         tal:condition="col1"
+         tal:content="structure col1" />
+    <div id="dashboard-portlets2" class="portlets-column"
+         tal:condition="col2"
+         tal:content="structure col2" />
+    <div id="dashboard-portlets3" class="portlets-column"
+         tal:condition="col3"
+         tal:content="structure col3" />
+    <div id="dashboard-portlets4" class="portlets-column"
+         tal:condition="col4"
+         tal:content="structure col4" />
   </div>
 
 </metal:block>

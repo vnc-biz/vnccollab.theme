@@ -11,6 +11,7 @@ from zope.component import getUtility
 from Products.CMFCore.utils import getToolByName
 from Products.CMFPlone.utils import safe_unicode
 
+from plone import api
 from plone.registry.interfaces import IRegistry
 from plone.memoize import ram
 
@@ -160,7 +161,6 @@ class TimeZonesVocabularyFactory(object):
 
 TimeZonesVocabulary = TimeZonesVocabularyFactory()
 
-from Products.CMFCore.utils import getToolByName
 
 class ATLinkVocabularyFactory(object):
     '''Return vocabulary with references to ATLink objects'''
@@ -187,6 +187,7 @@ class SimpleVocabularyFactory:
         terms = [SimpleTerm(value=x[0], token=x[0], title=x[1]) for x in self.lst]
         vocabulary = SimpleVocabulary(terms)
         return vocabulary
+
 
 ZIMBRA_STATUS_VOCAB = [
         ('NEED', 'Not initiated'),

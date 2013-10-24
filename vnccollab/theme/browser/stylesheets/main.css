@@ -50,3 +50,156 @@
 .folderTypeFilters {
   text-align: center;
 }
+
+/* searchbox dropdown */
+#cloudtheme-searchbox {
+  background-color: whiteSmoke;
+  border: 1px solid #738EA2;
+  border-radius: 5px;
+  box-shadow: 1px 1px 2px #D9D9D9 inset;
+
+  font-size: 1em;
+  margin: 0 -154px 0 0;
+  padding: 0 !important;
+  position: absolute;
+  right: 50%;
+  top: 32px;
+  width: 268px;
+  overflow: hidden;
+  z-index: 30;
+}
+
+#cloudtheme-searchbox:hover {
+  box-shadow: 1px 1px 2px #D9D9D9 inset, 0px 3px 13px #b7c1c8;
+}
+
+#cloudtheme-searchbox .searchField {
+  background-color: transparent;
+  border: 0;
+  color: #738EA2;
+  font-size: 17px;
+  outline: none;
+  padding: 10px;
+  vertical-align: top;
+  width: 215px;
+  display: inline-block;
+}
+
+#cloudtheme-searchbox input[type="text"]:hover, #cloudtheme-searchbox input[type="text"]:active {
+  color: #012A43;
+}
+
+#cloudtheme-searchbox .searchButton {
+  background: url(++resource++vnccollab.cloudstream.images/sprite.png) no-repeat -154px 10px;
+  border: 0;
+  color: #738EA2;
+  font-size: 17px;
+  outline: none;
+  padding: 10px;
+  vertical-align: top;
+  width: 20px;
+  display: inline-block;
+  color: transparent;
+}
+#cloudtheme-searchbox  input[type="submit"]:hover {
+  color: transparent !important;
+}
+
+#cloudtheme-searchbox .find-content-tooltip {
+  height: 0;
+  overflow: hidden;
+  position: relative;
+  display: block;
+  padding: 0;
+  font-size: 0.8em;}
+
+#cloudtheme-searchbox span {
+  padding: 10px;
+  display: block;
+  color: #3e5c6e;
+  text-align: center;
+}
+
+#cloudtheme-searchbox span.explain {
+  border-top: 1px solid #d9dfe3;
+  border-bottom: 1px solid #738EA2;
+  background-color: #f5f5f5;
+}
+
+#cloudtheme-searchbox .advanced {
+  font-size: 1.1em;
+  color: #fff;
+  height: 43px;
+  padding: 0;
+  text-align: center;
+
+  background: #9bc061;
+  background: -moz-linear-gradient(top, #9bc061 0%, #82ad3f 44%, #679819 100%);
+  background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,#9bc061), color-stop(44%,#82ad3f), color-stop(100%,#679819));
+  background: -webkit-linear-gradient(top, #9bc061 0%,#82ad3f 44%,#679819 100%);
+  background: -o-linear-gradient(top, #9bc061 0%,#82ad3f 44%,#679819 100%);
+  background: -ms-linear-gradient(top, #9bc061 0%,#82ad3f 44%,#679819 100%);
+  background: linear-gradient(to bottom, #9bc061 0%,#82ad3f 44%,#679819 100%);
+  filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#9bc061', endColorstr='#679819',GradientType=0 );
+}
+#cloudtheme-searchbox .advanced b {
+  background: url(++resource++vnccollab.cloudstream.images/sprite.png) no-repeat -266px -19px;
+  display: inline-block;
+  width: 17px;
+  height: 17px;
+  vertical-align: top;
+}
+#cloudtheme-searchbox .advanced a {
+   color: #fff;
+}
+
+#cloudtheme-searchbox .advanced:before {
+  width: 11px;
+  height: 11px;
+  left: 122px;
+  top: -7px;
+
+  content: " ";
+  display: block;
+  position: relative;
+
+  border-color: transparent transparent #738EA2 #738EA2;
+  border-style: solid;
+  border-width: 1px;
+
+  background-color: #f5f5f5;
+
+  -webkit-transform: rotate(-45deg);
+  -moz-transform: rotate(-45deg);
+  -o-transform: rotate(-45deg);
+  transform: rotate(-45deg);
+}
+
+#cloudtheme-searchbox .create {
+  font-size: 1.1em;
+  height: 40px;
+  line-height: 40px;
+  color: #fff;
+  padding: 0 10px;
+
+  border-top: 1px solid #8aa3b5;
+  box-shadow: 0 1px 1px rgba(255,255,255,0.9) inset;
+
+  background: #9bc061;
+  background: -moz-linear-gradient(top, #9bc061 0%, #82ad3f 44%, #679819 100%);
+  background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,#9bc061), color-stop(44%,#82ad3f), color-stop(100%,#679819));
+  background: -webkit-linear-gradient(top, #9bc061 0%,#82ad3f 44%,#679819 100%);
+  background: -o-linear-gradient(top, #9bc061 0%,#82ad3f 44%,#679819 100%);
+  background: -ms-linear-gradient(top, #9bc061 0%,#82ad3f 44%,#679819 100%);
+  background: linear-gradient(to bottom, #9bc061 0%,#82ad3f 44%,#679819 100%);
+  filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#9bc061', endColorstr='#679819',GradientType=0 );
+}
+#cloudtheme-searchbox .create b {
+  background: url(++resource++vnccollab.cloudstream.images/white-cross.png) no-repeat 0 0;
+  width: 17px;
+  height: 17px;
+  float: left;
+  margin: 9px 5px 0 0;
+}
+
+

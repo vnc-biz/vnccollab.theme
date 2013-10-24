@@ -28,6 +28,8 @@
     <viewlet name="plone.searchbox"/>
     <viewlet name="plone.global_sections"/>
     <viewlet name="jarn.xmpp.core.ui"/>
+    <viewlet name="vnccollab.theme.languageselector"/>
+    <viewlet name="vnccollab.theme.toptabs"/>
     <viewlet name="plone.path_bar"/>
   </order>
   <order manager="plone.belowcontent" skinname="VNC Collaboration Theme">
@@ -46,6 +48,9 @@
   </order>
   <hidden manager="plone.portalheader" skinname="VNC Collaboration Theme">
     <viewlet name="plone.app.i18n.locales.languageselector"/>
+    <viewlet name="vnccollab.theme.languageselector"/>
+    <viewlet name="jarn.xmpp.core.ui"/>
+    <viewlet name="plone.global_sections"/>
   </hidden>
   <hidden manager="plone.abovecontent" skinname="VNC Collaboration Theme">
     <viewlet name="Products.Carousel.viewlet"/>
