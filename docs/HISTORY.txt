@@ -4,6 +4,9 @@ Changelog
 1.7.5 - unreleased
 ------------------
 
+- Add columns classes to Anonymous Welcome Page.
+  [Vitaliy Podoba]
+
 - Fixes portal mode menu and user dropdown.
   [Cesar Gonzalez]
 
