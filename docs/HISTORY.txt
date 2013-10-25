@@ -1,11 +1,85 @@
 Changelog
 =========
 
-1.7.5 - unreleased
+
+1.7.6 - unreleased
 ------------------
 
  - Change template for sendto [8084].
    [Marcin Staniszczak]
+
+
+1.7.5 - October 24, 2013
+------------------------
+
+- Add columns classes to Anonymous Welcome Page.
+  [Vitaliy Podoba]
+
+- Fixes portal mode menu and user dropdown.
+  [Cesar Gonzalez]
+
+- Sets anon action menu position. Columns content using max width from
+  container. Removes portlet separator line.
+  [Cesar Gonzalez]
+
+- Fixes centering carousel. Limit header and content to 1200px.
+  [Cesar Gonzalez]
+
+- Fixes circle user image.
+  [Cesar Gonzalez]
+
+- Fixes bug in dashlet portlet.
+  [Jose Dinuncio]
+
+- Adds style to site header and change template.
+  [Cesar Gonzalez]
+
+- Removes update step and jquery.selectbox pluging.
+  [Cesar Gonzalez]
+
+- Adds style to anonymous homepage. Fixes admin column style.
+  [Cesar Gonzalez]
+
+- Update Anonymous homepage view [8579].
+  [Vitaliy Podoba]
+
+- Adds Site Setup add-on configuration for Anonymous Homepage [8578].
+  [Jose Dinuncio]
+
+- Disable zimbra-mail-portlet-view from theme. Fixes History.txt.
+  [Cesar Gonzalez]
+
+- Fixes license and adds AUTHORS.txt.
+  [Jose Dinuncio]
+
+- Fixes keyword livesearch tooltip arrow position.
+  [Cesar Gonzalez]
+
+- Adds tooltip with description of keyword livesearch support [8045].
+  [Cesar Gonzalez]
+
+- Adds livesearch support for keyword searchs (user: and type:) [8045].
+  [Jose Dinuncio]
+
+- Changes in users portled: changed a image sizes, and added a tooltip
+  with user details [8046].
+  [Marcin Staniszczak]
+
+- Fixes strange icons in list view, standard view and search result list [8349].
+  [Cesar Gonzalez]
+
+- Fixes behaviour of the button *>* that makes the portlet wider.
+  [Cesar Gonzalez]
+
+- Adds custom event handler for portlet deferred loading complete event then
+  attach portlets buttons.
+  [Cesar Gonzalez]
+
+- Removes deferred portlet view.
+  [Jose Dinuncio]
+
+- Update site header coding [8509].
+  [Marcin Staniszczak]
 
 
 1.7.4 - September 12, 2013
@@ -59,6 +133,12 @@ Changelog
   [Cesar Gonzalez]
 
 - Fixes bug "Disallowed subobject type" in wizard.
+  [Jose Dinuncio]
+
+- Applies livesearch overrides in theme package (frontend). Catch incorrect response from server.
+  [Cesar Gonzalez]
+
+- Overloads plone.searchbox viewlet.
   [Jose Dinuncio]
 
 - Remove wrong TOC entry "Bookmark & Share". TOC positioning at top. Format TOC levels.
@@ -353,7 +433,6 @@ Changelog
 
 - Sets a better handling for redirection when creating tickets.
   [Jose Dinuncio]
->>>>>>> 15cbb36c1d58ede46c743b4f44e53f747c6039f4
 
 - Fixed member data fetch for roster items.
   [Taras Melnychuk]

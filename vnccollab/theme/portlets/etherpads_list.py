@@ -15,7 +15,7 @@ from plone.portlets.interfaces import IPortletDataProvider
 from plone.app.portlets.portlets import base
 
 from vnccollab.theme import messageFactory as _
-from vnccollab.theme.portlets import deferred
+from vnccollab.common.portlets import deferred
 from vnccollab.theme.portlets.zimbra_mail import logException
 
 logger = logging.getLogger('vnccollab.theme.EtherpadListsPortlet')

@@ -14,7 +14,7 @@
 
   <include package="plone.app.portlets" />
 
-  <include package="jarn.xmpp.core" />
+  <!-- <include package="jarn.xmpp.core" /> -->
 
   <browser:page
       for="*"
@@ -67,7 +67,7 @@
       name="vnc-stream-check"
       layer=".interfaces.IThemeSpecific"
       attribute="check"
-      permission="jarn.xmpp.core.XMPPView"
+      permission="cmf.SetOwnProperties"
       />
 
   <browser:page
@@ -76,7 +76,7 @@
       name="vnc-stream-macros"
       layer=".interfaces.IThemeSpecific"
       attribute="macros"
-      permission="jarn.xmpp.core.XMPPView"
+      permission="cmf.SetOwnProperties"
       />
 
   <browser:page
@@ -85,16 +85,16 @@
       name="vnc-stream"
       layer=".interfaces.IThemeSpecific"
       attribute="stream"
-      permission="jarn.xmpp.core.XMPPView"
+      permission="cmf.SetOwnProperties"
       />
 
-  <browser:page
+  <!-- <browser:page
       for="Products.CMFCore.interfaces.ISiteRoot"
       class=".chat.ChatView"
       name="vnc-chat"
       layer=".interfaces.IThemeSpecific"
       permission="jarn.xmpp.core.XMPPView"
-      />
+      /> -->
 
   <browser:page
       for="*"
@@ -112,13 +112,13 @@
       permission="zope.Public"
       />
 
-  <browser:viewlet
+  <!-- <browser:viewlet
       name="jarn.xmpp.core.ui"
       manager="plone.app.layout.viewlets.interfaces.IPortalHeader"
       class=".viewlets.CustomXMPPViewlet"
       permission="jarn.xmpp.core.XMPPView"
       layer=".interfaces.IThemeSpecific"
-      />
+      /> -->
 
   <browser:page
       for="*"
@@ -207,13 +207,13 @@
       permission="zope2.View"
       />
 
-  <browser:page
+  <!-- <browser:page
       for="*"
       name="zimbra-mail-portlet-view"
       class=".zimbra.ZimbraMailPortletView"
       layer=".interfaces.IThemeSpecific"
       permission="plone.app.portlets.ViewDashboard"
-      />
+      /> -->
 
   <!-- Override dashboard and dashboard management forms,
        we need only one column there -->
@@ -241,6 +241,15 @@
       layer=".interfaces.IThemeSpecific"
       permission="plone.app.portlets.ManagePortlets"
       />
+  <browser:page
+      for="*"
+      name="manage-portlets-macros"
+      class="plone.app.portlets.browser.manage.ManageContextualPortlets"
+      template="templates/manage-dashboard-edit-manager-macros.pt"
+      permission="plone.app.portlets.ManageOwnPortlets"
+      layer=".interfaces.IThemeSpecific"
+      />
+
   <browser:page
       for="Products.CMFCore.interfaces.ISiteRoot"
       name="record-portlet-state"
@@ -377,9 +386,9 @@
 
   <browser:viewlet
       view=".homepage.IHomePageView"
-      name="vnccollab.theme.header"
+      name="vnccollab.theme.homepage_carousel"
       manager="plone.app.layout.viewlets.interfaces.IPortalTop"
-      template="templates/vnccollab_header_homepage.pt"
+      class=".viewlets.AnonHomepageCarouselViewlet"
       layer=".interfaces.IThemeSpecific"
       permission="zope2.View"
       />
@@ -420,9 +429,9 @@
   <browser:viewlet
       name="plone.loginviewlet"
       manager="plone.app.layout.viewlets.interfaces.IPortalHeader"
-      template="templates/login.pt"
       class=".viewlets.LoginViewlet"
       layer=".interfaces.IThemeSpecific"
+      attribute="render"
       permission="zope2.View"
       />
 
@@ -461,6 +470,7 @@
     manager="plone.app.layout.viewlets.interfaces.IPortalHeader"
     layer=".interfaces.IThemeSpecific"
     class=".viewlets.AddButtonViewlet"
+    attribute="render"
     permission="zope2.View"
     />
 
@@ -470,6 +480,15 @@
     manager="plone.app.layout.viewlets.interfaces.IHtmlHeadLinks"
     layer=".interfaces.IThemeSpecific"
     class=".viewlets.HeaderLinksIconsViewlet"
+    permission="zope2.View"
+    />
+
+  <browser:viewlet
+    name="plone.searchbox"
+    for="*"
+    manager="plone.app.layout.viewlets.interfaces.IPortalHeader"
+    layer=".interfaces.IThemeSpecific"
+    class=".viewlets.SearchBoxViewlet"
     permission="zope2.View"
     />
 
@@ -527,6 +546,13 @@
       permission="cmf.ManagePortal"
       />
 
+  <browser:page
+      name="anonhomepage-settings"
+      for="Products.CMFPlone.interfaces.IPloneSiteRoot"
+      class="vnccollab.theme.settings.AnonymousHomepageSettingsControlPanel"
+      permission="cmf.ManagePortal"
+      />
+
   <browser:view
       name="edit"
       for="collective.notices.interfaces.INotice"
@@ -561,6 +587,14 @@
 
   <browser:page
       for="*"
+      name="livesearch_result"
+      class=".livesearch.LiveSearchReplyView"
+      attribute="result"
+      permission="zope2.View"
+      />
+
+  <browser:page
+      for="*"
       name="wizard_uploader"
       class=".wizarduploader.WizardUploadView"
       permission="zope.Public"
@@ -574,9 +608,27 @@
       />
 
   <browser:page
+      name="search"
+      class="vnccollab.common.browser.search.Search"
+      permission="zope2.View"
       for="*"
-      name="portlet_deferred_render"
-      class=".deferred.PortletDeferredRendererHelperView"
+      template="templates/search.pt"
+      layer=".interfaces.IThemeSpecific"
+      />
+
+  <browser:viewlet  
+      name="vnccollab.theme.languageselector"
+      manager="plone.app.layout.viewlets.interfaces.IPortalHeader"
+      class="plone.app.i18n.locales.browser.selector.LanguageSelector"
+      permission="zope2.View"
+      template="templates/languageselector.pt"
+      layer=".interfaces.IThemeSpecific"
+      />
+
+  <browser:viewlet
+      name="vnccollab.theme.toptabs"
+      manager="plone.app.layout.viewlets.interfaces.IPortalHeader"
+      class=".viewlets.TabsViewlet"
       permission="zope2.View"
       />
 

@@ -12,15 +12,25 @@ jq.fn.outerHTML = function(s) {
 };
 
 function attachPortletButtons() {
+  // Handle DeferredPorletLoaded event
+  jq('body').on('DeferredPorletLoaded', function(event, data) {
+    setPortletButtons('#' + data.id);
+  });
+
+  setPortletButtons('.portletWrapper');
+}
+
+function setPortletButtons(selector) {
+
   // add up/down and left/right links to portlet headers,
   // which will expand/contract and make portlets wide
-  jq('.portletWrapper dt.portletHeader .portletTopRight').before(
+  jq(selector + ' dt.portletHeader .portletTopRight').before(
     '<a href="#" class="portletToggleLink" title="Toggle ' +
     'Portlet">toggle</a>');
-  jq('.portletWrapper dt.portletHeader a.portletToggleLink').click(function(event){
+  jq(selector + ' dt.portletHeader a.portletToggleLink').click(function(event){
     // toggle html class
     var a = jq(event.target);
-    var portlet = a.parents('.portletWrapper');
+    var portlet = a.parents(selector);
     portlet.toggleClass('closed');
 
     if (!portlet.attr('id')) {
@@ -37,10 +47,10 @@ function attachPortletButtons() {
     }
     return false;
   });
-  jq('#dashboard .portletWrapper dt.portletHeader .portletTopRight').before(
+  jq('#dashboard ' + selector + ' dt.portletHeader .portletTopRight').before(
     '<a href="#" class="portletWideNarrowLink" title="Wide/Narrow">wide/narrow'
     + '</a>');
-  jq('#dashboard .portletWrapper dt.portletHeader a.portletWideNarrowLink').click(function(event){
+  jq('#dashboard ' + selector + ' dt.portletHeader a.portletWideNarrowLink').click(function(event){
     // toggle html class
     var a = jq(event.target);
     var portlet = a.parents('.portletWrapper');
@@ -1128,65 +1138,6 @@ function setHandlersWizard() {
 
 }
 
-//
-// Deferred Portlets
-//
-function initDeferredPortlets() {
-  function deferredUrlInfo(elem) {
-    var $elem = jq(elem);
-    var manager = $elem.attr('portlet-manager');
-    var name    = $elem.attr('portlet-name');
-    var key     = $elem.attr('portlet-key');
-
-    if (!manager || ! name || !key) {
-      return '';
-    }
-
-    return ({
-      'url': window.location.origin + window.location.pathname + '/portlet_deferred_render',
-      'data': {
-        'manager': manager,
-        'name': name,
-        'key': key
-      }
-    });
-  }
-
-  function updatePortlet(elem){
-    // Returns a funciton to update the portlet represented by elem DOM
-    var fn = function(data) {
-      var $elem = jq(elem),
-          $data = jq(data);
-
-      // We want to be sure we got the portlet and not an error page
-      if ($data.hasClass('portlet-deferred')) {
-        $data.find('.portletBody').slimScroll({'height': '240px'});
-        $elem.replaceWith($data);
-        attachPortletButtons();
-      } else {
-        $elem.find('.portletBodyWrapper').empty();
-      }
-    }
-    return fn;
-  }
-
-  function deferredRender() {
-    // Starts the deferred render of the portlet,
-    // if it has enough info
-    var urlInfo = deferredUrlInfo(this);
-    if (!urlInfo) {
-      return;
-    }
-
-    var url = urlInfo.url;
-    var data = urlInfo.data;
-    jq.get(url, data, updatePortlet(this));
-  }
-
-  var deferredPortlets = jq('.portlet-deferred');
-  deferredPortlets.each(deferredRender);
-}
-
 function initFollowingControls() {
   // attach hover actions
   jq('a.followLink,a.unfollowLink').mouseover(function(event){
@@ -1231,23 +1182,40 @@ function initFollowingControls() {
 
 }
 
+function initLanguageSelector() {
+  var currentLanguage = jq('#vnc-languageselector').find('.currentLanguage').text();
+  jq('#selected-language').text(currentLanguage);
+}
+
+function initSearchTooltip() {
+    // set search tooltip event handler
+  jq('.explain-prefix').css('display','none');
+  jq('#portal-searchbox #searchGadget').focus( function(){
+    jq('.explain-prefix').delay(1300).fadeTo(500, 1).delay(7000).fadeTo(300, 0);
+  });
+
+  jq('#portal-searchbox #searchGadget').blur( function(){
+    jq('.explain-prefix').css('display', 'none');
+  });
+}
+
 jq(function() {
   attachNewTicketAction();
   attachHeaderViewletCloseOpen();
   attachPortletButtons();
-  initDeferredPortlets();
   init_textile_editor();
   addSlimScrollingToDashboardPortlets();
   init_special_rss_portlet();
   initPortletDashlet();
   initNewTicketForm();
+  initLanguageSelector();
   attachSocialBookmarksLink();
   attachStreamButton();
   attachStreamActions();
+  initSearchTooltip();
   setupVncChat();
   rebindPubSubStreamHandlers();
   setHandlersWizard();
   addDocumentContentShadows();
   fixGeneralUI();
-  initFollowingControls();
 });
