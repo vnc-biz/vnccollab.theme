@@ -1,6 +1,15 @@
 Changelog
 =========
 
+1.7.6 - Unreleased
+------------------
+
+- Style social buttons on user author page.
+  [Vitaliy Podoba]
+
+- Add external user homepage link to user profile page.
+  [Vitaliy Podoba]
+
 1.7.5 - October 24, 2013
 ------------------------
 

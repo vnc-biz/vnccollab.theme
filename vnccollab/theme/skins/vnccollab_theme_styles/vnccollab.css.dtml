@@ -4909,6 +4909,33 @@ a.ls-content-title {
 }
 
 /* Profile Page */
+#content .authorPageActions {
+  padding: 0;
+  margin: 5px 0;
+  display: block;
+}
+#content .authorPageActions li {
+  list-style: none;
+  margin-right: 5px;
+  display: inline-block;
+}
+
+.authorPageActions li a:link,
+.authorPageActions li a:visited,
+.authorPageActions li a:active,
+.authorPageActions li a {
+  background-color: #CED5DB;
+  border-radius: 14px;
+  color: #4E6471;
+  cursor: pointer;
+  font-size: 0.98em;
+  padding: 5px 10px;
+}
+.authorPageActions li a:hover,  {
+  background-color: #4E6471;
+  color: #FFFFFF !important;
+}
+
 .backLink {
   margin-bottom: 5px;
 }

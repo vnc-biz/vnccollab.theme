@@ -158,16 +158,21 @@
 
                     <div class="visualClear"><!-- --></div>
 
-                    <p tal:condition="python:mtool.getHomeFolder(id=author)">
-                    <a href="#" tal:attributes="href python:mtool.getHomeFolder(id=author).absolute_url()"
-                       i18n:translate="label_author_internal_home_page">Author's home page in this site&hellip;</a>
+                    <p class="internalHomePageLinkWrapper"
+                       tal:condition="python:mtool.getHomeFolder(id=author)">
+                      <a href="#"
+                         tal:attributes="href python:mtool.getHomeFolder(id=author).absolute_url()"
+                         i18n:translate="label_author_internal_home_page">Author's
+                        home page in this site&hellip;</a>
                     </p>
 
-                    <p tal:condition="python: not mtool.getHomeFolder(id=author) and authorinfo['home_page']">
-                    <a href="#"
-                       rel="nofollow"
-                       tal:attributes="href authorinfo/home_page"
-                       i18n:translate="label_author_external_home_page">Author's external home page&hellip;</a>
+                    <p class="externalHomePageLinkWrapper"
+                       tal:condition="authorinfo/home_page">
+                      <a href="#"
+                         rel="nofollow"
+                         tal:attributes="href authorinfo/home_page"
+                         i18n:translate="label_author_external_home_page">
+                        Author's external home page&hellip;</a>
                     </p>
 
                     <tal:noemailsetup tal:condition="python:not (email_from_address or isAnon)">
