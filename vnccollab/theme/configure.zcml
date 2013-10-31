@@ -87,4 +87,11 @@
         preserveOriginal="True"
         />
 
+  <monkey:patch
+        description="Sendto sending HTML e-mails"
+        class="Products.CMFPlone.PloneTool.PloneTool"
+        original="sendto"
+        replacement=".util.sendto"
+        />
+
 </configure>

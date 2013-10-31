@@ -10,6 +10,13 @@ Changelog
 - Add external user homepage link to user profile page.
   [Vitaliy Podoba]
 
+- Adjust notification template and inline style. [8085].
+  [Cesar Gonzalez]
+
+- Change template for sendto [8084].
+  [Marcin Staniszczak]
+
+
 1.7.5 - October 24, 2013
 ------------------------
 
@@ -81,6 +88,7 @@ Changelog
 
 - Update site header coding [8509].
   [Marcin Staniszczak]
+
 
 1.7.4 - September 12, 2013
 --------------------------
