@@ -5,8 +5,11 @@ Changelog
 1.7.6 - unreleased
 ------------------
 
- - Change template for sendto [8084].
-   [Marcin Staniszczak]
+- Adjust notification template and inline style. [8085].
+  [Cesar Gonzalez]
+
+- Change template for sendto [8084].
+  [Marcin Staniszczak]
 
 
 1.7.5 - October 24, 2013
