@@ -126,4 +126,13 @@
       handler="vnccollab.theme.upgrades.upgrades.upgrade_1110_1111"
       />
 
+    <genericsetup:upgradeStep
+      source="1111"
+      destination="1112"
+      sortkey="12"
+      profile="vnccollab.theme:default"
+      title="JS registries, do not depend on xmpp chat"
+      handler="vnccollab.theme.upgrades.upgrades.upgrade_1111_1112"
+      />
+
 </configure>
