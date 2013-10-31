@@ -8,6 +8,10 @@
   <javascript enabled="False" remove="True"
     id="++resource++jarn.xmpp.collaboration.js/jarnxmpp.collaboration.protocol.js" />
   <javascript enabled="False" remove="True"
+    id="++resource++jarn.xmpp.core.js/jquery.cookie.js" />
+  <javascript enabled="False" remove="True"
+    id="++resource++gritter/jquery.gritter.min.js" />
+  <javascript enabled="False" remove="True"
     id="++resource++jarn.xmpp.collaboration.js/jarnxmpp.collaboration.collaborate.js" />
   <javascript id="jquery.js"
               enabled="False" />
