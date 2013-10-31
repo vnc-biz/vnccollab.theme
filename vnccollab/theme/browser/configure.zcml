@@ -14,8 +14,6 @@
 
   <include package="plone.app.portlets" />
 
-  <!-- <include package="jarn.xmpp.core" /> -->
-
   <browser:page
       for="*"
       class=".following.FollowingView"
@@ -61,39 +59,31 @@
       permission="cmf.SetOwnProperties"
       />
 
-  <browser:page
+  <!-- <browser:page
       for="Products.CMFCore.interfaces.ISiteRoot"
       class=".stream.StreamView"
       name="vnc-stream-check"
       layer=".interfaces.IThemeSpecific"
       attribute="check"
       permission="cmf.SetOwnProperties"
-      />
+      /> -->
 
-  <browser:page
+  <!-- <browser:page
       for="Products.CMFCore.interfaces.ISiteRoot"
       class=".stream.StreamView"
       name="vnc-stream-macros"
       layer=".interfaces.IThemeSpecific"
       attribute="macros"
       permission="cmf.SetOwnProperties"
-      />
+      /> -->
 
-  <browser:page
+  <!-- <browser:page
       for="Products.CMFCore.interfaces.ISiteRoot"
       class=".stream.StreamView"
       name="vnc-stream"
       layer=".interfaces.IThemeSpecific"
       attribute="stream"
       permission="cmf.SetOwnProperties"
-      />
-
-  <!-- <browser:page
-      for="Products.CMFCore.interfaces.ISiteRoot"
-      class=".chat.ChatView"
-      name="vnc-chat"
-      layer=".interfaces.IThemeSpecific"
-      permission="jarn.xmpp.core.XMPPView"
       /> -->
 
   <browser:page
@@ -111,14 +101,6 @@
       attribute="isPopupModeOn"
       permission="zope.Public"
       />
-
-  <!-- <browser:viewlet
-      name="jarn.xmpp.core.ui"
-      manager="plone.app.layout.viewlets.interfaces.IPortalHeader"
-      class=".viewlets.CustomXMPPViewlet"
-      permission="jarn.xmpp.core.XMPPView"
-      layer=".interfaces.IThemeSpecific"
-      /> -->
 
   <browser:page
       for="*"
@@ -523,13 +505,13 @@
       directory="z3cjbot_overrides"
       layer=".interfaces.IThemeSpecific"/>
 
-  <browser:page
+  <!-- <browser:page
       for="plone.app.layout.navigation.interfaces.INavigationRoot"
       name="im-details"
       class=".imdetails.IMDetailsPanel"
       layer=".interfaces.IThemeSpecific"
       permission="cmf.SetOwnProperties"
-      />
+      /> -->
 
   <!-- Control Panel -->
   <browser:page

@@ -6,10 +6,6 @@
     <dependency>profile-plone.app.jquery:default</dependency>
     <dependency>profile-plone.app.jquerytools:default</dependency>
     <dependency>profile-plone.app.registry:default</dependency>
-    <dependency>profile-jarn.xmpp.core:default</dependency>
-    <dependency>profile-jarn.jsi18n:default</dependency>
-    <dependency>profile-jarn.xmpp.collaboration:default</dependency>
-    <dependency>profile-collective.xmpp.chat:default</dependency>
     <dependency>profile-cioppino.twothumbs:default</dependency>
     <dependency>profile-Products.CMFNotification:default</dependency>
     <dependency>profile-Products.Carousel:default</dependency>

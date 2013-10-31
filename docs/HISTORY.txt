@@ -4,6 +4,9 @@ Changelog
 1.7.6 - Unreleased
 ------------------
 
+- Remove xmpp chat dependencies from theme package.
+  [Vitaliy Podoba]
+
 - Style social buttons on user author page.
   [Vitaliy Podoba]
 

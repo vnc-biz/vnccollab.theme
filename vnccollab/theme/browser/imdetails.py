@@ -9,7 +9,7 @@ from Products.Five.browser.pagetemplatefile import ViewPageTemplateFile
 from Products.CMFCore.utils import getToolByName
 
 #from jarn.xmpp.core.interfaces import INodeEscaper
-from jarn.xmpp.core.interfaces import IXMPPPasswordStorage
+#from jarn.xmpp.core.interfaces import IXMPPPasswordStorage
 
 class IMDetailsPanel(AccountPanelForm):
     """ Implementation of 'IM Details' page."""
