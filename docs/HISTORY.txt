@@ -1,8 +1,43 @@
 Changelog
 =========
 
-1.7.5 - unreleased
+1.7.6 - Unreleased
 ------------------
+
+- Remove xmpp chat dependencies from theme package.
+  [Vitaliy Podoba]
+
+- Style social buttons on user author page.
+  [Vitaliy Podoba]
+
+- Add external user homepage link to user profile page.
+  [Vitaliy Podoba]
+
+- Adjust notification template and inline style. [8085].
+  [Cesar Gonzalez]
+
+- Change template for sendto [8084].
+  [Marcin Staniszczak]
+
+
+1.7.5 - October 24, 2013
+------------------------
+
+- Add columns classes to Anonymous Welcome Page.
+  [Vitaliy Podoba]
+
+- Fixes portal mode menu and user dropdown.
+  [Cesar Gonzalez]
+
+- Sets anon action menu position. Columns content using max width from
+  container. Removes portlet separator line.
+  [Cesar Gonzalez]
+
+- Fixes centering carousel. Limit header and content to 1200px.
+  [Cesar Gonzalez]
+
+- Fixes circle user image.
+  [Cesar Gonzalez]
 
 - Fixes bug in dashlet portlet.
   [Jose Dinuncio]
@@ -56,6 +91,7 @@ Changelog
 
 - Update site header coding [8509].
   [Marcin Staniszczak]
+
 
 1.7.4 - September 12, 2013
 --------------------------

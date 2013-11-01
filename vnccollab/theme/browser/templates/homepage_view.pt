@@ -18,23 +18,25 @@
 <metal:content-core fill-slot="main">
 <metal:block define-macro="main">
 
-  <div id="anon-dashboard">
+  <div id="anon-dashboard" class="columns"
+       tal:define="col1 python:view.getColumn(name='plone.dashboard1');
+                   col2 python:view.getColumn(name='plone.dashboard2');
+                   col3 python:view.getColumn(name='plone.dashboard3');
+                   col4 python:view.getColumn(name='plone.dashboard4');
+                   num python:len([c for c in (col1, col2, col3, col4) if c]);"
+       tal:attributes="class string:${attrs/class}${num}">
     <div id="dashboard-portlets1" class="portlets-column"
-         tal:define="col python:view.getColumn(name='plone.dashboard1')"
-         tal:condition="col"
-         tal:content="structure col" />
+         tal:condition="col1"
+         tal:content="structure col1" />
     <div id="dashboard-portlets2" class="portlets-column"
-         tal:define="col python:view.getColumn(name='plone.dashboard2')"
-         tal:condition="col"
-         tal:content="structure col" />
+         tal:condition="col2"
+         tal:content="structure col2" />
     <div id="dashboard-portlets3" class="portlets-column"
-         tal:define="col python:view.getColumn(name='plone.dashboard3')"
-         tal:condition="col"
-         tal:content="structure col" />
+         tal:condition="col3"
+         tal:content="structure col3" />
     <div id="dashboard-portlets4" class="portlets-column"
-         tal:define="col python:view.getColumn(name='plone.dashboard4')"
-         tal:condition="col"
-         tal:content="structure col" />
+         tal:condition="col4"
+         tal:content="structure col4" />
   </div>
 
 </metal:block>

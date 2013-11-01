@@ -15,7 +15,7 @@ from Products.AdvancedQuery import Eq, Le, Ge, In
 from plone.memoize.instance import memoize
 from plone.registry.interfaces import IRegistry
 
-from jarn.xmpp.core.interfaces import IPubSubStorage, INodeEscaper
+# from jarn.xmpp.core.interfaces import IPubSubStorage, INodeEscaper
 
 from vnccollab.theme.util import getZimbraUrl
 from vnccollab.theme.zimbrautil import IZimbraUtil
