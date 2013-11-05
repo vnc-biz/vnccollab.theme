@@ -1,0 +1,166 @@
+
+    <html>
+      <head><title>Test coverage for vnccollab.theme.browser.util</title>
+      <style type="text/css">
+        a {text-decoration: none; display: block; padding-right: 1em;}
+        a:hover {background: #EFA;}
+        hr {height: 1px; border: none; border-top: 1px solid gray;}
+        .notcovered {background: #FCC;}
+        .footer {margin: 2em; font-size: small; color: gray;}
+      </style>
+      </head>
+      <body><h1>Test coverage for vnccollab.theme.browser.util</h1>
+      <table>
+    
+<tr><td><a href="vnccollab.html">vnccollab/</a></td> <td style="background: red">&nbsp;&nbsp;&nbsp;&nbsp;</td> <td>covered 58% (1732 of 4159 uncovered)</td></tr>
+<tr><td><a href="vnccollab.theme.html">&nbsp;&nbsp;&nbsp;&nbsp;theme/</a></td> <td style="background: red">&nbsp;&nbsp;&nbsp;&nbsp;</td> <td>covered 58% (1732 of 4159 uncovered)</td></tr>
+<tr><td><a href="vnccollab.theme.browser.html">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;browser/</a></td> <td style="background: red">&nbsp;&nbsp;&nbsp;&nbsp;</td> <td>covered 52% (979 of 2059 uncovered)</td></tr>
+<tr><td><a href="vnccollab.theme.browser.util.html">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;util.py</a></td> <td style="background: red">&nbsp;&nbsp;&nbsp;&nbsp;</td> <td>covered 59% (53 of 130 uncovered)</td></tr>
+</table><hr/>
+<pre>    1: import simplejson
+       
+    1: from Acquisition import aq_inner, aq_parent
+    1: from BTrees.OOBTree import OOBTree
+    1: from persistent.dict import PersistentDict
+    1: from AccessControl import getSecurityManager
+       
+    1: from zope.event import notify
+    1: from zope.interface import alsoProvides
+    1: from zope.component import getMultiAdapter
+    1: from zope.annotation.interfaces import IAnnotations
+    1: from zope.viewlet.interfaces import IViewlet
+       
+    1: from Products.Five.browser import BrowserView
+    1: from Products.CMFCore.utils import getToolByName
+    1: from Products.CMFPlone.utils import safe_unicode
+    1: from Products.Archetypes.utils import shasattr
+    1: from Products.Archetypes.utils import make_uuid
+    1: from Products.Archetypes.event import ObjectInitializedEvent
+    1: from Products.statusmessages.interfaces import IStatusMessage
+       
+    1: from plone.app.layout.viewlets.interfaces import IPortalTop
+    1: from plone.app.viewletmanager.manager import BaseOrderedViewletManager
+       
+    1: from vnccollab.theme import messageFactory as _
+    1: from vnccollab.theme.config import PORTLETS_STATES_ANNO_KEY
+    1: from vnccollab.theme.browser.viewlets import AddContentAreaViewlet
+       
+       
+    2: class VNCCollabUtilView(BrowserView):
+    1:     """Utility views to call from templates"""
+           
+    1:     def listFolderContentTypes(self):
+               """Returns list of content types used inside
+               current container.
+               """
+    1:         items = []
+                   
+               # calculate current folder's path
+    1:         cstate = getMultiAdapter((self.context, self.request),
+    1:             name='plone_context_state')
+    1:         path = '/'.join(cstate.folder().getPhysicalPath())
+               
+               # collect portal type list used withing current folder
+    1:         otypes = []
+    1:         catalog = getToolByName(self.context, 'portal_catalog')
+    5:         for brain in catalog(path={'query': path, 'depth': 1}):
+    4:             if brain.portal_type not in otypes:
+    2:                 otypes.append(brain.portal_type)
+               
+               # prepare items list with type id and type title
+    1:         ttool = getToolByName(self.context, 'portal_types')
+    3:         for otype in otypes:
+    2:             item = {'id': otype, 'title': otype}
+    2:             if ttool is not None and shasattr(ttool, otype):
+    2:                 item['title'] = _(safe_unicode(getattr(ttool, otype).Title()))
+    2:             items.append(item)
+               
+               # finally sort items and prepend 'All' filter element
+    1:         if len(items) &gt; 0:
+    2:             items.sort(lambda x,y:cmp(x['title'], y['title']))
+    1:             items = [{'id': '', 'title': _(u'All')}] + items
+               
+    1:         return tuple(items)
+       
+    1:     def recordPortletState(self, hash, action, value):
+               """Sets portlet state on site annotations"""
+               # check if we got anthenticated user
+    2:         user = getSecurityManager().getUser()
+    2:         if not user or getattr(user, 'name', '') == 'Anonymous User':
+<div class="notcovered">&gt;&gt;&gt;&gt;&gt;&gt;             return _(u"No authenticated user found.")</div>               
+    2:         annotations = IAnnotations(self.context)
+    2:         users = annotations.get(PORTLETS_STATES_ANNO_KEY, None)
+    2:         if users is None:
+    1:             users = annotations[PORTLETS_STATES_ANNO_KEY] = OOBTree()
+               
+    2:         userid = getattr(user, '_id', user.getId())
+    2:         portlets = users.get(userid, None)
+    2:         if portlets is None:
+    1:             portlets = users[userid] = PersistentDict()
+               
+    2:         portlet = portlets.get(hash, None)
+    2:         if portlet is None:
+    1:             portlet = portlets[hash] = PersistentDict()
+               
+    2:         portlet[action] = value
+               
+    2:         return 'Done.'
+       
+    1:     def searchContainersJSON(self, term=None, limit='20'):
+               """Queries all contains in the site for a given term and returns
+               json list of found containers.
+               """
+<div class="notcovered">&gt;&gt;&gt;&gt;&gt;&gt;         limit = int(limit)</div><div class="notcovered">&gt;&gt;&gt;&gt;&gt;&gt;         if not term:</div><div class="notcovered">&gt;&gt;&gt;&gt;&gt;&gt;             return simplejson.dumps([])</div>       
+<div class="notcovered">&gt;&gt;&gt;&gt;&gt;&gt;         context = aq_inner(self.context)</div><div class="notcovered">&gt;&gt;&gt;&gt;&gt;&gt;         catalog = getToolByName(context, 'portal_catalog')</div>               # prepare search query
+<div class="notcovered">&gt;&gt;&gt;&gt;&gt;&gt;         for char in ('?', '-', '+', '*', u'\u3000'.encode('utf-8')):</div><div class="notcovered">&gt;&gt;&gt;&gt;&gt;&gt;             term = term.replace(char, ' ')</div><div class="notcovered">&gt;&gt;&gt;&gt;&gt;&gt;         r = " AND ".join(term.split())</div><div class="notcovered">&gt;&gt;&gt;&gt;&gt;&gt;         def quote_bad_chars(s):</div><div class="notcovered">&gt;&gt;&gt;&gt;&gt;&gt;             bad_chars = ["(", ")"]</div><div class="notcovered">&gt;&gt;&gt;&gt;&gt;&gt;             for char in bad_chars:</div><div class="notcovered">&gt;&gt;&gt;&gt;&gt;&gt;                 s = s.replace(char, '"%s"' % char)</div><div class="notcovered">&gt;&gt;&gt;&gt;&gt;&gt;             return s</div><div class="notcovered">&gt;&gt;&gt;&gt;&gt;&gt;         r = quote_bad_chars(r) + '*'</div>       
+<div class="notcovered">&gt;&gt;&gt;&gt;&gt;&gt;         data = []</div><div class="notcovered">&gt;&gt;&gt;&gt;&gt;&gt;         parents = {}</div><div class="notcovered">&gt;&gt;&gt;&gt;&gt;&gt;         for brain in catalog(SearchableText=r, is_folderish=True,</div><div class="notcovered">&gt;&gt;&gt;&gt;&gt;&gt;             sort_on='sortable_title', sort_limit=limit)[:limit]:</div><div class="notcovered">&gt;&gt;&gt;&gt;&gt;&gt;             parent = parents.get(brain.UID)</div><div class="notcovered">&gt;&gt;&gt;&gt;&gt;&gt;             if not parent:</div>                       parent = parents[brain.UID] = \
+<div class="notcovered">&gt;&gt;&gt;&gt;&gt;&gt;                     aq_parent(aq_inner(brain.getObject()))</div>                   
+<div class="notcovered">&gt;&gt;&gt;&gt;&gt;&gt;             ptitle = ''</div><div class="notcovered">&gt;&gt;&gt;&gt;&gt;&gt;             if parent:</div><div class="notcovered">&gt;&gt;&gt;&gt;&gt;&gt;                 ptitle = getattr(parent, 'Title', lambda:'')()</div><div class="notcovered">&gt;&gt;&gt;&gt;&gt;&gt;                 if ptitle:</div><div class="notcovered">&gt;&gt;&gt;&gt;&gt;&gt;                     ptitle = ' (%s)' % ptitle</div>                   
+<div class="notcovered">&gt;&gt;&gt;&gt;&gt;&gt;             data.append({</div><div class="notcovered">&gt;&gt;&gt;&gt;&gt;&gt;                 'value': brain.UID,</div><div class="notcovered">&gt;&gt;&gt;&gt;&gt;&gt;                 'label': '%s%s' % (brain.Title, ptitle),</div><div class="notcovered">&gt;&gt;&gt;&gt;&gt;&gt;                 'desc': brain.Description})</div>               
+<div class="notcovered">&gt;&gt;&gt;&gt;&gt;&gt;         return simplejson.dumps(data)</div>       
+    1:     def renderAddContentAreaViewlet(self, uid):
+               """Renders add content area viewlet for object with given uid"""
+    1:         context = aq_inner(self.context)
+    1:         catalog = getToolByName(context, 'portal_catalog')
+    1:         brains = catalog(UID=uid)
+    1:         if len(brains) == 0:
+<div class="notcovered">&gt;&gt;&gt;&gt;&gt;&gt;             return ''</div>       
+    1:         obj = brains[0].getObject()
+    1:         manager = BaseOrderedViewletManager()
+    1:         alsoProvides(manager, IPortalTop)
+    1:         viewlet = getMultiAdapter((obj, self.request, self, manager),
+    1:             IViewlet, name='vnccollab.theme.addcontentarea')
+    1:         viewlet = viewlet.__of__(obj)
+    1:         viewlet.update()
+    1:         return viewlet.render()
+       
+    1:     def uploadFile(self, file):
+               """Form post handler to create file.
+               
+               If created successfully then redirect to it's Edit form,
+               otherwise to it's Add form with validation errors.
+               
+               Parameter:
+                 @file - data to upload
+               File title is taken from file as filename.
+               """
+               # check it's post request
+<div class="notcovered">&gt;&gt;&gt;&gt;&gt;&gt;         if self.request.method != 'POST' or not file or not file.filename:</div><div class="notcovered">&gt;&gt;&gt;&gt;&gt;&gt;             raise Exception(u'Invalid request.')</div>               
+<div class="notcovered">&gt;&gt;&gt;&gt;&gt;&gt;         context = aq_inner(self.context)</div><div class="notcovered">&gt;&gt;&gt;&gt;&gt;&gt;         id = make_uuid('temp-id')</div>               # make sure our id is unique
+<div class="notcovered">&gt;&gt;&gt;&gt;&gt;&gt;         id = context.invokeFactory(id=id, type_name='File')</div><div class="notcovered">&gt;&gt;&gt;&gt;&gt;&gt;         obj = getattr(context, id)</div><div class="notcovered">&gt;&gt;&gt;&gt;&gt;&gt;         obj.update(title=file.filename, file=file)</div><div class="notcovered">&gt;&gt;&gt;&gt;&gt;&gt;         obj._renameAfterCreation()</div><div class="notcovered">&gt;&gt;&gt;&gt;&gt;&gt;         if obj.checkCreationFlag():</div><div class="notcovered">&gt;&gt;&gt;&gt;&gt;&gt;             obj.unmarkCreationFlag()</div><div class="notcovered">&gt;&gt;&gt;&gt;&gt;&gt;         obj._renameAfterCreation()</div><div class="notcovered">&gt;&gt;&gt;&gt;&gt;&gt;         obj.reindexObject()</div><div class="notcovered">&gt;&gt;&gt;&gt;&gt;&gt;         notify(ObjectInitializedEvent(obj))</div>               
+               # if file is not there then it haven't got over validation process,
+               # notify user about this issue
+<div class="notcovered">&gt;&gt;&gt;&gt;&gt;&gt;         if not obj.get_size():</div><div class="notcovered">&gt;&gt;&gt;&gt;&gt;&gt;             IStatusMessage(self.request).addStatusMessage(_(u"Attached file is "</div><div class="notcovered">&gt;&gt;&gt;&gt;&gt;&gt;                 "invalid, please, try to upload another one."), type="error")</div>               
+               # if posted by javascript then no redirect
+<div class="notcovered">&gt;&gt;&gt;&gt;&gt;&gt;         if self.request.form.get('ajax_call'):</div><div class="notcovered">&gt;&gt;&gt;&gt;&gt;&gt;             return '%s/edit' % obj.absolute_url()</div>               else:
+<div class="notcovered">&gt;&gt;&gt;&gt;&gt;&gt;             return self.request.response.redirect('%s/edit' %</div><div class="notcovered">&gt;&gt;&gt;&gt;&gt;&gt;                 obj.absolute_url())</div>       
+    1:     def isPopupModeOn(self):
+               """Returns whether popup mode is enabled"""
+   96:         return self.request.get('popup_mode') == '1'
+</pre>
+
+      <div class="footer">
+      Generated for revision wyeksportowane on 2013-11-05 18:00:40.809438Z
+      </div>
+    </body>
+    </html>

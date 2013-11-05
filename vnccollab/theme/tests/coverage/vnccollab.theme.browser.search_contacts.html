@@ -1,0 +1,57 @@
+
+    <html>
+      <head><title>Test coverage for vnccollab.theme.browser.search_contacts</title>
+      <style type="text/css">
+        a {text-decoration: none; display: block; padding-right: 1em;}
+        a:hover {background: #EFA;}
+        hr {height: 1px; border: none; border-top: 1px solid gray;}
+        .notcovered {background: #FCC;}
+        .footer {margin: 2em; font-size: small; color: gray;}
+      </style>
+      </head>
+      <body><h1>Test coverage for vnccollab.theme.browser.search_contacts</h1>
+      <table>
+    
+<tr><td><a href="vnccollab.html">vnccollab/</a></td> <td style="background: red">&nbsp;&nbsp;&nbsp;&nbsp;</td> <td>covered 58% (1732 of 4159 uncovered)</td></tr>
+<tr><td><a href="vnccollab.theme.html">&nbsp;&nbsp;&nbsp;&nbsp;theme/</a></td> <td style="background: red">&nbsp;&nbsp;&nbsp;&nbsp;</td> <td>covered 58% (1732 of 4159 uncovered)</td></tr>
+<tr><td><a href="vnccollab.theme.browser.html">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;browser/</a></td> <td style="background: red">&nbsp;&nbsp;&nbsp;&nbsp;</td> <td>covered 52% (979 of 2059 uncovered)</td></tr>
+<tr><td><a href="vnccollab.theme.browser.search_contacts.html">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;search_contacts.py</a></td> <td style="background: green">&nbsp;&nbsp;&nbsp;&nbsp;</td> <td>covered 100% (0 of 23 uncovered)</td></tr>
+</table><hr/>
+<pre>    1: import json
+       
+    1: from Acquisition import aq_inner
+       
+    1: from zope.component import getMultiAdapter
+       
+    1: from Products.Five import BrowserView
+    1: from Products.CMFCore.utils import getToolByName
+       
+    2: class SearchContacts(BrowserView):
+       
+    1:     def __call__(self):
+    5:         searchtext = self.request.form.get('q')
+    5:         if len(searchtext) &lt; 3:
+    2:             return []
+       
+    3:         search_view = getMultiAdapter((aq_inner(self.context), self.request),
+    3:                         name='usergroup-userprefs')
+       
+    3:         mtool = getToolByName(self.context, 'portal_membership')
+    3:         myself_id = mtool.getAuthenticatedMember().getId()
+    3:         results = search_view.membershipSearch(searchString=searchtext,
+    3:                                                searchGroups=False,
+    3:                                                ignore=[myself_id])
+    3:         data = []
+    7:         for m in results:
+    4:             if m:
+    4:                 data.append({'fullname': m.getProperty('fullname'),
+    4:                              'id': m.getId()})
+               
+    3:         return json.dumps(data)
+</pre>
+
+      <div class="footer">
+      Generated for revision wyeksportowane on 2013-11-05 18:00:40.809438Z
+      </div>
+    </body>
+    </html>

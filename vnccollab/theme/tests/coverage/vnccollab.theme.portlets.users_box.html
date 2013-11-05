@@ -1,0 +1,120 @@
+
+    <html>
+      <head><title>Test coverage for vnccollab.theme.portlets.users_box</title>
+      <style type="text/css">
+        a {text-decoration: none; display: block; padding-right: 1em;}
+        a:hover {background: #EFA;}
+        hr {height: 1px; border: none; border-top: 1px solid gray;}
+        .notcovered {background: #FCC;}
+        .footer {margin: 2em; font-size: small; color: gray;}
+      </style>
+      </head>
+      <body><h1>Test coverage for vnccollab.theme.portlets.users_box</h1>
+      <table>
+    
+<tr><td><a href="vnccollab.html">vnccollab/</a></td> <td style="background: red">&nbsp;&nbsp;&nbsp;&nbsp;</td> <td>covered 58% (1732 of 4159 uncovered)</td></tr>
+<tr><td><a href="vnccollab.theme.html">&nbsp;&nbsp;&nbsp;&nbsp;theme/</a></td> <td style="background: red">&nbsp;&nbsp;&nbsp;&nbsp;</td> <td>covered 58% (1732 of 4159 uncovered)</td></tr>
+<tr><td><a href="vnccollab.theme.portlets.html">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;portlets/</a></td> <td style="background: red">&nbsp;&nbsp;&nbsp;&nbsp;</td> <td>covered 66% (375 of 1108 uncovered)</td></tr>
+<tr><td><a href="vnccollab.theme.portlets.users_box.html">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;users_box.py</a></td> <td style="background: red">&nbsp;&nbsp;&nbsp;&nbsp;</td> <td>covered 51% (46 of 95 uncovered)</td></tr>
+</table><hr/>
+<pre>    1: from Acquisition import aq_inner
+       
+    1: from zope.formlib import form
+    1: from zope.interface import implements
+    1: from zope import schema
+    1: from zope.component import getMultiAdapter
+       
+    1: from Products.Five.browser.pagetemplatefile import ZopeTwoPageTemplateFile
+    1: from Products.CMFCore.utils import getToolByName
+    1: from Products.CMFPlone.utils import safe_unicode
+       
+    1: from plone.memoize.instance import memoize
+    1: from plone.portlets.interfaces import IPortletDataProvider
+    1: from plone.app.portlets.portlets import base
+       
+    1: from vnccollab.theme import messageFactory as _
+       
+       
+    2: class IUsersBoxPortlet(IPortletDataProvider):
+       
+    1:     header = schema.TextLine(
+    1:         title=_(u"Header"),
+    1:         description=_(u"Header of the portlet."),
+    1:         required=False,
+    1:         default=u'Users')
+       
+    1:     do_not_recurse = schema.Bool(
+    1:         title=_(u"Do not fetch users recursively"),
+    1:         description=_(u"By default portlet displays all users that contributed "
+                             "to content under current container. If this option "
+                             "ticked, only current context object contributors will "
+                             "be shown."),
+    1:         required=False,
+    1:         default=False)
+       
+    1:     count = schema.Int(
+    1:        title=_(u"Number of items to display"),
+    1:        description=u'',
+    1:        required=True,
+    1:        default=30)
+       
+    2: class Assignment(base.Assignment):
+    1:     implements(IUsersBoxPortlet)
+       
+    1:     header = u'Users'
+    1:     do_not_recurse = False
+    1:     count = 30
+       
+    1:     @property
+           def title(self):
+               """Return portlet header"""
+<div class="notcovered">&gt;&gt;&gt;&gt;&gt;&gt;         return self.header or _(u"Users Box")</div>       
+    1:     def __init__(self, header=u'Users', do_not_recurse=False, count=30):
+<div class="notcovered">&gt;&gt;&gt;&gt;&gt;&gt;         self.header = header</div><div class="notcovered">&gt;&gt;&gt;&gt;&gt;&gt;         self.do_not_recurse = do_not_recurse</div><div class="notcovered">&gt;&gt;&gt;&gt;&gt;&gt;         self.count = count</div>       
+    2: class Renderer(base.Renderer):
+       
+    1:     render = ZopeTwoPageTemplateFile('templates/users_box.pt')
+       
+    1:     @property
+           def available(self):
+<div class="notcovered">&gt;&gt;&gt;&gt;&gt;&gt;         return len(self._getUsers()) &gt; 0</div>       
+    1:     def update(self):
+<div class="notcovered">&gt;&gt;&gt;&gt;&gt;&gt;         self.users = self._getUsers()</div>       
+    1:     @memoize
+           def _getUsers(self):
+<div class="notcovered">&gt;&gt;&gt;&gt;&gt;&gt;         if not self.data.count:</div><div class="notcovered">&gt;&gt;&gt;&gt;&gt;&gt;             return ()</div>       
+<div class="notcovered">&gt;&gt;&gt;&gt;&gt;&gt;         users = []</div><div class="notcovered">&gt;&gt;&gt;&gt;&gt;&gt;         context = aq_inner(self.context)</div><div class="notcovered">&gt;&gt;&gt;&gt;&gt;&gt;         catalog = getToolByName(context, 'portal_catalog')</div><div class="notcovered">&gt;&gt;&gt;&gt;&gt;&gt;         acl_users = getToolByName(context, 'acl_users')</div><div class="notcovered">&gt;&gt;&gt;&gt;&gt;&gt;         mtool = getToolByName(context, 'portal_membership')</div><div class="notcovered">&gt;&gt;&gt;&gt;&gt;&gt;         cstate = getMultiAdapter((self.context, self.request),</div><div class="notcovered">&gt;&gt;&gt;&gt;&gt;&gt;             name='plone_context_state')</div>       
+               # prepare catalog query
+<div class="notcovered">&gt;&gt;&gt;&gt;&gt;&gt;         query = {'sort_on': 'modified',</div><div class="notcovered">&gt;&gt;&gt;&gt;&gt;&gt;                  'sort_order': 'reverse'}</div><div class="notcovered">&gt;&gt;&gt;&gt;&gt;&gt;         path = '/'.join(cstate.folder().getPhysicalPath())</div><div class="notcovered">&gt;&gt;&gt;&gt;&gt;&gt;         if self.data.do_not_recurse:</div><div class="notcovered">&gt;&gt;&gt;&gt;&gt;&gt;             query['path'] = {'query': path, 'depth': 0}</div>               else:
+<div class="notcovered">&gt;&gt;&gt;&gt;&gt;&gt;             query['path'] = path</div>       
+<div class="notcovered">&gt;&gt;&gt;&gt;&gt;&gt;         added = []</div><div class="notcovered">&gt;&gt;&gt;&gt;&gt;&gt;         invalid = []</div><div class="notcovered">&gt;&gt;&gt;&gt;&gt;&gt;         purl = getToolByName(context, 'portal_url')()</div><div class="notcovered">&gt;&gt;&gt;&gt;&gt;&gt;         limit = self.data.count</div><div class="notcovered">&gt;&gt;&gt;&gt;&gt;&gt;         counter = 0</div><div class="notcovered">&gt;&gt;&gt;&gt;&gt;&gt;         for brain in catalog(**query):</div>                   # already got enough users
+<div class="notcovered">&gt;&gt;&gt;&gt;&gt;&gt;             if counter &gt;= limit:</div><div class="notcovered">&gt;&gt;&gt;&gt;&gt;&gt;                 break</div>       
+<div class="notcovered">&gt;&gt;&gt;&gt;&gt;&gt;             creator = brain.Creator</div>       
+                   # skip duplicates
+<div class="notcovered">&gt;&gt;&gt;&gt;&gt;&gt;             if not creator or creator in added or creator in invalid:</div><div class="notcovered">&gt;&gt;&gt;&gt;&gt;&gt;                 continue</div>       
+                   # check if user exists and whether user got profile image
+<div class="notcovered">&gt;&gt;&gt;&gt;&gt;&gt;             user = acl_users.getUserById(creator)</div><div class="notcovered">&gt;&gt;&gt;&gt;&gt;&gt;             if user is None:</div><div class="notcovered">&gt;&gt;&gt;&gt;&gt;&gt;                 invalid.append(creator)</div><div class="notcovered">&gt;&gt;&gt;&gt;&gt;&gt;                 continue</div>       
+                   # finally append user and increment counters
+<div class="notcovered">&gt;&gt;&gt;&gt;&gt;&gt;             users.append({</div><div class="notcovered">&gt;&gt;&gt;&gt;&gt;&gt;                 'id': creator,</div><div class="notcovered">&gt;&gt;&gt;&gt;&gt;&gt;                 'img': mtool.getPersonalPortrait(id=creator),</div><div class="notcovered">&gt;&gt;&gt;&gt;&gt;&gt;                 'url': '%s/author/%s' % (purl, creator),</div><div class="notcovered">&gt;&gt;&gt;&gt;&gt;&gt;                 'fullname': user.getProperty("fullname"),</div><div class="notcovered">&gt;&gt;&gt;&gt;&gt;&gt;                 'email': user.getProperty("email")</div>                   })
+<div class="notcovered">&gt;&gt;&gt;&gt;&gt;&gt;             added.append(creator)</div><div class="notcovered">&gt;&gt;&gt;&gt;&gt;&gt;             counter += 1</div>       
+<div class="notcovered">&gt;&gt;&gt;&gt;&gt;&gt;         return tuple(users)</div>       
+    2: class AddForm(base.AddForm):
+    1:     form_fields = form.Fields(IUsersBoxPortlet)
+    1:     label = _(u"Add Users Box Portlet")
+    1:     description = _(u"A portlet which lists users contributed to current "
+                           "container.")
+       
+    1:     def create(self, data):
+<div class="notcovered">&gt;&gt;&gt;&gt;&gt;&gt;         return Assignment(**data)</div>       
+    2: class EditForm(base.EditForm):
+    1:     form_fields = form.Fields(IUsersBoxPortlet)
+    1:     label = _(u"Edit Users Box Portlet")
+    1:     description = _(u"A portlet which lists users contributed to current "
+                           "container.")
+</pre>
+
+      <div class="footer">
+      Generated for revision wyeksportowane on 2013-11-05 18:00:40.809438Z
+      </div>
+    </body>
+    </html>

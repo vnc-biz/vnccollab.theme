@@ -1,0 +1,48 @@
+
+    <html>
+      <head><title>Test coverage for vnccollab.theme.browser.dashboard</title>
+      <style type="text/css">
+        a {text-decoration: none; display: block; padding-right: 1em;}
+        a:hover {background: #EFA;}
+        hr {height: 1px; border: none; border-top: 1px solid gray;}
+        .notcovered {background: #FCC;}
+        .footer {margin: 2em; font-size: small; color: gray;}
+      </style>
+      </head>
+      <body><h1>Test coverage for vnccollab.theme.browser.dashboard</h1>
+      <table>
+    
+<tr><td><a href="vnccollab.html">vnccollab/</a></td> <td style="background: red">&nbsp;&nbsp;&nbsp;&nbsp;</td> <td>covered 58% (1732 of 4159 uncovered)</td></tr>
+<tr><td><a href="vnccollab.theme.html">&nbsp;&nbsp;&nbsp;&nbsp;theme/</a></td> <td style="background: red">&nbsp;&nbsp;&nbsp;&nbsp;</td> <td>covered 58% (1732 of 4159 uncovered)</td></tr>
+<tr><td><a href="vnccollab.theme.browser.html">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;browser/</a></td> <td style="background: red">&nbsp;&nbsp;&nbsp;&nbsp;</td> <td>covered 52% (979 of 2059 uncovered)</td></tr>
+<tr><td><a href="vnccollab.theme.browser.dashboard.html">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;dashboard.py</a></td> <td style="background: red">&nbsp;&nbsp;&nbsp;&nbsp;</td> <td>covered 36% (16 of 25 uncovered)</td></tr>
+</table><hr/>
+<pre>    1: from zope.component import getUtility
+       
+    1: from Products.Five.browser import BrowserView
+       
+    1: from plone.portlets.interfaces import IPortletManager
+    1: from plone.portlets.constants import USER_CATEGORY, GROUP_CATEGORY
+       
+    1: from plone.memoize.instance import memoize
+       
+    1: from Products.CMFCore.utils import getToolByName
+       
+       
+    2: class DashboardView(BrowserView):
+           """User's Dashboard.
+       
+           Lists user's group assigned portlets.
+    1:     """
+       
+    1:     @memoize
+           def empty(self):
+<div class="notcovered">&gt;&gt;&gt;&gt;&gt;&gt;         dashboards = [getUtility(IPortletManager, name=name)</div><div class="notcovered">&gt;&gt;&gt;&gt;&gt;&gt;                       for name in ['plone.dashboard1',</div><div class="notcovered">&gt;&gt;&gt;&gt;&gt;&gt;                                    'plone.dashboard2',</div><div class="notcovered">&gt;&gt;&gt;&gt;&gt;&gt;                                    'plone.dashboard3',</div><div class="notcovered">&gt;&gt;&gt;&gt;&gt;&gt;                                    'plone.dashboard4']]</div>       
+<div class="notcovered">&gt;&gt;&gt;&gt;&gt;&gt;         portal_membership = getToolByName(self.context, 'portal_membership')</div><div class="notcovered">&gt;&gt;&gt;&gt;&gt;&gt;         member = portal_membership.getAuthenticatedMember()</div><div class="notcovered">&gt;&gt;&gt;&gt;&gt;&gt;         userid = member.getId()</div>       
+<div class="notcovered">&gt;&gt;&gt;&gt;&gt;&gt;         num_portlets = 0</div><div class="notcovered">&gt;&gt;&gt;&gt;&gt;&gt;         for dashboard in dashboards:</div><div class="notcovered">&gt;&gt;&gt;&gt;&gt;&gt;             num_portlets += len(dashboard.get(USER_CATEGORY, {})</div><div class="notcovered">&gt;&gt;&gt;&gt;&gt;&gt;                                          .get(userid, {}))</div><div class="notcovered">&gt;&gt;&gt;&gt;&gt;&gt;             for groupid in member.getGroups():</div><div class="notcovered">&gt;&gt;&gt;&gt;&gt;&gt;                 num_portlets += len(dashboard.get(GROUP_CATEGORY, {})</div><div class="notcovered">&gt;&gt;&gt;&gt;&gt;&gt;                                              .get(groupid, {}))</div><div class="notcovered">&gt;&gt;&gt;&gt;&gt;&gt;         return num_portlets == 0</div></pre>
+
+      <div class="footer">
+      Generated for revision wyeksportowane on 2013-11-05 18:00:40.809438Z
+      </div>
+    </body>
+    </html>

@@ -1,0 +1,181 @@
+
+    <html>
+      <head><title>Test coverage for vnccollab.theme.browser.zimbrajson</title>
+      <style type="text/css">
+        a {text-decoration: none; display: block; padding-right: 1em;}
+        a:hover {background: #EFA;}
+        hr {height: 1px; border: none; border-top: 1px solid gray;}
+        .notcovered {background: #FCC;}
+        .footer {margin: 2em; font-size: small; color: gray;}
+      </style>
+      </head>
+      <body><h1>Test coverage for vnccollab.theme.browser.zimbrajson</h1>
+      <table>
+    
+<tr><td><a href="vnccollab.html">vnccollab/</a></td> <td style="background: red">&nbsp;&nbsp;&nbsp;&nbsp;</td> <td>covered 58% (1732 of 4159 uncovered)</td></tr>
+<tr><td><a href="vnccollab.theme.html">&nbsp;&nbsp;&nbsp;&nbsp;theme/</a></td> <td style="background: red">&nbsp;&nbsp;&nbsp;&nbsp;</td> <td>covered 58% (1732 of 4159 uncovered)</td></tr>
+<tr><td><a href="vnccollab.theme.browser.html">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;browser/</a></td> <td style="background: red">&nbsp;&nbsp;&nbsp;&nbsp;</td> <td>covered 52% (979 of 2059 uncovered)</td></tr>
+<tr><td><a href="vnccollab.theme.browser.zimbrajson.html">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;zimbrajson.py</a></td> <td style="background: red">&nbsp;&nbsp;&nbsp;&nbsp;</td> <td>covered 22% (166 of 213 uncovered)</td></tr>
+</table><hr/>
+<pre>    1: import json
+    1: import base64
+    1: import os.path
+       
+    1: from AccessControl import getSecurityManager
+    1: from Products.Five.browser import BrowserView
+    1: from Products.CMFCore.utils import getToolByName
+    1: from Products.CMFPlone import utils
+    1: from Products.CMFCore import permissions
+    1: from plone.memoize.instance import memoize
+       
+    1: from wsapi4plone.core.browser.app import ApplicationAPI
+       
+       '''
+       This module contains the views to allow Zimbra to interact with plone.
+       
+       All these views are server as XMLRPC methods. They return a string with the
+       result encoded as JSON.
+       '''
+       
+       
+    2: class LiveSearchReplyJson(BrowserView):
+    1:     OMIT_TYPES = ['Folder']
+       
+    1:     def search_string(self, string):
+               '''Returns the objects that satisfy the query indicated by the
+               string.'''
+<div class="notcovered">&gt;&gt;&gt;&gt;&gt;&gt;         plone_utils = getToolByName(self.context, 'plone_utils')</div><div class="notcovered">&gt;&gt;&gt;&gt;&gt;&gt;         friendly_types = plone_utils.getUserFriendlyTypes()</div><div class="notcovered">&gt;&gt;&gt;&gt;&gt;&gt;         keys = ' AND '.join(string.split())</div><div class="notcovered">&gt;&gt;&gt;&gt;&gt;&gt;         dct = {'SearchableText': keys,</div><div class="notcovered">&gt;&gt;&gt;&gt;&gt;&gt;                'portal_type': friendly_types, }</div><div class="notcovered">&gt;&gt;&gt;&gt;&gt;&gt;         return self.search_dict(dct)</div>       
+    1:     def search_dict(self, dct):
+               '''Returns the objects that satisfy the query indicated by the
+               dictionary.'''
+<div class="notcovered">&gt;&gt;&gt;&gt;&gt;&gt;         catalog = getToolByName(self.context, 'portal_catalog')</div><div class="notcovered">&gt;&gt;&gt;&gt;&gt;&gt;         results = catalog(**dct)</div><div class="notcovered">&gt;&gt;&gt;&gt;&gt;&gt;         return results</div>       
+    1:     def _get_lost_icon(self, brain):
+               '''Gets the icon of a brain if it is not present'''
+<div class="notcovered">&gt;&gt;&gt;&gt;&gt;&gt;         return '{0}{1}'.format(self.context.portal_url(),</div><div class="notcovered">&gt;&gt;&gt;&gt;&gt;&gt;                                '/++resource++vnccollab.theme.images/doc.png')</div>       
+    1:     def _tuples_from_brains(self, brains):
+               '''Converts a list of brains to a list of tuples'''
+<div class="notcovered">&gt;&gt;&gt;&gt;&gt;&gt;         plone_view = self.context.restrictedTraverse('@@plone')</div><div class="notcovered">&gt;&gt;&gt;&gt;&gt;&gt;         plone_utils = getToolByName(self.context, 'plone_utils')</div><div class="notcovered">&gt;&gt;&gt;&gt;&gt;&gt;         pretty_title_or_id = plone_utils.pretty_title_or_id</div>       
+<div class="notcovered">&gt;&gt;&gt;&gt;&gt;&gt;         tuples = []</div>       
+<div class="notcovered">&gt;&gt;&gt;&gt;&gt;&gt;         for brain in brains:</div><div class="notcovered">&gt;&gt;&gt;&gt;&gt;&gt;             type_ = brain.portal_type</div>       
+<div class="notcovered">&gt;&gt;&gt;&gt;&gt;&gt;             if type_ not in self.OMIT_TYPES:</div><div class="notcovered">&gt;&gt;&gt;&gt;&gt;&gt;                 title = pretty_title_or_id(brain)</div><div class="notcovered">&gt;&gt;&gt;&gt;&gt;&gt;                 url = brain.getURL()</div><div class="notcovered">&gt;&gt;&gt;&gt;&gt;&gt;                 icon = plone_view.getIcon(brain).url or self._get_lost_icon(brain)</div><div class="notcovered">&gt;&gt;&gt;&gt;&gt;&gt;                 description = brain.Description</div><div class="notcovered">&gt;&gt;&gt;&gt;&gt;&gt;                 subject = brain.Subject</div><div class="notcovered">&gt;&gt;&gt;&gt;&gt;&gt;                 creator = brain.Creator</div><div class="notcovered">&gt;&gt;&gt;&gt;&gt;&gt;                 creationDate = brain.CreationDate</div><div class="notcovered">&gt;&gt;&gt;&gt;&gt;&gt;                 modificationDate = brain.ModificationDate</div>       
+<div class="notcovered">&gt;&gt;&gt;&gt;&gt;&gt;                 tuples.append((icon, type_, title, url, description,</div><div class="notcovered">&gt;&gt;&gt;&gt;&gt;&gt;                                subject,</div><div class="notcovered">&gt;&gt;&gt;&gt;&gt;&gt;                                creator, creationDate, modificationDate))</div>       
+<div class="notcovered">&gt;&gt;&gt;&gt;&gt;&gt;         return tuples</div>       
+    1:     def _sanitize_query_string(self, query):
+               '''Cleans the query string'''
+<div class="notcovered">&gt;&gt;&gt;&gt;&gt;&gt;         multispace = u'\u3000'.encode('utf-8')</div><div class="notcovered">&gt;&gt;&gt;&gt;&gt;&gt;         for char in ('?', '-', '+', '*', multispace):</div><div class="notcovered">&gt;&gt;&gt;&gt;&gt;&gt;                 query = query.replace(char, ' ')</div><div class="notcovered">&gt;&gt;&gt;&gt;&gt;&gt;         return query</div>       
+    1:     def __call__(self, REQUEST, RESPONSE):
+               '''Returns a JSON representation of the objects that satisfy the query'''
+<div class="notcovered">&gt;&gt;&gt;&gt;&gt;&gt;         if type(REQUEST) == str:</div><div class="notcovered">&gt;&gt;&gt;&gt;&gt;&gt;             query = self._sanitize_query_string(REQUEST)</div><div class="notcovered">&gt;&gt;&gt;&gt;&gt;&gt;             brains = self.search_string(query)</div><div class="notcovered">&gt;&gt;&gt;&gt;&gt;&gt;         elif type(REQUEST) == dict:</div><div class="notcovered">&gt;&gt;&gt;&gt;&gt;&gt;             brains = self.search_dict(REQUEST)</div><div class="notcovered">&gt;&gt;&gt;&gt;&gt;&gt;         results = self._tuples_from_brains(brains)</div><div class="notcovered">&gt;&gt;&gt;&gt;&gt;&gt;         RESPONSE.setHeader('Content-Type', 'application/json')</div><div class="notcovered">&gt;&gt;&gt;&gt;&gt;&gt;         return json.dumps(results)</div>       
+       
+    2: class GetObjectJson(BrowserView):
+           '''Implements get_object_json.
+       
+           Returns a string with a JSON representation of the current object.
+       
+           The representation is a dictionary with the data obtained by wsapi4plone's
+    1:     get_object with dates converted to strings.'''
+       
+    1:     def __call__(self, REQUEST, RESPONSE):
+               '''Returns a JSON representation of the current object'''
+<div class="notcovered">&gt;&gt;&gt;&gt;&gt;&gt;         wsapi = ApplicationAPI(self.context, self.request)</div><div class="notcovered">&gt;&gt;&gt;&gt;&gt;&gt;         results = wsapi.get_object()</div>               # One result is a tuple (object_data, object_type, extra_info)
+               # We're interested only in object_data
+<div class="notcovered">&gt;&gt;&gt;&gt;&gt;&gt;         result = results.values()[0][0]</div><div class="notcovered">&gt;&gt;&gt;&gt;&gt;&gt;         self._sanitize_results(result)</div><div class="notcovered">&gt;&gt;&gt;&gt;&gt;&gt;         RESPONSE.setHeader('Content-Type', 'application/json')</div><div class="notcovered">&gt;&gt;&gt;&gt;&gt;&gt;         return json.dumps(result)</div>       
+    1:     SANITIZE_FIELDS = ['DateTime']
+       
+    1:     def _sanitize_results(self, result):
+<div class="notcovered">&gt;&gt;&gt;&gt;&gt;&gt;         for k, v in result.items():</div><div class="notcovered">&gt;&gt;&gt;&gt;&gt;&gt;             if v.__class__.__name__ in self.SANITIZE_FIELDS:</div><div class="notcovered">&gt;&gt;&gt;&gt;&gt;&gt;                 result[k] = str(v)</div>       
+               # Convert file data to string instead of xmlrpclib.Binary
+<div class="notcovered">&gt;&gt;&gt;&gt;&gt;&gt;         if 'file' in result:</div><div class="notcovered">&gt;&gt;&gt;&gt;&gt;&gt;             result['file']['data'] = base64.b64encode(result['file']['data'].data)</div>       
+       
+    2: class GetTreeJson(BrowserView):
+           '''Returns a string with a JSON representation of the tree of folders
+           accesible by the current user.
+    1:     '''
+    1:     CONTAINER_TYPES = ['Folder']
+       
+    1:     def __call__(self, REQUEST, RESPONSE):
+<div class="notcovered">&gt;&gt;&gt;&gt;&gt;&gt;         result = self._get_tree()</div><div class="notcovered">&gt;&gt;&gt;&gt;&gt;&gt;         RESPONSE.setHeader('Content-Type', 'application/json')</div><div class="notcovered">&gt;&gt;&gt;&gt;&gt;&gt;         return json.dumps(result)</div>       
+    1:     def _get_tree(self):
+               '''Returns a tree structure with the container types allowed.'''
+               # TODO: Search only below context
+<div class="notcovered">&gt;&gt;&gt;&gt;&gt;&gt;         catalog = getToolByName(self.context, 'portal_catalog')</div><div class="notcovered">&gt;&gt;&gt;&gt;&gt;&gt;         params = {'portal_type': self.CONTAINER_TYPES, }</div><div class="notcovered">&gt;&gt;&gt;&gt;&gt;&gt;         brains = catalog(**params)</div>       
+<div class="notcovered">&gt;&gt;&gt;&gt;&gt;&gt;         brains_and_parents = [self._brain_and_parents(x) for x in brains]</div><div class="notcovered">&gt;&gt;&gt;&gt;&gt;&gt;         brains_and_parents = [x for sublist in brains_and_parents</div><div class="notcovered">&gt;&gt;&gt;&gt;&gt;&gt;                                 for x in sublist]</div><div class="notcovered">&gt;&gt;&gt;&gt;&gt;&gt;         brains = self._remove_repeated_brains(brains_and_parents)</div>       
+<div class="notcovered">&gt;&gt;&gt;&gt;&gt;&gt;         results = [self._dict_from_brain(x) for x in brains]</div><div class="notcovered">&gt;&gt;&gt;&gt;&gt;&gt;         results = self._sorted(results, reverse=True)</div><div class="notcovered">&gt;&gt;&gt;&gt;&gt;&gt;         tree = self._create_tree(results)</div><div class="notcovered">&gt;&gt;&gt;&gt;&gt;&gt;         tree = self._prune_tree(tree)</div><div class="notcovered">&gt;&gt;&gt;&gt;&gt;&gt;         tree = self._sort_tree(tree)</div><div class="notcovered">&gt;&gt;&gt;&gt;&gt;&gt;         return tree</div>       
+    1:     def _brain_and_parents(self, brain):
+               '''Returns a list of a brain and all its parents.'''
+<div class="notcovered">&gt;&gt;&gt;&gt;&gt;&gt;         path = os.path.dirname(brain.getPath())</div><div class="notcovered">&gt;&gt;&gt;&gt;&gt;&gt;         parent = self._brain_from_path(path)</div>       
+<div class="notcovered">&gt;&gt;&gt;&gt;&gt;&gt;         if not parent:</div><div class="notcovered">&gt;&gt;&gt;&gt;&gt;&gt;             return [brain]</div>               else:
+<div class="notcovered">&gt;&gt;&gt;&gt;&gt;&gt;             return [brain] + self._brain_and_parents(parent)</div>       
+    1:     def _remove_repeated_brains(self, brains):
+               '''Returns a list of unique brains.'''
+<div class="notcovered">&gt;&gt;&gt;&gt;&gt;&gt;         paths = []</div><div class="notcovered">&gt;&gt;&gt;&gt;&gt;&gt;         new_brains = []</div><div class="notcovered">&gt;&gt;&gt;&gt;&gt;&gt;         for brain in brains:</div><div class="notcovered">&gt;&gt;&gt;&gt;&gt;&gt;             path = brain.getPath()</div><div class="notcovered">&gt;&gt;&gt;&gt;&gt;&gt;             if path not in paths:</div><div class="notcovered">&gt;&gt;&gt;&gt;&gt;&gt;                 paths.append(path)</div><div class="notcovered">&gt;&gt;&gt;&gt;&gt;&gt;                 new_brains.append(brain)</div>       
+<div class="notcovered">&gt;&gt;&gt;&gt;&gt;&gt;         return new_brains</div>       
+    1:     @memoize
+           def _brain_from_path(self, path):
+               '''Returns a brain given its path or None'''
+<div class="notcovered">&gt;&gt;&gt;&gt;&gt;&gt;         catalog = getToolByName(self.context, 'portal_catalog')</div><div class="notcovered">&gt;&gt;&gt;&gt;&gt;&gt;         query = dict(path={"query": path, "depth": 0})</div><div class="notcovered">&gt;&gt;&gt;&gt;&gt;&gt;         brains = catalog(**query)</div>       
+<div class="notcovered">&gt;&gt;&gt;&gt;&gt;&gt;         if len(brains) == 1:</div><div class="notcovered">&gt;&gt;&gt;&gt;&gt;&gt;             return brains[0]</div>               else:
+<div class="notcovered">&gt;&gt;&gt;&gt;&gt;&gt;             return None</div>       
+    1:     def _prune_tree(self, tree):
+               '''Prunes a tree from unwanted nodes'''
+<div class="notcovered">&gt;&gt;&gt;&gt;&gt;&gt;         new_tree = []</div><div class="notcovered">&gt;&gt;&gt;&gt;&gt;&gt;         for item in tree:</div><div class="notcovered">&gt;&gt;&gt;&gt;&gt;&gt;             if item['portal_type'] not in self.CONTAINER_TYPES:</div><div class="notcovered">&gt;&gt;&gt;&gt;&gt;&gt;                 continue</div><div class="notcovered">&gt;&gt;&gt;&gt;&gt;&gt;             content = self._prune_tree(item['content'])</div><div class="notcovered">&gt;&gt;&gt;&gt;&gt;&gt;             new_item = dict(item)</div><div class="notcovered">&gt;&gt;&gt;&gt;&gt;&gt;             new_item['content'] = content</div><div class="notcovered">&gt;&gt;&gt;&gt;&gt;&gt;             new_tree.append(new_item)</div>       
+<div class="notcovered">&gt;&gt;&gt;&gt;&gt;&gt;         return new_tree</div>       
+    1:     def _sorted(self, lst, reverse=False):
+               '''Returns the folders sorted by the lenght of its path'''
+<div class="notcovered">&gt;&gt;&gt;&gt;&gt;&gt;         return sorted(lst, lambda x, y: cmp(len(x['path']), len(y['path'])),</div><div class="notcovered">&gt;&gt;&gt;&gt;&gt;&gt;                       reverse=reverse)</div>       
+    1:     def _inside(self, son, father):
+               '''True if the folder son is inside father'''
+<div class="notcovered">&gt;&gt;&gt;&gt;&gt;&gt;         return os.path.dirname(son['path']) == father['path']</div>       
+    1:     def _create_tree(self, lst):
+               '''Creates the folder tree.'''
+<div class="notcovered">&gt;&gt;&gt;&gt;&gt;&gt;         tree = []</div><div class="notcovered">&gt;&gt;&gt;&gt;&gt;&gt;         for i, e in enumerate(lst):</div><div class="notcovered">&gt;&gt;&gt;&gt;&gt;&gt;             for f in lst[i + 1:]:</div><div class="notcovered">&gt;&gt;&gt;&gt;&gt;&gt;                 if self._inside(e, f):</div><div class="notcovered">&gt;&gt;&gt;&gt;&gt;&gt;                     f['content'].append(e)</div><div class="notcovered">&gt;&gt;&gt;&gt;&gt;&gt;                     break</div>                   else:
+<div class="notcovered">&gt;&gt;&gt;&gt;&gt;&gt;                 tree.append(e)</div><div class="notcovered">&gt;&gt;&gt;&gt;&gt;&gt;         return tree</div>       
+    1:     def _dict_from_brain(self, brain):
+               '''Returns a dict representing the folder, given a brain'''
+<div class="notcovered">&gt;&gt;&gt;&gt;&gt;&gt;         return {'id': brain.getId,</div><div class="notcovered">&gt;&gt;&gt;&gt;&gt;&gt;                 'title': brain.Title,</div><div class="notcovered">&gt;&gt;&gt;&gt;&gt;&gt;                 'path': brain.getPath(),</div><div class="notcovered">&gt;&gt;&gt;&gt;&gt;&gt;                 'portal_type': brain.portal_type,</div><div class="notcovered">&gt;&gt;&gt;&gt;&gt;&gt;                 'writable': self._is_container_writable(brain),</div><div class="notcovered">&gt;&gt;&gt;&gt;&gt;&gt;                 'content': []}</div>       
+    1:     def _is_container_writable(self, brain):
+               '''True if the current user can write in the brain's container.
+       
+               NOTE: We need to access to the associate object, and this could
+               be time consuming. In case of degradation of speed, check here.
+               '''
+<div class="notcovered">&gt;&gt;&gt;&gt;&gt;&gt;         obj = brain.getObject()</div><div class="notcovered">&gt;&gt;&gt;&gt;&gt;&gt;         perm = getSecurityManager().checkPermission(</div><div class="notcovered">&gt;&gt;&gt;&gt;&gt;&gt;                         permissions.AddPortalContent, obj)</div><div class="notcovered">&gt;&gt;&gt;&gt;&gt;&gt;         return perm == 1</div>       
+    1:     def _sort_tree(self, tree):
+<div class="notcovered">&gt;&gt;&gt;&gt;&gt;&gt;         tree = sorted(tree, lambda x, y: cmp(x['title'], y['title']))</div><div class="notcovered">&gt;&gt;&gt;&gt;&gt;&gt;         for e in tree:</div><div class="notcovered">&gt;&gt;&gt;&gt;&gt;&gt;             e['content'] = self._sort_tree(e['content'])</div><div class="notcovered">&gt;&gt;&gt;&gt;&gt;&gt;         return tree</div>       
+       
+    2: class SetFilenameJson(BrowserView):
+           '''Sets the filename of a ATFile object.
+       
+           This should be done using by wsapi4plone.core, but since it is unable,
+           we'll do it here.
+       
+    1:     Returns an empty string is everything is OK or an error message.'''
+       
+    1:     def __call__(self, REQUEST, RESPONSE):
+               '''Returns a JSON representation of the current object'''
+<div class="notcovered">&gt;&gt;&gt;&gt;&gt;&gt;         result = ''</div><div class="notcovered">&gt;&gt;&gt;&gt;&gt;&gt;         try:</div><div class="notcovered">&gt;&gt;&gt;&gt;&gt;&gt;             context = self.context</div><div class="notcovered">&gt;&gt;&gt;&gt;&gt;&gt;             default_filename = utils.pretty_title_or_id(context, context) + '.pdf'</div><div class="notcovered">&gt;&gt;&gt;&gt;&gt;&gt;             filename = REQUEST.get('filename', default_filename)</div><div class="notcovered">&gt;&gt;&gt;&gt;&gt;&gt;             self.context.setFilename(filename)</div><div class="notcovered">&gt;&gt;&gt;&gt;&gt;&gt;         except Exception, e:</div><div class="notcovered">&gt;&gt;&gt;&gt;&gt;&gt;             result = str(e)</div><div class="notcovered">&gt;&gt;&gt;&gt;&gt;&gt;         RESPONSE.setHeader('Content-Type', 'application/json')</div><div class="notcovered">&gt;&gt;&gt;&gt;&gt;&gt;         return json.dumps(result)</div>       
+       
+    2: class GetListOfSearchParameters(BrowserView):
+    1:     '''Get the list of valid tags, item types and review status for a search.'''
+       
+    1:     def __call__(self, REQUEST, RESPONSE):
+               '''Returns a JSON representation of the current object'''
+<div class="notcovered">&gt;&gt;&gt;&gt;&gt;&gt;         result = []</div><div class="notcovered">&gt;&gt;&gt;&gt;&gt;&gt;         try:</div><div class="notcovered">&gt;&gt;&gt;&gt;&gt;&gt;             if REQUEST == 'Subject':</div><div class="notcovered">&gt;&gt;&gt;&gt;&gt;&gt;                 result = self._get_subject()</div><div class="notcovered">&gt;&gt;&gt;&gt;&gt;&gt;             elif REQUEST == 'portal_type':</div><div class="notcovered">&gt;&gt;&gt;&gt;&gt;&gt;                 result = self._get_portal_type()</div><div class="notcovered">&gt;&gt;&gt;&gt;&gt;&gt;             elif REQUEST == 'review_state':</div><div class="notcovered">&gt;&gt;&gt;&gt;&gt;&gt;                 result = self._get_review_state()</div>                   else:
+<div class="notcovered">&gt;&gt;&gt;&gt;&gt;&gt;                 result = []</div><div class="notcovered">&gt;&gt;&gt;&gt;&gt;&gt;         except Exception, e:</div><div class="notcovered">&gt;&gt;&gt;&gt;&gt;&gt;             result = str(e)</div><div class="notcovered">&gt;&gt;&gt;&gt;&gt;&gt;         RESPONSE.setHeader('Content-Type', 'application/json')</div><div class="notcovered">&gt;&gt;&gt;&gt;&gt;&gt;         return json.dumps(result)</div>       
+    1:     def _get_subject(self):
+               '''Returns a list of (id, title) of all Tags.'''
+<div class="notcovered">&gt;&gt;&gt;&gt;&gt;&gt;         portal_catalog = getToolByName(self.context, 'portal_catalog')</div><div class="notcovered">&gt;&gt;&gt;&gt;&gt;&gt;         return [(x, x) for x in portal_catalog.uniqueValuesFor('Subject')]</div>       
+    1:     def _get_portal_type(self):
+               '''Returns a list of (id, title) of all Portal Types.'''
+<div class="notcovered">&gt;&gt;&gt;&gt;&gt;&gt;         portal_types = getToolByName(self.context, 'portal_types')</div><div class="notcovered">&gt;&gt;&gt;&gt;&gt;&gt;         portal_properties = getToolByName(self.context, 'portal_properties')</div><div class="notcovered">&gt;&gt;&gt;&gt;&gt;&gt;         metaTypesNotToList = portal_properties.navtree_properties.metaTypesNotToList</div><div class="notcovered">&gt;&gt;&gt;&gt;&gt;&gt;         types = [x for x in portal_types.keys()</div><div class="notcovered">&gt;&gt;&gt;&gt;&gt;&gt;                    if x not in metaTypesNotToList]</div><div class="notcovered">&gt;&gt;&gt;&gt;&gt;&gt;         return [(x, portal_types[x].title) for x in types]</div>       
+    1:     def _get_review_state(self):
+               '''Returns a list of (id, title) of all Review states.'''
+<div class="notcovered">&gt;&gt;&gt;&gt;&gt;&gt;         portal_workflow = getToolByName(self.context, 'portal_workflow')</div><div class="notcovered">&gt;&gt;&gt;&gt;&gt;&gt;         workflows = [portal_workflow[x[0]]</div><div class="notcovered">&gt;&gt;&gt;&gt;&gt;&gt;                         for x in portal_workflow.workflows_in_use() if x]</div><div class="notcovered">&gt;&gt;&gt;&gt;&gt;&gt;         states_list = [wf.states.items() for wf in workflows]</div>               # state_list is a list of lists of states. Let's make it plain
+<div class="notcovered">&gt;&gt;&gt;&gt;&gt;&gt;         states = []</div><div class="notcovered">&gt;&gt;&gt;&gt;&gt;&gt;         for st in states_list:</div><div class="notcovered">&gt;&gt;&gt;&gt;&gt;&gt;             states.extend(st)</div><div class="notcovered">&gt;&gt;&gt;&gt;&gt;&gt;         state_info = [(s[0], s[1].title) for s in states]</div>               # Some states have different names, we'll use the first one
+<div class="notcovered">&gt;&gt;&gt;&gt;&gt;&gt;         states = []</div><div class="notcovered">&gt;&gt;&gt;&gt;&gt;&gt;         for st in state_info:</div><div class="notcovered">&gt;&gt;&gt;&gt;&gt;&gt;             if st[0] not in [s[0] for s in states]:</div><div class="notcovered">&gt;&gt;&gt;&gt;&gt;&gt;                 states.append(st)</div><div class="notcovered">&gt;&gt;&gt;&gt;&gt;&gt;         return states</div></pre>
+
+      <div class="footer">
+      Generated for revision wyeksportowane on 2013-11-05 18:00:40.809438Z
+      </div>
+    </body>
+    </html>

@@ -1,0 +1,169 @@
+
+    <html>
+      <head><title>Test coverage for vnccollab.theme.portlets.redmine_tickets</title>
+      <style type="text/css">
+        a {text-decoration: none; display: block; padding-right: 1em;}
+        a:hover {background: #EFA;}
+        hr {height: 1px; border: none; border-top: 1px solid gray;}
+        .notcovered {background: #FCC;}
+        .footer {margin: 2em; font-size: small; color: gray;}
+      </style>
+      </head>
+      <body><h1>Test coverage for vnccollab.theme.portlets.redmine_tickets</h1>
+      <table>
+    
+<tr><td><a href="vnccollab.html">vnccollab/</a></td> <td style="background: red">&nbsp;&nbsp;&nbsp;&nbsp;</td> <td>covered 58% (1732 of 4159 uncovered)</td></tr>
+<tr><td><a href="vnccollab.theme.html">&nbsp;&nbsp;&nbsp;&nbsp;theme/</a></td> <td style="background: red">&nbsp;&nbsp;&nbsp;&nbsp;</td> <td>covered 58% (1732 of 4159 uncovered)</td></tr>
+<tr><td><a href="vnccollab.theme.portlets.html">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;portlets/</a></td> <td style="background: red">&nbsp;&nbsp;&nbsp;&nbsp;</td> <td>covered 66% (375 of 1108 uncovered)</td></tr>
+<tr><td><a href="vnccollab.theme.portlets.redmine_tickets.html">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;redmine_tickets.py</a></td> <td style="background: red">&nbsp;&nbsp;&nbsp;&nbsp;</td> <td>covered 59% (49 of 120 uncovered)</td></tr>
+</table><hr/>
+<pre>    1: import logging
+    1: import textile
+    1: from pyactiveresource.activeresource import ActiveResource
+       
+    1: from zope.component import getMultiAdapter, getUtility
+    1: from zope.formlib import form
+    1: from zope.interface import implements
+    1: from zope import schema
+       
+    1: from Products.Five.browser.pagetemplatefile import ZopeTwoPageTemplateFile
+    1: from Products.CMFCore.utils import getToolByName
+    1: from Products.CMFPlone.utils import safe_unicode
+       
+    1: from plone.registry.interfaces import IRegistry
+    1: from plone.memoize.instance import memoize
+    1: from plone.portlets.interfaces import IPortletDataProvider
+    1: from plone.app.portlets.portlets import base
+       
+    1: from vnccollab.common.portlets import deferred
+    1: from vnccollab.theme.portlets.zimbra_mail import logException
+    1: from vnccollab.theme import messageFactory as _
+       
+    1: logger = logging.getLogger('vnccollab.theme.RedmineTicketsPortlet')
+       
+       
+    2: class IRedmineTicketsPortlet(IPortletDataProvider):
+       
+    1:     header = schema.TextLine(
+    1:         title=_(u"Header"),
+    1:         description=_(u"Header of the portlet."),
+    1:         required=True,
+    1:         default=u'Redmine Tickets')
+       
+    1:     count = schema.Int(
+    1:         title=_(u"Number of items to display"),
+    1:         description=_(u"How many items to list."),
+    1:         required=True,
+    1:         default=5)
+       
+    1:     request_timeout = schema.Int(
+    1:         title=_(u"Request timeout"),
+    1:         description=_(u"How many seconds to wait for hanging Redmine request."),
+    1:         required=True,
+    1:         default=15)
+       
+       
+    2: class Assignment(base.Assignment):
+    1:     implements(IRedmineTicketsPortlet)
+       
+    1:     header = u''
+    1:     count = 5
+    1:     request_timeout = 15
+       
+    1:     @property
+           def title(self):
+               """Return portlet header"""
+<div class="notcovered">&gt;&gt;&gt;&gt;&gt;&gt;         return self.header</div>       
+    1:     def __init__(self, header=u'', count=5, request_timeout=15):
+    1:         self.header = header
+    1:         self.count = count
+    1:         self.request_timeout = request_timeout
+       
+       
+    2: class Renderer(deferred.DeferredRenderer):
+       
+    1:     render_preload = render_full = ZopeTwoPageTemplateFile(
+    1:         'templates/redmine_tickets.pt')
+       
+    1:     def refresh(self):
+               '''Calculates the data needed for deferred_update.'''
+<div class="notcovered">&gt;&gt;&gt;&gt;&gt;&gt;         self.getTickets()</div>       
+    1:     def getTicketsURL(self):
+               """Returns tickets root url"""
+<div class="notcovered">&gt;&gt;&gt;&gt;&gt;&gt;         return '%s/issues' % self._url()</div>       
+    1:     def getTickets(self):
+               """Returns list of opened issues for authenticated user"""
+    1:         username, password = self.getAuthCredentials()
+    1:         if not username or not password:
+    1:             return ()
+       
+<div class="notcovered">&gt;&gt;&gt;&gt;&gt;&gt;         return self._tickets(self._url(), username, password)</div>       
+    1:     @memoize
+           def _tickets(self, url, username, password):
+               """Requests redmine for list of opened issues for current user"""
+               # create ActiveResource classes to fetch data from Redmine over REST API
+<div class="notcovered">&gt;&gt;&gt;&gt;&gt;&gt;         attrs = {'_site': url, '_user': username, '_password': password}</div><div class="notcovered">&gt;&gt;&gt;&gt;&gt;&gt;         if self.data.request_timeout:</div><div class="notcovered">&gt;&gt;&gt;&gt;&gt;&gt;             attrs['_timeout'] = self.data.request_timeout</div>       
+<div class="notcovered">&gt;&gt;&gt;&gt;&gt;&gt;         Issue = type("Issue", (ActiveResource,), attrs.copy())</div><div class="notcovered">&gt;&gt;&gt;&gt;&gt;&gt;         User = type("User", (ActiveResource,), attrs.copy())</div>       
+               # do actual calls to redmine
+<div class="notcovered">&gt;&gt;&gt;&gt;&gt;&gt;         try:</div>                   # fetch opened issues belonging to authenticated user
+<div class="notcovered">&gt;&gt;&gt;&gt;&gt;&gt;             data = Issue.find(assigned_to_id=User.find('current').id,</div><div class="notcovered">&gt;&gt;&gt;&gt;&gt;&gt;                               status_id='o',</div><div class="notcovered">&gt;&gt;&gt;&gt;&gt;&gt;                               sort='updated_on:desc')</div><div class="notcovered">&gt;&gt;&gt;&gt;&gt;&gt;         except:</div><div class="notcovered">&gt;&gt;&gt;&gt;&gt;&gt;             logException(_(u"Error during fetching redmine tickets %s" % url),</div><div class="notcovered">&gt;&gt;&gt;&gt;&gt;&gt;                          context=self.context, logger=logger)</div><div class="notcovered">&gt;&gt;&gt;&gt;&gt;&gt;             return ()</div>       
+<div class="notcovered">&gt;&gt;&gt;&gt;&gt;&gt;         plone_view = getMultiAdapter((self.context, self.request),</div><div class="notcovered">&gt;&gt;&gt;&gt;&gt;&gt;                                      name=u'plone')</div>       
+               # process retrieved data
+<div class="notcovered">&gt;&gt;&gt;&gt;&gt;&gt;         tickets = []</div><div class="notcovered">&gt;&gt;&gt;&gt;&gt;&gt;         limit = self.data.count</div><div class="notcovered">&gt;&gt;&gt;&gt;&gt;&gt;         counter = 0</div><div class="notcovered">&gt;&gt;&gt;&gt;&gt;&gt;         for item in data:</div>                   # we've got enough tickets
+<div class="notcovered">&gt;&gt;&gt;&gt;&gt;&gt;             if counter &gt;= limit:</div><div class="notcovered">&gt;&gt;&gt;&gt;&gt;&gt;                 break</div>       
+<div class="notcovered">&gt;&gt;&gt;&gt;&gt;&gt;             info = item.to_dict()</div>       
+                   # skip invalid entries
+<div class="notcovered">&gt;&gt;&gt;&gt;&gt;&gt;             if not info.get('id') or not info.get('subject'):</div><div class="notcovered">&gt;&gt;&gt;&gt;&gt;&gt;                 continue</div>       
+                   # prepare date
+<div class="notcovered">&gt;&gt;&gt;&gt;&gt;&gt;             date = info.get('updated_on', '')</div><div class="notcovered">&gt;&gt;&gt;&gt;&gt;&gt;             if date:</div><div class="notcovered">&gt;&gt;&gt;&gt;&gt;&gt;                 date = plone_view.toLocalizedTime(date, long_format=1)</div>       
+                   # prepare ticket body
+<div class="notcovered">&gt;&gt;&gt;&gt;&gt;&gt;             body = safe_unicode(info.get('description', ''))</div><div class="notcovered">&gt;&gt;&gt;&gt;&gt;&gt;             if body:</div>                       # convert textile to html and do not cut down ticket
+                       # description anymore
+<div class="notcovered">&gt;&gt;&gt;&gt;&gt;&gt;                 try:</div><div class="notcovered">&gt;&gt;&gt;&gt;&gt;&gt;                     body = textile.textile(body)</div><div class="notcovered">&gt;&gt;&gt;&gt;&gt;&gt;                 except:</div><div class="notcovered">&gt;&gt;&gt;&gt;&gt;&gt;                     pass</div>                       # crop length to 160 characters
+                       # body = plone_view.cropText(body, 160, ellipsis=u'...')
+       
+<div class="notcovered">&gt;&gt;&gt;&gt;&gt;&gt;             tickets.append({</div><div class="notcovered">&gt;&gt;&gt;&gt;&gt;&gt;                 'id': info['id'],</div><div class="notcovered">&gt;&gt;&gt;&gt;&gt;&gt;                 'title': safe_unicode(info['subject']),</div><div class="notcovered">&gt;&gt;&gt;&gt;&gt;&gt;                 'body': body,</div><div class="notcovered">&gt;&gt;&gt;&gt;&gt;&gt;                 'date': date,</div><div class="notcovered">&gt;&gt;&gt;&gt;&gt;&gt;                 'url': '%s/issues/%s' % (url, info['id'])</div>                   })
+       
+<div class="notcovered">&gt;&gt;&gt;&gt;&gt;&gt;             counter += 1</div>       
+<div class="notcovered">&gt;&gt;&gt;&gt;&gt;&gt;         return tuple(tickets)</div>       
+    1:     @memoize
+           def getAuthCredentials(self):
+               """Returns username and password for redmine user."""
+               # take username and password from authenticated user Zimbra creds
+    1:         mtool = getToolByName(self.context, 'portal_membership')
+    1:         member = mtool.getAuthenticatedMember()
+    1:         username, password = member.getProperty('redmine_username', ''), \
+    1:             member.getProperty('redmine_password', '')
+               # password could contain non-ascii chars, ensure it's properly encoded
+    1:         return username, safe_unicode(password).encode('utf-8')
+       
+    1:     @memoize
+           def _url(self):
+               """Redmine root url"""
+<div class="notcovered">&gt;&gt;&gt;&gt;&gt;&gt;         registry = getUtility(IRegistry)</div><div class="notcovered">&gt;&gt;&gt;&gt;&gt;&gt;         return registry.get('vnccollab.theme.redmine.url')</div>       
+    1:     @property
+           def title(self):
+               """return title of feed for portlet"""
+<div class="notcovered">&gt;&gt;&gt;&gt;&gt;&gt;         return self.data.header</div>       
+       
+    2: class AddForm(base.AddForm):
+    1:     form_fields = form.Fields(IRedmineTicketsPortlet)
+    1:     label = _(u"Add Redmine Tickets Portlet")
+    1:     description = _(u"Renders list of opened Redmine Tickets for authenticated "
+                           "user.")
+       
+    1:     def create(self, data):
+<div class="notcovered">&gt;&gt;&gt;&gt;&gt;&gt;         return Assignment(**data)</div>       
+       
+    2: class EditForm(base.EditForm):
+    1:     form_fields = form.Fields(IRedmineTicketsPortlet)
+    1:     label = _(u"Edit Redmine Tickets Portlet")
+    1:     description = _(u"Renders list of opened Redmine Tickets for authenticated "
+                           "user.")
+</pre>
+
+      <div class="footer">
+      Generated for revision wyeksportowane on 2013-11-05 18:00:40.809438Z
+      </div>
+    </body>
+    </html>

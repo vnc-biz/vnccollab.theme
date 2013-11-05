@@ -1,0 +1,88 @@
+
+    <html>
+      <head><title>Test coverage for vnccollab.theme.browser.homepage</title>
+      <style type="text/css">
+        a {text-decoration: none; display: block; padding-right: 1em;}
+        a:hover {background: #EFA;}
+        hr {height: 1px; border: none; border-top: 1px solid gray;}
+        .notcovered {background: #FCC;}
+        .footer {margin: 2em; font-size: small; color: gray;}
+      </style>
+      </head>
+      <body><h1>Test coverage for vnccollab.theme.browser.homepage</h1>
+      <table>
+    
+<tr><td><a href="vnccollab.html">vnccollab/</a></td> <td style="background: red">&nbsp;&nbsp;&nbsp;&nbsp;</td> <td>covered 58% (1732 of 4159 uncovered)</td></tr>
+<tr><td><a href="vnccollab.theme.html">&nbsp;&nbsp;&nbsp;&nbsp;theme/</a></td> <td style="background: red">&nbsp;&nbsp;&nbsp;&nbsp;</td> <td>covered 58% (1732 of 4159 uncovered)</td></tr>
+<tr><td><a href="vnccollab.theme.browser.html">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;browser/</a></td> <td style="background: red">&nbsp;&nbsp;&nbsp;&nbsp;</td> <td>covered 52% (979 of 2059 uncovered)</td></tr>
+<tr><td><a href="vnccollab.theme.browser.homepage.html">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;homepage.py</a></td> <td style="background: red">&nbsp;&nbsp;&nbsp;&nbsp;</td> <td>covered 42% (46 of 80 uncovered)</td></tr>
+</table><hr/>
+<pre>    1: from Acquisition import aq_inner
+    1: from ZODB.POSException import ConflictError
+       
+    1: from zope.component import getUtility
+    1: from zope.interface import Interface, implements, alsoProvides
+       
+    1: from plone.memoize.view import memoize
+    1: from plone.portlets.interfaces import IPortletManager, \
+          IPortletAssignmentSettings
+    1: from plone.portlets.constants import GROUP_CATEGORY
+    1: from plone.portlets.manager import PortletManagerRenderer, logger
+    1: from plone.portlets.utils import hashPortletInfo
+       
+    1: from Products.Five.browser.pagetemplatefile import ViewPageTemplateFile
+    1: from Products.CMFCore.utils import getToolByName
+       
+    1: from ..config import HP_NEWS_LIMIT
+    1: from .dashboard import DashboardView
+       
+       
+    2: class IHomePageView(Interface):
+    1:     """Homepage Default View"""
+       
+    2: class IAnonymousHomePageView(IHomePageView):
+    1:     """Marker interface for anonymous homepage version"""
+       
+    2: class HomePageColumnsRenderer(PortletManagerRenderer):
+       
+    1:     @memoize
+           def _lazyLoadPortlets(self, manager):
+<div class="notcovered">&gt;&gt;&gt;&gt;&gt;&gt;         items = []</div>               # below assignments attribute should be assigned by parent code
+<div class="notcovered">&gt;&gt;&gt;&gt;&gt;&gt;         for p in self.filter(self.assignments):</div><div class="notcovered">&gt;&gt;&gt;&gt;&gt;&gt;             renderer = self._dataToPortlet(p['assignment'].data)</div><div class="notcovered">&gt;&gt;&gt;&gt;&gt;&gt;             info = p.copy()</div><div class="notcovered">&gt;&gt;&gt;&gt;&gt;&gt;             info['manager'] = self.manager.__name__</div><div class="notcovered">&gt;&gt;&gt;&gt;&gt;&gt;             info['renderer'] = renderer</div><div class="notcovered">&gt;&gt;&gt;&gt;&gt;&gt;             hashPortletInfo(info)</div>                   # Record metadata on the renderer
+<div class="notcovered">&gt;&gt;&gt;&gt;&gt;&gt;             renderer.__portlet_metadata__ = info.copy()</div><div class="notcovered">&gt;&gt;&gt;&gt;&gt;&gt;             del renderer.__portlet_metadata__['renderer']</div><div class="notcovered">&gt;&gt;&gt;&gt;&gt;&gt;             try:</div><div class="notcovered">&gt;&gt;&gt;&gt;&gt;&gt;                 isAvailable = renderer.available</div><div class="notcovered">&gt;&gt;&gt;&gt;&gt;&gt;             except ConflictError:</div><div class="notcovered">&gt;&gt;&gt;&gt;&gt;&gt;                 raise</div><div class="notcovered">&gt;&gt;&gt;&gt;&gt;&gt;             except Exception, e:</div><div class="notcovered">&gt;&gt;&gt;&gt;&gt;&gt;                 isAvailable = False</div><div class="notcovered">&gt;&gt;&gt;&gt;&gt;&gt;                 logger.exception(</div><div class="notcovered">&gt;&gt;&gt;&gt;&gt;&gt;                     "Error while determining renderer availability of portlet "</div>                           "(%r %r %r): %s" % (
+<div class="notcovered">&gt;&gt;&gt;&gt;&gt;&gt;                     p['category'], p['key'], p['name'], str(e)))</div>       
+<div class="notcovered">&gt;&gt;&gt;&gt;&gt;&gt;             info['available'] = isAvailable</div><div class="notcovered">&gt;&gt;&gt;&gt;&gt;&gt;             items.append(info)</div>       
+<div class="notcovered">&gt;&gt;&gt;&gt;&gt;&gt;         return items</div>       
+    2: class HomePageView(DashboardView):
+       
+    1:     implements(IHomePageView)
+       
+    1:     _welcome_template = ViewPageTemplateFile('templates/homepage_view.pt')
+    1:     _dashboard_template = ViewPageTemplateFile('templates/dashboard.pt')
+       
+    1:     def getNews(self):
+<div class="notcovered">&gt;&gt;&gt;&gt;&gt;&gt;         catalog = getToolByName(self.context, 'portal_catalog')</div><div class="notcovered">&gt;&gt;&gt;&gt;&gt;&gt;         return catalog(portal_type="News Item", sort_on='created',</div><div class="notcovered">&gt;&gt;&gt;&gt;&gt;&gt;             sort_order='reverse',</div><div class="notcovered">&gt;&gt;&gt;&gt;&gt;&gt;             sort_limit=HP_NEWS_LIMIT)[:HP_NEWS_LIMIT]</div>       
+    1:     def __call__(self):
+    1:         if self.is_anonymous():
+<div class="notcovered">&gt;&gt;&gt;&gt;&gt;&gt;             alsoProvides(self, IAnonymousHomePageView)</div>    1:         return self.render()
+       
+    1:     def render(self):
+    1:         if self.is_anonymous():
+<div class="notcovered">&gt;&gt;&gt;&gt;&gt;&gt;             return self._welcome_template()</div>               else:
+    1:             return self._dashboard_template()
+       
+    1:     def getColumn(self, name, group='AnonymousUsers'):
+<div class="notcovered">&gt;&gt;&gt;&gt;&gt;&gt;         column = getUtility(IPortletManager, name=name)</div><div class="notcovered">&gt;&gt;&gt;&gt;&gt;&gt;         category = column[GROUP_CATEGORY]</div><div class="notcovered">&gt;&gt;&gt;&gt;&gt;&gt;         mapping = category.get(group, None)</div><div class="notcovered">&gt;&gt;&gt;&gt;&gt;&gt;         if mapping is None:</div><div class="notcovered">&gt;&gt;&gt;&gt;&gt;&gt;             return u''</div>       
+<div class="notcovered">&gt;&gt;&gt;&gt;&gt;&gt;         context = aq_inner(self.context)</div><div class="notcovered">&gt;&gt;&gt;&gt;&gt;&gt;         assignments = []</div><div class="notcovered">&gt;&gt;&gt;&gt;&gt;&gt;         for assignment in mapping.values():</div><div class="notcovered">&gt;&gt;&gt;&gt;&gt;&gt;             settings = IPortletAssignmentSettings(assignment)</div><div class="notcovered">&gt;&gt;&gt;&gt;&gt;&gt;             if not settings.get('visible', True):</div><div class="notcovered">&gt;&gt;&gt;&gt;&gt;&gt;                 continue</div><div class="notcovered">&gt;&gt;&gt;&gt;&gt;&gt;             assignments.append({'category': GROUP_CATEGORY,</div><div class="notcovered">&gt;&gt;&gt;&gt;&gt;&gt;                                 'key': group,</div><div class="notcovered">&gt;&gt;&gt;&gt;&gt;&gt;                                 'name': assignment.__name__,</div><div class="notcovered">&gt;&gt;&gt;&gt;&gt;&gt;                                 'assignment': assignment</div>                                       })
+       
+<div class="notcovered">&gt;&gt;&gt;&gt;&gt;&gt;         renderer = HomePageColumnsRenderer(context, self.request, self, column)</div><div class="notcovered">&gt;&gt;&gt;&gt;&gt;&gt;         renderer.assignments = assignments</div><div class="notcovered">&gt;&gt;&gt;&gt;&gt;&gt;         renderer.update()</div><div class="notcovered">&gt;&gt;&gt;&gt;&gt;&gt;         return renderer.render()</div>       
+    1:     def is_anonymous(self):
+    2:         mt = getToolByName(self.context, 'portal_membership')
+    2:         return mt.isAnonymousUser()
+</pre>
+
+      <div class="footer">
+      Generated for revision wyeksportowane on 2013-11-05 18:00:40.809438Z
+      </div>
+    </body>
+    </html>

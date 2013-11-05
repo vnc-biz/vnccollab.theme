@@ -1,0 +1,218 @@
+
+    <html>
+      <head><title>Test coverage for vnccollab.theme.zimbrautil</title>
+      <style type="text/css">
+        a {text-decoration: none; display: block; padding-right: 1em;}
+        a:hover {background: #EFA;}
+        hr {height: 1px; border: none; border-top: 1px solid gray;}
+        .notcovered {background: #FCC;}
+        .footer {margin: 2em; font-size: small; color: gray;}
+      </style>
+      </head>
+      <body><h1>Test coverage for vnccollab.theme.zimbrautil</h1>
+      <table>
+    
+<tr><td><a href="vnccollab.html">vnccollab/</a></td> <td style="background: red">&nbsp;&nbsp;&nbsp;&nbsp;</td> <td>covered 58% (1732 of 4159 uncovered)</td></tr>
+<tr><td><a href="vnccollab.theme.html">&nbsp;&nbsp;&nbsp;&nbsp;theme/</a></td> <td style="background: red">&nbsp;&nbsp;&nbsp;&nbsp;</td> <td>covered 58% (1732 of 4159 uncovered)</td></tr>
+<tr><td><a href="vnccollab.theme.zimbrautil.html">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;zimbrautil.py</a></td> <td style="background: red">&nbsp;&nbsp;&nbsp;&nbsp;</td> <td>covered 35% (130 of 203 uncovered)</td></tr>
+</table><hr/>
+<pre>    1: import urlparse
+    1: from pyzimbra.z.client import ZimbraClient
+    1: from pyzimbra.soap import SoapException
+       
+    1: from zope.interface import implements, Interface
+    1: from Products.CMFPlone.utils import safe_unicode as su
+    1: from plone.memoize.instance import memoize
+       
+       
+    2: class IZimbraUtil(Interface):
+    1:     """Interface for Zimbra Utility"""
+       
+    1:     def get_client(url_or_context, username='', password=''):
+               """Returns an authenticated zimbra client.
+       
+               If no username is given, it's used the current user information.
+               """
+       
+       
+    1: VNC_ZIMBRA_URL = 'https://zcs.vnc.biz'
+       
+       
+    2: class ZimbraUtil:
+    1:     """Zimbra Utility."""
+    1:     implements(IZimbraUtil)
+       
+    1:     @memoize
+    1:     def get_client(self, url=VNC_ZIMBRA_URL, username='', password=''):
+               '''Returns a ZimbraUserClient.
+       
+               Args:
+                 @url - URL of the zimbra server, withou '/service/soap'
+                 @username - Login of the user. If not present, the client
+                             won't be authenticated.
+                 @password - Password of the user.
+               '''
+    1:         url = url + '/service/soap'
+    1:         client = ZimbraUtilClient(url, username, password)
+    1:         return client
+       
+       
+    1: def refreshAuthToken(func, *args, **kw):
+           """Catches SoapException from passed function call and if the error is
+           identified as Token Expiration error - authenticate client and then repeat
+           the call.
+           """
+    9:     def decorated(*args, **kw):
+    6:         try:
+    6:             result = func(*args, **kw)
+    6:         except SoapException, e:
+<div class="notcovered">&gt;&gt;&gt;&gt;&gt;&gt;             msg = unicode(e)</div><div class="notcovered">&gt;&gt;&gt;&gt;&gt;&gt;             if u'auth credentials have expired' in msg or \</div><div class="notcovered">&gt;&gt;&gt;&gt;&gt;&gt;                u'AUTH_EXPIRED' in msg:</div>                       # authenticate, args[0] is func's method object
+<div class="notcovered">&gt;&gt;&gt;&gt;&gt;&gt;                 args[0].authenticate()</div><div class="notcovered">&gt;&gt;&gt;&gt;&gt;&gt;                 return func(*args, **kw)</div>                   else:
+<div class="notcovered">&gt;&gt;&gt;&gt;&gt;&gt;                 raise e</div>               else:
+<div class="notcovered">&gt;&gt;&gt;&gt;&gt;&gt;             return result</div>       
+    9:     return decorated
+       
+       
+    2: class ZimbraUtilClient:
+           '''
+           Zimbra client support class.
+       
+           It returns ZimbraClient results in a way more digerible by plone.
+    1:     '''
+    1:     def __init__(self, url, username='', password=''):
+    1:         self.url = url
+    1:         p = urlparse.urlparse(self.url)
+    1:         self.server_url = '{0}://{1}'.format(p.scheme, p.netloc)
+    1:         self.client = ZimbraClient(url)
+    1:         self.username = username
+    1:         self.password = password
+    1:         if username:
+<div class="notcovered">&gt;&gt;&gt;&gt;&gt;&gt;             self.authenticate()</div>       
+    1:     def authenticate(self):
+<div class="notcovered">&gt;&gt;&gt;&gt;&gt;&gt;         self.client.authenticate(self.username, self.password)</div>       
+    1:     @refreshAuthToken
+    1:     def get_raw_emails(self, folder=None, searchable_text='',
+    1:                    offset=0, limit=10,
+    1:                    recip='1', sortBy='dateDesc', types='conversation'):
+               """Returns list of email conversations.
+       
+               Args:
+                 @folder - if given, return list of emails from inside this folder
+                 @serchable_text - Text the email should have to be shown.
+                 @offset - if given, return list of emails starting from start
+                 @limit - return 'limit' number of emails
+                 @recip - whether to return 'to' email adress instead of 'from' for
+                          sent messages and conversations
+                 @sort_by - sort result set by given field
+               """
+    2:         query = {
+    2:             'types': types,
+    2:             'limit': limit,
+    2:             'offset': offset,
+    2:             'recip': recip,
+    2:             'sortBy': sortBy,
+               }
+       
+    2:         if folder:
+<div class="notcovered">&gt;&gt;&gt;&gt;&gt;&gt;             query['query'] = 'in:%s' % folder</div>       
+    2:         if searchable_text:
+<div class="notcovered">&gt;&gt;&gt;&gt;&gt;&gt;             query['query'] = searchable_text</div>       
+    2:         result = self.search(query)
+<div class="notcovered">&gt;&gt;&gt;&gt;&gt;&gt;         return result</div>       
+    1:     @refreshAuthToken
+    1:     def get_emails(self, folder=None, searchable_text='',
+    1:                    offset=0, limit=10,
+    1:                    recip='1', sortBy='dateDesc', types='conversation'):
+    2:         result = self.get_raw_emails(folder=folder,
+    2:                 searchable_text=searchable_text, offset=offset, limit=limit,
+    2:                 recip=recip, sortBy=sortBy, types=types)
+<div class="notcovered">&gt;&gt;&gt;&gt;&gt;&gt;         return [self._dict_from_mail(x) for x in result]</div>       
+    1:     @refreshAuthToken
+    1:     def get_address_book(self, offset=0, limit=100):
+               '''Returns the address book of the user.'''
+<div class="notcovered">&gt;&gt;&gt;&gt;&gt;&gt;         query = {</div><div class="notcovered">&gt;&gt;&gt;&gt;&gt;&gt;             'types': 'contact',</div><div class="notcovered">&gt;&gt;&gt;&gt;&gt;&gt;             'sortBy': 'nameAsc',</div><div class="notcovered">&gt;&gt;&gt;&gt;&gt;&gt;             'offset': offset,</div><div class="notcovered">&gt;&gt;&gt;&gt;&gt;&gt;             'limit': limit,</div><div class="notcovered">&gt;&gt;&gt;&gt;&gt;&gt;             'query': 'in:contacts'</div>               }
+<div class="notcovered">&gt;&gt;&gt;&gt;&gt;&gt;         result = self.search(query)</div><div class="notcovered">&gt;&gt;&gt;&gt;&gt;&gt;         return result</div>       
+    1:     @refreshAuthToken
+           def search(self, query):
+               '''Returns the result of making the given query.'''
+    2:         result = self.client.invoke('urn:zimbraMail', 'SearchRequest', query)
+               # if we have activated returnAllAttrs, result is a tuple.
+               # We're interested here only in its first element
+<div class="notcovered">&gt;&gt;&gt;&gt;&gt;&gt;         if type(result) == tuple:</div><div class="notcovered">&gt;&gt;&gt;&gt;&gt;&gt;             result = result[0]</div>       
+               # Get the result out of the list
+<div class="notcovered">&gt;&gt;&gt;&gt;&gt;&gt;         if not isinstance(result, list):</div><div class="notcovered">&gt;&gt;&gt;&gt;&gt;&gt;             result = [result]</div>       
+<div class="notcovered">&gt;&gt;&gt;&gt;&gt;&gt;         return result</div>       
+    1:     @refreshAuthToken
+           def get_email(self, eid):
+               """Returns email by given id.
+       
+               It also marks conversation as read.
+               """
+<div class="notcovered">&gt;&gt;&gt;&gt;&gt;&gt;         result = self.client.invoke('urn:zimbraMail', 'GetConvRequest',</div><div class="notcovered">&gt;&gt;&gt;&gt;&gt;&gt;             {'c': {'id': eid, 'fetch': 'all', 'html': '1'}})[0].m</div>       
+               # TODO: make zimbra conversation as read
+<div class="notcovered">&gt;&gt;&gt;&gt;&gt;&gt;         if not isinstance(result, list):</div><div class="notcovered">&gt;&gt;&gt;&gt;&gt;&gt;             result = [result]</div>       
+<div class="notcovered">&gt;&gt;&gt;&gt;&gt;&gt;         return result</div>       
+    1:     @refreshAuthToken
+           def get_email_thread(self, eid):
+               """Returns conversation emails by given id.
+       
+               It also marks conversation as read.
+               """
+<div class="notcovered">&gt;&gt;&gt;&gt;&gt;&gt;         result = self.get_email(eid)</div>       
+<div class="notcovered">&gt;&gt;&gt;&gt;&gt;&gt;         thread = []</div><div class="notcovered">&gt;&gt;&gt;&gt;&gt;&gt;         for item in result:</div><div class="notcovered">&gt;&gt;&gt;&gt;&gt;&gt;             from_ = [su(e._getAttr('p')) for e in item.e</div><div class="notcovered">&gt;&gt;&gt;&gt;&gt;&gt;                         if e._getAttr('t') == 'f']</div><div class="notcovered">&gt;&gt;&gt;&gt;&gt;&gt;             from_ = from_[0] if len(from_) else ''</div><div class="notcovered">&gt;&gt;&gt;&gt;&gt;&gt;             to = u', '.join([su(e._getAttr('d')) for e in item.e</div><div class="notcovered">&gt;&gt;&gt;&gt;&gt;&gt;                         if e._getAttr('t') == 't'])</div>       
+<div class="notcovered">&gt;&gt;&gt;&gt;&gt;&gt;             thread.append({</div><div class="notcovered">&gt;&gt;&gt;&gt;&gt;&gt;                 'from': from_,</div><div class="notcovered">&gt;&gt;&gt;&gt;&gt;&gt;                 'to': to,</div><div class="notcovered">&gt;&gt;&gt;&gt;&gt;&gt;                 'body': item,</div><div class="notcovered">&gt;&gt;&gt;&gt;&gt;&gt;                 'id': item._getAttr('_orig_id'),</div><div class="notcovered">&gt;&gt;&gt;&gt;&gt;&gt;                 'date': item._getAttr('d'),</div>                   })
+       
+<div class="notcovered">&gt;&gt;&gt;&gt;&gt;&gt;             return thread</div>       
+    1:     def _dict_from_mail(self, mail):
+               """Converts a zimbra mail into a dictionary"""
+<div class="notcovered">&gt;&gt;&gt;&gt;&gt;&gt;         people = getattr(mail, 'e', [])</div><div class="notcovered">&gt;&gt;&gt;&gt;&gt;&gt;         if not people:</div><div class="notcovered">&gt;&gt;&gt;&gt;&gt;&gt;             people = []</div><div class="notcovered">&gt;&gt;&gt;&gt;&gt;&gt;         elif not isinstance(people, list):</div><div class="notcovered">&gt;&gt;&gt;&gt;&gt;&gt;             people = [people]</div>       
+               # prepare subject
+<div class="notcovered">&gt;&gt;&gt;&gt;&gt;&gt;         subject = getattr(mail, 'su', '') or 'No Subject'</div>       
+<div class="notcovered">&gt;&gt;&gt;&gt;&gt;&gt;         dct = {</div><div class="notcovered">&gt;&gt;&gt;&gt;&gt;&gt;             'subject': su(subject),</div><div class="notcovered">&gt;&gt;&gt;&gt;&gt;&gt;             'body': u'%s (%s) - %s - %s' % (u', '.join([p._getAttr('d')</div><div class="notcovered">&gt;&gt;&gt;&gt;&gt;&gt;                     for p in people]), mail._getAttr('n'), su(mail.su),</div><div class="notcovered">&gt;&gt;&gt;&gt;&gt;&gt;                     su(getattr(mail, 'fr', ''))),</div><div class="notcovered">&gt;&gt;&gt;&gt;&gt;&gt;             'unread': u'u' in (mail._getAttr('f') or ''),</div><div class="notcovered">&gt;&gt;&gt;&gt;&gt;&gt;             'id': mail._getAttr('_orig_id'),</div><div class="notcovered">&gt;&gt;&gt;&gt;&gt;&gt;             'date': mail._getAttr('d'),</div><div class="notcovered">&gt;&gt;&gt;&gt;&gt;&gt;             'cid': mail._getAttr('cid'),</div>               }
+<div class="notcovered">&gt;&gt;&gt;&gt;&gt;&gt;         return dct</div>       
+    1:     @refreshAuthToken
+           def create_task(self, dct):
+               """Creates a task, given its description as a dictionary"""
+<div class="notcovered">&gt;&gt;&gt;&gt;&gt;&gt;         task = dict(**dct)</div><div class="notcovered">&gt;&gt;&gt;&gt;&gt;&gt;         for k, v in task.items():</div><div class="notcovered">&gt;&gt;&gt;&gt;&gt;&gt;             if v is None:</div><div class="notcovered">&gt;&gt;&gt;&gt;&gt;&gt;                 task[k] = u''</div><div class="notcovered">&gt;&gt;&gt;&gt;&gt;&gt;         task['startDate'] = self._stringFromDate(task['startDate'])</div><div class="notcovered">&gt;&gt;&gt;&gt;&gt;&gt;         task['endDate'] = self._stringFromDate(task['endDate'])</div>       
+<div class="notcovered">&gt;&gt;&gt;&gt;&gt;&gt;         query = {</div><div class="notcovered">&gt;&gt;&gt;&gt;&gt;&gt;             'm': {</div>                     #'l' : '24486', # List id. It could be ommited
+<div class="notcovered">&gt;&gt;&gt;&gt;&gt;&gt;               'inv': {</div><div class="notcovered">&gt;&gt;&gt;&gt;&gt;&gt;                 'comp': {</div><div class="notcovered">&gt;&gt;&gt;&gt;&gt;&gt;                   'name': task.get('subject', ''),</div><div class="notcovered">&gt;&gt;&gt;&gt;&gt;&gt;                   'loc': task.get('location', ''),</div><div class="notcovered">&gt;&gt;&gt;&gt;&gt;&gt;                   'percentComplete': task.get('percentComplete', '0'),</div><div class="notcovered">&gt;&gt;&gt;&gt;&gt;&gt;                   'status': task.get('status', 'NEED'),    # Not started</div><div class="notcovered">&gt;&gt;&gt;&gt;&gt;&gt;                   'priority': task.get('priority', '5'),   # Normal</div><div class="notcovered">&gt;&gt;&gt;&gt;&gt;&gt;                   'or': {'a': task['author'],              # Required</div><div class="notcovered">&gt;&gt;&gt;&gt;&gt;&gt;                          'd': task.get('authorName', ''),</div>                         },
+                       },
+                     },
+<div class="notcovered">&gt;&gt;&gt;&gt;&gt;&gt;               'mp': {</div><div class="notcovered">&gt;&gt;&gt;&gt;&gt;&gt;                 'ct': 'multipart/alternative',</div><div class="notcovered">&gt;&gt;&gt;&gt;&gt;&gt;                 'mp': {</div><div class="notcovered">&gt;&gt;&gt;&gt;&gt;&gt;                     'ct': 'text/plain',</div><div class="notcovered">&gt;&gt;&gt;&gt;&gt;&gt;                     'content': task.get('content', '')}},</div>                   }
+               }
+<div class="notcovered">&gt;&gt;&gt;&gt;&gt;&gt;         if task['content']:</div><div class="notcovered">&gt;&gt;&gt;&gt;&gt;&gt;             query['m']['mp'] = {'ct': 'text/plain',</div><div class="notcovered">&gt;&gt;&gt;&gt;&gt;&gt;                                 'content': task['content']}</div><div class="notcovered">&gt;&gt;&gt;&gt;&gt;&gt;         if task['startDate']:</div><div class="notcovered">&gt;&gt;&gt;&gt;&gt;&gt;             query['m']['inv']['comp']['s'] = {'d': task['startDate']}</div><div class="notcovered">&gt;&gt;&gt;&gt;&gt;&gt;         if task['endDate']:</div><div class="notcovered">&gt;&gt;&gt;&gt;&gt;&gt;             query['m']['inv']['comp']['e'] = {'d': task['endDate']}</div>       
+<div class="notcovered">&gt;&gt;&gt;&gt;&gt;&gt;         response, _ = self.client.invoke('urn:zimbraMail',</div><div class="notcovered">&gt;&gt;&gt;&gt;&gt;&gt;                 'CreateTaskRequest', query)</div><div class="notcovered">&gt;&gt;&gt;&gt;&gt;&gt;         response = self.get_message(response._getAttr(u'invId'))</div><div class="notcovered">&gt;&gt;&gt;&gt;&gt;&gt;         task = self._taskFromGetMsgResponse(response)</div><div class="notcovered">&gt;&gt;&gt;&gt;&gt;&gt;         return task</div>       
+    1:     @refreshAuthToken
+           def get_message(self, id):
+               '''Returns a message (mail, task, etc), given its id.'''
+<div class="notcovered">&gt;&gt;&gt;&gt;&gt;&gt;         query = {"_jsns": "urn:zimbraMail",</div><div class="notcovered">&gt;&gt;&gt;&gt;&gt;&gt;                  "m": {'id': id, 'html': 1, 'needExp': 1, 'max': 250000}}</div><div class="notcovered">&gt;&gt;&gt;&gt;&gt;&gt;         response, attrs = self.client.invoke('urn:zimbraMail',</div><div class="notcovered">&gt;&gt;&gt;&gt;&gt;&gt;                 'GetMsgRequest', query)</div><div class="notcovered">&gt;&gt;&gt;&gt;&gt;&gt;         return response</div>       
+    1:     @refreshAuthToken
+           def get_all_tasks(self):
+               '''Returns all the zimbra tasks of the authenticated user.'''
+<div class="notcovered">&gt;&gt;&gt;&gt;&gt;&gt;         query = {'query': 'in:"tasks"', 'types': 'task', }</div><div class="notcovered">&gt;&gt;&gt;&gt;&gt;&gt;         response, _ = self.client.invoke('urn:zimbraMail',</div><div class="notcovered">&gt;&gt;&gt;&gt;&gt;&gt;                 'SearchRequest', query)</div><div class="notcovered">&gt;&gt;&gt;&gt;&gt;&gt;         if type(response) != list:</div><div class="notcovered">&gt;&gt;&gt;&gt;&gt;&gt;             response = [response]</div><div class="notcovered">&gt;&gt;&gt;&gt;&gt;&gt;         return [self._taskFromSearchResponse(x) for x in response]</div>       
+    1:     def _taskFromGetMsgResponse(self, response):
+               '''Returns a ZimbraTask given a zimbra CreateTaskResponse.'''
+<div class="notcovered">&gt;&gt;&gt;&gt;&gt;&gt;         id = response._getAttr('_orig_id')</div><div class="notcovered">&gt;&gt;&gt;&gt;&gt;&gt;         title = response.inv.comp._getAttr('name')</div><div class="notcovered">&gt;&gt;&gt;&gt;&gt;&gt;         body = getattr(response.inv.comp, 'fr', u'')</div><div class="notcovered">&gt;&gt;&gt;&gt;&gt;&gt;         return ZimbraTask(id, title, self.server_url, body)</div>       
+    1:     def _taskFromSearchResponse(self, response):
+               '''Returns a ZImbraTask given a zimbra SearchResponse.'''
+<div class="notcovered">&gt;&gt;&gt;&gt;&gt;&gt;         id = response._getAttr('invId')</div><div class="notcovered">&gt;&gt;&gt;&gt;&gt;&gt;         title = response._getAttr('name')</div><div class="notcovered">&gt;&gt;&gt;&gt;&gt;&gt;         body = getattr(response, 'fr', u'')</div><div class="notcovered">&gt;&gt;&gt;&gt;&gt;&gt;         return ZimbraTask(id, title, self.server_url, body)</div>       
+    1:     def _stringFromDate(self, date=None):
+<div class="notcovered">&gt;&gt;&gt;&gt;&gt;&gt;         if not date:</div><div class="notcovered">&gt;&gt;&gt;&gt;&gt;&gt;             return ''</div><div class="notcovered">&gt;&gt;&gt;&gt;&gt;&gt;         return date.strftime('%Y%m%d')</div>       
+       
+    2: class ZimbraTask:
+    1:     def __init__(self, id, title, server_url, body):
+<div class="notcovered">&gt;&gt;&gt;&gt;&gt;&gt;         self.id = id</div><div class="notcovered">&gt;&gt;&gt;&gt;&gt;&gt;         self.title = title</div><div class="notcovered">&gt;&gt;&gt;&gt;&gt;&gt;         self.server_url = server_url</div><div class="notcovered">&gt;&gt;&gt;&gt;&gt;&gt;         self.url = ('{0}/zimbra/h/search?su=1&amp;si=0&amp;so=0&amp;sc=4&amp;st=task'</div><div class="notcovered">&gt;&gt;&gt;&gt;&gt;&gt;               + '&amp;id={1}&amp;action=edittask').format(self.server_url, id)</div><div class="notcovered">&gt;&gt;&gt;&gt;&gt;&gt;         self.body = body</div>       
+    1:     def __eq__(self, other):
+<div class="notcovered">&gt;&gt;&gt;&gt;&gt;&gt;         return (self.id == other.id) and (self.server_url == other.server_url)</div>       
+    1:     def __repr__(self):
+<div class="notcovered">&gt;&gt;&gt;&gt;&gt;&gt;         if len(self.body) &lt; 10:</div><div class="notcovered">&gt;&gt;&gt;&gt;&gt;&gt;             body = repr(self.body)</div>               else:
+<div class="notcovered">&gt;&gt;&gt;&gt;&gt;&gt;             body = repr(self.body[:10] + '...')</div><div class="notcovered">&gt;&gt;&gt;&gt;&gt;&gt;         return 'ZimbraTask({0}, {1}, {2})'.format(repr(self.id),</div><div class="notcovered">&gt;&gt;&gt;&gt;&gt;&gt;                 repr(self.title), body)</div>       
+       
+    1: zimbraUtilInstance = ZimbraUtil()
+</pre>
+
+      <div class="footer">
+      Generated for revision wyeksportowane on 2013-11-05 18:00:40.809438Z
+      </div>
+    </body>
+    </html>

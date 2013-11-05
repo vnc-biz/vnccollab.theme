@@ -1,0 +1,185 @@
+
+    <html>
+      <head><title>Test coverage for vnccollab.theme.portlets.etherpads_list</title>
+      <style type="text/css">
+        a {text-decoration: none; display: block; padding-right: 1em;}
+        a:hover {background: #EFA;}
+        hr {height: 1px; border: none; border-top: 1px solid gray;}
+        .notcovered {background: #FCC;}
+        .footer {margin: 2em; font-size: small; color: gray;}
+      </style>
+      </head>
+      <body><h1>Test coverage for vnccollab.theme.portlets.etherpads_list</h1>
+      <table>
+    
+<tr><td><a href="vnccollab.html">vnccollab/</a></td> <td style="background: red">&nbsp;&nbsp;&nbsp;&nbsp;</td> <td>covered 58% (1732 of 4159 uncovered)</td></tr>
+<tr><td><a href="vnccollab.theme.html">&nbsp;&nbsp;&nbsp;&nbsp;theme/</a></td> <td style="background: red">&nbsp;&nbsp;&nbsp;&nbsp;</td> <td>covered 58% (1732 of 4159 uncovered)</td></tr>
+<tr><td><a href="vnccollab.theme.portlets.html">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;portlets/</a></td> <td style="background: red">&nbsp;&nbsp;&nbsp;&nbsp;</td> <td>covered 66% (375 of 1108 uncovered)</td></tr>
+<tr><td><a href="vnccollab.theme.portlets.etherpads_list.html">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;etherpads_list.py</a></td> <td style="background: red">&nbsp;&nbsp;&nbsp;&nbsp;</td> <td>covered 48% (76 of 148 uncovered)</td></tr>
+</table><hr/>
+<pre>    1: import logging
+    1: from BeautifulSoup import BeautifulSoup
+       
+    1: from zope.formlib import form
+    1: from zope.interface import implements
+    1: from zope import schema
+    1: from zope.testbrowser.browser import Browser
+       
+    1: from Products.Five.browser.pagetemplatefile import ZopeTwoPageTemplateFile
+    1: from Products.CMFCore.utils import getToolByName
+    1: from Products.CMFPlone.utils import safe_unicode
+       
+    1: from plone.memoize.instance import memoize
+    1: from plone.portlets.interfaces import IPortletDataProvider
+    1: from plone.app.portlets.portlets import base
+       
+    1: from vnccollab.theme import messageFactory as _
+    1: from vnccollab.common.portlets import deferred
+    1: from vnccollab.theme.portlets.zimbra_mail import logException
+       
+    1: logger = logging.getLogger('vnccollab.theme.EtherpadListsPortlet')
+       
+       
+    2: class IEtherpadsListPortlet(IPortletDataProvider):
+       
+    1:     header = schema.TextLine(
+    1:         title=_(u"Header"),
+    1:         description=_(u"Header of the portlet."),
+    1:         required=True,
+    1:         default=u'Your Pads')
+       
+    1:     url = schema.URI(
+    1:         title=_(u"Etherpad Root URL"),
+    1:         description=_(u"Root url to your Etherpad service. If not set here, "
+                   "then user settings will be checked for etherpad root url "
+                   " service."),
+    1:         required=False,
+    1:         default='https://vitaliy.etherpad.zdemo.vnc.biz')
+       
+    1:     count = schema.Int(
+    1:        title=_(u"Number of pads to display"),
+    1:        description=u'',
+    1:        required=True,
+    1:        default=10)
+       
+    1:     username = schema.ASCIILine(
+    1:         title=_(u"Username"),
+    1:         description=_(u"If not set, etherpad_username property of "
+                   "authenticated user will be used."),
+    1:         required=False,
+    1:         default='')
+       
+    1:     password = schema.Password(
+    1:         title=_(u"Password"),
+    1:         description=_(u"If not set, etherpad_password property of authenticated"
+                   " user will be used."),
+    1:         required=False,
+    1:         default=u'')
+       
+       
+    2: class Assignment(base.Assignment):
+    1:     implements(IEtherpadsListPortlet)
+       
+    1:     header = u'Your Pads'
+    1:     url = 'https://vitaliy.etherpad.zdemo.vnc.biz'
+    1:     count = 10
+    1:     username = ''
+    1:     password = u''
+       
+    1:     @property
+           def title(self):
+               """Return portlet header"""
+<div class="notcovered">&gt;&gt;&gt;&gt;&gt;&gt;         return self.header</div>       
+    1:     def __init__(self, header=u'Your Pads',
+    1:                  url='https://vitaliy.etherpad.zdemo.vnc.biz',
+    1:                  count=10, username='', password=u''):
+<div class="notcovered">&gt;&gt;&gt;&gt;&gt;&gt;         self.header = header</div><div class="notcovered">&gt;&gt;&gt;&gt;&gt;&gt;         self.url = url</div><div class="notcovered">&gt;&gt;&gt;&gt;&gt;&gt;         self.count = count</div><div class="notcovered">&gt;&gt;&gt;&gt;&gt;&gt;         self.username = username</div><div class="notcovered">&gt;&gt;&gt;&gt;&gt;&gt;         self.password = password</div>       
+       
+    2: class Renderer(deferred.DeferredRenderer):
+       
+    1:     render = ZopeTwoPageTemplateFile('templates/etherpads_list.pt')
+       
+    1:     def refresh(self):
+<div class="notcovered">&gt;&gt;&gt;&gt;&gt;&gt;         self.pads = self.getPads()</div>       
+    1:     @memoize
+           def getPads(self):
+<div class="notcovered">&gt;&gt;&gt;&gt;&gt;&gt;         pads = []</div><div class="notcovered">&gt;&gt;&gt;&gt;&gt;&gt;         username, password, url = self.getUserData()</div><div class="notcovered">&gt;&gt;&gt;&gt;&gt;&gt;         if not (username and password and url):</div><div class="notcovered">&gt;&gt;&gt;&gt;&gt;&gt;             return ()</div>       
+               # try to request etherpad for page with table of pads
+<div class="notcovered">&gt;&gt;&gt;&gt;&gt;&gt;         try:</div><div class="notcovered">&gt;&gt;&gt;&gt;&gt;&gt;             content = self._getPadsPage()</div>       
+<div class="notcovered">&gt;&gt;&gt;&gt;&gt;&gt;         except:</div><div class="notcovered">&gt;&gt;&gt;&gt;&gt;&gt;             logException(_(u"Error during fetching pads from %s" % url),</div><div class="notcovered">&gt;&gt;&gt;&gt;&gt;&gt;                 context=self.context, logger=logger)</div><div class="notcovered">&gt;&gt;&gt;&gt;&gt;&gt;             return ()</div>       
+               # try to parse html page into pads
+<div class="notcovered">&gt;&gt;&gt;&gt;&gt;&gt;         try:</div><div class="notcovered">&gt;&gt;&gt;&gt;&gt;&gt;             pads = self._parsePadsPage(content, self.trail_url(url),</div><div class="notcovered">&gt;&gt;&gt;&gt;&gt;&gt;                 self.data.count)</div>       
+<div class="notcovered">&gt;&gt;&gt;&gt;&gt;&gt;         except:</div><div class="notcovered">&gt;&gt;&gt;&gt;&gt;&gt;             logException(_(u"Error during parsing pads page from %s" % url),</div><div class="notcovered">&gt;&gt;&gt;&gt;&gt;&gt;                 context=self.context, logger=logger)</div><div class="notcovered">&gt;&gt;&gt;&gt;&gt;&gt;             return ()</div>       
+<div class="notcovered">&gt;&gt;&gt;&gt;&gt;&gt;         return tuple(pads)</div>       
+    1:     def _parsePadsPage(self, content, base_url, limit):
+<div class="notcovered">&gt;&gt;&gt;&gt;&gt;&gt;         pads = []</div><div class="notcovered">&gt;&gt;&gt;&gt;&gt;&gt;         soup = BeautifulSoup(content)</div>       
+               # go over pads table rows, skipping first header row
+<div class="notcovered">&gt;&gt;&gt;&gt;&gt;&gt;         counter = 0</div><div class="notcovered">&gt;&gt;&gt;&gt;&gt;&gt;         for row in soup.find('table', id='padtable').findAll('tr')[1:]:</div><div class="notcovered">&gt;&gt;&gt;&gt;&gt;&gt;             if limit and limit &lt;= counter:</div><div class="notcovered">&gt;&gt;&gt;&gt;&gt;&gt;                 break</div>       
+                   # get row cells
+<div class="notcovered">&gt;&gt;&gt;&gt;&gt;&gt;             ctitle, cdate, ceditors = row.findAll('td')[:3]</div>       
+<div class="notcovered">&gt;&gt;&gt;&gt;&gt;&gt;             if not (ctitle and cdate and ceditors):</div><div class="notcovered">&gt;&gt;&gt;&gt;&gt;&gt;                 continue</div>       
+                   # prepare pad url
+<div class="notcovered">&gt;&gt;&gt;&gt;&gt;&gt;             link = ctitle.find('a')</div><div class="notcovered">&gt;&gt;&gt;&gt;&gt;&gt;             if not link:</div><div class="notcovered">&gt;&gt;&gt;&gt;&gt;&gt;                 continue</div>       
+<div class="notcovered">&gt;&gt;&gt;&gt;&gt;&gt;             url = '%s%s' % (base_url, link.get('href'))</div><div class="notcovered">&gt;&gt;&gt;&gt;&gt;&gt;             if not url:</div><div class="notcovered">&gt;&gt;&gt;&gt;&gt;&gt;                 continue</div>       
+                   # prepare editors
+<div class="notcovered">&gt;&gt;&gt;&gt;&gt;&gt;             editors = []</div><div class="notcovered">&gt;&gt;&gt;&gt;&gt;&gt;             for editor in ceditors.findAll('a'):</div><div class="notcovered">&gt;&gt;&gt;&gt;&gt;&gt;                 editors.append({</div><div class="notcovered">&gt;&gt;&gt;&gt;&gt;&gt;                     'name': editor.text,</div><div class="notcovered">&gt;&gt;&gt;&gt;&gt;&gt;                     'url': '%s%s' % (base_url, editor.get('href'))</div>                       })
+       
+<div class="notcovered">&gt;&gt;&gt;&gt;&gt;&gt;             pads.append({</div><div class="notcovered">&gt;&gt;&gt;&gt;&gt;&gt;                 'url': url,</div><div class="notcovered">&gt;&gt;&gt;&gt;&gt;&gt;                 'title': link.text,</div><div class="notcovered">&gt;&gt;&gt;&gt;&gt;&gt;                 'date': cdate.text,</div><div class="notcovered">&gt;&gt;&gt;&gt;&gt;&gt;                 'editors': tuple(editors)</div>                   })
+<div class="notcovered">&gt;&gt;&gt;&gt;&gt;&gt;             counter += 1</div>       
+<div class="notcovered">&gt;&gt;&gt;&gt;&gt;&gt;         return pads</div>       
+    1:     def _getPadsPage(self):
+<div class="notcovered">&gt;&gt;&gt;&gt;&gt;&gt;         username, password, url = self.getUserData()</div>       
+               # login
+<div class="notcovered">&gt;&gt;&gt;&gt;&gt;&gt;         browser = Browser()</div><div class="notcovered">&gt;&gt;&gt;&gt;&gt;&gt;         browser.open('%s/ep/account/sign-in' % self.trail_url(url))</div><div class="notcovered">&gt;&gt;&gt;&gt;&gt;&gt;         browser.getControl(name='email').value = username</div><div class="notcovered">&gt;&gt;&gt;&gt;&gt;&gt;         browser.getControl(name='password').value = password</div><div class="notcovered">&gt;&gt;&gt;&gt;&gt;&gt;         browser.getForm(id='signin-form').submit()</div>       
+               # open pads table page
+<div class="notcovered">&gt;&gt;&gt;&gt;&gt;&gt;         browser.getLink('Pads').click()</div>       
+<div class="notcovered">&gt;&gt;&gt;&gt;&gt;&gt;         return safe_unicode(browser.contents)</div>       
+    1:     @memoize
+           def root_url(self):
+               """Return url w/o trailing slash prepared either from portlet or
+               user settings.
+       
+               Used in template.
+               """
+<div class="notcovered">&gt;&gt;&gt;&gt;&gt;&gt;         return self.trail_url(self.getUserData()[2])</div>       
+    1:     def trail_url(self, url=None):
+               """Remove trailing slash from url."""
+<div class="notcovered">&gt;&gt;&gt;&gt;&gt;&gt;         if url and url.endswith('/'):</div><div class="notcovered">&gt;&gt;&gt;&gt;&gt;&gt;             return url[:-1]</div><div class="notcovered">&gt;&gt;&gt;&gt;&gt;&gt;         return url</div>       
+    1:     @memoize
+           def getUserData(self):
+               """Returns username, password and root etherpad url for user.
+       
+               Returns tuple of:
+                   (username, password, root etherpad url)
+               """
+<div class="notcovered">&gt;&gt;&gt;&gt;&gt;&gt;         mtool = getToolByName(self.context, 'portal_membership')</div><div class="notcovered">&gt;&gt;&gt;&gt;&gt;&gt;         member = mtool.getAuthenticatedMember()</div><div class="notcovered">&gt;&gt;&gt;&gt;&gt;&gt;         username, password, url = self.data.username, self.data.password, \</div><div class="notcovered">&gt;&gt;&gt;&gt;&gt;&gt;             self.data.url</div>       
+               # take username and password from authenticated user Etherpad creds
+<div class="notcovered">&gt;&gt;&gt;&gt;&gt;&gt;         if not (username and password):</div><div class="notcovered">&gt;&gt;&gt;&gt;&gt;&gt;             username, password = member.getProperty('etherpad_username', ''), \</div><div class="notcovered">&gt;&gt;&gt;&gt;&gt;&gt;                 member.getProperty('etherpad_password', '')</div>       
+               # if not set globally, take url from user settings
+<div class="notcovered">&gt;&gt;&gt;&gt;&gt;&gt;         if not url:</div><div class="notcovered">&gt;&gt;&gt;&gt;&gt;&gt;             url = member.getProperty('etherpad_url', '')</div>       
+               # password could contain non-ascii chars, ensure it's properly encoded
+<div class="notcovered">&gt;&gt;&gt;&gt;&gt;&gt;         return username, safe_unicode(password).encode('utf-8'), url</div>       
+    1:     @property
+           def title(self):
+               """return title of feed for portlet"""
+<div class="notcovered">&gt;&gt;&gt;&gt;&gt;&gt;         return self.data.header</div>       
+       
+    2: class AddForm(base.AddForm):
+    1:     form_fields = form.Fields(IEtherpadsListPortlet)
+    1:     label = _(u"Add Etherpad Lists portlet")
+    1:     description = _(u"A portlet displaying list of Etherpad pads.")
+       
+    1:     def create(self, data):
+<div class="notcovered">&gt;&gt;&gt;&gt;&gt;&gt;         return Assignment(**data)</div>       
+       
+    2: class EditForm(base.EditForm):
+    1:     form_fields = form.Fields(IEtherpadsListPortlet)
+    1:     label = _(u"Edit Etherpad Lists portlet")
+    1:     description = _(u"A portlet displaying list of Etherpad pads.")
+</pre>
+
+      <div class="footer">
+      Generated for revision wyeksportowane on 2013-11-05 18:00:40.809438Z
+      </div>
+    </body>
+    </html>

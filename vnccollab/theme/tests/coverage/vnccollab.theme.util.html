@@ -1,0 +1,166 @@
+
+    <html>
+      <head><title>Test coverage for vnccollab.theme.util</title>
+      <style type="text/css">
+        a {text-decoration: none; display: block; padding-right: 1em;}
+        a:hover {background: #EFA;}
+        hr {height: 1px; border: none; border-top: 1px solid gray;}
+        .notcovered {background: #FCC;}
+        .footer {margin: 2em; font-size: small; color: gray;}
+      </style>
+      </head>
+      <body><h1>Test coverage for vnccollab.theme.util</h1>
+      <table>
+    
+<tr><td><a href="vnccollab.html">vnccollab/</a></td> <td style="background: red">&nbsp;&nbsp;&nbsp;&nbsp;</td> <td>covered 58% (1732 of 4159 uncovered)</td></tr>
+<tr><td><a href="vnccollab.theme.html">&nbsp;&nbsp;&nbsp;&nbsp;theme/</a></td> <td style="background: red">&nbsp;&nbsp;&nbsp;&nbsp;</td> <td>covered 58% (1732 of 4159 uncovered)</td></tr>
+<tr><td><a href="vnccollab.theme.util.html">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;util.py</a></td> <td style="background: red">&nbsp;&nbsp;&nbsp;&nbsp;</td> <td>covered 41% (71 of 122 uncovered)</td></tr>
+</table><hr/>
+<pre>    1: """Miscellaneous utility functions"""
+    1: from math import ceil
+    1: from pyzimbra.auth import AuthException
+       
+    1: from plone.memoize.instance import memoize
+    1: from plone.app.layout.navigation.interfaces import INavtreeStrategy
+    1: from plone.app.layout.navigation.interfaces import INavigationQueryBuilder
+    1: from plone.app.layout.navigation.navtree import buildFolderTree
+       
+    1: from zope.component import getUtility, getMultiAdapter
+    1: from zope.annotation.interfaces import IAnnotations
+       
+    1: from Products.CMFPlone.utils import safe_unicode
+    1: from Products.CMFCore.utils import getToolByName
+       
+    1: from Acquisition import aq_inner
+       
+    1: from vnccollab.theme.zimbrautil import IZimbraUtil
+       
+       
+    1: def getAllActiveResources(klass, limit=100, page=1):
+           """Returns all items from ActiveResource class.
+       
+           @klass: ActiveResource inherited class
+           @limit: amount of items in one page query
+           @page: page number to get items from
+       
+           Mosty used for Redmine REST API calls to get all items
+           using pagination.
+           """
+           # yiled given page items
+<div class="notcovered">&gt;&gt;&gt;&gt;&gt;&gt;     res = klass.find(limit=limit, page=page)</div><div class="notcovered">&gt;&gt;&gt;&gt;&gt;&gt;     for item in res:</div><div class="notcovered">&gt;&gt;&gt;&gt;&gt;&gt;         yield item</div>       
+           # check if we got any more pages left
+<div class="notcovered">&gt;&gt;&gt;&gt;&gt;&gt;     if len(res) &gt;= limit:</div><div class="notcovered">&gt;&gt;&gt;&gt;&gt;&gt;         for item in getAllActiveResources(klass, limit=limit, page=page + 1):</div><div class="notcovered">&gt;&gt;&gt;&gt;&gt;&gt;             yield item</div>       
+       
+    1: def getZimbraUrl(context):
+           #TODO: get zimbra url from registry
+<div class="notcovered">&gt;&gt;&gt;&gt;&gt;&gt;     return 'https://zcs.vnc.biz'</div>       
+       
+    1: def getZimbraEmail(context):
+<div class="notcovered">&gt;&gt;&gt;&gt;&gt;&gt;     mtool = getToolByName(context, 'portal_membership')</div><div class="notcovered">&gt;&gt;&gt;&gt;&gt;&gt;     member = mtool.getAuthenticatedMember()</div><div class="notcovered">&gt;&gt;&gt;&gt;&gt;&gt;     email = member.getProperty('email')</div><div class="notcovered">&gt;&gt;&gt;&gt;&gt;&gt;     return email</div>       
+       
+    1: def getZimbraClient(context):
+<div class="notcovered">&gt;&gt;&gt;&gt;&gt;&gt;     username, password = getZimbraCredentials(context)</div>       
+<div class="notcovered">&gt;&gt;&gt;&gt;&gt;&gt;     try:</div><div class="notcovered">&gt;&gt;&gt;&gt;&gt;&gt;         client = getUtility(IZimbraUtil).get_client(username=username,</div><div class="notcovered">&gt;&gt;&gt;&gt;&gt;&gt;                                                     password=password)</div><div class="notcovered">&gt;&gt;&gt;&gt;&gt;&gt;     except AuthException:</div><div class="notcovered">&gt;&gt;&gt;&gt;&gt;&gt;         client = None</div><div class="notcovered">&gt;&gt;&gt;&gt;&gt;&gt;     return client</div>       
+       
+    1: def getZimbraCredentials(context):
+    5:     mtool = getToolByName(context, 'portal_membership')
+    5:     member = mtool.getAuthenticatedMember()
+    5:     username = member.getProperty('zimbra_username', '')
+    5:     password = member.getProperty('zimbra_password', '')
+           # password could contain non-ascii chars, ensure it's properly encoded
+    5:     return username, safe_unicode(password).encode('utf-8')
+       
+       
+    1: def _zimbraAnnotatedTaskKey(username):
+           '''Returns the key for zimbra tasks annotations associated with a username.'''
+<div class="notcovered">&gt;&gt;&gt;&gt;&gt;&gt;     return 'vnccollab.theme.related_zimbra_task.{0}'.format(username)</div>       
+       
+    1: def getZimbraAnnotatedTasks(context, username):
+           ''' Returns the zimbra tasks annotated associated with the give username
+           or [] if anonymous.'''
+    5:     if not username:
+    5:         return []
+       
+<div class="notcovered">&gt;&gt;&gt;&gt;&gt;&gt;     annotation = IAnnotations(context)</div><div class="notcovered">&gt;&gt;&gt;&gt;&gt;&gt;     key = _zimbraAnnotatedTaskKey(username)</div><div class="notcovered">&gt;&gt;&gt;&gt;&gt;&gt;     annotatedTasks = annotation.get(key, [])</div><div class="notcovered">&gt;&gt;&gt;&gt;&gt;&gt;     return annotatedTasks</div>       
+       
+    1: def setZimbraAnnotatedTasks(context, username, tasks):
+           '''Sets the zimbra tasks annotated associated with the given username.'''
+<div class="notcovered">&gt;&gt;&gt;&gt;&gt;&gt;     if not username:</div><div class="notcovered">&gt;&gt;&gt;&gt;&gt;&gt;         return</div>       
+<div class="notcovered">&gt;&gt;&gt;&gt;&gt;&gt;     annotation = IAnnotations(context)</div><div class="notcovered">&gt;&gt;&gt;&gt;&gt;&gt;     key = _zimbraAnnotatedTaskKey(username)</div><div class="notcovered">&gt;&gt;&gt;&gt;&gt;&gt;     annotation[key] = tasks</div>       
+       
+    1: def getZimbraLiveAnnotatedTasks(context):
+           ''' Returns the zimbra tasks annotated associated with the authenticated
+           user or [] if anonymous.
+       
+           If some of the annotated tasks don't exists in the zimbra server, the
+           annotation is updated.
+           '''
+    5:     username, password = getZimbraCredentials(context)
+    5:     annotated_tasks = getZimbraAnnotatedTasks(context, username)
+    5:     if not annotated_tasks:
+    5:         return []
+       
+<div class="notcovered">&gt;&gt;&gt;&gt;&gt;&gt;     try:</div>               # Clean the orphan tasks, the ones are annotated,
+               # but don't exist anymore.
+<div class="notcovered">&gt;&gt;&gt;&gt;&gt;&gt;         zimbra_util = getUtility(IZimbraUtil)</div><div class="notcovered">&gt;&gt;&gt;&gt;&gt;&gt;         zimbra_client = zimbra_util.get_client(username=username,</div><div class="notcovered">&gt;&gt;&gt;&gt;&gt;&gt;                                                password=password)</div><div class="notcovered">&gt;&gt;&gt;&gt;&gt;&gt;         all_tasks = zimbra_client.get_all_tasks()</div><div class="notcovered">&gt;&gt;&gt;&gt;&gt;&gt;         tasks = [x for x in all_tasks if x in annotated_tasks]</div><div class="notcovered">&gt;&gt;&gt;&gt;&gt;&gt;         if tasks != annotated_tasks:</div><div class="notcovered">&gt;&gt;&gt;&gt;&gt;&gt;             setZimbraAnnotatedTasks(context, username, tasks)</div><div class="notcovered">&gt;&gt;&gt;&gt;&gt;&gt;     except:</div>               # If we can't get all the task, we won't clean the orphans.
+<div class="notcovered">&gt;&gt;&gt;&gt;&gt;&gt;         tasks = annotated_tasks</div><div class="notcovered">&gt;&gt;&gt;&gt;&gt;&gt;     return tasks</div>       
+       
+    1: def addZimbraAnnotatedTasks(context, task):
+           '''Adds a task to the zimbra annotated tasks of the context.'''
+<div class="notcovered">&gt;&gt;&gt;&gt;&gt;&gt;     username, _ = getZimbraCredentials(context)</div><div class="notcovered">&gt;&gt;&gt;&gt;&gt;&gt;     annotatedTasks = getZimbraAnnotatedTasks(context, username)</div><div class="notcovered">&gt;&gt;&gt;&gt;&gt;&gt;     annotatedTasks.append(task)</div><div class="notcovered">&gt;&gt;&gt;&gt;&gt;&gt;     setZimbraAnnotatedTasks(context, username, annotatedTasks)</div>       
+       
+    1: def groupList(value, batch_size=None, groups_number=None):
+           """Divide give list into groups"""
+<div class="notcovered">&gt;&gt;&gt;&gt;&gt;&gt;     if not value:</div><div class="notcovered">&gt;&gt;&gt;&gt;&gt;&gt;         return ()</div>       
+<div class="notcovered">&gt;&gt;&gt;&gt;&gt;&gt;     value = value[:]</div>       
+           # we can group by group size or by groups number
+<div class="notcovered">&gt;&gt;&gt;&gt;&gt;&gt;     if groups_number is not None:</div><div class="notcovered">&gt;&gt;&gt;&gt;&gt;&gt;         size = int(ceil(len(value) / float(groups_number)))</div>           else:
+<div class="notcovered">&gt;&gt;&gt;&gt;&gt;&gt;         size = batch_size</div>       
+<div class="notcovered">&gt;&gt;&gt;&gt;&gt;&gt;     assert size is not None</div>       
+           # add zeros to get even number of elems for size
+           # to preform further grouping
+<div class="notcovered">&gt;&gt;&gt;&gt;&gt;&gt;     if len(value) % size != 0:</div><div class="notcovered">&gt;&gt;&gt;&gt;&gt;&gt;         value.extend([0 for i in range(size - len(value) % size)])</div>       
+           # group elements into batches
+<div class="notcovered">&gt;&gt;&gt;&gt;&gt;&gt;     value = zip(*[value[i::size] for i in range(size)])</div>       
+           # finally filter out any zeros we added before grouping
+<div class="notcovered">&gt;&gt;&gt;&gt;&gt;&gt;     value[-1] = tuple([k for k in value[-1] if k != 0])</div>       
+<div class="notcovered">&gt;&gt;&gt;&gt;&gt;&gt;     return value</div>       
+       
+    1: def sortNavTree(tree):
+    6:     result = sorted(tree, key=lambda e: e['Title'])
+    6:     for element in result:
+<div class="notcovered">&gt;&gt;&gt;&gt;&gt;&gt;         if 'children' in element:</div><div class="notcovered">&gt;&gt;&gt;&gt;&gt;&gt;             element['children'] = sortNavTree(element['children'])</div>    6:     return result
+       
+       
+    1: @memoize
+    1: def getNavTree(self, _marker=[]):
+           u""" Pathed method from plone.app.portlets.portlets.navigation.Renderer
+                Sorting result alphabetically.
+           """
+    6:     context = aq_inner(self.context)
+    6:     queryBuilder = getMultiAdapter(
+    6:         (context, self.data), INavigationQueryBuilder)
+    6:     strategy = getMultiAdapter((context, self.data), INavtreeStrategy)
+       
+    6:     result = buildFolderTree(
+    6:         context, obj=context, query=queryBuilder(), strategy=strategy)
+       
+    6:     if 'children' in result:
+    6:         result['children'] = sortNavTree(result['children'])
+       
+    6:     return result
+       
+       
+       def sendto(self, send_to_address, send_from_address, comment,
+    1:            subject='Plone', **kwargs):
+           """Pathed method from Products.CMFPlone.PloneTool.PloneTool.
+              Sends a link of a page to someone."""
+<div class="notcovered">&gt;&gt;&gt;&gt;&gt;&gt;     host = self.getMailHost()</div><div class="notcovered">&gt;&gt;&gt;&gt;&gt;&gt;     template = getattr(self, 'sendto_template')</div><div class="notcovered">&gt;&gt;&gt;&gt;&gt;&gt;     portal = getToolByName(self, 'portal_url').getPortalObject()</div><div class="notcovered">&gt;&gt;&gt;&gt;&gt;&gt;     encoding = portal.getProperty('email_charset')</div><div class="notcovered">&gt;&gt;&gt;&gt;&gt;&gt;     if 'envelope_from' in kwargs:</div><div class="notcovered">&gt;&gt;&gt;&gt;&gt;&gt;         envelope_from = kwargs['envelope_from']</div>           else:
+<div class="notcovered">&gt;&gt;&gt;&gt;&gt;&gt;         envelope_from = send_from_address</div>           # Cook from template
+<div class="notcovered">&gt;&gt;&gt;&gt;&gt;&gt;     message = template(self, send_to_address=send_to_address,</div><div class="notcovered">&gt;&gt;&gt;&gt;&gt;&gt;                        send_from_address=send_from_address,</div><div class="notcovered">&gt;&gt;&gt;&gt;&gt;&gt;                        comment=comment, subject=subject, **kwargs)</div><div class="notcovered">&gt;&gt;&gt;&gt;&gt;&gt;     message = message.encode(encoding)</div><div class="notcovered">&gt;&gt;&gt;&gt;&gt;&gt;     host.send(message, mto=send_to_address,</div><div class="notcovered">&gt;&gt;&gt;&gt;&gt;&gt;               mfrom=envelope_from, subject=subject,</div><div class="notcovered">&gt;&gt;&gt;&gt;&gt;&gt;               charset=self.getSiteEncoding(), msg_type='text/html')</div></pre>
+
+      <div class="footer">
+      Generated for revision wyeksportowane on 2013-11-05 18:00:40.809438Z
+      </div>
+    </body>
+    </html>

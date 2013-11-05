@@ -1,0 +1,52 @@
+
+    <html>
+      <head><title>Test coverage for vnccollab.theme.browser.like</title>
+      <style type="text/css">
+        a {text-decoration: none; display: block; padding-right: 1em;}
+        a:hover {background: #EFA;}
+        hr {height: 1px; border: none; border-top: 1px solid gray;}
+        .notcovered {background: #FCC;}
+        .footer {margin: 2em; font-size: small; color: gray;}
+      </style>
+      </head>
+      <body><h1>Test coverage for vnccollab.theme.browser.like</h1>
+      <table>
+    
+<tr><td><a href="vnccollab.html">vnccollab/</a></td> <td style="background: red">&nbsp;&nbsp;&nbsp;&nbsp;</td> <td>covered 58% (1732 of 4159 uncovered)</td></tr>
+<tr><td><a href="vnccollab.theme.html">&nbsp;&nbsp;&nbsp;&nbsp;theme/</a></td> <td style="background: red">&nbsp;&nbsp;&nbsp;&nbsp;</td> <td>covered 58% (1732 of 4159 uncovered)</td></tr>
+<tr><td><a href="vnccollab.theme.browser.html">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;browser/</a></td> <td style="background: red">&nbsp;&nbsp;&nbsp;&nbsp;</td> <td>covered 52% (979 of 2059 uncovered)</td></tr>
+<tr><td><a href="vnccollab.theme.browser.like.html">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;like.py</a></td> <td style="background: orange">&nbsp;&nbsp;&nbsp;&nbsp;</td> <td>covered 86% (3 of 22 uncovered)</td></tr>
+</table><hr/>
+<pre>    1: import json
+    1: from Products.Five.browser import BrowserView
+    1: from Products.Five.browser.pagetemplatefile import ViewPageTemplateFile
+    1: from zope.component import getMultiAdapter
+    1: from cioppino.twothumbs import _
+    1: from cioppino.twothumbs import rate
+       
+    2: class LikeThisShizzleView(BrowserView):
+    1:     """ Update the like/unlike status of a product via AJAX """
+       
+    1:     def __call__(self, REQUEST, RESPONSE):
+    2:         form = self.request.form
+    2:         if form.get('form.lovinit', False):
+    1:             rate.loveIt(self.context)
+                   # vipod: additionally re-index a few more indexes
+    1:             self.context.reindexObject(idxs=['avg_ratings',
+    1:                 'total_down_ratings'])
+    1:         elif form.get('form.hatedit', False):
+<div class="notcovered">&gt;&gt;&gt;&gt;&gt;&gt;             rate.hateIt(self.context)</div>                   # vipod: additionally re-index a few more indexes
+<div class="notcovered">&gt;&gt;&gt;&gt;&gt;&gt;             self.context.reindexObject(idxs=['avg_ratings',</div><div class="notcovered">&gt;&gt;&gt;&gt;&gt;&gt;                 'total_down_ratings'])</div>               else:
+    1:             return _(u"We don't like ambiguity around here. "
+                            "Check yo self before you wreck yo self.")
+       
+    1:         tally = rate.getTally(self.context)
+    1:         RESPONSE.setHeader('Content-Type', 'application/javascript')
+    1:         return json.dumps(tally)
+</pre>
+
+      <div class="footer">
+      Generated for revision wyeksportowane on 2013-11-05 18:00:40.809438Z
+      </div>
+    </body>
+    </html>

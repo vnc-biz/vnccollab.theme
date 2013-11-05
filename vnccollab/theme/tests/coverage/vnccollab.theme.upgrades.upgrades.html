@@ -1,0 +1,53 @@
+
+    <html>
+      <head><title>Test coverage for vnccollab.theme.upgrades.upgrades</title>
+      <style type="text/css">
+        a {text-decoration: none; display: block; padding-right: 1em;}
+        a:hover {background: #EFA;}
+        hr {height: 1px; border: none; border-top: 1px solid gray;}
+        .notcovered {background: #FCC;}
+        .footer {margin: 2em; font-size: small; color: gray;}
+      </style>
+      </head>
+      <body><h1>Test coverage for vnccollab.theme.upgrades.upgrades</h1>
+      <table>
+    
+<tr><td><a href="vnccollab.html">vnccollab/</a></td> <td style="background: red">&nbsp;&nbsp;&nbsp;&nbsp;</td> <td>covered 58% (1732 of 4159 uncovered)</td></tr>
+<tr><td><a href="vnccollab.theme.html">&nbsp;&nbsp;&nbsp;&nbsp;theme/</a></td> <td style="background: red">&nbsp;&nbsp;&nbsp;&nbsp;</td> <td>covered 58% (1732 of 4159 uncovered)</td></tr>
+<tr><td><a href="vnccollab.theme.upgrades.html">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;upgrades/</a></td> <td style="background: red">&nbsp;&nbsp;&nbsp;&nbsp;</td> <td>covered 26% (34 of 46 uncovered)</td></tr>
+<tr><td><a href="vnccollab.theme.upgrades.upgrades.html">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;upgrades.py</a></td> <td style="background: red">&nbsp;&nbsp;&nbsp;&nbsp;</td> <td>covered 26% (34 of 46 uncovered)</td></tr>
+</table><hr/>
+<pre>    1: from zope.component import getMultiAdapter
+    1: from zope.publisher.browser import TestRequest
+    1: from Products.CMFCore.utils import getToolByName
+    1: from plone.app.upgrade.utils import installOrReinstallProduct
+    1: from plone import api
+       
+    1: from vnccollab.theme.config import PROJECTNAME
+       
+    1: DEFAULT_PROFILE = 'profile-%s:default' % PROJECTNAME
+       
+       
+    1: def upgrade_1103_1104(context):
+<div class="notcovered">&gt;&gt;&gt;&gt;&gt;&gt;     request = TestRequest()</div><div class="notcovered">&gt;&gt;&gt;&gt;&gt;&gt;     manager = getMultiAdapter((context, request),</div><div class="notcovered">&gt;&gt;&gt;&gt;&gt;&gt;                               name='manage-viewlets')</div><div class="notcovered">&gt;&gt;&gt;&gt;&gt;&gt;     manager.hide('plone.portaltop',</div><div class="notcovered">&gt;&gt;&gt;&gt;&gt;&gt;                  'vnccollab.cloudstream.addcontentarea')</div><div class="notcovered">&gt;&gt;&gt;&gt;&gt;&gt;     manager.show('plone.portaltop',</div><div class="notcovered">&gt;&gt;&gt;&gt;&gt;&gt;                  'vnccollab.theme.addcontentarea')</div>       
+       
+    1: def upgrade_1108_1109(context):
+<div class="notcovered">&gt;&gt;&gt;&gt;&gt;&gt;     setup = getToolByName(context, 'portal_setup')</div><div class="notcovered">&gt;&gt;&gt;&gt;&gt;&gt;     setup.runImportStepFromProfile(DEFAULT_PROFILE, 'jsregistry',</div><div class="notcovered">&gt;&gt;&gt;&gt;&gt;&gt;                                    run_dependencies=False)</div><div class="notcovered">&gt;&gt;&gt;&gt;&gt;&gt;     setup.runImportStepFromProfile(DEFAULT_PROFILE, 'cssregistry',</div><div class="notcovered">&gt;&gt;&gt;&gt;&gt;&gt;                                    run_dependencies=False)</div><div class="notcovered">&gt;&gt;&gt;&gt;&gt;&gt;     portal = api.portal.get()</div><div class="notcovered">&gt;&gt;&gt;&gt;&gt;&gt;     installOrReinstallProduct(portal, 'collective.quickupload')</div>       
+       
+    1: def upgrade_1109_1110(context):
+           '''Installs vnccollab.common and upgrades css/js.'''
+<div class="notcovered">&gt;&gt;&gt;&gt;&gt;&gt;     setup = getToolByName(context, 'portal_setup')</div><div class="notcovered">&gt;&gt;&gt;&gt;&gt;&gt;     setup.runImportStepFromProfile(DEFAULT_PROFILE, 'jsregistry',</div><div class="notcovered">&gt;&gt;&gt;&gt;&gt;&gt;                                    run_dependencies=False)</div><div class="notcovered">&gt;&gt;&gt;&gt;&gt;&gt;     setup.runImportStepFromProfile(DEFAULT_PROFILE, 'cssregistry',</div><div class="notcovered">&gt;&gt;&gt;&gt;&gt;&gt;                                    run_dependencies=False)</div>       
+<div class="notcovered">&gt;&gt;&gt;&gt;&gt;&gt;     portal = api.portal.get()</div><div class="notcovered">&gt;&gt;&gt;&gt;&gt;&gt;     installOrReinstallProduct(portal, 'vnccollab.common')</div>       
+       
+    1: def upgrade_1110_1111(context):
+           '''Upgrades registry and other settings'''
+<div class="notcovered">&gt;&gt;&gt;&gt;&gt;&gt;     setup = getToolByName(context, 'portal_setup')</div><div class="notcovered">&gt;&gt;&gt;&gt;&gt;&gt;     setup.runImportStepFromProfile(DEFAULT_PROFILE, 'plone.app.registry')</div><div class="notcovered">&gt;&gt;&gt;&gt;&gt;&gt;     setup.runImportStepFromProfile(DEFAULT_PROFILE, 'jsregistry',</div><div class="notcovered">&gt;&gt;&gt;&gt;&gt;&gt;         run_dependencies=False)</div><div class="notcovered">&gt;&gt;&gt;&gt;&gt;&gt;     setup.runImportStepFromProfile(DEFAULT_PROFILE, 'cssregistry',</div><div class="notcovered">&gt;&gt;&gt;&gt;&gt;&gt;         run_dependencies=False)</div><div class="notcovered">&gt;&gt;&gt;&gt;&gt;&gt;     setup.runImportStepFromProfile(DEFAULT_PROFILE, 'controlpanel',</div><div class="notcovered">&gt;&gt;&gt;&gt;&gt;&gt;         run_dependencies=False)</div><div class="notcovered">&gt;&gt;&gt;&gt;&gt;&gt;     setup.runImportStepFromProfile(DEFAULT_PROFILE, 'viewlets',</div><div class="notcovered">&gt;&gt;&gt;&gt;&gt;&gt;         run_dependencies=False)</div>       
+    1: def upgrade_1111_1112(context):
+           '''Upgrades registry and other settings'''
+<div class="notcovered">&gt;&gt;&gt;&gt;&gt;&gt;     setup = getToolByName(context, 'portal_setup')</div><div class="notcovered">&gt;&gt;&gt;&gt;&gt;&gt;     setup.runImportStepFromProfile(DEFAULT_PROFILE, 'jsregistry',</div><div class="notcovered">&gt;&gt;&gt;&gt;&gt;&gt;         run_dependencies=False)</div></pre>
+
+      <div class="footer">
+      Generated for revision wyeksportowane on 2013-11-05 18:00:40.809438Z
+      </div>
+    </body>
+    </html>

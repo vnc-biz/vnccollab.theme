@@ -1,0 +1,119 @@
+
+    <html>
+      <head><title>Test coverage for vnccollab.theme.browser.portlet_manager</title>
+      <style type="text/css">
+        a {text-decoration: none; display: block; padding-right: 1em;}
+        a:hover {background: #EFA;}
+        hr {height: 1px; border: none; border-top: 1px solid gray;}
+        .notcovered {background: #FCC;}
+        .footer {margin: 2em; font-size: small; color: gray;}
+      </style>
+      </head>
+      <body><h1>Test coverage for vnccollab.theme.browser.portlet_manager</h1>
+      <table>
+    
+<tr><td><a href="vnccollab.html">vnccollab/</a></td> <td style="background: red">&nbsp;&nbsp;&nbsp;&nbsp;</td> <td>covered 58% (1732 of 4159 uncovered)</td></tr>
+<tr><td><a href="vnccollab.theme.html">&nbsp;&nbsp;&nbsp;&nbsp;theme/</a></td> <td style="background: red">&nbsp;&nbsp;&nbsp;&nbsp;</td> <td>covered 58% (1732 of 4159 uncovered)</td></tr>
+<tr><td><a href="vnccollab.theme.browser.html">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;browser/</a></td> <td style="background: red">&nbsp;&nbsp;&nbsp;&nbsp;</td> <td>covered 52% (979 of 2059 uncovered)</td></tr>
+<tr><td><a href="vnccollab.theme.browser.portlet_manager.html">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;portlet_manager.py</a></td> <td style="background: red">&nbsp;&nbsp;&nbsp;&nbsp;</td> <td>covered 75% (17 of 70 uncovered)</td></tr>
+</table><hr/>
+<pre>    1: from AccessControl import getSecurityManager
+       
+    1: from zope.component import adapts
+    1: from zope.interface import Interface
+    1: from zope.publisher.interfaces.browser import IBrowserView
+    1: from zope.annotation.interfaces import IAnnotations
+       
+    1: from Products.Five.browser.pagetemplatefile import ViewPageTemplateFile
+    1: from Products.CMFCore.utils import getToolByName
+       
+    1: from plone.app.portlets.interfaces import IColumn, IDashboard
+    1: from plone.memoize.instance import memoize
+       
+    1: from plone.portlets.interfaces import IPortletManager
+    1: from plone.app.portlets import manager
+    1: from plone.app.portlets.browser import editmanager
+    1: from plone.app.portlets.browser.interfaces import IManageColumnPortletsView, \
+           IManageContextualPortletsView, IManageDashboardPortletsView
+       
+    1: from vnccollab.theme.browser.interfaces import IThemeSpecific
+    1: from vnccollab.theme.config import PORTLETS_STATES_ANNO_KEY
+       
+       
+    2: class ColumnPortletManagerRenderer(manager.ColumnPortletManagerRenderer):
+           """A renderer for the column portlets
+    1:     """
+    1:     adapts(Interface, IThemeSpecific, IBrowserView, IColumn)
+    1:     template = ViewPageTemplateFile('templates/portlets-column.pt')
+       
+    1:     def portlet_states(self, hash):
+<div class="notcovered">&gt;&gt;&gt;&gt;&gt;&gt;         return self._portlets_states().get(hash, {})</div>       
+    1:     @memoize
+           def _portlets_states(self):
+               """Returns portlets states settings for currently logged in user."""
+<div class="notcovered">&gt;&gt;&gt;&gt;&gt;&gt;         user = getSecurityManager().getUser()</div><div class="notcovered">&gt;&gt;&gt;&gt;&gt;&gt;         if not user or getattr(user, 'name', '') == 'Anonymous User':</div><div class="notcovered">&gt;&gt;&gt;&gt;&gt;&gt;             return {}</div>       
+<div class="notcovered">&gt;&gt;&gt;&gt;&gt;&gt;         portal = getToolByName(self.context, 'portal_url').getPortalObject()</div><div class="notcovered">&gt;&gt;&gt;&gt;&gt;&gt;         annotations = IAnnotations(portal)</div><div class="notcovered">&gt;&gt;&gt;&gt;&gt;&gt;         users = annotations.get(PORTLETS_STATES_ANNO_KEY, None)</div><div class="notcovered">&gt;&gt;&gt;&gt;&gt;&gt;         if users is None:</div><div class="notcovered">&gt;&gt;&gt;&gt;&gt;&gt;             return {}</div>       
+<div class="notcovered">&gt;&gt;&gt;&gt;&gt;&gt;         userid = getattr(user, '_id', user.getId())</div><div class="notcovered">&gt;&gt;&gt;&gt;&gt;&gt;         return users.get(userid, {})</div>       
+       
+    2: class DashboardPortletManagerRenderer(ColumnPortletManagerRenderer):
+           """Render a column of the dashboard
+    1:     """
+    1:     adapts(Interface, IThemeSpecific, IBrowserView, IDashboard)
+    1:     template = ViewPageTemplateFile('templates/portlets-dashboard-column.pt')
+       
+       
+    2: class EditPortletManagerRenderer(editmanager.EditPortletManagerRenderer):
+    1:     adapts(Interface, IThemeSpecific, IManageColumnPortletsView,
+    1:         IPortletManager)
+       
+       
+    2: class ContextualEditPortletManagerRenderer(
+    1:     editmanager.ContextualEditPortletManagerRenderer):
+    1:     adapts(Interface, IThemeSpecific, IManageContextualPortletsView,
+    1:         IPortletManager)
+       
+       
+    2: class DashboardEditPortletManagerRenderer(
+    1:     editmanager.DashboardEditPortletManagerRenderer):
+    1:     adapts(Interface, IThemeSpecific, IManageDashboardPortletsView,
+    1:         IDashboard)
+       
+    1:     ANONYMOUS_KEY = 'AnonymousUsers'
+       
+           '''List of the names of the portlets that are allowed to be
+           shown in @@manage-group-dashboard?key=AnonymousUsers.
+       
+           The name is the last part of the path in the &lt;option&gt; value.
+           '''
+           allowed_portlets = [
+    1:         'plone.portlet.static.Static',
+    1:         'portlets.Calendar',
+    1:         'portlets.Events',
+    1:         'portlets.News',
+    1:         'collective.plonetruegallery.gallery',
+    1:         'portlets.rss',
+    1:         'portlets.Recent',
+    1:         'portlets.Search',
+    1:         'vnccollab.theme.portlets.WorldClockPortlet',
+           ]
+       
+    1:     def is_anonymous_group(self):
+               '''true if we are viewing the dashboard for anonymous homepage.'''
+    3:         return self.request.get('key', '') == self.ANONYMOUS_KEY
+       
+    1:     def addable_portlets(self):
+               '''Overrides parent's portlets to show only a few, if it's for
+               anonymous group.'''
+    3:         portlets = editmanager.DashboardEditPortletManagerRenderer. \
+    3:             addable_portlets(self)
+       
+    3:         if self.is_anonymous_group():
+<div class="notcovered">&gt;&gt;&gt;&gt;&gt;&gt;             allowed = []</div><div class="notcovered">&gt;&gt;&gt;&gt;&gt;&gt;             for portlet in portlets:</div><div class="notcovered">&gt;&gt;&gt;&gt;&gt;&gt;                 name = portlet['addview'].split('/')[-1]</div><div class="notcovered">&gt;&gt;&gt;&gt;&gt;&gt;                 if name in self.allowed_portlets:</div><div class="notcovered">&gt;&gt;&gt;&gt;&gt;&gt;                     allowed.append(portlet)</div><div class="notcovered">&gt;&gt;&gt;&gt;&gt;&gt;             return allowed</div>               else:
+    3:             return portlets
+</pre>
+
+      <div class="footer">
+      Generated for revision wyeksportowane on 2013-11-05 18:00:40.809438Z
+      </div>
+    </body>
+    </html>

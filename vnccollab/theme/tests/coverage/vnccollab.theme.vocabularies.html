@@ -1,0 +1,182 @@
+
+    <html>
+      <head><title>Test coverage for vnccollab.theme.vocabularies</title>
+      <style type="text/css">
+        a {text-decoration: none; display: block; padding-right: 1em;}
+        a:hover {background: #EFA;}
+        hr {height: 1px; border: none; border-top: 1px solid gray;}
+        .notcovered {background: #FCC;}
+        .footer {margin: 2em; font-size: small; color: gray;}
+      </style>
+      </head>
+      <body><h1>Test coverage for vnccollab.theme.vocabularies</h1>
+      <table>
+    
+<tr><td><a href="vnccollab.html">vnccollab/</a></td> <td style="background: red">&nbsp;&nbsp;&nbsp;&nbsp;</td> <td>covered 58% (1732 of 4159 uncovered)</td></tr>
+<tr><td><a href="vnccollab.theme.html">&nbsp;&nbsp;&nbsp;&nbsp;theme/</a></td> <td style="background: red">&nbsp;&nbsp;&nbsp;&nbsp;</td> <td>covered 58% (1732 of 4159 uncovered)</td></tr>
+<tr><td><a href="vnccollab.theme.vocabularies.html">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;vocabularies.py</a></td> <td style="background: red">&nbsp;&nbsp;&nbsp;&nbsp;</td> <td>covered 52% (59 of 125 uncovered)</td></tr>
+</table><hr/>
+<pre>    1: import logging
+    1: import time
+    1: from pytz import common_timezones
+    1: from pyactiveresource.activeresource import ActiveResource
+       
+    1: from zope.interface import implements
+    1: from zope.schema.interfaces import IVocabularyFactory
+    1: from zope.schema.vocabulary import SimpleTerm, SimpleVocabulary
+    1: from zope.component import getUtility
+       
+    1: from Products.CMFCore.utils import getToolByName
+    1: from Products.CMFPlone.utils import safe_unicode
+       
+    1: from plone import api
+    1: from plone.registry.interfaces import IRegistry
+    1: from plone.memoize import ram
+       
+    1: from vnccollab.theme import messageFactory as _
+    1: from vnccollab.theme.util import getAllActiveResources
+    1: from vnccollab.theme.portlets.zimbra_mail import logException
+    1: from vnccollab.theme.config import REDMINE_ENUMERATORS_CACHE_TIME
+       
+       
+    1: logger = logging.getLogger('vnccollab.theme.redmine_enumerator_vocabularies')
+       
+    1: def cachemethod(interval):
+    1:     def _cachekey(method, self, *args):
+               """Time and settings based cache"""
+<div class="notcovered">&gt;&gt;&gt;&gt;&gt;&gt;         return hash(tuple(list(args) + [interval]))</div>    1:     return _cachekey
+       
+    1: @ram.cache(cachemethod(time.time() // REDMINE_ENUMERATORS_CACHE_TIME))
+       def getRedmineEnumerators(url, username, password):
+           """Returns redmine enumerators:
+       
+           * projects
+           * trackers
+           * priorities
+           * users
+           """
+<div class="notcovered">&gt;&gt;&gt;&gt;&gt;&gt;     data = {}</div>       
+           # projects, result is sensitive to user, so only those projects are returned
+           # where current logged in user has an access
+<div class="notcovered">&gt;&gt;&gt;&gt;&gt;&gt;     projects = []</div><div class="notcovered">&gt;&gt;&gt;&gt;&gt;&gt;     Project = type("Project", (ActiveResource,), {'_site': url, '_user':</div><div class="notcovered">&gt;&gt;&gt;&gt;&gt;&gt;             username, '_password': password})</div><div class="notcovered">&gt;&gt;&gt;&gt;&gt;&gt;     for item in getAllActiveResources(Project):</div><div class="notcovered">&gt;&gt;&gt;&gt;&gt;&gt;         projects.append((item.id, item.name))</div>           # projects.sort(lambda x,y:cmp(x[1], y[1]))
+<div class="notcovered">&gt;&gt;&gt;&gt;&gt;&gt;     data['projects'] = tuple(projects)</div>       
+           # trackers
+           # TODO: redmine 1.1 do not support tracker REST API call, so also hard-code
+           # it so far
+           # trackers = []
+           # Tracker = type("Tracker", (ActiveResource,), {'_site': url, '_user':
+           #         username, '_password': password})
+           # for item in getAllActiveResources(Tracker):
+           #     trackers.append((item.id, item.name))
+           # trackers.sort(lambda x,y:cmp(x[1], y[1]))
+           # data['trackers'] = tuple(trackers)
+           data['trackers'] = (
+<div class="notcovered">&gt;&gt;&gt;&gt;&gt;&gt;         ('15', '01 - PSR - Presales Request'),</div><div class="notcovered">&gt;&gt;&gt;&gt;&gt;&gt;         ('16', '02 - RFP -Request For Proposal'),</div><div class="notcovered">&gt;&gt;&gt;&gt;&gt;&gt;         ('17', '03 - APP - APProval'),</div><div class="notcovered">&gt;&gt;&gt;&gt;&gt;&gt;         ('18', '04 - FR - Feature Request'),</div><div class="notcovered">&gt;&gt;&gt;&gt;&gt;&gt;         ('19', '05 - WR - Work Request'),</div><div class="notcovered">&gt;&gt;&gt;&gt;&gt;&gt;         ('20', '06 - BR - Bug Report'),</div><div class="notcovered">&gt;&gt;&gt;&gt;&gt;&gt;         ('21', '07 - CR - Change Request'),</div><div class="notcovered">&gt;&gt;&gt;&gt;&gt;&gt;         ('22', '08 - SO - Sign Off'),</div><div class="notcovered">&gt;&gt;&gt;&gt;&gt;&gt;         ('23', 'SR - Support Request')</div>           )
+       
+           # priorities
+           # TODO: switch to using REST API after this ticket is closed:
+           #         http://www.redmine.org/issues/7402
+           #       for now we are just hard-coding this list
+           # priorities = []
+           # IssuePriority = type("IssuePriority", (ActiveResource,), {'_site': url,
+           #     '_user': username, '_password': password})
+           # for item in getAllActiveResources(IssuePriority):
+           #     priorities.append((item.id, item.name))
+           # priorities.sort(lambda x,y:cmp(x[1], y[1]))
+           # data['priorities'] = tuple(priorities)
+<div class="notcovered">&gt;&gt;&gt;&gt;&gt;&gt;     data['priorities'] = (('3', 'Low'), ('4', 'Normal'), ('5', 'High'),</div><div class="notcovered">&gt;&gt;&gt;&gt;&gt;&gt;         ('6', 'Urgent'), ('7', 'Immediate'))</div>       
+           # users
+<div class="notcovered">&gt;&gt;&gt;&gt;&gt;&gt;     users = []</div><div class="notcovered">&gt;&gt;&gt;&gt;&gt;&gt;     User = type("User", (ActiveResource,), {'_site': url, '_user':</div><div class="notcovered">&gt;&gt;&gt;&gt;&gt;&gt;             username, '_password': password})</div>       
+           # only Redmine Administrator could do this call
+<div class="notcovered">&gt;&gt;&gt;&gt;&gt;&gt;     try:</div><div class="notcovered">&gt;&gt;&gt;&gt;&gt;&gt;         for item in getAllActiveResources(User):</div><div class="notcovered">&gt;&gt;&gt;&gt;&gt;&gt;             users.append((item.id, '%s %s' % (item.firstname, item.lastname)))</div><div class="notcovered">&gt;&gt;&gt;&gt;&gt;&gt;     except Exception, e:</div><div class="notcovered">&gt;&gt;&gt;&gt;&gt;&gt;         pass</div>       
+<div class="notcovered">&gt;&gt;&gt;&gt;&gt;&gt;     users.sort(lambda x,y:cmp(x[1], y[1]))</div><div class="notcovered">&gt;&gt;&gt;&gt;&gt;&gt;     data['users'] = tuple(users)</div>       
+<div class="notcovered">&gt;&gt;&gt;&gt;&gt;&gt;     return data</div>       
+    2: class RedmineVocabularyFactory(object):
+       
+    1:     implements(IVocabularyFactory)
+       
+    1:     def __init__(self, resource):
+    4:         self.resource = resource
+       
+    1:     def __call__(self, context):
+               # get authenticated user
+<div class="notcovered">&gt;&gt;&gt;&gt;&gt;&gt;         mtool = getToolByName(context, 'portal_membership')</div><div class="notcovered">&gt;&gt;&gt;&gt;&gt;&gt;         member = mtool.getAuthenticatedMember()</div><div class="notcovered">&gt;&gt;&gt;&gt;&gt;&gt;         if not member:</div><div class="notcovered">&gt;&gt;&gt;&gt;&gt;&gt;             return SimpleVocabulary([])</div>       
+<div class="notcovered">&gt;&gt;&gt;&gt;&gt;&gt;         username, password = member.getProperty('redmine_username', ''), \</div><div class="notcovered">&gt;&gt;&gt;&gt;&gt;&gt;             safe_unicode(member.getProperty('redmine_password',</div><div class="notcovered">&gt;&gt;&gt;&gt;&gt;&gt;             '')).encode('utf-8')</div><div class="notcovered">&gt;&gt;&gt;&gt;&gt;&gt;         registry = getUtility(IRegistry)</div><div class="notcovered">&gt;&gt;&gt;&gt;&gt;&gt;         url = registry.get('vnccollab.theme.redmine.url')</div><div class="notcovered">&gt;&gt;&gt;&gt;&gt;&gt;         field_id = registry.get(</div><div class="notcovered">&gt;&gt;&gt;&gt;&gt;&gt;             'vnccollab.theme.redmine.plone_uid_field_id')</div><div class="notcovered">&gt;&gt;&gt;&gt;&gt;&gt;         if not (username and password and url and field_id):</div><div class="notcovered">&gt;&gt;&gt;&gt;&gt;&gt;             return SimpleVocabulary([])</div>       
+<div class="notcovered">&gt;&gt;&gt;&gt;&gt;&gt;         try:</div><div class="notcovered">&gt;&gt;&gt;&gt;&gt;&gt;             data = getRedmineEnumerators(url, username, password)</div><div class="notcovered">&gt;&gt;&gt;&gt;&gt;&gt;         except Exception, e:</div><div class="notcovered">&gt;&gt;&gt;&gt;&gt;&gt;             logException(_(u"Error during fetching redmine enumerators"),</div><div class="notcovered">&gt;&gt;&gt;&gt;&gt;&gt;                 context=context, logger=logger)</div><div class="notcovered">&gt;&gt;&gt;&gt;&gt;&gt;             return SimpleVocabulary([])</div>       
+<div class="notcovered">&gt;&gt;&gt;&gt;&gt;&gt;         return SimpleVocabulary([SimpleTerm(key, key, value)</div><div class="notcovered">&gt;&gt;&gt;&gt;&gt;&gt;             for key, value in data.get(self.resource, ())])</div>       
+    1: ProjectsRedmineVocabulary = RedmineVocabularyFactory('projects')
+    1: TrackersRedmineVocabulary = RedmineVocabularyFactory('trackers')
+    1: PrioritiesRedmineVocabulary = RedmineVocabularyFactory('priorities')
+    1: UsersRedmineVocabulary = RedmineVocabularyFactory('users')
+       
+    2: class TimeZonesVocabularyFactory(object):
+           """Returns list of common timezones with user friendly titles.
+       
+           It uses python timezone library: pytz.
+    1:     """
+       
+    1:     implements(IVocabularyFactory)
+       
+    1:     def __call__(self, context):
+    6:         terms = []
+ 2592:         for zone_name in common_timezones:
+                   # prepare zone title: America/New_York -&gt; America/New York
+ 2586:             terms.append(SimpleTerm(zone_name, zone_name,
+ 2586:                 zone_name.replace('_', ' ')))
+       
+    6:         return SimpleVocabulary(terms)
+       
+    1: TimeZonesVocabulary = TimeZonesVocabularyFactory()
+       
+       
+    2: class ATLinkVocabularyFactory(object):
+    1:     '''Return vocabulary with references to ATLink objects'''
+    1:     implements(IVocabularyFactory)
+       
+    1:     def __call__(self, context):
+<div class="notcovered">&gt;&gt;&gt;&gt;&gt;&gt;         catalog = getToolByName(context, 'portal_catalog')</div><div class="notcovered">&gt;&gt;&gt;&gt;&gt;&gt;         brains = catalog.searchResults(Type = 'Link')</div><div class="notcovered">&gt;&gt;&gt;&gt;&gt;&gt;         terms = [SimpleTerm(value=x.getObject(),</div>                                   token=x.UID,
+                                   title=x.getObject().Title())
+<div class="notcovered">&gt;&gt;&gt;&gt;&gt;&gt;                         for x in brains]</div><div class="notcovered">&gt;&gt;&gt;&gt;&gt;&gt;         return SimpleVocabulary(terms)</div>       
+    1: ATLinkVocabulary = ATLinkVocabularyFactory()
+       
+    2: class SimpleVocabularyFactory:
+    1:     implements(IVocabularyFactory)
+       
+    1:     def __init__(self, lst):
+    4:         self.lst = lst
+       
+    1:     def __call__(self, context):
+<div class="notcovered">&gt;&gt;&gt;&gt;&gt;&gt;         terms = [SimpleTerm(value=x[0], token=x[0], title=x[1]) for x in self.lst]</div><div class="notcovered">&gt;&gt;&gt;&gt;&gt;&gt;         vocabulary = SimpleVocabulary(terms)</div><div class="notcovered">&gt;&gt;&gt;&gt;&gt;&gt;         return vocabulary</div>       
+       
+       ZIMBRA_STATUS_VOCAB = [
+    1:         ('NEED', 'Not initiated'),
+    1:         ('INPR', 'In process'),
+    1:         ('COMP', 'Complete'),
+    1:         ('WAITING', 'Waiting'),
+    1:         ('DEFERRED', 'Deferred')
+           ]
+       
+       ZIMBRA_PRIORITIES_VOCAB = [
+    1:         ('1', 'High'),
+    1:         ('5', 'Normal'),
+    1:         ('9', 'Low')
+          ]
+       
+   11: ZIMBRA_PERCENTAGE_VOCAB = [(str(x), str(x)+'%') for x in range(0, 100, 10)]
+       
+       NEW_TICKET_VOCAB = [
+    1:         ('zimbra', 'CloudMail'),
+    1:         ('redmine', 'CloudProject')
+           ]
+       
+    1: StatusZimbraTaskVocabulary = SimpleVocabularyFactory(ZIMBRA_STATUS_VOCAB)
+    1: PrioritiesZimbraTaskVocabulary = SimpleVocabularyFactory(ZIMBRA_PRIORITIES_VOCAB)
+    1: PercentageZimbraTaskVocabulary = SimpleVocabularyFactory(ZIMBRA_PERCENTAGE_VOCAB)
+    1: NewTicketVocabulary = SimpleVocabularyFactory(NEW_TICKET_VOCAB)
+</pre>
+
+      <div class="footer">
+      Generated for revision wyeksportowane on 2013-11-05 18:00:40.809438Z
+      </div>
+    </body>
+    </html>

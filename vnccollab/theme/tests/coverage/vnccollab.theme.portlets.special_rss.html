@@ -1,0 +1,136 @@
+
+    <html>
+      <head><title>Test coverage for vnccollab.theme.portlets.special_rss</title>
+      <style type="text/css">
+        a {text-decoration: none; display: block; padding-right: 1em;}
+        a:hover {background: #EFA;}
+        hr {height: 1px; border: none; border-top: 1px solid gray;}
+        .notcovered {background: #FCC;}
+        .footer {margin: 2em; font-size: small; color: gray;}
+      </style>
+      </head>
+      <body><h1>Test coverage for vnccollab.theme.portlets.special_rss</h1>
+      <table>
+    
+<tr><td><a href="vnccollab.html">vnccollab/</a></td> <td style="background: red">&nbsp;&nbsp;&nbsp;&nbsp;</td> <td>covered 58% (1732 of 4159 uncovered)</td></tr>
+<tr><td><a href="vnccollab.theme.html">&nbsp;&nbsp;&nbsp;&nbsp;theme/</a></td> <td style="background: red">&nbsp;&nbsp;&nbsp;&nbsp;</td> <td>covered 58% (1732 of 4159 uncovered)</td></tr>
+<tr><td><a href="vnccollab.theme.portlets.html">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;portlets/</a></td> <td style="background: red">&nbsp;&nbsp;&nbsp;&nbsp;</td> <td>covered 66% (375 of 1108 uncovered)</td></tr>
+<tr><td><a href="vnccollab.theme.portlets.special_rss.html">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;special_rss.py</a></td> <td style="background: red">&nbsp;&nbsp;&nbsp;&nbsp;</td> <td>covered 65% (32 of 92 uncovered)</td></tr>
+</table><hr/>
+<pre>    1: from zope.formlib import form
+    1: from zope.interface import implements
+    1: from zope import schema
+    1: from plone.app.portlets.portlets.rss import RSSFeed
+       
+    1: from Products.Five.browser.pagetemplatefile import ZopeTwoPageTemplateFile
+       
+    1: from plone.portlets.interfaces import IPortletDataProvider
+    1: from plone.app.portlets.portlets import base
+       
+    1: from vnccollab.theme import messageFactory as _
+       
+       
+    2: class ISpecialRSSPortlet(IPortletDataProvider):
+       
+    1:     header = schema.TextLine(
+    1:         title=_(u"Header"),
+    1:         description=_(u"Header of the portlet."),
+    1:         required=True,
+    1:         default=u'New in the Cloud')
+       
+    1:     source = schema.List(
+    1:         title=_(u"RSS Sources"),
+    1:         description=u'Please select links that point to RSS feeds',
+    1:         required=True,
+    1:         value_type=schema.Choice(
+    1:             vocabulary='vnccollab.theme.vocabularies.ATLinkVocabulary',))
+       
+    1:     count = schema.Int(title=_(u'Number of items to display'),
+    1:         description=_(u'How many items to list.'),
+    1:         required=True,
+    1:         default=5)
+       
+    1:     timeout = schema.Int(title=_(u'Feed reload timeout'),
+    1:         description=_(u'Time in minutes for the feeds should be reloaded.'),
+    1:         required=True,
+    1:         default=15)
+       
+       
+    2: class Assignment(base.Assignment):
+    1:     implements(ISpecialRSSPortlet)
+       
+    1:     header = u'New in the Cloud'
+    1:     source = []
+    1:     count = 5
+    1:     timeout = 15
+       
+    1:     @property
+           def title(self):
+               """Return portlet header"""
+<div class="notcovered">&gt;&gt;&gt;&gt;&gt;&gt;         return self.header</div>       
+    1:     def __init__(self, header=u'New in the Cloud', source=[],
+    1:                  count=5, timeout=15):
+<div class="notcovered">&gt;&gt;&gt;&gt;&gt;&gt;         self.header = header</div><div class="notcovered">&gt;&gt;&gt;&gt;&gt;&gt;         self.source = source</div><div class="notcovered">&gt;&gt;&gt;&gt;&gt;&gt;         self.count = count</div><div class="notcovered">&gt;&gt;&gt;&gt;&gt;&gt;         self.timeout = timeout</div>       
+       
+    2: class Renderer(base.DeferredRenderer):
+           # This is an adaptation of plone.app.portlets.portlets.rss.Renderer
+           # modified to handle several feeds
+    1:     render = ZopeTwoPageTemplateFile('templates/special_rss.pt')
+       
+    1:     MAX_SUMMARY_LEN = 80
+       
+    1:     @property
+           def initializing(self):
+               """should return True if deferred template should be displayed"""
+<div class="notcovered">&gt;&gt;&gt;&gt;&gt;&gt;         if any([not x.loaded for x in self.feeds]):</div><div class="notcovered">&gt;&gt;&gt;&gt;&gt;&gt;             return True</div><div class="notcovered">&gt;&gt;&gt;&gt;&gt;&gt;         if any([x.needs_update for x in self.feeds]):</div><div class="notcovered">&gt;&gt;&gt;&gt;&gt;&gt;             return True</div><div class="notcovered">&gt;&gt;&gt;&gt;&gt;&gt;         return False</div>       
+    1:     def deferred_update(self):
+               """refresh data for serving via KSS"""
+<div class="notcovered">&gt;&gt;&gt;&gt;&gt;&gt;         for feed in self.data.feeds:</div><div class="notcovered">&gt;&gt;&gt;&gt;&gt;&gt;             feed.update()</div>       
+    1:     def update(self):
+               """update data before rendering. We can not wait for KSS since users
+               may not be using KSS."""
+<div class="notcovered">&gt;&gt;&gt;&gt;&gt;&gt;         self.feeds = []</div><div class="notcovered">&gt;&gt;&gt;&gt;&gt;&gt;         for link in self.data.source:</div><div class="notcovered">&gt;&gt;&gt;&gt;&gt;&gt;             rss = RSSFeed(link.remote_url(), self.data.timeout)</div><div class="notcovered">&gt;&gt;&gt;&gt;&gt;&gt;             rss.id = link.id</div><div class="notcovered">&gt;&gt;&gt;&gt;&gt;&gt;             self.feeds.append(rss)</div>       
+<div class="notcovered">&gt;&gt;&gt;&gt;&gt;&gt;         self.deferred_update()</div>       
+    1:     def items(self, feed):
+               """Return postprocessed items"""
+<div class="notcovered">&gt;&gt;&gt;&gt;&gt;&gt;         return (self.sanitize(item) for item in feed.items[:self.data.count])</div>       
+    1:     def sanitize(self, item):
+               """return a news feed item sanitized."""
+<div class="notcovered">&gt;&gt;&gt;&gt;&gt;&gt;         new = dict(**item)</div>               # Convert HTML to plain text.
+               # We won't use portal_transforms due to potential problems with
+               # encoding on the summary text.
+<div class="notcovered">&gt;&gt;&gt;&gt;&gt;&gt;         s = MLStripper()</div><div class="notcovered">&gt;&gt;&gt;&gt;&gt;&gt;         s.feed(new['summary'])</div><div class="notcovered">&gt;&gt;&gt;&gt;&gt;&gt;         summary = s.get_data()</div>       
+<div class="notcovered">&gt;&gt;&gt;&gt;&gt;&gt;         if len(summary) &gt; self.MAX_SUMMARY_LEN:</div><div class="notcovered">&gt;&gt;&gt;&gt;&gt;&gt;             summary = summary[:self.MAX_SUMMARY_LEN] + '...'</div><div class="notcovered">&gt;&gt;&gt;&gt;&gt;&gt;         new['summary'] = summary</div>       
+<div class="notcovered">&gt;&gt;&gt;&gt;&gt;&gt;         return new</div>       
+       
+    2: class AddForm(base.AddForm):
+    1:     form_fields = form.Fields(ISpecialRSSPortlet)
+    1:     label = _(u"Add Special RSS portlet")
+    1:     description = _(u"A portlet displaying multiple RSS sources.")
+       
+    1:     def create(self, data):
+<div class="notcovered">&gt;&gt;&gt;&gt;&gt;&gt;         return Assignment(**data)</div>       
+       
+    2: class EditForm(base.EditForm):
+    1:     form_fields = form.Fields(ISpecialRSSPortlet)
+    1:     label = _(u"Edit Special RSS portlet")
+    1:     description = _(u"A portlet displaying multiple RSS sources.")
+       
+       
+    1: from HTMLParser import HTMLParser
+       
+       
+    2: class MLStripper(HTMLParser):
+    1:     '''Support class to convert HTML to ASCII'''
+    1:     def __init__(self):
+<div class="notcovered">&gt;&gt;&gt;&gt;&gt;&gt;         self.reset()</div><div class="notcovered">&gt;&gt;&gt;&gt;&gt;&gt;         self.fed = []</div>       
+    1:     def handle_data(self, d):
+<div class="notcovered">&gt;&gt;&gt;&gt;&gt;&gt;         self.fed.append(d)</div>       
+    1:     def get_data(self):
+<div class="notcovered">&gt;&gt;&gt;&gt;&gt;&gt;         return ''.join(self.fed)</div></pre>
+
+      <div class="footer">
+      Generated for revision wyeksportowane on 2013-11-05 18:00:40.809438Z
+      </div>
+    </body>
+    </html>

@@ -1,0 +1,164 @@
+
+    <html>
+      <head><title>Test coverage for vnccollab.theme.browser.dashlet</title>
+      <style type="text/css">
+        a {text-decoration: none; display: block; padding-right: 1em;}
+        a:hover {background: #EFA;}
+        hr {height: 1px; border: none; border-top: 1px solid gray;}
+        .notcovered {background: #FCC;}
+        .footer {margin: 2em; font-size: small; color: gray;}
+      </style>
+      </head>
+      <body><h1>Test coverage for vnccollab.theme.browser.dashlet</h1>
+      <table>
+    
+<tr><td><a href="vnccollab.html">vnccollab/</a></td> <td style="background: red">&nbsp;&nbsp;&nbsp;&nbsp;</td> <td>covered 58% (1732 of 4159 uncovered)</td></tr>
+<tr><td><a href="vnccollab.theme.html">&nbsp;&nbsp;&nbsp;&nbsp;theme/</a></td> <td style="background: red">&nbsp;&nbsp;&nbsp;&nbsp;</td> <td>covered 58% (1732 of 4159 uncovered)</td></tr>
+<tr><td><a href="vnccollab.theme.browser.html">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;browser/</a></td> <td style="background: red">&nbsp;&nbsp;&nbsp;&nbsp;</td> <td>covered 52% (979 of 2059 uncovered)</td></tr>
+<tr><td><a href="vnccollab.theme.browser.dashlet.html">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;dashlet.py</a></td> <td style="background: red">&nbsp;&nbsp;&nbsp;&nbsp;</td> <td>covered 72% (37 of 134 uncovered)</td></tr>
+</table><hr/>
+<pre>    1: from datetime import datetime
+       
+    1: from zope.component import getUtility, getMultiAdapter, queryMultiAdapter
+       
+    1: from Products.Five.browser import BrowserView
+    1: from Products.CMFCore.utils import getToolByName
+    1: from Acquisition import aq_inner
+       
+    1: from plone.portlets.interfaces import IPortletManager, IPortletRenderer
+    1: from plone.memoize.instance import memoize
+       
+    1: from vnccollab.theme.zimbrautil import IZimbraUtil
+    1: from vnccollab.theme.portlets import redmine_tickets
+       
+       
+    2: class Dashlet(BrowserView):
+       
+           #dashlet = ViewPageTemplateFile('templates/dashlet.pt')
+    1:     def __init__(self, context, request):
+    2:         self.context = context
+    2:         self.request = request
+    2:         self.zimbra_url = request.get('zimbra_url', 'https://zcs.vnc.biz')
+    2:         self.count = int(request.get('count', '5'))
+    2:         self.type_ = request.get('type', 'all')
+       
+    2:         context = aq_inner(self.context)
+    2:         portal_state = getMultiAdapter((context, self.request),
+    2:                 name=u'plone_portal_state')
+    2:         self.portal_state = portal_state
+    2:         self.friendlyTypes = portal_state.friendly_types()
+       
+    1:     def items(self):
+    2:         type_ = self.type_
+    2:         if type_ == 'all':
+    1:             items = self.all_items()
+    1:         elif type_ == 'mails':
+    1:             items = self.all_mails()
+<div class="notcovered">&gt;&gt;&gt;&gt;&gt;&gt;         elif type_ == 'news':</div><div class="notcovered">&gt;&gt;&gt;&gt;&gt;&gt;             items = self.all_news()</div><div class="notcovered">&gt;&gt;&gt;&gt;&gt;&gt;         elif type_ == 'recent':</div><div class="notcovered">&gt;&gt;&gt;&gt;&gt;&gt;             items = self.all_recents()</div><div class="notcovered">&gt;&gt;&gt;&gt;&gt;&gt;         elif type_ == 'tickets':</div><div class="notcovered">&gt;&gt;&gt;&gt;&gt;&gt;             items = self.all_tickets()</div>               else:
+<div class="notcovered">&gt;&gt;&gt;&gt;&gt;&gt;             items = []</div>    2:         return items
+       
+    1:     def all_items(self):
+               """Return the last Tickets, Mails, News and Items"""
+               # We'll try to get at least self.data.count elements of each type
+               # so when we filter by type we have enough entries to show.
+    1:         items = self.all_news()
+    1:         items.extend(self.all_recents())
+    1:         items.extend(self.all_tickets())
+    1:         items.extend(self.all_mails())
+    5:         items.sort(lambda x, y: cmp(x.Date, y.Date), reverse=True)
+    1:         items = self._remove_repeated(items)
+    1:         return items[:self.count]
+       
+    1:     def _remove_repeated(self, items):
+    1:         urls = []
+    1:         uniques = []
+    6:         for item in items:
+    5:             url = item.getURL()
+    5:             if url not in urls:
+    5:                 urls.append(url)
+    5:                 uniques.append(item)
+    1:         return uniques
+       
+    1:     def all_news(self):
+    1:         return self.all_by_types('News Item')
+       
+    1:     def all_recents(self):
+    1:         return self.all_by_types(self.friendlyTypes)
+       
+    1:     def all_tickets(self):
+    1:         renderer = self._get_redmine_ticket_portlet()
+    1:         tickets = renderer.getTickets()
+    1:         tickets = [FakeTicketBrain(ticket) for ticket in tickets]
+    1:         return tickets
+       
+    1:     @memoize
+           def _get_redmine_ticket_portlet(self):
+    1:         context = aq_inner(self.context)
+    1:         portal = getToolByName(context, 'portal_url').getPortalObject()
+    1:         manager = getUtility(IPortletManager, name='plone.rightcolumn',
+    1:                 context=portal)
+    1:         assignment = redmine_tickets.Assignment(count=self.count)
+    1:         renderer = queryMultiAdapter((context, self.request, self,
+    1:                 manager, assignment), IPortletRenderer)
+    1:         renderer.update()
+    1:         return renderer
+       
+    1:     @memoize
+           def all_mails(self):
+    2:         mtool = getToolByName(self.context, 'portal_membership')
+    2:         member = mtool.getAuthenticatedMember()
+    2:         username = member.getProperty('zimbra_username', '')
+    2:         password = member.getProperty('zimbra_password', '')
+    2:         zimbraUtil = getUtility(IZimbraUtil)
+    2:         try:
+    2:             client = zimbraUtil.get_client(url=self.zimbra_url,
+    2:                 username=username, password=password)
+    2:             mails = client.get_emails(limit=self.count)
+    2:         except:
+    2:             mails = []
+    2:         return [FakeMailBrain(mail) for mail in mails][:self.count]
+       
+    1:     def all_by_types(self, portal_types):
+    2:         context = aq_inner(self.context)
+    2:         catalog = getToolByName(context, 'portal_catalog')
+    2:         path = self.portal_state.navigation_root_path()
+    2:         limit = self.count
+    2:         return catalog(portal_type=portal_types,
+    2:                        path=path,
+    2:                        sort_on='Date',
+    2:                        sort_order='reverse',
+    2:                        sort_limit=limit)[:limit]
+       
+       
+    2: class FakeTicketBrain:
+           '''Wrapper for redmine ticket implementing the minimum attributes
+    1:     of brains.'''
+    1:     def __init__(self, dct):
+<div class="notcovered">&gt;&gt;&gt;&gt;&gt;&gt;         self.id = dct.get('id', '')</div><div class="notcovered">&gt;&gt;&gt;&gt;&gt;&gt;         self.url = dct.get('url', '')</div><div class="notcovered">&gt;&gt;&gt;&gt;&gt;&gt;         self.Title = dct.get('title', '')</div><div class="notcovered">&gt;&gt;&gt;&gt;&gt;&gt;         try:</div><div class="notcovered">&gt;&gt;&gt;&gt;&gt;&gt;             date = datetime.strptime(dct['date'],</div><div class="notcovered">&gt;&gt;&gt;&gt;&gt;&gt;                 '%b %d, %Y %I:%M %p').isoformat()</div><div class="notcovered">&gt;&gt;&gt;&gt;&gt;&gt;         except Exception:</div><div class="notcovered">&gt;&gt;&gt;&gt;&gt;&gt;             date = dct['date']</div><div class="notcovered">&gt;&gt;&gt;&gt;&gt;&gt;         self.Date = date</div><div class="notcovered">&gt;&gt;&gt;&gt;&gt;&gt;         self.portal_type = 'Redmine Ticket'</div>               # html -&gt; plain text
+<div class="notcovered">&gt;&gt;&gt;&gt;&gt;&gt;         portal_transforms = getToolByName(self, 'portal_transforms')</div><div class="notcovered">&gt;&gt;&gt;&gt;&gt;&gt;         html_body = (dct.get('body', u'') or u'').encode('utf-8')</div><div class="notcovered">&gt;&gt;&gt;&gt;&gt;&gt;         txt_body = portal_transforms.convert('html_to_text',</div><div class="notcovered">&gt;&gt;&gt;&gt;&gt;&gt;             html_body).getData()</div><div class="notcovered">&gt;&gt;&gt;&gt;&gt;&gt;         self.Description = txt_body.decode('utf-8')</div>       
+    1:     @property
+           def pretty_title_or_id(self):
+<div class="notcovered">&gt;&gt;&gt;&gt;&gt;&gt;         if self.Title:</div><div class="notcovered">&gt;&gt;&gt;&gt;&gt;&gt;             return self.Title</div>               else:
+<div class="notcovered">&gt;&gt;&gt;&gt;&gt;&gt;             return self.id</div>       
+    1:     def getURL(self):
+<div class="notcovered">&gt;&gt;&gt;&gt;&gt;&gt;         return self.url</div>       
+       
+    2: class FakeMailBrain:
+           '''Wrapper for zimbra mail implementing the minimum attributes
+    1:     of brains.'''
+    1:     def __init__(self, dct):
+<div class="notcovered">&gt;&gt;&gt;&gt;&gt;&gt;         self.id = dct.get('id', '')</div><div class="notcovered">&gt;&gt;&gt;&gt;&gt;&gt;         self.url = dct.get('url', '')</div><div class="notcovered">&gt;&gt;&gt;&gt;&gt;&gt;         self.Title = dct.get('subject', '')</div>               # TODO: html -&gt; plain text
+<div class="notcovered">&gt;&gt;&gt;&gt;&gt;&gt;         self.Description = dct.get('body', '')</div><div class="notcovered">&gt;&gt;&gt;&gt;&gt;&gt;         date = datetime.fromtimestamp(int(dct['date']) / 1000)</div><div class="notcovered">&gt;&gt;&gt;&gt;&gt;&gt;         self.Date = date.isoformat()</div><div class="notcovered">&gt;&gt;&gt;&gt;&gt;&gt;         self.portal_type = 'Mail'</div>       
+    1:     @property
+           def pretty_title_or_id(self):
+<div class="notcovered">&gt;&gt;&gt;&gt;&gt;&gt;         if self.Title:</div><div class="notcovered">&gt;&gt;&gt;&gt;&gt;&gt;             return self.Title</div>               else:
+<div class="notcovered">&gt;&gt;&gt;&gt;&gt;&gt;             return self.id</div>       
+    1:     def getURL(self):
+<div class="notcovered">&gt;&gt;&gt;&gt;&gt;&gt;         return self.url</div>       
+</pre>
+
+      <div class="footer">
+      Generated for revision wyeksportowane on 2013-11-05 18:00:40.809438Z
+      </div>
+    </body>
+    </html>
