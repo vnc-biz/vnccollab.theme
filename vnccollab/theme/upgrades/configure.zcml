@@ -135,4 +135,13 @@
       handler="vnccollab.theme.upgrades.upgrades.upgrade_1111_1112"
       />
 
+    <genericsetup:upgradeStep
+      source="1112"
+      destination="1113"
+      sortkey="13"
+      profile="vnccollab.theme:default"
+      title="recook JS registries"
+      handler="vnccollab.theme.upgrades.upgrades.upgrade_1112_1113"
+      />
+
 </configure>
