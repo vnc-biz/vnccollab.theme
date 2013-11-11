@@ -1,6 +1,9 @@
 from AccessControl import ModuleSecurityInfo
 from zope.i18nmessageid import MessageFactory
 
+from Products.Five.browser.pagetemplatefile import ViewPageTemplateFile
+from plone.app.content.browser.tableview import Table
+
 messageFactory = MessageFactory('vnccollab.theme')
 
 
@@ -32,4 +35,8 @@ if pytz.timezone.__doc__ != ' Monkey patching replacement for pytz.timezone':
 
     pytz.timezone = new_timezone
     print '*'*80
+
+# Manual monkey patching Override render from Table
+
+Table.render = ViewPageTemplateFile("browser/templates/table.pt")
 

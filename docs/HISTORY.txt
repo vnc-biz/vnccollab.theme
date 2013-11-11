@@ -4,6 +4,12 @@ Changelog
 1.7.6 - Unreleased
 ------------------
 
+- Overrides table.pt and remove icon, fixes icon position.
+  [Cesar Gonzalez]
+
+- Adds spaca between icons in the sprite and re-style icon positions.
+  [Cesar Gonzalez]
+
 - Remove xmpp chat dependencies from theme package.
   [Vitaliy Podoba]
 

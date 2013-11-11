@@ -4793,69 +4793,69 @@ a.ls-content-title {
 /* Content type sprites */
 
 .icons-on .contenttype-plone-site {
-  background: no-repeat transparent 5px -6px url(sprites_16.png);
+  background: no-repeat transparent 5px -5px url(sprites_16.png);
 }
 .icons-on .contenttype-news-item {
-  background: no-repeat transparent 5px -130px url(sprites_16.png);
+  background: no-repeat transparent 5px -129px url(sprites_16.png);
 }
 .section-news > .contenttype-folder {
-  background: no-repeat transparent 5px -130px url(sprites_16.png);
+  background: no-repeat transparent 5px -129px url(sprites_16.png);
 }
 .icons-on .contenttype-event {
-  background: no-repeat transparent 5px -266px url(sprites_16.png);
+  background: no-repeat transparent 5px -265px url(sprites_16.png);
 }
 .section-events > .contenttype-folder {
-  background: no-repeat transparent 5px -266px url(sprites_16.png);
+  background: no-repeat transparent 5px -265px url(sprites_16.png);
 }
 .icons-on .contenttype-folder {
-  background: no-repeat transparent 5px -400px url(sprites_16.png);
+  background: no-repeat transparent 5px -399px url(sprites_16.png);
 }
 .section-vnc-internal > .contenttype-folder,
 .section-internal > .contenttype-folder,
 .section-product-area > .contenttype-folder,
 .section-information > .contenttype-folder {
-  background: no-repeat transparent 5px -549px url(sprites_16.png);
+  background: no-repeat transparent 5px -548px url(sprites_16.png);
 }
 .icons-on .contenttype-topic {
-  background: no-repeat transparent 5px -549px url(sprites_16.png);
+  background: no-repeat transparent 5px -548px url(sprites_16.png);
 }
 .section-projects > .contenttype-folder {
-  background: no-repeat transparent 5px -692px url(sprites_16.png);
+  background: no-repeat transparent 5px -691px url(sprites_16.png);
 }
 .section-members > .contenttype-folder {
-  background: no-repeat transparent 5px -823px url(sprites_16.png);
+  background: no-repeat transparent 5px -822px url(sprites_16.png);
 }
 .section-partner > .contenttype-folder {
-  background: no-repeat transparent 5px -823px url(sprites_16.png);
+  background: no-repeat transparent 5px -822px url(sprites_16.png);
 }
 .icons-on .contenttype-collection {
-  background: no-repeat transparent 5px -952px url(sprites_16.png);
+  background: no-repeat transparent 5px -951px url(sprites_16.png);
 }
 .icons-on .contenttype-document {
-  background: no-repeat transparent 5px -1072px url(sprites_16.png);
+  background: no-repeat transparent 5px -1071px url(sprites_16.png);
 }
 .icons-on .contenttype-image {
-  background: no-repeat transparent 5px -1181px url(sprites_16.png);
+  background: no-repeat transparent 5px -1180px url(sprites_16.png);
 }
 .icons-on .contenttype-castscontainer,
 .icons-on .contenttype-cast,
 .icons-on .contenttype-cast-update,
 .icons-on .contenttype-cast-comment {
-  background: no-repeat transparent 5px -1299px url(sprites_16.png);
+  background: no-repeat transparent 5px -1298px url(sprites_16.png);
 }
 .icons-on .contenttype-link {
-  background: no-repeat transparent 5px -1419px url(sprites_16.png);
+  background: no-repeat transparent 5px -1418px url(sprites_16.png);
 }
 .icons-on .contenttype-file {
-  background: no-repeat transparent 5px -1537px url(sprites_16.png);
+  background: no-repeat transparent 5px -1536px url(sprites_16.png);
 }
 
 /* These should only appear in the add menu */
 .icons-on #plone-contentmenu-factories .contenttype-file {
-    background: no-repeat transparent 5px -1537px url(sprites_16.png);
+    background: no-repeat transparent 5px -1536px url(sprites_16.png);
 }
 .icons-on #plone-contentmenu-factories .contenttype-image {
-    background: no-repeat transparent 5px -1181px url(sprites_16.png);
+    background: no-repeat transparent 5px -1180px url(sprites_16.png);
 }
 
 .icons-on .contenttype-document,
