@@ -12,8 +12,8 @@
       <body><h1>Test coverage for vnccollab.theme.testing</h1>
       <table>
     
-<tr><td><a href="vnccollab.html">vnccollab/</a></td> <td style="background: red">&nbsp;&nbsp;&nbsp;&nbsp;</td> <td>covered 58% (1732 of 4159 uncovered)</td></tr>
-<tr><td><a href="vnccollab.theme.html">&nbsp;&nbsp;&nbsp;&nbsp;theme/</a></td> <td style="background: red">&nbsp;&nbsp;&nbsp;&nbsp;</td> <td>covered 58% (1732 of 4159 uncovered)</td></tr>
+<tr><td><a href="vnccollab.html">vnccollab/</a></td> <td style="background: red">&nbsp;&nbsp;&nbsp;&nbsp;</td> <td>covered 63% (1501 of 4163 uncovered)</td></tr>
+<tr><td><a href="vnccollab.theme.html">&nbsp;&nbsp;&nbsp;&nbsp;theme/</a></td> <td style="background: red">&nbsp;&nbsp;&nbsp;&nbsp;</td> <td>covered 63% (1501 of 4163 uncovered)</td></tr>
 <tr><td><a href="vnccollab.theme.testing.html">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;testing.py</a></td> <td style="background: orange">&nbsp;&nbsp;&nbsp;&nbsp;</td> <td>covered 84% (12 of 77 uncovered)</td></tr>
 </table><hr/>
 <pre>    1: import sys
@@ -107,20 +107,20 @@
        
     1: def createObject(context, _type, id, delete_first=True, check_for_first=False,
     1:                  object_date=None, **kwargs):
-    3:     result = None
-    3:     if delete_first and id in context.objectIds():
-<div class="notcovered">&gt;&gt;&gt;&gt;&gt;&gt;         context.manage_delObjects([id])</div>    3:     if not check_for_first or id not in context.objectIds():
-    3:         result = context[context.invokeFactory(_type, id, **kwargs)]
+   94:     result = None
+   94:     if delete_first and id in context.objectIds():
+<div class="notcovered">&gt;&gt;&gt;&gt;&gt;&gt;         context.manage_delObjects([id])</div>   94:     if not check_for_first or id not in context.objectIds():
+   94:         result = context[context.invokeFactory(_type, id, **kwargs)]
            else:
 <div class="notcovered">&gt;&gt;&gt;&gt;&gt;&gt;         result = context[id]</div>       
-    3:     if object_date:
+   94:     if object_date:
 <div class="notcovered">&gt;&gt;&gt;&gt;&gt;&gt;         setObjDate(result, object_date)</div>       
-    3:     transaction.commit()
-    3:     return result
+   94:     transaction.commit()
+   94:     return result
 </pre>
 
       <div class="footer">
-      Generated for revision wyeksportowane on 2013-11-05 18:00:40.809438Z
+      Generated for revision Niewersjonowany katalog on 2013-11-13 18:40:10.922885Z
       </div>
     </body>
     </html>

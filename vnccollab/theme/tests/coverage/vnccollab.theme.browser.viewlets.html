@@ -12,9 +12,9 @@
       <body><h1>Test coverage for vnccollab.theme.browser.viewlets</h1>
       <table>
     
-<tr><td><a href="vnccollab.html">vnccollab/</a></td> <td style="background: red">&nbsp;&nbsp;&nbsp;&nbsp;</td> <td>covered 58% (1732 of 4159 uncovered)</td></tr>
-<tr><td><a href="vnccollab.theme.html">&nbsp;&nbsp;&nbsp;&nbsp;theme/</a></td> <td style="background: red">&nbsp;&nbsp;&nbsp;&nbsp;</td> <td>covered 58% (1732 of 4159 uncovered)</td></tr>
-<tr><td><a href="vnccollab.theme.browser.html">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;browser/</a></td> <td style="background: red">&nbsp;&nbsp;&nbsp;&nbsp;</td> <td>covered 52% (979 of 2059 uncovered)</td></tr>
+<tr><td><a href="vnccollab.html">vnccollab/</a></td> <td style="background: red">&nbsp;&nbsp;&nbsp;&nbsp;</td> <td>covered 63% (1501 of 4163 uncovered)</td></tr>
+<tr><td><a href="vnccollab.theme.html">&nbsp;&nbsp;&nbsp;&nbsp;theme/</a></td> <td style="background: red">&nbsp;&nbsp;&nbsp;&nbsp;</td> <td>covered 63% (1501 of 4163 uncovered)</td></tr>
+<tr><td><a href="vnccollab.theme.browser.html">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;browser/</a></td> <td style="background: red">&nbsp;&nbsp;&nbsp;&nbsp;</td> <td>covered 63% (745 of 2059 uncovered)</td></tr>
 <tr><td><a href="vnccollab.theme.browser.viewlets.html">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;viewlets.py</a></td> <td style="background: red">&nbsp;&nbsp;&nbsp;&nbsp;</td> <td>covered 71% (133 of 472 uncovered)</td></tr>
 </table><hr/>
 <pre>    1: from urllib import quote_plus
@@ -98,26 +98,26 @@
     1:     anon_template = ViewPageTemplateFile('templates/anon_login.pt')
        
     1:     def __init__(self, *args, **kw):
-   94:         super(LoginViewlet, self).__init__(*args, **kw)
+   88:         super(LoginViewlet, self).__init__(*args, **kw)
        
-   94:         self.membership = getToolByName(self.context, 'portal_membership')
-   94:         self.context_state = getMultiAdapter((self.context, self.request),
-   94:             name=u'plone_context_state')
-   94:         self.portal_state = getMultiAdapter((self.context, self.request),
-   94:             name=u'plone_portal_state')
-   94:         self.pas_info = getMultiAdapter((self.context, self.request),
-   94:             name=u'pas_info')
+   88:         self.membership = getToolByName(self.context, 'portal_membership')
+   88:         self.context_state = getMultiAdapter((self.context, self.request),
+   88:             name=u'plone_context_state')
+   88:         self.portal_state = getMultiAdapter((self.context, self.request),
+   88:             name=u'plone_portal_state')
+   88:         self.pas_info = getMultiAdapter((self.context, self.request),
+   88:             name=u'pas_info')
        
     1:     def render(self):
-   94:         mt = getToolByName(self.context, 'portal_membership')
-   94:         if mt.isAnonymousUser():
-   39:             return self.anon_template()
+   88:         mt = getToolByName(self.context, 'portal_membership')
+   88:         if mt.isAnonymousUser():
+   35:             return self.anon_template()
                else:
-   55:             return self.template()
+   53:             return self.template()
        
     1:     def show(self):
-   55:         if not self.portal_state.anonymous():
-   55:             return False
+   53:         if not self.portal_state.anonymous():
+   53:             return False
 <div class="notcovered">&gt;&gt;&gt;&gt;&gt;&gt;         if not self.pas_info.hasLoginPasswordExtractor():</div><div class="notcovered">&gt;&gt;&gt;&gt;&gt;&gt;             return False</div>       
 <div class="notcovered">&gt;&gt;&gt;&gt;&gt;&gt;         return True</div>               # page = self.request.get('URL', '').split('/')[-1]
                # return page not in ('login_form', '@@register')
@@ -126,35 +126,35 @@
            def available(self):
 <div class="notcovered">&gt;&gt;&gt;&gt;&gt;&gt;         return self.auth() is not None and self.show()</div>       
     1:     def signup_link(self):
-   39:         return '%s/register' % self.portal_state.portal_url()
+   35:         return '%s/register' % self.portal_state.portal_url()
        
     1:     def help_link(self):
-   39:         registry = getUtility(IRegistry)
-   39:         return registry.get(
-   39:             'vnccollab.theme.settings.IAnonymousHomepageSettings.help_url')
+   35:         registry = getUtility(IRegistry)
+   35:         return registry.get(
+   35:             'vnccollab.theme.settings.IAnonymousHomepageSettings.help_url')
        
     1:     def login_form(self):
-   39:         return '%s/login_form' % self.portal_state.portal_url()
+   35:         return '%s/login_form' % self.portal_state.portal_url()
        
     1:     def mail_password_form(self):
 <div class="notcovered">&gt;&gt;&gt;&gt;&gt;&gt;         return '%s/mail_password_form' % self.portal_state.portal_url()</div>       
     1:     def login_name(self):
-   55:         auth = self.auth()
-   55:         name = None
-   55:         if auth is not None:
-   55:             name = getattr(auth, 'name_cookie', None)
-   55:         if not name:
-   55:             name = '__ac_name'
-   55:         return name
+   53:         auth = self.auth()
+   53:         name = None
+   53:         if auth is not None:
+   53:             name = getattr(auth, 'name_cookie', None)
+   53:         if not name:
+   53:             name = '__ac_name'
+   53:         return name
        
     1:     def login_password(self):
-   55:         auth = self.auth()
-   55:         passwd = None
-   55:         if auth is not None:
-   55:             passwd = getattr(auth, 'pw_cookie', None)
-   55:         if not passwd:
-   55:             passwd = '__ac_password'
-   55:         return passwd
+   53:         auth = self.auth()
+   53:         passwd = None
+   53:         if auth is not None:
+   53:             passwd = getattr(auth, 'pw_cookie', None)
+   53:         if not passwd:
+   53:             passwd = '__ac_password'
+   53:         return passwd
        
     1:     def join_action(self):
 <div class="notcovered">&gt;&gt;&gt;&gt;&gt;&gt;         context = self.context</div><div class="notcovered">&gt;&gt;&gt;&gt;&gt;&gt;         tool = getToolByName(context, 'portal_actions')</div><div class="notcovered">&gt;&gt;&gt;&gt;&gt;&gt;         join = tool.listActionInfos(action_chain='user/join', object=context)</div><div class="notcovered">&gt;&gt;&gt;&gt;&gt;&gt;         if len(join) &gt; 0:</div><div class="notcovered">&gt;&gt;&gt;&gt;&gt;&gt;             return join[0]['url']</div><div class="notcovered">&gt;&gt;&gt;&gt;&gt;&gt;         return None</div>       
@@ -164,8 +164,8 @@
 <div class="notcovered">&gt;&gt;&gt;&gt;&gt;&gt;         return self.membership.checkPermission('Mail forgotten password',</div><div class="notcovered">&gt;&gt;&gt;&gt;&gt;&gt;             self.context)</div>       
     1:     @memoize
     1:     def auth(self, _marker=[]):
-   55:         acl_users = getToolByName(self.context, 'acl_users')
-   55:         return getattr(acl_users, 'credentials_cookie_auth', None)
+   53:         acl_users = getToolByName(self.context, 'acl_users')
+   53:         return getattr(acl_users, 'credentials_cookie_auth', None)
        
        
     2: class HeaderTimeViewlet(common.ViewletBase):
@@ -183,106 +183,106 @@
     1:     template = ViewPageTemplateFile('templates/path_bar.pt')
        
     1:     def render(self):
-   94:         mt = getToolByName(self.context, 'portal_membership')
-   94:         if mt.isAnonymousUser():
-   39:             return u''
+   88:         mt = getToolByName(self.context, 'portal_membership')
+   88:         if mt.isAnonymousUser():
+   35:             return u''
                else:
-   55:             return self.template()
+   53:             return self.template()
        
     2: class FooterViewlet(common.FooterViewlet):
     1:     index = ViewPageTemplateFile('templates/footer.pt')
        
     1:     def update(self):
-   94:         super(FooterViewlet, self).update()
-   94:         self.columns = columns = {}
+   88:         super(FooterViewlet, self).update()
+   88:         self.columns = columns = {}
        
-   94:         context = aq_inner(self.context)
-   94:         actions_tool = getToolByName(context, 'portal_actions')
+   88:         context = aq_inner(self.context)
+   88:         actions_tool = getToolByName(context, 'portal_actions')
        
                # check if we got root category for all column links
-   94:         if not FOOTER_LINKS_CAT in actions_tool.objectIds():
+   88:         if not FOOTER_LINKS_CAT in actions_tool.objectIds():
 <div class="notcovered">&gt;&gt;&gt;&gt;&gt;&gt;             return</div>       
                # prepare expression context for evaluating TAL expressions
-   94:         ec = actions_tool._getExprContext(context)
+   88:         ec = actions_tool._getExprContext(context)
        
                # go over root category and collect all sub-categories
-   94:         container = actions_tool[FOOTER_LINKS_CAT]
-   94:         cat_ids = container.objectIds()
-  376:         for cid in ('column1', 'column2', 'column3'):
+   88:         container = actions_tool[FOOTER_LINKS_CAT]
+   88:         cat_ids = container.objectIds()
+  352:         for cid in ('column1', 'column2', 'column3'):
                    # skip not existing categories
-  282:             if cid not in cat_ids:
+  264:             if cid not in cat_ids:
 <div class="notcovered">&gt;&gt;&gt;&gt;&gt;&gt;                 continue</div>       
-  282:             cat = container[cid]
-  282:             if not IActionCategory.providedBy(cat):
+  264:             cat = container[cid]
+  264:             if not IActionCategory.providedBy(cat):
 <div class="notcovered">&gt;&gt;&gt;&gt;&gt;&gt;                 continue</div>       
                    # prepare category actions
-  282:             actions = []
-  846:             for action in cat.objectValues():
+  264:             actions = []
+  792:             for action in cat.objectValues():
                        # look only for actions
-  564:                 if not IAction.providedBy(action):
+  528:                 if not IAction.providedBy(action):
 <div class="notcovered">&gt;&gt;&gt;&gt;&gt;&gt;                     continue</div>       
                        # create actioninfo object to compile and render TAL expressions
                        # and check if action is available in current circumstances
-  564:                 info = ActionInfo(action, ec)
-  564:                 if not (info['visible'] and info['allowed'] and
-  502:                         info['available']):
-  101:                     continue
+  528:                 info = ActionInfo(action, ec)
+  528:                 if not (info['visible'] and info['allowed'] and
+  470:                         info['available']):
+   93:                     continue
        
                        # and finally extract all required details from action
-  463:                 desc = action.getProperty('description', None) or None
-  463:                 if desc is not None:
-<div class="notcovered">&gt;&gt;&gt;&gt;&gt;&gt;                     desc = _(safe_unicode(desc))</div>  463:                 actions.append({
-  463:                     'id': info['id'],
-  463:                     'title': _(safe_unicode(info['title'])),
-  463:                     'desc': desc,
-  463:                     'url': info['url']
+  435:                 desc = action.getProperty('description', None) or None
+  435:                 if desc is not None:
+<div class="notcovered">&gt;&gt;&gt;&gt;&gt;&gt;                     desc = _(safe_unicode(desc))</div>  435:                 actions.append({
+  435:                     'id': info['id'],
+  435:                     'title': _(safe_unicode(info['title'])),
+  435:                     'desc': desc,
+  435:                     'url': info['url']
                        })
        
                    # finally add category to be rendered as footer column
-  282:             columns[cid] = {
-  282:                 'title': _(safe_unicode(cat.getProperty('title', ''))),
-  282:                 'actions': tuple(actions)
+  264:             columns[cid] = {
+  264:                 'title': _(safe_unicode(cat.getProperty('title', ''))),
+  264:                 'actions': tuple(actions)
                    }
        
-   94:         self.columns = columns
+   88:         self.columns = columns
        
        
     2: class PersonalBarViewlet(common.PersonalBarViewlet):
     1:     index = ViewPageTemplateFile('templates/personal_bar.pt')
        
     1:     def update(self):
-   94:         super(PersonalBarViewlet, self).update()
+   88:         super(PersonalBarViewlet, self).update()
        
                # get personal user image
-   94:         self.user_image = None
-   94:         if not self.anonymous:
-   55:             mtool = getToolByName(self.context, 'portal_membership')
+   88:         self.user_image = None
+   88:         if not self.anonymous:
+   53:             mtool = getToolByName(self.context, 'portal_membership')
                    # if no userid passes it'll return portrait of logged in user
-   55:             portrait = mtool.getPersonalPortrait()
-   55:             if portrait is not None:
-   55:                 self.user_image = portrait.absolute_url()
+   53:             portrait = mtool.getPersonalPortrait()
+   53:             if portrait is not None:
+   53:                 self.user_image = portrait.absolute_url()
        
                # render languages viewlet
-   94:         context = aq_inner(self.context)
-   94:         languages = u''
-   94:         manager = BaseOrderedViewletManager()
-   94:         alsoProvides(manager, IPortalHeader)
-   94:         viewlet = queryMultiAdapter((context, self.request, self.view,
-   94:             manager), IViewlet, name='vnccollab.theme.languageselector')
-   94:         if viewlet is not None:
-   94:             viewlet = viewlet.__of__(context)
-   94:             viewlet.update()
-   94:             languages = viewlet.render()
-   94:         self.languages = languages
+   88:         context = aq_inner(self.context)
+   88:         languages = u''
+   88:         manager = BaseOrderedViewletManager()
+   88:         alsoProvides(manager, IPortalHeader)
+   88:         viewlet = queryMultiAdapter((context, self.request, self.view,
+   88:             manager), IViewlet, name='vnccollab.theme.languageselector')
+   88:         if viewlet is not None:
+   88:             viewlet = viewlet.__of__(context)
+   88:             viewlet.update()
+   88:             languages = viewlet.render()
+   88:         self.languages = languages
        
                # Get css style for image avatar
-   94:         self.avatar_width = 80
-   94:         self.avatar_height = 80
-   94:         self.avatar_style = ''
+   88:         self.avatar_width = 80
+   88:         self.avatar_height = 80
+   88:         self.avatar_style = ''
        
-   94:         if self.user_image is not None:
-   55:             img_name = os.path.basename(self.user_image)
-   55:             if img_name != 'defaultUser.png':
+   88:         if self.user_image is not None:
+   53:             img_name = os.path.basename(self.user_image)
+   53:             if img_name != 'defaultUser.png':
 <div class="notcovered">&gt;&gt;&gt;&gt;&gt;&gt;                 img = context.portal_memberdata.portraits[img_name]</div><div class="notcovered">&gt;&gt;&gt;&gt;&gt;&gt;                 avatar = getUtility(IAvatarUtil)</div><div class="notcovered">&gt;&gt;&gt;&gt;&gt;&gt;                 self.avatar_width, self.avatar_height, self.avatar_style = avatar.style(img, (80, 80))</div>       
        
     2: class VNCCarouselViewlet(CarouselViewlet):
@@ -384,85 +384,85 @@
                """Returns list with info of the allowed types to create using
                the add wizard.
                """
-   56:         result = self._get_default_allowed_types()
-  307:         ids = [x['id'] for x in result]
+   54:         result = self._get_default_allowed_types()
+  287:         ids = [x['id'] for x in result]
        
                # Adds allowed types in current context
-   56:         context = aq_inner(self.context)
-   56:         extend = self._allowed_types(context)
+   54:         context = aq_inner(self.context)
+   54:         extend = self._allowed_types(context)
        
-  146:         for item in extend:
-   90:             if item['id'] not in ids:
+  126:         for item in extend:
+   72:             if item['id'] not in ids:
 <div class="notcovered">&gt;&gt;&gt;&gt;&gt;&gt;                 result.append(item)</div>       
-   56:         return result
+   54:         return result
        
     1:     def _get_default_allowed_types(self):
                '''Default allowed types: the ones you can add to your
                member folder.'''
-   56:         member_folder = self._get_member_home()
-   56:         if member_folder is None:
+   54:         member_folder = self._get_member_home()
+   54:         if member_folder is None:
    23:             return []
                else:
-   33:             return self._allowed_types(member_folder)
+   31:             return self._allowed_types(member_folder)
        
     1:     def _get_member_home(self):
                '''Returns the cuerrent user's folder.'''
-   56:         mtool = getToolByName(self.context, 'portal_membership')
-   56:         member = mtool.getAuthenticatedMember()
-   56:         if member is None:
+   54:         mtool = getToolByName(self.context, 'portal_membership')
+   54:         member = mtool.getAuthenticatedMember()
+   54:         if member is None:
 <div class="notcovered">&gt;&gt;&gt;&gt;&gt;&gt;             return None</div>       
-   56:         portal = getToolByName(self.context, 'portal_url').getPortalObject()
-   56:         try:
-   56:             id = member.id.replace('@', '-40')
-   56:             home = portal['Members'][id]
+   54:         portal = getToolByName(self.context, 'portal_url').getPortalObject()
+   54:         try:
+   54:             id = member.id.replace('@', '-40')
+   54:             home = portal['Members'][id]
    23:         except:
    23:             home = None
        
-   56:         return home
+   54:         return home
        
     1:     def _allowed_types(self, context):
                '''Return info of the types that can be added to the context.'''
-   89:         submenu = FactoriesSubMenuItem(context, self.request)
-   89:         folder = self.getFolder(context)
-   89:         folder_url = folder.absolute_url()
+   85:         submenu = FactoriesSubMenuItem(context, self.request)
+   85:         folder = self.getFolder(context)
+   85:         folder_url = folder.absolute_url()
        
-   89:         idnormalizer = getUtility(IIDNormalizer)
-   89:         result = []
+   85:         idnormalizer = getUtility(IIDNormalizer)
+   85:         result = []
        
-  430:         for atype in submenu._addableTypesInContext(folder):
-  341:             id = atype.getId()
-  341:             result.append({
-  341:                 'id': id,
-  341:                 'title': atype.Title(),
-  341:                 'desc': atype.Description(),
-  341:                 'url': '%s/createObject?type_name=%s' % (folder_url,
-  341:                     quote_plus(id)),
-  341:                 'icon': '%s/add_content_area/metabox_icon_%s.png' % (
-  341:                     self.site_url, idnormalizer.normalize(id))
+  390:         for atype in submenu._addableTypesInContext(folder):
+  305:             id = atype.getId()
+  305:             result.append({
+  305:                 'id': id,
+  305:                 'title': atype.Title(),
+  305:                 'desc': atype.Description(),
+  305:                 'url': '%s/createObject?type_name=%s' % (folder_url,
+  305:                     quote_plus(id)),
+  305:                 'icon': '%s/add_content_area/metabox_icon_%s.png' % (
+  305:                     self.site_url, idnormalizer.normalize(id))
                    })
        
-   89:         return result
+   85:         return result
        
     1:     def getUploadUrl(self):
                """
                return upload url
                in current folder
                """
-   56:         context = aq_inner(self.context)
-   56:         ploneview = context.restrictedTraverse('@@plone')
-   56:         folder_url = ploneview.getCurrentFolderUrl()
-   56:         return '%s/@@wizard_uploader' % folder_url
+   54:         context = aq_inner(self.context)
+   54:         ploneview = context.restrictedTraverse('@@plone')
+   54:         folder_url = ploneview.getCurrentFolderUrl()
+   54:         return '%s/@@wizard_uploader' % folder_url
        
     1:     def upload_javascript(self):
-   56:         return JAVASCRIPT.replace('.QuickUploadPortlet', '#createWizard')
+   54:         return JAVASCRIPT.replace('.QuickUploadPortlet', '#createWizard')
        
     1:     @memoize
            def getFolder(self, context):
-   89:         context = aq_inner(context)
-   89:         submenu = FactoriesSubMenuItem(context, self.request)
-   89:         if submenu.context_state.is_default_page():
+   85:         context = aq_inner(context)
+   85:         submenu = FactoriesSubMenuItem(context, self.request)
+   85:         if submenu.context_state.is_default_page():
     3:             return parent(context)
-   86:         return submenu._addContext()
+   82:         return submenu._addContext()
        
        
     2: class AddButtonViewlet(common.ViewletBase):
@@ -470,11 +470,11 @@
     1:     template = ViewPageTemplateFile('templates/addbutton.pt')
        
     1:     def render(self):
-   94:         mt = getToolByName(self.context, 'portal_membership')
-   94:         if mt.isAnonymousUser():
-   39:             return u''
+   88:         mt = getToolByName(self.context, 'portal_membership')
+   88:         if mt.isAnonymousUser():
+   35:             return u''
                else:
-   55:             return self.template()
+   53:             return self.template()
        
     1: try:
     1:     import vnccollab.cloudcast
@@ -487,32 +487,32 @@
     2: class CastViewletBase(object):
        
     1:     def get_cast_url(self):
-   57:         if not CAST_ENABLED:
+   55:         if not CAST_ENABLED:
 <div class="notcovered">&gt;&gt;&gt;&gt;&gt;&gt;             return False</div>       
-   57:         catalog = getToolByName(self.context, 'portal_catalog')
-   57:         portal_path = getToolByName(self.context, 'portal_url').getPortalPath()
-   57:         casts = catalog(portal_type='CastsContainer', path={'query':
-   57:             portal_path, 'depth': 1}, sort_on='getObjPositionInParent')
-   57:         if len(casts) &gt; 0:
+   55:         catalog = getToolByName(self.context, 'portal_catalog')
+   55:         portal_path = getToolByName(self.context, 'portal_url').getPortalPath()
+   55:         casts = catalog(portal_type='CastsContainer', path={'query':
+   55:             portal_path, 'depth': 1}, sort_on='getObjPositionInParent')
+   55:         if len(casts) &gt; 0:
     2:             return casts[0].getURL()
        
                # no casts container in site root, search for any other casts container
-   55:         casts = catalog(portal_type='CastsContainer',
-   55:             sort_on='getObjPositionInParent')
-   55:         if len(casts) &gt; 0:
+   53:         casts = catalog(portal_type='CastsContainer',
+   53:             sort_on='getObjPositionInParent')
+   53:         if len(casts) &gt; 0:
 <div class="notcovered">&gt;&gt;&gt;&gt;&gt;&gt;             return casts[0].getURL()</div>       
-   55:         return False
+   53:         return False
        
     1:     def check_in_cast(self):
-   59:         if not CAST_ENABLED:
+   57:         if not CAST_ENABLED:
 <div class="notcovered">&gt;&gt;&gt;&gt;&gt;&gt;             return False</div>       
-   59:         cast_interfaces = [ICastsContainer, ICastContainer, ICast]
+   57:         cast_interfaces = [ICastsContainer, ICastContainer, ICast]
        
-  230:         for cast in cast_interfaces:
-  173:             if cast.providedBy(self.context):
+  222:         for cast in cast_interfaces:
+  167:             if cast.providedBy(self.context):
     2:                 return True
        
-   57:         return False
+   55:         return False
        
        
        # class CustomXMPPViewlet(XMPPViewlet, CastViewletBase):
@@ -539,28 +539,28 @@
        
     1:     @property
            def available(self):
-   96:         mt = getToolByName(self.context, 'portal_membership')
-   96:         if mt.isAnonymousUser():
-   39:             return False
+   90:         mt = getToolByName(self.context, 'portal_membership')
+   90:         if mt.isAnonymousUser():
+   35:             return False
                else:
-   57:             return True
+   55:             return True
        
        
     1:     def update(self):
-   96:         self.portal_tabs = []
-   96:         if not self.available:
-   39:             return
+   90:         self.portal_tabs = []
+   90:         if not self.available:
+   35:             return
        
                self.portal_tabs = [
-   57:             {'name': 'Content',
-   57:              'description': 'content',
-   57:              'id': 'content',
-   57:              'url': getSite().absolute_url(),
-   57:              'selected': not self.check_in_cast()
+   55:             {'name': 'Content',
+   55:              'description': 'content',
+   55:              'id': 'content',
+   55:              'url': getSite().absolute_url(),
+   55:              'selected': not self.check_in_cast()
                    }]
        
-   57:         cast_url = self.get_cast_url()
-   57:         if cast_url != False:
+   55:         cast_url = self.get_cast_url()
+   55:         if cast_url != False:
     2:             self.portal_tabs.append({
     2:                 'name': 'Cast',
     2:                 'description': 'cast',
@@ -574,11 +574,11 @@
     1:     template = ViewPageTemplateFile('templates/searchbox.pt')
        
     1:     def render(self):
-   94:         mt = getToolByName(self.context, 'portal_membership')
-   94:         if mt.isAnonymousUser():
-   39:             return u''
+   88:         mt = getToolByName(self.context, 'portal_membership')
+   88:         if mt.isAnonymousUser():
+   35:             return u''
                else:
-   55:             return self.template()
+   53:             return self.template()
        
     2: class EmptyViewlet(common.ViewletBase):
     1:     """Empty viewlet to remove previous registrations"""
@@ -589,7 +589,7 @@
 <div class="notcovered">&gt;&gt;&gt;&gt;&gt;&gt;         return u''</div></pre>
 
       <div class="footer">
-      Generated for revision wyeksportowane on 2013-11-05 18:00:40.809438Z
+      Generated for revision Niewersjonowany katalog on 2013-11-13 18:40:10.922885Z
       </div>
     </body>
     </html>

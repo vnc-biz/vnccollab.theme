@@ -13,9 +13,9 @@ from vnccollab.theme.tests.base import FunctionalTestCase
 from vnccollab.theme.testing import createObject
 from vnccollab.theme.browser.wizardjson import GetTreeJson
 
-class WizardJsonView(FunctionalTestCase):
+class TestWizardJsonView(FunctionalTestCase):
     def setUp(self):
-        super(WizardJsonView, self).setUp()
+        super(TestWizardJsonView, self).setUp()
 
         self.getTreeJson = GetTreeJson(self.portal, self.app.REQUEST)
 
