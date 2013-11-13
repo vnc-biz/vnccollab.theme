@@ -144,4 +144,16 @@
       handler="vnccollab.theme.upgrades.upgrades.upgrade_1112_1113"
       />
 
+    <genericsetup:upgradeSteps
+      source="1113"
+      destination="1114"
+      sortkey="14"
+      profile="vnccollab.theme:default">
+
+        <genericsetup:upgradeDepends
+          title="Removes IFollowing"
+          import_steps="componentregistry"
+          />
+    </genericsetup:upgradeSteps>
+
 </configure>

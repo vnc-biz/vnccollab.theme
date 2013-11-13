@@ -8,7 +8,7 @@ from Products.Five.browser import BrowserView
 from Products.Five.browser.pagetemplatefile import ViewPageTemplateFile
 from Products.CMFCore.utils import getToolByName
 
-from ..interfaces import IFollowing
+from vnccollab.content.interfaces import IFollowing
 
 
 class FollowingView(BrowserView):
@@ -32,7 +32,7 @@ class FollowingView(BrowserView):
         following.subscribe(user, user2)
 
         self.request.response.setHeader('Content-Type',
-            'application/javascript')                                                                       
+            'application/javascript')
         return json.dumps({
             'title': 'Unfollow',
             'label': 'Unfollow',
@@ -49,7 +49,7 @@ class FollowingView(BrowserView):
         following.unsubscribe(user, user2)
 
         self.request.response.setHeader('Content-Type',
-            'application/javascript')                                                                       
+            'application/javascript')
         return json.dumps({
             'title': 'Follow',
             'label': 'Follow',

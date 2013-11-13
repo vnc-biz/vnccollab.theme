@@ -39,6 +39,7 @@ class VNCThemeContent(PloneSandboxLayer):
                        'plone.formwidget.autocomplete', 'Products.Carousel',
                        'vnccollab.theme', 'collective.autopermission',
                        'plone.app.iterate',
+                       'vnccollab.content',
                        'Products.PloneLanguageTool'] #, 'plone.i18n', 'plone.app.i18n']
 
         if CAST_ENABLED:
@@ -60,6 +61,7 @@ class VNCThemeContent(PloneSandboxLayer):
         z2.installProduct(app, 'plone.app.locales')
         # z2.installProduct(app, 'plone.app.layout')
         # z2.installProduct(app, 'plone.app.i18n')
+        z2.installProduct(app, 'vnccollab.content')
         z2.installProduct(app, 'vnccollab.theme')
         z2.installProduct(app, 'Products.PythonScripts')
 
@@ -70,6 +72,7 @@ class VNCThemeContent(PloneSandboxLayer):
         # Install portal content. Including the Members folder!
         self.applyProfile(portal, 'Products.CMFPlone:plone-content')
         #self.applyProfile(portal, 'Products.PloneLanguageTool:plone-default')
+        self.applyProfile(portal, 'vnccollab.content:default')
         self.applyProfile(portal, 'vnccollab.theme:default')
         if CAST_ENABLED:
             self.applyProfile(portal, 'vnccollab.cloudcast:default')
@@ -85,7 +88,7 @@ VNCCOLLAB_THEME_FUNCTIONAL_TESTING = FunctionalTesting(
 
 
 def setObjDate(obj, dt):
-    """Prevent update of modification date 
+    """Prevent update of modification date
        during reindexing"""
     obj.setCreationDate(dt)
     obj.setEffectiveDate(dt)
