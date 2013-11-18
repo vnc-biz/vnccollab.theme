@@ -44,7 +44,6 @@ class Obj(object):
 
 
 def getPortlets(self):
-    # print "DUPA BLADA"
     p = dict()
     p['category'] = CONTEXT_CATEGORY
     p['key'] = p['name'] = u'dummy'
@@ -55,6 +54,10 @@ def getPortlets(self):
 
 
 class TestHomepageView(FunctionalTestCase):
+    members = (
+        ('secret', 'Scott Tiger', 'scott@tiger.com', ['members', 'Manager'], '2013-09-24'),
+        ('secret', 'Johann Sebastian Bach', 'johan@bach.com', ['members', 'Manager'], '2013-09-24'),)
+
     def test_homepage(self):
         browser = self.login()
         browser.open(self.portal_url + '/@@homepage_view')
@@ -102,39 +105,15 @@ class TestHomepageView(FunctionalTestCase):
         self.assertIn('anonymousMode', browser.contents)
 
     def test_getColumn(self):
-        view = HomePageView(self.portal, self.app.REQUEST)
-        view()
-        column = view.getColumn('plone.dashboard1')
-        # print "COLUMNS: ", column
-        column = view.getColumn('plone.dashboard2')
-        # print "COLUMNS: ", column
-        column = view.getColumn('plone.dashboard3')
-        # print "COLUMNS: ", column
-        column = view.getColumn('plone.dashboard4')
-        # print "COLUMNS: ", column
+        browser = self.login('scott@tiger.com', 'secret')
+        browser.open(self.portal_url + '/@@manage-group-dashboard?key=AnonymousUsers')
 
-        # portlet = getUtility(IPortletType, name='portlets.Calendar')
-        mapping = self.portal.restrictedTraverse('++dashboard++plone.dashboard1+test_user_1_')
-        # for m in mapping.keys():
-        #     del mapping[m]
-        # addview = mapping.restrictedTraverse('+/' + portlet.addview)
-        # addview()
+        form = browser.getForm(index=1)
+        form.getControl(name=':action').value = [u'/++groupdashboard++plone.dashboard1+AnonymousUsers/+/vnccollab.theme.portlets.WorldClockPortlet']
+        form.submit()
+        form = browser.getForm(index=1)
+        form.getControl(name='form.actions.save').click()
 
-        def saveAssignment(mapping, assignment):
-            chooser = INameChooser(mapping)
-            mapping[chooser.chooseName('', assignment)] = assignment
-        saveAssignment(mapping, calendar.Assignment())
-
-        self.assertEquals(len(mapping), 1)
-        self.failUnless(isinstance(mapping.values()[0], calendar.Assignment))
-        # print mapping.values()
-        __getPortlets = PortletRetriever.getPortlets
-        CloudPortalDashboardPortletRetriever.getPortlets = getPortlets
-        view = HomePageView(self.portal, self.app.REQUEST)
-        ## print view()
-        column = view.getColumn('plone.dashboard1', group='test_user_1_')
-        #print "COLUMNS: ", column
-        CloudPortalDashboardPortletRetriever.getPortlets = __getPortlets
-        #browser = self.login()
-        #browser.open(self.portal_url + '/@@dashboard')
-        # print browser.contents
+        self.logout(browser)
+        browser = Browser(self.portal)
+        browser.open(self.portal_url + '/@@homepage_view')
