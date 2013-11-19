@@ -1,4 +1,6 @@
-from zope.component import getMultiAdapter
+import transaction
+
+from zope.component import getMultiAdapter, getUtility
 from zope.publisher.browser import TestRequest
 from Products.CMFCore.utils import getToolByName
 from plone.app.upgrade.utils import installOrReinstallProduct
@@ -65,3 +67,18 @@ def upgrade_1112_1113(context):
     setup = getToolByName(context, 'portal_setup')
     setup.runImportStepFromProfile(DEFAULT_PROFILE, 'jsregistry',
         run_dependencies=False)
+
+def upgrade_1113_1114(context):
+    '''Removes IFollowing utility.'''
+    try:
+        from vnccollab.theme.interfaces import IFollowing
+        util = getUtility(IFollowing)
+        print util
+        portal = api.portal.get()
+        sm = portal.getSiteManager()
+        sm.unregisterUtility(util, IFollowing)
+        del util
+        transaction.commit()
+        portal._p_jar.sync()
+    except Exception, e:
+        print e

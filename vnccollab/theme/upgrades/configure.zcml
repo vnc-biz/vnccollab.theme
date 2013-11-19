@@ -156,4 +156,13 @@
           />
     </genericsetup:upgradeSteps>
 
+    <genericsetup:upgradeStep
+      source="1113"
+      destination="1114"
+      sortkey="15"
+      profile="vnccollab.theme:default"
+      title="Removes IFollowing interfaces"
+      handler="vnccollab.theme.upgrades.upgrades.upgrade_1113_1114"
+      />
+
 </configure>
