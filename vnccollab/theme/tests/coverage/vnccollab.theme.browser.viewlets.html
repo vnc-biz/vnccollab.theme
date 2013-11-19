@@ -12,10 +12,10 @@
       <body><h1>Test coverage for vnccollab.theme.browser.viewlets</h1>
       <table>
     
-<tr><td><a href="vnccollab.html">vnccollab/</a></td> <td style="background: red">&nbsp;&nbsp;&nbsp;&nbsp;</td> <td>covered 58% (1732 of 4159 uncovered)</td></tr>
-<tr><td><a href="vnccollab.theme.html">&nbsp;&nbsp;&nbsp;&nbsp;theme/</a></td> <td style="background: red">&nbsp;&nbsp;&nbsp;&nbsp;</td> <td>covered 58% (1732 of 4159 uncovered)</td></tr>
-<tr><td><a href="vnccollab.theme.browser.html">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;browser/</a></td> <td style="background: red">&nbsp;&nbsp;&nbsp;&nbsp;</td> <td>covered 52% (979 of 2059 uncovered)</td></tr>
-<tr><td><a href="vnccollab.theme.browser.viewlets.html">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;viewlets.py</a></td> <td style="background: red">&nbsp;&nbsp;&nbsp;&nbsp;</td> <td>covered 71% (133 of 472 uncovered)</td></tr>
+<tr><td><a href="vnccollab.html">vnccollab/</a></td> <td style="background: red">&nbsp;&nbsp;&nbsp;&nbsp;</td> <td>covered 68% (1329 of 4163 uncovered)</td></tr>
+<tr><td><a href="vnccollab.theme.html">&nbsp;&nbsp;&nbsp;&nbsp;theme/</a></td> <td style="background: red">&nbsp;&nbsp;&nbsp;&nbsp;</td> <td>covered 68% (1329 of 4163 uncovered)</td></tr>
+<tr><td><a href="vnccollab.theme.browser.html">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;browser/</a></td> <td style="background: red">&nbsp;&nbsp;&nbsp;&nbsp;</td> <td>covered 71% (586 of 2059 uncovered)</td></tr>
+<tr><td><a href="vnccollab.theme.browser.viewlets.html">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;viewlets.py</a></td> <td style="background: red">&nbsp;&nbsp;&nbsp;&nbsp;</td> <td>covered 76% (113 of 472 uncovered)</td></tr>
 </table><hr/>
 <pre>    1: from urllib import quote_plus
     1: import logging
@@ -76,11 +76,27 @@
     1:     """
        
     1:     def update(self):
-<div class="notcovered">&gt;&gt;&gt;&gt;&gt;&gt;         catalog = getToolByName(self.context, 'portal_catalog')</div><div class="notcovered">&gt;&gt;&gt;&gt;&gt;&gt;         elems = []</div><div class="notcovered">&gt;&gt;&gt;&gt;&gt;&gt;         for brain in catalog(path={'depth': 20,</div><div class="notcovered">&gt;&gt;&gt;&gt;&gt;&gt;             'query': '/'.join(self.context.getPhysicalPath())},</div><div class="notcovered">&gt;&gt;&gt;&gt;&gt;&gt;             sort_on='avg_ratings',</div><div class="notcovered">&gt;&gt;&gt;&gt;&gt;&gt;             sort_order='reverse'):</div>       
+    1:         catalog = getToolByName(self.context, 'portal_catalog')
+    1:         elems = []
+    1:         for brain in catalog(path={'depth': 20,
+    1:             'query': '/'.join(self.context.getPhysicalPath())},
+    1:             sort_on='avg_ratings',
+    4:             sort_order='reverse'):
+       
                    # skip item if nobody voted yet
-<div class="notcovered">&gt;&gt;&gt;&gt;&gt;&gt;             if brain.positive_ratings == 0 and brain.total_down_ratings == 0:</div><div class="notcovered">&gt;&gt;&gt;&gt;&gt;&gt;                 continue</div>       
-<div class="notcovered">&gt;&gt;&gt;&gt;&gt;&gt;             elems.append({</div><div class="notcovered">&gt;&gt;&gt;&gt;&gt;&gt;                 'title': _(safe_unicode(brain.Title)),</div><div class="notcovered">&gt;&gt;&gt;&gt;&gt;&gt;                 'desc': _(safe_unicode(brain.Description)),</div><div class="notcovered">&gt;&gt;&gt;&gt;&gt;&gt;                 'url': brain.getURL(),</div><div class="notcovered">&gt;&gt;&gt;&gt;&gt;&gt;                 'type': normalizeString(brain.portal_type, encoding='utf-8'),</div><div class="notcovered">&gt;&gt;&gt;&gt;&gt;&gt;                 'rating': {'total': brain.avg_ratings,</div><div class="notcovered">&gt;&gt;&gt;&gt;&gt;&gt;                            'liked': brain.positive_ratings,</div><div class="notcovered">&gt;&gt;&gt;&gt;&gt;&gt;                            'disliked': brain.total_down_ratings}})</div>       
-<div class="notcovered">&gt;&gt;&gt;&gt;&gt;&gt;         self.elems = tuple(elems)</div>       
+    3:             if brain.positive_ratings == 0 and brain.total_down_ratings == 0:
+<div class="notcovered">&gt;&gt;&gt;&gt;&gt;&gt;                 continue</div>       
+    3:             elems.append({
+    3:                 'title': _(safe_unicode(brain.Title)),
+    3:                 'desc': _(safe_unicode(brain.Description)),
+    3:                 'url': brain.getURL(),
+    3:                 'type': normalizeString(brain.portal_type, encoding='utf-8'),
+    3:                 'rating': {'total': brain.avg_ratings,
+    3:                            'liked': brain.positive_ratings,
+    3:                            'disliked': brain.total_down_ratings}})
+       
+    1:         self.elems = tuple(elems)
+       
        
     2: class ActionsListViewlet(common.ViewletBase):
            """Renders internal ActionsItem List object view.
@@ -89,7 +105,10 @@
     1:     """
        
     1:     def update(self):
-<div class="notcovered">&gt;&gt;&gt;&gt;&gt;&gt;         self.todo = None</div><div class="notcovered">&gt;&gt;&gt;&gt;&gt;&gt;         for obj in self.context.objectValues():</div><div class="notcovered">&gt;&gt;&gt;&gt;&gt;&gt;             if getattr(obj, 'portal_type', '') == 'ActionItemList':</div><div class="notcovered">&gt;&gt;&gt;&gt;&gt;&gt;                 self.todo = obj</div><div class="notcovered">&gt;&gt;&gt;&gt;&gt;&gt;                 break</div>       
+    1:         self.todo = None
+   66:         for obj in self.context.objectValues():
+   65:             if getattr(obj, 'portal_type', '') == 'ActionItemList':
+<div class="notcovered">&gt;&gt;&gt;&gt;&gt;&gt;                 self.todo = obj</div><div class="notcovered">&gt;&gt;&gt;&gt;&gt;&gt;                 break</div>       
        
     2: class LoginViewlet(common.ViewletBase):
     1:     """Most methods are copied over from login portlet renderer"""
@@ -98,26 +117,26 @@
     1:     anon_template = ViewPageTemplateFile('templates/anon_login.pt')
        
     1:     def __init__(self, *args, **kw):
-   94:         super(LoginViewlet, self).__init__(*args, **kw)
+   99:         super(LoginViewlet, self).__init__(*args, **kw)
        
-   94:         self.membership = getToolByName(self.context, 'portal_membership')
-   94:         self.context_state = getMultiAdapter((self.context, self.request),
-   94:             name=u'plone_context_state')
-   94:         self.portal_state = getMultiAdapter((self.context, self.request),
-   94:             name=u'plone_portal_state')
-   94:         self.pas_info = getMultiAdapter((self.context, self.request),
-   94:             name=u'pas_info')
+   99:         self.membership = getToolByName(self.context, 'portal_membership')
+   99:         self.context_state = getMultiAdapter((self.context, self.request),
+   99:             name=u'plone_context_state')
+   99:         self.portal_state = getMultiAdapter((self.context, self.request),
+   99:             name=u'plone_portal_state')
+   99:         self.pas_info = getMultiAdapter((self.context, self.request),
+   99:             name=u'pas_info')
        
     1:     def render(self):
-   94:         mt = getToolByName(self.context, 'portal_membership')
-   94:         if mt.isAnonymousUser():
-   39:             return self.anon_template()
+   99:         mt = getToolByName(self.context, 'portal_membership')
+   99:         if mt.isAnonymousUser():
+   40:             return self.anon_template()
                else:
-   55:             return self.template()
+   59:             return self.template()
        
     1:     def show(self):
-   55:         if not self.portal_state.anonymous():
-   55:             return False
+   59:         if not self.portal_state.anonymous():
+   59:             return False
 <div class="notcovered">&gt;&gt;&gt;&gt;&gt;&gt;         if not self.pas_info.hasLoginPasswordExtractor():</div><div class="notcovered">&gt;&gt;&gt;&gt;&gt;&gt;             return False</div>       
 <div class="notcovered">&gt;&gt;&gt;&gt;&gt;&gt;         return True</div>               # page = self.request.get('URL', '').split('/')[-1]
                # return page not in ('login_form', '@@register')
@@ -126,35 +145,35 @@
            def available(self):
 <div class="notcovered">&gt;&gt;&gt;&gt;&gt;&gt;         return self.auth() is not None and self.show()</div>       
     1:     def signup_link(self):
-   39:         return '%s/register' % self.portal_state.portal_url()
+   40:         return '%s/register' % self.portal_state.portal_url()
        
     1:     def help_link(self):
-   39:         registry = getUtility(IRegistry)
-   39:         return registry.get(
-   39:             'vnccollab.theme.settings.IAnonymousHomepageSettings.help_url')
+   40:         registry = getUtility(IRegistry)
+   40:         return registry.get(
+   40:             'vnccollab.theme.settings.IAnonymousHomepageSettings.help_url')
        
     1:     def login_form(self):
-   39:         return '%s/login_form' % self.portal_state.portal_url()
+   40:         return '%s/login_form' % self.portal_state.portal_url()
        
     1:     def mail_password_form(self):
 <div class="notcovered">&gt;&gt;&gt;&gt;&gt;&gt;         return '%s/mail_password_form' % self.portal_state.portal_url()</div>       
     1:     def login_name(self):
-   55:         auth = self.auth()
-   55:         name = None
-   55:         if auth is not None:
-   55:             name = getattr(auth, 'name_cookie', None)
-   55:         if not name:
-   55:             name = '__ac_name'
-   55:         return name
+   59:         auth = self.auth()
+   59:         name = None
+   59:         if auth is not None:
+   59:             name = getattr(auth, 'name_cookie', None)
+   59:         if not name:
+   59:             name = '__ac_name'
+   59:         return name
        
     1:     def login_password(self):
-   55:         auth = self.auth()
-   55:         passwd = None
-   55:         if auth is not None:
-   55:             passwd = getattr(auth, 'pw_cookie', None)
-   55:         if not passwd:
-   55:             passwd = '__ac_password'
-   55:         return passwd
+   59:         auth = self.auth()
+   59:         passwd = None
+   59:         if auth is not None:
+   59:             passwd = getattr(auth, 'pw_cookie', None)
+   59:         if not passwd:
+   59:             passwd = '__ac_password'
+   59:         return passwd
        
     1:     def join_action(self):
 <div class="notcovered">&gt;&gt;&gt;&gt;&gt;&gt;         context = self.context</div><div class="notcovered">&gt;&gt;&gt;&gt;&gt;&gt;         tool = getToolByName(context, 'portal_actions')</div><div class="notcovered">&gt;&gt;&gt;&gt;&gt;&gt;         join = tool.listActionInfos(action_chain='user/join', object=context)</div><div class="notcovered">&gt;&gt;&gt;&gt;&gt;&gt;         if len(join) &gt; 0:</div><div class="notcovered">&gt;&gt;&gt;&gt;&gt;&gt;             return join[0]['url']</div><div class="notcovered">&gt;&gt;&gt;&gt;&gt;&gt;         return None</div>       
@@ -164,8 +183,8 @@
 <div class="notcovered">&gt;&gt;&gt;&gt;&gt;&gt;         return self.membership.checkPermission('Mail forgotten password',</div><div class="notcovered">&gt;&gt;&gt;&gt;&gt;&gt;             self.context)</div>       
     1:     @memoize
     1:     def auth(self, _marker=[]):
-   55:         acl_users = getToolByName(self.context, 'acl_users')
-   55:         return getattr(acl_users, 'credentials_cookie_auth', None)
+   59:         acl_users = getToolByName(self.context, 'acl_users')
+   59:         return getattr(acl_users, 'credentials_cookie_auth', None)
        
        
     2: class HeaderTimeViewlet(common.ViewletBase):
@@ -183,106 +202,106 @@
     1:     template = ViewPageTemplateFile('templates/path_bar.pt')
        
     1:     def render(self):
-   94:         mt = getToolByName(self.context, 'portal_membership')
-   94:         if mt.isAnonymousUser():
-   39:             return u''
+  101:         mt = getToolByName(self.context, 'portal_membership')
+  101:         if mt.isAnonymousUser():
+   40:             return u''
                else:
-   55:             return self.template()
+   61:             return self.template()
        
     2: class FooterViewlet(common.FooterViewlet):
     1:     index = ViewPageTemplateFile('templates/footer.pt')
        
     1:     def update(self):
-   94:         super(FooterViewlet, self).update()
-   94:         self.columns = columns = {}
+   99:         super(FooterViewlet, self).update()
+   99:         self.columns = columns = {}
        
-   94:         context = aq_inner(self.context)
-   94:         actions_tool = getToolByName(context, 'portal_actions')
+   99:         context = aq_inner(self.context)
+   99:         actions_tool = getToolByName(context, 'portal_actions')
        
                # check if we got root category for all column links
-   94:         if not FOOTER_LINKS_CAT in actions_tool.objectIds():
+   99:         if not FOOTER_LINKS_CAT in actions_tool.objectIds():
 <div class="notcovered">&gt;&gt;&gt;&gt;&gt;&gt;             return</div>       
                # prepare expression context for evaluating TAL expressions
-   94:         ec = actions_tool._getExprContext(context)
+   99:         ec = actions_tool._getExprContext(context)
        
                # go over root category and collect all sub-categories
-   94:         container = actions_tool[FOOTER_LINKS_CAT]
-   94:         cat_ids = container.objectIds()
-  376:         for cid in ('column1', 'column2', 'column3'):
+   99:         container = actions_tool[FOOTER_LINKS_CAT]
+   99:         cat_ids = container.objectIds()
+  396:         for cid in ('column1', 'column2', 'column3'):
                    # skip not existing categories
-  282:             if cid not in cat_ids:
+  297:             if cid not in cat_ids:
 <div class="notcovered">&gt;&gt;&gt;&gt;&gt;&gt;                 continue</div>       
-  282:             cat = container[cid]
-  282:             if not IActionCategory.providedBy(cat):
+  297:             cat = container[cid]
+  297:             if not IActionCategory.providedBy(cat):
 <div class="notcovered">&gt;&gt;&gt;&gt;&gt;&gt;                 continue</div>       
                    # prepare category actions
-  282:             actions = []
-  846:             for action in cat.objectValues():
+  297:             actions = []
+  891:             for action in cat.objectValues():
                        # look only for actions
-  564:                 if not IAction.providedBy(action):
+  594:                 if not IAction.providedBy(action):
 <div class="notcovered">&gt;&gt;&gt;&gt;&gt;&gt;                     continue</div>       
                        # create actioninfo object to compile and render TAL expressions
                        # and check if action is available in current circumstances
-  564:                 info = ActionInfo(action, ec)
-  564:                 if not (info['visible'] and info['allowed'] and
-  502:                         info['available']):
-  101:                     continue
+  594:                 info = ActionInfo(action, ec)
+  594:                 if not (info['visible'] and info['allowed'] and
+  531:                         info['available']):
+  103:                     continue
        
                        # and finally extract all required details from action
-  463:                 desc = action.getProperty('description', None) or None
-  463:                 if desc is not None:
-<div class="notcovered">&gt;&gt;&gt;&gt;&gt;&gt;                     desc = _(safe_unicode(desc))</div>  463:                 actions.append({
-  463:                     'id': info['id'],
-  463:                     'title': _(safe_unicode(info['title'])),
-  463:                     'desc': desc,
-  463:                     'url': info['url']
+  491:                 desc = action.getProperty('description', None) or None
+  491:                 if desc is not None:
+<div class="notcovered">&gt;&gt;&gt;&gt;&gt;&gt;                     desc = _(safe_unicode(desc))</div>  491:                 actions.append({
+  491:                     'id': info['id'],
+  491:                     'title': _(safe_unicode(info['title'])),
+  491:                     'desc': desc,
+  491:                     'url': info['url']
                        })
        
                    # finally add category to be rendered as footer column
-  282:             columns[cid] = {
-  282:                 'title': _(safe_unicode(cat.getProperty('title', ''))),
-  282:                 'actions': tuple(actions)
+  297:             columns[cid] = {
+  297:                 'title': _(safe_unicode(cat.getProperty('title', ''))),
+  297:                 'actions': tuple(actions)
                    }
        
-   94:         self.columns = columns
+   99:         self.columns = columns
        
        
     2: class PersonalBarViewlet(common.PersonalBarViewlet):
     1:     index = ViewPageTemplateFile('templates/personal_bar.pt')
        
     1:     def update(self):
-   94:         super(PersonalBarViewlet, self).update()
+   99:         super(PersonalBarViewlet, self).update()
        
                # get personal user image
-   94:         self.user_image = None
-   94:         if not self.anonymous:
-   55:             mtool = getToolByName(self.context, 'portal_membership')
+   99:         self.user_image = None
+   99:         if not self.anonymous:
+   59:             mtool = getToolByName(self.context, 'portal_membership')
                    # if no userid passes it'll return portrait of logged in user
-   55:             portrait = mtool.getPersonalPortrait()
-   55:             if portrait is not None:
-   55:                 self.user_image = portrait.absolute_url()
+   59:             portrait = mtool.getPersonalPortrait()
+   59:             if portrait is not None:
+   59:                 self.user_image = portrait.absolute_url()
        
                # render languages viewlet
-   94:         context = aq_inner(self.context)
-   94:         languages = u''
-   94:         manager = BaseOrderedViewletManager()
-   94:         alsoProvides(manager, IPortalHeader)
-   94:         viewlet = queryMultiAdapter((context, self.request, self.view,
-   94:             manager), IViewlet, name='vnccollab.theme.languageselector')
-   94:         if viewlet is not None:
-   94:             viewlet = viewlet.__of__(context)
-   94:             viewlet.update()
-   94:             languages = viewlet.render()
-   94:         self.languages = languages
+   99:         context = aq_inner(self.context)
+   99:         languages = u''
+   99:         manager = BaseOrderedViewletManager()
+   99:         alsoProvides(manager, IPortalHeader)
+   99:         viewlet = queryMultiAdapter((context, self.request, self.view,
+   99:             manager), IViewlet, name='vnccollab.theme.languageselector')
+   99:         if viewlet is not None:
+   99:             viewlet = viewlet.__of__(context)
+   99:             viewlet.update()
+   99:             languages = viewlet.render()
+   99:         self.languages = languages
        
                # Get css style for image avatar
-   94:         self.avatar_width = 80
-   94:         self.avatar_height = 80
-   94:         self.avatar_style = ''
+   99:         self.avatar_width = 80
+   99:         self.avatar_height = 80
+   99:         self.avatar_style = ''
        
-   94:         if self.user_image is not None:
-   55:             img_name = os.path.basename(self.user_image)
-   55:             if img_name != 'defaultUser.png':
+   99:         if self.user_image is not None:
+   59:             img_name = os.path.basename(self.user_image)
+   59:             if img_name != 'defaultUser.png':
 <div class="notcovered">&gt;&gt;&gt;&gt;&gt;&gt;                 img = context.portal_memberdata.portraits[img_name]</div><div class="notcovered">&gt;&gt;&gt;&gt;&gt;&gt;                 avatar = getUtility(IAvatarUtil)</div><div class="notcovered">&gt;&gt;&gt;&gt;&gt;&gt;                 self.avatar_width, self.avatar_height, self.avatar_style = avatar.style(img, (80, 80))</div>       
        
     2: class VNCCarouselViewlet(CarouselViewlet):
@@ -294,9 +313,10 @@
     1:     template = ViewPageTemplateFile('templates/carousel_viewlet.pt')
        
     1:     def render(self):
-    1:         mt = getToolByName(self.context, 'portal_membership')
-    1:         if mt.isAnonymousUser():
-<div class="notcovered">&gt;&gt;&gt;&gt;&gt;&gt;             return self.template()</div>               else:
+    2:         mt = getToolByName(self.context, 'portal_membership')
+    2:         if mt.isAnonymousUser():
+    1:             return self.template()
+               else:
     1:             return u''
        
     2: class VNCCollabHeaderViewlet(common.ViewletBase):
@@ -312,18 +332,18 @@
     1:     """Lists redmine tickets assigned to current object"""
        
     1:     def update(self):
-    5:         self.tickets = ()
+    6:         self.tickets = ()
        
-    5:         if IPloneSiteRoot in providedBy(self.context):
+    6:         if IPloneSiteRoot in providedBy(self.context):
 <div class="notcovered">&gt;&gt;&gt;&gt;&gt;&gt;             return</div>       
-    5:         tickets = []
+    6:         tickets = []
                # check if settings are configured
                # check user redmine credentials and redmine url/field id
-    5:         registry = getUtility(IRegistry)
-    5:         url = registry.get('vnccollab.theme.redmine.url')
-    5:         field_id = registry.get('vnccollab.theme.redmine.plone_uid_field_id')
-    5:         username, password = self.getAuthCredentials()
-    5:         if username and password and url and field_id:
+    6:         registry = getUtility(IRegistry)
+    6:         url = registry.get('vnccollab.theme.redmine.url')
+    6:         field_id = registry.get('vnccollab.theme.redmine.plone_uid_field_id')
+    6:         username, password = self.getAuthCredentials()
+    6:         if username and password and url and field_id:
 <div class="notcovered">&gt;&gt;&gt;&gt;&gt;&gt;             Issue = type("Issue", (ActiveResource,), {'_site': url, '_user':</div><div class="notcovered">&gt;&gt;&gt;&gt;&gt;&gt;                 username, '_password': password})</div>                   # do actual calls to redmine
 <div class="notcovered">&gt;&gt;&gt;&gt;&gt;&gt;             try:</div>                       # fetch opened issues belonging to authenticated user
 <div class="notcovered">&gt;&gt;&gt;&gt;&gt;&gt;                 uuid = self.context.UID()</div><div class="notcovered">&gt;&gt;&gt;&gt;&gt;&gt;                 data = Issue.find(**{'cf_%d' % field_id: uuid,</div><div class="notcovered">&gt;&gt;&gt;&gt;&gt;&gt;                     'status_id': 'o', 'sort': 'updated_on:desc'})</div><div class="notcovered">&gt;&gt;&gt;&gt;&gt;&gt;             except Exception:</div><div class="notcovered">&gt;&gt;&gt;&gt;&gt;&gt;                 logException(_(u"Error during fetching redmine tickets %s" %</div><div class="notcovered">&gt;&gt;&gt;&gt;&gt;&gt;                     url), context=self.context, logger=logger)</div><div class="notcovered">&gt;&gt;&gt;&gt;&gt;&gt;                 return</div>       
@@ -332,25 +352,25 @@
 <div class="notcovered">&gt;&gt;&gt;&gt;&gt;&gt;                 if not info.get('id') or not info.get('subject'):</div><div class="notcovered">&gt;&gt;&gt;&gt;&gt;&gt;                     continue</div>       
 <div class="notcovered">&gt;&gt;&gt;&gt;&gt;&gt;                 tickets.append({</div><div class="notcovered">&gt;&gt;&gt;&gt;&gt;&gt;                     'id': info['id'],</div><div class="notcovered">&gt;&gt;&gt;&gt;&gt;&gt;                     'title': safe_unicode(info['subject']),</div><div class="notcovered">&gt;&gt;&gt;&gt;&gt;&gt;                     'body': safe_unicode(info.get('description', '')),</div><div class="notcovered">&gt;&gt;&gt;&gt;&gt;&gt;                     'url': '%s/issues/%s' % (url, info['id'])</div>                       })
        
-    5:         self.tickets = tuple(tickets)
+    6:         self.tickets = tuple(tickets)
        
     1:     @memoize
            def getAuthCredentials(self):
                """Returns username and password for redmine user."""
                # take username and password from authenticated user Zimbra creds
-    5:         mtool = getToolByName(self.context, 'portal_membership')
-    5:         member = mtool.getAuthenticatedMember()
-    5:         username, password = member.getProperty('redmine_username', ''), \
-    5:             member.getProperty('redmine_password', '')
+    6:         mtool = getToolByName(self.context, 'portal_membership')
+    6:         member = mtool.getAuthenticatedMember()
+    6:         username, password = member.getProperty('redmine_username', ''), \
+    6:             member.getProperty('redmine_password', '')
                # password could contain non-ascii chars, ensure it's properly encoded
-    5:         return username, safe_unicode(password).encode('utf-8')
+    6:         return username, safe_unicode(password).encode('utf-8')
        
        
     2: class RelatedZimbraTasksViewlet(common.ViewletBase):
     1:     """Lists zimbra tasks assigned to current object"""
        
     1:     def update(self):
-    5:         self.tasks = getZimbraLiveAnnotatedTasks(self.context)
+    6:         self.tasks = getZimbraLiveAnnotatedTasks(self.context)
        
        
     2: class WorldClockViewlet(common.ViewletBase):
@@ -384,85 +404,85 @@
                """Returns list with info of the allowed types to create using
                the add wizard.
                """
-   56:         result = self._get_default_allowed_types()
-  307:         ids = [x['id'] for x in result]
+   60:         result = self._get_default_allowed_types()
+  293:         ids = [x['id'] for x in result]
        
                # Adds allowed types in current context
-   56:         context = aq_inner(self.context)
-   56:         extend = self._allowed_types(context)
+   60:         context = aq_inner(self.context)
+   60:         extend = self._allowed_types(context)
        
-  146:         for item in extend:
-   90:             if item['id'] not in ids:
+  132:         for item in extend:
+   72:             if item['id'] not in ids:
 <div class="notcovered">&gt;&gt;&gt;&gt;&gt;&gt;                 result.append(item)</div>       
-   56:         return result
+   60:         return result
        
     1:     def _get_default_allowed_types(self):
                '''Default allowed types: the ones you can add to your
                member folder.'''
-   56:         member_folder = self._get_member_home()
-   56:         if member_folder is None:
-   23:             return []
+   60:         member_folder = self._get_member_home()
+   60:         if member_folder is None:
+   29:             return []
                else:
-   33:             return self._allowed_types(member_folder)
+   31:             return self._allowed_types(member_folder)
        
     1:     def _get_member_home(self):
                '''Returns the cuerrent user's folder.'''
-   56:         mtool = getToolByName(self.context, 'portal_membership')
-   56:         member = mtool.getAuthenticatedMember()
-   56:         if member is None:
+   60:         mtool = getToolByName(self.context, 'portal_membership')
+   60:         member = mtool.getAuthenticatedMember()
+   60:         if member is None:
 <div class="notcovered">&gt;&gt;&gt;&gt;&gt;&gt;             return None</div>       
-   56:         portal = getToolByName(self.context, 'portal_url').getPortalObject()
-   56:         try:
-   56:             id = member.id.replace('@', '-40')
-   56:             home = portal['Members'][id]
-   23:         except:
-   23:             home = None
+   60:         portal = getToolByName(self.context, 'portal_url').getPortalObject()
+   60:         try:
+   60:             id = member.id.replace('@', '-40')
+   60:             home = portal['Members'][id]
+   29:         except:
+   29:             home = None
        
-   56:         return home
+   60:         return home
        
     1:     def _allowed_types(self, context):
                '''Return info of the types that can be added to the context.'''
-   89:         submenu = FactoriesSubMenuItem(context, self.request)
-   89:         folder = self.getFolder(context)
-   89:         folder_url = folder.absolute_url()
+   91:         submenu = FactoriesSubMenuItem(context, self.request)
+   91:         folder = self.getFolder(context)
+   91:         folder_url = folder.absolute_url()
        
-   89:         idnormalizer = getUtility(IIDNormalizer)
-   89:         result = []
+   91:         idnormalizer = getUtility(IIDNormalizer)
+   91:         result = []
        
-  430:         for atype in submenu._addableTypesInContext(folder):
-  341:             id = atype.getId()
-  341:             result.append({
-  341:                 'id': id,
-  341:                 'title': atype.Title(),
-  341:                 'desc': atype.Description(),
-  341:                 'url': '%s/createObject?type_name=%s' % (folder_url,
-  341:                     quote_plus(id)),
-  341:                 'icon': '%s/add_content_area/metabox_icon_%s.png' % (
-  341:                     self.site_url, idnormalizer.normalize(id))
+  396:         for atype in submenu._addableTypesInContext(folder):
+  305:             id = atype.getId()
+  305:             result.append({
+  305:                 'id': id,
+  305:                 'title': atype.Title(),
+  305:                 'desc': atype.Description(),
+  305:                 'url': '%s/createObject?type_name=%s' % (folder_url,
+  305:                     quote_plus(id)),
+  305:                 'icon': '%s/add_content_area/metabox_icon_%s.png' % (
+  305:                     self.site_url, idnormalizer.normalize(id))
                    })
        
-   89:         return result
+   91:         return result
        
     1:     def getUploadUrl(self):
                """
                return upload url
                in current folder
                """
-   56:         context = aq_inner(self.context)
-   56:         ploneview = context.restrictedTraverse('@@plone')
-   56:         folder_url = ploneview.getCurrentFolderUrl()
-   56:         return '%s/@@wizard_uploader' % folder_url
+   60:         context = aq_inner(self.context)
+   60:         ploneview = context.restrictedTraverse('@@plone')
+   60:         folder_url = ploneview.getCurrentFolderUrl()
+   60:         return '%s/@@wizard_uploader' % folder_url
        
     1:     def upload_javascript(self):
-   56:         return JAVASCRIPT.replace('.QuickUploadPortlet', '#createWizard')
+   60:         return JAVASCRIPT.replace('.QuickUploadPortlet', '#createWizard')
        
     1:     @memoize
            def getFolder(self, context):
-   89:         context = aq_inner(context)
-   89:         submenu = FactoriesSubMenuItem(context, self.request)
-   89:         if submenu.context_state.is_default_page():
-    3:             return parent(context)
-   86:         return submenu._addContext()
+   91:         context = aq_inner(context)
+   91:         submenu = FactoriesSubMenuItem(context, self.request)
+   91:         if submenu.context_state.is_default_page():
+    4:             return parent(context)
+   87:         return submenu._addContext()
        
        
     2: class AddButtonViewlet(common.ViewletBase):
@@ -470,11 +490,11 @@
     1:     template = ViewPageTemplateFile('templates/addbutton.pt')
        
     1:     def render(self):
-   94:         mt = getToolByName(self.context, 'portal_membership')
-   94:         if mt.isAnonymousUser():
-   39:             return u''
+   99:         mt = getToolByName(self.context, 'portal_membership')
+   99:         if mt.isAnonymousUser():
+   40:             return u''
                else:
-   55:             return self.template()
+   59:             return self.template()
        
     1: try:
     1:     import vnccollab.cloudcast
@@ -487,32 +507,32 @@
     2: class CastViewletBase(object):
        
     1:     def get_cast_url(self):
-   57:         if not CAST_ENABLED:
+   63:         if not CAST_ENABLED:
 <div class="notcovered">&gt;&gt;&gt;&gt;&gt;&gt;             return False</div>       
-   57:         catalog = getToolByName(self.context, 'portal_catalog')
-   57:         portal_path = getToolByName(self.context, 'portal_url').getPortalPath()
-   57:         casts = catalog(portal_type='CastsContainer', path={'query':
-   57:             portal_path, 'depth': 1}, sort_on='getObjPositionInParent')
-   57:         if len(casts) &gt; 0:
+   63:         catalog = getToolByName(self.context, 'portal_catalog')
+   63:         portal_path = getToolByName(self.context, 'portal_url').getPortalPath()
+   63:         casts = catalog(portal_type='CastsContainer', path={'query':
+   63:             portal_path, 'depth': 1}, sort_on='getObjPositionInParent')
+   63:         if len(casts) &gt; 0:
     2:             return casts[0].getURL()
        
                # no casts container in site root, search for any other casts container
-   55:         casts = catalog(portal_type='CastsContainer',
-   55:             sort_on='getObjPositionInParent')
-   55:         if len(casts) &gt; 0:
+   61:         casts = catalog(portal_type='CastsContainer',
+   61:             sort_on='getObjPositionInParent')
+   61:         if len(casts) &gt; 0:
 <div class="notcovered">&gt;&gt;&gt;&gt;&gt;&gt;             return casts[0].getURL()</div>       
-   55:         return False
+   61:         return False
        
     1:     def check_in_cast(self):
-   59:         if not CAST_ENABLED:
+   65:         if not CAST_ENABLED:
 <div class="notcovered">&gt;&gt;&gt;&gt;&gt;&gt;             return False</div>       
-   59:         cast_interfaces = [ICastsContainer, ICastContainer, ICast]
+   65:         cast_interfaces = [ICastsContainer, ICastContainer, ICast]
        
-  230:         for cast in cast_interfaces:
-  173:             if cast.providedBy(self.context):
+  254:         for cast in cast_interfaces:
+  191:             if cast.providedBy(self.context):
     2:                 return True
        
-   57:         return False
+   63:         return False
        
        
        # class CustomXMPPViewlet(XMPPViewlet, CastViewletBase):
@@ -539,28 +559,28 @@
        
     1:     @property
            def available(self):
-   96:         mt = getToolByName(self.context, 'portal_membership')
-   96:         if mt.isAnonymousUser():
-   39:             return False
+  103:         mt = getToolByName(self.context, 'portal_membership')
+  103:         if mt.isAnonymousUser():
+   40:             return False
                else:
-   57:             return True
+   63:             return True
        
        
     1:     def update(self):
-   96:         self.portal_tabs = []
-   96:         if not self.available:
-   39:             return
+  103:         self.portal_tabs = []
+  103:         if not self.available:
+   40:             return
        
                self.portal_tabs = [
-   57:             {'name': 'Content',
-   57:              'description': 'content',
-   57:              'id': 'content',
-   57:              'url': getSite().absolute_url(),
-   57:              'selected': not self.check_in_cast()
+   63:             {'name': 'Content',
+   63:              'description': 'content',
+   63:              'id': 'content',
+   63:              'url': getSite().absolute_url(),
+   63:              'selected': not self.check_in_cast()
                    }]
        
-   57:         cast_url = self.get_cast_url()
-   57:         if cast_url != False:
+   63:         cast_url = self.get_cast_url()
+   63:         if cast_url != False:
     2:             self.portal_tabs.append({
     2:                 'name': 'Cast',
     2:                 'description': 'cast',
@@ -574,11 +594,11 @@
     1:     template = ViewPageTemplateFile('templates/searchbox.pt')
        
     1:     def render(self):
-   94:         mt = getToolByName(self.context, 'portal_membership')
-   94:         if mt.isAnonymousUser():
-   39:             return u''
+   99:         mt = getToolByName(self.context, 'portal_membership')
+   99:         if mt.isAnonymousUser():
+   40:             return u''
                else:
-   55:             return self.template()
+   59:             return self.template()
        
     2: class EmptyViewlet(common.ViewletBase):
     1:     """Empty viewlet to remove previous registrations"""
@@ -589,7 +609,7 @@
 <div class="notcovered">&gt;&gt;&gt;&gt;&gt;&gt;         return u''</div></pre>
 
       <div class="footer">
-      Generated for revision wyeksportowane on 2013-11-05 18:00:40.809438Z
+      Generated for revision Niewersjonowany katalog on 2013-11-18 01:04:45.684645Z
       </div>
     </body>
     </html>

@@ -3,11 +3,13 @@ import urllib
 import transaction
 
 from zope.component import getUtility
+from zope.publisher.browser import TestRequest
 
 from plone.portlets.interfaces import IPortletType
 
 from vnccollab.theme.tests.base import FunctionalTestCase
 from vnccollab.theme.testing import createObject
+from vnccollab.theme.browser.dashboard import DashboardView
 
 
 class TestDashboardView(FunctionalTestCase):
@@ -58,8 +60,22 @@ class TestDashboardView(FunctionalTestCase):
         form = browser.getForm(id='zc.page.browser_form')
         form.getControl(name='form.actions.save').click()
 
+        form = browser.getForm(index=1)
+        form.getControl(name=':action').value = [u'/++dashboard++plone.dashboard1+test_user_1_/+/portlets.Recent']
+        form.submit()
+        form = browser.getForm(id='zc.page.browser_form')
+        form.getControl(name='form.actions.save').click()
+
         browser.open(self.portal_url + '/@@manage-dashboard')
         self.assertIn('Portlets assigned here', browser.contents)
         self.assertIn('managedPortlet', browser.contents)
         self.assertIn('managedPortletActions', browser.contents)
         self.assertIn('Search</a>', browser.contents)
+
+        browser = self.login()
+        browser.open(self.portal_url + '/@@dashboard')
+        browser.open(self.portal_url)
+
+    def test_empty(self):
+        view = DashboardView(self.portal, self.app.REQUEST)
+        self.assertTrue(view.empty())

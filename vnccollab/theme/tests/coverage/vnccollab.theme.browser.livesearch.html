@@ -12,10 +12,10 @@
       <body><h1>Test coverage for vnccollab.theme.browser.livesearch</h1>
       <table>
     
-<tr><td><a href="vnccollab.html">vnccollab/</a></td> <td style="background: red">&nbsp;&nbsp;&nbsp;&nbsp;</td> <td>covered 58% (1732 of 4159 uncovered)</td></tr>
-<tr><td><a href="vnccollab.theme.html">&nbsp;&nbsp;&nbsp;&nbsp;theme/</a></td> <td style="background: red">&nbsp;&nbsp;&nbsp;&nbsp;</td> <td>covered 58% (1732 of 4159 uncovered)</td></tr>
-<tr><td><a href="vnccollab.theme.browser.html">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;browser/</a></td> <td style="background: red">&nbsp;&nbsp;&nbsp;&nbsp;</td> <td>covered 52% (979 of 2059 uncovered)</td></tr>
-<tr><td><a href="vnccollab.theme.browser.livesearch.html">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;livesearch.py</a></td> <td style="background: red">&nbsp;&nbsp;&nbsp;&nbsp;</td> <td>covered 7% (148 of 160 uncovered)</td></tr>
+<tr><td><a href="vnccollab.html">vnccollab/</a></td> <td style="background: red">&nbsp;&nbsp;&nbsp;&nbsp;</td> <td>covered 68% (1329 of 4163 uncovered)</td></tr>
+<tr><td><a href="vnccollab.theme.html">&nbsp;&nbsp;&nbsp;&nbsp;theme/</a></td> <td style="background: red">&nbsp;&nbsp;&nbsp;&nbsp;</td> <td>covered 68% (1329 of 4163 uncovered)</td></tr>
+<tr><td><a href="vnccollab.theme.browser.html">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;browser/</a></td> <td style="background: red">&nbsp;&nbsp;&nbsp;&nbsp;</td> <td>covered 71% (586 of 2059 uncovered)</td></tr>
+<tr><td><a href="vnccollab.theme.browser.livesearch.html">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;livesearch.py</a></td> <td style="background: yellow">&nbsp;&nbsp;&nbsp;&nbsp;</td> <td>covered 96% (5 of 160 uncovered)</td></tr>
 </table><hr/>
 <pre>    1: from DateTime import DateTime
        
@@ -33,78 +33,221 @@
        
     2: class LiveSearchReplyView(BrowserView):
     1:     def result(self):
-<div class="notcovered">&gt;&gt;&gt;&gt;&gt;&gt;         context = self.context</div><div class="notcovered">&gt;&gt;&gt;&gt;&gt;&gt;         request = self.request</div><div class="notcovered">&gt;&gt;&gt;&gt;&gt;&gt;         response = self.request.response</div><div class="notcovered">&gt;&gt;&gt;&gt;&gt;&gt;         q = request.get('q')</div><div class="notcovered">&gt;&gt;&gt;&gt;&gt;&gt;         limit = int(request.get('limit', 10))</div><div class="notcovered">&gt;&gt;&gt;&gt;&gt;&gt;         path = request.get('path', None)</div>       
-<div class="notcovered">&gt;&gt;&gt;&gt;&gt;&gt;         ploneUtils = getToolByName(context, 'plone_utils')</div><div class="notcovered">&gt;&gt;&gt;&gt;&gt;&gt;         portal_url = getToolByName(context, 'portal_url')()</div><div class="notcovered">&gt;&gt;&gt;&gt;&gt;&gt;         pretty_title_or_id = ploneUtils.pretty_title_or_id</div>               #plone_view = context.restrictedTraverse('@@plone')
+    9:         context = self.context
+    9:         request = self.request
+    9:         response = self.request.response
+    9:         q = request.get('q')
+    9:         limit = int(request.get('limit', 10))
+    9:         path = request.get('path', None)
+       
+    9:         ploneUtils = getToolByName(context, 'plone_utils')
+    9:         portal_url = getToolByName(context, 'portal_url')()
+    9:         pretty_title_or_id = ploneUtils.pretty_title_or_id
+               #plone_view = context.restrictedTraverse('@@plone')
                #portal_state = context.restrictedTraverse('@@plone_portal_state')
        
-<div class="notcovered">&gt;&gt;&gt;&gt;&gt;&gt;         portalProperties = getToolByName(context, 'portal_properties')</div><div class="notcovered">&gt;&gt;&gt;&gt;&gt;&gt;         siteProperties = getattr(portalProperties, 'site_properties', None)</div><div class="notcovered">&gt;&gt;&gt;&gt;&gt;&gt;         useViewAction = []</div><div class="notcovered">&gt;&gt;&gt;&gt;&gt;&gt;         if siteProperties is not None:</div><div class="notcovered">&gt;&gt;&gt;&gt;&gt;&gt;             useViewAction = siteProperties.getProperty('typesUseViewActionInListings', [])</div>       
+    9:         portalProperties = getToolByName(context, 'portal_properties')
+    9:         siteProperties = getattr(portalProperties, 'site_properties', None)
+    9:         useViewAction = []
+    9:         if siteProperties is not None:
+    9:             useViewAction = siteProperties.getProperty('typesUseViewActionInListings', [])
+       
                # SIMPLE CONFIGURATION
                #USE_ICON = True
-<div class="notcovered">&gt;&gt;&gt;&gt;&gt;&gt;         MAX_TITLE = 29</div><div class="notcovered">&gt;&gt;&gt;&gt;&gt;&gt;         MAX_DESCRIPTION = 93</div>       
+    9:         MAX_TITLE = 29
+    9:         MAX_DESCRIPTION = 93
+       
                # generate a result set for the query
-<div class="notcovered">&gt;&gt;&gt;&gt;&gt;&gt;         catalog = context.portal_catalog</div>       
-<div class="notcovered">&gt;&gt;&gt;&gt;&gt;&gt;         mtool = getToolByName(context, 'portal_membership')</div>       
-<div class="notcovered">&gt;&gt;&gt;&gt;&gt;&gt;         friendly_types = ploneUtils.getUserFriendlyTypes()</div>       
-<div class="notcovered">&gt;&gt;&gt;&gt;&gt;&gt;         def quotestring(s):</div><div class="notcovered">&gt;&gt;&gt;&gt;&gt;&gt;             return '"%s"' % s</div>       
-<div class="notcovered">&gt;&gt;&gt;&gt;&gt;&gt;         def quote_bad_chars(s):</div><div class="notcovered">&gt;&gt;&gt;&gt;&gt;&gt;             bad_chars = ["(", ")"]</div><div class="notcovered">&gt;&gt;&gt;&gt;&gt;&gt;             for char in bad_chars:</div><div class="notcovered">&gt;&gt;&gt;&gt;&gt;&gt;                 s = s.replace(char, quotestring(char))</div><div class="notcovered">&gt;&gt;&gt;&gt;&gt;&gt;             return s</div>       
-<div class="notcovered">&gt;&gt;&gt;&gt;&gt;&gt;         def pretty_date(when):</div><div class="notcovered">&gt;&gt;&gt;&gt;&gt;&gt;             result = ('%s %s, %s') % (DateTime(when).strftime('%B'), DateTime(when).strftime('%d'), DateTime(when).strftime('%Y'))</div><div class="notcovered">&gt;&gt;&gt;&gt;&gt;&gt;             return result</div>       
-<div class="notcovered">&gt;&gt;&gt;&gt;&gt;&gt;         searchable_text = q</div><div class="notcovered">&gt;&gt;&gt;&gt;&gt;&gt;         multispace = u'\u3000'.encode('utf-8')</div><div class="notcovered">&gt;&gt;&gt;&gt;&gt;&gt;         for char in ('?', '-', '+', '*', multispace):</div><div class="notcovered">&gt;&gt;&gt;&gt;&gt;&gt;             q = q.replace(char, ' ')</div><div class="notcovered">&gt;&gt;&gt;&gt;&gt;&gt;         r = q.split()</div><div class="notcovered">&gt;&gt;&gt;&gt;&gt;&gt;         r = " AND ".join(r)</div><div class="notcovered">&gt;&gt;&gt;&gt;&gt;&gt;         r = quote_bad_chars(r) + '*'</div><div class="notcovered">&gt;&gt;&gt;&gt;&gt;&gt;         searchterms = url_quote_plus(r)</div>       
-<div class="notcovered">&gt;&gt;&gt;&gt;&gt;&gt;         site_encoding = context.plone_utils.getSiteEncoding()</div>       
-<div class="notcovered">&gt;&gt;&gt;&gt;&gt;&gt;         params = {'SearchableText': r,</div><div class="notcovered">&gt;&gt;&gt;&gt;&gt;&gt;                   'portal_type': friendly_types,</div><div class="notcovered">&gt;&gt;&gt;&gt;&gt;&gt;                   'sort_limit': limit + 1}</div>       
-<div class="notcovered">&gt;&gt;&gt;&gt;&gt;&gt;         if path is None:</div>                   # useful for subsides
-<div class="notcovered">&gt;&gt;&gt;&gt;&gt;&gt;             params['path'] = getNavigationRoot(context)</div>               else:
-<div class="notcovered">&gt;&gt;&gt;&gt;&gt;&gt;             params['path'] = path</div>       
+    9:         catalog = context.portal_catalog
+       
+    9:         mtool = getToolByName(context, 'portal_membership')
+       
+    9:         friendly_types = ploneUtils.getUserFriendlyTypes()
+       
+    9:         def quotestring(s):
+   18:             return '"%s"' % s
+       
+    9:         def quote_bad_chars(s):
+    9:             bad_chars = ["(", ")"]
+   27:             for char in bad_chars:
+   18:                 s = s.replace(char, quotestring(char))
+    9:             return s
+       
+    9:         def pretty_date(when):
+   36:             result = ('%s %s, %s') % (DateTime(when).strftime('%B'), DateTime(when).strftime('%d'), DateTime(when).strftime('%Y'))
+   36:             return result
+       
+    9:         searchable_text = q
+    9:         multispace = u'\u3000'.encode('utf-8')
+   54:         for char in ('?', '-', '+', '*', multispace):
+   45:             q = q.replace(char, ' ')
+    9:         r = q.split()
+    9:         r = " AND ".join(r)
+    9:         r = quote_bad_chars(r) + '*'
+    9:         searchterms = url_quote_plus(r)
+       
+    9:         site_encoding = context.plone_utils.getSiteEncoding()
+       
+    9:         params = {'SearchableText': r,
+    9:                   'portal_type': friendly_types,
+    9:                   'sort_limit': limit + 1}
+       
+    9:         if path is None:
+                   # useful for subsides
+    8:             params['path'] = getNavigationRoot(context)
+               else:
+    1:             params['path'] = path
+       
                # search limit+1 results to know if limit is exceeded
-<div class="notcovered">&gt;&gt;&gt;&gt;&gt;&gt;         params = get_query(searchable_text, params)</div><div class="notcovered">&gt;&gt;&gt;&gt;&gt;&gt;         results = catalog(**params)</div>       
-<div class="notcovered">&gt;&gt;&gt;&gt;&gt;&gt;         searchterm_query = '?searchterm=%s' % url_quote_plus(q)</div>       
+    9:         params = get_query(searchable_text, params)
+    9:         results = catalog(**params)
+       
+    9:         searchterm_query = '?searchterm=%s' % url_quote_plus(q)
+       
                #request = context.request
                #response = request.response
-<div class="notcovered">&gt;&gt;&gt;&gt;&gt;&gt;         response.setHeader('Content-Type', 'text/xml;charset=%s' % site_encoding)</div>       
+    9:         response.setHeader('Content-Type', 'text/xml;charset=%s' % site_encoding)
+       
                # replace named entities with their numbered counterparts, in the xml the named ones are not correct
                #   &amp;darr;      --&gt; &amp;#8595;
                #   &amp;hellip;    --&gt; &amp;#8230;
-<div class="notcovered">&gt;&gt;&gt;&gt;&gt;&gt;         legend_livesearch = _('legend_livesearch', default='LiveSearch &amp;#8595;')</div><div class="notcovered">&gt;&gt;&gt;&gt;&gt;&gt;         label_no_results_found = _('label_no_results_found', default='No matching results found.')</div><div class="notcovered">&gt;&gt;&gt;&gt;&gt;&gt;         label_advanced_search = _('label_advanced_search', default='Advanced Search&amp;#8230;')</div><div class="notcovered">&gt;&gt;&gt;&gt;&gt;&gt;         label_show_all = _('label_show_all', default='Show all items')</div>       
-<div class="notcovered">&gt;&gt;&gt;&gt;&gt;&gt;         ts = getToolByName(context, 'translation_service')</div>       
-<div class="notcovered">&gt;&gt;&gt;&gt;&gt;&gt;         output = []</div>       
-<div class="notcovered">&gt;&gt;&gt;&gt;&gt;&gt;         def write(s):</div><div class="notcovered">&gt;&gt;&gt;&gt;&gt;&gt;             output.append(safe_unicode(s))</div>       
-<div class="notcovered">&gt;&gt;&gt;&gt;&gt;&gt;         if not results:</div><div class="notcovered">&gt;&gt;&gt;&gt;&gt;&gt;             write('''&lt;fieldset class="livesearchContainer"&gt;''')</div><div class="notcovered">&gt;&gt;&gt;&gt;&gt;&gt;             write('''&lt;legend id="livesearchLegend"&gt;%s&lt;/legend&gt;''' % ts.translate(legend_livesearch, context=request))</div><div class="notcovered">&gt;&gt;&gt;&gt;&gt;&gt;             write('''&lt;div class="LSIEFix"&gt;''')</div><div class="notcovered">&gt;&gt;&gt;&gt;&gt;&gt;             write('''&lt;div id="LSNothingFound"&gt;%s&lt;/div&gt;''' % ts.translate(label_no_results_found, context=request))</div><div class="notcovered">&gt;&gt;&gt;&gt;&gt;&gt;             write('''&lt;ul class="ls-foot"&gt;''')</div><div class="notcovered">&gt;&gt;&gt;&gt;&gt;&gt;             write('''&lt;li class="LSRow lsrow-adv-search"&gt;''')</div><div class="notcovered">&gt;&gt;&gt;&gt;&gt;&gt;             write('&lt;b&gt;&lt;/b&gt;&lt;a href="%s" style="font-weight:normal"&gt;%s&lt;/a&gt;' %</div><div class="notcovered">&gt;&gt;&gt;&gt;&gt;&gt;                  (portal_url + '/@@search',</div><div class="notcovered">&gt;&gt;&gt;&gt;&gt;&gt;                   ts.translate(label_advanced_search, context=request)))</div><div class="notcovered">&gt;&gt;&gt;&gt;&gt;&gt;             write('''&lt;/li&gt;''')</div><div class="notcovered">&gt;&gt;&gt;&gt;&gt;&gt;             write('''&lt;/ul&gt;''')</div><div class="notcovered">&gt;&gt;&gt;&gt;&gt;&gt;             write('''&lt;/div&gt;''')</div><div class="notcovered">&gt;&gt;&gt;&gt;&gt;&gt;             write('''&lt;/fieldset&gt;''')</div>               else:
-<div class="notcovered">&gt;&gt;&gt;&gt;&gt;&gt;             write('''&lt;fieldset class="livesearchContainer"&gt;''')</div><div class="notcovered">&gt;&gt;&gt;&gt;&gt;&gt;             write('''&lt;legend id="livesearchLegend"&gt;%s&lt;/legend&gt;''' % ts.translate(legend_livesearch, context=request))</div><div class="notcovered">&gt;&gt;&gt;&gt;&gt;&gt;             write('''&lt;div class="LSIEFix"&gt;''')</div><div class="notcovered">&gt;&gt;&gt;&gt;&gt;&gt;             write('''&lt;ul class="LSTable"&gt;''')</div>       
-<div class="notcovered">&gt;&gt;&gt;&gt;&gt;&gt;             for result in results[:limit]:</div>                       # breadcrumbs
-<div class="notcovered">&gt;&gt;&gt;&gt;&gt;&gt;                 obj = result.getObject()</div><div class="notcovered">&gt;&gt;&gt;&gt;&gt;&gt;                 breadcrumbs_view = getMultiAdapter((obj, request), name='breadcrumbs_view')</div><div class="notcovered">&gt;&gt;&gt;&gt;&gt;&gt;                 breadcrumbs = breadcrumbs_view.breadcrumbs()</div>       
-<div class="notcovered">&gt;&gt;&gt;&gt;&gt;&gt;                 ls_breadcrumb = ''</div>       
-<div class="notcovered">&gt;&gt;&gt;&gt;&gt;&gt;                 breadcrumbs_size = len(breadcrumbs) - 1</div>       
-<div class="notcovered">&gt;&gt;&gt;&gt;&gt;&gt;                 if breadcrumbs_size &gt; 0:</div><div class="notcovered">&gt;&gt;&gt;&gt;&gt;&gt;                     for ls_key in breadcrumbs[:breadcrumbs_size]:</div><div class="notcovered">&gt;&gt;&gt;&gt;&gt;&gt;                         ls_breadcrumb += ('''&lt;a href="%s"&gt;%s&lt;/a&gt; &gt; ''' % (ls_key['absolute_url'], ls_key['Title']))</div>       
-<div class="notcovered">&gt;&gt;&gt;&gt;&gt;&gt;                 is_folderish = result.is_folderish</div>       
-<div class="notcovered">&gt;&gt;&gt;&gt;&gt;&gt;                 if is_folderish:</div><div class="notcovered">&gt;&gt;&gt;&gt;&gt;&gt;                     length_size = len(obj)</div>                       else:
-<div class="notcovered">&gt;&gt;&gt;&gt;&gt;&gt;                     length_size = result.getObjSize</div>       
+    9:         legend_livesearch = _('legend_livesearch', default='LiveSearch &amp;#8595;')
+    9:         label_no_results_found = _('label_no_results_found', default='No matching results found.')
+    9:         label_advanced_search = _('label_advanced_search', default='Advanced Search&amp;#8230;')
+    9:         label_show_all = _('label_show_all', default='Show all items')
+       
+    9:         ts = getToolByName(context, 'translation_service')
+       
+    9:         output = []
+       
+    9:         def write(s):
+  549:             output.append(safe_unicode(s))
+       
+    9:         if not results:
+    2:             write('''&lt;fieldset class="livesearchContainer"&gt;''')
+    2:             write('''&lt;legend id="livesearchLegend"&gt;%s&lt;/legend&gt;''' % ts.translate(legend_livesearch, context=request))
+    2:             write('''&lt;div class="LSIEFix"&gt;''')
+    2:             write('''&lt;div id="LSNothingFound"&gt;%s&lt;/div&gt;''' % ts.translate(label_no_results_found, context=request))
+    2:             write('''&lt;ul class="ls-foot"&gt;''')
+    2:             write('''&lt;li class="LSRow lsrow-adv-search"&gt;''')
+    2:             write('&lt;b&gt;&lt;/b&gt;&lt;a href="%s" style="font-weight:normal"&gt;%s&lt;/a&gt;' %
+    2:                  (portal_url + '/@@search',
+    2:                   ts.translate(label_advanced_search, context=request)))
+    2:             write('''&lt;/li&gt;''')
+    2:             write('''&lt;/ul&gt;''')
+    2:             write('''&lt;/div&gt;''')
+    2:             write('''&lt;/fieldset&gt;''')
+               else:
+    7:             write('''&lt;fieldset class="livesearchContainer"&gt;''')
+    7:             write('''&lt;legend id="livesearchLegend"&gt;%s&lt;/legend&gt;''' % ts.translate(legend_livesearch, context=request))
+    7:             write('''&lt;div class="LSIEFix"&gt;''')
+    7:             write('''&lt;ul class="LSTable"&gt;''')
+       
+   43:             for result in results[:limit]:
+                       # breadcrumbs
+   36:                 obj = result.getObject()
+   36:                 breadcrumbs_view = getMultiAdapter((obj, request), name='breadcrumbs_view')
+   36:                 breadcrumbs = breadcrumbs_view.breadcrumbs()
+       
+   36:                 ls_breadcrumb = ''
+       
+   36:                 breadcrumbs_size = len(breadcrumbs) - 1
+       
+   36:                 if breadcrumbs_size &gt; 0:
+   73:                     for ls_key in breadcrumbs[:breadcrumbs_size]:
+   42:                         ls_breadcrumb += ('''&lt;a href="%s"&gt;%s&lt;/a&gt; &gt; ''' % (ls_key['absolute_url'], ls_key['Title']))
+       
+   36:                 is_folderish = result.is_folderish
+       
+   36:                 if is_folderish:
+   12:                     length_size = len(obj)
+                       else:
+   24:                     length_size = result.getObjSize
+       
                        #icon = plone_view.getIcon(result)
-<div class="notcovered">&gt;&gt;&gt;&gt;&gt;&gt;                 img_class = '%s-icon' % ploneUtils.normalizeString(result.portal_type)</div>       
-<div class="notcovered">&gt;&gt;&gt;&gt;&gt;&gt;                 member = mtool.getMemberById(result.Creator)</div><div class="notcovered">&gt;&gt;&gt;&gt;&gt;&gt;                 if member is not None:</div><div class="notcovered">&gt;&gt;&gt;&gt;&gt;&gt;                     fullname = member.getProperty('fullname')</div>                       else:
+   36:                 img_class = '%s-icon' % ploneUtils.normalizeString(result.portal_type)
+       
+   36:                 member = mtool.getMemberById(result.Creator)
+   36:                 if member is not None:
+   36:                     fullname = member.getProperty('fullname')
+                       else:
 <div class="notcovered">&gt;&gt;&gt;&gt;&gt;&gt;                     fullname = ''</div>       
-<div class="notcovered">&gt;&gt;&gt;&gt;&gt;&gt;                 itemUrl = result.getURL()</div><div class="notcovered">&gt;&gt;&gt;&gt;&gt;&gt;                 if result.portal_type in useViewAction:</div><div class="notcovered">&gt;&gt;&gt;&gt;&gt;&gt;                     itemUrl += '/view'</div>       
-<div class="notcovered">&gt;&gt;&gt;&gt;&gt;&gt;                 itemUrl = itemUrl + searchterm_query</div>       
-<div class="notcovered">&gt;&gt;&gt;&gt;&gt;&gt;                 write('''&lt;li class="LSRow"&gt;''')</div>                       #write(icon.html_tag() or '')
-<div class="notcovered">&gt;&gt;&gt;&gt;&gt;&gt;                 write('''&lt;div class="%s ls-content-icon"&gt;&lt;/div&gt;''' % (img_class))</div><div class="notcovered">&gt;&gt;&gt;&gt;&gt;&gt;                 write('''&lt;div class="ls-details"&gt;''')</div>       
-<div class="notcovered">&gt;&gt;&gt;&gt;&gt;&gt;                 full_title = safe_unicode(pretty_title_or_id(result))</div><div class="notcovered">&gt;&gt;&gt;&gt;&gt;&gt;                 if len(full_title) &gt; MAX_TITLE:</div><div class="notcovered">&gt;&gt;&gt;&gt;&gt;&gt;                     display_title = ''.join((full_title[:MAX_TITLE], '...'))</div>                       else:
-<div class="notcovered">&gt;&gt;&gt;&gt;&gt;&gt;                     display_title = full_title</div>       
-<div class="notcovered">&gt;&gt;&gt;&gt;&gt;&gt;                 full_title = full_title.replace('"', '&amp;quot;')</div>                       #klass = 'contenttype-%s' % ploneUtils.normalizeString(result.portal_type)
-<div class="notcovered">&gt;&gt;&gt;&gt;&gt;&gt;                 klass = 'ls-content-title'</div><div class="notcovered">&gt;&gt;&gt;&gt;&gt;&gt;                 write('''&lt;a href="%s" title="%s" class="%s"&gt;%s&lt;/a&gt;''' % (itemUrl, full_title, klass, display_title))</div><div class="notcovered">&gt;&gt;&gt;&gt;&gt;&gt;                 display_description = safe_unicode(result.Description)</div><div class="notcovered">&gt;&gt;&gt;&gt;&gt;&gt;                 if len(display_description) &gt; MAX_DESCRIPTION:</div><div class="notcovered">&gt;&gt;&gt;&gt;&gt;&gt;                     display_description = ''.join((display_description[:MAX_DESCRIPTION], '...'))</div>       
+   36:                 itemUrl = result.getURL()
+   36:                 if result.portal_type in useViewAction:
+<div class="notcovered">&gt;&gt;&gt;&gt;&gt;&gt;                     itemUrl += '/view'</div>       
+   36:                 itemUrl = itemUrl + searchterm_query
+       
+   36:                 write('''&lt;li class="LSRow"&gt;''')
+                       #write(icon.html_tag() or '')
+   36:                 write('''&lt;div class="%s ls-content-icon"&gt;&lt;/div&gt;''' % (img_class))
+   36:                 write('''&lt;div class="ls-details"&gt;''')
+       
+   36:                 full_title = safe_unicode(pretty_title_or_id(result))
+   36:                 if len(full_title) &gt; MAX_TITLE:
+    5:                     display_title = ''.join((full_title[:MAX_TITLE], '...'))
+                       else:
+   31:                     display_title = full_title
+       
+   36:                 full_title = full_title.replace('"', '&amp;quot;')
+                       #klass = 'contenttype-%s' % ploneUtils.normalizeString(result.portal_type)
+   36:                 klass = 'ls-content-title'
+   36:                 write('''&lt;a href="%s" title="%s" class="%s"&gt;%s&lt;/a&gt;''' % (itemUrl, full_title, klass, display_title))
+   36:                 display_description = safe_unicode(result.Description)
+   36:                 if len(display_description) &gt; MAX_DESCRIPTION:
+    4:                     display_description = ''.join((display_description[:MAX_DESCRIPTION], '...'))
+       
                        # need to quote it, to avoid injection of html containing javascript and other evil stuff
-<div class="notcovered">&gt;&gt;&gt;&gt;&gt;&gt;                 display_description = html_quote(display_description)</div><div class="notcovered">&gt;&gt;&gt;&gt;&gt;&gt;                 write('''&lt;div class="LSDescr"&gt;%s&lt;/div&gt;''' % (display_description))</div>       
-<div class="notcovered">&gt;&gt;&gt;&gt;&gt;&gt;                 if breadcrumbs_size &gt; 0:</div><div class="notcovered">&gt;&gt;&gt;&gt;&gt;&gt;                     write('''&lt;div class="LSBreadcrumb"&gt;in %s&lt;/div&gt;''' % (ls_breadcrumb[:-3]))</div>                       else:
-<div class="notcovered">&gt;&gt;&gt;&gt;&gt;&gt;                     write('''&lt;div class="LSBreadcrumb"&gt;in Home&lt;/div&gt;''')</div>       
-<div class="notcovered">&gt;&gt;&gt;&gt;&gt;&gt;                 write('''&lt;div class="LSMeta"&gt;''')</div><div class="notcovered">&gt;&gt;&gt;&gt;&gt;&gt;                 display_type = html_quote(safe_unicode(result.Type))</div><div class="notcovered">&gt;&gt;&gt;&gt;&gt;&gt;                 write('''&lt;span class="LSType"&gt;%s&lt;/span&gt;''' % (display_type))</div>       
-<div class="notcovered">&gt;&gt;&gt;&gt;&gt;&gt;                 if result.Type == 'File' or result.Type == 'Image':</div><div class="notcovered">&gt;&gt;&gt;&gt;&gt;&gt;                     write('''&lt;span class="LSType"&gt; &amp;#8226; %s&lt;/span&gt;''' % (length_size))</div><div class="notcovered">&gt;&gt;&gt;&gt;&gt;&gt;                 elif result.Type == 'Folder':</div><div class="notcovered">&gt;&gt;&gt;&gt;&gt;&gt;                     write('''&lt;span class="LSType"&gt; &amp;#8226; %s item(s)&lt;/span&gt;''' % (length_size))</div>       
-<div class="notcovered">&gt;&gt;&gt;&gt;&gt;&gt;                 display_creator = html_quote(safe_unicode(fullname))</div>       
-<div class="notcovered">&gt;&gt;&gt;&gt;&gt;&gt;                 if len(display_creator) &gt; 0:</div><div class="notcovered">&gt;&gt;&gt;&gt;&gt;&gt;                     write(''' &amp;#8226; Create by &lt;a href="%s/author/%s" class="LSCreator"&gt;%s&lt;/a&gt;''' %</div><div class="notcovered">&gt;&gt;&gt;&gt;&gt;&gt;                         (portal_url, member.getProperty('id'), display_creator))</div>       
-<div class="notcovered">&gt;&gt;&gt;&gt;&gt;&gt;                 display_modified = html_quote(safe_unicode((pretty_date(result.modified))))</div><div class="notcovered">&gt;&gt;&gt;&gt;&gt;&gt;                 write('''&lt;span class="LSModified"&gt;on %s&lt;/span&gt;''' % (display_modified))</div><div class="notcovered">&gt;&gt;&gt;&gt;&gt;&gt;                 write('''&lt;/div&gt;''')</div><div class="notcovered">&gt;&gt;&gt;&gt;&gt;&gt;                 write('''&lt;/div&gt;''')</div><div class="notcovered">&gt;&gt;&gt;&gt;&gt;&gt;                 write('''&lt;/li&gt;''')</div>       
-<div class="notcovered">&gt;&gt;&gt;&gt;&gt;&gt;                 full_title, display_title, display_description, display_type = None, None, None, None</div><div class="notcovered">&gt;&gt;&gt;&gt;&gt;&gt;             write('''&lt;/ul&gt;&lt;ul class="ls-foot"&gt;''')</div><div class="notcovered">&gt;&gt;&gt;&gt;&gt;&gt;             if len(results) &gt; limit:</div>                       # add a more... row
-<div class="notcovered">&gt;&gt;&gt;&gt;&gt;&gt;                 write('''&lt;li class="LSRow lsrow-show-all"&gt;''')</div><div class="notcovered">&gt;&gt;&gt;&gt;&gt;&gt;                 searchquery = '@@search?SearchableText=%s&amp;path=%s' % (searchterms, params['path'])</div><div class="notcovered">&gt;&gt;&gt;&gt;&gt;&gt;                 write('&lt;b&gt;&lt;/b&gt;&lt;a href="%s" style="font-weight:normal"&gt;%s&lt;/a&gt;' % (</div><div class="notcovered">&gt;&gt;&gt;&gt;&gt;&gt;                                      searchquery,</div><div class="notcovered">&gt;&gt;&gt;&gt;&gt;&gt;                                      ts.translate(label_show_all, context=request)))</div><div class="notcovered">&gt;&gt;&gt;&gt;&gt;&gt;                 write('''&lt;/li&gt;''')</div>       
-<div class="notcovered">&gt;&gt;&gt;&gt;&gt;&gt;             write('''&lt;li class="LSRow lsrow-adv-search"&gt;''')</div><div class="notcovered">&gt;&gt;&gt;&gt;&gt;&gt;             write('&lt;b&gt;&lt;/b&gt;&lt;a href="%s" style="font-weight:normal"&gt;%s&lt;/a&gt;' %</div><div class="notcovered">&gt;&gt;&gt;&gt;&gt;&gt;                  (portal_url + '/@@search',</div><div class="notcovered">&gt;&gt;&gt;&gt;&gt;&gt;                   ts.translate(label_advanced_search, context=request)))</div><div class="notcovered">&gt;&gt;&gt;&gt;&gt;&gt;             write('''&lt;/li&gt;''')</div><div class="notcovered">&gt;&gt;&gt;&gt;&gt;&gt;             write('''&lt;/ul&gt;''')</div><div class="notcovered">&gt;&gt;&gt;&gt;&gt;&gt;             write('''&lt;/div&gt;''')</div><div class="notcovered">&gt;&gt;&gt;&gt;&gt;&gt;             write('''&lt;/fieldset&gt;''')</div>       
-<div class="notcovered">&gt;&gt;&gt;&gt;&gt;&gt;         return '\n'.join(output).encode(site_encoding)</div></pre>
+   36:                 display_description = html_quote(display_description)
+   36:                 write('''&lt;div class="LSDescr"&gt;%s&lt;/div&gt;''' % (display_description))
+       
+   36:                 if breadcrumbs_size &gt; 0:
+   31:                     write('''&lt;div class="LSBreadcrumb"&gt;in %s&lt;/div&gt;''' % (ls_breadcrumb[:-3]))
+                       else:
+    5:                     write('''&lt;div class="LSBreadcrumb"&gt;in Home&lt;/div&gt;''')
+       
+   36:                 write('''&lt;div class="LSMeta"&gt;''')
+   36:                 display_type = html_quote(safe_unicode(result.Type))
+   36:                 write('''&lt;span class="LSType"&gt;%s&lt;/span&gt;''' % (display_type))
+       
+   36:                 if result.Type == 'File' or result.Type == 'Image':
+<div class="notcovered">&gt;&gt;&gt;&gt;&gt;&gt;                     write('''&lt;span class="LSType"&gt; &amp;#8226; %s&lt;/span&gt;''' % (length_size))</div>   36:                 elif result.Type == 'Folder':
+   12:                     write('''&lt;span class="LSType"&gt; &amp;#8226; %s item(s)&lt;/span&gt;''' % (length_size))
+       
+   36:                 display_creator = html_quote(safe_unicode(fullname))
+       
+   36:                 if len(display_creator) &gt; 0:
+<div class="notcovered">&gt;&gt;&gt;&gt;&gt;&gt;                     write(''' &amp;#8226; Create by &lt;a href="%s/author/%s" class="LSCreator"&gt;%s&lt;/a&gt;''' %</div><div class="notcovered">&gt;&gt;&gt;&gt;&gt;&gt;                         (portal_url, member.getProperty('id'), display_creator))</div>       
+   36:                 display_modified = html_quote(safe_unicode((pretty_date(result.modified))))
+   36:                 write('''&lt;span class="LSModified"&gt;on %s&lt;/span&gt;''' % (display_modified))
+   36:                 write('''&lt;/div&gt;''')
+   36:                 write('''&lt;/div&gt;''')
+   36:                 write('''&lt;/li&gt;''')
+       
+   36:                 full_title, display_title, display_description, display_type = None, None, None, None
+    7:             write('''&lt;/ul&gt;&lt;ul class="ls-foot"&gt;''')
+    7:             if len(results) &gt; limit:
+                       # add a more... row
+    2:                 write('''&lt;li class="LSRow lsrow-show-all"&gt;''')
+    2:                 searchquery = '@@search?SearchableText=%s&amp;path=%s' % (searchterms, params['path'])
+    2:                 write('&lt;b&gt;&lt;/b&gt;&lt;a href="%s" style="font-weight:normal"&gt;%s&lt;/a&gt;' % (
+    2:                                      searchquery,
+    2:                                      ts.translate(label_show_all, context=request)))
+    2:                 write('''&lt;/li&gt;''')
+       
+    7:             write('''&lt;li class="LSRow lsrow-adv-search"&gt;''')
+    7:             write('&lt;b&gt;&lt;/b&gt;&lt;a href="%s" style="font-weight:normal"&gt;%s&lt;/a&gt;' %
+    7:                  (portal_url + '/@@search',
+    7:                   ts.translate(label_advanced_search, context=request)))
+    7:             write('''&lt;/li&gt;''')
+    7:             write('''&lt;/ul&gt;''')
+    7:             write('''&lt;/div&gt;''')
+    7:             write('''&lt;/fieldset&gt;''')
+       
+    9:         return '\n'.join(output).encode(site_encoding)
+</pre>
 
       <div class="footer">
-      Generated for revision wyeksportowane on 2013-11-05 18:00:40.809438Z
+      Generated for revision Niewersjonowany katalog on 2013-11-18 01:04:45.684645Z
       </div>
     </body>
     </html>

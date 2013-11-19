@@ -12,10 +12,10 @@
       <body><h1>Test coverage for vnccollab.theme.browser.wizardjson</h1>
       <table>
     
-<tr><td><a href="vnccollab.html">vnccollab/</a></td> <td style="background: red">&nbsp;&nbsp;&nbsp;&nbsp;</td> <td>covered 58% (1732 of 4159 uncovered)</td></tr>
-<tr><td><a href="vnccollab.theme.html">&nbsp;&nbsp;&nbsp;&nbsp;theme/</a></td> <td style="background: red">&nbsp;&nbsp;&nbsp;&nbsp;</td> <td>covered 58% (1732 of 4159 uncovered)</td></tr>
-<tr><td><a href="vnccollab.theme.browser.html">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;browser/</a></td> <td style="background: red">&nbsp;&nbsp;&nbsp;&nbsp;</td> <td>covered 52% (979 of 2059 uncovered)</td></tr>
-<tr><td><a href="vnccollab.theme.browser.wizardjson.html">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;wizardjson.py</a></td> <td style="background: red">&nbsp;&nbsp;&nbsp;&nbsp;</td> <td>covered 20% (95 of 119 uncovered)</td></tr>
+<tr><td><a href="vnccollab.html">vnccollab/</a></td> <td style="background: red">&nbsp;&nbsp;&nbsp;&nbsp;</td> <td>covered 68% (1329 of 4163 uncovered)</td></tr>
+<tr><td><a href="vnccollab.theme.html">&nbsp;&nbsp;&nbsp;&nbsp;theme/</a></td> <td style="background: red">&nbsp;&nbsp;&nbsp;&nbsp;</td> <td>covered 68% (1329 of 4163 uncovered)</td></tr>
+<tr><td><a href="vnccollab.theme.browser.html">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;browser/</a></td> <td style="background: red">&nbsp;&nbsp;&nbsp;&nbsp;</td> <td>covered 71% (586 of 2059 uncovered)</td></tr>
+<tr><td><a href="vnccollab.theme.browser.wizardjson.html">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;wizardjson.py</a></td> <td style="background: yellow">&nbsp;&nbsp;&nbsp;&nbsp;</td> <td>covered 96% (4 of 119 uncovered)</td></tr>
 </table><hr/>
 <pre>    1: import simplejson
        
@@ -39,50 +39,138 @@
        
     1:     def getInitialTree(self):
                '''Returns the initial tree for the dynatree.'''
-<div class="notcovered">&gt;&gt;&gt;&gt;&gt;&gt;         context = self.getFolderishParent(self.context)</div><div class="notcovered">&gt;&gt;&gt;&gt;&gt;&gt;         child_tree = None</div><div class="notcovered">&gt;&gt;&gt;&gt;&gt;&gt;         child_uid = None</div>       
-<div class="notcovered">&gt;&gt;&gt;&gt;&gt;&gt;         while True:</div><div class="notcovered">&gt;&gt;&gt;&gt;&gt;&gt;             is_root = ISiteRoot.providedBy(context)</div>       
-<div class="notcovered">&gt;&gt;&gt;&gt;&gt;&gt;             if is_root:</div><div class="notcovered">&gt;&gt;&gt;&gt;&gt;&gt;                 uid = None</div>                   else:
-<div class="notcovered">&gt;&gt;&gt;&gt;&gt;&gt;                 uid = IUUID(context)</div><div class="notcovered">&gt;&gt;&gt;&gt;&gt;&gt;             tree = self.get_tree(uid)</div>       
-<div class="notcovered">&gt;&gt;&gt;&gt;&gt;&gt;             if child_tree is not None:</div><div class="notcovered">&gt;&gt;&gt;&gt;&gt;&gt;                 self._insert_child_tree(tree, child_tree, child_uid)</div>       
-<div class="notcovered">&gt;&gt;&gt;&gt;&gt;&gt;             if is_root:</div><div class="notcovered">&gt;&gt;&gt;&gt;&gt;&gt;                 break</div>       
-<div class="notcovered">&gt;&gt;&gt;&gt;&gt;&gt;             context = aq_parent(context)</div><div class="notcovered">&gt;&gt;&gt;&gt;&gt;&gt;             child_tree = tree</div><div class="notcovered">&gt;&gt;&gt;&gt;&gt;&gt;             child_uid = uid</div>       
-<div class="notcovered">&gt;&gt;&gt;&gt;&gt;&gt;         root_node = self.getRootNode()</div><div class="notcovered">&gt;&gt;&gt;&gt;&gt;&gt;         root_node['children'] = tree</div><div class="notcovered">&gt;&gt;&gt;&gt;&gt;&gt;         return simplejson.dumps(root_node)</div>       
+    2:         context = self.getFolderishParent(self.context)
+    2:         child_tree = None
+    2:         child_uid = None
+       
+    3:         while True:
+    3:             is_root = ISiteRoot.providedBy(context)
+       
+    3:             if is_root:
+    2:                 uid = None
+                   else:
+    1:                 uid = IUUID(context)
+    3:             tree = self.get_tree(uid)
+       
+    3:             if child_tree is not None:
+    1:                 self._insert_child_tree(tree, child_tree, child_uid)
+       
+    3:             if is_root:
+    2:                 break
+       
+    1:             context = aq_parent(context)
+    1:             child_tree = tree
+    1:             child_uid = uid
+       
+    2:         root_node = self.getRootNode()
+    2:         root_node['children'] = tree
+    2:         return simplejson.dumps(root_node)
+       
     1:     def getRootNode(self):
-<div class="notcovered">&gt;&gt;&gt;&gt;&gt;&gt;         portal = api.portal.get()</div><div class="notcovered">&gt;&gt;&gt;&gt;&gt;&gt;         tree = self._info_from_content(portal)</div><div class="notcovered">&gt;&gt;&gt;&gt;&gt;&gt;         return tree</div>       
+    3:         portal = api.portal.get()
+    3:         tree = self._info_from_content(portal)
+    3:         return tree
+       
     1:     def getFolderishParent(self, obj):
                '''Returns obj or its nearest parent that is folderish.'''
-<div class="notcovered">&gt;&gt;&gt;&gt;&gt;&gt;         while True:</div><div class="notcovered">&gt;&gt;&gt;&gt;&gt;&gt;             if IFolderish.providedBy(obj):</div><div class="notcovered">&gt;&gt;&gt;&gt;&gt;&gt;                 return obj</div><div class="notcovered">&gt;&gt;&gt;&gt;&gt;&gt;             obj = aq_parent(obj)</div>       
+   24:         while True:
+   24:             if IFolderish.providedBy(obj):
+   24:                 return obj
+<div class="notcovered">&gt;&gt;&gt;&gt;&gt;&gt;             obj = aq_parent(obj)</div>       
     1:     def _insert_child_tree(self, tree, child_tree, child_uid):
-<div class="notcovered">&gt;&gt;&gt;&gt;&gt;&gt;         for branch in tree:</div><div class="notcovered">&gt;&gt;&gt;&gt;&gt;&gt;             if branch.get('key', False) == child_uid:</div><div class="notcovered">&gt;&gt;&gt;&gt;&gt;&gt;                 branch['children'] = child_tree</div><div class="notcovered">&gt;&gt;&gt;&gt;&gt;&gt;                 branch['isLazy'] = False</div><div class="notcovered">&gt;&gt;&gt;&gt;&gt;&gt;                 branch['expand'] = True</div>       
+    5:         for branch in tree:
+    4:             if branch.get('key', False) == child_uid:
+    1:                 branch['children'] = child_tree
+    1:                 branch['isLazy'] = False
+    1:                 branch['expand'] = True
+       
     1:     def getTree(self, uid=None, type_=None):
                '''Returns the (lazy) tree for a given node.
        
                   params:
                       uid: UUID of the container to get its tree.
                '''
-<div class="notcovered">&gt;&gt;&gt;&gt;&gt;&gt;         results = self.get_tree(uid=uid)</div><div class="notcovered">&gt;&gt;&gt;&gt;&gt;&gt;         return simplejson.dumps(results)</div>       
-    1:     def get_tree(self, uid=None, type_=None):
-<div class="notcovered">&gt;&gt;&gt;&gt;&gt;&gt;         if type_ is None:</div><div class="notcovered">&gt;&gt;&gt;&gt;&gt;&gt;             type_ = self.request.get('type_', None)</div>       
-<div class="notcovered">&gt;&gt;&gt;&gt;&gt;&gt;         catalog = getToolByName(self.context, 'portal_catalog')</div>       
-<div class="notcovered">&gt;&gt;&gt;&gt;&gt;&gt;         container_path = ''</div><div class="notcovered">&gt;&gt;&gt;&gt;&gt;&gt;         if uid is not None:</div><div class="notcovered">&gt;&gt;&gt;&gt;&gt;&gt;             container = catalog(UID=uid)</div><div class="notcovered">&gt;&gt;&gt;&gt;&gt;&gt;             if len(container) == 1:</div><div class="notcovered">&gt;&gt;&gt;&gt;&gt;&gt;                 container = container[0]</div><div class="notcovered">&gt;&gt;&gt;&gt;&gt;&gt;                 container_path = container.getPath()</div>       
-<div class="notcovered">&gt;&gt;&gt;&gt;&gt;&gt;         if not container_path:</div><div class="notcovered">&gt;&gt;&gt;&gt;&gt;&gt;             portal = api.portal.get()</div><div class="notcovered">&gt;&gt;&gt;&gt;&gt;&gt;             container_path = '/'.join(portal.getPhysicalPath())</div>       
-<div class="notcovered">&gt;&gt;&gt;&gt;&gt;&gt;         query = {'portal_type': self._get_container_types(),</div><div class="notcovered">&gt;&gt;&gt;&gt;&gt;&gt;                  'path': {'query': container_path, 'depth': 1}}</div>       
-<div class="notcovered">&gt;&gt;&gt;&gt;&gt;&gt;         results = IContentListing(catalog(**query))</div><div class="notcovered">&gt;&gt;&gt;&gt;&gt;&gt;         results = [self._info_from_content(x, type_) for x in results]</div><div class="notcovered">&gt;&gt;&gt;&gt;&gt;&gt;         results.sort(lambda x, y: cmp(x['title'], y['title']))</div><div class="notcovered">&gt;&gt;&gt;&gt;&gt;&gt;         return results</div>       
-    1:     def _info_from_content(self, content, type_=None):
-<div class="notcovered">&gt;&gt;&gt;&gt;&gt;&gt;         content_is_root = ISiteRoot.providedBy(content)</div><div class="notcovered">&gt;&gt;&gt;&gt;&gt;&gt;         if content_is_root:</div><div class="notcovered">&gt;&gt;&gt;&gt;&gt;&gt;             content_uid = '0'</div><div class="notcovered">&gt;&gt;&gt;&gt;&gt;&gt;             obj = content</div><div class="notcovered">&gt;&gt;&gt;&gt;&gt;&gt;             path = content.absolute_url_path()</div><div class="notcovered">&gt;&gt;&gt;&gt;&gt;&gt;             url = content.absolute_url()</div>               else:
-<div class="notcovered">&gt;&gt;&gt;&gt;&gt;&gt;             obj = content.getObject()</div><div class="notcovered">&gt;&gt;&gt;&gt;&gt;&gt;             path = content.getPath()</div><div class="notcovered">&gt;&gt;&gt;&gt;&gt;&gt;             url = content.getURL()</div><div class="notcovered">&gt;&gt;&gt;&gt;&gt;&gt;             content_uid = content.uuid()</div>       
-<div class="notcovered">&gt;&gt;&gt;&gt;&gt;&gt;         selectable = self._is_container_selectable(obj, type_)</div><div class="notcovered">&gt;&gt;&gt;&gt;&gt;&gt;         context = self.getFolderishParent(self.context)</div><div class="notcovered">&gt;&gt;&gt;&gt;&gt;&gt;         context_is_root = ISiteRoot.providedBy(context)</div><div class="notcovered">&gt;&gt;&gt;&gt;&gt;&gt;         if context_is_root:</div><div class="notcovered">&gt;&gt;&gt;&gt;&gt;&gt;             context_uid = '0'</div>               else:
-<div class="notcovered">&gt;&gt;&gt;&gt;&gt;&gt;             context_uid = IUUID(context)</div>       
-<div class="notcovered">&gt;&gt;&gt;&gt;&gt;&gt;         i_am_context = context_uid == content_uid</div>       
-<div class="notcovered">&gt;&gt;&gt;&gt;&gt;&gt;         result = {</div><div class="notcovered">&gt;&gt;&gt;&gt;&gt;&gt;             'key': content_uid,</div><div class="notcovered">&gt;&gt;&gt;&gt;&gt;&gt;             'id': content.getId(),</div><div class="notcovered">&gt;&gt;&gt;&gt;&gt;&gt;             'title': safe_unicode(content.Title()).encode('utf-8'),</div><div class="notcovered">&gt;&gt;&gt;&gt;&gt;&gt;             'tooltip': safe_unicode(content.Description()).encode('utf-8'),</div><div class="notcovered">&gt;&gt;&gt;&gt;&gt;&gt;             'icon': content.getIcon(),</div><div class="notcovered">&gt;&gt;&gt;&gt;&gt;&gt;             'noLink': True,</div><div class="notcovered">&gt;&gt;&gt;&gt;&gt;&gt;             'isFolder': True,</div><div class="notcovered">&gt;&gt;&gt;&gt;&gt;&gt;             'isLazy': True,</div><div class="notcovered">&gt;&gt;&gt;&gt;&gt;&gt;             'path': path,</div><div class="notcovered">&gt;&gt;&gt;&gt;&gt;&gt;             'url': url,</div><div class="notcovered">&gt;&gt;&gt;&gt;&gt;&gt;             'unselectable': not(selectable),</div><div class="notcovered">&gt;&gt;&gt;&gt;&gt;&gt;             'activate': selectable and i_am_context,</div><div class="notcovered">&gt;&gt;&gt;&gt;&gt;&gt;             'children': [],</div>               }
+    1:         results = self.get_tree(uid=uid)
+    1:         return simplejson.dumps(results)
        
-<div class="notcovered">&gt;&gt;&gt;&gt;&gt;&gt;         return result</div>       
+    1:     def get_tree(self, uid=None, type_=None):
+    6:         if type_ is None:
+    6:             type_ = self.request.get('type_', None)
+       
+    6:         catalog = getToolByName(self.context, 'portal_catalog')
+       
+    6:         container_path = ''
+    6:         if uid is not None:
+    2:             container = catalog(UID=uid)
+    2:             if len(container) == 1:
+    1:                 container = container[0]
+    1:                 container_path = container.getPath()
+       
+    6:         if not container_path:
+    5:             portal = api.portal.get()
+    5:             container_path = '/'.join(portal.getPhysicalPath())
+       
+    6:         query = {'portal_type': self._get_container_types(),
+    6:                  'path': {'query': container_path, 'depth': 1}}
+       
+    6:         results = IContentListing(catalog(**query))
+   23:         results = [self._info_from_content(x, type_) for x in results]
+   27:         results.sort(lambda x, y: cmp(x['title'], y['title']))
+    6:         return results
+       
+    1:     def _info_from_content(self, content, type_=None):
+   20:         content_is_root = ISiteRoot.providedBy(content)
+   20:         if content_is_root:
+    3:             content_uid = '0'
+    3:             obj = content
+    3:             path = content.absolute_url_path()
+    3:             url = content.absolute_url()
+               else:
+   17:             obj = content.getObject()
+   17:             path = content.getPath()
+   17:             url = content.getURL()
+   17:             content_uid = content.uuid()
+       
+   20:         selectable = self._is_container_selectable(obj, type_)
+   20:         context = self.getFolderishParent(self.context)
+   20:         context_is_root = ISiteRoot.providedBy(context)
+   20:         if context_is_root:
+   15:             context_uid = '0'
+               else:
+    5:             context_uid = IUUID(context)
+       
+   20:         i_am_context = context_uid == content_uid
+       
+   20:         result = {
+   20:             'key': content_uid,
+   20:             'id': content.getId(),
+   20:             'title': safe_unicode(content.Title()).encode('utf-8'),
+   20:             'tooltip': safe_unicode(content.Description()).encode('utf-8'),
+   20:             'icon': content.getIcon(),
+   20:             'noLink': True,
+   20:             'isFolder': True,
+   20:             'isLazy': True,
+   20:             'path': path,
+   20:             'url': url,
+   20:             'unselectable': not(selectable),
+   20:             'activate': selectable and i_am_context,
+   20:             'children': [],
+               }
+       
+   20:         return result
+       
     1:     def _get_container_types(self):
-<div class="notcovered">&gt;&gt;&gt;&gt;&gt;&gt;         return ['Folder']</div>       
+    6:         return ['Folder']
+       
     1:     def _is_container_selectable(self, container, type_):
-<div class="notcovered">&gt;&gt;&gt;&gt;&gt;&gt;         writable = self._is_container_writable(container)</div><div class="notcovered">&gt;&gt;&gt;&gt;&gt;&gt;         if not writable:</div><div class="notcovered">&gt;&gt;&gt;&gt;&gt;&gt;             return False</div><div class="notcovered">&gt;&gt;&gt;&gt;&gt;&gt;         return self._is_type_allowed_in_container(container, type_)</div>       
+   20:         writable = self._is_container_writable(container)
+   20:         if not writable:
+<div class="notcovered">&gt;&gt;&gt;&gt;&gt;&gt;             return False</div>   20:         return self._is_type_allowed_in_container(container, type_)
+       
     1:     def _is_type_allowed_in_container(self, obj, type_):
-<div class="notcovered">&gt;&gt;&gt;&gt;&gt;&gt;         if type_ is None:</div><div class="notcovered">&gt;&gt;&gt;&gt;&gt;&gt;             return True</div>       
+   20:         if type_ is None:
+   20:             return True
+       
 <div class="notcovered">&gt;&gt;&gt;&gt;&gt;&gt;         allowed_types = list(obj.getLocallyAllowedTypes())</div><div class="notcovered">&gt;&gt;&gt;&gt;&gt;&gt;         return type_ in allowed_types</div>       
     1:     def _is_container_writable(self, obj):
                '''True if the current user can write in the object container.
@@ -90,10 +178,13 @@
                NOTE: We need to access to the associate object, and this could
                be time consuming. In case of degradation of speed, check here.
                '''
-<div class="notcovered">&gt;&gt;&gt;&gt;&gt;&gt;         perm = getSecurityManager().checkPermission(</div><div class="notcovered">&gt;&gt;&gt;&gt;&gt;&gt;             permissions.AddPortalContent, obj)</div><div class="notcovered">&gt;&gt;&gt;&gt;&gt;&gt;         return perm == 1</div></pre>
+   20:         perm = getSecurityManager().checkPermission(
+   20:             permissions.AddPortalContent, obj)
+   20:         return perm == 1
+</pre>
 
       <div class="footer">
-      Generated for revision wyeksportowane on 2013-11-05 18:00:40.809438Z
+      Generated for revision Niewersjonowany katalog on 2013-11-18 01:04:45.684645Z
       </div>
     </body>
     </html>
