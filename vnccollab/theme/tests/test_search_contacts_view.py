@@ -4,11 +4,14 @@ import urllib
 import transaction
 
 from zope.component import getUtility
+from zope.publisher.browser import TestRequest
 
 from plone.portlets.interfaces import IPortletType
 
+from plone.app.testing import TEST_USER_NAME
 from vnccollab.theme.tests.base import FunctionalTestCase
 from vnccollab.theme.testing import createObject
+from vnccollab.theme.browser.search_contacts import SearchContacts
 
 
 class TestSearchContactsView(FunctionalTestCase):

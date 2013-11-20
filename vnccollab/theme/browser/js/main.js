@@ -665,7 +665,9 @@ function initFollowingControls() {
 
   // attach click handlers to Follow/Unfollow buttons
   jq('a.followLink,a.unfollowLink').click(function(event){
-    var link = $(event.target),
+     event.preventDefault();
+     event.stopPropagation();
+     var link = $(event.target),
       path = link.is('.followLink') ? '@@follow_user' : '@@unfollow_user';
 
     jq.ajax({
@@ -727,4 +729,5 @@ jq(function() {
   setHandlersWizard();
   addDocumentContentShadows();
   fixGeneralUI();
+  initFollowingControls();
 });

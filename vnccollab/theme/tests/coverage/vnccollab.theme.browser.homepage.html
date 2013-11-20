@@ -12,10 +12,10 @@
       <body><h1>Test coverage for vnccollab.theme.browser.homepage</h1>
       <table>
     
-<tr><td><a href="vnccollab.html">vnccollab/</a></td> <td style="background: red">&nbsp;&nbsp;&nbsp;&nbsp;</td> <td>covered 58% (1732 of 4159 uncovered)</td></tr>
-<tr><td><a href="vnccollab.theme.html">&nbsp;&nbsp;&nbsp;&nbsp;theme/</a></td> <td style="background: red">&nbsp;&nbsp;&nbsp;&nbsp;</td> <td>covered 58% (1732 of 4159 uncovered)</td></tr>
-<tr><td><a href="vnccollab.theme.browser.html">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;browser/</a></td> <td style="background: red">&nbsp;&nbsp;&nbsp;&nbsp;</td> <td>covered 52% (979 of 2059 uncovered)</td></tr>
-<tr><td><a href="vnccollab.theme.browser.homepage.html">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;homepage.py</a></td> <td style="background: red">&nbsp;&nbsp;&nbsp;&nbsp;</td> <td>covered 42% (46 of 80 uncovered)</td></tr>
+<tr><td><a href="vnccollab.html">vnccollab/</a></td> <td style="background: red">&nbsp;&nbsp;&nbsp;&nbsp;</td> <td>covered 68% (1329 of 4163 uncovered)</td></tr>
+<tr><td><a href="vnccollab.theme.html">&nbsp;&nbsp;&nbsp;&nbsp;theme/</a></td> <td style="background: red">&nbsp;&nbsp;&nbsp;&nbsp;</td> <td>covered 68% (1329 of 4163 uncovered)</td></tr>
+<tr><td><a href="vnccollab.theme.browser.html">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;browser/</a></td> <td style="background: red">&nbsp;&nbsp;&nbsp;&nbsp;</td> <td>covered 71% (586 of 2059 uncovered)</td></tr>
+<tr><td><a href="vnccollab.theme.browser.homepage.html">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;homepage.py</a></td> <td style="background: red">&nbsp;&nbsp;&nbsp;&nbsp;</td> <td>covered 56% (35 of 80 uncovered)</td></tr>
 </table><hr/>
 <pre>    1: from Acquisition import aq_inner
     1: from ZODB.POSException import ConflictError
@@ -61,28 +61,39 @@
     1:     _dashboard_template = ViewPageTemplateFile('templates/dashboard.pt')
        
     1:     def getNews(self):
-<div class="notcovered">&gt;&gt;&gt;&gt;&gt;&gt;         catalog = getToolByName(self.context, 'portal_catalog')</div><div class="notcovered">&gt;&gt;&gt;&gt;&gt;&gt;         return catalog(portal_type="News Item", sort_on='created',</div><div class="notcovered">&gt;&gt;&gt;&gt;&gt;&gt;             sort_order='reverse',</div><div class="notcovered">&gt;&gt;&gt;&gt;&gt;&gt;             sort_limit=HP_NEWS_LIMIT)[:HP_NEWS_LIMIT]</div>       
+    2:         catalog = getToolByName(self.context, 'portal_catalog')
+    2:         return catalog(portal_type="News Item", sort_on='created',
+    2:             sort_order='reverse',
+    2:             sort_limit=HP_NEWS_LIMIT)[:HP_NEWS_LIMIT]
+       
     1:     def __call__(self):
-    1:         if self.is_anonymous():
-<div class="notcovered">&gt;&gt;&gt;&gt;&gt;&gt;             alsoProvides(self, IAnonymousHomePageView)</div>    1:         return self.render()
+    4:         if self.is_anonymous():
+    1:             alsoProvides(self, IAnonymousHomePageView)
+    4:         return self.render()
        
     1:     def render(self):
-    1:         if self.is_anonymous():
-<div class="notcovered">&gt;&gt;&gt;&gt;&gt;&gt;             return self._welcome_template()</div>               else:
-    1:             return self._dashboard_template()
+    4:         if self.is_anonymous():
+    1:             return self._welcome_template()
+               else:
+    3:             return self._dashboard_template()
        
     1:     def getColumn(self, name, group='AnonymousUsers'):
-<div class="notcovered">&gt;&gt;&gt;&gt;&gt;&gt;         column = getUtility(IPortletManager, name=name)</div><div class="notcovered">&gt;&gt;&gt;&gt;&gt;&gt;         category = column[GROUP_CATEGORY]</div><div class="notcovered">&gt;&gt;&gt;&gt;&gt;&gt;         mapping = category.get(group, None)</div><div class="notcovered">&gt;&gt;&gt;&gt;&gt;&gt;         if mapping is None:</div><div class="notcovered">&gt;&gt;&gt;&gt;&gt;&gt;             return u''</div>       
+    9:         column = getUtility(IPortletManager, name=name)
+    9:         category = column[GROUP_CATEGORY]
+    9:         mapping = category.get(group, None)
+    9:         if mapping is None:
+    9:             return u''
+       
 <div class="notcovered">&gt;&gt;&gt;&gt;&gt;&gt;         context = aq_inner(self.context)</div><div class="notcovered">&gt;&gt;&gt;&gt;&gt;&gt;         assignments = []</div><div class="notcovered">&gt;&gt;&gt;&gt;&gt;&gt;         for assignment in mapping.values():</div><div class="notcovered">&gt;&gt;&gt;&gt;&gt;&gt;             settings = IPortletAssignmentSettings(assignment)</div><div class="notcovered">&gt;&gt;&gt;&gt;&gt;&gt;             if not settings.get('visible', True):</div><div class="notcovered">&gt;&gt;&gt;&gt;&gt;&gt;                 continue</div><div class="notcovered">&gt;&gt;&gt;&gt;&gt;&gt;             assignments.append({'category': GROUP_CATEGORY,</div><div class="notcovered">&gt;&gt;&gt;&gt;&gt;&gt;                                 'key': group,</div><div class="notcovered">&gt;&gt;&gt;&gt;&gt;&gt;                                 'name': assignment.__name__,</div><div class="notcovered">&gt;&gt;&gt;&gt;&gt;&gt;                                 'assignment': assignment</div>                                       })
        
 <div class="notcovered">&gt;&gt;&gt;&gt;&gt;&gt;         renderer = HomePageColumnsRenderer(context, self.request, self, column)</div><div class="notcovered">&gt;&gt;&gt;&gt;&gt;&gt;         renderer.assignments = assignments</div><div class="notcovered">&gt;&gt;&gt;&gt;&gt;&gt;         renderer.update()</div><div class="notcovered">&gt;&gt;&gt;&gt;&gt;&gt;         return renderer.render()</div>       
     1:     def is_anonymous(self):
-    2:         mt = getToolByName(self.context, 'portal_membership')
-    2:         return mt.isAnonymousUser()
+    8:         mt = getToolByName(self.context, 'portal_membership')
+    8:         return mt.isAnonymousUser()
 </pre>
 
       <div class="footer">
-      Generated for revision wyeksportowane on 2013-11-05 18:00:40.809438Z
+      Generated for revision Niewersjonowany katalog on 2013-11-18 01:04:45.684645Z
       </div>
     </body>
     </html>

@@ -12,8 +12,8 @@
       <body><h1>Test coverage for vnccollab.theme.indexers</h1>
       <table>
     
-<tr><td><a href="vnccollab.html">vnccollab/</a></td> <td style="background: red">&nbsp;&nbsp;&nbsp;&nbsp;</td> <td>covered 58% (1732 of 4159 uncovered)</td></tr>
-<tr><td><a href="vnccollab.theme.html">&nbsp;&nbsp;&nbsp;&nbsp;theme/</a></td> <td style="background: red">&nbsp;&nbsp;&nbsp;&nbsp;</td> <td>covered 58% (1732 of 4159 uncovered)</td></tr>
+<tr><td><a href="vnccollab.html">vnccollab/</a></td> <td style="background: red">&nbsp;&nbsp;&nbsp;&nbsp;</td> <td>covered 68% (1329 of 4163 uncovered)</td></tr>
+<tr><td><a href="vnccollab.theme.html">&nbsp;&nbsp;&nbsp;&nbsp;theme/</a></td> <td style="background: red">&nbsp;&nbsp;&nbsp;&nbsp;</td> <td>covered 68% (1329 of 4163 uncovered)</td></tr>
 <tr><td><a href="vnccollab.theme.indexers.html">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;indexers.py</a></td> <td style="background: green">&nbsp;&nbsp;&nbsp;&nbsp;</td> <td>covered 100% (0 of 14 uncovered)</td></tr>
 </table><hr/>
 <pre>    1: from plone.indexer.decorator import indexer
@@ -27,25 +27,25 @@
        def avg_ratings(object, **kw):
            """Average rating: difference between thumb ups and downs.
            """
-   13:     annotations = IAnnotations(object)
-   13:     ups = (yays in annotations) and len(annotations[yays]) or 0
-   13:     downs = (nays in annotations) and len(annotations[nays]) or 0
-   13:     return ups - downs
+  167:     annotations = IAnnotations(object)
+  167:     ups = (yays in annotations) and len(annotations[yays]) or 0
+  167:     downs = (nays in annotations) and len(annotations[nays]) or 0
+  167:     return ups - downs
        
     1: @indexer(ILoveThumbsDontYou)
        def total_down_ratings(object, **kw):
            """
            Return the total number of negative ratings
            """
-   13:     annotations = IAnnotations(object)
-   13:     if nays in annotations:
+  167:     annotations = IAnnotations(object)
+  167:     if nays in annotations:
     3:         return len(annotations[nays])
        
-   10:     return 0
+  164:     return 0
 </pre>
 
       <div class="footer">
-      Generated for revision wyeksportowane on 2013-11-05 18:00:40.809438Z
+      Generated for revision Niewersjonowany katalog on 2013-11-18 01:04:45.684645Z
       </div>
     </body>
     </html>

@@ -12,10 +12,10 @@
       <body><h1>Test coverage for vnccollab.theme.upgrades.upgrades</h1>
       <table>
     
-<tr><td><a href="vnccollab.html">vnccollab/</a></td> <td style="background: red">&nbsp;&nbsp;&nbsp;&nbsp;</td> <td>covered 58% (1732 of 4159 uncovered)</td></tr>
-<tr><td><a href="vnccollab.theme.html">&nbsp;&nbsp;&nbsp;&nbsp;theme/</a></td> <td style="background: red">&nbsp;&nbsp;&nbsp;&nbsp;</td> <td>covered 58% (1732 of 4159 uncovered)</td></tr>
-<tr><td><a href="vnccollab.theme.upgrades.html">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;upgrades/</a></td> <td style="background: red">&nbsp;&nbsp;&nbsp;&nbsp;</td> <td>covered 26% (34 of 46 uncovered)</td></tr>
-<tr><td><a href="vnccollab.theme.upgrades.upgrades.html">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;upgrades.py</a></td> <td style="background: red">&nbsp;&nbsp;&nbsp;&nbsp;</td> <td>covered 26% (34 of 46 uncovered)</td></tr>
+<tr><td><a href="vnccollab.html">vnccollab/</a></td> <td style="background: red">&nbsp;&nbsp;&nbsp;&nbsp;</td> <td>covered 68% (1329 of 4163 uncovered)</td></tr>
+<tr><td><a href="vnccollab.theme.html">&nbsp;&nbsp;&nbsp;&nbsp;theme/</a></td> <td style="background: red">&nbsp;&nbsp;&nbsp;&nbsp;</td> <td>covered 68% (1329 of 4163 uncovered)</td></tr>
+<tr><td><a href="vnccollab.theme.upgrades.html">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;upgrades/</a></td> <td style="background: red">&nbsp;&nbsp;&nbsp;&nbsp;</td> <td>covered 26% (37 of 50 uncovered)</td></tr>
+<tr><td><a href="vnccollab.theme.upgrades.upgrades.html">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;upgrades.py</a></td> <td style="background: red">&nbsp;&nbsp;&nbsp;&nbsp;</td> <td>covered 26% (37 of 50 uncovered)</td></tr>
 </table><hr/>
 <pre>    1: from zope.component import getMultiAdapter
     1: from zope.publisher.browser import TestRequest
@@ -44,10 +44,13 @@
 <div class="notcovered">&gt;&gt;&gt;&gt;&gt;&gt;     setup = getToolByName(context, 'portal_setup')</div><div class="notcovered">&gt;&gt;&gt;&gt;&gt;&gt;     setup.runImportStepFromProfile(DEFAULT_PROFILE, 'plone.app.registry')</div><div class="notcovered">&gt;&gt;&gt;&gt;&gt;&gt;     setup.runImportStepFromProfile(DEFAULT_PROFILE, 'jsregistry',</div><div class="notcovered">&gt;&gt;&gt;&gt;&gt;&gt;         run_dependencies=False)</div><div class="notcovered">&gt;&gt;&gt;&gt;&gt;&gt;     setup.runImportStepFromProfile(DEFAULT_PROFILE, 'cssregistry',</div><div class="notcovered">&gt;&gt;&gt;&gt;&gt;&gt;         run_dependencies=False)</div><div class="notcovered">&gt;&gt;&gt;&gt;&gt;&gt;     setup.runImportStepFromProfile(DEFAULT_PROFILE, 'controlpanel',</div><div class="notcovered">&gt;&gt;&gt;&gt;&gt;&gt;         run_dependencies=False)</div><div class="notcovered">&gt;&gt;&gt;&gt;&gt;&gt;     setup.runImportStepFromProfile(DEFAULT_PROFILE, 'viewlets',</div><div class="notcovered">&gt;&gt;&gt;&gt;&gt;&gt;         run_dependencies=False)</div>       
     1: def upgrade_1111_1112(context):
            '''Upgrades registry and other settings'''
+<div class="notcovered">&gt;&gt;&gt;&gt;&gt;&gt;     setup = getToolByName(context, 'portal_setup')</div><div class="notcovered">&gt;&gt;&gt;&gt;&gt;&gt;     setup.runImportStepFromProfile(DEFAULT_PROFILE, 'jsregistry',</div><div class="notcovered">&gt;&gt;&gt;&gt;&gt;&gt;         run_dependencies=False)</div>       
+    1: def upgrade_1112_1113(context):
+           '''Upgrades registry and other settings'''
 <div class="notcovered">&gt;&gt;&gt;&gt;&gt;&gt;     setup = getToolByName(context, 'portal_setup')</div><div class="notcovered">&gt;&gt;&gt;&gt;&gt;&gt;     setup.runImportStepFromProfile(DEFAULT_PROFILE, 'jsregistry',</div><div class="notcovered">&gt;&gt;&gt;&gt;&gt;&gt;         run_dependencies=False)</div></pre>
 
       <div class="footer">
-      Generated for revision wyeksportowane on 2013-11-05 18:00:40.809438Z
+      Generated for revision Niewersjonowany katalog on 2013-11-18 01:04:45.684645Z
       </div>
     </body>
     </html>

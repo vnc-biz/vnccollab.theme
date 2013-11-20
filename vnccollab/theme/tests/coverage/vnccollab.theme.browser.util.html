@@ -12,10 +12,10 @@
       <body><h1>Test coverage for vnccollab.theme.browser.util</h1>
       <table>
     
-<tr><td><a href="vnccollab.html">vnccollab/</a></td> <td style="background: red">&nbsp;&nbsp;&nbsp;&nbsp;</td> <td>covered 58% (1732 of 4159 uncovered)</td></tr>
-<tr><td><a href="vnccollab.theme.html">&nbsp;&nbsp;&nbsp;&nbsp;theme/</a></td> <td style="background: red">&nbsp;&nbsp;&nbsp;&nbsp;</td> <td>covered 58% (1732 of 4159 uncovered)</td></tr>
-<tr><td><a href="vnccollab.theme.browser.html">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;browser/</a></td> <td style="background: red">&nbsp;&nbsp;&nbsp;&nbsp;</td> <td>covered 52% (979 of 2059 uncovered)</td></tr>
-<tr><td><a href="vnccollab.theme.browser.util.html">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;util.py</a></td> <td style="background: red">&nbsp;&nbsp;&nbsp;&nbsp;</td> <td>covered 59% (53 of 130 uncovered)</td></tr>
+<tr><td><a href="vnccollab.html">vnccollab/</a></td> <td style="background: red">&nbsp;&nbsp;&nbsp;&nbsp;</td> <td>covered 68% (1329 of 4163 uncovered)</td></tr>
+<tr><td><a href="vnccollab.theme.html">&nbsp;&nbsp;&nbsp;&nbsp;theme/</a></td> <td style="background: red">&nbsp;&nbsp;&nbsp;&nbsp;</td> <td>covered 68% (1329 of 4163 uncovered)</td></tr>
+<tr><td><a href="vnccollab.theme.browser.html">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;browser/</a></td> <td style="background: red">&nbsp;&nbsp;&nbsp;&nbsp;</td> <td>covered 71% (586 of 2059 uncovered)</td></tr>
+<tr><td><a href="vnccollab.theme.browser.util.html">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;util.py</a></td> <td style="background: yellow">&nbsp;&nbsp;&nbsp;&nbsp;</td> <td>covered 96% (5 of 130 uncovered)</td></tr>
 </table><hr/>
 <pre>    1: import simplejson
        
@@ -110,14 +110,44 @@
                """Queries all contains in the site for a given term and returns
                json list of found containers.
                """
-<div class="notcovered">&gt;&gt;&gt;&gt;&gt;&gt;         limit = int(limit)</div><div class="notcovered">&gt;&gt;&gt;&gt;&gt;&gt;         if not term:</div><div class="notcovered">&gt;&gt;&gt;&gt;&gt;&gt;             return simplejson.dumps([])</div>       
-<div class="notcovered">&gt;&gt;&gt;&gt;&gt;&gt;         context = aq_inner(self.context)</div><div class="notcovered">&gt;&gt;&gt;&gt;&gt;&gt;         catalog = getToolByName(context, 'portal_catalog')</div>               # prepare search query
-<div class="notcovered">&gt;&gt;&gt;&gt;&gt;&gt;         for char in ('?', '-', '+', '*', u'\u3000'.encode('utf-8')):</div><div class="notcovered">&gt;&gt;&gt;&gt;&gt;&gt;             term = term.replace(char, ' ')</div><div class="notcovered">&gt;&gt;&gt;&gt;&gt;&gt;         r = " AND ".join(term.split())</div><div class="notcovered">&gt;&gt;&gt;&gt;&gt;&gt;         def quote_bad_chars(s):</div><div class="notcovered">&gt;&gt;&gt;&gt;&gt;&gt;             bad_chars = ["(", ")"]</div><div class="notcovered">&gt;&gt;&gt;&gt;&gt;&gt;             for char in bad_chars:</div><div class="notcovered">&gt;&gt;&gt;&gt;&gt;&gt;                 s = s.replace(char, '"%s"' % char)</div><div class="notcovered">&gt;&gt;&gt;&gt;&gt;&gt;             return s</div><div class="notcovered">&gt;&gt;&gt;&gt;&gt;&gt;         r = quote_bad_chars(r) + '*'</div>       
-<div class="notcovered">&gt;&gt;&gt;&gt;&gt;&gt;         data = []</div><div class="notcovered">&gt;&gt;&gt;&gt;&gt;&gt;         parents = {}</div><div class="notcovered">&gt;&gt;&gt;&gt;&gt;&gt;         for brain in catalog(SearchableText=r, is_folderish=True,</div><div class="notcovered">&gt;&gt;&gt;&gt;&gt;&gt;             sort_on='sortable_title', sort_limit=limit)[:limit]:</div><div class="notcovered">&gt;&gt;&gt;&gt;&gt;&gt;             parent = parents.get(brain.UID)</div><div class="notcovered">&gt;&gt;&gt;&gt;&gt;&gt;             if not parent:</div>                       parent = parents[brain.UID] = \
-<div class="notcovered">&gt;&gt;&gt;&gt;&gt;&gt;                     aq_parent(aq_inner(brain.getObject()))</div>                   
-<div class="notcovered">&gt;&gt;&gt;&gt;&gt;&gt;             ptitle = ''</div><div class="notcovered">&gt;&gt;&gt;&gt;&gt;&gt;             if parent:</div><div class="notcovered">&gt;&gt;&gt;&gt;&gt;&gt;                 ptitle = getattr(parent, 'Title', lambda:'')()</div><div class="notcovered">&gt;&gt;&gt;&gt;&gt;&gt;                 if ptitle:</div><div class="notcovered">&gt;&gt;&gt;&gt;&gt;&gt;                     ptitle = ' (%s)' % ptitle</div>                   
-<div class="notcovered">&gt;&gt;&gt;&gt;&gt;&gt;             data.append({</div><div class="notcovered">&gt;&gt;&gt;&gt;&gt;&gt;                 'value': brain.UID,</div><div class="notcovered">&gt;&gt;&gt;&gt;&gt;&gt;                 'label': '%s%s' % (brain.Title, ptitle),</div><div class="notcovered">&gt;&gt;&gt;&gt;&gt;&gt;                 'desc': brain.Description})</div>               
-<div class="notcovered">&gt;&gt;&gt;&gt;&gt;&gt;         return simplejson.dumps(data)</div>       
+    1:         limit = int(limit)
+    1:         if not term:
+<div class="notcovered">&gt;&gt;&gt;&gt;&gt;&gt;             return simplejson.dumps([])</div>       
+    1:         context = aq_inner(self.context)
+    1:         catalog = getToolByName(context, 'portal_catalog')
+               # prepare search query
+    6:         for char in ('?', '-', '+', '*', u'\u3000'.encode('utf-8')):
+    5:             term = term.replace(char, ' ')
+    1:         r = " AND ".join(term.split())
+    1:         def quote_bad_chars(s):
+    1:             bad_chars = ["(", ")"]
+    3:             for char in bad_chars:
+    2:                 s = s.replace(char, '"%s"' % char)
+    1:             return s
+    1:         r = quote_bad_chars(r) + '*'
+       
+    1:         data = []
+    1:         parents = {}
+    1:         for brain in catalog(SearchableText=r, is_folderish=True,
+    2:             sort_on='sortable_title', sort_limit=limit)[:limit]:
+    1:             parent = parents.get(brain.UID)
+    1:             if not parent:
+                       parent = parents[brain.UID] = \
+    1:                     aq_parent(aq_inner(brain.getObject()))
+                   
+    1:             ptitle = ''
+    1:             if parent:
+    1:                 ptitle = getattr(parent, 'Title', lambda:'')()
+    1:                 if ptitle:
+    1:                     ptitle = ' (%s)' % ptitle
+                   
+    1:             data.append({
+    1:                 'value': brain.UID,
+    1:                 'label': '%s%s' % (brain.Title, ptitle),
+    1:                 'desc': brain.Description})
+               
+    1:         return simplejson.dumps(data)
+       
     1:     def renderAddContentAreaViewlet(self, uid):
                """Renders add content area viewlet for object with given uid"""
     1:         context = aq_inner(self.context)
@@ -145,22 +175,40 @@
                File title is taken from file as filename.
                """
                # check it's post request
-<div class="notcovered">&gt;&gt;&gt;&gt;&gt;&gt;         if self.request.method != 'POST' or not file or not file.filename:</div><div class="notcovered">&gt;&gt;&gt;&gt;&gt;&gt;             raise Exception(u'Invalid request.')</div>               
-<div class="notcovered">&gt;&gt;&gt;&gt;&gt;&gt;         context = aq_inner(self.context)</div><div class="notcovered">&gt;&gt;&gt;&gt;&gt;&gt;         id = make_uuid('temp-id')</div>               # make sure our id is unique
-<div class="notcovered">&gt;&gt;&gt;&gt;&gt;&gt;         id = context.invokeFactory(id=id, type_name='File')</div><div class="notcovered">&gt;&gt;&gt;&gt;&gt;&gt;         obj = getattr(context, id)</div><div class="notcovered">&gt;&gt;&gt;&gt;&gt;&gt;         obj.update(title=file.filename, file=file)</div><div class="notcovered">&gt;&gt;&gt;&gt;&gt;&gt;         obj._renameAfterCreation()</div><div class="notcovered">&gt;&gt;&gt;&gt;&gt;&gt;         if obj.checkCreationFlag():</div><div class="notcovered">&gt;&gt;&gt;&gt;&gt;&gt;             obj.unmarkCreationFlag()</div><div class="notcovered">&gt;&gt;&gt;&gt;&gt;&gt;         obj._renameAfterCreation()</div><div class="notcovered">&gt;&gt;&gt;&gt;&gt;&gt;         obj.reindexObject()</div><div class="notcovered">&gt;&gt;&gt;&gt;&gt;&gt;         notify(ObjectInitializedEvent(obj))</div>               
+    3:         if self.request.method != 'POST' or not file or not file.filename:
+    1:             raise Exception(u'Invalid request.')
+               
+    2:         context = aq_inner(self.context)
+    2:         id = make_uuid('temp-id')
+               # make sure our id is unique
+    2:         id = context.invokeFactory(id=id, type_name='File')
+    2:         obj = getattr(context, id)
+    2:         obj.update(title=file.filename, file=file)
+    2:         obj._renameAfterCreation()
+    2:         if obj.checkCreationFlag():
+    2:             obj.unmarkCreationFlag()
+    2:         obj._renameAfterCreation()
+    2:         obj.reindexObject()
+    2:         notify(ObjectInitializedEvent(obj))
+               
                # if file is not there then it haven't got over validation process,
                # notify user about this issue
-<div class="notcovered">&gt;&gt;&gt;&gt;&gt;&gt;         if not obj.get_size():</div><div class="notcovered">&gt;&gt;&gt;&gt;&gt;&gt;             IStatusMessage(self.request).addStatusMessage(_(u"Attached file is "</div><div class="notcovered">&gt;&gt;&gt;&gt;&gt;&gt;                 "invalid, please, try to upload another one."), type="error")</div>               
+    2:         if not obj.get_size():
+<div class="notcovered">&gt;&gt;&gt;&gt;&gt;&gt;             IStatusMessage(self.request).addStatusMessage(_(u"Attached file is "</div><div class="notcovered">&gt;&gt;&gt;&gt;&gt;&gt;                 "invalid, please, try to upload another one."), type="error")</div>               
                # if posted by javascript then no redirect
-<div class="notcovered">&gt;&gt;&gt;&gt;&gt;&gt;         if self.request.form.get('ajax_call'):</div><div class="notcovered">&gt;&gt;&gt;&gt;&gt;&gt;             return '%s/edit' % obj.absolute_url()</div>               else:
-<div class="notcovered">&gt;&gt;&gt;&gt;&gt;&gt;             return self.request.response.redirect('%s/edit' %</div><div class="notcovered">&gt;&gt;&gt;&gt;&gt;&gt;                 obj.absolute_url())</div>       
+    2:         if self.request.form.get('ajax_call'):
+    1:             return '%s/edit' % obj.absolute_url()
+               else:
+    1:             return self.request.response.redirect('%s/edit' %
+    1:                 obj.absolute_url())
+       
     1:     def isPopupModeOn(self):
                """Returns whether popup mode is enabled"""
-   96:         return self.request.get('popup_mode') == '1'
+  103:         return self.request.get('popup_mode') == '1'
 </pre>
 
       <div class="footer">
-      Generated for revision wyeksportowane on 2013-11-05 18:00:40.809438Z
+      Generated for revision Niewersjonowany katalog on 2013-11-18 01:04:45.684645Z
       </div>
     </body>
     </html>

@@ -1,9 +1,36 @@
 import ast
+import json
 import urllib
 import transaction
+from base64 import decodestring
+from OFS.Image import File
+
+from plone.app.blob.tests.utils import getFile
+from plone.testing.z2 import Browser
+from plone.app.blob.tests.utils import makeFileUpload, getImage
+
+from ZPublisher.HTTPRequest import FileUpload
 
 from vnccollab.theme.tests.base import FunctionalTestCase
 from vnccollab.theme.testing import createObject
+from vnccollab.theme.browser.util import VNCCollabUtilView
+
+
+def makeResponse(request):
+    """ create a fake request and set up logging of output """
+    headers = {}
+    output = []
+    class Response:
+        def setHeader(self, header, value):
+            headers[header] = value
+        def write(self, msg):
+            output.append(msg)
+        def redirect(self, url):
+            output.append('redirect: %s' % url)
+            return url
+    request.RESPONSE = Response()
+    request.response = Response()
+    return headers, output, request
 
 
 class TestUtilView(FunctionalTestCase):
@@ -33,23 +60,29 @@ class TestUtilView(FunctionalTestCase):
         self.assertIn('step2', browser.contents)
         self.assertIn('step3', browser.contents)
 
-    # def test_search_containers_json(self):
-    #     browser = self.login()
+    def test_search_containers_json(self):
+        browser = self.login()
 
-    #     obj = createObject(self.portal, 'Document', 'test_doc', 
-    #                        title='A title',
-    #                        description='Some description',
-    #                        text='Some text')
+        obj = createObject(self.portal, 'Folder', 'test_folder', 
+                           title='A title',
+                           description='Some description',
+                           text='Some text')
 
-    #     # obj.SearchableText = 'Some description'
-    #     # self.catalog.indexObject(obj)
-    #     # transaction.commit()
-
-    #     browser.open(self.portal_url + '/@@search-containers.json',
-    #                  urllib.urlencode({'term': 'description'}))
-    #     self.assertIn('description', browser.contents)
+        browser.open(self.portal_url + '/@@search-containers.json',
+                     urllib.urlencode({'term': 'description'}))
+        result = json.loads(browser.contents)
+        self.assertTrue(len(result) > 0)
+        self.assertIn('desc', result[0])
+        self.assertIn('description', result[0]['desc'])
 
     def test_record_portlet_state(self):
+        browser = Browser(self.portal)
+        browser.open(self.portal_url + '/@@record-portlet-state',
+                     urllib.urlencode({'hash': '123',
+                                       'action': 'close',
+                                       'value': '1'}))
+        self.assertIn('error', browser.contents)
+
         browser = self.login()
 
         browser.open(self.portal_url + '/@@record-portlet-state',
@@ -74,3 +107,28 @@ class TestUtilView(FunctionalTestCase):
         self.assertIn('All', types)
         self.assertIn('Folder', types)
         self.assertIn('Page', types)
+
+    def test_uploadFile(self):
+        file = File('foo', 'Foo', getFile('plone.pdf'), 'application/pdf')
+        file.filename = 'foo.pdf'
+
+        myUpload = makeFileUpload(file, 'test.gif')
+        myUpload.method = 'GET'
+        view = VNCCollabUtilView(self.portal, myUpload)
+        self.assertRaises(Exception, lambda:  view.uploadFile(myUpload))
+
+        myUpload = makeFileUpload(file, 'test.gif')
+        myUpload.method = 'POST'
+        myUpload.form = {}
+        headers, output, request = makeResponse(myUpload)
+        view = VNCCollabUtilView(self.portal, request)
+        result = view.uploadFile(file)
+        self.assertEqual(result, 'http://nohost/plone/foo.pdf/edit')
+
+        myUpload = makeFileUpload(file, 'test.gif')
+        myUpload.method = 'POST'
+        myUpload.form = {'ajax_call': True}
+        headers, output, request = makeResponse(myUpload)
+        view = VNCCollabUtilView(self.portal, request)
+        result = view.uploadFile(file)
+        self.assertEqual(result, 'http://nohost/plone/foo.pdf-1/edit')

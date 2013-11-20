@@ -12,9 +12,9 @@
       <body><h1>Test coverage for vnccollab.theme.browser.portlet_manager</h1>
       <table>
     
-<tr><td><a href="vnccollab.html">vnccollab/</a></td> <td style="background: red">&nbsp;&nbsp;&nbsp;&nbsp;</td> <td>covered 58% (1732 of 4159 uncovered)</td></tr>
-<tr><td><a href="vnccollab.theme.html">&nbsp;&nbsp;&nbsp;&nbsp;theme/</a></td> <td style="background: red">&nbsp;&nbsp;&nbsp;&nbsp;</td> <td>covered 58% (1732 of 4159 uncovered)</td></tr>
-<tr><td><a href="vnccollab.theme.browser.html">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;browser/</a></td> <td style="background: red">&nbsp;&nbsp;&nbsp;&nbsp;</td> <td>covered 52% (979 of 2059 uncovered)</td></tr>
+<tr><td><a href="vnccollab.html">vnccollab/</a></td> <td style="background: red">&nbsp;&nbsp;&nbsp;&nbsp;</td> <td>covered 68% (1329 of 4163 uncovered)</td></tr>
+<tr><td><a href="vnccollab.theme.html">&nbsp;&nbsp;&nbsp;&nbsp;theme/</a></td> <td style="background: red">&nbsp;&nbsp;&nbsp;&nbsp;</td> <td>covered 68% (1329 of 4163 uncovered)</td></tr>
+<tr><td><a href="vnccollab.theme.browser.html">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;browser/</a></td> <td style="background: red">&nbsp;&nbsp;&nbsp;&nbsp;</td> <td>covered 71% (586 of 2059 uncovered)</td></tr>
 <tr><td><a href="vnccollab.theme.browser.portlet_manager.html">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;portlet_manager.py</a></td> <td style="background: red">&nbsp;&nbsp;&nbsp;&nbsp;</td> <td>covered 75% (17 of 70 uncovered)</td></tr>
 </table><hr/>
 <pre>    1: from AccessControl import getSecurityManager
@@ -99,21 +99,21 @@
        
     1:     def is_anonymous_group(self):
                '''true if we are viewing the dashboard for anonymous homepage.'''
-    3:         return self.request.get('key', '') == self.ANONYMOUS_KEY
+    4:         return self.request.get('key', '') == self.ANONYMOUS_KEY
        
     1:     def addable_portlets(self):
                '''Overrides parent's portlets to show only a few, if it's for
                anonymous group.'''
-    3:         portlets = editmanager.DashboardEditPortletManagerRenderer. \
-    3:             addable_portlets(self)
+    4:         portlets = editmanager.DashboardEditPortletManagerRenderer. \
+    4:             addable_portlets(self)
        
-    3:         if self.is_anonymous_group():
+    4:         if self.is_anonymous_group():
 <div class="notcovered">&gt;&gt;&gt;&gt;&gt;&gt;             allowed = []</div><div class="notcovered">&gt;&gt;&gt;&gt;&gt;&gt;             for portlet in portlets:</div><div class="notcovered">&gt;&gt;&gt;&gt;&gt;&gt;                 name = portlet['addview'].split('/')[-1]</div><div class="notcovered">&gt;&gt;&gt;&gt;&gt;&gt;                 if name in self.allowed_portlets:</div><div class="notcovered">&gt;&gt;&gt;&gt;&gt;&gt;                     allowed.append(portlet)</div><div class="notcovered">&gt;&gt;&gt;&gt;&gt;&gt;             return allowed</div>               else:
-    3:             return portlets
+    4:             return portlets
 </pre>
 
       <div class="footer">
-      Generated for revision wyeksportowane on 2013-11-05 18:00:40.809438Z
+      Generated for revision Niewersjonowany katalog on 2013-11-18 01:04:45.684645Z
       </div>
     </body>
     </html>

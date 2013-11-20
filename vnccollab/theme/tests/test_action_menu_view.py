@@ -30,21 +30,13 @@ class TestActionMenuView(FunctionalTestCase):
                                    setCcTLDN=True, setSubdomainN=True,
                                    setAuthOnlyN=True)
 
-        #lang_avail = LanguageAvailability()
-
-        #sm = getSiteManager()
-        #sm.registerUtility(lang_avail, provided=IContentLanguageAvailability)
         browser = self.login()
-        #http://127.0.0.1:8080/Plone/switchLanguage?set_language=de
         browser.open(self.portal_url + '/switchLanguage?set_language=de')
-        # print browser.contents
 
-        #vnccollab.theme.languageselector
         request = self.app.REQUEST
         context = self.portal
         view = View(context, request)
 
-        # 'vnccollab.theme.languageselector'
         manager1 = queryMultiAdapter((context, request, view), IViewletManager, 'plone.portalheader', default=None)
         manager1.update()
 
@@ -53,31 +45,3 @@ class TestActionMenuView(FunctionalTestCase):
 
         viewlet = queryMultiAdapter((aq_inner(context), request, view), 
             IViewletManager, name='vnccollab.theme.languageselector')
-        # print " ---+--- " * 5
-        # print viewlet
-        # print context, request, view
-        # print [v for v in manager1.viewlets]
-        # print " ---+--- " * 5
-
-        #browser.open(self.portal_url + '/@@language-controlpanel')
-        #print browser.contents
-        #browser.open(self.portal_url)
-        #self.assertNotIn('portal-languageselector', browser.contents)
-        #self.assertIn('personaltools-languageselector', browser.contents)
-
-        #print browser.contents
-        # tool = getToolByName(self.portal, 'portal_languages', None)
-        # defaultLanguage = 'en'
-        # supportedLanguages = ['en', 'de', 'no']
-        # if tool is not None:
-        #     tool.manage_setLanguageSettings(defaultLanguage,
-        #                                     supportedLanguages,
-        #                                     setUseCombinedLanguageCodes=False)
-        # print "\n", " ------- " * 10
-        # print tool
-        # print tool.getAvailableLanguageInformation()
-        # print tool.getLanguageBindings()
-        # print tool.showSelector()
-        # print " ------- " * 10
-        # browser.open(self.portal_url)
-        # print " ------- " * 10
