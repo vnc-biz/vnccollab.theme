@@ -1,0 +1,84 @@
+
+    <html>
+      <head><title>Test coverage for vnccollab.theme.setuphandlers</title>
+      <style type="text/css">
+        a {text-decoration: none; display: block; padding-right: 1em;}
+        a:hover {background: #EFA;}
+        hr {height: 1px; border: none; border-top: 1px solid gray;}
+        .notcovered {background: #FCC;}
+        .footer {margin: 2em; font-size: small; color: gray;}
+      </style>
+      </head>
+      <body><h1>Test coverage for vnccollab.theme.setuphandlers</h1>
+      <table>
+    
+<tr><td><a href="vnccollab.html">vnccollab/</a></td> <td style="background: red">&nbsp;&nbsp;&nbsp;&nbsp;</td> <td>covered 68% (1329 of 4163 uncovered)</td></tr>
+<tr><td><a href="vnccollab.theme.html">&nbsp;&nbsp;&nbsp;&nbsp;theme/</a></td> <td style="background: red">&nbsp;&nbsp;&nbsp;&nbsp;</td> <td>covered 68% (1329 of 4163 uncovered)</td></tr>
+<tr><td><a href="vnccollab.theme.setuphandlers.html">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;setuphandlers.py</a></td> <td style="background: green">&nbsp;&nbsp;&nbsp;&nbsp;</td> <td>covered 100% (0 of 26 uncovered)</td></tr>
+</table><hr/>
+<pre>    1: import logging
+       
+    1: from Products.CMFCore.utils import getToolByName
+       
+    1: from .config import CATALOG_INDEXES
+       
+    1: PROFILE_ID = 'profile-vnccollab.theme:default'
+       
+       
+    1: def setupVarious(context):
+       
+           # Ordinarily, GenericSetup handlers check for the existence of XML files.
+           # Here, we are not parsing an XML file, but we use this text file as a
+           # flag to check that we actually meant for this import step to be run.
+           # The file is found in profiles/default.
+       
+   46:     if context.readDataFile('vnccollab.theme_various.txt') is None:
+   45:         return
+       
+           # Add additional setup code here
+       
+    1: def import_catalog_indexes(context, logger=None):
+           """Method to add our wanted indexes to the portal_catalog.
+       
+           @parameters:
+       
+           When called from the import_various method below, 'context' is
+           the plone site and 'logger' is the portal_setup logger.  But
+           this method can also be used as upgrade step, in which case
+           'context' will be portal_setup and 'logger' will be None.
+           """
+    2:     if context.readDataFile('vnccollab.theme_catalog_indexes.txt') is None:
+    1:         return
+       
+    1:     if logger is None:
+               # Called as upgrade step: define our own logger.
+    1:         logger = logging.getLogger('vnccollab.theme')
+       
+           # Run the catalog.xml step as that may have defined new metadata
+           # columns.  We could instead add &lt;depends name="catalog"/&gt; to
+           # the registration of our import step in zcml, but doing it in
+           # code makes this method usable as upgrade step as well.
+           # Remove these lines when you have no catalog.xml file.
+    1:     portal = context.getSite()
+    1:     setup = getToolByName(portal, 'portal_setup')
+    1:     setup.runImportStepFromProfile(PROFILE_ID, 'catalog')
+       
+    1:     catalog = getToolByName(portal, 'portal_catalog')
+    1:     indexes = catalog.indexes()
+    1:     indexables = []
+    3:     for name, meta_type in CATALOG_INDEXES:
+    2:         if name not in indexes:
+    2:             catalog.addIndex(name, meta_type)
+    2:             indexables.append(name)
+    2:             logger.info("Added %s for field %s.", meta_type, name)
+    1:     if len(indexables) &gt; 0:
+    1:         logger.info("Indexing new indexes %s.", ', '.join(indexables))
+               # TODO: make this code work, now it raises error
+    1:         catalog.manage_reindexIndex(ids=indexables)
+</pre>
+
+      <div class="footer">
+      Generated for revision Niewersjonowany katalog on 2013-11-18 01:04:45.684645Z
+      </div>
+    </body>
+    </html>

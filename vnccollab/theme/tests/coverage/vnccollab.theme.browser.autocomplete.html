@@ -1,0 +1,80 @@
+
+    <html>
+      <head><title>Test coverage for vnccollab.theme.browser.autocomplete</title>
+      <style type="text/css">
+        a {text-decoration: none; display: block; padding-right: 1em;}
+        a:hover {background: #EFA;}
+        hr {height: 1px; border: none; border-top: 1px solid gray;}
+        .notcovered {background: #FCC;}
+        .footer {margin: 2em; font-size: small; color: gray;}
+      </style>
+      </head>
+      <body><h1>Test coverage for vnccollab.theme.browser.autocomplete</h1>
+      <table>
+    
+<tr><td><a href="vnccollab.html">vnccollab/</a></td> <td style="background: red">&nbsp;&nbsp;&nbsp;&nbsp;</td> <td>covered 68% (1329 of 4163 uncovered)</td></tr>
+<tr><td><a href="vnccollab.theme.html">&nbsp;&nbsp;&nbsp;&nbsp;theme/</a></td> <td style="background: red">&nbsp;&nbsp;&nbsp;&nbsp;</td> <td>covered 68% (1329 of 4163 uncovered)</td></tr>
+<tr><td><a href="vnccollab.theme.browser.html">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;browser/</a></td> <td style="background: red">&nbsp;&nbsp;&nbsp;&nbsp;</td> <td>covered 71% (586 of 2059 uncovered)</td></tr>
+<tr><td><a href="vnccollab.theme.browser.autocomplete.html">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;autocomplete.py</a></td> <td style="background: red">&nbsp;&nbsp;&nbsp;&nbsp;</td> <td>covered 25% (43 of 58 uncovered)</td></tr>
+</table><hr/>
+<pre>    1: import simplejson
+       
+    1: from plone import api
+    1: from plone.memoize import instance
+    1: from Products.Five.browser import BrowserView
+    1: from Products.CMFPlone.utils import safe_unicode
+       
+    1: from vnccollab.theme.util import getZimbraClient
+       
+       
+    2: class EmailAutoCompleteView(BrowserView):
+    1:     '''Returns a json object with the mail infoemail of users given a string.'''
+       
+    1:     def __call__(self):
+<div class="notcovered">&gt;&gt;&gt;&gt;&gt;&gt;         search = self.request.form.get('search', '').lower()</div><div class="notcovered">&gt;&gt;&gt;&gt;&gt;&gt;         info = self.mail_info()</div><div class="notcovered">&gt;&gt;&gt;&gt;&gt;&gt;         info = self.filter(info, search)</div><div class="notcovered">&gt;&gt;&gt;&gt;&gt;&gt;         return simplejson.dumps(info)</div>       
+    1:     def filter(self, info, search):
+<div class="notcovered">&gt;&gt;&gt;&gt;&gt;&gt;         return [x for x in info if (search in x[0].lower())</div><div class="notcovered">&gt;&gt;&gt;&gt;&gt;&gt;                                 or (search in x[1].lower())]</div>       
+    1:     def mail_info(self):
+               '''Returns a list with the mail info of all account associated to the
+               current user.
+       
+               Each mail info is a tuple with the form
+       
+                       (email, title)
+       
+               where title is a string with the form
+       
+                       'Name (login) &lt;email&gt;'.
+               '''
+<div class="notcovered">&gt;&gt;&gt;&gt;&gt;&gt;         plone_info = self.mail_info_from_plone()</div><div class="notcovered">&gt;&gt;&gt;&gt;&gt;&gt;         zimbra_info = self.mail_info_from_zimbra_address_book()</div>       
+<div class="notcovered">&gt;&gt;&gt;&gt;&gt;&gt;         info = plone_info[:]</div><div class="notcovered">&gt;&gt;&gt;&gt;&gt;&gt;         mails = [x[0] for x in info]</div><div class="notcovered">&gt;&gt;&gt;&gt;&gt;&gt;         for x in zimbra_info:</div><div class="notcovered">&gt;&gt;&gt;&gt;&gt;&gt;             if x[0] not in mails:</div><div class="notcovered">&gt;&gt;&gt;&gt;&gt;&gt;                 info.append(x)</div><div class="notcovered">&gt;&gt;&gt;&gt;&gt;&gt;         info.sort(lambda x, y: cmp(x[1], y[1]))</div><div class="notcovered">&gt;&gt;&gt;&gt;&gt;&gt;         return info</div>       
+    1:     @instance.memoize
+           def mail_info_from_plone(self):
+               '''Returns the mail info from all plone users.'''
+<div class="notcovered">&gt;&gt;&gt;&gt;&gt;&gt;         users = api.user.get_users()</div><div class="notcovered">&gt;&gt;&gt;&gt;&gt;&gt;         return [_mail_info_from_user(x) for x in users]</div>       
+    1:     @instance.memoize
+           def mail_info_from_zimbra_address_book(self):
+               '''Returns the mail info from the zimbra address book of the current
+               user.'''
+<div class="notcovered">&gt;&gt;&gt;&gt;&gt;&gt;         client = getZimbraClient(self.context)</div><div class="notcovered">&gt;&gt;&gt;&gt;&gt;&gt;         if client is None:</div><div class="notcovered">&gt;&gt;&gt;&gt;&gt;&gt;             return []</div>       
+<div class="notcovered">&gt;&gt;&gt;&gt;&gt;&gt;         address_book = client.get_address_book()</div><div class="notcovered">&gt;&gt;&gt;&gt;&gt;&gt;         mail_info = [_mail_info_from_zimbra(x) for x in address_book]</div><div class="notcovered">&gt;&gt;&gt;&gt;&gt;&gt;         mail_info = [x for x in mail_info if x is not None]</div><div class="notcovered">&gt;&gt;&gt;&gt;&gt;&gt;         return mail_info</div>       
+       
+    1: def _mail_info_from_user(user):
+           '''Converts a plone user into a mail info.'''
+<div class="notcovered">&gt;&gt;&gt;&gt;&gt;&gt;     id = user.getProperty('id')</div><div class="notcovered">&gt;&gt;&gt;&gt;&gt;&gt;     email = user.getProperty('email')</div><div class="notcovered">&gt;&gt;&gt;&gt;&gt;&gt;     name = user.getProperty('fullname')</div>       
+<div class="notcovered">&gt;&gt;&gt;&gt;&gt;&gt;     if id == email:</div><div class="notcovered">&gt;&gt;&gt;&gt;&gt;&gt;         title = '{0} &lt;{1}&gt;'.format(name, email)</div>           else:
+<div class="notcovered">&gt;&gt;&gt;&gt;&gt;&gt;         title = '{0} ({1}) &lt;{2}&gt;'.format(name, id, email)</div><div class="notcovered">&gt;&gt;&gt;&gt;&gt;&gt;     return (email, safe_unicode(title))</div>       
+       
+    1: def _mail_info_from_zimbra(user):
+<div class="notcovered">&gt;&gt;&gt;&gt;&gt;&gt;     name = user._getAttr('fileAsStr')</div><div class="notcovered">&gt;&gt;&gt;&gt;&gt;&gt;     if name is None:</div><div class="notcovered">&gt;&gt;&gt;&gt;&gt;&gt;         return None</div>       
+           # Coverts 'Surname, Name' in 'Name Surname'
+<div class="notcovered">&gt;&gt;&gt;&gt;&gt;&gt;     name = ' '.join([a.strip() for a in name.split(',')[::-1]])</div>           # TODO: How #$%"/&amp; to get the mail?
+<div class="notcovered">&gt;&gt;&gt;&gt;&gt;&gt;     email = [x for x in user.a if '@' in x]</div><div class="notcovered">&gt;&gt;&gt;&gt;&gt;&gt;     if not email:</div><div class="notcovered">&gt;&gt;&gt;&gt;&gt;&gt;         return None</div>       
+<div class="notcovered">&gt;&gt;&gt;&gt;&gt;&gt;     email = email[0]</div>           # TODO: zimbra is not returning unicode
+<div class="notcovered">&gt;&gt;&gt;&gt;&gt;&gt;     name = safe_unicode(name)</div><div class="notcovered">&gt;&gt;&gt;&gt;&gt;&gt;     email = safe_unicode(email)</div><div class="notcovered">&gt;&gt;&gt;&gt;&gt;&gt;     title = u'{0} &lt;{1}&gt;'.format(name, email)</div><div class="notcovered">&gt;&gt;&gt;&gt;&gt;&gt;     return (email, title)</div></pre>
+
+      <div class="footer">
+      Generated for revision Niewersjonowany katalog on 2013-11-18 01:04:45.684645Z
+      </div>
+    </body>
+    </html>

@@ -1,0 +1,126 @@
+
+    <html>
+      <head><title>Test coverage for vnccollab.theme.testing</title>
+      <style type="text/css">
+        a {text-decoration: none; display: block; padding-right: 1em;}
+        a:hover {background: #EFA;}
+        hr {height: 1px; border: none; border-top: 1px solid gray;}
+        .notcovered {background: #FCC;}
+        .footer {margin: 2em; font-size: small; color: gray;}
+      </style>
+      </head>
+      <body><h1>Test coverage for vnccollab.theme.testing</h1>
+      <table>
+    
+<tr><td><a href="vnccollab.html">vnccollab/</a></td> <td style="background: red">&nbsp;&nbsp;&nbsp;&nbsp;</td> <td>covered 68% (1329 of 4163 uncovered)</td></tr>
+<tr><td><a href="vnccollab.theme.html">&nbsp;&nbsp;&nbsp;&nbsp;theme/</a></td> <td style="background: red">&nbsp;&nbsp;&nbsp;&nbsp;</td> <td>covered 68% (1329 of 4163 uncovered)</td></tr>
+<tr><td><a href="vnccollab.theme.testing.html">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;testing.py</a></td> <td style="background: orange">&nbsp;&nbsp;&nbsp;&nbsp;</td> <td>covered 84% (12 of 77 uncovered)</td></tr>
+</table><hr/>
+<pre>    1: import sys
+    1: import transaction
+    1: from StringIO import StringIO
+       
+       #import zope.component
+       #from zope.publisher.http import HTTPCharsets
+    1: from zope.interface import alsoProvides
+    1: from zope.publisher.browser import setDefaultSkin #, BrowserLanguages
+    1: from z3c.form.interfaces import IFormLayer
+    1: from ZPublisher.HTTPResponse import HTTPResponse
+    1: from ZPublisher.HTTPRequest import HTTPRequest
+       
+    1: from plone.app.testing import PloneSandboxLayer
+    1: from plone.app.testing import applyProfile
+    1: from plone.app.testing import PLONE_FIXTURE
+    1: from plone.app.testing import IntegrationTesting
+    1: from plone.app.testing import FunctionalTesting
+    1: from plone.testing import z2
+       
+    1: from zope.configuration import xmlconfig
+       
+    1: try:
+    1:     import vnccollab.cloudcast
+<div class="notcovered">&gt;&gt;&gt;&gt;&gt;&gt; except ImportError:</div><div class="notcovered">&gt;&gt;&gt;&gt;&gt;&gt;     CAST_ENABLED = False</div>       else:
+    1:     CAST_ENABLED = True
+       
+       
+    2: class VNCThemeContent(PloneSandboxLayer):
+    1:     defaultBases = (PLONE_FIXTURE,)
+       
+    1:     def setUpZope(self, app, configurationContext):
+               # zope.component.provideAdapter(HTTPCharsets)
+               # zope.component.provideAdapter(BrowserLanguages)
+               # Load ZCML
+    1:         depedencies = ['collective.customizablePersonalizeForm',
+    1:                        'collective.vaporisation', 'collective.quickupload',
+    1:                        'plone.formwidget.autocomplete', 'Products.Carousel',
+    1:                        'vnccollab.theme', 'collective.autopermission',
+    1:                        'plone.app.iterate',
+    1:                        'Products.PloneLanguageTool'] #, 'plone.i18n', 'plone.app.i18n']
+       
+    1:         if CAST_ENABLED:
+    1:             depedencies.extend([
+                       #'collective.customizablePersonalizeForm',
+    1:                 'plone.api', 'plone.app.discussion',
+    1:                 'collective.prettydate', 'five.grok',
+    1:                 'collective.autogroup','vnccollab.cloudcast',
+    1:                 'vnccollab.cloudmobile'])
+       
+   17:         for package in depedencies:
+   16:             module = __import__(package, fromlist=[''])
+   16:             self.loadZCML(package=module)
+       
+    1:         if CAST_ENABLED:
+    1:             z2.installProduct(app, 'vnccollab.cloudcast')
+       
+    1:         z2.installProduct(app, 'Products.PloneLanguageTool')
+    1:         z2.installProduct(app, 'plone.app.locales')
+               # z2.installProduct(app, 'plone.app.layout')
+               # z2.installProduct(app, 'plone.app.i18n')
+    1:         z2.installProduct(app, 'vnccollab.theme')
+    1:         z2.installProduct(app, 'Products.PythonScripts')
+       
+       
+    1:     def setUpPloneSite(self, portal):
+               # Installs all the Plone stuff. Workflows etc.
+    1:         self.applyProfile(portal, 'Products.CMFPlone:plone')
+               # Install portal content. Including the Members folder!
+    1:         self.applyProfile(portal, 'Products.CMFPlone:plone-content')
+               #self.applyProfile(portal, 'Products.PloneLanguageTool:plone-default')
+    1:         self.applyProfile(portal, 'vnccollab.theme:default')
+    1:         if CAST_ENABLED:
+    1:             self.applyProfile(portal, 'vnccollab.cloudcast:default')
+       
+       
+    1: VNCCOLLAB_THEME_FIXTURE = VNCThemeContent()
+    1: VNCCOLLAB_THEME_INTEGRATION_TESTING = IntegrationTesting(
+    1:     bases=(VNCCOLLAB_THEME_FIXTURE,),
+    1:     name='VNCThemeContent:Integration')
+    1: VNCCOLLAB_THEME_FUNCTIONAL_TESTING = FunctionalTesting(
+    1:     bases=(VNCCOLLAB_THEME_FIXTURE,),
+    1:     name='VNCThemeContent:Functional')
+       
+       
+    1: def setObjDate(obj, dt):
+           """Prevent update of modification date 
+              during reindexing"""
+<div class="notcovered">&gt;&gt;&gt;&gt;&gt;&gt;     obj.setCreationDate(dt)</div><div class="notcovered">&gt;&gt;&gt;&gt;&gt;&gt;     obj.setEffectiveDate(dt)</div><div class="notcovered">&gt;&gt;&gt;&gt;&gt;&gt;     obj.setModificationDate(dt)</div><div class="notcovered">&gt;&gt;&gt;&gt;&gt;&gt;     od = obj.__dict__</div><div class="notcovered">&gt;&gt;&gt;&gt;&gt;&gt;     od['notifyModified'] = lambda *args: None</div><div class="notcovered">&gt;&gt;&gt;&gt;&gt;&gt;     obj.reindexObject()</div><div class="notcovered">&gt;&gt;&gt;&gt;&gt;&gt;     del od['notifyModified']</div>       
+       
+    1: def createObject(context, _type, id, delete_first=True, check_for_first=False,
+    1:                  object_date=None, **kwargs):
+   96:     result = None
+   96:     if delete_first and id in context.objectIds():
+<div class="notcovered">&gt;&gt;&gt;&gt;&gt;&gt;         context.manage_delObjects([id])</div>   96:     if not check_for_first or id not in context.objectIds():
+   96:         result = context[context.invokeFactory(_type, id, **kwargs)]
+           else:
+<div class="notcovered">&gt;&gt;&gt;&gt;&gt;&gt;         result = context[id]</div>       
+   96:     if object_date:
+<div class="notcovered">&gt;&gt;&gt;&gt;&gt;&gt;         setObjDate(result, object_date)</div>       
+   96:     transaction.commit()
+   96:     return result
+</pre>
+
+      <div class="footer">
+      Generated for revision Niewersjonowany katalog on 2013-11-18 01:04:45.684645Z
+      </div>
+    </body>
+    </html>

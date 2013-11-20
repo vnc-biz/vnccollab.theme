@@ -1,6 +1,31 @@
 Changelog
 =========
 
+1.7.6 - November 20, 2013
+-------------------------
+
+- Overrides table.pt and remove icon, fixes icon position.
+  [Cesar Gonzalez]
+
+- Adds spaca between icons in the sprite and re-style icon positions.
+  [Cesar Gonzalez]
+
+- Remove xmpp chat dependencies from theme package.
+  [Vitaliy Podoba]
+
+- Style social buttons on user author page.
+  [Vitaliy Podoba]
+
+- Add external user homepage link to user profile page.
+  [Vitaliy Podoba]
+
+- Adjust notification template and inline style. [8085].
+  [Cesar Gonzalez]
+
+- Change template for sendto [8084].
+  [Marcin Staniszczak]
+
+
 1.7.5 - October 24, 2013
 ------------------------
 
@@ -72,6 +97,7 @@ Changelog
 
 - Update site header coding [8509].
   [Marcin Staniszczak]
+
 
 1.7.4 - September 12, 2013
 --------------------------

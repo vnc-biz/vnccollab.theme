@@ -30,7 +30,7 @@ from plone.registry.interfaces import IRegistry
 from plone.portlets.interfaces import IPortletManager, IPortletRenderer
 
 from Products.Carousel.browser.viewlet import CarouselViewlet
-from jarn.xmpp.core.browser.viewlet import XMPPViewlet
+# from jarn.xmpp.core.browser.viewlet import XMPPViewlet
 
 from collective.quickupload.portlet.quickuploadportlet import JAVASCRIPT
 
@@ -627,17 +627,17 @@ class CastViewletBase(object):
         return False
 
 
-class CustomXMPPViewlet(XMPPViewlet, CastViewletBase):
-
-    index = ViewPageTemplateFile('templates/xmpp_viewlet.pt')
-
-    def update(self):
-        super(CustomXMPPViewlet, self).update()
-
-        # prepare link to first cast container on the site, of course if cast
-        # feature is enabled
-        self.cast_url = self.get_cast_url()
-        self.cast_url = self.cast_url if self.cast_url else ''
+# class CustomXMPPViewlet(XMPPViewlet, CastViewletBase):
+# 
+#     index = ViewPageTemplateFile('templates/xmpp_viewlet.pt')
+# 
+#     def update(self):
+#         super(CustomXMPPViewlet, self).update()
+# 
+#         # prepare link to first cast container on the site, of course if cast
+#         # feature is enabled
+#         self.cast_url = self.get_cast_url()
+#         self.cast_url = self.cast_url if self.cast_url else ''
 
 
 class HeaderLinksIconsViewlet(FaviconViewlet):

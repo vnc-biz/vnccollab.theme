@@ -1,0 +1,88 @@
+
+    <html>
+      <head><title>Test coverage for vnccollab.theme.portlets.dashlet</title>
+      <style type="text/css">
+        a {text-decoration: none; display: block; padding-right: 1em;}
+        a:hover {background: #EFA;}
+        hr {height: 1px; border: none; border-top: 1px solid gray;}
+        .notcovered {background: #FCC;}
+        .footer {margin: 2em; font-size: small; color: gray;}
+      </style>
+      </head>
+      <body><h1>Test coverage for vnccollab.theme.portlets.dashlet</h1>
+      <table>
+    
+<tr><td><a href="vnccollab.html">vnccollab/</a></td> <td style="background: red">&nbsp;&nbsp;&nbsp;&nbsp;</td> <td>covered 68% (1329 of 4163 uncovered)</td></tr>
+<tr><td><a href="vnccollab.theme.html">&nbsp;&nbsp;&nbsp;&nbsp;theme/</a></td> <td style="background: red">&nbsp;&nbsp;&nbsp;&nbsp;</td> <td>covered 68% (1329 of 4163 uncovered)</td></tr>
+<tr><td><a href="vnccollab.theme.portlets.html">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;portlets/</a></td> <td style="background: red">&nbsp;&nbsp;&nbsp;&nbsp;</td> <td>covered 66% (375 of 1108 uncovered)</td></tr>
+<tr><td><a href="vnccollab.theme.portlets.dashlet.html">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;dashlet.py</a></td> <td style="background: orange">&nbsp;&nbsp;&nbsp;&nbsp;</td> <td>covered 86% (6 of 46 uncovered)</td></tr>
+</table><hr/>
+<pre>    1: from zope.formlib import form
+    1: from zope.interface import implements
+    1: from zope import schema
+       
+    1: from Products.Five.browser.pagetemplatefile import ZopeTwoPageTemplateFile
+       
+    1: from plone.portlets.interfaces import IPortletDataProvider
+    1: from plone.app.portlets.portlets import base
+       
+    1: from vnccollab.theme import messageFactory as _
+       
+       
+    2: class IDashletPortlet(IPortletDataProvider):
+       
+    1:     header = schema.TextLine(
+    1:         title=_(u"Header"),
+    1:         description=_(u"Header of the portlet."),
+    1:         required=True,
+    1:         default=u'My Dashlet')
+       
+    1:     zimbra_url = schema.URI(
+    1:         title=_(u"Zimbra service URL"),
+    1:         description=_(u"Root url to your Zimbra service."),
+    1:         required=True,
+    1:         default='https://zcs.vnc.biz')
+       
+    1:     count = schema.Int(title=_(u'Number of items to display'),
+    1:         description=_(u'How many items to list.'),
+    1:         required=True,
+    1:         default=5)
+       
+       
+    2: class Assignment(base.Assignment):
+    1:     implements(IDashletPortlet)
+       
+    1:     header = u'My Dashlet'
+    1:     zimbra_url = 'https://zcs.vnc.biz'
+    1:     count = 5
+       
+    1:     @property
+           def title(self):
+               """Return portlet header"""
+<div class="notcovered">&gt;&gt;&gt;&gt;&gt;&gt;         return self.header</div>       
+    1:     def __init__(self, header=u'My Dashlet', zimbra_url=None, count=5):
+<div class="notcovered">&gt;&gt;&gt;&gt;&gt;&gt;         self.header = header</div><div class="notcovered">&gt;&gt;&gt;&gt;&gt;&gt;         self.count = count</div><div class="notcovered">&gt;&gt;&gt;&gt;&gt;&gt;         if zimbra_url is not None:</div><div class="notcovered">&gt;&gt;&gt;&gt;&gt;&gt;             self.zimbra_url = zimbra_url</div>       
+       
+    2: class Renderer(base.Renderer):
+    1:     render = ZopeTwoPageTemplateFile('templates/dashlet.pt')
+       
+       
+    2: class AddForm(base.AddForm):
+    1:     form_fields = form.Fields(IDashletPortlet)
+    1:     label = _(u"Add Dashlet portlet")
+    1:     description = _(u"A portlet displaying news, messages, articles...")
+       
+    1:     def create(self, data):
+<div class="notcovered">&gt;&gt;&gt;&gt;&gt;&gt;         return Assignment(**data)</div>       
+       
+    2: class EditForm(base.EditForm):
+    1:     form_fields = form.Fields(IDashletPortlet)
+    1:     label = _(u"Edit Dashlet portlet")
+    1:     description = _(u"A portlet displaying news, messages, articles...")
+</pre>
+
+      <div class="footer">
+      Generated for revision Niewersjonowany katalog on 2013-11-18 01:04:45.684645Z
+      </div>
+    </body>
+    </html>

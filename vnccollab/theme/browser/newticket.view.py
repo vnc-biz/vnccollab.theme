@@ -18,7 +18,6 @@ class NewTicketForm(BrowserView):
         return self.render()
 
     def setItems(self):
-        import pdb;pdb.set_trace()
         redmine = FileTicketForm(self.context, self.request)
         redmine.update()
         xxx = redmine.render()

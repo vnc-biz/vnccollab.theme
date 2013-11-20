@@ -53,3 +53,15 @@ def upgrade_1110_1111(context):
         run_dependencies=False)
     setup.runImportStepFromProfile(DEFAULT_PROFILE, 'viewlets',
         run_dependencies=False)
+
+def upgrade_1111_1112(context):
+    '''Upgrades registry and other settings'''
+    setup = getToolByName(context, 'portal_setup')
+    setup.runImportStepFromProfile(DEFAULT_PROFILE, 'jsregistry',
+        run_dependencies=False)
+
+def upgrade_1112_1113(context):
+    '''Upgrades registry and other settings'''
+    setup = getToolByName(context, 'portal_setup')
+    setup.runImportStepFromProfile(DEFAULT_PROFILE, 'jsregistry',
+        run_dependencies=False)

@@ -1,0 +1,100 @@
+
+    <html>
+      <head><title>Test coverage for vnccollab.theme.portlets.generic_iframe</title>
+      <style type="text/css">
+        a {text-decoration: none; display: block; padding-right: 1em;}
+        a:hover {background: #EFA;}
+        hr {height: 1px; border: none; border-top: 1px solid gray;}
+        .notcovered {background: #FCC;}
+        .footer {margin: 2em; font-size: small; color: gray;}
+      </style>
+      </head>
+      <body><h1>Test coverage for vnccollab.theme.portlets.generic_iframe</h1>
+      <table>
+    
+<tr><td><a href="vnccollab.html">vnccollab/</a></td> <td style="background: red">&nbsp;&nbsp;&nbsp;&nbsp;</td> <td>covered 68% (1329 of 4163 uncovered)</td></tr>
+<tr><td><a href="vnccollab.theme.html">&nbsp;&nbsp;&nbsp;&nbsp;theme/</a></td> <td style="background: red">&nbsp;&nbsp;&nbsp;&nbsp;</td> <td>covered 68% (1329 of 4163 uncovered)</td></tr>
+<tr><td><a href="vnccollab.theme.portlets.html">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;portlets/</a></td> <td style="background: red">&nbsp;&nbsp;&nbsp;&nbsp;</td> <td>covered 66% (375 of 1108 uncovered)</td></tr>
+<tr><td><a href="vnccollab.theme.portlets.generic_iframe.html">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;generic_iframe.py</a></td> <td style="background: orange">&nbsp;&nbsp;&nbsp;&nbsp;</td> <td>covered 87% (7 of 54 uncovered)</td></tr>
+</table><hr/>
+<pre>    1: import logging
+       
+    1: from zope.formlib import form
+    1: from zope.interface import implements
+    1: from zope import schema
+       
+    1: from Products.Five.browser.pagetemplatefile import ZopeTwoPageTemplateFile
+    1: from plone.portlets.interfaces import IPortletDataProvider
+    1: from plone.app.portlets.portlets import base
+       
+    1: from vnccollab.theme import messageFactory as _
+       
+    1: logger = logging.getLogger('vnccollab.theme.GenericIframePortlet')
+       
+       
+    2: class IGenericIframePortlet(IPortletDataProvider):
+       
+    1:     header = schema.TextLine(
+    1:         title=_(u"Header"),
+    1:         description=_(u"Header of the portlet."),
+    1:         required=True,
+    1:         default=u'Generic IFrame')
+       
+    1:     uri = schema.URI(
+    1:         title=_(u"URL of the Iframe"),
+    1:         description=_(u"URL of the site to include."),
+    1:         required=True)
+       
+    1:     width = schema.Int(
+    1:         title=_(u"Width"),
+    1:         default=200,
+    1:         required=True)
+       
+    1:     height = schema.Int(
+    1:         title=_(u"Height"),
+    1:         default=200,
+    1:         required=True)
+       
+       
+    2: class Assignment(base.Assignment):
+    1:     implements(IGenericIframePortlet)
+       
+    1:     header = u'Generic IFrame'
+    1:     uri = u''
+    1:     width = 200
+    1:     height = 200
+       
+    1:     def __init__(self, header=u'', uri=u'', width=200, height=200):
+<div class="notcovered">&gt;&gt;&gt;&gt;&gt;&gt;         self.header = header</div><div class="notcovered">&gt;&gt;&gt;&gt;&gt;&gt;         self.uri = uri</div><div class="notcovered">&gt;&gt;&gt;&gt;&gt;&gt;         self.width = width</div><div class="notcovered">&gt;&gt;&gt;&gt;&gt;&gt;         self.height = height</div>       
+    1:     @property
+           def title(self):
+               """Return portlet header"""
+<div class="notcovered">&gt;&gt;&gt;&gt;&gt;&gt;         return self.header</div>       
+       
+    2: class Renderer(base.Renderer):
+    1:     render = ZopeTwoPageTemplateFile('templates/generic_iframe.pt')
+       
+    1:     @property
+           def title(self):
+               """return title of feed for portlet"""
+<div class="notcovered">&gt;&gt;&gt;&gt;&gt;&gt;         return self.data.header</div>       
+       
+    2: class AddForm(base.AddForm):
+    1:     form_fields = form.Fields(IGenericIframePortlet)
+    1:     label = _(u"Add Generic Iframe Portlet")
+    1:     description = _(u"Renders an external page inside a portlet.")
+       
+    1:     def create(self, data):
+<div class="notcovered">&gt;&gt;&gt;&gt;&gt;&gt;         return Assignment(**data)</div>       
+       
+    2: class EditForm(base.EditForm):
+    1:     form_fields = form.Fields(IGenericIframePortlet)
+    1:     label = _(u"Edit Generic Iframe Portlet")
+    1:     description = _(u"Renders an external page inside a portlet.")
+</pre>
+
+      <div class="footer">
+      Generated for revision Niewersjonowany katalog on 2013-11-18 01:04:45.684645Z
+      </div>
+    </body>
+    </html>

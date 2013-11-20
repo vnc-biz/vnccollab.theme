@@ -1,0 +1,244 @@
+
+    <html>
+      <head><title>Test coverage for vnccollab.theme.settings</title>
+      <style type="text/css">
+        a {text-decoration: none; display: block; padding-right: 1em;}
+        a:hover {background: #EFA;}
+        hr {height: 1px; border: none; border-top: 1px solid gray;}
+        .notcovered {background: #FCC;}
+        .footer {margin: 2em; font-size: small; color: gray;}
+      </style>
+      </head>
+      <body><h1>Test coverage for vnccollab.theme.settings</h1>
+      <table>
+    
+<tr><td><a href="vnccollab.html">vnccollab/</a></td> <td style="background: red">&nbsp;&nbsp;&nbsp;&nbsp;</td> <td>covered 68% (1329 of 4163 uncovered)</td></tr>
+<tr><td><a href="vnccollab.theme.html">&nbsp;&nbsp;&nbsp;&nbsp;theme/</a></td> <td style="background: red">&nbsp;&nbsp;&nbsp;&nbsp;</td> <td>covered 68% (1329 of 4163 uncovered)</td></tr>
+<tr><td><a href="vnccollab.theme.settings.html">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;settings.py</a></td> <td style="background: orange">&nbsp;&nbsp;&nbsp;&nbsp;</td> <td>covered 84% (29 of 183 uncovered)</td></tr>
+</table><hr/>
+<pre>    1: from zope import schema
+    1: from zope.interface import Interface
+    1: from zope.component import getUtility, provideAdapter
+       
+    1: from plone import api
+    1: from plone.registry.interfaces import IRegistry
+    1: from plone.app.registry.browser import controlpanel
+    1: from plone.autoform.form import AutoExtensibleForm
+    1: from z3c.form import form, button, datamanager
+    1: from Products.statusmessages.interfaces import IStatusMessage
+    1: from Products.Five.browser.pagetemplatefile import ViewPageTemplateFile
+       
+    1: from vnccollab.theme import messageFactory as _
+       
+       
+    1: provideAdapter(datamanager.DictionaryField)
+       
+       
+    2: class IWorldClockSettings(Interface):
+       
+    1:     tz_1 = schema.Choice(
+    1:         title=_(u"Clock 1 Timezone"),
+    1:         description=u'',
+    1:         required=True,
+    1:         vocabulary='vnccollab.theme.vocabularies.TimeZonesVocabulary',
+    1:         default='Europe/Berlin')
+       
+    1:     skin_1 = schema.Choice(
+    1:         title=_(u"Clock 1 Skin"),
+    1:         description=u'',
+    1:         required=True,
+<div class="notcovered">&gt;&gt;&gt;&gt;&gt;&gt;         values=('chunkySwiss', 'chunkySwissOnBlack', 'swissRail', 'vnc',</div>    1:                 'vncHeaderViewlet'),
+    1:         default='vncHeaderViewlet')
+       
+    1:     radius_1 = schema.Int(
+    1:         title=_(u"Clock 1 Radius"),
+    1:         description=u'',
+    1:         required=True,
+    1:         default=35)
+       
+    1:     no_seconds_1 = schema.Bool(
+    1:         title=_(u"Clock 1 Without Seconds"),
+    1:         description=_(u"Do not show seconds handle."),
+    1:         required=False,
+    1:         default=False)
+       
+    1:     tz_2 = schema.Choice(
+    1:         title=_(u"Clock 2 Timezone"),
+    1:         description=u'',
+    1:         required=False,
+    1:         vocabulary='vnccollab.theme.vocabularies.TimeZonesVocabulary',
+    1:         default='Asia/Mumbai')
+       
+    1:     skin_2 = schema.Choice(
+    1:         title=_(u"Clock 2 Skin"),
+    1:         description=u'',
+    1:         required=True,
+<div class="notcovered">&gt;&gt;&gt;&gt;&gt;&gt;         values=('chunkySwiss', 'chunkySwissOnBlack', 'swissRail', 'vnc',</div>    1:                 'vncHeaderViewlet'),
+    1:         default='vncHeaderViewlet')
+       
+    1:     radius_2 = schema.Int(
+    1:         title=_(u"Clock 2 Radius"),
+    1:         description=u'',
+    1:         required=False,
+    1:         default=35)
+       
+    1:     no_seconds_2 = schema.Bool(
+    1:         title=_(u"Clock 2 Without Seconds"),
+    1:         description=_(u"Do not show seconds handle."),
+    1:         required=False,
+    1:         default=False)
+       
+    1:     tz_3 = schema.Choice(
+    1:         title=_(u"Clock 3 Timezone"),
+    1:         description=u'',
+    1:         required=False,
+    1:         vocabulary='vnccollab.theme.vocabularies.TimeZonesVocabulary',
+    1:         default='America/New_York')
+       
+    1:     skin_3 = schema.Choice(
+    1:         title=_(u"Clock 3 Skin"),
+    1:         description=u'',
+    1:         required=True,
+<div class="notcovered">&gt;&gt;&gt;&gt;&gt;&gt;         values=('chunkySwiss', 'chunkySwissOnBlack', 'swissRail', 'vnc',</div>    1:                 'vncHeaderViewlet'),
+    1:         default='vncHeaderViewlet')
+       
+    1:     radius_3 = schema.Int(
+    1:         title=_(u"Clock 3 Radius"),
+    1:         description=u'',
+    1:         required=False,
+    1:         default=35)
+       
+    1:     no_seconds_3 = schema.Bool(
+    1:         title=_(u"Clock 3 Without Seconds"),
+    1:         description=_(u"Do not show seconds handle."),
+    1:         required=False,
+    1:         default=False)
+       
+       
+    2: class WorldClockSettingsEditForm(controlpanel.RegistryEditForm):
+    1:     schema = IWorldClockSettings
+    1:     label = _(u'WorldClock Settings')
+    1:     description = _(u'')
+       
+    1:     def updateFields(self):
+<div class="notcovered">&gt;&gt;&gt;&gt;&gt;&gt;         super(WorldClockSettingsEditForm, self).updateFields()</div>       
+    1:     def updateWidgets(self):
+<div class="notcovered">&gt;&gt;&gt;&gt;&gt;&gt;         super(WorldClockSettingsEditForm, self).updateWidgets()</div>       
+       
+    2: class WorldClockSettingsControlPanel(controlpanel.ControlPanelFormWrapper):
+    1:     form = WorldClockSettingsEditForm
+       
+       
+    2: class IOpenERPSettings(Interface):
+           ''' Global OpenERP Settings.
+       
+           Here you define that action ids associate with the database.
+    1:     '''
+    1:     openerpActions = schema.List(
+    1:         title=u'OpenERP Actions',
+    1:         description=u"Actions, one for line in the format 'id,description'. "
+                           u"DO NOT use commas in the description",
+    1:         value_type=schema.TextLine(),
+    1:         required=True,
+    1:         default=[],
+           )
+       
+       
+    2: class OpenERPSettingsEditForm(controlpanel.RegistryEditForm):
+    1:     schema = IOpenERPSettings
+    1:     label = u'OpenERP Settings'
+    1:     description = _(u"""""")
+       
+       
+    2: class OpenERPSettingsControlPanel(controlpanel.ControlPanelFormWrapper):
+    1:     form = OpenERPSettingsEditForm
+       
+       
+    2: class IAnonymousHomepageSettings(Interface):
+    1:     """Anonymous Homepage Settings."""
+    1:     help_url = schema.URI(
+    1:         title=(u'Help URL'),
+    1:         description=_(u'URL of the page that shows the site help.'),
+    1:         required=False,
+           )
+       
+       
+    2: class IAnonymousHomepageForm(IAnonymousHomepageSettings):
+    1:     """Anonymous Homepage Form."""
+    1:     logo = schema.Bytes(
+    1:         title=_(u'Homepage Logo'),
+    1:         description=_(u'Upload an image to set or replace the site logo'),
+    1:         required=False,
+           )
+       
+    1:     delete_logo = schema.Bool(
+    1:         title=_(u"Delete Logo"),
+    1:         description=_(u"Delete the customized logo."),
+    1:         required=False,
+    1:         default=False)
+       
+       
+    2: class AnonymousHomepageSettingsEditForm(AutoExtensibleForm, form.EditForm):
+    1:     schema = IAnonymousHomepageForm
+    1:     label = u'Anonymous Homepage Settings'
+    1:     description = _(u"""""")
+       
+           # Internal fields: not to be configured.
+    1:     control_panel_view = "plone_control_panel"
+    1:     registry_key_base = 'vnccollab.theme.settings.IAnonymousHomepageSettings'
+    1:     help_url_key = '{0}.help_url'.format(registry_key_base)
+       
+    1:     def getContent(self):
+<div class="notcovered">&gt;&gt;&gt;&gt;&gt;&gt;         registry = getUtility(IRegistry)</div><div class="notcovered">&gt;&gt;&gt;&gt;&gt;&gt;         help_url = registry.get(self.help_url_key, '')</div><div class="notcovered">&gt;&gt;&gt;&gt;&gt;&gt;         return {'help_url': help_url}</div>       
+    1:     def applyChanges(self, data):
+    3:         registry = getUtility(IRegistry)
+    3:         help_url = data.get('help_url', '')
+    3:         delete_logo = data['delete_logo']
+    3:         logo = data['logo']
+       
+    3:         registry[self.help_url_key] = help_url
+       
+    3:         portal = api.portal.get()
+    3:         custom_skin = portal.portal_skins.custom
+    3:         destination = custom_skin
+       
+    3:         if delete_logo or logo:
+    2:             current_logo = api.content.get(
+    2:                 path='/portal_skins/custom/logo.png')
+    2:             if current_logo:
+                       # logo.png could be not defined in ZODB, so current_logo
+                       # could be not None and not deleteable
+    2:                 try:
+    2:                     api.content.delete(current_logo)
+    1:                 except:
+    1:                     pass
+       
+    3:         if logo:
+    1:             destination.manage_addProduct['OFSP'].manage_addImage('logo.png',
+    1:                                                                   logo)
+       
+    1:     def updateActions(self):
+<div class="notcovered">&gt;&gt;&gt;&gt;&gt;&gt;         super(AutoExtensibleForm, self).updateActions()</div><div class="notcovered">&gt;&gt;&gt;&gt;&gt;&gt;         self.actions['save'].addClass("context")</div><div class="notcovered">&gt;&gt;&gt;&gt;&gt;&gt;         self.actions['cancel'].addClass("standalone")</div>       
+    1:     @button.buttonAndHandler(_(u"Save"), name='save')
+           def handleSave(self, action):
+<div class="notcovered">&gt;&gt;&gt;&gt;&gt;&gt;         data, errors = self.extractData()</div><div class="notcovered">&gt;&gt;&gt;&gt;&gt;&gt;         if errors:</div><div class="notcovered">&gt;&gt;&gt;&gt;&gt;&gt;             self.status = self.formErrorsMessage</div><div class="notcovered">&gt;&gt;&gt;&gt;&gt;&gt;             return</div><div class="notcovered">&gt;&gt;&gt;&gt;&gt;&gt;         self.applyChanges(data)</div><div class="notcovered">&gt;&gt;&gt;&gt;&gt;&gt;         IStatusMessage(self.request).addStatusMessage(_(u"Changes saved."),</div><div class="notcovered">&gt;&gt;&gt;&gt;&gt;&gt;                                                       "info")</div><div class="notcovered">&gt;&gt;&gt;&gt;&gt;&gt;         self.request.response.redirect("%s/%s" % (self.context.absolute_url(),</div><div class="notcovered">&gt;&gt;&gt;&gt;&gt;&gt;                                                   self.control_panel_view))</div>       
+    1:     @button.buttonAndHandler(_(u"Cancel"), name='cancel')
+           def handleCancel(self, action):
+<div class="notcovered">&gt;&gt;&gt;&gt;&gt;&gt;         IStatusMessage(self.request).addStatusMessage(_(u"Edit cancelled."),</div><div class="notcovered">&gt;&gt;&gt;&gt;&gt;&gt;                                                       "info")</div><div class="notcovered">&gt;&gt;&gt;&gt;&gt;&gt;         self.request.response.redirect("%s/%s" % (self.context.absolute_url(),</div><div class="notcovered">&gt;&gt;&gt;&gt;&gt;&gt;                                                   self.control_panel_view))</div>       
+    1:     @button.buttonAndHandler(_(u'Edit Home Page'), name='edit')
+           def handleEdit(self, action):
+<div class="notcovered">&gt;&gt;&gt;&gt;&gt;&gt;         self.request.response.redirect("%s/%s" % (self.context.absolute_url(),</div><div class="notcovered">&gt;&gt;&gt;&gt;&gt;&gt;             '@@manage-group-dashboard?key=AnonymousUsers'))</div>       
+    1:     @button.buttonAndHandler(_(u'Edit Carousel'), name='carousel')
+           def handleCarousel(self, action):
+<div class="notcovered">&gt;&gt;&gt;&gt;&gt;&gt;         portal = api.portal.get()</div><div class="notcovered">&gt;&gt;&gt;&gt;&gt;&gt;         self.request.response.redirect("%s/%s" % (portal.absolute_url(),</div><div class="notcovered">&gt;&gt;&gt;&gt;&gt;&gt;             '@@edit-carousel'))</div>       
+       
+    2: class AnonymousHomepageSettingsControlPanel(controlpanel.ControlPanelFormWrapper):
+    1:     index = ViewPageTemplateFile('browser/templates/anonhomepage_controlpanel_layout.pt')
+    1:     form = AnonymousHomepageSettingsEditForm
+</pre>
+
+      <div class="footer">
+      Generated for revision Niewersjonowany katalog on 2013-11-18 01:04:45.684645Z
+      </div>
+    </body>
+    </html>

@@ -1,0 +1,85 @@
+
+    <html>
+      <head><title>Test coverage for vnccollab.theme.browser.newticket</title>
+      <style type="text/css">
+        a {text-decoration: none; display: block; padding-right: 1em;}
+        a:hover {background: #EFA;}
+        hr {height: 1px; border: none; border-top: 1px solid gray;}
+        .notcovered {background: #FCC;}
+        .footer {margin: 2em; font-size: small; color: gray;}
+      </style>
+      </head>
+      <body><h1>Test coverage for vnccollab.theme.browser.newticket</h1>
+      <table>
+    
+<tr><td><a href="vnccollab.html">vnccollab/</a></td> <td style="background: red">&nbsp;&nbsp;&nbsp;&nbsp;</td> <td>covered 68% (1329 of 4163 uncovered)</td></tr>
+<tr><td><a href="vnccollab.theme.html">&nbsp;&nbsp;&nbsp;&nbsp;theme/</a></td> <td style="background: red">&nbsp;&nbsp;&nbsp;&nbsp;</td> <td>covered 68% (1329 of 4163 uncovered)</td></tr>
+<tr><td><a href="vnccollab.theme.browser.html">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;browser/</a></td> <td style="background: red">&nbsp;&nbsp;&nbsp;&nbsp;</td> <td>covered 71% (586 of 2059 uncovered)</td></tr>
+<tr><td><a href="vnccollab.theme.browser.newticket.html">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;newticket.py</a></td> <td style="background: red">&nbsp;&nbsp;&nbsp;&nbsp;</td> <td>covered 73% (14 of 52 uncovered)</td></tr>
+</table><hr/>
+<pre>    1: from zope import schema
+    1: from zope.interface import implements, alsoProvides, Interface, Invalid
+    1: from Products.Five.browser.pagetemplatefile import ViewPageTemplateFile as FiveViewPageTemplateFile
+       
+       
+    1: from z3c.form import form, field, button
+    1: import z3c.form.interfaces
+    1: from plone.z3cform.layout import FormWrapper, wrap_form
+       
+    1: from vnccollab.theme import messageFactory as _
+    1: from vnccollab.theme.vocabularies import SimpleVocabularyFactory
+    1: from vnccollab.theme.browser.zimbratask import IZimbraTaskForm, ZimbraTaskForm
+    1: from vnccollab.theme.browser.file_issue import IFileTicketForm, FileTicketForm
+       
+       
+    2: class INewTicketForm(Interface):
+           """
+    1:     """
+    1:     type_of_ticket = schema.Choice(
+    1:         title = _(u'Type of Ticket'),
+    1:         description = _(u''),
+    1:         vocabulary = 'vnccollab.theme.vocabularies.NewTicketVocabulary',
+    1:         required = True)
+       
+    2: class NewTicketFormBase(form.Form):
+    1:     """New Ticket Base Form. It's just a selector."""
+    1:     implements(INewTicketForm)
+    1:     fields = field.Fields(INewTicketForm)
+    1:     ignoreContext = True
+    1:     label = _(u'New Ticket')
+    1:     description = u'Allows you to create a Redmine Ticket or Zimbra Task.'
+    1:     id = 'new_ticket_form'
+       
+    1:     def updateWidgets(self):
+<div class="notcovered">&gt;&gt;&gt;&gt;&gt;&gt;         form.Form.updateWidgets(self)</div><div class="notcovered">&gt;&gt;&gt;&gt;&gt;&gt;         if (('redmine_task_form.buttons.create' in  self.request.form)</div><div class="notcovered">&gt;&gt;&gt;&gt;&gt;&gt;                 or ('zimbra_task_form.buttons.create' in self.request.form)):</div>                   # Shows subform selector only first time
+<div class="notcovered">&gt;&gt;&gt;&gt;&gt;&gt;             self.widgets['type_of_ticket'].mode = z3c.form.interfaces.HIDDEN_MODE</div>       
+       
+    2: class ZimbraTaskFormWrapper(FormWrapper):
+    1:     """Wrapper form for New Zimbra Task"""
+    1:     form = ZimbraTaskForm
+       
+       
+    2: class FileTicketFormWrapper(FormWrapper):
+    1:     """Wrapper form for New Redmine Ticket"""
+    1:     form = FileTicketForm
+       
+       
+    2: class NewTicketForm(FormWrapper):
+    1:     """Wrapper form for New Task. It combines Zimbra and Redmine Forms."""
+    1:     form = NewTicketFormBase
+    1:     index = FiveViewPageTemplateFile('templates/newticket.pt')
+       
+    1:     def __init__(self, context, request):
+<div class="notcovered">&gt;&gt;&gt;&gt;&gt;&gt;         FormWrapper.__init__(self, context, request)</div><div class="notcovered">&gt;&gt;&gt;&gt;&gt;&gt;         self.context = context</div><div class="notcovered">&gt;&gt;&gt;&gt;&gt;&gt;         self.request = request</div><div class="notcovered">&gt;&gt;&gt;&gt;&gt;&gt;         self.zimbra = ZimbraTaskFormWrapper(context, request)</div><div class="notcovered">&gt;&gt;&gt;&gt;&gt;&gt;         self.redmine = FileTicketFormWrapper(context, request)</div>       
+    1:     def update(self):
+<div class="notcovered">&gt;&gt;&gt;&gt;&gt;&gt;         FormWrapper.update(self)</div><div class="notcovered">&gt;&gt;&gt;&gt;&gt;&gt;         if 'redmine_task_form.buttons.create' not in self.request.form:</div>                   # Shows zimbra form only if redmine was not chosen
+<div class="notcovered">&gt;&gt;&gt;&gt;&gt;&gt;             self.zimbra.update()</div><div class="notcovered">&gt;&gt;&gt;&gt;&gt;&gt;         if 'zimbra_task_form.buttons.create' not in self.request.form:</div>                   # Shows redmine form only if zimbra was not chosen
+<div class="notcovered">&gt;&gt;&gt;&gt;&gt;&gt;             self.redmine.update()</div>       
+       
+</pre>
+
+      <div class="footer">
+      Generated for revision Niewersjonowany katalog on 2013-11-18 01:04:45.684645Z
+      </div>
+    </body>
+    </html>

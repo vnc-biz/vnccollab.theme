@@ -1,0 +1,166 @@
+
+    <html>
+      <head><title>Test coverage for vnccollab.theme.browser.file_issue</title>
+      <style type="text/css">
+        a {text-decoration: none; display: block; padding-right: 1em;}
+        a:hover {background: #EFA;}
+        hr {height: 1px; border: none; border-top: 1px solid gray;}
+        .notcovered {background: #FCC;}
+        .footer {margin: 2em; font-size: small; color: gray;}
+      </style>
+      </head>
+      <body><h1>Test coverage for vnccollab.theme.browser.file_issue</h1>
+      <table>
+    
+<tr><td><a href="vnccollab.html">vnccollab/</a></td> <td style="background: red">&nbsp;&nbsp;&nbsp;&nbsp;</td> <td>covered 68% (1329 of 4163 uncovered)</td></tr>
+<tr><td><a href="vnccollab.theme.html">&nbsp;&nbsp;&nbsp;&nbsp;theme/</a></td> <td style="background: red">&nbsp;&nbsp;&nbsp;&nbsp;</td> <td>covered 68% (1329 of 4163 uncovered)</td></tr>
+<tr><td><a href="vnccollab.theme.browser.html">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;browser/</a></td> <td style="background: red">&nbsp;&nbsp;&nbsp;&nbsp;</td> <td>covered 71% (586 of 2059 uncovered)</td></tr>
+<tr><td><a href="vnccollab.theme.browser.file_issue.html">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;file_issue.py</a></td> <td style="background: red">&nbsp;&nbsp;&nbsp;&nbsp;</td> <td>covered 52% (71 of 149 uncovered)</td></tr>
+</table><hr/>
+<pre>    1: import logging
+    1: from pyactiveresource.activeresource import ActiveResource
+       
+    1: from Acquisition import aq_inner
+    1: from ZODB.POSException import ConflictError
+       
+    1: from zope import schema
+    1: from zope.component import getMultiAdapter, getUtility
+    1: from zope.interface import implements, Interface, Invalid
+    1: from zope.app.pagetemplate.viewpagetemplatefile import ViewPageTemplateFile
+       
+    1: from Products.CMFCore.utils import getToolByName
+    1: from Products.CMFPlone.utils import safe_unicode
+    1: from Products.statusmessages.interfaces import IStatusMessage
+       
+    1: from z3c.form import form, field, button
+    1: from z3c.form.interfaces import IErrorViewSnippet
+    1: from plone.z3cform.layout import wrap_form
+    1: from plone.registry.interfaces import IRegistry
+    1: from plone.memoize.instance import memoize
+    1: from plone.memoize import ram
+       
+    1: from collective.z3cform.datepicker.widget import DatePickerFieldWidget
+       
+    1: from vnccollab.theme import messageFactory as _
+    1: from vnccollab.theme.portlets.zimbra_mail import logException
+       
+       
+    1: logger = logging.getLogger('vnccollab.theme.redmine_file_ticket')
+       
+       
+       # TODO: display error message above form
+       
+       
+    2: class IFileTicketForm(Interface):
+       
+    1:     project = schema.Choice(
+    1:         title=_(u"Project"),
+    1:         description=_(u"Pick project to post issue to."),
+    1:         vocabulary='vnccollab.theme.vocabularies.ProjectsRedmineVocabulary',
+    1:         required=True)
+       
+    1:     tracker = schema.Choice(
+    1:         title=_(u"Tracker"),
+    1:         description=u'',
+    1:         vocabulary='vnccollab.theme.vocabularies.TrackersRedmineVocabulary',
+    1:         required=True)
+       
+    1:     subject = schema.TextLine(
+    1:         title=_(u"Subject"),
+    1:         description=u'',
+    1:         required=True)
+       
+    1:     description = schema.Text(
+    1:         title=_(u"Description"),
+    1:         description=u'',
+    1:         required=False,
+    1:         default=u'')
+       
+    1:     priority = schema.Choice(
+    1:         title=_(u"Priority"),
+    1:         description=u'',
+    1:         vocabulary='vnccollab.theme.vocabularies.PrioritiesRedmineVocabulary',
+    1:         required=True)
+       
+    1:     asignee = schema.Choice(
+    1:         title=_(u"Asignee"),
+    1:         description=u'',
+    1:         vocabulary='vnccollab.theme.vocabularies.UsersRedmineVocabulary',
+    1:         required=False)
+       
+    1:     start_date = schema.Date(
+    1:         title=_(u"Start date"),
+    1:         description=u'',
+    1:         required=False)
+       
+    1:     due_date = schema.Date(
+    1:         title=_(u"Due date"),
+    1:         description=u'',
+    1:         required=False)
+       
+    1:     estimated_time = schema.ASCIILine(
+    1:         title=_(u"Estimated time (hours)"),
+    1:         description=u'',
+    1:         required=False)
+       
+       
+    2: class FileTicketForm(form.Form):
+       
+    1:     implements(IFileTicketForm)
+       
+    1:     ignoreContext = True
+    1:     label = _(u"New Issue")
+           #description = u'This form will post new redmine issue.'
+    1:     id = 'file_ticket_form'
+    1:     prefix = 'redmine_task_form'
+       
+    1:     formErrorsMessage = _(u"There were some errors.")
+    1:     successMessage = _(u"Ticket was created successfully.")
+       
+    1:     fields = field.Fields(IFileTicketForm)
+       
+    1:     fields['start_date'].widgetFactory = DatePickerFieldWidget
+    1:     fields['due_date'].widgetFactory = DatePickerFieldWidget
+       
+    1:     @property
+           def action(self):
+               """See interfaces.IInputForm"""
+<div class="notcovered">&gt;&gt;&gt;&gt;&gt;&gt;         return self.context.absolute_url() + '/@@' + self.__name__</div>       
+    1:     @button.buttonAndHandler(_(u"Create"), name='create')
+           def handleCreate(self, action):
+               """Create redmine ticket using REST API."""
+<div class="notcovered">&gt;&gt;&gt;&gt;&gt;&gt;         data, errors = self.extractData()</div><div class="notcovered">&gt;&gt;&gt;&gt;&gt;&gt;         if errors:</div><div class="notcovered">&gt;&gt;&gt;&gt;&gt;&gt;             self.status = self.formErrorsMessage</div><div class="notcovered">&gt;&gt;&gt;&gt;&gt;&gt;             return</div>       
+               # check user redmine credentials and redmine url/field id
+<div class="notcovered">&gt;&gt;&gt;&gt;&gt;&gt;         registry = getUtility(IRegistry)</div><div class="notcovered">&gt;&gt;&gt;&gt;&gt;&gt;         url = registry.get('vnccollab.theme.redmine.url')</div><div class="notcovered">&gt;&gt;&gt;&gt;&gt;&gt;         field_id = registry.get('vnccollab.theme.redmine.plone_uid_field_id')</div><div class="notcovered">&gt;&gt;&gt;&gt;&gt;&gt;         username, password = self.getAuthCredentials()</div><div class="notcovered">&gt;&gt;&gt;&gt;&gt;&gt;         if not username or not password or not url or not field_id:</div><div class="notcovered">&gt;&gt;&gt;&gt;&gt;&gt;             if not username or not password:</div><div class="notcovered">&gt;&gt;&gt;&gt;&gt;&gt;                 msg = _(u"Please, set correct redmine username and password in "</div>                       "your profile form in order to create redmine issue.")
+                   else:
+<div class="notcovered">&gt;&gt;&gt;&gt;&gt;&gt;                 msg = _(u"Please, set Redmine URL and ID settings in Control "</div>                           " Panel (Configuration Registry).")
+       
+                   # issue form level error
+<div class="notcovered">&gt;&gt;&gt;&gt;&gt;&gt;             self.status = msg</div><div class="notcovered">&gt;&gt;&gt;&gt;&gt;&gt;             error = getMultiAdapter((Invalid(u''), self.request, None,</div><div class="notcovered">&gt;&gt;&gt;&gt;&gt;&gt;                 None, self, self.context), IErrorViewSnippet)</div><div class="notcovered">&gt;&gt;&gt;&gt;&gt;&gt;             error.update()</div><div class="notcovered">&gt;&gt;&gt;&gt;&gt;&gt;             self.widgets.errors += (error,)</div><div class="notcovered">&gt;&gt;&gt;&gt;&gt;&gt;             return</div>       
+               # finally trying to post new issue
+<div class="notcovered">&gt;&gt;&gt;&gt;&gt;&gt;         Issue = type("Issue", (ActiveResource,), {'_site': url, '_user':</div><div class="notcovered">&gt;&gt;&gt;&gt;&gt;&gt;             username, '_password': password})</div><div class="notcovered">&gt;&gt;&gt;&gt;&gt;&gt;         try:</div><div class="notcovered">&gt;&gt;&gt;&gt;&gt;&gt;             start_date = data.get('start_date') or ''</div><div class="notcovered">&gt;&gt;&gt;&gt;&gt;&gt;             if start_date:</div><div class="notcovered">&gt;&gt;&gt;&gt;&gt;&gt;                 start_date = start_date.strftime('%Y-%m-%d')</div><div class="notcovered">&gt;&gt;&gt;&gt;&gt;&gt;             due_date = data.get('due_date') or ''</div><div class="notcovered">&gt;&gt;&gt;&gt;&gt;&gt;             if due_date:</div><div class="notcovered">&gt;&gt;&gt;&gt;&gt;&gt;                 due_date = due_date.strftime('%Y-%m-%d')</div>       
+<div class="notcovered">&gt;&gt;&gt;&gt;&gt;&gt;             issue = Issue({</div><div class="notcovered">&gt;&gt;&gt;&gt;&gt;&gt;                 'project_id': data['project'],</div><div class="notcovered">&gt;&gt;&gt;&gt;&gt;&gt;                 'subject': data['subject'].encode('utf-8'),</div><div class="notcovered">&gt;&gt;&gt;&gt;&gt;&gt;                 'tracker_id': data['tracker'],</div><div class="notcovered">&gt;&gt;&gt;&gt;&gt;&gt;                 'description': (data.get('description') or u'').encode('utf-8'),</div><div class="notcovered">&gt;&gt;&gt;&gt;&gt;&gt;                 'priority_id': data['priority'],</div><div class="notcovered">&gt;&gt;&gt;&gt;&gt;&gt;                 'assigned_to_id': data.get('asignee') or '',</div><div class="notcovered">&gt;&gt;&gt;&gt;&gt;&gt;                 'start_date': start_date,</div><div class="notcovered">&gt;&gt;&gt;&gt;&gt;&gt;                 'due_date': due_date,</div><div class="notcovered">&gt;&gt;&gt;&gt;&gt;&gt;                 'estimated_hours': data.get('estimated_time') or '',</div><div class="notcovered">&gt;&gt;&gt;&gt;&gt;&gt;                 'custom_fields': [{'value': self.context.UID(),</div><div class="notcovered">&gt;&gt;&gt;&gt;&gt;&gt;                     'id': '%d' % field_id}]</div>                   })
+<div class="notcovered">&gt;&gt;&gt;&gt;&gt;&gt;             created = issue.save()</div><div class="notcovered">&gt;&gt;&gt;&gt;&gt;&gt;         except Exception, e:</div>                   # issue form level error
+<div class="notcovered">&gt;&gt;&gt;&gt;&gt;&gt;             logException(_(u"Error during creating redmine issue at %s" %</div><div class="notcovered">&gt;&gt;&gt;&gt;&gt;&gt;                 self.context.absolute_url()), context=self.context,</div><div class="notcovered">&gt;&gt;&gt;&gt;&gt;&gt;                 logger=logger)</div><div class="notcovered">&gt;&gt;&gt;&gt;&gt;&gt;             plone_utils = getToolByName(self.context, 'plone_utils')</div><div class="notcovered">&gt;&gt;&gt;&gt;&gt;&gt;             exception = plone_utils.exceptionString()</div><div class="notcovered">&gt;&gt;&gt;&gt;&gt;&gt;             self.status = _(u"Unable create issue: ${exception}",</div><div class="notcovered">&gt;&gt;&gt;&gt;&gt;&gt;                 mapping={u'exception' : exception})</div><div class="notcovered">&gt;&gt;&gt;&gt;&gt;&gt;             error = getMultiAdapter((Invalid(u''), self.request, None,</div><div class="notcovered">&gt;&gt;&gt;&gt;&gt;&gt;                 None, self, self.context), IErrorViewSnippet)</div><div class="notcovered">&gt;&gt;&gt;&gt;&gt;&gt;             error.update()</div><div class="notcovered">&gt;&gt;&gt;&gt;&gt;&gt;             self.widgets.errors += (error,)</div><div class="notcovered">&gt;&gt;&gt;&gt;&gt;&gt;             return</div>               else:
+                   # check if issue was created successfully
+<div class="notcovered">&gt;&gt;&gt;&gt;&gt;&gt;             if not created:</div><div class="notcovered">&gt;&gt;&gt;&gt;&gt;&gt;                 self.status = _(u"Issue wasn't created, please, check your "</div>                           "settings or contact site administrator if you are sure "
+                           "your settings are set properly.")
+<div class="notcovered">&gt;&gt;&gt;&gt;&gt;&gt;                 error = getMultiAdapter((Invalid(u''), self.request, None,</div><div class="notcovered">&gt;&gt;&gt;&gt;&gt;&gt;                     None, self, self.context), IErrorViewSnippet)</div><div class="notcovered">&gt;&gt;&gt;&gt;&gt;&gt;                 error.update()</div><div class="notcovered">&gt;&gt;&gt;&gt;&gt;&gt;                 self.widgets.errors += (error,)</div><div class="notcovered">&gt;&gt;&gt;&gt;&gt;&gt;                 return</div>       
+               # add status message
+<div class="notcovered">&gt;&gt;&gt;&gt;&gt;&gt;         self.status = self.successMessage</div><div class="notcovered">&gt;&gt;&gt;&gt;&gt;&gt;         IStatusMessage(self.request).addStatusMessage(self.successMessage,</div><div class="notcovered">&gt;&gt;&gt;&gt;&gt;&gt;             type='info')</div>       
+               # redirect to success page to gather number of emailed pages
+<div class="notcovered">&gt;&gt;&gt;&gt;&gt;&gt;         came_from = self.request.get('HTTP_REFERER') or self.context.absolute_url()</div><div class="notcovered">&gt;&gt;&gt;&gt;&gt;&gt;         return self.request.response.redirect(came_from)</div>       
+    1:     @memoize
+           def getAuthCredentials(self):
+               """Returns username and password for redmine user."""
+               # take username and password from authenticated user Zimbra creds
+<div class="notcovered">&gt;&gt;&gt;&gt;&gt;&gt;         mtool = getToolByName(self.context, 'portal_membership')</div><div class="notcovered">&gt;&gt;&gt;&gt;&gt;&gt;         member = mtool.getAuthenticatedMember()</div><div class="notcovered">&gt;&gt;&gt;&gt;&gt;&gt;         username, password = member.getProperty('redmine_username', ''), \</div><div class="notcovered">&gt;&gt;&gt;&gt;&gt;&gt;             member.getProperty('redmine_password', '')</div>               # password could contain non-ascii chars, ensure it's properly encoded
+<div class="notcovered">&gt;&gt;&gt;&gt;&gt;&gt;         return username, safe_unicode(password).encode('utf-8')</div>       
+    1: FileTicketFormView = wrap_form(FileTicketForm)
+</pre>
+
+      <div class="footer">
+      Generated for revision Niewersjonowany katalog on 2013-11-18 01:04:45.684645Z
+      </div>
+    </body>
+    </html>

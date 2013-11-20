@@ -1,0 +1,135 @@
+
+    <html>
+      <head><title>Test coverage for vnccollab.theme.browser.zimbratask</title>
+      <style type="text/css">
+        a {text-decoration: none; display: block; padding-right: 1em;}
+        a:hover {background: #EFA;}
+        hr {height: 1px; border: none; border-top: 1px solid gray;}
+        .notcovered {background: #FCC;}
+        .footer {margin: 2em; font-size: small; color: gray;}
+      </style>
+      </head>
+      <body><h1>Test coverage for vnccollab.theme.browser.zimbratask</h1>
+      <table>
+    
+<tr><td><a href="vnccollab.html">vnccollab/</a></td> <td style="background: red">&nbsp;&nbsp;&nbsp;&nbsp;</td> <td>covered 68% (1329 of 4163 uncovered)</td></tr>
+<tr><td><a href="vnccollab.theme.html">&nbsp;&nbsp;&nbsp;&nbsp;theme/</a></td> <td style="background: red">&nbsp;&nbsp;&nbsp;&nbsp;</td> <td>covered 68% (1329 of 4163 uncovered)</td></tr>
+<tr><td><a href="vnccollab.theme.browser.html">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;browser/</a></td> <td style="background: red">&nbsp;&nbsp;&nbsp;&nbsp;</td> <td>covered 71% (586 of 2059 uncovered)</td></tr>
+<tr><td><a href="vnccollab.theme.browser.zimbratask.html">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;zimbratask.py</a></td> <td style="background: red">&nbsp;&nbsp;&nbsp;&nbsp;</td> <td>covered 52% (58 of 122 uncovered)</td></tr>
+</table><hr/>
+<pre>    1: from zope import schema
+    1: from zope.interface import implements, Interface, Invalid, invariant
+    1: from zope.component import getMultiAdapter, getUtility
+       
+    1: from z3c.form import form, field, button
+    1: from z3c.form.interfaces import IErrorViewSnippet
+    1: from Products.CMFCore.utils import getToolByName
+    1: from Products.statusmessages.interfaces import IStatusMessage
+       
+    1: from collective.z3cform.datepicker.widget import DatePickerFieldWidget
+       
+    1: from vnccollab.theme import messageFactory as _
+    1: from vnccollab.theme.zimbrautil import IZimbraUtil
+    1: import vnccollab.theme.util as util
+       
+       
+    2: class BothDatesError(Invalid):
+    1:     __doc__ == _(u'''Either both or none dates must be provided''')
+       
+       
+    2: class IZimbraTaskForm(Interface):
+           # TODO: List Id
+       
+           # we end it with _ to avoid conflicts in newtask.py
+    1:     subject_ = schema.TextLine(
+    1:         title=_(u'Subject'),
+    1:         description=u'',
+    1:         required=True)
+       
+    1:     location = schema.TextLine(
+    1:         title=_(u'Location'),
+    1:         description=_('Task Location'),
+    1:         required=False)
+       
+    1:     status = schema.Choice(
+    1:         title=_(u"Status"),
+    1:         description=u'',
+    1:         vocabulary='vnccollab.theme.vocabularies.StatusZimbraTaskVocabulary',
+    1:         required=True)
+       
+           # we end it with _ to avoid conflicts in newtask.py
+    1:     priority_ = schema.Choice(
+    1:         title=_(u"Priority"),
+    1:         description=u'',
+    1:         vocabulary='vnccollab.theme.vocabularies.PrioritiesZimbraTaskVocabulary',
+    1:         default='5',
+    1:         required=True)
+       
+    1:     percentComplete = schema.Choice(
+    1:         title=_(u"Percentage of Completion"),
+    1:         description=u'',
+    1:         vocabulary='vnccollab.theme.vocabularies.PercentageZimbraTaskVocabulary',
+    1:         required=True)
+       
+    1:     startDate = schema.Date(
+    1:         title=_(u"Start date"),
+    1:         description=u'',
+    1:         required=False)
+       
+    1:     endDate = schema.Date(
+    1:         title=_(u"Due date"),
+    1:         description=u'',
+    1:         required=False)
+       
+    1:     content = schema.Text(
+    1:         title=_(u"Description"),
+    1:         description=u'',
+    1:         required=False,
+    1:         default=u'')
+       
+    1:     @invariant
+           def validateBothDates(data):
+<div class="notcovered">&gt;&gt;&gt;&gt;&gt;&gt;         if not data.startDate and not data.endDate:</div><div class="notcovered">&gt;&gt;&gt;&gt;&gt;&gt;             return</div><div class="notcovered">&gt;&gt;&gt;&gt;&gt;&gt;         if not data.startDate or not data.endDate:</div><div class="notcovered">&gt;&gt;&gt;&gt;&gt;&gt;             raise BothDatesError(_("You must set both start and end date or none."))</div>       
+       
+    2: class ZimbraTaskForm(form.Form):
+    1:     implements(IZimbraTaskForm)
+    1:     fields = field.Fields(IZimbraTaskForm)
+       
+    1:     fields['startDate'].widgetFactory = DatePickerFieldWidget
+    1:     fields['endDate'].widgetFactory = DatePickerFieldWidget
+       
+    1:     label = _("New Zimbra Task")
+    1:     prefix = 'zimbra_task_form'
+       
+    1:     formErrorsMessage = _(u"There were some errors.")
+    1:     successMessage = _(u"Task was created successfully.")
+       
+    1:     ignoreContext = True
+       
+    1:     @property
+           def action(self):
+               """See interfaces.IInputForm"""
+<div class="notcovered">&gt;&gt;&gt;&gt;&gt;&gt;         return self.context.absolute_url() + '/@@' + self.__name__</div>       
+    1:     @button.buttonAndHandler(_(u"Create"), name='create')
+           def handleCreate(self, action):
+               """Create zimbra task using SOAP API."""
+<div class="notcovered">&gt;&gt;&gt;&gt;&gt;&gt;         data, errors = self.extractData()</div><div class="notcovered">&gt;&gt;&gt;&gt;&gt;&gt;         if errors:</div><div class="notcovered">&gt;&gt;&gt;&gt;&gt;&gt;             self.status = self.formErrorsMessage</div><div class="notcovered">&gt;&gt;&gt;&gt;&gt;&gt;             return</div>       
+<div class="notcovered">&gt;&gt;&gt;&gt;&gt;&gt;         url = util.getZimbraUrl(self.context)</div><div class="notcovered">&gt;&gt;&gt;&gt;&gt;&gt;         username, password = util.getZimbraCredentials(self.context)</div><div class="notcovered">&gt;&gt;&gt;&gt;&gt;&gt;         if not username or not password or not url:</div><div class="notcovered">&gt;&gt;&gt;&gt;&gt;&gt;             if not username or not password:</div><div class="notcovered">&gt;&gt;&gt;&gt;&gt;&gt;                 msg = _(u"Please, set correct zimbra username and password in "</div>                       "your profile form in order to create a zimbra task.")
+                   else:
+<div class="notcovered">&gt;&gt;&gt;&gt;&gt;&gt;                 msg = _(u"Please, set Zimbra URL in Control "</div>                           " Panel (Configuration Registry).")
+                   # issue form level error
+<div class="notcovered">&gt;&gt;&gt;&gt;&gt;&gt;             self.status = msg</div><div class="notcovered">&gt;&gt;&gt;&gt;&gt;&gt;             error = getMultiAdapter((Invalid(u''), self.request, None,</div><div class="notcovered">&gt;&gt;&gt;&gt;&gt;&gt;                 None, self, self.context), IErrorViewSnippet)</div><div class="notcovered">&gt;&gt;&gt;&gt;&gt;&gt;             error.update()</div><div class="notcovered">&gt;&gt;&gt;&gt;&gt;&gt;             self.widgets.errors += (error,)</div><div class="notcovered">&gt;&gt;&gt;&gt;&gt;&gt;             return</div>       
+<div class="notcovered">&gt;&gt;&gt;&gt;&gt;&gt;         created = False</div><div class="notcovered">&gt;&gt;&gt;&gt;&gt;&gt;         try:</div><div class="notcovered">&gt;&gt;&gt;&gt;&gt;&gt;             zimbraUtil = getUtility(IZimbraUtil)</div><div class="notcovered">&gt;&gt;&gt;&gt;&gt;&gt;             client = zimbraUtil.get_client(url, username, password)</div><div class="notcovered">&gt;&gt;&gt;&gt;&gt;&gt;             email = util.getZimbraEmail(self.context)</div><div class="notcovered">&gt;&gt;&gt;&gt;&gt;&gt;             url = self.context.absolute_url()</div><div class="notcovered">&gt;&gt;&gt;&gt;&gt;&gt;             description = self.context.Description()</div><div class="notcovered">&gt;&gt;&gt;&gt;&gt;&gt;             content = u'%s\n\n%s' % (url, description)</div>       
+<div class="notcovered">&gt;&gt;&gt;&gt;&gt;&gt;             data['author'] = email</div><div class="notcovered">&gt;&gt;&gt;&gt;&gt;&gt;             data['subject'] = data['subject_']</div><div class="notcovered">&gt;&gt;&gt;&gt;&gt;&gt;             data['priority'] = data['priority_']</div><div class="notcovered">&gt;&gt;&gt;&gt;&gt;&gt;             data['content'] = content</div><div class="notcovered">&gt;&gt;&gt;&gt;&gt;&gt;             task = client.create_task(data)</div><div class="notcovered">&gt;&gt;&gt;&gt;&gt;&gt;             util.addZimbraAnnotatedTasks(self.context, task)</div><div class="notcovered">&gt;&gt;&gt;&gt;&gt;&gt;             created = True</div>       
+<div class="notcovered">&gt;&gt;&gt;&gt;&gt;&gt;         except Exception:</div><div class="notcovered">&gt;&gt;&gt;&gt;&gt;&gt;             plone_utils = getToolByName(self.context, 'plone_utils')</div><div class="notcovered">&gt;&gt;&gt;&gt;&gt;&gt;             exception = plone_utils.exceptionString()</div><div class="notcovered">&gt;&gt;&gt;&gt;&gt;&gt;             self.status = _(u"Unable create issue: ${exception}",</div><div class="notcovered">&gt;&gt;&gt;&gt;&gt;&gt;                 mapping={u'exception': exception})</div><div class="notcovered">&gt;&gt;&gt;&gt;&gt;&gt;             error = getMultiAdapter((Invalid(u''), self.request, None,</div><div class="notcovered">&gt;&gt;&gt;&gt;&gt;&gt;                 None, self, self.context), IErrorViewSnippet)</div><div class="notcovered">&gt;&gt;&gt;&gt;&gt;&gt;             error.update()</div><div class="notcovered">&gt;&gt;&gt;&gt;&gt;&gt;             self.widgets.errors += (error,)</div><div class="notcovered">&gt;&gt;&gt;&gt;&gt;&gt;             return</div>       
+               else:
+<div class="notcovered">&gt;&gt;&gt;&gt;&gt;&gt;             if not created:</div><div class="notcovered">&gt;&gt;&gt;&gt;&gt;&gt;                 self.status = _(u"Task wasn't created, please, check your "</div>                           "settings or contact site administrator if you are sure "
+                           "your settings are set properly.")
+<div class="notcovered">&gt;&gt;&gt;&gt;&gt;&gt;                 error = getMultiAdapter((Invalid(u''), self.request, None,</div><div class="notcovered">&gt;&gt;&gt;&gt;&gt;&gt;                     None, self, self.context), IErrorViewSnippet)</div><div class="notcovered">&gt;&gt;&gt;&gt;&gt;&gt;                 error.update()</div><div class="notcovered">&gt;&gt;&gt;&gt;&gt;&gt;                 self.widgets.errors += (error,)</div><div class="notcovered">&gt;&gt;&gt;&gt;&gt;&gt;                 return</div>       
+<div class="notcovered">&gt;&gt;&gt;&gt;&gt;&gt;         self.status = self.successMessage</div><div class="notcovered">&gt;&gt;&gt;&gt;&gt;&gt;         IStatusMessage(self.request).addStatusMessage(self.successMessage,</div><div class="notcovered">&gt;&gt;&gt;&gt;&gt;&gt;             type='info')</div><div class="notcovered">&gt;&gt;&gt;&gt;&gt;&gt;         came_from = self.request.get('HTTP_REFERER') or self.context.absolute_url()</div><div class="notcovered">&gt;&gt;&gt;&gt;&gt;&gt;         return self.request.response.redirect(came_from)</div></pre>
+
+      <div class="footer">
+      Generated for revision Niewersjonowany katalog on 2013-11-18 01:04:45.684645Z
+      </div>
+    </body>
+    </html>

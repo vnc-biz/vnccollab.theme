@@ -71,7 +71,7 @@ class Renderer(base.Renderer):
     def _getUsers(self):
         if not self.data.count:
             return ()
-        
+
         users = []
         context = aq_inner(self.context)
         catalog = getToolByName(context, 'portal_catalog')
@@ -79,7 +79,7 @@ class Renderer(base.Renderer):
         mtool = getToolByName(context, 'portal_membership')
         cstate = getMultiAdapter((self.context, self.request),
             name='plone_context_state')
-        
+
         # prepare catalog query
         query = {'sort_on': 'modified',
                  'sort_order': 'reverse'}
@@ -88,7 +88,7 @@ class Renderer(base.Renderer):
             query['path'] = {'query': path, 'depth': 0}
         else:
             query['path'] = path
-        
+
         added = []
         invalid = []
         purl = getToolByName(context, 'portal_url')()
@@ -98,19 +98,19 @@ class Renderer(base.Renderer):
             # already got enough users
             if counter >= limit:
                 break
-            
+
             creator = brain.Creator
-            
+
             # skip duplicates
             if not creator or creator in added or creator in invalid:
                 continue
-            
+
             # check if user exists and whether user got profile image
             user = acl_users.getUserById(creator)
             if user is None:
                 invalid.append(creator)
                 continue
-            
+
             # finally append user and increment counters
             users.append({
                 'id': creator,
@@ -121,7 +121,7 @@ class Renderer(base.Renderer):
             })
             added.append(creator)
             counter += 1
-        
+
         return tuple(users)
 
 class AddForm(base.AddForm):

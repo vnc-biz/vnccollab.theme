@@ -1,0 +1,145 @@
+
+    <html>
+      <head><title>Test coverage for vnccollab.theme.portlets.zimbra_calendar</title>
+      <style type="text/css">
+        a {text-decoration: none; display: block; padding-right: 1em;}
+        a:hover {background: #EFA;}
+        hr {height: 1px; border: none; border-top: 1px solid gray;}
+        .notcovered {background: #FCC;}
+        .footer {margin: 2em; font-size: small; color: gray;}
+      </style>
+      </head>
+      <body><h1>Test coverage for vnccollab.theme.portlets.zimbra_calendar</h1>
+      <table>
+    
+<tr><td><a href="vnccollab.html">vnccollab/</a></td> <td style="background: red">&nbsp;&nbsp;&nbsp;&nbsp;</td> <td>covered 68% (1329 of 4163 uncovered)</td></tr>
+<tr><td><a href="vnccollab.theme.html">&nbsp;&nbsp;&nbsp;&nbsp;theme/</a></td> <td style="background: red">&nbsp;&nbsp;&nbsp;&nbsp;</td> <td>covered 68% (1329 of 4163 uncovered)</td></tr>
+<tr><td><a href="vnccollab.theme.portlets.html">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;portlets/</a></td> <td style="background: red">&nbsp;&nbsp;&nbsp;&nbsp;</td> <td>covered 66% (375 of 1108 uncovered)</td></tr>
+<tr><td><a href="vnccollab.theme.portlets.zimbra_calendar.html">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;zimbra_calendar.py</a></td> <td style="background: red">&nbsp;&nbsp;&nbsp;&nbsp;</td> <td>covered 76% (24 of 101 uncovered)</td></tr>
+</table><hr/>
+<pre>    1: from zope import schema
+    1: from zope.formlib import form
+    1: from zope.interface import implements
+       
+    1: from Products.CMFCore.utils import getToolByName
+    1: from Products.CMFPlone.utils import safe_unicode
+    1: from Products.Five.browser.pagetemplatefile import ZopeTwoPageTemplateFile
+       
+    1: from plone.portlets.interfaces import IPortletDataProvider
+    1: from plone.app.portlets.portlets import base
+       
+    1: from vnccollab.theme import messageFactory as _
+       
+       
+    2: class IZimbraCalendarPortlet(IPortletDataProvider):
+       
+    1:     header = schema.TextLine(
+    1:         title=_(u"Header"),
+    1:         description=_(u"Header of the portlet."),
+    1:         required=True,
+    1:         default=u'Zimbra Calendar')
+       
+    1:     url = schema.URI(
+    1:         title=_(u"Zimbra service URL"),
+    1:         description=_(u"Root url to your Zimbra service."),
+    1:         required=True,
+    1:         default='https://zcs.vnc.biz')
+       
+    1:     mail_domain = schema.TextLine(
+    1:         title=_(u"Domain of the mail account"),
+    1:         description=_(u"The part after the '@'."),
+    1:         required=True,
+    1:         default=u'vnc.biz')
+       
+    1:     username = schema.ASCIILine(
+    1:         title=_(u"Username"),
+    1:         description=_(u"If not set, zimbra_username property of authenticated "
+                             "user will be used."),
+    1:         required=False,
+    1:         default='')
+       
+    1:     password = schema.Password(
+    1:         title=_(u"Password"),
+    1:         description=_(u"If not set, zimbra_password property of authenticated "
+                             "user will be used."),
+    1:         required=False,
+    1:         default=u'')
+       
+    1:     calendar_name = schema.TextLine(
+    1:         title=_(u"Name of The Calendar"),
+    1:         description=_(u"Which calendar should be displayed."),
+    1:         required=True,
+    1:         default=u'Calendar')
+       
+    1:     timeout = schema.Int(
+    1:         title=_(u"Data reload timeout"),
+    1:         description=_(u"Time in minutes after which the data should be reloaded"
+                             " from Zimbra service. Minimun value: 1 minute."),
+    1:         required=True,
+    1:         default=5,
+    1:         min=1)
+       
+    1:     request_timeout = schema.Int(
+    1:         title=_(u"Request timeout"),
+    1:         description=_(u"How many seconds to wait for hanging Zimbra request."),
+    1:         required=True,
+    1:         default=15)
+       
+    1:     failure_delay = schema.Int(
+    1:         title=_(u"Failure delay"),
+    1:         description=_(u"Time in minutes before retry to load data from Zimbra "
+                             "after a failure"),
+    1:         required=True,
+    1:         default=5)
+       
+       
+    2: class Assignment(base.Assignment):
+    1:     implements(IZimbraCalendarPortlet)
+       
+    1:     @property
+           def title(self):
+               """Return portlet header"""
+<div class="notcovered">&gt;&gt;&gt;&gt;&gt;&gt;         return self.header</div>       
+    1:     def __init__(self, header=u'', url=u'https://zcs.vnc.biz',
+    1:                  mail_domain=u'vnc.biz',
+    1:                  username=u'', password=u'', calendar_name=u'',
+    1:                  timeout=5, request_timeout=15, failure_delay=5):
+<div class="notcovered">&gt;&gt;&gt;&gt;&gt;&gt;         self.header = header</div><div class="notcovered">&gt;&gt;&gt;&gt;&gt;&gt;         self.url = url</div><div class="notcovered">&gt;&gt;&gt;&gt;&gt;&gt;         self.mail_domain = mail_domain</div><div class="notcovered">&gt;&gt;&gt;&gt;&gt;&gt;         self.username = username</div><div class="notcovered">&gt;&gt;&gt;&gt;&gt;&gt;         self.password = password</div><div class="notcovered">&gt;&gt;&gt;&gt;&gt;&gt;         self.calendar_name = calendar_name</div><div class="notcovered">&gt;&gt;&gt;&gt;&gt;&gt;         self.timeout = timeout</div><div class="notcovered">&gt;&gt;&gt;&gt;&gt;&gt;         self.request_timeout = request_timeout</div><div class="notcovered">&gt;&gt;&gt;&gt;&gt;&gt;         self.failure_delay = failure_delay</div>       
+       
+    2: class AddForm(base.AddForm):
+    1:     form_fields = form.Fields(IZimbraCalendarPortlet)
+    1:     label = _(u"Add Zimbra Calendar Portlet")
+    1:     description = _(u"This portlet allows managing Zimbra Calendar.")
+       
+    1:     def create(self, data):
+<div class="notcovered">&gt;&gt;&gt;&gt;&gt;&gt;         return Assignment(**data)</div>       
+       
+    2: class EditForm(base.EditForm):
+    1:     form_fields = form.Fields(IZimbraCalendarPortlet)
+    1:     label = _(u"Edit Zimbra Calendar Portlet")
+    1:     description = _(u"This portlet allows managing Zimbra Calendar.")
+       
+       
+    2: class Renderer(base.Renderer):
+       
+    1:     render = ZopeTwoPageTemplateFile('templates/zimbra_calendar.pt')
+       
+    1:     def getAuthCredentials(self):
+               """Returns username and password for zimbra user."""
+<div class="notcovered">&gt;&gt;&gt;&gt;&gt;&gt;         username, password = self.data.username, self.data.password</div><div class="notcovered">&gt;&gt;&gt;&gt;&gt;&gt;         if not (username and password):</div>                   # take username and password from authenticated user Zimbra creds
+<div class="notcovered">&gt;&gt;&gt;&gt;&gt;&gt;             mtool = getToolByName(self.context, 'portal_membership')</div><div class="notcovered">&gt;&gt;&gt;&gt;&gt;&gt;             member = mtool.getAuthenticatedMember()</div><div class="notcovered">&gt;&gt;&gt;&gt;&gt;&gt;             username, password = member.getProperty('zimbra_username', ''), \</div><div class="notcovered">&gt;&gt;&gt;&gt;&gt;&gt;                 member.getProperty('zimbra_password', '')</div>               # password could contain non-ascii chars, ensure it's properly encoded
+<div class="notcovered">&gt;&gt;&gt;&gt;&gt;&gt;         return username, safe_unicode(password).encode('utf-8')</div>       
+    1:     @property
+           def title(self):
+               """return title of feed for portlet"""
+<div class="notcovered">&gt;&gt;&gt;&gt;&gt;&gt;         return self.data.header</div>       
+    1:     @property
+           def src(self):
+               '''Returs the url of the zimbra calendar'''
+<div class="notcovered">&gt;&gt;&gt;&gt;&gt;&gt;         username, password = self.getAuthCredentials()</div><div class="notcovered">&gt;&gt;&gt;&gt;&gt;&gt;         src = '%s/service/home/%s@%s/%s.html' % (</div><div class="notcovered">&gt;&gt;&gt;&gt;&gt;&gt;                self.data.url, username, self.data.mail_domain,</div><div class="notcovered">&gt;&gt;&gt;&gt;&gt;&gt;                self.data.calendar_name)</div><div class="notcovered">&gt;&gt;&gt;&gt;&gt;&gt;         return src</div></pre>
+
+      <div class="footer">
+      Generated for revision Niewersjonowany katalog on 2013-11-18 01:04:45.684645Z
+      </div>
+    </body>
+    </html>

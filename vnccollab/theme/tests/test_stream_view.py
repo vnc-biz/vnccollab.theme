@@ -14,6 +14,8 @@ class TestStreamView(FunctionalTestCase):
         ('secret', 'Johann Sebastian Bach', 'johan@bach.com', ['members'], '2013-09-24'),)
 
     def test_check(self):
+        return
+        # vnc-stream-check no longer exists
         browser = self.login()
 
         browser.open(self.portal_url + '/@@vnc-stream-check')
@@ -57,6 +59,8 @@ class TestStreamView(FunctionalTestCase):
         self.assertNotIn('<div class="vncStreamItemDesc">A title 2</div>', browser.contents)
 
     def test_stream(self):
+        return
+        # vnc-stream no longer exists
         browser = self.login()
 
         browser.open(self.portal_url + '/@@vnc-stream')

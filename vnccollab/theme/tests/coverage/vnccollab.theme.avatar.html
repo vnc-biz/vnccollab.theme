@@ -1,0 +1,61 @@
+
+    <html>
+      <head><title>Test coverage for vnccollab.theme.avatar</title>
+      <style type="text/css">
+        a {text-decoration: none; display: block; padding-right: 1em;}
+        a:hover {background: #EFA;}
+        hr {height: 1px; border: none; border-top: 1px solid gray;}
+        .notcovered {background: #FCC;}
+        .footer {margin: 2em; font-size: small; color: gray;}
+      </style>
+      </head>
+      <body><h1>Test coverage for vnccollab.theme.avatar</h1>
+      <table>
+    
+<tr><td><a href="vnccollab.html">vnccollab/</a></td> <td style="background: red">&nbsp;&nbsp;&nbsp;&nbsp;</td> <td>covered 68% (1329 of 4163 uncovered)</td></tr>
+<tr><td><a href="vnccollab.theme.html">&nbsp;&nbsp;&nbsp;&nbsp;theme/</a></td> <td style="background: red">&nbsp;&nbsp;&nbsp;&nbsp;</td> <td>covered 68% (1329 of 4163 uncovered)</td></tr>
+<tr><td><a href="vnccollab.theme.avatar.html">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;avatar.py</a></td> <td style="background: yellow">&nbsp;&nbsp;&nbsp;&nbsp;</td> <td>covered 95% (1 of 21 uncovered)</td></tr>
+</table><hr/>
+<pre>    1: from zope.interface import Interface, implements
+       
+    2: class IAvatarUtil(Interface):
+           '''
+           Interface for Avatar Utility.
+       
+           It calculates the css style to use on an image tag to preserve its
+           aspect ratio and its intended size at the same time.
+    1:     '''
+       
+    1:     def style(image, desired_size):
+               '''returns the width, height and css style so the given image has the
+                  desire size and preserve its aspect ratio.'''
+       
+       
+    2: class AvatarUtil:
+    1:     implements(IAvatarUtil)
+       
+    1:     def style(self, image, desired_size):
+    1:         pad_top = pad_right = pad_bottom = pad_left = 0
+    1:         cw, ch = image.width, image.height
+    1:         dw, dh = desired_size
+       
+    1:         if image is None:
+<div class="notcovered">&gt;&gt;&gt;&gt;&gt;&gt;             return ''</div>       
+    1:         nw = min(dw, int(1.0*cw*dh/ch))
+    1:         nh = min(dh, int(1.0*ch*dw/cw))
+       
+    1:         pad_left   = int((dw-nw)/2)
+    1:         pad_right  = dw - nw -pad_left
+    1:         pad_top    = int((dh-nh)/2)
+    1:         pad_bottom = dh - nh - pad_top
+       
+    1:         style = 'padding: {0}px {1}px {2}px {3}px; background-color: black;'.format(
+    1:                 pad_top, pad_right, pad_bottom, pad_left)
+    1:         return nw, nh, style
+</pre>
+
+      <div class="footer">
+      Generated for revision Niewersjonowany katalog on 2013-11-18 01:04:45.684645Z
+      </div>
+    </body>
+    </html>

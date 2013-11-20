@@ -1,0 +1,45 @@
+
+    <html>
+      <head><title>Test coverage for vnccollab.theme.browser.wsapi</title>
+      <style type="text/css">
+        a {text-decoration: none; display: block; padding-right: 1em;}
+        a:hover {background: #EFA;}
+        hr {height: 1px; border: none; border-top: 1px solid gray;}
+        .notcovered {background: #FCC;}
+        .footer {margin: 2em; font-size: small; color: gray;}
+      </style>
+      </head>
+      <body><h1>Test coverage for vnccollab.theme.browser.wsapi</h1>
+      <table>
+    
+<tr><td><a href="vnccollab.html">vnccollab/</a></td> <td style="background: red">&nbsp;&nbsp;&nbsp;&nbsp;</td> <td>covered 68% (1329 of 4163 uncovered)</td></tr>
+<tr><td><a href="vnccollab.theme.html">&nbsp;&nbsp;&nbsp;&nbsp;theme/</a></td> <td style="background: red">&nbsp;&nbsp;&nbsp;&nbsp;</td> <td>covered 68% (1329 of 4163 uncovered)</td></tr>
+<tr><td><a href="vnccollab.theme.browser.html">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;browser/</a></td> <td style="background: red">&nbsp;&nbsp;&nbsp;&nbsp;</td> <td>covered 71% (586 of 2059 uncovered)</td></tr>
+<tr><td><a href="vnccollab.theme.browser.wsapi.html">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;wsapi.py</a></td> <td style="background: green">&nbsp;&nbsp;&nbsp;&nbsp;</td> <td>covered 100% (0 of 14 uncovered)</td></tr>
+</table><hr/>
+<pre>    1: from plone import api
+    1: from Products.Five.browser import BrowserView
+       
+    1: from wsapi4plone.core.browser.app import ApplicationAPI
+       
+       
+    2: class WSAPIView(BrowserView):
+       
+    1:     def post_and_index_object(self, params):
+    2:         wsapi = ApplicationAPI(self.context, self.request)
+    2:         results = wsapi.post_object(params)
+    2:         self._reindex_paths(results)
+    2:         return results
+       
+    1:     def _reindex_paths(self, paths):
+    2:         portal = api.portal.get()
+    3:         for path in paths:
+    1:             object = portal.unrestrictedTraverse(path)
+    1:             object.reindexObject()
+</pre>
+
+      <div class="footer">
+      Generated for revision Niewersjonowany katalog on 2013-11-18 01:04:45.684645Z
+      </div>
+    </body>
+    </html>

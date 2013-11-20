@@ -1,0 +1,77 @@
+
+    <html>
+      <head><title>Test coverage for vnccollab.theme.portlets.retriever</title>
+      <style type="text/css">
+        a {text-decoration: none; display: block; padding-right: 1em;}
+        a:hover {background: #EFA;}
+        hr {height: 1px; border: none; border-top: 1px solid gray;}
+        .notcovered {background: #FCC;}
+        .footer {margin: 2em; font-size: small; color: gray;}
+      </style>
+      </head>
+      <body><h1>Test coverage for vnccollab.theme.portlets.retriever</h1>
+      <table>
+    
+<tr><td><a href="vnccollab.html">vnccollab/</a></td> <td style="background: red">&nbsp;&nbsp;&nbsp;&nbsp;</td> <td>covered 68% (1329 of 4163 uncovered)</td></tr>
+<tr><td><a href="vnccollab.theme.html">&nbsp;&nbsp;&nbsp;&nbsp;theme/</a></td> <td style="background: red">&nbsp;&nbsp;&nbsp;&nbsp;</td> <td>covered 68% (1329 of 4163 uncovered)</td></tr>
+<tr><td><a href="vnccollab.theme.portlets.html">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;portlets/</a></td> <td style="background: red">&nbsp;&nbsp;&nbsp;&nbsp;</td> <td>covered 66% (375 of 1108 uncovered)</td></tr>
+<tr><td><a href="vnccollab.theme.portlets.retriever.html">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;retriever.py</a></td> <td style="background: red">&nbsp;&nbsp;&nbsp;&nbsp;</td> <td>covered 65% (16 of 46 uncovered)</td></tr>
+</table><hr/>
+<pre>    1: from zope.interface import implements
+    1: from zope.component import adapts
+    1: from zope.component import queryAdapter
+       
+    1: from Products.CMFPlone.interfaces.siteroot import IPloneSiteRoot
+       
+    1: from plone.portlets.interfaces import IPortletContext
+    1: from plone.portlets.interfaces import IPlacelessPortletManager
+    1: from plone.portlets.interfaces import IPortletRetriever
+    1: from plone.portlets.interfaces import IPortletAssignmentSettings
+    1: from plone.portlets.constants import GROUP_CATEGORY
+       
+    1: from collective.braveportletsmanager.util import logException
+    1: from collective.braveportletsmanager.retriever import PlacelessPortletRetriever
+       
+       
+    2: class CloudPortalDashboardPortletRetriever(PlacelessPortletRetriever):
+           """A placeless portlet retriever.
+       
+           Here we display only group portlets.
+    1:     """
+       
+    1:     implements(IPortletRetriever)
+    1:     adapts(IPloneSiteRoot, IPlacelessPortletManager)
+       
+    1:     def __init__(self, context, storage):
+    5:         self.context = context
+    5:         self.storage = storage
+       
+    1:     def getPortlets(self):
+    3:         if IPortletContext.providedBy(self.context):
+<div class="notcovered">&gt;&gt;&gt;&gt;&gt;&gt;             pcontext = self.context</div>               else:
+    3:             pcontext = queryAdapter(self.context, IPortletContext)
+       
+    3:         if pcontext is None:
+<div class="notcovered">&gt;&gt;&gt;&gt;&gt;&gt;             return []</div>       
+    3:         assignments = []
+   12:         for category, key in pcontext.globalPortletCategories(True):
+                   # skip all portlets that are not within Group category
+    9:             if category != GROUP_CATEGORY:
+    3:                 continue
+       
+    6:             mapping = self.storage.get(category, None)
+    6:             if mapping is not None:
+    6:                 for assignment in mapping.get(key, {}).values():
+<div class="notcovered">&gt;&gt;&gt;&gt;&gt;&gt;                     try:</div><div class="notcovered">&gt;&gt;&gt;&gt;&gt;&gt;                         settings = IPortletAssignmentSettings(assignment)</div><div class="notcovered">&gt;&gt;&gt;&gt;&gt;&gt;                     except Exception:</div><div class="notcovered">&gt;&gt;&gt;&gt;&gt;&gt;                         logException(u'Error during retrieving assignment '</div>                                   'settings. Context: "%s", Category: "%s", Key: '
+                                   '"%s", Assignment Class: "%s", Assignment ID: "%s"'
+<div class="notcovered">&gt;&gt;&gt;&gt;&gt;&gt;                             % ('/'.join(self.context.getPhysicalPath()),</div><div class="notcovered">&gt;&gt;&gt;&gt;&gt;&gt;                             category, key, str(assignment.__class__),</div><div class="notcovered">&gt;&gt;&gt;&gt;&gt;&gt;                             assignment.__name__), context=self.context)</div><div class="notcovered">&gt;&gt;&gt;&gt;&gt;&gt;                         continue</div>       
+<div class="notcovered">&gt;&gt;&gt;&gt;&gt;&gt;                     if not settings.get('visible', True):</div><div class="notcovered">&gt;&gt;&gt;&gt;&gt;&gt;                         continue</div><div class="notcovered">&gt;&gt;&gt;&gt;&gt;&gt;                     assignments.append({'category': category,</div><div class="notcovered">&gt;&gt;&gt;&gt;&gt;&gt;                                         'key': key,</div><div class="notcovered">&gt;&gt;&gt;&gt;&gt;&gt;                                         'name': assignment.__name__,</div><div class="notcovered">&gt;&gt;&gt;&gt;&gt;&gt;                                         'assignment': assignment</div>                                               })
+       
+    3:         return assignments
+</pre>
+
+      <div class="footer">
+      Generated for revision Niewersjonowany katalog on 2013-11-18 01:04:45.684645Z
+      </div>
+    </body>
+    </html>
