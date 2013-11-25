@@ -1,6 +1,11 @@
 Changelog
 =========
 
+1.7.7 - Undefined
+
+- Fixes style of documentActions buttons. [8927]
+  [Cesar Gonzalez]
+
 1.7.6 - November 20, 2013
 -------------------------
 
