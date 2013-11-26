@@ -1062,6 +1062,25 @@ div.postItemWrapper {
   }
 
 /*------ Document Actions ------*/
+#content .documentActions ul li {
+  background: none;
+  float: right;
+  margin: 0;
+  padding: 0;
+}
+
+#content .documentActions ul li a {
+  background: rgba(1,42,67,0.2);
+  padding: 6px 10px;
+  margin-left: 10px;
+  border-radius: 14px;
+}
+
+#content .documentActions ul li a:hover {
+  background: rgba(1,42,67,1.0);
+  color: #fff;
+}
+
 #content-core,
 .relatedItems,
 .sc_social_bookmarks_viewlet,
