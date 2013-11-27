@@ -4,6 +4,9 @@ Changelog
 1.7.6 - Unreleased
 ------------------
 
+- Adds custom vnc style to new user profile [8898].
+  [Cesar Gonzalez]
+
 - Removes Follow functionality (JS part).
   [Cesar Gonzalez]
 
