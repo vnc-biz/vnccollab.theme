@@ -18,6 +18,18 @@ Changelog
 - Adds spaca between icons in the sprite and re-style icon positions.
   [Cesar Gonzalez]
 
+- Adds star icon to follow option of new user profile [8898].
+  [Cesar Gonzalez]
+
+- Adds custom vnc style to new user profile [8898].
+  [Cesar Gonzalez]
+
+- Removes Follow functionality (JS part).
+  [Cesar Gonzalez]
+
+- Removes Follow functionality.
+  [Jose Dinuncio]
+
 - Remove xmpp chat dependencies from theme package.
   [Vitaliy Podoba]
 

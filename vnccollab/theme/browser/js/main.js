@@ -651,52 +651,6 @@ function setHandlersWizard() {
 
 }
 
-function initFollowingControls() {
-  // attach hover actions
-  jq('a.followLink,a.unfollowLink').mouseover(function(event){
-    var link = $(event.target);
-    link.data('orig_label', link.text()).text(link.attr('title'));
-  }).mouseout(function(event){
-    var link = $(event.target);
-    if (link.data('orig_label')) {
-      link.text(link.data('orig_label'));
-    }
-  });
-
-  // attach click handlers to Follow/Unfollow buttons
-  jq('a.followLink,a.unfollowLink').click(function(event){
-     event.preventDefault();
-     event.stopPropagation();
-     var link = $(event.target),
-      path = link.is('.followLink') ? '@@follow_user' : '@@unfollow_user';
-
-    jq.ajax({
-      'url': portal_url + '/' + path,
-      'type': 'POST',
-      'dataType': 'json',
-      'data': {'user1': '', 'user2': link.data('userid')},
-      'success': function(data, status, xhr){
-        link.text(data['label']).attr('title', data['title'])
-          .data('orig_label', '');
-        if (link.is('.followLink')) {
-          link.removeClass('followLink').addClass('unfollowLink');
-        } else {
-          link.removeClass('unfollowLink').addClass('followLink');
-        }
-        return false;
-      },
-      'error': function(){
-        alert('Sorry, something went wrong on the server. Please, try a ' +
-          'bit later.');
-        return false;
-      }
-    });
-
-    return false;
-  });
-
-}
-
 function initLanguageSelector() {
   var currentLanguage = jq('#vnc-languageselector').find('.currentLanguage').text();
   jq('#selected-language').text(currentLanguage);
@@ -729,5 +683,4 @@ jq(function() {
   setHandlersWizard();
   addDocumentContentShadows();
   fixGeneralUI();
-  initFollowingControls();
 });
