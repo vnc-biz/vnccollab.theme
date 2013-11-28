@@ -3,6 +3,9 @@ Changelog
 
 1.7.7 - Undefined
 
+- Update Copyright info on Footer. [9023].
+  [Cesar Gonzalez]
+
 - Fixes style of documentActions buttons. [8927]
   [Cesar Gonzalez]
 
