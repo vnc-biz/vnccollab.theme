@@ -4,6 +4,9 @@ Changelog
 1.7.6 - Unreleased
 ------------------
 
+- Adds star icon to follow option of new user profile [8898].
+  [Cesar Gonzalez]
+
 - Adds custom vnc style to new user profile [8898].
   [Cesar Gonzalez]
 

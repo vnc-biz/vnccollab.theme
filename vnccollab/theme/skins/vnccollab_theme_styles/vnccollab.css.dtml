@@ -5234,6 +5234,40 @@ ul.followersList .followButtonWrapper {
   border-radius: 50% 50%;
 }
 
+.template-author #content .unfollowLink,
+.template-author #content .followLink {
+  margin-left: 0 !important;
+  background-color: transparent;
+}
+.template-author #content .unfollowLink,
+.template-author #content .followLink {
+  margin-left: 0 !important;
+  background-color: transparent;
+  display: inline-block;
+  vertical-align: top;
+}
+.template-author #content .authorPageActions .unfollowLink,
+.template-author #content .authorPageActions .followLink {
+  display: inline-block;
+  vertical-align: top;
+}
+.template-author #content .authorPageActions .followLink:before {
+  opacity: 0.5;
+}
+.template-author #content .authorPageActions .followLink:hover:before {
+  opacity: 1;
+}
+.template-author #content .authorPageActions .unfollowLink:before,
+.template-author #content .authorPageActions .followLink:before {
+  width: 16px;
+  height: 16px;
+  background-image: url(++resource++vnccollab.cloudstream.images/action-fav.png);
+  background-size: 16px 16px;
+  content: "";
+  display: inline-block;
+  vertical-align: top;
+  margin-right: 4px;
+}
 .template-author #content .followButtonWrapper .unfollowLink,
 .template-author #content .followButtonWrapper .followLink {
   margin-left: 0 !important;
