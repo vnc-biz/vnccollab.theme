@@ -6,6 +6,12 @@ Changelog
 - Fixes style of documentActions buttons. [8927]
   [Cesar Gonzalez]
 
+- Adds star icon to follow option of new user profile [8898].
+  [Cesar Gonzalez]
+
+- Adds custom vnc style to new user profile [8898].
+  [Cesar Gonzalez]
+
 - Removes Follow functionality (JS part).
   [Cesar Gonzalez]
 

@@ -5140,5 +5140,227 @@ ul.followersList .followButtonWrapper {
   font-size: 1.4em;
 }
 
+/* Overrides Custom User profile tabs */
+
+.template-author #content h1.documentFirstHeading {
+  font-weight: normal;
+}
+
+.template-author #content .portraitPhoto {
+  border: 1px solid #012A43;
+  border-radius: 5px;
+  margin-top: 0 !important;
+}
+
+.template-author #content .authorPageActions {
+  float: right;
+}
+
+.template-author #content .author-details {
+  margin-left: 155px !important;
+  color: #012A43;
+}
+
+#content .author-details {
+  font-size: 14px;
+  position: relative;
+}
+
+#content .author-details p span,
+#content .author-details p a {
+  margin-left: 120px;
+  text-align: left;
+  position: absolute;
+  left: 0;
+}
+
+#content #userprofile-tabmenu {
+  border: none;
+  border-top: 1px solid #B8BFC3;
+  background: none;
+  margin-bottom: 0;
+}
+#content #userprofile-tabmenu li.formTab {
+  height: 50px;
+  display: inline-block;
+  vertical-align: top;
+}
+
+#content #userprofile-tabmenu li.formTab a {
+  color: #012A43;
+  font-size: 1.2em;
+  line-height: 50px;
+  height: 50px;
+}
+#content #userprofile-tabmenu li.formTab a.selected {
+  background: transparent;
+}
+
+#content #userprofile-tabmenu li.formTab a:hover {
+  color: #012A43 !important;
+  background: transparent;
+  font-weight: bold;
+}
+
+#content #userprofile-tabmenu li.formTab a.selected:after {
+  background-color: white;
+  content: "";
+  width: 11px;
+  height: 11px;
+  margin: -3px auto;
+  display: block;
+  -webkit-transform: rotate(-45deg);
+  -moz-transform: rotate(-45deg);
+  -o-transform: rotate(-45deg);
+  transform: rotate(-45deg);
+  border-right: 1px solid #B0B8BC;
+  border-top: 1px solid #B0B8BC;
+}
+
+#content #userprofile-tabcontents {
+  border: 1px solid #B8BFC3;
+  border-radius: 3px;
+  background: white;
+}
+
+#content #userprofile-tabcontents .vertical.listing {
+  width: 100%;
+}
+
+#content #userprofile-tabcontents .vertical.listing,
+#content #userprofile-tabcontents .vertical.listing tr,
+#content #userprofile-tabcontents .vertical.listing th,
+#content #userprofile-tabcontents .vertical.listing td {
+  border: none;
+  background: transparent;
+}
+
+#content #userprofile-tabcontents .vertical.listing th {
+  width: 120px;
+}
+
+#content #userprofile-tabcontents .vertical.listing td {
+  line-height: 1em;
+}
+
+#userprofile-tabcontents .userImage img {
+  width: 44px;
+  height: 44px;
+  border-radius: 50% 50%;
+}
+
+.template-author #content .unfollowLink,
+.template-author #content .followLink {
+  margin-left: 0 !important;
+  background-color: transparent;
+}
+.template-author #content .unfollowLink,
+.template-author #content .followLink {
+  margin-left: 0 !important;
+  background-color: transparent;
+  display: inline-block;
+  vertical-align: top;
+}
+.template-author #content .authorPageActions .unfollowLink,
+.template-author #content .authorPageActions .followLink {
+  display: inline-block;
+  vertical-align: top;
+}
+.template-author #content .authorPageActions .followLink:before {
+  opacity: 0.5;
+}
+.template-author #content .authorPageActions .followLink:hover:before {
+  opacity: 1;
+}
+.template-author #content .authorPageActions .unfollowLink:before,
+.template-author #content .authorPageActions .followLink:before {
+  width: 16px;
+  height: 16px;
+  background-image: url(++resource++vnccollab.cloudstream.images/action-fav.png);
+  background-size: 16px 16px;
+  content: "";
+  display: inline-block;
+  vertical-align: top;
+  margin-right: 4px;
+}
+.template-author #content .followButtonWrapper .unfollowLink,
+.template-author #content .followButtonWrapper .followLink {
+  margin-left: 0 !important;
+}
+
+#userprofile-tabcontents .followButtonWrapper {
+  width: 78px;
+  margin-left: 50px
+}
+
+#userprofile-tabcontents ul.followersList a.userName {
+  color: #012A43 !important;
+}
+
+
+#userprofile-tabcontents .formPanel p.discreet,
+#userprofile-tabcontents form[name="feedback_form"] legend {
+  display: none;
+}
+#userprofile-tabcontents form[name="feedback_form"] label {
+  display: inline-block;
+  vertical-align: top;
+  width: 9%;
+  font-size: 1.2em;
+  font-weight: normal;
+  color: #012A43;
+  margin: 12px 0 0 2%;
+}
+#userprofile-tabcontents form[name="feedback_form"] br,
+#userprofile-tabcontents form[name="feedback_form"] .fieldRequired {
+  display: none;
+}
+#userprofile-tabcontents form[name="feedback_form"] fieldset {
+  border: none;
+}
+#userprofile-tabcontents form[name="feedback_form"] input {
+  height: 36px;
+  border: 1px solid #B8BFC3;
+  border-radius: 3px;
+  background-color: #F2F2F2;
+  box-sizing: border-box;
+  width: 87%;
+
+}
+#userprofile-tabcontents form[name="feedback_form"] textarea {
+  height: 100px !important;
+  border: 1px solid #B8BFC3;
+  border-radius: 3px;
+  background-color: #F2F2F2;
+  box-sizing: border-box;
+  width: 87%;
+  display: inline-block;
+}
+
+#userprofile-tabcontents form[name="feedback_form"] div.formControls {
+  float: right;
+  margin-right: 2%;
+}
+#userprofile-tabcontents form[name="feedback_form"] input[type="submit"] {
+  background-color: #0e3446;
+  color: white;
+  width: 120px;
+}
+#userprofile-tabcontents form[name="feedback_form"] input[type="submit"][disabled] {
+  background-color: #b8bfc3;
+  color: white;
+  width: 120px;
+}
+
+
+
+
+
+
+
+
+
+
+
 
 /* </dtml-with> */
