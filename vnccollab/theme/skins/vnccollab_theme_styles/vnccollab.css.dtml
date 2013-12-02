@@ -5346,6 +5346,11 @@ ul.followersList .followButtonWrapper {
   color: white;
   width: 120px;
 }
+#userprofile-tabcontents form[name="feedback_form"] input[type="submit"][disabled] {
+  background-color: #b8bfc3;
+  color: white;
+  width: 120px;
+}
 
 
 
