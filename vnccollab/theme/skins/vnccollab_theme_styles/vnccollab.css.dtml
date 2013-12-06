@@ -4207,28 +4207,9 @@ a.caltrigger {
 #createWizard .dynatree-container li {
   line-height: 16px;
 }
-#createWizard ul.dynatree-container li {
-  background-image: url(++resource++vnccollab.cloudcast.images/dynatree/vline.gif);
-}
 #createWizard span.dynatree-node {
   display: block;
   cursor: pointer;
-}
-
-#createWizard span.dynatree-empty,
-#createWizard span.dynatree-vline,
-#createWizard span.dynatree-connector,
-#createWizard span.dynatree-expander,
-#createWizard span.dynatree-icon,
-#createWizard span.dynatree-checkbox,
-#createWizard span.dynatree-radio,
-#createWizard span.dynatree-drag-helper-img,
-#createWizard #dynatree-drop-marker {
-  background-image: url(++resource++vnccollab.cloudcast.images/dynatree/icons.gif);
-}
-#createWizard .dynatree-statusnode-wait span.dynatree-icon,
-#createWizard .dynatree-loading span.dynatree-expander {
-  background-image: url(++resource++vnccollab.cloudcast.images/dynatree/loading.gif);
 }
 
 /* fix disabled dynatree, show a pointer cursor - issue #7379 */
