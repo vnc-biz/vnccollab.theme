@@ -25,6 +25,9 @@ Changelog
 1.7.6 - November 20, 2013
 -------------------------
 
+- Removes unnecessary dynatree css entries. [9049].
+  [Cesar Gonzalez]
+
 - Overrides table.pt and remove icon, fixes icon position.
   [Cesar Gonzalez]
 
