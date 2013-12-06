@@ -1,7 +1,7 @@
 from setuptools import setup, find_packages
 import os
 
-version = '1.7.6'
+version = '1.7.7'
 
 setup(name='vnccollab.theme',
       version=version,
@@ -50,6 +50,7 @@ setup(name='vnccollab.theme',
           'collective.notices',
           'sc.social.bookmarks',
           'vnccollab.common',
+          'vnccollab.content',
       ],
       extras_require={'test': ['plone.app.testing']},
       entry_points="""

@@ -8,6 +8,31 @@ from zope.interface import implements
 
 from .interfaces import IFollowing
 
+# #############################################################################
+#
+#
+#
+#
+#
+#
+#
+#       NOTE: Following is deprecated and it'll be removed in the
+#             next iteraction.
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+# #############################################################################
 
 class Following(Persistent):
     """Local utility for follow/unfollow users.

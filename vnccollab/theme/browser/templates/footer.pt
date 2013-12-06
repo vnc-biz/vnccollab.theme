@@ -12,7 +12,7 @@
         <dt i18n:translate=""
             tal:content="structure column/title">The VNC Cloud Portal</dt>
         <dd>
-          <span class="copyrights">(c)2012 VNC - Virtual Network Consult</span>
+          <span class="copyrights">(c) 2011-2013 VNC - Virtual Network Consult AG.</span>
           <span class="credits">Built with Plone -
             <a title="Plone CMS Site"
                href="http://plone.org"

@@ -16,78 +16,6 @@
 
   <browser:page
       for="*"
-      class=".following.FollowingView"
-      name="user-following"
-      layer=".interfaces.IThemeSpecific"
-      attribute="user_following"
-      permission="cmf.SetOwnProperties"
-      />
-
-  <browser:page
-      for="*"
-      class=".following.FollowingView"
-      name="user-followers"
-      layer=".interfaces.IThemeSpecific"
-      attribute="user_followers"
-      permission="cmf.SetOwnProperties"
-      />
-
-  <browser:page
-      for="*"
-      class=".following.FollowingView"
-      name="follow_user"
-      layer=".interfaces.IThemeSpecific"
-      attribute="follow_user"
-      permission="cmf.SetOwnProperties"
-      />
-
-  <browser:page
-      for="*"
-      class=".following.FollowingView"
-      name="unfollow_user"
-      layer=".interfaces.IThemeSpecific"
-      attribute="unfollow_user"
-      permission="cmf.SetOwnProperties"
-      />
-
-  <browser:page
-      for="*"
-      class=".following.FollowingView"
-      name="follow_button"
-      layer=".interfaces.IThemeSpecific"
-      attribute="follow_button"
-      permission="cmf.SetOwnProperties"
-      />
-
-  <!-- <browser:page
-      for="Products.CMFCore.interfaces.ISiteRoot"
-      class=".stream.StreamView"
-      name="vnc-stream-check"
-      layer=".interfaces.IThemeSpecific"
-      attribute="check"
-      permission="cmf.SetOwnProperties"
-      /> -->
-
-  <!-- <browser:page
-      for="Products.CMFCore.interfaces.ISiteRoot"
-      class=".stream.StreamView"
-      name="vnc-stream-macros"
-      layer=".interfaces.IThemeSpecific"
-      attribute="macros"
-      permission="cmf.SetOwnProperties"
-      /> -->
-
-  <!-- <browser:page
-      for="Products.CMFCore.interfaces.ISiteRoot"
-      class=".stream.StreamView"
-      name="vnc-stream"
-      layer=".interfaces.IThemeSpecific"
-      attribute="stream"
-      permission="cmf.SetOwnProperties"
-      /> -->
-
-  <browser:page
-      for="*"
       name="upload-file"
       class=".util.VNCCollabUtilView"
       attribute="uploadFile"
@@ -598,7 +526,7 @@
       layer=".interfaces.IThemeSpecific"
       />
 
-  <browser:viewlet  
+  <browser:viewlet
       name="vnccollab.theme.languageselector"
       manager="plone.app.layout.viewlets.interfaces.IPortalHeader"
       class="plone.app.i18n.locales.browser.selector.LanguageSelector"

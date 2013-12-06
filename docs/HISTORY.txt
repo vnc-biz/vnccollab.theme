@@ -1,6 +1,27 @@
 Changelog
 =========
 
+1.7.7 - December 06, 2013
+-------------------------
+
+- Update Copyright info on Footer. [9023].
+  [Cesar Gonzalez]
+
+- Fixes style of documentActions buttons. [8927]
+  [Cesar Gonzalez]
+
+- Adds star icon to follow option of new user profile [8898].
+  [Cesar Gonzalez]
+
+- Adds custom vnc style to new user profile [8898].
+  [Cesar Gonzalez]
+
+- Removes Follow functionality (JS part).
+  [Cesar Gonzalez]
+
+- Removes Follow functionality.
+  [Jose Dinuncio]
+
 1.7.6 - November 20, 2013
 -------------------------
 
