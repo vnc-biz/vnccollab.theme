@@ -1,11 +1,15 @@
 <ul class="anonActions"
      i18n:domain="vnccollab.theme">
   <li><a href="#"
-         tal:attributes="href view/signup_link">Sign Up</a></li>
+         tal:define="register_url view/register_url"
+         tal:condition="register_url"
+         tal:attributes="href view/register_url">Sign Up</a></li>
   <li><a href="#"
-         tal:attributes="href view/login_form">Login</a></li>
+         tal:define="login_url view/login_url"
+         tal:condition="login_url"
+         tal:attributes="href view/login_url">Login</a></li>
   <li><a href="#"
-         tal:define="url view/help_link"
-         tal:condition="url"
-         tal:attributes="href url">Help</a></li>
+         tal:define="help_url view/help_url"
+         tal:condition="help_url"
+         tal:attributes="href help_url">Help</a></li>
 </ul>

@@ -165,4 +165,16 @@
       handler="vnccollab.theme.upgrades.upgrades.upgrade_1113_1114"
       />
 
+    <genericsetup:upgradeSteps
+      source="1114"
+      destination="1115"
+      sortkey="16"
+      profile="vnccollab.theme:default">
+
+        <genericsetup:upgradeDepends
+          title="Updates registry"
+          import_steps="plone.app.registry"
+          />
+    </genericsetup:upgradeSteps>
+
 </configure>

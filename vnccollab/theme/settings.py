@@ -144,8 +144,34 @@ class OpenERPSettingsControlPanel(controlpanel.ControlPanelFormWrapper):
 class IAnonymousHomepageSettings(Interface):
     """Anonymous Homepage Settings."""
     help_url = schema.URI(
-        title=(u'Help URL'),
+        title=_(u'Help URL'),
         description=_(u'URL of the page that shows the site help.'),
+        required=False,
+    )
+
+    show_register_url = schema.Bool(
+        title=_(u'Show Register'),
+        description=_(u'Should Register/Sing Up be shown'),
+        required=False,
+        default=True
+    )
+
+    register_url = schema.URI(
+        title=_(u'Register URL'),
+        description=_(u'URL of the page for Registration / Signup page (empty for default).'),
+        required=False,
+    )
+
+    show_login_url = schema.Bool(
+        title=_(u'Show Login'),
+        description=_(u'Should Login link be shown'),
+        required=False,
+        default=True
+    )
+
+    login_url = schema.URI(
+        title=_(u'Login URL'),
+        description=_(u'URL of the login page (empty for default).'),
         required=False,
     )
 
@@ -174,19 +200,40 @@ class AnonymousHomepageSettingsEditForm(AutoExtensibleForm, form.EditForm):
     control_panel_view = "plone_control_panel"
     registry_key_base = 'vnccollab.theme.settings.IAnonymousHomepageSettings'
     help_url_key = '{0}.help_url'.format(registry_key_base)
+    show_register_url_key = '{0}.show_register_url'.format(registry_key_base)
+    register_url_key = '{0}.register_url'.format(registry_key_base)
+    show_login_url_key = '{0}.show_login_url'.format(registry_key_base)
+    login_url_key = '{0}.login_url'.format(registry_key_base)
 
     def getContent(self):
         registry = getUtility(IRegistry)
         help_url = registry.get(self.help_url_key, '')
-        return {'help_url': help_url}
+        show_register_url = registry.get(self.show_register_url_key, True)
+        register_url = registry.get(self.register_url_key, '')
+        show_login_url = registry.get(self.show_login_url_key, True)
+        login_url = registry.get(self.login_url_key, '')
+        return {'help_url': help_url,
+                'show_register_url': show_register_url,
+                'register_url': register_url,
+                'show_login_url': show_login_url,
+                'login_url': login_url,
+                }
 
     def applyChanges(self, data):
         registry = getUtility(IRegistry)
-        help_url = data.get('help_url', '')
+        help_url = data.get('help_url', None)
+        show_register_url = data.get('show_register_url', True)
+        register_url = data.get('register_url', None)
+        show_login_url = data.get('show_login_url', True)
+        login_url = data.get('login_url', None)
         delete_logo = data['delete_logo']
         logo = data['logo']
 
         registry[self.help_url_key] = help_url
+        registry[self.show_register_url_key] = show_register_url
+        registry[self.register_url_key] = register_url
+        registry[self.show_login_url_key] = show_login_url
+        registry[self.login_url_key] = login_url
 
         portal = api.portal.get()
         custom_skin = portal.portal_skins.custom
