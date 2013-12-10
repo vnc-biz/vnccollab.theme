@@ -1,12 +1,7 @@
 import os
 import sys
-import unittest2 as unittest
-
-from zope.publisher.browser import TestRequest
 
 from plone import api
-from plone.app.testing import setRoles
-from plone.app.testing import TEST_USER_ID
 
 from vnccollab.theme.settings import AnonymousHomepageSettingsEditForm as \
     AnonForm
@@ -56,11 +51,9 @@ class TestAnonymousHomepageSettings(IntegrationTestCase):
         logo = custom_skin.get('logo.png', None)
         self.assertFalse(logo)
 
-
     def _get_anon_settings_view(self):
         """Gets Anonymous Homepage Settings Form via traverse."""
         return self._traverse('anonhomepage-settings')
-
 
     def _get_anon_settings_form(self, request=None):
         """Gets the form behind Anonymous Homepage Settings Form via
@@ -88,5 +81,3 @@ class TestAnonymousHomepageSettings(IntegrationTestCase):
         if path:
             my_folder_path = os.path.join(my_folder_path, path)
         return my_folder_path
-
-
