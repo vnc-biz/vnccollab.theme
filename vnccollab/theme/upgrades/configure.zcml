@@ -177,4 +177,13 @@
           />
     </genericsetup:upgradeSteps>
 
+    <genericsetup:upgradeStep
+      source="1115"
+      destination="1116"
+      sortkey="17"
+      profile="vnccollab.theme:default"
+      title="Removes Redmina and Zimbra portlets"
+      handler="vnccollab.theme.upgrades.upgrades.upgrade_1115_1116"
+      />
+
 </configure>

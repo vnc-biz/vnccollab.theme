@@ -4,6 +4,9 @@ Changelog
 1.7.9 - Unreleased
 -------------------------
 
+- Removes old Redmine and Zimbra portlets.
+  [Jose Dinuncio]
+
 - Adds customizable login, sign up and help urls.
   [Jose Dinuncio]
 

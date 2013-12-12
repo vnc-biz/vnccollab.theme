@@ -3,8 +3,10 @@ import transaction
 from zope.component import getMultiAdapter, getUtility
 from zope.publisher.browser import TestRequest
 from Products.CMFCore.utils import getToolByName
-from plone.app.upgrade.utils import installOrReinstallProduct
+
 from plone import api
+from plone.app.upgrade.utils import installOrReinstallProduct
+from plone.portlets.utils import unregisterPortletType
 
 from vnccollab.theme.config import PROJECTNAME
 
@@ -32,7 +34,7 @@ def upgrade_1108_1109(context):
 
 
 def upgrade_1109_1110(context):
-    '''Installs vnccollab.common and upgrades css/js.'''
+    """Installs vnccollab.common and upgrades css/js."""
     setup = getToolByName(context, 'portal_setup')
     setup.runImportStepFromProfile(DEFAULT_PROFILE, 'jsregistry',
                                    run_dependencies=False)
@@ -44,7 +46,7 @@ def upgrade_1109_1110(context):
 
 
 def upgrade_1110_1111(context):
-    '''Upgrades registry and other settings'''
+    """Upgrades registry and other settings"""
     setup = getToolByName(context, 'portal_setup')
     setup.runImportStepFromProfile(DEFAULT_PROFILE, 'plone.app.registry')
     setup.runImportStepFromProfile(DEFAULT_PROFILE, 'jsregistry',
@@ -56,20 +58,23 @@ def upgrade_1110_1111(context):
     setup.runImportStepFromProfile(DEFAULT_PROFILE, 'viewlets',
         run_dependencies=False)
 
+
 def upgrade_1111_1112(context):
-    '''Upgrades registry and other settings'''
+    """Upgrades registry and other settings"""
     setup = getToolByName(context, 'portal_setup')
     setup.runImportStepFromProfile(DEFAULT_PROFILE, 'jsregistry',
         run_dependencies=False)
+
 
 def upgrade_1112_1113(context):
-    '''Upgrades registry and other settings'''
+    """Upgrades registry and other settings"""
     setup = getToolByName(context, 'portal_setup')
     setup.runImportStepFromProfile(DEFAULT_PROFILE, 'jsregistry',
         run_dependencies=False)
 
+
 def upgrade_1113_1114(context):
-    '''Removes IFollowing utility.'''
+    """Removes IFollowing utility."""
     try:
         from vnccollab.theme.interfaces import IFollowing
         util = getUtility(IFollowing)
@@ -82,3 +87,18 @@ def upgrade_1113_1114(context):
         portal._p_jar.sync()
     except Exception, e:
         print e
+
+
+def upgrade_1115_1116(context):
+    """Removes Zimbra and Redmine portlets."""
+    site = api.portal.get()
+    _unregisterPortlet(site, 'vnccollab.theme.portlets.ZimbraMailPortlet')
+    _unregisterPortlet(site, 'vnccollab.theme.portlets.ZimbraCalendarPortlet')
+    _unregisterPortlet(site, 'vnccollab.theme.portlets.RedmineTicketsPortlet')
+
+
+def _unregisterPortlet(site, type):
+    try:
+        unregisterPortletType(site, type)
+    except Exception:
+        pass
