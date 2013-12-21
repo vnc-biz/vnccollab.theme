@@ -165,4 +165,25 @@
       handler="vnccollab.theme.upgrades.upgrades.upgrade_1113_1114"
       />
 
+    <genericsetup:upgradeSteps
+      source="1114"
+      destination="1115"
+      sortkey="16"
+      profile="vnccollab.theme:default">
+
+        <genericsetup:upgradeDepends
+          title="Updates registry"
+          import_steps="plone.app.registry"
+          />
+    </genericsetup:upgradeSteps>
+
+    <genericsetup:upgradeStep
+      source="1115"
+      destination="1116"
+      sortkey="17"
+      profile="vnccollab.theme:default"
+      title="Removes Redmina and Zimbra portlets"
+      handler="vnccollab.theme.upgrades.upgrades.upgrade_1115_1116"
+      />
+
 </configure>

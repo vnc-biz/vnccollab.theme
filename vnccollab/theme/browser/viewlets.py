@@ -132,16 +132,39 @@ class LoginViewlet(common.ViewletBase):
     def available(self):
         return self.auth() is not None and self.show()
 
-    def signup_link(self):
-        return '%s/register' % self.portal_state.portal_url()
-
-    def help_link(self):
+    def register_url(self):
         registry = getUtility(IRegistry)
-        return registry.get(
-            'vnccollab.theme.settings.IAnonymousHomepageSettings.help_url')
+        show_register = registry.get(self._k('show_register_url'), True)
+        register_url = registry.get(self._k('register_url'), '')
 
-    def login_form(self):
-        return '%s/login_form' % self.portal_state.portal_url()
+        if not show_register:
+            return ''
+
+        if not register_url:
+            register_url = '%s/register' % self.portal_state.portal_url()
+
+        return register_url
+
+    def help_url(self):
+        registry = getUtility(IRegistry)
+        return registry.get(self._k('help_url'), '')
+
+    def login_url(self):
+        registry = getUtility(IRegistry)
+        show_login = registry.get(self._k('show_login_url'), True)
+        login_url = registry.get(self._k('login_url'), '')
+
+        if not show_login:
+            return ''
+
+        if not login_url:
+            login_url = '%s/login_form' % self.portal_state.portal_url()
+
+        return login_url
+
+    def _k(self, k):
+        return 'vnccollab.theme.settings' \
+            + '.IAnonymousHomepageSettings.{0}'.format(k)
 
     def mail_password_form(self):
         return '%s/mail_password_form' % self.portal_state.portal_url()
@@ -628,12 +651,12 @@ class CastViewletBase(object):
 
 
 # class CustomXMPPViewlet(XMPPViewlet, CastViewletBase):
-# 
+#
 #     index = ViewPageTemplateFile('templates/xmpp_viewlet.pt')
-# 
+#
 #     def update(self):
 #         super(CustomXMPPViewlet, self).update()
-# 
+#
 #         # prepare link to first cast container on the site, of course if cast
 #         # feature is enabled
 #         self.cast_url = self.get_cast_url()
