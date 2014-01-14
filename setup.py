@@ -1,7 +1,7 @@
 from setuptools import setup, find_packages
 import os
 
-version = '1.7.9'
+version = open('version.txt').read()
 
 setup(name='vnccollab.theme',
       version=version,
