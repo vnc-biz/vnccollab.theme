@@ -3598,6 +3598,21 @@ table.listing td:last-child {
 
 /* @end */
 
+/* Remove CMF Mail Subscriptions list */
+.template-handleCMFSubscriptions table.listing {
+  font-size: 0.75em;
+  line-height: 1.5em;
+}
+
+.template-handleCMFSubscriptions table.listing tr.odd th {
+  border: 0.1em solid #8599A5 !important;
+}
+.template-handleCMFSubscriptions table.listing th {
+  padding: 0.7em 1em;
+  vertical-align: top;
+}
+
+
 /* comments */
 
 .discussion {

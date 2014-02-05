@@ -4,6 +4,9 @@ Changelog
 1.7.10 - unreleased
 -------------------
 
+- Adds CMF Subscription list style. [9861].
+  [Cesar Gonzalez]
+
 - Adds version.txt
   [Jose Dinuncio]
 
