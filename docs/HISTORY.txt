@@ -24,6 +24,9 @@ Changelog
   Remove unused ul element from template. [10171]
   [Cesar Gonzalez]
 
+- Improves speed in user search [10169].
+  [Jose Dinuncio].
+
 - Adds CMF Subscription list style. [9861].
   [Cesar Gonzalez]
 
