@@ -4,6 +4,9 @@ Changelog
 1.7.10 - unreleased
 -------------------
 
+- Improves speed in user search [10169].
+  [Jose Dinuncio].
+
 - Adds CMF Subscription list style. [9861].
   [Cesar Gonzalez]
 
