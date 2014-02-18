@@ -48,4 +48,7 @@
               enabled="True" />
   <javascript id="++resource++vnccollab.theme.js/bubbleinfo.js"
               enabled="True" />
+  <javascript id="++resource++vnccollab.theme.js/jquery.datetimepicker.js"
+              insert-before="++resource++vnccollab.theme.js/main.js"
+              enabled="True" />
 </object>

@@ -24,4 +24,6 @@
     enabled="False" />
  <stylesheet id="++resource++plone.app.jquerytools.dateinput.css"
     enabled="True" />
+ <stylesheet id="++resource++vnccollab.theme.stylesheets/jquery.datetimepicker.css"
+    enabled="True" />
 </object>

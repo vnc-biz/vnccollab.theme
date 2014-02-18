@@ -3985,6 +3985,10 @@ a.caltrigger {
 
 }
 
+#wizard-steps .step2 .plone_jscalendar select {
+  width: 100px;
+}
+
 #createWizard .step {
   padding:0;
   width: 960px;

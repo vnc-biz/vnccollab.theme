@@ -5,6 +5,11 @@ if(typeof(String.prototype.strip) === "undefined") {
   };
 };
 
+function pad (str, max) {
+  str = str.toString();
+  return str.length < max ? pad("0" + str, max) : str;
+}
+
 // add outerHTML support to jQuery
 jq.fn.outerHTML = function(s) {
   return (s) ? this.before(s).remove():
@@ -457,6 +462,7 @@ function loadCreateWizard(href, callback) {
       //jq('.step3 .destination-label').after(href);
 
       callback();
+      initJsCalendar();
 
     },
     error: function(){
@@ -518,7 +524,6 @@ function setHandlersWizard() {
       animateContentWizardStep(2);
       jq('#tab_3').removeClass('inactive').addClass('blocked');
     });
-
   });
 
   // set control Step Wizard handler
@@ -667,6 +672,36 @@ function initSearchTooltip() {
     jq('.explain-prefix').css('display', 'none');
   });
 }
+
+// initialize fields
+function initJsCalendar() {
+    $('.plone_jscalendar').each(function () {
+      var self = this;
+      var name = $(self).children().first().attr('name');
+      var id = $(self).children().first().attr('id');
+      var btn = $(this).append('<img src="' + portal_url + '/popup_calendar.png" class="dt-picker" alt="" title="" height="16" width="16"><input style="visibility:hidden; width:1px;" type="text" class="dt-value"/>');
+      $(this).find('.dt-value').datetimepicker({
+        todayButton: true,
+        onClose: function(datetime) {
+          var date = new Date(Date.parse(datetime.dateFormat('Y-m-d H:i:s')));
+          hours = date.getHours();
+          suffex = (hours >= 12)? 'PM' : 'AM';
+          hours = (hours > 12)? hours -12 : hours;
+          hours = (hours == '00')? 12 : hours;
+          $(self).find('#' + id + '_year').val(date.getFullYear());
+          $(self).find('#' + id + '_month').val(pad(date.getMonth()+1, 2));
+          $(self).find('#' + id + '_day').val(pad(date.getDate(), 2));
+          $(self).find('#' + id + '_hour').val(pad(hours, 2));
+          $(self).find('#' + id + '_minute').val(pad(date.getMinutes(), 2));
+          $(self).find('#' + id + '_ampm').val(suffex);
+        }
+      });
+      $(this).find('.dt-picker').click(function() {
+        var val_input = $(self).find('.dt-value');
+        $(self).find('.dt-value').datetimepicker('show');
+      });
+    });
+};
 
 jq(function() {
   attachNewTicketAction();
