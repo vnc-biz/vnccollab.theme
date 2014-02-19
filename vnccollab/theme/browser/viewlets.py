@@ -529,6 +529,7 @@ class AddContentAreaViewlet(common.ViewletBase):
         '''Default allowed types: the ones you can add to your
         member folder.'''
         member_folder = self._get_member_home()
+        print "member_folder: ", member_folder
         if member_folder is None:
             return []
         else:
@@ -538,6 +539,7 @@ class AddContentAreaViewlet(common.ViewletBase):
         '''Returns the cuerrent user's folder.'''
         mtool = getToolByName(self.context, 'portal_membership')
         member = mtool.getAuthenticatedMember()
+        print "member: ", member
         if member is None:
             return None
 
@@ -546,6 +548,7 @@ class AddContentAreaViewlet(common.ViewletBase):
             id = member.id.replace('@', '-40')
             home = portal['Members'][id]
         except:
+            print "EXCEPTION?"
             home = None
 
         return home

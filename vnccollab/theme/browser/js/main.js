@@ -747,10 +747,11 @@ function attachSearchDestinationAutocomplete() {
         cache: false,
         data: extendCastData(data),
         success: function( data ){
+          console.log("DATA: ", data);
           response($.map(data, function(item) {
               return {
                   label: item.title,
-                  parent: getParentFromBreadcrumb(item.breadcrumbs),
+                  //parent: getParentFromBreadcrumb(item.breadcrumbs),
                   data: item
               }
           }))

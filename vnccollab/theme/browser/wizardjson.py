@@ -38,26 +38,31 @@ class GetTreeJson(BrowserView):
         #        container_path = container.getPath()
 
         #if not container_path:
-        portal = api.portal.get()
+        """portal = api.portal.get()
         container_path = '/'.join(portal.getPhysicalPath())
 
-        query = {'portal_type': self._get_container_types(),
-                 'path': {'query': container_path}}
+        query = {#'portal_type': self._get_container_types(),
+                 #'path': {'query': container_path},
+                 'SearchableText': self.request.get('SearchableText', '')}
 
-        results = IContentListing(catalog(**query))
+        print "Query: ", query
+
+        results = IContentListing(catalog.searchResults(query))
+        print "RESULT1:\n", [x for x in results]
         results = [self._info_from_content(x) for x in results]
         results.sort(lambda x, y: cmp(x['title'], y['title']))
-        return results
+        print "RESULT2:\n", results
+        return simplejson.dumps(results)"""
 
-        """#return simplejson.dumps([])
+        #return simplejson.dumps([])
         search = Search(self.context, self.request)
-        query = dict(SearchableText=self.request.get('SearchableText', ''),
-                     #title=self.request.get('SearchableText', ''),
+        query = dict(#SearchableText=self.request.get('SearchableText', ''),
+                     title=self.request.get('SearchableText', ''),
                      portal_type=self._get_container_types())
         results = [self._info_from_content(x, search_html=True)
                     for x in search.results(query, batch=False)]
         results.sort(lambda x, y: cmp(x['title'], y['title']))
-        return simplejson.dumps(results)"""
+        return simplejson.dumps(results)
 
     def getInitialTree(self):
         '''Returns the initial tree for the dynatree.'''
@@ -142,9 +147,10 @@ class GetTreeJson(BrowserView):
         return results
 
     def _info_from_content(self, content, type_=None, search_html=False):
-        breadcrumbs_view = getMultiAdapter((content.getObject(), self.request),
-                                           name='breadcrumbs_view')
-        breadcrumbs = breadcrumbs_view.breadcrumbs()
+        #breadcrumbs_view = getMultiAdapter((content.getObject(), self.request),
+        #                                   name='breadcrumbs_view')
+        #breadcrumbs = breadcrumbs_view.breadcrumbs()
+        print "SearchableText: ", content.SearchableText()
         content_is_root = ISiteRoot.providedBy(content)
         if content_is_root:
             content_uid = '0'
@@ -181,15 +187,15 @@ class GetTreeJson(BrowserView):
             'unselectable': not(selectable),
             'activate': selectable and i_am_context,
             'children': [],
-            'breadcrumbs': breadcrumbs,
+            #'breadcrumbs': breadcrumbs,
         }
-        if search_html:
-            result['search_html'] = self.CONTENT_SEARCH_HTML(entry=result)
+        #if search_html:
+        #    result['search_html'] = self.CONTENT_SEARCH_HTML(entry=result)
 
         return result
 
     def _get_container_types(self):
-        return ['Folder']
+        return ['Folder', 'CastsContainer', 'Cast']
 
     def _is_container_selectable(self, container, type_):
         writable = self._is_container_writable(container)
