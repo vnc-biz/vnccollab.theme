@@ -26,4 +26,6 @@
     enabled="True" />
  <stylesheet id="++resource++vnccollab.theme.stylesheets/jquery.datetimepicker.css"
     enabled="True" />
+ <stylesheet id="++resource++vnccollab.theme.stylesheets/jquery.datetimepicker.css"
+    enabled="True" />
 </object>

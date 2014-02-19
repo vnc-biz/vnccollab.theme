@@ -3974,6 +3974,13 @@ a.caltrigger {
   overflow: hidden;
 
 }
+#createWizard #wizard-steps .step3 input[name=SearchableTextDestination] {
+  border: 1px solid #8599A5 !important;
+  display: block;
+  margin-left: 15px;
+  margin-top: 5px;
+  font-size: 14px;
+}
 
 #createWizard #wizard-steps {
   width:2940px;

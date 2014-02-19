@@ -1,0 +1,10 @@
+<div class="template-download"
+    tal:define="entry options/entry">
+  <span tal:content="entry/id"></span>
+  <span tal:content="entry/key"></span>
+  <span tal:content="entry/title"></span>
+  <span tal:content="entry/tooltip"></span>
+  <span tal:content="entry/icon"></span>
+  <span tal:content="entry/path"></span>
+  <span tal:content="entry/url"></span>
+</div>

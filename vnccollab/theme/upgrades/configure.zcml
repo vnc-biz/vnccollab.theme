@@ -186,4 +186,15 @@
       handler="vnccollab.theme.upgrades.upgrades.upgrade_1115_1116"
       />
 
+    <genericsetup:upgradeSteps
+      source="1116"
+      destination="1117"
+      sortkey="18"
+      profile="vnccollab.theme:default">
+
+        <genericsetup:upgradeDepends
+          title="Re-cook js and css"
+          import_steps="jsregistry cssregistry"
+          />
+    </genericsetup:upgradeSteps>
 </configure>

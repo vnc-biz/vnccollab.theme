@@ -3,20 +3,61 @@ import simplejson
 from Acquisition import aq_parent
 from AccessControl import getSecurityManager
 
+from zope.component import getMultiAdapter
+
 from Products.Five.browser import BrowserView
 from Products.CMFPlone.utils import safe_unicode
 from Products.CMFCore import permissions
 from Products.CMFCore.utils import getToolByName
 from Products.CMFCore.interfaces import ISiteRoot, IFolderish
+from Products.Five.browser.pagetemplatefile import ViewPageTemplateFile
 
 from plone import api
 from plone.uuid.interfaces import IUUID
+from plone.app.search.browser import Search
 from plone.app.contentlisting.interfaces import IContentListing
 
 
 class GetTreeJson(BrowserView):
     '''Returns a JSON representation of the directory structure
        to be used by jquery.dynatree library.'''
+    CONTENT_SEARCH_HTML = ViewPageTemplateFile('templates/content_search.pt')
+
+    def getSearchDestinationList(self):
+        """ Return list of destinatons """
+        #if type_ is None:
+        #    type_ = self.request.get('type_', None)
+
+        catalog = getToolByName(self.context, 'portal_catalog')
+
+        container_path = ''
+        #if uid is not None:
+        #    container = catalog(UID=uid)
+        #    if len(container) == 1:
+        #        container = container[0]
+        #        container_path = container.getPath()
+
+        #if not container_path:
+        portal = api.portal.get()
+        container_path = '/'.join(portal.getPhysicalPath())
+
+        query = {'portal_type': self._get_container_types(),
+                 'path': {'query': container_path}}
+
+        results = IContentListing(catalog(**query))
+        results = [self._info_from_content(x) for x in results]
+        results.sort(lambda x, y: cmp(x['title'], y['title']))
+        return results
+
+        """#return simplejson.dumps([])
+        search = Search(self.context, self.request)
+        query = dict(SearchableText=self.request.get('SearchableText', ''),
+                     #title=self.request.get('SearchableText', ''),
+                     portal_type=self._get_container_types())
+        results = [self._info_from_content(x, search_html=True)
+                    for x in search.results(query, batch=False)]
+        results.sort(lambda x, y: cmp(x['title'], y['title']))
+        return simplejson.dumps(results)"""
 
     def getInitialTree(self):
         '''Returns the initial tree for the dynatree.'''
@@ -100,7 +141,10 @@ class GetTreeJson(BrowserView):
         results.sort(lambda x, y: cmp(x['title'], y['title']))
         return results
 
-    def _info_from_content(self, content, type_=None):
+    def _info_from_content(self, content, type_=None, search_html=False):
+        breadcrumbs_view = getMultiAdapter((content.getObject(), self.request),
+                                           name='breadcrumbs_view')
+        breadcrumbs = breadcrumbs_view.breadcrumbs()
         content_is_root = ISiteRoot.providedBy(content)
         if content_is_root:
             content_uid = '0'
@@ -137,7 +181,10 @@ class GetTreeJson(BrowserView):
             'unselectable': not(selectable),
             'activate': selectable and i_am_context,
             'children': [],
+            'breadcrumbs': breadcrumbs,
         }
+        if search_html:
+            result['search_html'] = self.CONTENT_SEARCH_HTML(entry=result)
 
         return result
 

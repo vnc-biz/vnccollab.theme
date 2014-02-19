@@ -594,6 +594,7 @@ function setHandlersWizard() {
     }
 
     animateContentWizardStep(3);
+    attachSearchDestinationAutocomplete();
 
     if ( $tree.find('.dynatree-container')[0] == undefined ) {
       firstTree = true;
@@ -702,6 +703,110 @@ function initJsCalendar() {
       });
     });
 };
+
+function getParentFromBreadcrumb(data) {
+  console.log(data);
+  var lastKey = Object.keys(data).sort().reverse()[0];
+  var lastValue;
+
+  if ( lastKey > 0) {
+     lastValue = data[lastKey-1].Title;
+   } else {
+     lastValue = 'Home/Dashboard';
+   }
+  return lastValue;
+}
+
+var selected;
+var selected_destinations = [];
+function attachSearchDestinationAutocomplete() {
+  // prevent press enter key
+  jq('input#search-destination').keypress(function(e){
+    if ( e.which == 13 ) {
+      e.preventDefault();
+    }
+  });
+
+  jq('input#search-destination').autocomplete({
+    delay: 300,
+    cache: false,
+    autoFocus: true,
+    minLength: 1,
+    dataType: 'json',
+    position: {
+      my: "left top",
+      at: "left bottom"
+    },
+    source: function( request, response ) {
+      // loads user/groups to invite
+      var data = {'SearchableText': jq('#search-destination').val()};
+      jq.ajax({
+        type: 'GET',
+        dataType: 'json',
+        url: portal_url + '/@@wizard_search_destination.json',
+        cache: false,
+        data: extendCastData(data),
+        success: function( data ){
+          response($.map(data, function(item) {
+              return {
+                  label: item.title,
+                  parent: getParentFromBreadcrumb(item.breadcrumbs),
+                  data: item
+              }
+          }))
+        },
+        error: function(){
+          response([]);
+        }
+      });
+    },
+    focus: function(event, ui) {
+      return false;
+    },
+    select: function (event, ui) {
+      event.preventDefault();
+      //selected = true;
+      //
+      var loc = ui.item.data.key;
+      if ( jq('#wizard-destination-search-result input[value=' + loc + ']').length == 0 ) {
+        // add to array
+        selected_destinations.push( ui.item );
+        // add to ui
+        jq('#wizard-destination-search-result').append( ui.item.data.destination_html );
+        // clear search field
+        jq('input#search-destination').val('');
+
+        // attach remove link event
+        jq('#wizard-destination-search-result').find('.remove_link').click(function(event){
+          event.preventDefault();
+          var $to_remove = jq(this).parent().find('input[name=destination_uid]');
+          // remove
+          jq.each(selected_destinations, function(i){
+            if( selected_destinations[i].data.key == $to_remove.val() ) {
+              // remove from array
+              selected_destinations.splice(i,1);
+              // remove from ui
+              $to_remove.parent().remove();
+            }
+          });
+
+        });
+      }
+
+    },
+    open: function() {
+     var $autocompleteContainer = jq('#search-destination').autocomplete("widget");
+     $autocompleteContainer.addClass("cast-destination-object-autocomplete")
+          .removeClass('ui-menu ui-widget ui-widget-content ui-corner-all');
+    }
+  }).data('autocomplete')._renderItem = function (ul, item) {
+        return jq('<li />')
+            .data('item.autocomplete', item)
+            .append('<a>' + item.label + '<span>in ' + item.parent + '</span></a>')
+            .appendTo(ul);
+  };
+
+}
 
 jq(function() {
   attachNewTicketAction();
