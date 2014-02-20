@@ -755,9 +755,17 @@ function attachSearchDestinationAutocomplete() {
       // selected = true;
       //
       var ac_path = ui.item.path;
+      var newcontainter = '';
+      var newactionform = '';
+      var newcontenturl = '/portal_factory';
+      newcontainter = ui.item.path;
+      newcontenturl += jq('form[name=edit_form]').attr('action').split('portal_factory')[1];
+      newactionform = window.location.protocol + '//' + window.location.host + newcontainter + newcontenturl;
+
       jq('.selectedContainer').html(ac_path);
-      jq('input[name=selected_destination]').get(0).setAttribute('data', ac_path);
-      jq('form[name=edit_form]').get(0).setAttribute('action', ac_path);
+      jq('.selectedContainer').html(newcontainter);
+      jq('input[name=selected_destination]').get(0).setAttribute('data', newcontainter);
+      jq('form[name=edit_form]').get(0).setAttribute('action', newactionform);
       jq('input#search-destination').val(ui.item.label);
     },
     open: function() {
