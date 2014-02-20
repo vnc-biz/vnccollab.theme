@@ -23,7 +23,6 @@ from plone.app.contentlisting.interfaces import IContentListing
 class GetTreeJson(BrowserView):
     '''Returns a JSON representation of the directory structure
        to be used by jquery.dynatree library.'''
-    CONTENT_SEARCH_HTML = ViewPageTemplateFile('templates/content_search.pt')
 
     def getSearchDestinationList(self, type_=None):
         """ Return list of destinatons """
@@ -130,9 +129,6 @@ class GetTreeJson(BrowserView):
         return results
 
     def _info_from_content(self, content, type_=None, search_html=False):
-        #breadcrumbs_view = getMultiAdapter((content.getObject(), self.request),
-        #                                   name='breadcrumbs_view')
-        #breadcrumbs = breadcrumbs_view.breadcrumbs()
         content_is_root = ISiteRoot.providedBy(content)
         if content_is_root:
             content_uid = '0'
@@ -169,10 +165,7 @@ class GetTreeJson(BrowserView):
             'unselectable': not(selectable),
             'activate': selectable and i_am_context,
             'children': [],
-            #'breadcrumbs': breadcrumbs,
         }
-        #if search_html:
-        #    result['search_html'] = self.CONTENT_SEARCH_HTML(entry=result)
 
         return result
 
