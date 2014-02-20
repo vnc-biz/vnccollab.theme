@@ -680,7 +680,7 @@ function initJsCalendar() {
       var self = this;
       var name = $(self).children().first().attr('name');
       var id = $(self).children().first().attr('id');
-      var btn = $(this).append('<img src="' + portal_url + '/popup_calendar.png" class="dt-picker" alt="" title="" height="16" width="16"><input style="visibility:hidden; width:1px;" type="text" class="dt-value"/>');
+      var btn = $(this).append('<img src="' + portal_url + '/popup_calendar.png" class="dt-picker" alt="" title="" height="16" width="16"><input value="none" style="visibility:hidden; width:1px;" type="text" class="dt-value"/>');
       $(this).find('.dt-value').datetimepicker({
         todayButton: true,
         onClose: function(datetime) {
@@ -703,19 +703,6 @@ function initJsCalendar() {
       });
     });
 };
-
-function getParentFromBreadcrumb(data) {
-  console.log(data);
-  var lastKey = Object.keys(data).sort().reverse()[0];
-  var lastValue;
-
-  if ( lastKey > 0) {
-     lastValue = data[lastKey-1].Title;
-   } else {
-     lastValue = 'Home/Dashboard';
-   }
-  return lastValue;
-}
 
 var selected;
 var selected_destinations = [];
@@ -743,15 +730,14 @@ function attachSearchDestinationAutocomplete() {
       jq.ajax({
         type: 'GET',
         dataType: 'json',
-        url: portal_url + '/@@wizard_search_destination.json',
+        url: portal_url + '/@@wizard_search_destination.json?type_='+jq('#tree').data('contentType'),
         cache: false,
         data: extendCastData(data),
         success: function( data ){
-          console.log("DATA: ", data);
           response($.map(data, function(item) {
               return {
                   label: item.title,
-                  //parent: getParentFromBreadcrumb(item.breadcrumbs),
+                  path: item.path,
                   data: item
               }
           }))
@@ -766,44 +752,23 @@ function attachSearchDestinationAutocomplete() {
     },
     select: function (event, ui) {
       event.preventDefault();
-      //selected = true;
+      // selected = true;
       //
-      var loc = ui.item.data.key;
-      if ( jq('#wizard-destination-search-result input[value=' + loc + ']').length == 0 ) {
-        // add to array
-        selected_destinations.push( ui.item );
-        // add to ui
-        jq('#wizard-destination-search-result').append( ui.item.data.destination_html );
-        // clear search field
-        jq('input#search-destination').val('');
-
-        // attach remove link event
-        jq('#wizard-destination-search-result').find('.remove_link').click(function(event){
-          event.preventDefault();
-          var $to_remove = jq(this).parent().find('input[name=destination_uid]');
-          // remove
-          jq.each(selected_destinations, function(i){
-            if( selected_destinations[i].data.key == $to_remove.val() ) {
-              // remove from array
-              selected_destinations.splice(i,1);
-              // remove from ui
-              $to_remove.parent().remove();
-            }
-          });
-
-        });
-      }
-
+      var ac_path = ui.item.path;
+      jq('.selectedContainer').html(ac_path);
+      jq('input[name=selected_destination]').get(0).setAttribute('data', ac_path);
+      jq('form[name=edit_form]').get(0).setAttribute('action', ac_path);
+      jq('input#search-destination').val(ui.item.label);
     },
     open: function() {
-     var $autocompleteContainer = jq('#search-destination').autocomplete("widget");
-     $autocompleteContainer.addClass("cast-destination-object-autocomplete")
+      var $autocompleteContainer = jq('#search-destination').autocomplete("widget");
+      $autocompleteContainer.addClass("cast-destination-object-autocomplete")
           .removeClass('ui-menu ui-widget ui-widget-content ui-corner-all');
     }
   }).data('autocomplete')._renderItem = function (ul, item) {
         return jq('<li />')
             .data('item.autocomplete', item)
-            .append('<a>' + item.label + '<span>in ' + item.parent + '</span></a>')
+            .append('<a>' + item.label + '</span></a>')
             .appendTo(ul);
   };
 

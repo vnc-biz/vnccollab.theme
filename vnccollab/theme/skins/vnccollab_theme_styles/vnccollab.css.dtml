@@ -3980,6 +3980,13 @@ a.caltrigger {
   margin-left: 15px;
   margin-top: 5px;
   font-size: 14px;
+  width: 670px;
+  float: left;
+  margin-bottom: 15px;
+}
+
+#createWizard #wizard-steps .step3 #send-wizard {
+  margin-top: 5px;
 }
 
 #createWizard #wizard-steps {

@@ -10,6 +10,10 @@ Changelog
 - Adds version.txt
   [Jose Dinuncio]
 
+- Update add Wizard. Picker for selecting date and time, suggest for location,
+  permission to adding Cast Topic to Cast Containe. [10171]
+  [Marcin Staniszczak]
+
 1.7.9 - December 21, 2013
 -------------------------
 
