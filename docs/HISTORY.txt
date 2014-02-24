@@ -4,6 +4,10 @@ Changelog
 1.7.10 - unreleased
 -------------------
 
+- Adds ccs style to destination object autocomplete of the wizard.
+  Remove unused ul element from template. [10171]
+  [Cesar Gonzalez]
+
 - Adds CMF Subscription list style. [9861].
   [Cesar Gonzalez]
 

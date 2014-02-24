@@ -770,7 +770,7 @@ function attachSearchDestinationAutocomplete() {
     },
     open: function() {
       var $autocompleteContainer = jq('#search-destination').autocomplete("widget");
-      $autocompleteContainer.addClass("cast-destination-object-autocomplete")
+      $autocompleteContainer.addClass("destination-object-autocomplete")
           .removeClass('ui-menu ui-widget ui-widget-content ui-corner-all');
     }
   }).data('autocomplete')._renderItem = function (ul, item) {

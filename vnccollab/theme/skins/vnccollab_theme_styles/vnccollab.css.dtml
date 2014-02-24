@@ -4598,6 +4598,41 @@ a.caltrigger {
   padding-bottom: 5px;
 }
 
+.destination-object-autocomplete {
+  background-color: #C8D4E7 !important;
+  border: 1px solid #CED5DB !important;
+  border-radius: 0 !important;
+  -webkit-box-shadow: 0px 3px 5px  rgba(50, 50, 50, 0.2);
+  box-shadow: 0px 3px 5px  rgba(50, 50, 50, 0.2);
+  display: block: !important;
+  overflow: hidden;
+  max-height: 12em;
+  overflow-y: auto;
+}
+
+.destination-object-autocomplete li {
+  background-color: #fff;
+  border-radius: 0 !important;
+  border-collapse: collapse;
+  cursor: pointer;
+  display: block;
+  line-height: 1.5em;
+  margin: 1px 0;
+  overflow: hidden;
+  padding: 0;
+}
+
+.destination-object-autocomplete li a span {
+  color: rgb(148, 148, 148);
+  display: block;
+  font-size: 0.9em;
+  line-height: 9px;
+  height: 9px;
+  padding: 0 0 3px 0;
+  font-style: italic;
+  background: none !important;
+}
+
 .cloud-package-link {
   color: transparent !important;
   text-shadow: none;
