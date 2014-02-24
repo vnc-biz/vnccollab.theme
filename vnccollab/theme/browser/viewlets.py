@@ -559,8 +559,6 @@ class AddContentAreaViewlet(common.ViewletBase):
 
         This code is copied from
         https://github.com/plone/plone.app.layout/tree/master/plone/app/layout/globals/portal.py
-
-        @return: Generator for (id, type_info title) tuples
         """
 
         context = aq_inner(site)
