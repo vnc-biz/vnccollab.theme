@@ -80,6 +80,8 @@
                                i18n:attributes="title title_search_site;
                                                 placeholder title_search_site"
                                class="searchField" />
+                        <div id="wizard-destination-search-result">
+-                        </div>
                         <input type="button" name="send-wizard" id="send-wizard" value="OK"/>
                         <span class="required" title="Required">&nbsp;</span>
                         <span class="formHelp" id="destination_help"></span>

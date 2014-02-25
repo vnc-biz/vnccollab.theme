@@ -724,6 +724,7 @@ function attachSearchDestinationAutocomplete() {
       my: "left top",
       at: "left bottom"
     },
+    appendTo: '#wizard-destination-search-result',
     source: function( request, response ) {
       // loads user/groups to invite
       var data = {'SearchableText': jq('#search-destination').val()};

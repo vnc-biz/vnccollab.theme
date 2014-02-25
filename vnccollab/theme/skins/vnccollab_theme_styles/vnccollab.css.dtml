@@ -4598,7 +4598,7 @@ a.caltrigger {
   padding-bottom: 5px;
 }
 
-.destination-object-autocomplete {
+#createWizard .destination-object-autocomplete {
   background-color: #C8D4E7 !important;
   border: 1px solid #CED5DB !important;
   border-radius: 0 !important;
@@ -4610,7 +4610,7 @@ a.caltrigger {
   overflow-y: auto;
 }
 
-.destination-object-autocomplete li {
+#createWizard .destination-object-autocomplete li {
   background-color: #fff;
   border-radius: 0 !important;
   border-collapse: collapse;
@@ -4622,15 +4622,8 @@ a.caltrigger {
   padding: 0;
 }
 
-.destination-object-autocomplete li a span {
-  color: rgb(148, 148, 148);
-  display: block;
-  font-size: 0.9em;
-  line-height: 9px;
-  height: 9px;
-  padding: 0 0 3px 0;
-  font-style: italic;
-  background: none !important;
+#createWizard .destination-object-autocomplete li a {
+  font-weight: normal;
 }
 
 .cloud-package-link {

@@ -4,6 +4,10 @@ Changelog
 1.7.10 - unreleased
 -------------------
 
+- Adds the appendTo option of autocomplete to insert the result ul element
+  relative to the input field. [10171]
+  [Cesar Gonzalez]
+
 - Adds ccs style to destination object autocomplete of the wizard.
   Remove unused ul element from template. [10171]
   [Cesar Gonzalez]
