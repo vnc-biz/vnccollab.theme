@@ -35,9 +35,6 @@ class LiveSearchReplyView(BrowserView):
         MAX_TITLE = 29
         MAX_DESCRIPTION = 93
 
-        # generate a result set for the query
-        catalog = context.portal_catalog
-
         mtool = getToolByName(context, 'portal_membership')
 
         friendly_types = ploneUtils.getUserFriendlyTypes()
@@ -55,7 +52,6 @@ class LiveSearchReplyView(BrowserView):
             result = ('%s %s, %s') % (DateTime(when).strftime('%B'), DateTime(when).strftime('%d'), DateTime(when).strftime('%Y'))
             return result
 
-        searchable_text = q
         multispace = u'\u3000'.encode('utf-8')
         for char in ('?', '-', '+', '*', multispace):
             q = q.replace(char, ' ')
@@ -79,7 +75,7 @@ class LiveSearchReplyView(BrowserView):
         # search limit+1 results to know if limit is exceeded
         #params = get_query(searchable_text, params)
         #results = catalog(**params)
-        results = query(searchable_text, params)
+        results = query(params)
 
         searchterm_query = '?searchterm=%s' % url_quote_plus(q)
 
