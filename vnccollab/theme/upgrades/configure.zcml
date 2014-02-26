@@ -197,4 +197,14 @@
           import_steps="jsregistry cssregistry"
           />
     </genericsetup:upgradeSteps>
+
+    <genericsetup:upgradeStep
+      source="1117"
+      destination="1118"
+      sortkey="19"
+      profile="vnccollab.theme:default"
+      title="Removes OpenERP portlet"
+      handler="vnccollab.theme.upgrades.upgrades.upgrade_1117_1118"
+      />
+
 </configure>

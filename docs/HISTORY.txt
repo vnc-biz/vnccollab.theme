@@ -7,6 +7,9 @@ Changelog
 - Adds anonymous page configuration thru the web [10383].
   [Jose Dinuncio]
 
+- Begins removing OpenERP portlet [10362]
+  [Jose Dinuncio]
+
 - Adds the appendTo option of autocomplete to insert the result ul element
   relative to the input field. [10171]
   [Cesar Gonzalez]
@@ -28,7 +31,7 @@ Changelog
 1.7.9 - December 21, 2013
 -------------------------
 
-- Removes old Redmine and Zimbra portlets.
+- Begins removing old Redmine and Zimbra portlets.
   [Jose Dinuncio]
 
 - Adds customizable login, sign up and help urls.
