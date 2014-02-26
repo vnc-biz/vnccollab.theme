@@ -12,8 +12,8 @@
       <body><h1>Test coverage for vnccollab.theme.util</h1>
       <table>
     
-<tr><td><a href="vnccollab.html">vnccollab/</a></td> <td style="background: red">&nbsp;&nbsp;&nbsp;&nbsp;</td> <td>covered 68% (1329 of 4163 uncovered)</td></tr>
-<tr><td><a href="vnccollab.theme.html">&nbsp;&nbsp;&nbsp;&nbsp;theme/</a></td> <td style="background: red">&nbsp;&nbsp;&nbsp;&nbsp;</td> <td>covered 68% (1329 of 4163 uncovered)</td></tr>
+<tr><td><a href="vnccollab.html">vnccollab/</a></td> <td style="background: red">&nbsp;&nbsp;&nbsp;&nbsp;</td> <td>covered 69% (1245 of 4098 uncovered)</td></tr>
+<tr><td><a href="vnccollab.theme.html">&nbsp;&nbsp;&nbsp;&nbsp;theme/</a></td> <td style="background: red">&nbsp;&nbsp;&nbsp;&nbsp;</td> <td>covered 69% (1245 of 4098 uncovered)</td></tr>
 <tr><td><a href="vnccollab.theme.util.html">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;util.py</a></td> <td style="background: red">&nbsp;&nbsp;&nbsp;&nbsp;</td> <td>covered 41% (71 of 122 uncovered)</td></tr>
 </table><hr/>
 <pre>    1: """Miscellaneous utility functions"""
@@ -63,12 +63,12 @@
 <div class="notcovered">&gt;&gt;&gt;&gt;&gt;&gt;     try:</div><div class="notcovered">&gt;&gt;&gt;&gt;&gt;&gt;         client = getUtility(IZimbraUtil).get_client(username=username,</div><div class="notcovered">&gt;&gt;&gt;&gt;&gt;&gt;                                                     password=password)</div><div class="notcovered">&gt;&gt;&gt;&gt;&gt;&gt;     except AuthException:</div><div class="notcovered">&gt;&gt;&gt;&gt;&gt;&gt;         client = None</div><div class="notcovered">&gt;&gt;&gt;&gt;&gt;&gt;     return client</div>       
        
     1: def getZimbraCredentials(context):
-    6:     mtool = getToolByName(context, 'portal_membership')
-    6:     member = mtool.getAuthenticatedMember()
-    6:     username = member.getProperty('zimbra_username', '')
-    6:     password = member.getProperty('zimbra_password', '')
+   11:     mtool = getToolByName(context, 'portal_membership')
+   11:     member = mtool.getAuthenticatedMember()
+   11:     username = member.getProperty('zimbra_username', '')
+   11:     password = member.getProperty('zimbra_password', '')
            # password could contain non-ascii chars, ensure it's properly encoded
-    6:     return username, safe_unicode(password).encode('utf-8')
+   11:     return username, safe_unicode(password).encode('utf-8')
        
        
     1: def _zimbraAnnotatedTaskKey(username):
@@ -78,8 +78,8 @@
     1: def getZimbraAnnotatedTasks(context, username):
            ''' Returns the zimbra tasks annotated associated with the give username
            or [] if anonymous.'''
-    6:     if not username:
-    6:         return []
+   11:     if not username:
+   11:         return []
        
 <div class="notcovered">&gt;&gt;&gt;&gt;&gt;&gt;     annotation = IAnnotations(context)</div><div class="notcovered">&gt;&gt;&gt;&gt;&gt;&gt;     key = _zimbraAnnotatedTaskKey(username)</div><div class="notcovered">&gt;&gt;&gt;&gt;&gt;&gt;     annotatedTasks = annotation.get(key, [])</div><div class="notcovered">&gt;&gt;&gt;&gt;&gt;&gt;     return annotatedTasks</div>       
        
@@ -95,10 +95,10 @@
            If some of the annotated tasks don't exists in the zimbra server, the
            annotation is updated.
            '''
-    6:     username, password = getZimbraCredentials(context)
-    6:     annotated_tasks = getZimbraAnnotatedTasks(context, username)
-    6:     if not annotated_tasks:
-    6:         return []
+   11:     username, password = getZimbraCredentials(context)
+   11:     annotated_tasks = getZimbraAnnotatedTasks(context, username)
+   11:     if not annotated_tasks:
+   11:         return []
        
 <div class="notcovered">&gt;&gt;&gt;&gt;&gt;&gt;     try:</div>               # Clean the orphan tasks, the ones are annotated,
                # but don't exist anymore.
@@ -127,9 +127,9 @@
 <div class="notcovered">&gt;&gt;&gt;&gt;&gt;&gt;     return value</div>       
        
     1: def sortNavTree(tree):
-    7:     result = sorted(tree, key=lambda e: e['Title'])
-    7:     for element in result:
-<div class="notcovered">&gt;&gt;&gt;&gt;&gt;&gt;         if 'children' in element:</div><div class="notcovered">&gt;&gt;&gt;&gt;&gt;&gt;             element['children'] = sortNavTree(element['children'])</div>    7:     return result
+   12:     result = sorted(tree, key=lambda e: e['Title'])
+   12:     for element in result:
+<div class="notcovered">&gt;&gt;&gt;&gt;&gt;&gt;         if 'children' in element:</div><div class="notcovered">&gt;&gt;&gt;&gt;&gt;&gt;             element['children'] = sortNavTree(element['children'])</div>   12:     return result
        
        
     1: @memoize
@@ -137,18 +137,18 @@
            u""" Pathed method from plone.app.portlets.portlets.navigation.Renderer
                 Sorting result alphabetically.
            """
-    7:     context = aq_inner(self.context)
-    7:     queryBuilder = getMultiAdapter(
-    7:         (context, self.data), INavigationQueryBuilder)
-    7:     strategy = getMultiAdapter((context, self.data), INavtreeStrategy)
+   12:     context = aq_inner(self.context)
+   12:     queryBuilder = getMultiAdapter(
+   12:         (context, self.data), INavigationQueryBuilder)
+   12:     strategy = getMultiAdapter((context, self.data), INavtreeStrategy)
        
-    7:     result = buildFolderTree(
-    7:         context, obj=context, query=queryBuilder(), strategy=strategy)
+   12:     result = buildFolderTree(
+   12:         context, obj=context, query=queryBuilder(), strategy=strategy)
        
-    7:     if 'children' in result:
-    7:         result['children'] = sortNavTree(result['children'])
+   12:     if 'children' in result:
+   12:         result['children'] = sortNavTree(result['children'])
        
-    7:     return result
+   12:     return result
        
        
        def sendto(self, send_to_address, send_from_address, comment,
@@ -160,7 +160,7 @@
 <div class="notcovered">&gt;&gt;&gt;&gt;&gt;&gt;     message = template(self, send_to_address=send_to_address,</div><div class="notcovered">&gt;&gt;&gt;&gt;&gt;&gt;                        send_from_address=send_from_address,</div><div class="notcovered">&gt;&gt;&gt;&gt;&gt;&gt;                        comment=comment, subject=subject, **kwargs)</div><div class="notcovered">&gt;&gt;&gt;&gt;&gt;&gt;     message = message.encode(encoding)</div><div class="notcovered">&gt;&gt;&gt;&gt;&gt;&gt;     host.send(message, mto=send_to_address,</div><div class="notcovered">&gt;&gt;&gt;&gt;&gt;&gt;               mfrom=envelope_from, subject=subject,</div><div class="notcovered">&gt;&gt;&gt;&gt;&gt;&gt;               charset=self.getSiteEncoding(), msg_type='text/html')</div></pre>
 
       <div class="footer">
-      Generated for revision Niewersjonowany katalog on 2013-11-18 01:04:45.684645Z
+      Generated for revision Niewersjonowany katalog on 2014-02-26 19:06:33.637329Z
       </div>
     </body>
     </html>

@@ -12,9 +12,9 @@
       <body><h1>Test coverage for vnccollab.theme.portlets.retriever</h1>
       <table>
     
-<tr><td><a href="vnccollab.html">vnccollab/</a></td> <td style="background: red">&nbsp;&nbsp;&nbsp;&nbsp;</td> <td>covered 68% (1329 of 4163 uncovered)</td></tr>
-<tr><td><a href="vnccollab.theme.html">&nbsp;&nbsp;&nbsp;&nbsp;theme/</a></td> <td style="background: red">&nbsp;&nbsp;&nbsp;&nbsp;</td> <td>covered 68% (1329 of 4163 uncovered)</td></tr>
-<tr><td><a href="vnccollab.theme.portlets.html">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;portlets/</a></td> <td style="background: red">&nbsp;&nbsp;&nbsp;&nbsp;</td> <td>covered 66% (375 of 1108 uncovered)</td></tr>
+<tr><td><a href="vnccollab.html">vnccollab/</a></td> <td style="background: red">&nbsp;&nbsp;&nbsp;&nbsp;</td> <td>covered 69% (1245 of 4098 uncovered)</td></tr>
+<tr><td><a href="vnccollab.theme.html">&nbsp;&nbsp;&nbsp;&nbsp;theme/</a></td> <td style="background: red">&nbsp;&nbsp;&nbsp;&nbsp;</td> <td>covered 69% (1245 of 4098 uncovered)</td></tr>
+<tr><td><a href="vnccollab.theme.portlets.html">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;portlets/</a></td> <td style="background: red">&nbsp;&nbsp;&nbsp;&nbsp;</td> <td>covered 68% (353 of 1108 uncovered)</td></tr>
 <tr><td><a href="vnccollab.theme.portlets.retriever.html">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;retriever.py</a></td> <td style="background: red">&nbsp;&nbsp;&nbsp;&nbsp;</td> <td>covered 65% (16 of 46 uncovered)</td></tr>
 </table><hr/>
 <pre>    1: from zope.interface import implements
@@ -43,35 +43,35 @@
     1:     adapts(IPloneSiteRoot, IPlacelessPortletManager)
        
     1:     def __init__(self, context, storage):
-    5:         self.context = context
-    5:         self.storage = storage
+    4:         self.context = context
+    4:         self.storage = storage
        
     1:     def getPortlets(self):
-    3:         if IPortletContext.providedBy(self.context):
+    4:         if IPortletContext.providedBy(self.context):
 <div class="notcovered">&gt;&gt;&gt;&gt;&gt;&gt;             pcontext = self.context</div>               else:
-    3:             pcontext = queryAdapter(self.context, IPortletContext)
+    4:             pcontext = queryAdapter(self.context, IPortletContext)
        
-    3:         if pcontext is None:
+    4:         if pcontext is None:
 <div class="notcovered">&gt;&gt;&gt;&gt;&gt;&gt;             return []</div>       
-    3:         assignments = []
-   12:         for category, key in pcontext.globalPortletCategories(True):
+    4:         assignments = []
+   16:         for category, key in pcontext.globalPortletCategories(True):
                    # skip all portlets that are not within Group category
-    9:             if category != GROUP_CATEGORY:
-    3:                 continue
+   12:             if category != GROUP_CATEGORY:
+    4:                 continue
        
-    6:             mapping = self.storage.get(category, None)
-    6:             if mapping is not None:
-    6:                 for assignment in mapping.get(key, {}).values():
+    8:             mapping = self.storage.get(category, None)
+    8:             if mapping is not None:
+    8:                 for assignment in mapping.get(key, {}).values():
 <div class="notcovered">&gt;&gt;&gt;&gt;&gt;&gt;                     try:</div><div class="notcovered">&gt;&gt;&gt;&gt;&gt;&gt;                         settings = IPortletAssignmentSettings(assignment)</div><div class="notcovered">&gt;&gt;&gt;&gt;&gt;&gt;                     except Exception:</div><div class="notcovered">&gt;&gt;&gt;&gt;&gt;&gt;                         logException(u'Error during retrieving assignment '</div>                                   'settings. Context: "%s", Category: "%s", Key: '
                                    '"%s", Assignment Class: "%s", Assignment ID: "%s"'
 <div class="notcovered">&gt;&gt;&gt;&gt;&gt;&gt;                             % ('/'.join(self.context.getPhysicalPath()),</div><div class="notcovered">&gt;&gt;&gt;&gt;&gt;&gt;                             category, key, str(assignment.__class__),</div><div class="notcovered">&gt;&gt;&gt;&gt;&gt;&gt;                             assignment.__name__), context=self.context)</div><div class="notcovered">&gt;&gt;&gt;&gt;&gt;&gt;                         continue</div>       
 <div class="notcovered">&gt;&gt;&gt;&gt;&gt;&gt;                     if not settings.get('visible', True):</div><div class="notcovered">&gt;&gt;&gt;&gt;&gt;&gt;                         continue</div><div class="notcovered">&gt;&gt;&gt;&gt;&gt;&gt;                     assignments.append({'category': category,</div><div class="notcovered">&gt;&gt;&gt;&gt;&gt;&gt;                                         'key': key,</div><div class="notcovered">&gt;&gt;&gt;&gt;&gt;&gt;                                         'name': assignment.__name__,</div><div class="notcovered">&gt;&gt;&gt;&gt;&gt;&gt;                                         'assignment': assignment</div>                                               })
        
-    3:         return assignments
+    4:         return assignments
 </pre>
 
       <div class="footer">
-      Generated for revision Niewersjonowany katalog on 2013-11-18 01:04:45.684645Z
+      Generated for revision Niewersjonowany katalog on 2014-02-26 19:06:33.637329Z
       </div>
     </body>
     </html>

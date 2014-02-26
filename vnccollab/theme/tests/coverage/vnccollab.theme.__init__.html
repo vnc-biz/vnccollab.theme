@@ -12,12 +12,15 @@
       <body><h1>Test coverage for vnccollab.theme.__init__</h1>
       <table>
     
-<tr><td><a href="vnccollab.html">vnccollab/</a></td> <td style="background: red">&nbsp;&nbsp;&nbsp;&nbsp;</td> <td>covered 68% (1329 of 4163 uncovered)</td></tr>
-<tr><td><a href="vnccollab.theme.html">&nbsp;&nbsp;&nbsp;&nbsp;theme/</a></td> <td style="background: red">&nbsp;&nbsp;&nbsp;&nbsp;</td> <td>covered 68% (1329 of 4163 uncovered)</td></tr>
-<tr><td><a href="vnccollab.theme.__init__.html">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;__init__.py</a></td> <td style="background: red">&nbsp;&nbsp;&nbsp;&nbsp;</td> <td>covered 73% (5 of 19 uncovered)</td></tr>
+<tr><td><a href="vnccollab.html">vnccollab/</a></td> <td style="background: red">&nbsp;&nbsp;&nbsp;&nbsp;</td> <td>covered 69% (1245 of 4098 uncovered)</td></tr>
+<tr><td><a href="vnccollab.theme.html">&nbsp;&nbsp;&nbsp;&nbsp;theme/</a></td> <td style="background: red">&nbsp;&nbsp;&nbsp;&nbsp;</td> <td>covered 69% (1245 of 4098 uncovered)</td></tr>
+<tr><td><a href="vnccollab.theme.__init__.html">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;__init__.py</a></td> <td style="background: red">&nbsp;&nbsp;&nbsp;&nbsp;</td> <td>covered 77% (5 of 22 uncovered)</td></tr>
 </table><hr/>
 <pre>    1: from AccessControl import ModuleSecurityInfo
     1: from zope.i18nmessageid import MessageFactory
+       
+    1: from Products.Five.browser.pagetemplatefile import ViewPageTemplateFile
+    1: from plone.app.content.browser.tableview import Table
        
     1: messageFactory = MessageFactory('vnccollab.theme')
        
@@ -27,8 +30,8 @@
        
     1: def new_timezone(zone):
            ''' Monkey patching replacement for pytz.timezone'''
- 3843:     zone = ZONE_MAP.get(zone, zone)
- 3843:     return original_timezone(zone)
+ 3499:     zone = ZONE_MAP.get(zone, zone)
+ 3499:     return original_timezone(zone)
        
        
        # Granting permissions for importing zope.component in python scripts
@@ -46,10 +49,14 @@
     1: if pytz.timezone.__doc__ != ' Monkey patching replacement for pytz.timezone':
 <div class="notcovered">&gt;&gt;&gt;&gt;&gt;&gt;     original_timezone = pytz.timezone</div><div class="notcovered">&gt;&gt;&gt;&gt;&gt;&gt;     pytz.common_timezones.extend(ZONE_MAP.keys())</div><div class="notcovered">&gt;&gt;&gt;&gt;&gt;&gt;     pytz.common_timezones.sort()</div>       
 <div class="notcovered">&gt;&gt;&gt;&gt;&gt;&gt;     pytz.timezone = new_timezone</div><div class="notcovered">&gt;&gt;&gt;&gt;&gt;&gt;     print '*'*80</div>       
+       # Manual monkey patching Override render from Table
+       
+    1: Table.render = ViewPageTemplateFile("browser/templates/table.pt")
+       
 </pre>
 
       <div class="footer">
-      Generated for revision Niewersjonowany katalog on 2013-11-18 01:04:45.684645Z
+      Generated for revision Niewersjonowany katalog on 2014-02-26 19:06:33.637329Z
       </div>
     </body>
     </html>

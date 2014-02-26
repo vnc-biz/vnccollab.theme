@@ -12,8 +12,8 @@
       <body><h1>Test coverage for vnccollab.theme.vocabularies</h1>
       <table>
     
-<tr><td><a href="vnccollab.html">vnccollab/</a></td> <td style="background: red">&nbsp;&nbsp;&nbsp;&nbsp;</td> <td>covered 68% (1329 of 4163 uncovered)</td></tr>
-<tr><td><a href="vnccollab.theme.html">&nbsp;&nbsp;&nbsp;&nbsp;theme/</a></td> <td style="background: red">&nbsp;&nbsp;&nbsp;&nbsp;</td> <td>covered 68% (1329 of 4163 uncovered)</td></tr>
+<tr><td><a href="vnccollab.html">vnccollab/</a></td> <td style="background: red">&nbsp;&nbsp;&nbsp;&nbsp;</td> <td>covered 69% (1245 of 4098 uncovered)</td></tr>
+<tr><td><a href="vnccollab.theme.html">&nbsp;&nbsp;&nbsp;&nbsp;theme/</a></td> <td style="background: red">&nbsp;&nbsp;&nbsp;&nbsp;</td> <td>covered 69% (1245 of 4098 uncovered)</td></tr>
 <tr><td><a href="vnccollab.theme.vocabularies.html">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;vocabularies.py</a></td> <td style="background: red">&nbsp;&nbsp;&nbsp;&nbsp;</td> <td>covered 52% (59 of 125 uncovered)</td></tr>
 </table><hr/>
 <pre>    1: import logging
@@ -118,13 +118,13 @@
     1:     implements(IVocabularyFactory)
        
     1:     def __call__(self, context):
-    6:         terms = []
- 2592:         for zone_name in common_timezones:
+   12:         terms = []
+ 5184:         for zone_name in common_timezones:
                    # prepare zone title: America/New_York -&gt; America/New York
- 2586:             terms.append(SimpleTerm(zone_name, zone_name,
- 2586:                 zone_name.replace('_', ' ')))
+ 5172:             terms.append(SimpleTerm(zone_name, zone_name,
+ 5172:                 zone_name.replace('_', ' ')))
        
-    6:         return SimpleVocabulary(terms)
+   12:         return SimpleVocabulary(terms)
        
     1: TimeZonesVocabulary = TimeZonesVocabularyFactory()
        
@@ -176,7 +176,7 @@
 </pre>
 
       <div class="footer">
-      Generated for revision Niewersjonowany katalog on 2013-11-18 01:04:45.684645Z
+      Generated for revision Niewersjonowany katalog on 2014-02-26 19:06:33.637329Z
       </div>
     </body>
     </html>
