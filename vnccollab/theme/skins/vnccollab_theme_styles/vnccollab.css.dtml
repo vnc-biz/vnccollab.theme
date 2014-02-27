@@ -489,6 +489,21 @@ input.searchField {
   color: transparent;
   margin-top: 2px;
   }
+
+#portal-searchbox .LSSpin {
+  background: url(&dtml-portal_url;/search_spinner.gif) no-repeat -1px 0;
+  position: absolute;
+  content: " ";
+  display: none;
+  top: 11px;
+  width: 22px;
+  height: 22px;
+  right: 35px;
+  }
+#portal-searchbox .LSSpin.on {
+  display: block;
+  }
+
 #portal-searchbox  input[type="submit"]:hover {
   color: transparent !important;
 }

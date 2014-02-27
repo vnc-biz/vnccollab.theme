@@ -4,6 +4,9 @@ Changelog
 1.7.10 - unreleased
 -------------------
 
+- Adds styled spinner to livesearch box (dashboard mode) [10169].
+  [Cesar Gonzalez]
+
 - Improves speed in user search [10169].
   [Jose Dinuncio].
 
