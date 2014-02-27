@@ -33,6 +33,7 @@ var livesearch = (function () {
             $$result = $form.find('div.LSResult'),
             $shadow = $form.find('div.LSShadow'),
             $path = $form.find('input[name="path"]');
+            $spinner = $form.find('div.LSSpin');
 
         function _hide() {
             // hides the result window
@@ -86,6 +87,13 @@ var livesearch = (function () {
                 return;
             }
 
+            $spinner.addClass('on');
+
+            var $msg = $form.find('#LSNothingFound')
+            if($msg.length) {
+                $msg.text('Searching...');
+            }
+
             // the search request
             $request = jq.ajax({
                 type: 'GET',
@@ -101,9 +109,11 @@ var livesearch = (function () {
                         _show(data);
                         $cache[$$query] = data;
                     }
+                    $spinner.removeClass('on');
 
                 },
                 error: function(){
+                    $spinner.removeClass('on');
                     response([]);
                 }
             });
