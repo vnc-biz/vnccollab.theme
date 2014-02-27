@@ -19,7 +19,7 @@
                  tal:attributes="value request/form/SearchableText|nothing"
                  class="searchField"
                  autocomplete="off" />
-
+          <div class="LSSpin"></div>
           <input class="searchButton"
                  type="submit"
                  value="Search"
