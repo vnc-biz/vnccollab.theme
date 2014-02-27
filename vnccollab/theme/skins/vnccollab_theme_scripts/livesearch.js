@@ -89,7 +89,7 @@ var livesearch = (function () {
 
             $spinner.addClass('on');
 
-            var $msg = $form.find('#LSNothingFound')
+            var $msg = $form.find('#LSNothingFound');
             if($msg.length) {
                 $msg.text('Searching...');
             }
