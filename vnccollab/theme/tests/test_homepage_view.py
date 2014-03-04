@@ -5,6 +5,7 @@ import transaction
 from zope.component import getUtility, getMultiAdapter
 from zope.container.interfaces import INameChooser
 
+from plone import api
 from plone.testing.z2 import Browser
 from plone.portlets.interfaces import IPortletType
 from plone.app.portlets.portlets import calendar
@@ -83,7 +84,7 @@ class TestHomepageView(FunctionalTestCase):
         news = view.getNews()
         self.assertTrue(len(news) == 0)
 
-        obj = createObject(self.portal, 'News Item', 'test_doc', 
+        obj = createObject(self.portal, 'News Item', 'test_doc',
                            title='A title',
                            description='Some description',
                            text='Some text')
@@ -117,3 +118,23 @@ class TestHomepageView(FunctionalTestCase):
         self.logout(browser)
         browser = Browser(self.portal)
         browser.open(self.portal_url + '/@@homepage_view')
+
+    def test_customAnonHomepage_empty(self):
+        """Test Custom Anonymous homepage when it wasn't customized"""
+        browser = Browser(self.portal)
+        browser.open(self.portal_url)
+        self.assertNotIn('<div id="custom-anon-homepage"', browser.contents)
+
+    def test_customAnonHomepage_customized(self):
+        """Test Custom Anonymous homepage when it was customized"""
+        # TODO: Create custom anon page
+        #self._create_custom_anon_homepage()
+        browser = Browser(self.portal)
+        browser.open(self.portal_url)
+        #self.assertIn('id="custom-anon-homepage"', browser.contents)
+
+    def test_customAnonHomepage_nonAnon(self):
+        """Test Custom Anonymous homepage when logged in"""
+        browser = self.login()
+        browser.open(self.portal_url)
+        self.assertNotIn('<div id="custom-anon-homepage"', browser.contents)

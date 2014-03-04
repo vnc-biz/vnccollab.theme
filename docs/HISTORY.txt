@@ -4,6 +4,9 @@ Changelog
 1.7.10 - unreleased
 -------------------
 
+- Adds anonymous page configuration thru the web [10383].
+  [Jose Dinuncio]
+
 - Adds the appendTo option of autocomplete to insert the result ul element
   relative to the input field. [10171]
   [Cesar Gonzalez]
