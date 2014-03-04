@@ -39,6 +39,14 @@
          tal:content="structure col4" />
   </div>
 
+  <div id='custom-anon-homepage'
+       tal:define="content context/custom_anon_homepage|nothing"
+       tal:condition="content"
+       tal:content="structure content">
+       Customizable content (by adding custom_anon_page in skins)
+       goes here.
+  </div>
+
 </metal:block>
 </metal:content-core>
 
