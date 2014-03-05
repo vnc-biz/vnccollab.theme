@@ -1076,6 +1076,10 @@ div.postItemWrapper {
   padding:0.6em 2em;
   }
 
+.suppressVisualEditor {
+  display: none;
+}
+
 /*------ Document Actions ------*/
 #content .documentActions ul li {
   background: none;
