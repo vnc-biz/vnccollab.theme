@@ -7,6 +7,9 @@ Changelog
 - Begins removing OpenERP portlet [10362]
   [Jose Dinuncio]
 
+- Fixes bug in redirection after deleting file [10439].
+  [Jose Dinuncio]
+
 - Adds anonymous page configuration thru the web [10383].
   [Jose Dinuncio]
 
