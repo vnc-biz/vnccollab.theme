@@ -4,6 +4,9 @@ Changelog
 1.7.10 - unreleased
 -------------------
 
+- Hides the "Edit without visual editor" link [10166].
+  [Cesar Gonzalez]
+
 - Begins removing OpenERP portlet [10362]
   [Jose Dinuncio]
 
