@@ -23,7 +23,7 @@ jQuery(function($){
         // enhancement.
         return;
     }
-    
+
     // method to show error message in a noform
     // situation.
     noformerrorshow = function (el, noform) {
@@ -39,16 +39,8 @@ jQuery(function($){
 
     // After deletes we need to redirect to the target page.
     redirectbasehref = function (el, responseText) {
-        // vipod: for File and Image content types return location
-        if ($('.portaltype-file, .portaltype-image').length != 0) {
-          return location;
-        }
-        
-        var mo = responseText.match(/<base href="(\S+?)"/i);
-        if (mo.length === 2) {
-            return mo[1];
-        }
-        return location;
+        var url = location.href.replace(/.view$/, '').replace(/\/[^\/]*$/, '');
+        return url;
     }
 
     // login form
@@ -167,7 +159,7 @@ jQuery(function($){
 
     // Content history popup
     $('#content-history a').prepOverlay({
-       subtype: 'ajax', 
+       subtype: 'ajax',
        urlmatch: '@@historyview',
        urlreplace: '@@contenthistorypopup'
     });

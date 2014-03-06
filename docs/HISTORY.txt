@@ -4,6 +4,9 @@ Changelog
 1.7.10 - unreleased
 -------------------
 
+- Fixes bug in redirection after deleting file [10439].
+  [Jose Dinuncio]
+
 - Adds anonymous page configuration thru the web [10383].
   [Jose Dinuncio]
 
