@@ -10,7 +10,7 @@ from Products.PythonScripts.standard import html_quote
 from Products.CMFPlone.browser.navtree import getNavigationRoot
 from Products.Five import BrowserView
 
-from vnccollab.common.livesearch import get_query
+from vnccollab.common.livesearch import query
 
 class LiveSearchReplyView(BrowserView):
     def result(self):
@@ -24,8 +24,6 @@ class LiveSearchReplyView(BrowserView):
         ploneUtils = getToolByName(context, 'plone_utils')
         portal_url = getToolByName(context, 'portal_url')()
         pretty_title_or_id = ploneUtils.pretty_title_or_id
-        #plone_view = context.restrictedTraverse('@@plone')
-        #portal_state = context.restrictedTraverse('@@plone_portal_state')
 
         portalProperties = getToolByName(context, 'portal_properties')
         siteProperties = getattr(portalProperties, 'site_properties', None)
@@ -34,12 +32,8 @@ class LiveSearchReplyView(BrowserView):
             useViewAction = siteProperties.getProperty('typesUseViewActionInListings', [])
 
         # SIMPLE CONFIGURATION
-        #USE_ICON = True
         MAX_TITLE = 29
         MAX_DESCRIPTION = 93
-
-        # generate a result set for the query
-        catalog = context.portal_catalog
 
         mtool = getToolByName(context, 'portal_membership')
 
@@ -58,7 +52,6 @@ class LiveSearchReplyView(BrowserView):
             result = ('%s %s, %s') % (DateTime(when).strftime('%B'), DateTime(when).strftime('%d'), DateTime(when).strftime('%Y'))
             return result
 
-        searchable_text = q
         multispace = u'\u3000'.encode('utf-8')
         for char in ('?', '-', '+', '*', multispace):
             q = q.replace(char, ' ')
@@ -80,8 +73,9 @@ class LiveSearchReplyView(BrowserView):
             params['path'] = path
 
         # search limit+1 results to know if limit is exceeded
-        params = get_query(searchable_text, params)
-        results = catalog(**params)
+        #params = get_query(searchable_text, params)
+        #results = catalog(**params)
+        results = query(params)
 
         searchterm_query = '?searchterm=%s' % url_quote_plus(q)
 

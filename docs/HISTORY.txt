@@ -4,6 +4,7 @@ Changelog
 1.7.10 - unreleased
 -------------------
 
+<<<<<<< HEAD
 - Fixes bug in redirection after deleting file [10439].
   [Jose Dinuncio]
 
@@ -22,7 +23,13 @@ Changelog
 
 - Adds ccs style to destination object autocomplete of the wizard.
   Remove unused ul element from template. [10171]
+=======
+- Adds styled spinner to livesearch box (dashboard mode) [10169].
+>>>>>>> Adds styled spinner to livesearch box (dashboard mode) [10169].
   [Cesar Gonzalez]
+
+- Improves speed in user search [10169].
+  [Jose Dinuncio].
 
 - Adds CMF Subscription list style. [9861].
   [Cesar Gonzalez]
