@@ -7,6 +7,9 @@ Changelog
 - Fixes bug in redirection after deleting file [10439].
   [Jose Dinuncio]
 
+- Hides the "Edit without visual editor" link [10166].
+  [Cesar Gonzalez]
+
 - Adds anonymous page configuration thru the web [10383].
   [Jose Dinuncio]
 
