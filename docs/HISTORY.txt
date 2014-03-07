@@ -1,8 +1,8 @@
 Changelog
 =========
 
-1.7.10 - unreleased
--------------------
+1.7.10 - March 07, 2014
+-----------------------
 
 - Fixes overlays dialog position, update css selectors [10438].
   [Cesar Gonzalez]
