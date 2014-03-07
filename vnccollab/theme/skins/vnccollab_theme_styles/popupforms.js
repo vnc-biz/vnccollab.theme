@@ -96,7 +96,7 @@ jQuery(function($){
             filter: common_content_filter,
             formselector: 'form[name="default_page_form"]',
             noform: function(el) {return noformerrorshow(el, 'reload');},
-            closeselector: '[name="form.button.Cance"l]',
+            closeselector: '[name="form.button.Cancel"]',
             width:'40%'
         }
     );
