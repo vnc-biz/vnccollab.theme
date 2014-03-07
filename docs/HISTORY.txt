@@ -25,6 +25,10 @@ Changelog
 
 - Adds ccs style to destination object autocomplete of the wizard.
   Remove unused ul element from template. [10171]
+  [Cesar Gonzalez]
+
+- Adds styled spinner to livesearch box (dashboard mode) [10169].
+  [Cesar Gonzalez]
 
 - Adds styled spinner to livesearch box (dashboard mode) [10169].
   [Cesar Gonzalez]
