@@ -3,20 +3,48 @@ import simplejson
 from Acquisition import aq_parent
 from AccessControl import getSecurityManager
 
+from zope.component import getMultiAdapter
+
+from Products import AdvancedQuery
+from Products.AdvancedQuery import MatchGlob, Eq, In
 from Products.Five.browser import BrowserView
 from Products.CMFPlone.utils import safe_unicode
 from Products.CMFCore import permissions
 from Products.CMFCore.utils import getToolByName
 from Products.CMFCore.interfaces import ISiteRoot, IFolderish
+from Products.Five.browser.pagetemplatefile import ViewPageTemplateFile
 
 from plone import api
 from plone.uuid.interfaces import IUUID
+from plone.app.search.browser import Search
 from plone.app.contentlisting.interfaces import IContentListing
 
 
 class GetTreeJson(BrowserView):
     '''Returns a JSON representation of the directory structure
        to be used by jquery.dynatree library.'''
+
+    def getSearchDestinationList(self, type_=None):
+        """ Return list of destinatons """
+        catalog = getToolByName(self.context, 'portal_catalog')
+
+        portal = api.portal.get()
+        container_path = '/'.join(portal.getPhysicalPath())
+
+        query = (MatchGlob('Title',
+                    self.request.get('SearchableText', '') + '*') | \
+                MatchGlob('Description', 
+                    self.request.get('SearchableText', '') + '*')) & \
+                Eq('path', container_path) & \
+                In('portal_type', self._get_container_types())
+
+        obj = lambda o: o if ISiteRoot.providedBy(o) else o.getObject()
+
+        results = IContentListing(catalog.evalAdvancedQuery(query))
+        results = [self._info_from_content(x) for x in results
+                   if self._is_container_selectable(obj(x), type_)]
+        results.sort(lambda x, y: cmp(x['title'], y['title']))
+        return simplejson.dumps(results)
 
     def getInitialTree(self):
         '''Returns the initial tree for the dynatree.'''
@@ -100,7 +128,7 @@ class GetTreeJson(BrowserView):
         results.sort(lambda x, y: cmp(x['title'], y['title']))
         return results
 
-    def _info_from_content(self, content, type_=None):
+    def _info_from_content(self, content, type_=None, search_html=False):
         content_is_root = ISiteRoot.providedBy(content)
         if content_is_root:
             content_uid = '0'
@@ -142,7 +170,7 @@ class GetTreeJson(BrowserView):
         return result
 
     def _get_container_types(self):
-        return ['Folder']
+        return ['Folder', 'CastsContainer']
 
     def _is_container_selectable(self, container, type_):
         writable = self._is_container_writable(container)

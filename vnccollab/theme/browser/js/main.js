@@ -5,6 +5,11 @@ if(typeof(String.prototype.strip) === "undefined") {
   };
 };
 
+function pad (str, max) {
+  str = str.toString();
+  return str.length < max ? pad("0" + str, max) : str;
+}
+
 // add outerHTML support to jQuery
 jq.fn.outerHTML = function(s) {
   return (s) ? this.before(s).remove():
@@ -457,6 +462,7 @@ function loadCreateWizard(href, callback) {
       //jq('.step3 .destination-label').after(href);
 
       callback();
+      initJsCalendar();
 
     },
     error: function(){
@@ -518,7 +524,6 @@ function setHandlersWizard() {
       animateContentWizardStep(2);
       jq('#tab_3').removeClass('inactive').addClass('blocked');
     });
-
   });
 
   // set control Step Wizard handler
@@ -589,6 +594,7 @@ function setHandlersWizard() {
     }
 
     animateContentWizardStep(3);
+    attachSearchDestinationAutocomplete();
 
     if ( $tree.find('.dynatree-container')[0] == undefined ) {
       firstTree = true;
@@ -666,6 +672,115 @@ function initSearchTooltip() {
   jq('#portal-searchbox #searchGadget').blur( function(){
     jq('.explain-prefix').css('display', 'none');
   });
+}
+
+// initialize fields
+function initJsCalendar() {
+    $('.plone_jscalendar').each(function () {
+      var self = this;
+      var name = $(self).children().first().attr('name');
+      var id = $(self).children().first().attr('id');
+      var btn = $(this).append('<img src="' + portal_url + '/popup_calendar.png" class="dt-picker" alt="" title="" height="16" width="16"><input value="none" style="visibility:hidden; width:1px;" type="text" class="dt-value"/>');
+      $(this).find('.dt-value').datetimepicker({
+        todayButton: true,
+        onClose: function(datetime) {
+          var date = new Date(Date.parse(datetime.dateFormat('Y-m-d H:i:s')));
+          hours = date.getHours();
+          suffex = (hours >= 12)? 'PM' : 'AM';
+          hours = (hours > 12)? hours -12 : hours;
+          hours = (hours == '00')? 12 : hours;
+          $(self).find('#' + id + '_year').val(date.getFullYear());
+          $(self).find('#' + id + '_month').val(pad(date.getMonth()+1, 2));
+          $(self).find('#' + id + '_day').val(pad(date.getDate(), 2));
+          $(self).find('#' + id + '_hour').val(pad(hours, 2));
+          $(self).find('#' + id + '_minute').val(pad(date.getMinutes(), 2));
+          $(self).find('#' + id + '_ampm').val(suffex);
+        }
+      });
+      $(this).find('.dt-picker').click(function() {
+        var val_input = $(self).find('.dt-value');
+        $(self).find('.dt-value').datetimepicker('show');
+      });
+    });
+};
+
+var selected;
+var selected_destinations = [];
+function attachSearchDestinationAutocomplete() {
+  // prevent press enter key
+  jq('input#search-destination').keypress(function(e){
+    if ( e.which == 13 ) {
+      e.preventDefault();
+    }
+  });
+
+  jq('input#search-destination').autocomplete({
+    delay: 300,
+    cache: false,
+    autoFocus: true,
+    minLength: 1,
+    dataType: 'json',
+    position: {
+      my: "left top",
+      at: "left bottom"
+    },
+    appendTo: '#wizard-destination-search-result',
+    source: function( request, response ) {
+      // loads user/groups to invite
+      var data = {'SearchableText': jq('#search-destination').val()};
+      jq.ajax({
+        type: 'GET',
+        dataType: 'json',
+        url: portal_url + '/@@wizard_search_destination.json?type_='+jq('#tree').data('contentType'),
+        cache: false,
+        data: extendCastData(data),
+        success: function( data ){
+          response($.map(data, function(item) {
+              return {
+                  label: item.title,
+                  path: item.path,
+                  data: item
+              }
+          }))
+        },
+        error: function(){
+          response([]);
+        }
+      });
+    },
+    focus: function(event, ui) {
+      return false;
+    },
+    select: function (event, ui) {
+      event.preventDefault();
+      // selected = true;
+      //
+      var ac_path = ui.item.path;
+      var newcontainter = '';
+      var newactionform = '';
+      var newcontenturl = '/portal_factory';
+      newcontainter = ui.item.path;
+      newcontenturl += jq('form[name=edit_form]').attr('action').split('portal_factory')[1];
+      newactionform = window.location.protocol + '//' + window.location.host + newcontainter + newcontenturl;
+
+      jq('.selectedContainer').html(ac_path);
+      jq('.selectedContainer').html(newcontainter);
+      jq('input[name=selected_destination]').get(0).setAttribute('data', newcontainter);
+      jq('form[name=edit_form]').get(0).setAttribute('action', newactionform);
+      jq('input#search-destination').val(ui.item.label);
+    },
+    open: function() {
+      var $autocompleteContainer = jq('#search-destination').autocomplete("widget");
+      $autocompleteContainer.addClass("destination-object-autocomplete")
+          .removeClass('ui-menu ui-widget ui-widget-content ui-corner-all');
+    }
+  }).data('autocomplete')._renderItem = function (ul, item) {
+        return jq('<li />')
+            .data('item.autocomplete', item)
+            .append('<a>' + item.label + '</span></a>')
+            .appendTo(ul);
+  };
+
 }
 
 jq(function() {

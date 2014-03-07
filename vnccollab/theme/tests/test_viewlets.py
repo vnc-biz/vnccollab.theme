@@ -10,7 +10,7 @@ from vnccollab.theme.tests.base import FunctionalTestCase
 from vnccollab.theme.testing import createObject
 from vnccollab.theme.browser.viewlets import TopRatedViewlet, \
     ActionsListViewlet, LoginViewlet, HeaderTimeViewlet, \
-    VNCCollabHeaderViewlet, WorldClockViewlet
+    VNCCollabHeaderViewlet, WorldClockViewlet, ZopeEditViewlet
 
 
 _pl = MessageFactory('plonelocales')
@@ -91,13 +91,27 @@ class TestViewlets(FunctionalTestCase):
         self.assertEqual(viewlet.dayname, dayname)
         self.assertEqual(viewlet.datetime, datetime)
 
-    def test_HeaderTimeViewlet(self):
-        request = self.app.REQUEST
-        viewlet = VNCCollabHeaderViewlet(self.portal, request, None, None)
-        self.assertFalse(viewlet.available())
-
     def test_WorldClockViewlet(self):
         request = self.app.REQUEST
-        viewlet = WorldClockViewlet(self.portal, request, None, None)
-        #viewlet.update()
+        viewlet = WorldClockViewlet(self.portal, request, 
+            self.portal.restrictedTraverse('@@plone'), None)
+        viewlet.update()
+
+        self.assertIn('class="worldClockWrapper"', viewlet.world_clock)
+        self.assertIn('id="c1"', viewlet.world_clock)
+        self.assertIn('id="c2"', viewlet.world_clock)
+        self.assertIn('id="c3"', viewlet.world_clock)
+        self.assertIn('class="worldClockCity"', viewlet.world_clock)
+        self.assertIn(
+            'src="http://nohost/plone/++resource++vnccollab.theme.js/coolclock.js"',
+            viewlet.world_clock)
+        self.assertIn('CoolClock.config', viewlet.world_clock)
+
+    def test_ZopeEditViewlet(self):
+        request = self.app.REQUEST
+        viewlet = ZopeEditViewlet(self.portal, request, 
+            self.portal.restrictedTraverse('@@plone'), None)
+        viewlet.update()
+        self.assertEqual(viewlet.external_editor_url(), 
+            '/externalEdit_/plone.zem')
 

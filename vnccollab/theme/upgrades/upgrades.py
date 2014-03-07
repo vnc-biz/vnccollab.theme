@@ -50,27 +50,27 @@ def upgrade_1110_1111(context):
     setup = getToolByName(context, 'portal_setup')
     setup.runImportStepFromProfile(DEFAULT_PROFILE, 'plone.app.registry')
     setup.runImportStepFromProfile(DEFAULT_PROFILE, 'jsregistry',
-        run_dependencies=False)
+                                   run_dependencies=False)
     setup.runImportStepFromProfile(DEFAULT_PROFILE, 'cssregistry',
-        run_dependencies=False)
+                                   run_dependencies=False)
     setup.runImportStepFromProfile(DEFAULT_PROFILE, 'controlpanel',
-        run_dependencies=False)
+                                   run_dependencies=False)
     setup.runImportStepFromProfile(DEFAULT_PROFILE, 'viewlets',
-        run_dependencies=False)
+                                   run_dependencies=False)
 
 
 def upgrade_1111_1112(context):
     """Upgrades registry and other settings"""
     setup = getToolByName(context, 'portal_setup')
     setup.runImportStepFromProfile(DEFAULT_PROFILE, 'jsregistry',
-        run_dependencies=False)
+                                   run_dependencies=False)
 
 
 def upgrade_1112_1113(context):
     """Upgrades registry and other settings"""
     setup = getToolByName(context, 'portal_setup')
     setup.runImportStepFromProfile(DEFAULT_PROFILE, 'jsregistry',
-        run_dependencies=False)
+                                   run_dependencies=False)
 
 
 def upgrade_1113_1114(context):
@@ -95,6 +95,12 @@ def upgrade_1115_1116(context):
     _unregisterPortlet(site, 'vnccollab.theme.portlets.ZimbraMailPortlet')
     _unregisterPortlet(site, 'vnccollab.theme.portlets.ZimbraCalendarPortlet')
     _unregisterPortlet(site, 'vnccollab.theme.portlets.RedmineTicketsPortlet')
+
+
+def upgrade_1117_1118(context):
+    """Removes OpenERP portlet."""
+    site = api.portal.get()
+    _unregisterPortlet(site, 'vnccollab.theme.portlets.OpenERPJSPortlet')
 
 
 def _unregisterPortlet(site, type):

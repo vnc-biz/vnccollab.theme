@@ -1,10 +1,55 @@
 Changelog
 =========
 
+1.7.10 - March 07, 2014
+-----------------------
+
+- Fixes overlays dialog position, update css selectors [10438].
+  [Cesar Gonzalez]
+
+- Fixes bug in redirection after deleting file [10439].
+  [Jose Dinuncio]
+
+- Hides the "Edit without visual editor" link [10166].
+  [Cesar Gonzalez]
+
+- Adds anonymous page configuration thru the web [10383].
+  [Jose Dinuncio]
+
+- Begins removing OpenERP portlet [10362]
+  [Jose Dinuncio]
+
+- Adds the appendTo option of autocomplete to insert the result ul element
+  relative to the input field. [10171]
+  [Cesar Gonzalez]
+
+- Adds ccs style to destination object autocomplete of the wizard.
+  Remove unused ul element from template. [10171]
+  [Cesar Gonzalez]
+
+- Adds styled spinner to livesearch box (dashboard mode) [10169].
+  [Cesar Gonzalez]
+
+- Adds styled spinner to livesearch box (dashboard mode) [10169].
+  [Cesar Gonzalez]
+
+- Improves speed in user search [10169].
+  [Jose Dinuncio].
+
+- Adds CMF Subscription list style. [9861].
+  [Cesar Gonzalez]
+
+- Adds version.txt
+  [Jose Dinuncio]
+
+- Update add Wizard. Picker for selecting date and time, suggest for location,
+  permission to adding Cast Topic to Cast Containe. [10171]
+  [Marcin Staniszczak]
+
 1.7.9 - December 21, 2013
 -------------------------
 
-- Removes old Redmine and Zimbra portlets.
+- Begins removing old Redmine and Zimbra portlets.
   [Jose Dinuncio]
 
 - Adds customizable login, sign up and help urls.

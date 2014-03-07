@@ -186,4 +186,37 @@
       handler="vnccollab.theme.upgrades.upgrades.upgrade_1115_1116"
       />
 
+    <genericsetup:upgradeSteps
+      source="1116"
+      destination="1117"
+      sortkey="18"
+      profile="vnccollab.theme:default">
+
+        <genericsetup:upgradeDepends
+          title="Re-cook js and css"
+          import_steps="jsregistry cssregistry"
+          />
+    </genericsetup:upgradeSteps>
+
+    <genericsetup:upgradeStep
+      source="1117"
+      destination="1118"
+      sortkey="19"
+      profile="vnccollab.theme:default"
+      title="Removes OpenERP portlet"
+      handler="vnccollab.theme.upgrades.upgrades.upgrade_1117_1118"
+      />
+
+    <genericsetup:upgradeSteps
+      source="1118"
+      destination="1119"
+      sortkey="20"
+      profile="vnccollab.theme:default">
+
+        <genericsetup:upgradeDepends
+          title="Re-cook js"
+          import_steps="jsregistry"
+          />
+    </genericsetup:upgradeSteps>
+
 </configure>

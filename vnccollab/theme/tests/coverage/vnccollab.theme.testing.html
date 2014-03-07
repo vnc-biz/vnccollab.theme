@@ -12,9 +12,9 @@
       <body><h1>Test coverage for vnccollab.theme.testing</h1>
       <table>
     
-<tr><td><a href="vnccollab.html">vnccollab/</a></td> <td style="background: red">&nbsp;&nbsp;&nbsp;&nbsp;</td> <td>covered 68% (1329 of 4163 uncovered)</td></tr>
-<tr><td><a href="vnccollab.theme.html">&nbsp;&nbsp;&nbsp;&nbsp;theme/</a></td> <td style="background: red">&nbsp;&nbsp;&nbsp;&nbsp;</td> <td>covered 68% (1329 of 4163 uncovered)</td></tr>
-<tr><td><a href="vnccollab.theme.testing.html">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;testing.py</a></td> <td style="background: orange">&nbsp;&nbsp;&nbsp;&nbsp;</td> <td>covered 84% (12 of 77 uncovered)</td></tr>
+<tr><td><a href="vnccollab.html">vnccollab/</a></td> <td style="background: red">&nbsp;&nbsp;&nbsp;&nbsp;</td> <td>covered 69% (1245 of 4098 uncovered)</td></tr>
+<tr><td><a href="vnccollab.theme.html">&nbsp;&nbsp;&nbsp;&nbsp;theme/</a></td> <td style="background: red">&nbsp;&nbsp;&nbsp;&nbsp;</td> <td>covered 69% (1245 of 4098 uncovered)</td></tr>
+<tr><td><a href="vnccollab.theme.testing.html">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;testing.py</a></td> <td style="background: orange">&nbsp;&nbsp;&nbsp;&nbsp;</td> <td>covered 85% (12 of 80 uncovered)</td></tr>
 </table><hr/>
 <pre>    1: import sys
     1: import transaction
@@ -55,6 +55,7 @@
     1:                        'plone.formwidget.autocomplete', 'Products.Carousel',
     1:                        'vnccollab.theme', 'collective.autopermission',
     1:                        'plone.app.iterate',
+    1:                        'vnccollab.content',
     1:                        'Products.PloneLanguageTool'] #, 'plone.i18n', 'plone.app.i18n']
        
     1:         if CAST_ENABLED:
@@ -65,9 +66,9 @@
     1:                 'collective.autogroup','vnccollab.cloudcast',
     1:                 'vnccollab.cloudmobile'])
        
-   17:         for package in depedencies:
-   16:             module = __import__(package, fromlist=[''])
-   16:             self.loadZCML(package=module)
+   18:         for package in depedencies:
+   17:             module = __import__(package, fromlist=[''])
+   17:             self.loadZCML(package=module)
        
     1:         if CAST_ENABLED:
     1:             z2.installProduct(app, 'vnccollab.cloudcast')
@@ -76,6 +77,7 @@
     1:         z2.installProduct(app, 'plone.app.locales')
                # z2.installProduct(app, 'plone.app.layout')
                # z2.installProduct(app, 'plone.app.i18n')
+    1:         z2.installProduct(app, 'vnccollab.content')
     1:         z2.installProduct(app, 'vnccollab.theme')
     1:         z2.installProduct(app, 'Products.PythonScripts')
        
@@ -86,6 +88,7 @@
                # Install portal content. Including the Members folder!
     1:         self.applyProfile(portal, 'Products.CMFPlone:plone-content')
                #self.applyProfile(portal, 'Products.PloneLanguageTool:plone-default')
+    1:         self.applyProfile(portal, 'vnccollab.content:default')
     1:         self.applyProfile(portal, 'vnccollab.theme:default')
     1:         if CAST_ENABLED:
     1:             self.applyProfile(portal, 'vnccollab.cloudcast:default')
@@ -101,7 +104,7 @@
        
        
     1: def setObjDate(obj, dt):
-           """Prevent update of modification date 
+           """Prevent update of modification date
               during reindexing"""
 <div class="notcovered">&gt;&gt;&gt;&gt;&gt;&gt;     obj.setCreationDate(dt)</div><div class="notcovered">&gt;&gt;&gt;&gt;&gt;&gt;     obj.setEffectiveDate(dt)</div><div class="notcovered">&gt;&gt;&gt;&gt;&gt;&gt;     obj.setModificationDate(dt)</div><div class="notcovered">&gt;&gt;&gt;&gt;&gt;&gt;     od = obj.__dict__</div><div class="notcovered">&gt;&gt;&gt;&gt;&gt;&gt;     od['notifyModified'] = lambda *args: None</div><div class="notcovered">&gt;&gt;&gt;&gt;&gt;&gt;     obj.reindexObject()</div><div class="notcovered">&gt;&gt;&gt;&gt;&gt;&gt;     del od['notifyModified']</div>       
        
@@ -120,7 +123,7 @@
 </pre>
 
       <div class="footer">
-      Generated for revision Niewersjonowany katalog on 2013-11-18 01:04:45.684645Z
+      Generated for revision Niewersjonowany katalog on 2014-02-26 19:06:33.637329Z
       </div>
     </body>
     </html>

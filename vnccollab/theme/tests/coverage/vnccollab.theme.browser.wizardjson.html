@@ -12,24 +12,30 @@
       <body><h1>Test coverage for vnccollab.theme.browser.wizardjson</h1>
       <table>
     
-<tr><td><a href="vnccollab.html">vnccollab/</a></td> <td style="background: red">&nbsp;&nbsp;&nbsp;&nbsp;</td> <td>covered 68% (1329 of 4163 uncovered)</td></tr>
-<tr><td><a href="vnccollab.theme.html">&nbsp;&nbsp;&nbsp;&nbsp;theme/</a></td> <td style="background: red">&nbsp;&nbsp;&nbsp;&nbsp;</td> <td>covered 68% (1329 of 4163 uncovered)</td></tr>
-<tr><td><a href="vnccollab.theme.browser.html">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;browser/</a></td> <td style="background: red">&nbsp;&nbsp;&nbsp;&nbsp;</td> <td>covered 71% (586 of 2059 uncovered)</td></tr>
-<tr><td><a href="vnccollab.theme.browser.wizardjson.html">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;wizardjson.py</a></td> <td style="background: yellow">&nbsp;&nbsp;&nbsp;&nbsp;</td> <td>covered 96% (4 of 119 uncovered)</td></tr>
+<tr><td><a href="vnccollab.html">vnccollab/</a></td> <td style="background: red">&nbsp;&nbsp;&nbsp;&nbsp;</td> <td>covered 69% (1245 of 4098 uncovered)</td></tr>
+<tr><td><a href="vnccollab.theme.html">&nbsp;&nbsp;&nbsp;&nbsp;theme/</a></td> <td style="background: red">&nbsp;&nbsp;&nbsp;&nbsp;</td> <td>covered 69% (1245 of 4098 uncovered)</td></tr>
+<tr><td><a href="vnccollab.theme.browser.html">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;browser/</a></td> <td style="background: red">&nbsp;&nbsp;&nbsp;&nbsp;</td> <td>covered 74% (507 of 1985 uncovered)</td></tr>
+<tr><td><a href="vnccollab.theme.browser.wizardjson.html">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;wizardjson.py</a></td> <td style="background: orange">&nbsp;&nbsp;&nbsp;&nbsp;</td> <td>covered 88% (15 of 136 uncovered)</td></tr>
 </table><hr/>
 <pre>    1: import simplejson
        
     1: from Acquisition import aq_parent
     1: from AccessControl import getSecurityManager
        
+    1: from zope.component import getMultiAdapter
+       
+    1: from Products import AdvancedQuery
+    1: from Products.AdvancedQuery import MatchGlob, Eq, In
     1: from Products.Five.browser import BrowserView
     1: from Products.CMFPlone.utils import safe_unicode
     1: from Products.CMFCore import permissions
     1: from Products.CMFCore.utils import getToolByName
     1: from Products.CMFCore.interfaces import ISiteRoot, IFolderish
+    1: from Products.Five.browser.pagetemplatefile import ViewPageTemplateFile
        
     1: from plone import api
     1: from plone.uuid.interfaces import IUUID
+    1: from plone.app.search.browser import Search
     1: from plone.app.contentlisting.interfaces import IContentListing
        
        
@@ -37,6 +43,17 @@
            '''Returns a JSON representation of the directory structure
     1:        to be used by jquery.dynatree library.'''
        
+    1:     def getSearchDestinationList(self, type_=None):
+               """ Return list of destinatons """
+<div class="notcovered">&gt;&gt;&gt;&gt;&gt;&gt;         catalog = getToolByName(self.context, 'portal_catalog')</div>       
+<div class="notcovered">&gt;&gt;&gt;&gt;&gt;&gt;         portal = api.portal.get()</div><div class="notcovered">&gt;&gt;&gt;&gt;&gt;&gt;         container_path = '/'.join(portal.getPhysicalPath())</div>       
+               query = (MatchGlob('Title',
+                           self.request.get('SearchableText', '') + '*') | \
+                       MatchGlob('Description', 
+                           self.request.get('SearchableText', '') + '*')) &amp; \
+<div class="notcovered">&gt;&gt;&gt;&gt;&gt;&gt;                 Eq('path', container_path) &amp; \</div><div class="notcovered">&gt;&gt;&gt;&gt;&gt;&gt;                 In('portal_type', self._get_container_types())</div>       
+<div class="notcovered">&gt;&gt;&gt;&gt;&gt;&gt;         obj = lambda o: o if ISiteRoot.providedBy(o) else o.getObject()</div>       
+<div class="notcovered">&gt;&gt;&gt;&gt;&gt;&gt;         results = IContentListing(catalog.evalAdvancedQuery(query))</div><div class="notcovered">&gt;&gt;&gt;&gt;&gt;&gt;         results = [self._info_from_content(x) for x in results</div><div class="notcovered">&gt;&gt;&gt;&gt;&gt;&gt;                    if self._is_container_selectable(obj(x), type_)]</div><div class="notcovered">&gt;&gt;&gt;&gt;&gt;&gt;         results.sort(lambda x, y: cmp(x['title'], y['title']))</div><div class="notcovered">&gt;&gt;&gt;&gt;&gt;&gt;         return simplejson.dumps(results)</div>       
     1:     def getInitialTree(self):
                '''Returns the initial tree for the dynatree.'''
     2:         context = self.getFolderishParent(self.context)
@@ -115,10 +132,10 @@
        
     6:         results = IContentListing(catalog(**query))
    23:         results = [self._info_from_content(x, type_) for x in results]
-   27:         results.sort(lambda x, y: cmp(x['title'], y['title']))
+   26:         results.sort(lambda x, y: cmp(x['title'], y['title']))
     6:         return results
        
-    1:     def _info_from_content(self, content, type_=None):
+    1:     def _info_from_content(self, content, type_=None, search_html=False):
    20:         content_is_root = ISiteRoot.providedBy(content)
    20:         if content_is_root:
     3:             content_uid = '0'
@@ -160,7 +177,7 @@
    20:         return result
        
     1:     def _get_container_types(self):
-    6:         return ['Folder']
+    6:         return ['Folder', 'CastsContainer']
        
     1:     def _is_container_selectable(self, container, type_):
    20:         writable = self._is_container_writable(container)
@@ -184,7 +201,7 @@
 </pre>
 
       <div class="footer">
-      Generated for revision Niewersjonowany katalog on 2013-11-18 01:04:45.684645Z
+      Generated for revision Niewersjonowany katalog on 2014-02-26 19:06:33.637329Z
       </div>
     </body>
     </html>

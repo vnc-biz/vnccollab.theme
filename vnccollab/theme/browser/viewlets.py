@@ -550,6 +550,30 @@ class AddContentAreaViewlet(common.ViewletBase):
 
         return home
 
+    def _all_user_selectable_types(self, site):
+        """ List user-selectable content types.
+
+        We cannot use the method provided by the IPortalState utility view,
+        because the vocabulary factory must be available in contexts where
+        there is no HTTP request (e.g. when installing add-on product).
+
+        This code is copied from
+        https://github.com/plone/plone.app.layout/tree/master/plone/app/layout/globals/portal.py
+        """
+
+        context = aq_inner(site)
+        site_properties = getToolByName(context, "portal_properties").site_properties
+        not_searched = site_properties.getProperty('types_not_searched', [])
+
+        portal_types = getToolByName(context, "portal_types")
+        types = portal_types.listContentTypes()
+
+        # Get list of content type ids which are not filtered out
+        prepared_types = [t for t in types if t not in not_searched]
+
+        ignored = ['Cast Update', 'Cast Comment', 'Topic']
+        return [portal_types[id] for id in prepared_types if id not in ignored]
+
     def _allowed_types(self, context):
         '''Return info of the types that can be added to the context.'''
         submenu = FactoriesSubMenuItem(context, self.request)
@@ -559,7 +583,8 @@ class AddContentAreaViewlet(common.ViewletBase):
         idnormalizer = getUtility(IIDNormalizer)
         result = []
 
-        for atype in submenu._addableTypesInContext(folder):
+        #for atype in submenu._addableTypesInContext(folder):
+        for atype in self._all_user_selectable_types(folder):
             id = atype.getId()
             result.append({
                 'id': id,

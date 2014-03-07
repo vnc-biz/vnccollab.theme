@@ -12,10 +12,10 @@
       <body><h1>Test coverage for vnccollab.theme.browser.homepage</h1>
       <table>
     
-<tr><td><a href="vnccollab.html">vnccollab/</a></td> <td style="background: red">&nbsp;&nbsp;&nbsp;&nbsp;</td> <td>covered 68% (1329 of 4163 uncovered)</td></tr>
-<tr><td><a href="vnccollab.theme.html">&nbsp;&nbsp;&nbsp;&nbsp;theme/</a></td> <td style="background: red">&nbsp;&nbsp;&nbsp;&nbsp;</td> <td>covered 68% (1329 of 4163 uncovered)</td></tr>
-<tr><td><a href="vnccollab.theme.browser.html">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;browser/</a></td> <td style="background: red">&nbsp;&nbsp;&nbsp;&nbsp;</td> <td>covered 71% (586 of 2059 uncovered)</td></tr>
-<tr><td><a href="vnccollab.theme.browser.homepage.html">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;homepage.py</a></td> <td style="background: red">&nbsp;&nbsp;&nbsp;&nbsp;</td> <td>covered 56% (35 of 80 uncovered)</td></tr>
+<tr><td><a href="vnccollab.html">vnccollab/</a></td> <td style="background: red">&nbsp;&nbsp;&nbsp;&nbsp;</td> <td>covered 69% (1245 of 4098 uncovered)</td></tr>
+<tr><td><a href="vnccollab.theme.html">&nbsp;&nbsp;&nbsp;&nbsp;theme/</a></td> <td style="background: red">&nbsp;&nbsp;&nbsp;&nbsp;</td> <td>covered 69% (1245 of 4098 uncovered)</td></tr>
+<tr><td><a href="vnccollab.theme.browser.html">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;browser/</a></td> <td style="background: red">&nbsp;&nbsp;&nbsp;&nbsp;</td> <td>covered 74% (507 of 1985 uncovered)</td></tr>
+<tr><td><a href="vnccollab.theme.browser.homepage.html">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;homepage.py</a></td> <td style="background: yellow">&nbsp;&nbsp;&nbsp;&nbsp;</td> <td>covered 90% (8 of 80 uncovered)</td></tr>
 </table><hr/>
 <pre>    1: from Acquisition import aq_inner
     1: from ZODB.POSException import ConflictError
@@ -47,12 +47,26 @@
        
     1:     @memoize
            def _lazyLoadPortlets(self, manager):
-<div class="notcovered">&gt;&gt;&gt;&gt;&gt;&gt;         items = []</div>               # below assignments attribute should be assigned by parent code
-<div class="notcovered">&gt;&gt;&gt;&gt;&gt;&gt;         for p in self.filter(self.assignments):</div><div class="notcovered">&gt;&gt;&gt;&gt;&gt;&gt;             renderer = self._dataToPortlet(p['assignment'].data)</div><div class="notcovered">&gt;&gt;&gt;&gt;&gt;&gt;             info = p.copy()</div><div class="notcovered">&gt;&gt;&gt;&gt;&gt;&gt;             info['manager'] = self.manager.__name__</div><div class="notcovered">&gt;&gt;&gt;&gt;&gt;&gt;             info['renderer'] = renderer</div><div class="notcovered">&gt;&gt;&gt;&gt;&gt;&gt;             hashPortletInfo(info)</div>                   # Record metadata on the renderer
-<div class="notcovered">&gt;&gt;&gt;&gt;&gt;&gt;             renderer.__portlet_metadata__ = info.copy()</div><div class="notcovered">&gt;&gt;&gt;&gt;&gt;&gt;             del renderer.__portlet_metadata__['renderer']</div><div class="notcovered">&gt;&gt;&gt;&gt;&gt;&gt;             try:</div><div class="notcovered">&gt;&gt;&gt;&gt;&gt;&gt;                 isAvailable = renderer.available</div><div class="notcovered">&gt;&gt;&gt;&gt;&gt;&gt;             except ConflictError:</div><div class="notcovered">&gt;&gt;&gt;&gt;&gt;&gt;                 raise</div><div class="notcovered">&gt;&gt;&gt;&gt;&gt;&gt;             except Exception, e:</div><div class="notcovered">&gt;&gt;&gt;&gt;&gt;&gt;                 isAvailable = False</div><div class="notcovered">&gt;&gt;&gt;&gt;&gt;&gt;                 logger.exception(</div><div class="notcovered">&gt;&gt;&gt;&gt;&gt;&gt;                     "Error while determining renderer availability of portlet "</div>                           "(%r %r %r): %s" % (
+    4:         items = []
+               # below assignments attribute should be assigned by parent code
+    5:         for p in self.filter(self.assignments):
+    1:             renderer = self._dataToPortlet(p['assignment'].data)
+    1:             info = p.copy()
+    1:             info['manager'] = self.manager.__name__
+    1:             info['renderer'] = renderer
+    1:             hashPortletInfo(info)
+                   # Record metadata on the renderer
+    1:             renderer.__portlet_metadata__ = info.copy()
+    1:             del renderer.__portlet_metadata__['renderer']
+    1:             try:
+    1:                 isAvailable = renderer.available
+<div class="notcovered">&gt;&gt;&gt;&gt;&gt;&gt;             except ConflictError:</div><div class="notcovered">&gt;&gt;&gt;&gt;&gt;&gt;                 raise</div><div class="notcovered">&gt;&gt;&gt;&gt;&gt;&gt;             except Exception, e:</div><div class="notcovered">&gt;&gt;&gt;&gt;&gt;&gt;                 isAvailable = False</div><div class="notcovered">&gt;&gt;&gt;&gt;&gt;&gt;                 logger.exception(</div><div class="notcovered">&gt;&gt;&gt;&gt;&gt;&gt;                     "Error while determining renderer availability of portlet "</div>                           "(%r %r %r): %s" % (
 <div class="notcovered">&gt;&gt;&gt;&gt;&gt;&gt;                     p['category'], p['key'], p['name'], str(e)))</div>       
-<div class="notcovered">&gt;&gt;&gt;&gt;&gt;&gt;             info['available'] = isAvailable</div><div class="notcovered">&gt;&gt;&gt;&gt;&gt;&gt;             items.append(info)</div>       
-<div class="notcovered">&gt;&gt;&gt;&gt;&gt;&gt;         return items</div>       
+    1:             info['available'] = isAvailable
+    1:             items.append(info)
+       
+    4:         return items
+       
     2: class HomePageView(DashboardView):
        
     1:     implements(IHomePageView)
@@ -68,32 +82,45 @@
        
     1:     def __call__(self):
     4:         if self.is_anonymous():
-    1:             alsoProvides(self, IAnonymousHomePageView)
+    2:             alsoProvides(self, IAnonymousHomePageView)
     4:         return self.render()
        
     1:     def render(self):
     4:         if self.is_anonymous():
-    1:             return self._welcome_template()
+    2:             return self._welcome_template()
                else:
-    3:             return self._dashboard_template()
+    2:             return self._dashboard_template()
        
     1:     def getColumn(self, name, group='AnonymousUsers'):
-    9:         column = getUtility(IPortletManager, name=name)
-    9:         category = column[GROUP_CATEGORY]
-    9:         mapping = category.get(group, None)
-    9:         if mapping is None:
-    9:             return u''
+    8:         column = getUtility(IPortletManager, name=name)
+    8:         category = column[GROUP_CATEGORY]
+    8:         mapping = category.get(group, None)
+    8:         if mapping is None:
+    4:             return u''
        
-<div class="notcovered">&gt;&gt;&gt;&gt;&gt;&gt;         context = aq_inner(self.context)</div><div class="notcovered">&gt;&gt;&gt;&gt;&gt;&gt;         assignments = []</div><div class="notcovered">&gt;&gt;&gt;&gt;&gt;&gt;         for assignment in mapping.values():</div><div class="notcovered">&gt;&gt;&gt;&gt;&gt;&gt;             settings = IPortletAssignmentSettings(assignment)</div><div class="notcovered">&gt;&gt;&gt;&gt;&gt;&gt;             if not settings.get('visible', True):</div><div class="notcovered">&gt;&gt;&gt;&gt;&gt;&gt;                 continue</div><div class="notcovered">&gt;&gt;&gt;&gt;&gt;&gt;             assignments.append({'category': GROUP_CATEGORY,</div><div class="notcovered">&gt;&gt;&gt;&gt;&gt;&gt;                                 'key': group,</div><div class="notcovered">&gt;&gt;&gt;&gt;&gt;&gt;                                 'name': assignment.__name__,</div><div class="notcovered">&gt;&gt;&gt;&gt;&gt;&gt;                                 'assignment': assignment</div>                                       })
+    4:         context = aq_inner(self.context)
+    4:         assignments = []
+    5:         for assignment in mapping.values():
+    1:             settings = IPortletAssignmentSettings(assignment)
+    1:             if not settings.get('visible', True):
+<div class="notcovered">&gt;&gt;&gt;&gt;&gt;&gt;                 continue</div>    1:             assignments.append({'category': GROUP_CATEGORY,
+    1:                                 'key': group,
+    1:                                 'name': assignment.__name__,
+    1:                                 'assignment': assignment
+                                       })
        
-<div class="notcovered">&gt;&gt;&gt;&gt;&gt;&gt;         renderer = HomePageColumnsRenderer(context, self.request, self, column)</div><div class="notcovered">&gt;&gt;&gt;&gt;&gt;&gt;         renderer.assignments = assignments</div><div class="notcovered">&gt;&gt;&gt;&gt;&gt;&gt;         renderer.update()</div><div class="notcovered">&gt;&gt;&gt;&gt;&gt;&gt;         return renderer.render()</div>       
+    4:         renderer = HomePageColumnsRenderer(context, self.request, self, column)
+    4:         renderer.assignments = assignments
+    4:         renderer.update()
+    4:         return renderer.render()
+       
     1:     def is_anonymous(self):
     8:         mt = getToolByName(self.context, 'portal_membership')
     8:         return mt.isAnonymousUser()
 </pre>
 
       <div class="footer">
-      Generated for revision Niewersjonowany katalog on 2013-11-18 01:04:45.684645Z
+      Generated for revision Niewersjonowany katalog on 2014-02-26 19:06:33.637329Z
       </div>
     </body>
     </html>

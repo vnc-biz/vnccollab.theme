@@ -69,12 +69,24 @@
                 <H3>WHERE DO YOU WANT TO PUT THE NEW ITEM?</H3>
                 <div class="step-content">
                     <label class="formQuestion" for="tree">
-                        Destination
+                        <input name="SearchableTextDestination"
+                               id="search-destination"
+                               type="text"
+                               size="24"
+                               value=""
+                               title="Search Destination"
+                               placeholder="Search Destination"
+                               accesskey="4"
+                               i18n:attributes="title title_search_site;
+                                                placeholder title_search_site"
+                               class="searchField" />
+                        <div id="wizard-destination-search-result">
+-                        </div>
+                        <input type="button" name="send-wizard" id="send-wizard" value="OK"/>
                         <span class="required" title="Required">&nbsp;</span>
                         <span class="formHelp" id="destination_help"></span>
                     </label>
                     <div id="tree" name="tree"></div>
-                    <input type="button" name="send-wizard" id="send-wizard" value="OK"/>
                     <input type="hidden" name="selected_destination" value=""/>
                     <label class="destination-label" for="destination">Selected Container:</label>
                     <span class="selectedContainer"></span>
