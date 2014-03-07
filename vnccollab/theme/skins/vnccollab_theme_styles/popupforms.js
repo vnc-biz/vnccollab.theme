@@ -96,7 +96,7 @@ jQuery(function($){
             filter: common_content_filter,
             formselector: 'form[name="default_page_form"]',
             noform: function(el) {return noformerrorshow(el, 'reload');},
-            closeselector: '[name=form.button.Cancel]',
+            closeselector: '[name="form.button.Cancel"]',
             width:'40%'
         }
     );
@@ -122,7 +122,7 @@ jQuery(function($){
             formselector: '#delete_confirmation',
             noform: function(el) {return noformerrorshow(el, 'redirect');},
             redirect: redirectbasehref,
-            closeselector: '[name=form.button.Cancel]',
+            closeselector: '[name="form.button.Cancel"]',
             width:'50%'
         }
     );
@@ -132,7 +132,7 @@ jQuery(function($){
         {
             subtype: 'ajax',
             filter: common_content_filter,
-            closeselector: '[name=form.button.Cancel]',
+            closeselector: '[name="form.button.Cancel"]',
             width:'40%'
         }
     );

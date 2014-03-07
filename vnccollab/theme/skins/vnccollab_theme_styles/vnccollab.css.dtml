@@ -2199,18 +2199,6 @@ form input.dislike-button {
   width:615px;
   }
 
-/* Ajax Overlay */
-/* Fix for File a Ticket Overlay form */
-.pb-ajax > div {
-  padding: 3.5em 1em 1em 1em;
-  position: relative;
-}
-.pb-ajax .portalMessage {
-  position: absolute;
-  top: 0;
-  width: 92%;
-}
-
 /*----- Portal Message -----*/
 dl.portalMessage{
   background-color: rgba(1, 42, 67, 0.1);
@@ -2824,6 +2812,11 @@ div.chatbody {
 .roomParticipants ul li .removeParticipantButton {
   display: none;
 }
+
+#content-history {
+  font-size: 12px;
+}
+
 .history-box {
   text-align: center;
   padding: 5px;
@@ -3756,12 +3749,22 @@ table.listing td:last-child {
   padding: 5px 12px;
 }
 
-/* Content overlay */
+/* Ajax Overlay */
 
 .pb-ajax {
   background-color: #F9F9F9;
   border: 1px solid rgba(45, 72, 87, 0.59);
   border-radius: 5px;
+}
+
+.pb-ajax > div {
+  margin: 0;
+  padding: 0;
+  width: 100%;
+}
+.pb-ajax .portalMessage {
+  top: 0;
+  width: 92%;
 }
 
 .pb-ajax #content-core, .pb-ajax #skel-contents {
@@ -3772,20 +3775,14 @@ table.listing td:last-child {
   font-size: 12px;
 }
 
-.pb-ajax > div {
-  margin: 0;
-  padding: 0;
-  width: 100%;
-}
-
 .pb-ajax textarea {
   box-sizing: border-box;
 }
 
-#content .pb-ajax h1.documentFirstHeading, .pb-ajax h1.documentFirstHeading {
-  font-size: 21px;
+.pb-ajax h1.documentFirstHeading, .pb-ajax h1.documentFirstHeading {
+  font-size: 18px;
   margin: 0;
-  padding: 0.5em 0 0.3em 0;
+  padding: 0.5em 0.5em 0.3em 0.5em;
   text-transform: uppercase;
   text-align: center;
   background-color: #012A43;
@@ -3793,16 +3790,16 @@ table.listing td:last-child {
   text-shadow: none;
 }
 
-#content .pb-ajax h1.sendError, .pb-ajax h1.sendError {
+.pb-ajax h1.sendError, .pb-ajax h1.sendError {
     background-color: #b91900;
 }
 
-#content .pb-ajax h1.mailSent, .pb-ajax h1.mailSent {
+.pb-ajax h1.mailSent, .pb-ajax h1.mailSent {
     background-color: #012A43;
 }
 
-#content .pb-ajax .documentDescription,
-#content .pb-ajax #description,
+.pb-ajax .documentDescription,
+.pb-ajax #description,
 .pb-ajax .documentDescription {
   color: rgb(58, 58, 58);
   font-weight: normal;
@@ -3823,25 +3820,28 @@ table.listing td:last-child {
 .pb-ajax #content-core label {
   font-size: 14px;
   font-weight: normal;
+  padding-top: 12px;
 }
 
 .pb-ajax #content-core .field {
  clear: both;
  margin: 0 0 1.5em 0;
 }
+.pb-ajax #content-core form[name="folder_rename"] .field > div {
+ padding-top: 1em;
+}
 
-#content .pb-ajax fieldset, .documentEditable .pb-ajax fieldset {
+.pb-ajax fieldset, .documentEditable .pb-ajax fieldset {
  border: none;
  padding: 0;
 }
 
-#content .pb-ajax legend, .documentEditable .pb-ajax legend {
+.pb-ajax legend, .documentEditable .pb-ajax legend {
  font-size: 14px;
- font-weight: bold;
  padding-left: 0;
 }
 
-#content .pb-ajax .formHelp, .documentEditable .pb-ajax .formHelp {
+.pb-ajax .formHelp, .documentEditable .pb-ajax .formHelp {
   color: rgba(1,42,67,0.5);
 } {
   color: rgba(1,42,67,0.5);
@@ -4690,7 +4690,7 @@ a.caltrigger {
 }
 
 #contentActionMenus dl.actionMenu a, #contentActionMenus dl.actionMenu.activated dd {
-  z-index: 99999 !important;
+  z-index: 99 !important;
 }
 
 /* live search 2 */
