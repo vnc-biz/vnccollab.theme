@@ -4,16 +4,19 @@ Changelog
 1.7.10 - unreleased
 -------------------
 
-- Hides the "Edit without visual editor" link [10166].
+- Fixes overlays dialog position, update css selectors [10438].
   [Cesar Gonzalez]
-
-- Begins removing OpenERP portlet [10362]
-  [Jose Dinuncio]
 
 - Fixes bug in redirection after deleting file [10439].
   [Jose Dinuncio]
 
+- Hides the "Edit without visual editor" link [10166].
+  [Cesar Gonzalez]
+
 - Adds anonymous page configuration thru the web [10383].
+  [Jose Dinuncio]
+
+- Begins removing OpenERP portlet [10362]
   [Jose Dinuncio]
 
 - Adds the appendTo option of autocomplete to insert the result ul element

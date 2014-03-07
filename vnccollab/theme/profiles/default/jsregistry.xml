@@ -42,6 +42,8 @@
   <javascript id="++resource++vnccollab.theme.js/jquery.blockUI.js"
               insert-before="++resource++vnccollab.theme.js/main.js"
               enabled="True" />
+  <javascript id="++resource++vnccollab.theme.js/overlayhelpers.js"
+              enabled="True" />
   <javascript id="++resource++plone.formwidget.autocomplete/jquery.autocomplete.min.js"
               enabled="False" />
   <javascript id="++resource++plone.app.jquerytools.dateinput.js"
