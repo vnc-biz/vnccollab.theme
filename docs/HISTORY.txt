@@ -1,6 +1,13 @@
 Changelog
 =========
 
+1.8.0 - unreleased
+------------------
+
+- Customize navigation portlet to only show folders [10646].
+  [Marcin Staniszczak]
+
+
 1.7.10 - March 07, 2014
 -----------------------
 
