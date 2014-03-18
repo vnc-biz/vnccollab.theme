@@ -1,6 +1,12 @@
 Changelog
 =========
 
+1.7.11 - undefined
+------------------
+
+- Adds image width limit to 100% on content [10561].
+  [Cesar Gonzalez]
+
 1.7.10 - March 07, 2014
 -----------------------
 

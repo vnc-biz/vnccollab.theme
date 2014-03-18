@@ -1266,6 +1266,10 @@ h1, h2 {
   letter-spacing:0;
   }
 
+.image-inline, .image-left, .image-right {
+  max-width: 100%;
+}
+
 /*--- TOC ---*/
 dl#document-toc {
   float: none;
