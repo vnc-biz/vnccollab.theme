@@ -3,6 +3,9 @@ import transaction
 from DateTime import DateTime
 import unittest2 as unittest
 
+from Acquisition import aq_base
+
+from Testing.ZopeTestCase import user_name
 from plone.testing.z2 import Browser
 from plone.app.testing import login
 from plone.app.testing import setRoles
@@ -13,8 +16,13 @@ from plone.app.controlpanel.security import ISecuritySchema
 
 from Products.CMFCore.utils import getToolByName
 
+from AccessControl import getSecurityManager
+from AccessControl.SecurityManagement import newSecurityManager
+
 from vnccollab.theme.testing import VNCCOLLAB_THEME_INTEGRATION_TESTING, \
     VNCCOLLAB_THEME_FUNCTIONAL_TESTING
+
+from Products.PloneTestCase import utils
 
 
 class BaseTestCase(unittest.TestCase):
@@ -36,6 +44,9 @@ class BaseTestCase(unittest.TestCase):
             for member in self.members:
                 self.addMember(*member)
 
+        if not hasattr(aq_base(self.portal), 'acl_users'):
+            self.portal.manage_addUserFolder()
+
     def login(self, user_name=TEST_USER_NAME, password=TEST_USER_PASSWORD):
         """Helper method for login."""
         browser = Browser(self.portal)
@@ -48,6 +59,21 @@ class BaseTestCase(unittest.TestCase):
         browser.getControl(name='submit', index=0).click()
 
         return browser
+
+    def setRoles(self, roles, name=user_name):
+        '''Changes the user's roles.'''
+        uf = self.portal.acl_users
+        uf.userFolderEditUser(name, None, utils.makelist(roles), [])
+        if name == getSecurityManager().getUser().getId():
+            self._login(name)
+
+    def _login(self, name=user_name):
+        '''Logs in.'''
+        uf = self.portal.acl_users
+        user = uf.getUserById(name)
+        if not hasattr(user, 'aq_base'):
+            user = user.__of__(uf)
+        newSecurityManager(None, user)
 
     def logout(self, browser):
         """Helper method for logout."""
