@@ -124,5 +124,10 @@
     name="vnccollab.theme.openerp_js.openerp_vocabulary"
     />
 
+  <plone:portletRenderer
+    portlet="plone.app.portlets.portlets.navigation.INavigationPortlet"
+    class="vnccollab.theme.portlets.navigation.Renderer"
+    layer="..browser.interfaces.IThemeSpecific"
+    />
 
 </configure>
