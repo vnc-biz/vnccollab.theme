@@ -11,7 +11,7 @@ from Products.ATContentTypes.interfaces import IATFolder
 from Acquisition import aq_inner
 
 
-allowed_types = (IATFolder,)
+allowed_types = ('Folder', 'Large Folder', 'Large Plone Folder', 'Collection', 'Topic')
 
 
 class NavtreeStrategyBase(navigation.NavtreeStrategy):
@@ -23,7 +23,7 @@ class NavtreeStrategyBase(navigation.NavtreeStrategy):
         result = False
         item = node['item']
         for t in allowed_types:
-            if t.providedBy(item.getObject()):
+            if item.getObject().portal_type in allowed_types:
                 result = True
                 break
         return result
