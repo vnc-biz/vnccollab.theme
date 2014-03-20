@@ -4,6 +4,9 @@ Changelog
 1.8.0 - unreleased
 ------------------
 
+- Adds layer specificity to json messages views.
+  [Jose Dinuncio]
+
 - Adds image width limit to 100% on content [10561].
   [Cesar Gonzalez]
 
