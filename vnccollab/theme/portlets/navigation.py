@@ -14,6 +14,20 @@ from Acquisition import aq_inner
 allowed_types = ('Folder', 'Large Folder', 'Large Plone Folder', 'Collection', 'Topic')
 
 
+def _filter(data):
+    to_remove = []
+    for k, d in enumerate(data['children']):
+        if d['portal_type'] not in allowed_types:
+            to_remove.append(k)
+        else:
+            d['children'] = _filter(d)['children']
+
+    for i in reversed(to_remove):
+        del data['children'][i]
+
+    return data
+
+
 class NavtreeStrategyBase(navigation.NavtreeStrategy):
     """Basic navigation tree strategy that does nothing.
     """
@@ -35,4 +49,5 @@ class Renderer(navigation.Renderer):
         context = aq_inner(self.context)
         queryBuilder = getMultiAdapter((context, self.data), INavigationQueryBuilder)
         strategy = NavtreeStrategyBase(context, self.data)
-        return buildFolderTree(context, obj=context, query=queryBuilder(), strategy=strategy)
+        result = buildFolderTree(context, obj=context, query=queryBuilder(), strategy=strategy)
+        return _filter(result)
