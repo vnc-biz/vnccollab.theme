@@ -16,16 +16,24 @@ allowed_types = ('Folder', 'Large Folder', 'Large Plone Folder', 'Collection', '
 
 def _filter(data):
     to_remove = []
-    for k, d in enumerate(data['children']):
-        if d['portal_type'] not in allowed_types:
-            to_remove.append(k)
-        else:
-            d['children'] = _filter(d)['children']
+    selected = False
 
-    for i in reversed(to_remove):
-        del data['children'][i]
+    try:
+        for k, d in enumerate(data['children']):
+            if d['portal_type'] not in allowed_types:
+                to_remove.append(k)
+            else:
+                r, s = _filter(d)
+                d['children'] = r['children']
+                d['currentItem'] = s
 
-    return data
+        for i in reversed(to_remove):
+            selected = data['children'][i]['currentItem']
+            del data['children'][i]
+    except:
+        return data, selected
+
+    return data, selected
 
 
 class NavtreeStrategyBase(navigation.NavtreeStrategy):
@@ -50,4 +58,5 @@ class Renderer(navigation.Renderer):
         queryBuilder = getMultiAdapter((context, self.data), INavigationQueryBuilder)
         strategy = NavtreeStrategyBase(context, self.data)
         result = buildFolderTree(context, obj=context, query=queryBuilder(), strategy=strategy)
-        return _filter(result)
+        result, _ = _filter(result)
+        return result
