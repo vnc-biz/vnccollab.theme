@@ -1,12 +1,18 @@
 Changelog
 =========
 
-1.8.0 - unreleased
+
+1.7.11 - undefined
 ------------------
+
+- Adds layer specificity to json messages views.
+  [Jose Dinuncio]
+
+- Adds image width limit to 100% on content [10561].
+  [Cesar Gonzalez]
 
 - Customize navigation portlet to only show folders [10646].
   [Marcin Staniszczak]
-
 
 1.7.10 - March 07, 2014
 -----------------------
