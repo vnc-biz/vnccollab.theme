@@ -4,6 +4,9 @@ Changelog
 1.7.11 - undefined
 ------------------
 
+- Ignores enter key on livesearch [10688].
+  [Cesar Gonzalez]
+
 - Adds button text to Browse Files button and set css [10695].
   [Cesar Gonzalez]
 
