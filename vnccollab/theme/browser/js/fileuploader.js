@@ -562,12 +562,14 @@ wizard_qq.WizardUploadButton.prototype = {
         this._input = this._createInput();
     },
     _createInput: function(){
+        var div = document.createElement("div");
         var input = document.createElement("input");
 
         if (this._options.multiple){
             input.setAttribute("multiple", "multiple");
         }
 
+        div.setAttribute('class', 'input-button-text');
         input.setAttribute("type", "file");
         input.setAttribute("name", this._options.name);
 
@@ -587,6 +589,10 @@ wizard_qq.WizardUploadButton.prototype = {
             cursor: 'pointer',
             opacity: 0
         });
+
+        // I had to set the text here to be into the button container.
+        div.innerHTML = 'Browse Files';
+        this._element.appendChild(div);
 
         this._element.appendChild(input);
 

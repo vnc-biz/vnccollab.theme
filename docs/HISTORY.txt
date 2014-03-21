@@ -4,6 +4,9 @@ Changelog
 1.7.11 - undefined
 ------------------
 
+- Adds button text to Browse Files button and set css [10695].
+  [Cesar Gonzalez]
+
 - Adds layer specificity to json messages views.
   [Jose Dinuncio]
 
