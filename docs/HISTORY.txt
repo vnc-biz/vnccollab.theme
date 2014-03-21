@@ -4,6 +4,9 @@ Changelog
 1.7.11 - undefined
 ------------------
 
+- Ignores enter key on livesearch [10688].
+  [Cesar Gonzalez]
+
 - Adds layer specificity to json messages views.
   [Jose Dinuncio]
 

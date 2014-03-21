@@ -171,10 +171,16 @@ var livesearch = (function () {
             $$result.hide();
         }
 
+        function _keyEnter(e) {
+            // ignores enter key
+            e.preventDefault();
+        }
+
         function _handler($event) {
             // dispatch to specific functions and handle the search timer
             window.clearTimeout($timeout);
             switch ($event.keyCode) {
+                case 13: return _keyEnter($event)
                 case 38: return _keyUp();
                 case 40: return _keyDown();
                 case 27: return _keyEscape();
