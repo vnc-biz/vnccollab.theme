@@ -57,9 +57,11 @@ class NavigationRendererTest(FunctionalTestCase):
         folder2.invokeFactory('Folder', 'folder21')
         self.setRoles(['Member'])
 
-    def _test_tree(self, tree, allowed):
+    def _test_tree(self, tree, allowed, selected=False):
         for el in tree:
             self.assertIn(el['id'], allowed)
+            if selected and el['normalized_id'] == selected:
+                self.assertTrue(el['currentItem'])
             if el['children']:
                 self._test_tree(el['children'], allowed)
 
@@ -74,3 +76,16 @@ class NavigationRendererTest(FunctionalTestCase):
         view = self.renderer(self.portal.folder2)
         tree = view.getNavTree()
         self._test_tree(tree['children'], ('folder1', 'folder2', 'folder21'))
+
+    def test_checkSelections(self):
+        view = self.renderer(self.portal.folder2)
+        tree = view.getNavTree()
+        self._test_tree(tree['children'], ('folder1', 'folder2', 'folder21'), 'folder2')
+
+        view = self.renderer(self.portal.folder2.doc22)
+        tree = view.getNavTree()
+        self._test_tree(tree['children'], ('folder1', 'folder2', 'folder21'), 'folder2')
+
+        view = self.renderer(self.portal.folder1.doc11)
+        tree = view.getNavTree()
+        self._test_tree(tree['children'], ('folder1', 'folder2', 'folder21'), 'folder1')

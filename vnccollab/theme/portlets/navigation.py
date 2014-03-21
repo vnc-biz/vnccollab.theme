@@ -25,7 +25,7 @@ def _filter(data):
             else:
                 r, s = _filter(d)
                 d['children'] = r['children']
-                d['currentItem'] = s
+                d['currentItem'] = s if not d['currentItem'] else True
 
         for i in reversed(to_remove):
             selected = data['children'][i]['currentItem']
