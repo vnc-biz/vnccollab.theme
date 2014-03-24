@@ -125,4 +125,10 @@
     />
 
 
+
+<plone:portletRenderer
+    portlet="collective.vaporisation.interfaces.IVaporizedCloud"
+    class="vnccollab.theme.portlets.customizabletagcloudportlet.Renderer"
+    layer="..browser.interfaces.IThemeSpecific"
+    />
 </configure>

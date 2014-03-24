@@ -978,6 +978,9 @@ msgstr ""
 msgid "Top Rated"
 msgstr ""
 
+msgid "Top Tags"
+msgstr ""
+
 #: ./browser/file_issue.py:44
 msgid "Tracker"
 msgstr ""
