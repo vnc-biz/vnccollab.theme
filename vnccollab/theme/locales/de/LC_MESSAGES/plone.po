@@ -6,3 +6,9 @@ msgstr "Bildergallerie"
 
 msgid "Users"
 msgstr "Benutzer"
+
+msgid "Folders"
+msgstr "Ordner"
+
+msgid "Mail Subscription"
+msgstr "Mail-Abo"

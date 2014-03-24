@@ -591,7 +591,7 @@ wizard_qq.WizardUploadButton.prototype = {
         });
 
         // I had to set the text here to be into the button container.
-        div.innerHTML = 'Browse Files';
+        //div.innerHTML = 'Browse Files';
         this._element.appendChild(div);
 
         this._element.appendChild(input);

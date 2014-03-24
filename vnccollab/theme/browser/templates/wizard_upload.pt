@@ -13,10 +13,10 @@
      i18n:domain="collective.quickupload"
      tal:define="uploader_id view/uploader_id">
     <div class="wizard_qq-upload-drop-area">
-      <p>Drop files here to upload</p>
+      <p i18n:translate="">Drop files here to upload</p>
     </div>
     <div class="wizard_qq-files-to-upload-container">
-      <p>Files to upload:</p>
+      <p i18n:translate="">Files to upload:</p>
       <ul class="wizard_qq-files-to-upload"></ul>
       <div class="wizard_qq-uploadifybuttons">
         <input type="button"
@@ -34,8 +34,8 @@
       </div>
     </div>
     <div class="upload-form">
-      <p>Drop files you want to upload.</p>
-      <p>or</p>
+      <p i18n:translate="">Drop files you want to upload.</p>
+      <p  i18n:translate="">or</p>
       <!-- uploader comes here -->
       <div id="uploader"
            class="main-uploader"
