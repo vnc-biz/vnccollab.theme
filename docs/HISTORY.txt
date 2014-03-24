@@ -4,6 +4,9 @@ Changelog
 1.7.11 - undefined
 ------------------
 
+- Add german translations [10519].
+  [Marcin Staniszczak]
+
 - Adds button text to Browse Files button and set css [10695].
   [Cesar Gonzalez]
 
