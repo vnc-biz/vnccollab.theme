@@ -6,11 +6,11 @@
     i18n:domain="vnccollab.theme">
 
   <dt class="portletHeader"
-      tal:condition="view/data/header">
+      tal:condition="view/header">
     <span class="portletTopLeft"></span>
     <a href=""
        tal:attributes="href string:${context/portal_url}/Members"
-       tal:content="view/data/header">Users</a>
+       tal:content="view/header">Users</a>
     <span class="portletTopRight"></span>
   </dt>
     

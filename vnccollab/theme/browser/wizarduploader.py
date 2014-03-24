@@ -4,7 +4,7 @@ from Products.CMFCore.utils import getToolByName
 from Products.Five.browser.pagetemplatefile import ViewPageTemplateFile
 from Products.ATContentTypes.interfaces import IImageContent
 
-from collective.quickupload import siteMessageFactory as _
+from vnccollab.theme import messageFactory as _
 from collective.quickupload.browser.quick_upload import QuickUploadView, \
     QuickUploadInit, _listTypesForInterface
 
@@ -56,7 +56,7 @@ XHR_UPLOAD_JS = """
             sizeLimit: %(ul_xhr_size_limit)s,
             simUploadLimit: %(ul_sim_upload_limit)s,
             template: '<div class="wizard_qq-uploader">' +
-                      '<div class="wizard_qq-upload-button"></div>' +
+                      '<div class="wizard_qq-upload-button">%(ul_browse_files)s</div>' +
                       '<ul class="wizard_qq-upload-list"></ul>' +
                       '</div>',
             fileTemplate: '<li>' +
@@ -142,6 +142,7 @@ class WizardUploadInit(QuickUploadInit):
             ul_error_already_exists = self._translate(_(u"This file already exists with the same name on server:")),
             ul_error_zodb_conflict = self._translate(_(u"A data base conflict error happened when uploading this file:")),
             ul_error_server        = self._translate(_(u"Server error, please contact support and/or try again.")),
+            ul_browse_files        = self._translate(_('Browse files')),
         )
 
         settings['typeupload'] = typeupload

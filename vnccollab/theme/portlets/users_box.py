@@ -49,10 +49,10 @@ class Assignment(base.Assignment):
     @property
     def title(self):
         """Return portlet header"""
-        return self.header or _(u"Users Box")
+        return _(self.header) or _(u"Users Box")
 
     def __init__(self, header=u'Users', do_not_recurse=False, count=30):
-        self.header = header
+        self.header = _(header)
         self.do_not_recurse = do_not_recurse
         self.count = count
 
@@ -66,6 +66,7 @@ class Renderer(base.Renderer):
 
     def update(self):
         self.users = self._getUsers()
+        self.header = _(self.data.header)
 
     @memoize
     def _getUsers(self):

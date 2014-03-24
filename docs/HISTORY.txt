@@ -7,6 +7,9 @@ Changelog
 - Ignores enter key on livesearch [10688].
   [Cesar Gonzalez]
 
+- Add german translations [10519].
+  [Marcin Staniszczak]
+
 - Adds button text to Browse Files button and set css [10695].
   [Cesar Gonzalez]
 
