@@ -4,7 +4,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
-"POT-Creation-Date: 2014-03-24 18:28+0000\n"
+"POT-Creation-Date: 2014-03-24 21:57+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI +ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -984,6 +984,9 @@ msgstr ""
 
 #: ./browser/templates/toprated.pt:6
 msgid "Top Rated"
+msgstr ""
+
+msgid "Top Tags"
 msgstr ""
 
 #: ./browser/file_issue.py:44
