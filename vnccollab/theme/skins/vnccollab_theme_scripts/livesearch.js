@@ -180,7 +180,7 @@ var livesearch = (function () {
             // dispatch to specific functions and handle the search timer
             window.clearTimeout($timeout);
             switch ($event.keyCode) {
-                case 13: return _keyEnter($event)
+                case 13: return _keyEnter($event);
                 case 38: return _keyUp();
                 case 40: return _keyDown();
                 case 27: return _keyEscape();
