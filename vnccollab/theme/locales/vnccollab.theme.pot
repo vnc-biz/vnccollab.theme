@@ -4,7 +4,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
-"POT-Creation-Date: 2014-03-24 21:57+0000\n"
+"POT-Creation-Date: 2014-03-25 21:54+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI +ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -32,6 +32,10 @@ msgstr ""
 
 #: ./browser/templates/footer.pt:15
 msgid "(c) 2011-2013 VNC - Virtual Network Consult AG."
+msgstr ""
+
+#: ./browser/templates/addbutton.pt:1
+msgid "<b></b>Add"
 msgstr ""
 
 #: ./browser/templates/add_content_area.pt:9
@@ -1223,6 +1227,7 @@ msgid "maximum file size is:"
 msgstr ""
 
 #: ./browser/templates/add_content_area.pt:56
+#: ./browser/templates/addbutton.pt:4
 msgid "or"
 msgstr ""
 
