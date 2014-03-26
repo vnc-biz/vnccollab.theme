@@ -26,6 +26,10 @@ msgstr ""
 msgid "(c) 2011-2013 VNC - Virtual Network Consult AG."
 msgstr ""
 
+#: ./browser/templates/addbutton.pt:1
+msgid "<b></b>Add"
+msgstr ""
+
 #: ./browser/templates/add_content_area.pt:9
 msgid "<strong>CREATE</strong> NEW CONTENT..."
 msgstr ""
@@ -1215,6 +1219,7 @@ msgid "maximum file size is:"
 msgstr ""
 
 #: ./browser/templates/add_content_area.pt:56
+#: ./browser/templates/addbutton.pt:4
 msgid "or"
 msgstr ""
 
