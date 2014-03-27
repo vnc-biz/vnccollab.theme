@@ -116,31 +116,6 @@ class WorldClockSettingsControlPanel(controlpanel.ControlPanelFormWrapper):
     form = WorldClockSettingsEditForm
 
 
-class IOpenERPSettings(Interface):
-    ''' Global OpenERP Settings.
-
-    Here you define that action ids associate with the database.
-    '''
-    openerpActions = schema.List(
-        title=u'OpenERP Actions',
-        description=u"Actions, one for line in the format 'id,description'. "
-                    u"DO NOT use commas in the description",
-        value_type=schema.TextLine(),
-        required=True,
-        default=[],
-    )
-
-
-class OpenERPSettingsEditForm(controlpanel.RegistryEditForm):
-    schema = IOpenERPSettings
-    label = u'OpenERP Settings'
-    description = _(u"""""")
-
-
-class OpenERPSettingsControlPanel(controlpanel.ControlPanelFormWrapper):
-    form = OpenERPSettingsEditForm
-
-
 class IAnonymousHomepageSettings(Interface):
     """Anonymous Homepage Settings."""
     help_url = schema.URI(
@@ -293,3 +268,30 @@ class AnonymousHomepageSettingsEditForm(AutoExtensibleForm, form.EditForm):
 class AnonymousHomepageSettingsControlPanel(controlpanel.ControlPanelFormWrapper):
     index = ViewPageTemplateFile('browser/templates/anonhomepage_controlpanel_layout.pt')
     form = AnonymousHomepageSettingsEditForm
+
+
+# TODO: Delete. These clases were required for an uninstallation.
+# Now they can be deteled.
+class IOpenERPSettings(Interface):
+    ''' Global OpenERP Settings.
+
+    Here you define that action ids associate with the database.
+    '''
+    openerpActions = schema.List(
+        title=u'OpenERP Actions',
+        description=u"Actions, one for line in the format 'id,description'. "
+                    u"DO NOT use commas in the description",
+        value_type=schema.TextLine(),
+        required=True,
+        default=[],
+    )
+
+
+class OpenERPSettingsEditForm(controlpanel.RegistryEditForm):
+    schema = IOpenERPSettings
+    label = u'OpenERP Settings'
+    description = _(u"""""")
+
+
+class OpenERPSettingsControlPanel(controlpanel.ControlPanelFormWrapper):
+    form = OpenERPSettingsEditForm

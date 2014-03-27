@@ -455,13 +455,6 @@
       />
 
   <browser:page
-      name="openerp-settings"
-      for="Products.CMFPlone.interfaces.IPloneSiteRoot"
-      class="vnccollab.theme.settings.OpenERPSettingsControlPanel"
-      permission="cmf.ManagePortal"
-      />
-
-  <browser:page
       name="anonhomepage-settings"
       for="Products.CMFPlone.interfaces.IPloneSiteRoot"
       class="vnccollab.theme.settings.AnonymousHomepageSettingsControlPanel"

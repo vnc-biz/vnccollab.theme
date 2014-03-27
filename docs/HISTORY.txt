@@ -4,6 +4,9 @@ Changelog
 1.7.11 - undefined
 ------------------
 
+- Finishes removing OpenERP portlet [10362].
+  [Jose Dinuncio]
+
 - Ignores enter key on livesearch [10688].
   [Cesar Gonzalez]
 

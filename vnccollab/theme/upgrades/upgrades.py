@@ -108,3 +108,9 @@ def _unregisterPortlet(site, type):
         unregisterPortletType(site, type)
     except Exception:
         pass
+
+
+def upgrade_1119_1120(context):
+    config_tool = api.portal.get_tool('portal_controlpanel')
+    configlet_id = 'openerp'
+    config_tool.unregisterConfiglet(configlet_id)

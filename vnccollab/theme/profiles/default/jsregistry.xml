@@ -17,8 +17,6 @@
               enabled="False" />
   <javascript id="jquery.autocomplete.min.js"
               enabled="False" />
-  <javascript id="++resource++vnccollab.theme.js/openerp_generic_portlet.js"
-              enabled="False" />
   <javascript id="++resource++vnccollab.theme.js/slimScroll.js"
               enabled="False" />
 
