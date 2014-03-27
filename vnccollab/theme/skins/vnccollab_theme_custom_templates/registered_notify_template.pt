@@ -1,0 +1,94 @@
+<tal:root define="lt string:&lt;;gt string:&gt;;
+                  dummy python:request.RESPONSE.setHeader('Content-Type', 'text/html;; charset=%s' % here.plone_utils.getSiteEncoding());
+                  member python:options['member'];
+                  portal_properties context/@@plone_tools/properties;
+                  view context/@@passwordreset_view;
+                  reset python:options.get('reset', None) or here.portal_password_reset.requestReset(member.getId());
+                  fullname python:member.getProperty('fullname');
+                  reset_url python:here.pwreset_constructURL(reset['randomstring'])+'?userid='+member.getUserName()"
+>From: <span tal:replace="structure view/encoded_mail_sender" />
+To: <span tal:replace="python:member.getProperty('email')" />
+Subject: <span tal:replace="view/registered_notify_subject" />
+Content-Type: text/html; charset="utf-8" 
+Precedence: bulk
+
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en"
+      xmlns:tal="http://xml.zope.org/namespaces/tal"
+      xmlns:metal="http://xml.zope.org/namespaces/metal"
+      xmlns:i18n="http://xml.zope.org/namespaces/i18n"
+      i18n:domain="vnccollab.theme"
+      tal:define="charset context/email_charset|string:utf-8;">
+<head>
+    <style type="text/css">
+      /* /\/\/\/\/\/\/\/\/ CLIENT-SPECIFIC STYLES /\/\/\/\/\/\/\/\/ */
+      #outlook a{padding:0;} /* Force Outlook to provide a "view in browser" message */
+      .ReadMsgBody{width:100%;} .ExternalClass{width:100%;} /* Force Hotmail to display emails at full width */
+      .ExternalClass, .ExternalClass p, .ExternalClass span, .ExternalClass font, .ExternalClass td, .ExternalClass div {line-height: 100%;} /* Force Hotmail to display normal line spacing */
+      body, table, td, p, a, li, blockquote{-webkit-text-size-adjust:100%; -ms-text-size-adjust:100%;} /* Prevent WebKit and Windows mobile changing default text sizes */
+      table, td{mso-table-lspace:0pt; mso-table-rspace:0pt;} /* Remove spacing between tables in Outlook 2007 and up */
+      img{-ms-interpolation-mode:bicubic;} /* Allow smoother rendering of resized image in Internet Explorer */
+
+      /* /\/\/\/\/\/\/\/\/ RESET STYLES /\/\/\/\/\/\/\/\/ */
+      body{margin:0; padding:0;}
+      img{border:0; height:auto; line-height:100%; outline:none; text-decoration:none;}
+      table{border-collapse:collapse !important;}
+      body, #bodyTable, #bodyCell{height:100% !important; margin:0; padding:0; width:100% !important;}
+      .ReadMsgBody {width: 100%;}
+      .ExternalClass {width: 100%; background-color:#e6e9ee !important;}
+
+      .bodyImage{
+        height:auto;
+        max-width:100%;
+      }
+
+      @media only screen and (max-width: 480px){
+        /* /\/\/\/\/\/\/ CLIENT-SPECIFIC MOBILE STYLES /\/\/\/\/\/\/ */
+        body{width:100% !important; min-width:100% !important;} /* Prevent iOS Mail from adding padding to the body */
+      }
+    </style>
+</head>
+
+<body style="padding:0; margin:0;" bgcolor="#e6e9ee">
+<table border="0" cellspacing="0" cellpadding="20px" width="100%" height="auto" bgcolor="#e6e9ee" border="0">
+        <tr>
+            <td valign="top">
+              <table width="100%" border="0" cellspacing="0" cellpadding="0" style="border: 1px solid #D1D8E7;" bgcolor="#ffffff" align="center">
+                <tr>
+                    <td align="center" valign="top" style="font-family: arial, sans-serif; line-height: 18px;color: #012a43; font-size: 14px; padding: 0 30px 10px;text-align: left;">
+
+                            <h1 style="font-size: 28px; line-height: 28px;font-style: normal; font-weight: normal;margin: 0;padding: 25px 0 26px 0 !important;text-align: center;" i18n:translate="">
+                                Welcome <span i18n:name="fullname" tal:replace="fullname" />
+                            </h1>
+                            <p style="margin-top:1em;">
+                              <span i18n:domain="passwordresettool"
+                                   i18n:translate="mailtemplate_registered_user_body"
+                                   tal:omit-tag="">
+
+                                  Your user account has been created.<br/>
+                                  Your username is <i><span i18n:name="member" tal:replace="member" /></i>.<br/>
+                                  Please activate it by visiting<br/>
+                                  <a href="#" tal:attributes="gref reset_url" tal:content="reset_url"></a><br/><br/>
+
+                                  Please activate your account before <b><span i18n:name="expirationdate" tal:replace="python:
+                                  context.toLocalizedTime(reset['expires'], long_format=1)" /></b>.<br/>
+
+                              </span>
+                            </p>
+                    </td>
+                </tr>
+
+
+                <tr>
+                    <td style="text-align: center;width:14em;font-size:16px;padding:28px 10px 10px 10px;color:#012a43;font-family:arial, sans-serif;border-top:1px solid #D1D8E7;">
+                        <b i18n:translate="">VNC CloudPortal</b>
+                    </td>
+                </tr>
+                <tr>
+                </tr>
+              </table>
+            </td>
+        </tr>
+    </table>
+</body>
+</html>
+</tal:root>
