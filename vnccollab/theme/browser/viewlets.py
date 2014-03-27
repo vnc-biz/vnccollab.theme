@@ -293,7 +293,7 @@ class FooterViewlet(common.FooterViewlet):
                 actions.append({
                     'id': info['id'],
                     'title': _(safe_unicode(info['title'])),
-                    'desc': desc,
+                    'desc': _(desc),
                     'url': info['url']
                 })
 

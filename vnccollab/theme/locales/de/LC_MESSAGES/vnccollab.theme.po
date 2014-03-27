@@ -1,0 +1,1261 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: PACKAGE VERSION\n"
+"POT-Creation-Date: YEAR-MO-DA HO:MI +ZONE\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI +ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=utf-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=1; plural=0\n"
+"Language-Code: en\n"
+"Language-Name: English\n"
+"Preferred-Encodings: utf-8 latin1\n"
+"Domain: DOMAIN\n"
+
+#: ./browser/wizarduploader.py:129
+msgid " files uploaded with success, "
+msgstr ""
+
+#: ./browser/wizarduploader.py:130
+msgid " uploads return an error."
+msgstr ""
+
+#: ./browser/templates/footer.pt:15
+msgid "(c) 2011-2013 VNC - Virtual Network Consult AG."
+msgstr "(c) 2011-2013 VNC - Virtual Network Consult AG."
+
+#: ./browser/templates/addbutton.pt:1
+msgid "<b></b>Add"
+msgstr "<b></b>Hinzufügen"
+
+#: ./browser/templates/add_content_area.pt:9
+msgid "<strong>CREATE</strong> NEW CONTENT..."
+msgstr "<strong>Neue</strong> Inhalte erstellen..."
+
+#: ./browser/wizarduploader.py:143
+msgid "A data base conflict error happened when uploading this file:"
+msgstr ""
+
+#: ./profiles/default/portlets.xml
+msgid "A generic portlet which can render any OpenERP widget."
+msgstr ""
+
+#: ./portlets/world_clock.py:165
+#: ./profiles/default/portlets.xml
+msgid "A portlet displaying analog world clocks."
+msgstr ""
+
+#: ./portlets/etherpads_list.py:226
+#: ./profiles/default/portlets.xml
+msgid "A portlet displaying list of Etherpad pads."
+msgstr ""
+
+#: ./portlets/special_rss.py:117
+msgid "A portlet displaying multiple RSS sources."
+msgstr ""
+
+#: ./portlets/dashlet.py:59
+msgid "A portlet displaying news, messages, articles..."
+msgstr ""
+
+#: ./portlets/users_box.py:131
+#: ./profiles/default/portlets.xml
+msgid "A portlet which lists users contributed to current container."
+msgstr ""
+
+#: ./portlets/dashlet.py:58
+msgid "Add Dashlet portlet"
+msgstr ""
+
+#: ./portlets/etherpads_list.py:225
+msgid "Add Etherpad Lists portlet"
+msgstr ""
+
+#: ./portlets/generic_iframe.py:71
+msgid "Add Generic Iframe Portlet"
+msgstr ""
+
+#: ./portlets/openerp_js.py:164
+msgid "Add OpenERP JavaScript Portlet"
+msgstr ""
+
+#: ./portlets/redmine_tickets.py:180
+msgid "Add Redmine Tickets Portlet"
+msgstr ""
+
+#: ./portlets/special_rss.py:116
+msgid "Add Special RSS portlet"
+msgstr ""
+
+#: ./portlets/users_box.py:130
+msgid "Add Users Box Portlet"
+msgstr ""
+
+#: ./portlets/world_clock.py:164
+msgid "Add World Clock portlet"
+msgstr ""
+
+#: ./portlets/zimbra_calendar.py:102
+msgid "Add Zimbra Calendar Portlet"
+msgstr ""
+
+#: ./portlets/zimbra_mail.py:155
+msgid "Add Zimbra Mail Portlet"
+msgstr ""
+
+#: ./browser/stream.py:118
+#: ./browser/util.py:62
+msgid "All"
+msgstr ""
+
+#: ./browser/wizarduploader.py:128
+msgid "All files uploaded with success."
+msgstr ""
+
+#: ./portlets/templates/etherpads_list.pt:62
+msgid "All pads&hellip;"
+msgstr ""
+
+#: ./portlets/templates/redmine_tickets.pt:56
+msgid "All tickets&hellip;"
+msgstr ""
+
+#: ./profiles/default/controlpanel.xml
+msgid "Anonymous Homepage"
+msgstr ""
+
+#: ./browser/file_issue.py:67
+msgid "Asignee"
+msgstr ""
+
+#: ./profiles/default/actions.xml
+msgid "Ask for support"
+msgstr "Support kontaktieren"
+
+#: ./browser/util.py:181
+msgid "Attached file is invalid, please, try to upload another one."
+msgstr ""
+
+#: ./browser/templates/vnccollab_header_homepage.pt:18
+msgid "Become part of the VNC Community. It's free."
+msgstr ""
+
+#: ./browser/wizarduploader.py:126
+msgid "Browse"
+msgstr ""
+
+#: ./browser/wizarduploader.py:145
+msgid "Browse files"
+msgstr "Dateien suchen"
+
+#: ./browser/templates/footer.pt:16
+msgid "Built with Plone - <a title=\"Plone CMS Site\" href=\"http://plone.org\">plone.org</a>"
+msgstr "Erstellt mit Plone - <a title=\"Plone CMS Site\" href=\"http://plone.org\">plone.org</a>"
+
+#: ./portlets/users_box.py:29
+msgid "By default portlet displays all users that contributed to content under current container. If this option ticked, only current context object contributors will be shown."
+msgstr ""
+
+#: ./settings.py:274
+msgid "Cancel"
+msgstr ""
+
+#: ./settings.py:269
+#: ./skins/vnccollab_theme_custom_templates/validate_integrity.cpy:28
+msgid "Changes saved."
+msgstr ""
+
+#: ./portlets/templates/redmine_tickets.pt:56
+msgid "Check all issues"
+msgstr ""
+
+#: ./portlets/templates/etherpads_list.pt:62
+msgid "Check all pads"
+msgstr ""
+
+#: ./browser/templates/stream.pt:110
+msgid "Click to Reply"
+msgstr ""
+
+#: ./browser/templates/header_time.pt:15
+msgid "Click to contract"
+msgstr ""
+
+#: ./browser/templates/header_timeshort.pt:16
+msgid "Click to expand"
+msgstr ""
+
+#: ./portlets/world_clock.py:41
+#: ./settings.py:37
+msgid "Clock 1 Radius"
+msgstr ""
+
+#: ./portlets/world_clock.py:34
+#: ./settings.py:29
+msgid "Clock 1 Skin"
+msgstr ""
+
+#: ./portlets/world_clock.py:27
+#: ./settings.py:22
+msgid "Clock 1 Timezone"
+msgstr ""
+
+#: ./portlets/world_clock.py:47
+#: ./settings.py:43
+msgid "Clock 1 Without Seconds"
+msgstr ""
+
+#: ./portlets/world_clock.py:68
+#: ./settings.py:64
+msgid "Clock 2 Radius"
+msgstr ""
+
+#: ./portlets/world_clock.py:60
+#: ./settings.py:56
+msgid "Clock 2 Skin"
+msgstr ""
+
+#: ./portlets/world_clock.py:53
+#: ./settings.py:49
+msgid "Clock 2 Timezone"
+msgstr ""
+
+#: ./portlets/world_clock.py:74
+#: ./settings.py:70
+msgid "Clock 2 Without Seconds"
+msgstr ""
+
+#: ./portlets/world_clock.py:94
+#: ./settings.py:91
+msgid "Clock 3 Radius"
+msgstr ""
+
+#: ./portlets/world_clock.py:87
+#: ./settings.py:83
+msgid "Clock 3 Skin"
+msgstr ""
+
+#: ./portlets/world_clock.py:80
+#: ./settings.py:76
+msgid "Clock 3 Timezone"
+msgstr ""
+
+#: ./portlets/world_clock.py:100
+#: ./settings.py:97
+msgid "Clock 3 Without Seconds"
+msgstr ""
+
+#: ./browser/zimbra.py:123
+msgid "Conversation id is not valid."
+msgstr ""
+
+#: ./skins/vnccollab_theme_custom_templates/send_feedback.cpy:51
+msgid "Could not find a valid email address"
+msgstr ""
+
+#: ./browser/file_issue.py:111
+#: ./browser/zimbratask.py:99
+msgid "Create"
+msgstr ""
+
+#: ./profiles/default/actions.xml
+msgid "Create Task"
+msgstr ""
+
+#: ./browser/templates/add_content_area.pt:39
+msgid "Create a new ${type}"
+msgstr "Neue ${type} erstellen"
+
+#: ./profiles/default/actions.xml
+msgid "Create a zimbra or redmine task related to this object."
+msgstr ""
+
+#: ./portlets/openerp_js.py:165
+msgid "Create an OpenERP JavaScript Portlet."
+msgstr ""
+
+#: ./profiles/default/portlets.xml
+msgid "Dashlet"
+msgstr ""
+
+#: ./portlets/zimbra_calendar.py:56
+#: ./portlets/zimbra_mail.py:73
+msgid "Data reload timeout"
+msgstr ""
+
+#: ./portlets/openerp_js.py:43
+msgid "Database Name"
+msgstr ""
+
+#: ./settings.py:188
+msgid "Delete Logo"
+msgstr ""
+
+#: ./settings.py:189
+msgid "Delete the customized logo."
+msgstr ""
+
+#: ./browser/file_issue.py:55
+#: ./browser/zimbratask.py:66
+msgid "Description"
+msgstr ""
+
+#: ./portlets/users_box.py:28
+msgid "Do not fetch users recursively"
+msgstr ""
+
+#: ./portlets/world_clock.py:48
+#: ./settings.py:44
+msgid "Do not show seconds handle."
+msgstr ""
+
+#: ./portlets/zimbra_calendar.py:30
+msgid "Domain of the mail account"
+msgstr ""
+
+#: ./browser/wizarduploader.py:127
+msgid "Drag and drop files to upload"
+msgstr ""
+
+#: ./browser/templates/add_content_area.pt:55
+msgid "Drop files you want to upload"
+msgstr "Legen Sie die Dateien, die Sie einfügen möchten, hier ab"
+
+#: ./browser/file_issue.py:78
+#: ./browser/zimbratask.py:61
+msgid "Due date"
+msgstr ""
+
+#: ./settings.py:286
+msgid "Edit Carousel"
+msgstr ""
+
+#: ./portlets/dashlet.py:67
+msgid "Edit Dashlet portlet"
+msgstr ""
+
+#: ./portlets/etherpads_list.py:234
+msgid "Edit Etherpad Lists portlet"
+msgstr ""
+
+#: ./portlets/generic_iframe.py:80
+msgid "Edit Generic Iframe Portlet"
+msgstr ""
+
+#: ./settings.py:281
+msgid "Edit Home Page"
+msgstr ""
+
+#: ./portlets/openerp_js.py:173
+msgid "Edit OpenERP JavaScript Portlet"
+msgstr ""
+
+#: ./portlets/redmine_tickets.py:190
+msgid "Edit Redmine Tickets Portlet"
+msgstr ""
+
+#: ./portlets/special_rss.py:125
+msgid "Edit Special RSS portlet"
+msgstr ""
+
+#: ./portlets/users_box.py:139
+msgid "Edit Users Box Portlet"
+msgstr ""
+
+#: ./portlets/world_clock.py:172
+msgid "Edit World Clock portlet"
+msgstr ""
+
+#: ./portlets/zimbra_calendar.py:111
+msgid "Edit Zimbra Calendar Portlet"
+msgstr ""
+
+#: ./portlets/zimbra_mail.py:164
+msgid "Edit Zimbra Mail Portlet"
+msgstr ""
+
+#: ./settings.py:276
+msgid "Edit cancelled."
+msgstr ""
+
+#: ./profiles/default/actions.xml
+msgid "Edit your preferences"
+msgstr "Einstellungen ändern"
+
+#: ./browser/zimbratask.py:18
+msgid "Either both or none dates must be provided"
+msgstr ""
+
+#: ./skins/vnccollab_theme_custom_templates/group.pt:37
+msgid "Error"
+msgstr ""
+
+#: ./browser/file_issue.py:167
+msgid "Error during creating redmine issue at %s"
+msgstr ""
+
+#: ./portlets/etherpads_list.py:104
+msgid "Error during fetching pads from %s"
+msgstr ""
+
+#: ./vocabularies.py:133
+msgid "Error during fetching redmine enumerators"
+msgstr ""
+
+#: ./browser/stream.py:313
+#: ./browser/viewlets.py:410
+#: ./portlets/redmine_tickets.py:104
+msgid "Error during fetching redmine tickets %s"
+msgstr ""
+
+#: ./browser/stream.py:372
+msgid "Error during fetching zimbra mails"
+msgstr ""
+
+#: ./portlets/etherpads_list.py:114
+msgid "Error during parsing pads page from %s"
+msgstr ""
+
+#: ./browser/file_issue.py:83
+msgid "Estimated time (hours)"
+msgstr ""
+
+#: ./profiles/default/portlets.xml
+msgid "Etherpad Lists portlet"
+msgstr ""
+
+#: ./userdataschema.py:69
+msgid "Etherpad Password"
+msgstr ""
+
+#: ./portlets/etherpads_list.py:33
+msgid "Etherpad Root URL"
+msgstr ""
+
+#: ./userdataschema.py:55
+msgid "Etherpad URL"
+msgstr ""
+
+#: ./userdataschema.py:62
+msgid "Etherpad Username"
+msgstr ""
+
+#: ./browser/templates/header_links.pt:9
+msgid "Facebook"
+msgstr ""
+
+#: ./browser/wizarduploader.py:131
+msgid "Failed"
+msgstr ""
+
+#: ./portlets/zimbra_calendar.py:70
+#: ./portlets/zimbra_mail.py:87
+msgid "Failure delay"
+msgstr ""
+
+#: ./portlets/special_rss.py:34
+msgid "Feed reload timeout"
+msgstr ""
+
+msgid "Folders"
+msgstr "Ordner"
+
+#: ./profiles/default/portlets.xml
+msgid "Generic Iframe portlet"
+msgstr ""
+
+#: ./profiles/default/actions.xml
+msgid "Get your login information"
+msgstr ""
+
+#: ./profiles/default/actions.xml
+msgid "Go to your dashboard"
+msgstr "Zum Dashboard wechseln"
+
+#: ./portlets/dashlet.py:16
+#: ./portlets/etherpads_list.py:27
+#: ./portlets/generic_iframe.py:19
+msgid "Header"
+msgstr ""
+
+#: ./portlets/dashlet.py:17
+#: ./portlets/etherpads_list.py:28
+#: ./portlets/generic_iframe.py:20
+msgid "Header of the portlet."
+msgstr ""
+
+#: ./portlets/generic_iframe.py:35
+msgid "Height"
+msgstr ""
+
+#: ./settings.py:147
+msgid "Help URL"
+msgstr ""
+
+#: ./settings.py:182
+msgid "Homepage Logo"
+msgstr ""
+
+#: ./portlets/dashlet.py:28
+#: ./portlets/redmine_tickets.py:36
+#: ./portlets/special_rss.py:30
+msgid "How many items to list."
+msgstr ""
+
+#: ./portlets/redmine_tickets.py:42
+msgid "How many seconds to wait for hanging Redmine request."
+msgstr ""
+
+#: ./portlets/zimbra_calendar.py:65
+#: ./portlets/zimbra_mail.py:82
+msgid "How many seconds to wait for hanging Zimbra request."
+msgstr ""
+
+#: ./browser/stream.py:340
+msgid "ISSUE"
+msgstr ""
+
+#: ./portlets/etherpads_list.py:55
+msgid "If not set, etherpad_password property of authenticated user will be used."
+msgstr ""
+
+#: ./portlets/etherpads_list.py:48
+msgid "If not set, etherpad_username property of authenticated user will be used."
+msgstr ""
+
+#: ./portlets/zimbra_calendar.py:44
+#: ./portlets/zimbra_mail.py:67
+msgid "If not set, zimbra_password property of authenticated user will be used."
+msgstr ""
+
+#: ./portlets/zimbra_calendar.py:37
+#: ./portlets/zimbra_mail.py:60
+msgid "If not set, zimbra_username property of authenticated user will be used."
+msgstr ""
+
+#: ./browser/stream.py:121
+msgid "Instant Messages"
+msgstr ""
+
+#: ./browser/file_issue.py:182
+msgid "Issue wasn't created, please, check your settings or contact site administrator if you are sure your settings are set properly."
+msgstr ""
+
+#: ./browser/zimbratask.py:31
+msgid "Location"
+msgstr ""
+
+#: ./settings.py:173
+msgid "Login URL"
+msgstr ""
+
+#: ./browser/stream.py:390
+msgid "MAIL"
+msgstr ""
+
+#: ./browser/stream.py:124
+msgid "Mail"
+msgstr ""
+
+#: ./portlets/zimbra_mail.py:45
+msgid "Mail Folder Id"
+msgstr ""
+
+#: ./skins/vnccollab_theme_custom_templates/send_feedback.cpy:92
+msgid "Mail sent."
+msgstr ""
+
+#: ./profiles/default/actions.xml
+msgid "My Profile"
+msgstr "Mein Profil"
+
+#: ./browser/stream.py:219
+msgid "NEWS"
+msgstr ""
+
+#: ./portlets/zimbra_calendar.py:50
+msgid "Name of The Calendar"
+msgstr ""
+
+#: ./portlets/openerp_js.py:44
+msgid "Name of the database of your OpenERP service."
+msgstr ""
+
+#: ./browser/file_issue.py:93
+msgid "New Issue"
+msgstr ""
+
+#: ./browser/newticket.py:30
+msgid "New Ticket"
+msgstr ""
+
+#: ./browser/zimbratask.py:86
+msgid "New Zimbra Task"
+msgstr ""
+
+#: ./browser/stream.py:127
+msgid "News"
+msgstr ""
+
+#: ./browser/util.py:71
+msgid "No authenticated user found."
+msgstr ""
+
+#: ./portlets/dashlet.py:27
+#: ./portlets/redmine_tickets.py:35
+#: ./portlets/special_rss.py:29
+msgid "Number of items to display"
+msgstr ""
+
+#: ./portlets/etherpads_list.py:41
+msgid "Number of pads to display"
+msgstr ""
+
+#: ./browser/templates/add_content_area.pt:25
+msgid "OR"
+msgstr "ODER"
+
+#: ./browser/wizarduploader.py:139
+msgid "Only allowed:"
+msgstr ""
+
+#: ./profiles/default/controlpanel.xml
+msgid "OpenERP"
+msgstr ""
+
+#: ./profiles/default/portlets.xml
+msgid "OpenERP Javascript portlet"
+msgstr ""
+
+#: ./userdataschema.py:82
+msgid "OpenERP Password"
+msgstr ""
+
+#: ./portlets/openerp_js.py:37
+msgid "OpenERP URL"
+msgstr ""
+
+#: ./userdataschema.py:76
+msgid "OpenERP Username"
+msgstr ""
+
+#: ./portlets/openerp_js.py:50
+msgid "OpenERP widget to use."
+msgstr ""
+
+msgid "Other VNC Destinations"
+msgstr "VNC Onlinepräsenzen"
+
+#: ./portlets/etherpads_list.py:54
+#: ./portlets/zimbra_calendar.py:43
+#: ./portlets/zimbra_mail.py:66
+msgid "Password"
+msgstr ""
+
+#: ./browser/zimbratask.py:50
+msgid "Percentage of Completion"
+msgstr ""
+
+#: ./browser/file_issue.py:39
+msgid "Pick project to post issue to."
+msgstr ""
+
+#: ./skins/vnccollab_theme_custom_templates/validate_integrity.cpy:20
+msgid "Please correct the indicated errors."
+msgstr ""
+
+#: ./browser/file_issue.py:129
+msgid "Please, set Redmine URL and ID settings in Control  Panel (Configuration Registry)."
+msgstr ""
+
+#: ./browser/zimbratask.py:114
+msgid "Please, set Zimbra URL in Control  Panel (Configuration Registry)."
+msgstr ""
+
+#: ./browser/file_issue.py:126
+msgid "Please, set correct redmine username and password in your profile form in order to create redmine issue."
+msgstr ""
+
+#: ./browser/zimbratask.py:111
+msgid "Please, set correct zimbra username and password in your profile form in order to create a zimbra task."
+msgstr ""
+
+#: ./browser/file_issue.py:61
+#: ./browser/zimbratask.py:43
+msgid "Priority"
+msgstr ""
+
+#: ./browser/file_issue.py:38
+msgid "Project"
+msgstr ""
+
+#: ./portlets/openerp_js.py:193
+msgid "Projects - Tasks"
+msgstr ""
+
+#: ./browser/stream.py:264
+msgid "RECENT"
+msgstr ""
+
+#: ./portlets/special_rss.py:23
+msgid "RSS Sources"
+msgstr ""
+
+#: ./browser/stream.py:133
+msgid "Recent"
+msgstr ""
+
+#: ./settings.py:160
+msgid "Register URL"
+msgstr ""
+
+#: ./portlets/generic_iframe.py:72
+msgid "Renders an external page inside a portlet."
+msgstr ""
+
+#: ./profiles/default/portlets.xml
+msgid "Renders an external page inside an IFrame."
+msgstr ""
+
+#: ./profiles/default/portlets.xml
+msgid "Renders list of RSS feed."
+msgstr ""
+
+#: ./portlets/redmine_tickets.py:181
+msgid "Renders list of opened Redmine Tickets for authenticated user."
+msgstr ""
+
+#: ./profiles/default/portlets.xml
+msgid "Renders news, messages, articles..."
+msgstr ""
+
+#: ./browser/templates/stream.pt:113
+msgid "Reply"
+msgstr ""
+
+#: ./browser/zimbra.py:72
+msgid "Request method is not allowed."
+msgstr ""
+
+#: ./portlets/redmine_tickets.py:41
+#: ./portlets/zimbra_calendar.py:64
+#: ./portlets/zimbra_mail.py:81
+msgid "Request timeout"
+msgstr ""
+
+#: ./browser/zimbra.py:76
+msgid "Requested action is not allowed."
+msgstr ""
+
+#: ./portlets/etherpads_list.py:34
+msgid "Root url to your Etherpad service. If not set here, then user settings will be checked for etherpad root url  service."
+msgstr ""
+
+#: ./userdataschema.py:56
+msgid "Root url to your Etherpad service. This field is usually useful in case every user got his own Etherpad url instead of using one global domain for all users."
+msgstr ""
+
+#: ./portlets/openerp_js.py:38
+msgid "Root url to your OpenERP service."
+msgstr ""
+
+#: ./portlets/dashlet.py:23
+#: ./portlets/zimbra_calendar.py:25
+#: ./portlets/zimbra_mail.py:40
+msgid "Root url to your Zimbra service."
+msgstr ""
+
+#: ./browser/templates/add_content_area.pt:25
+msgid "SELECT CONTENT TYPE..."
+msgstr "TYP DES INHALTS..."
+
+#: ./portlets/openerp_js.py:188
+msgid "Sales - Contacts"
+msgstr ""
+
+#: ./portlets/openerp_js.py:186
+msgid "Sales - Contracts"
+msgstr ""
+
+#: ./portlets/openerp_js.py:187
+msgid "Sales - Customers"
+msgstr ""
+
+#: ./portlets/openerp_js.py:184
+msgid "Sales - Leads"
+msgstr ""
+
+#: ./portlets/openerp_js.py:191
+msgid "Sales - Logged Calls"
+msgstr ""
+
+#: ./portlets/openerp_js.py:185
+msgid "Sales - Opportunities"
+msgstr ""
+
+#: ./portlets/openerp_js.py:190
+msgid "Sales - Products"
+msgstr ""
+
+#: ./portlets/openerp_js.py:189
+msgid "Sales - Products by Category"
+msgstr ""
+
+#: ./portlets/openerp_js.py:192
+msgid "Sales - Scheduled Calls"
+msgstr ""
+
+#: ./settings.py:262
+msgid "Save"
+msgstr ""
+
+#: ./browser/templates/add_content_area.pt:91
+msgid "Selected Container:"
+msgstr "Ausgewählter Container:"
+
+#: ./browser/wizarduploader.py:134
+msgid "Selected elements contain an empty file or a folder:"
+msgstr ""
+
+#: ./browser/templates/stream.pt:39
+msgid "Send"
+msgstr ""
+
+#: ./browser/wizarduploader.py:144
+msgid "Server error, please contact support and/or try again."
+msgstr ""
+
+#: ./settings.py:167
+msgid "Should Login link be shown"
+msgstr ""
+
+#: ./settings.py:154
+msgid "Should Register/Sing Up be shown"
+msgstr ""
+
+#: ./browser/stream.py:119
+msgid "Show All Items"
+msgstr ""
+
+#: ./settings.py:166
+msgid "Show Login"
+msgstr ""
+
+#: ./browser/stream.py:128
+msgid "Show Only Cloud Portal News"
+msgstr ""
+
+#: ./browser/stream.py:122
+msgid "Show Only IM messages"
+msgstr ""
+
+#: ./browser/stream.py:134
+msgid "Show Only Recent Cloud Portal Updates"
+msgstr ""
+
+#: ./browser/stream.py:131
+msgid "Show Only Redmine Tickets"
+msgstr ""
+
+#: ./browser/stream.py:125
+msgid "Show Only Zimra Emails"
+msgstr ""
+
+#: ./settings.py:153
+msgid "Show Register"
+msgstr ""
+
+#: ./profiles/default/actions.xml
+msgid "Sign up"
+msgstr ""
+
+#: ./profiles/default/portlets.xml
+msgid "Special RSS portlet"
+msgstr ""
+
+#: ./browser/file_issue.py:73
+#: ./browser/zimbratask.py:56
+msgid "Start date"
+msgstr ""
+
+#: ./browser/zimbratask.py:36
+msgid "Status"
+msgstr ""
+
+#: ./browser/file_issue.py:50
+#: ./browser/zimbratask.py:26
+msgid "Subject"
+msgstr ""
+
+#: ./browser/zimbratask.py:32
+msgid "Task Location"
+msgstr ""
+
+#: ./browser/zimbratask.py:90
+msgid "Task was created successfully."
+msgstr ""
+
+#: ./browser/zimbratask.py:154
+msgid "Task wasn't created, please, check your settings or contact site administrator if you are sure your settings are set properly."
+msgstr ""
+
+msgid "The VNC Cloud Portal"
+msgstr "Das VNC Cloud Portal"
+
+#: ./browser/templates/vnccollab_header_homepage.pt:10
+msgid "The VNC Community is an ecosystem for VNC partners, customers, vendors, team members and friends to get together and share ideas about Commercial Open Source and Cloud solutions."
+msgstr ""
+
+#: ./portlets/zimbra_mail.py:46
+msgid "The name of the mail folder to access. This can be a default or a user-defined folder. Default folders include: inbox, drafts, sent, trash, junk."
+msgstr ""
+
+#: ./portlets/zimbra_calendar.py:31
+msgid "The part after the '@'."
+msgstr ""
+
+#: ./browser/file_issue.py:98
+#: ./browser/zimbratask.py:89
+msgid "There were some errors."
+msgstr ""
+
+msgid "Things to do"
+msgstr "Schnellnavigation"
+
+#: ./browser/wizarduploader.py:142
+msgid "This file already exists with the same name on server:"
+msgstr ""
+
+#: ./browser/wizarduploader.py:138
+msgid "This file has invalid extension:"
+msgstr ""
+
+#: ./browser/wizarduploader.py:135
+msgid "This file has no extension:"
+msgstr ""
+
+#: ./browser/wizarduploader.py:136
+msgid "This file is too large:"
+msgstr ""
+
+#: ./portlets/zimbra_calendar.py:103
+msgid "This portlet allows managing Zimbra Calendar."
+msgstr ""
+
+#: ./portlets/zimbra_mail.py:156
+msgid "This portlet allows managing Zimbra Mail box."
+msgstr ""
+
+#: ./portlets/openerp_js.py:174
+msgid "This portlet allows managing the OpenERP JavaScript Portlet."
+msgstr ""
+
+#: ./browser/wizarduploader.py:141
+msgid "This type of element is not allowed in this folder."
+msgstr ""
+
+#: ./browser/file_issue.py:99
+msgid "Ticket was created successfully."
+msgstr ""
+
+#: ./browser/stream.py:130
+msgid "Tickets"
+msgstr ""
+
+#: ./portlets/zimbra_calendar.py:57
+#: ./portlets/zimbra_mail.py:74
+msgid "Time in minutes after which the data should be reloaded from Zimbra service. Minimun value: 1 minute."
+msgstr ""
+
+#: ./portlets/zimbra_calendar.py:71
+#: ./portlets/zimbra_mail.py:88
+msgid "Time in minutes before retry to load data from Zimbra after a failure"
+msgstr ""
+
+#: ./portlets/special_rss.py:35
+msgid "Time in minutes for the feeds should be reloaded."
+msgstr ""
+
+#: ./browser/templates/toprated.pt:6
+msgid "Top Rated"
+msgstr ""
+
+msgid "Top Tags"
+msgstr "Top-Tags"
+
+#: ./browser/file_issue.py:44
+msgid "Tracker"
+msgstr ""
+
+#: ./browser/templates/header_links.pt:13
+msgid "Twitter"
+msgstr ""
+
+#: ./browser/newticket.py:20
+msgid "Type of Ticket"
+msgstr ""
+
+#: ./browser/templates/add_content_area.pt:45
+msgid "UPLOAD FILES HERE"
+msgstr "DATEIEN HIER HOCHLADEN"
+
+#: ./portlets/generic_iframe.py:25
+msgid "URL of the Iframe"
+msgstr ""
+
+#: ./settings.py:174
+msgid "URL of the login page (empty for default)."
+msgstr ""
+
+#: ./settings.py:161
+msgid "URL of the page for Registration / Signup page (empty for default)."
+msgstr ""
+
+#: ./settings.py:148
+msgid "URL of the page that shows the site help."
+msgstr ""
+
+#: ./portlets/generic_iframe.py:26
+msgid "URL of the site to include."
+msgstr ""
+
+#: ./browser/file_issue.py:172
+#: ./browser/zimbratask.py:144
+msgid "Unable create issue: ${exception}"
+msgstr ""
+
+#: ./skins/vnccollab_theme_custom_templates/send_feedback.cpy:80
+msgid "Unable to send mail: ${exception}"
+msgstr ""
+
+#: ./settings.py:183
+msgid "Upload an image to set or replace the site logo"
+msgstr ""
+
+#: ./portlets/etherpads_list.py:47
+#: ./portlets/zimbra_calendar.py:36
+#: ./portlets/zimbra_mail.py:59
+msgid "Username"
+msgstr ""
+
+msgid "Users"
+msgstr "Nutzer"
+
+#: ./portlets/users_box.py:52
+msgid "Users Box"
+msgstr ""
+
+#: ./profiles/default/portlets.xml
+msgid "Users Box portlet"
+msgstr ""
+
+#: ./profiles/default/actions.xml
+msgid "VNC Germany Website"
+msgstr "Website der VNC Deutschland"
+
+#: ./browser/templates/header_links.pt:4
+msgid "VNC News RSS"
+msgstr ""
+
+#: ./profiles/default/actions.xml
+msgid "VNC Support & Service Portal"
+msgstr "VNC Support & Service Portal"
+
+#: ./profiles/default/actions.xml
+msgid "VNC Switzerland Website"
+msgstr "Webseite der VNC Schweiz"
+
+#: ./browser/templates/header_links.pt:12
+msgid "VNC on Facebook"
+msgstr ""
+
+#: ./browser/templates/header_links.pt:16
+msgid "VNC on Twitter"
+msgstr ""
+
+#: ./browser/templates/vnccollab_header_homepage.pt:24
+msgid "Visit your personal account dashboard."
+msgstr ""
+
+#: ./browser/templates/add_content_area.pt:69
+msgid "WHERE DO YOU WANT TO PUT THE NEW ITEM?"
+msgstr "WO WOLLEN SIE DAS NEUE OBJEKT ANLEGEN?"
+
+#: ./browser/templates/vnccollab_header_homepage.pt:11
+msgid "We believe in \"Open Source = Open Mind\". That's why we invite all our partners, customers, associated vendors, enthusiasts and developers from across the world to share ideas, provide feedback, evangelize and participate in making Commercial Open Source and Cloud solutions the first choice for businesses of all sizes."
+msgstr ""
+
+#: ./browser/like.py:24
+msgid "We don't like ambiguity around here. Check yo self before you wreck yo self."
+msgstr ""
+
+#: ./userdataschema.py:63
+msgid "We need this field in order to display your Etherpad related information, like single pad or whole list of pads, etc..."
+msgstr ""
+
+#: ./userdataschema.py:77
+msgid "We need this field in order to display your OpenERP related information."
+msgstr ""
+
+#: ./userdataschema.py:42
+msgid "We need this field in order to display your Zimbra related information, like mail box, calendar, contacts, etc..."
+msgstr ""
+
+#: ./browser/templates/vnccollab_header_homepage.pt:9
+msgid "Welcome to the VNC Community"
+msgstr ""
+
+#: ./browser/templates/stream.pt:19
+msgid "What's New?"
+msgstr ""
+
+#: ./portlets/zimbra_calendar.py:51
+msgid "Which calendar should be displayed."
+msgstr ""
+
+#: ./portlets/openerp_js.py:49
+msgid "Widget"
+msgstr ""
+
+#: ./portlets/generic_iframe.py:30
+msgid "Width"
+msgstr ""
+
+#: ./browser/templates/header_links.pt:17
+msgid "Wired News"
+msgstr ""
+
+#: ./portlets/world_clock.py:127
+msgid "World Clock"
+msgstr ""
+
+#: ./profiles/default/portlets.xml
+msgid "World Clock portlet"
+msgstr ""
+
+#: ./profiles/default/controlpanel.xml
+msgid "WorldClock"
+msgstr ""
+
+#: ./settings.py:105
+msgid "WorldClock Settings"
+msgstr ""
+
+#: ./browser/wizarduploader.py:140
+msgid "You don't have permission to add this content in this place."
+msgstr ""
+
+#: ./browser/zimbratask.py:76
+msgid "You must set both start and end date or none."
+msgstr ""
+
+#: ./userdataschema.py:48
+msgid "Zimbra Password"
+msgstr ""
+
+#: ./userdataschema.py:41
+msgid "Zimbra Username"
+msgstr ""
+
+#: ./portlets/dashlet.py:22
+#: ./portlets/zimbra_calendar.py:24
+#: ./portlets/zimbra_mail.py:39
+msgid "Zimbra service URL"
+msgstr ""
+
+#: ./browser/templates/vnccollab_header_homepage.pt:30
+msgid "for more information. We'll get back to you asap."
+msgstr ""
+
+#. Default: "Group Members"
+#: ./skins/vnccollab_theme_custom_templates/group.pt:81
+msgid "heading_group_members"
+msgstr ""
+
+#. Default: "Advanced Search…"
+#: ./browser/livesearch.py:91
+#: ./skins/vnccollab_theme_scripts/livesearch_reply.py:109
+msgid "label_advanced_search"
+msgstr ""
+
+#. Default: "No matching results found."
+#: ./browser/livesearch.py:90
+#: ./skins/vnccollab_theme_scripts/livesearch_reply.py:108
+msgid "label_no_results_found"
+msgstr ""
+
+#. Default: "Related Redmine Tickets"
+#: ./browser/templates/related_redmine_tickets.pt:7
+#: ./browser/templates/related_zimbra_tasks.pt:7
+msgid "label_related_tickets"
+msgstr ""
+
+#. Default: "Show all items"
+#: ./browser/livesearch.py:92
+#: ./skins/vnccollab_theme_scripts/livesearch_reply.py:110
+msgid "label_show_all"
+msgstr ""
+
+#. Default: "LiveSearch &#8595;"
+#: ./browser/livesearch.py:89
+#: ./skins/vnccollab_theme_scripts/livesearch_reply.py:107
+msgid "legend_livesearch"
+msgstr ""
+
+#. Default: "E-mail Address"
+#: ./skins/vnccollab_theme_custom_templates/group.pt:91
+msgid "listingheader_email_address"
+msgstr ""
+
+#. Default: "User name"
+#: ./skins/vnccollab_theme_custom_templates/group.pt:90
+msgid "listingheader_user_name"
+msgstr ""
+
+#: ./browser/wizarduploader.py:137
+msgid "maximum file size is:"
+msgstr ""
+
+#: ./browser/templates/add_content_area.pt:56
+#: ./browser/templates/addbutton.pt:4
+msgid "or"
+msgstr "oder"
+
+#: ./browser/wizarduploader.py:132
+msgid "please select files again without it."
+msgstr ""
+
+#: ./browser/wizarduploader.py:133
+msgid "please try again."
+msgstr ""
+
+#: ./browser/stream.py:348
+msgid "subject"
+msgstr ""
+
+#. Default: "Lists group memberrs"
+#: ./skins/vnccollab_theme_custom_templates/group.pt:86
+msgid "summary_group_members_list"
+msgstr ""
+
+#. Default: "No group by that name."
+#: ./skins/vnccollab_theme_custom_templates/group.pt:40
+msgid "text_no_user_by_name"
+msgstr ""
+
+#: ./browser/viewlets.py:295
+msgid "title"
+msgstr ""
+
+#. Default: "Search Destination"
+#: ./browser/templates/add_content_area.pt:72
+msgid "title_search_site"
+msgstr ""
+
+#. Default: "Send a mail to this user"
+#: ./skins/vnccollab_theme_custom_templates/group.pt:104
+msgid "title_send_mail_to_user"
+msgstr ""
+

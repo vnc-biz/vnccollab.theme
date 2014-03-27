@@ -7,6 +7,15 @@ Changelog
 - Ignores enter key on livesearch [10688].
   [Cesar Gonzalez]
 
+- Fixes style on +add button and search for dynamic content (translations) [10519].
+  [Cesar Gonzalez]
+
+- Add german translations [10519].
+  [Marcin Staniszczak]
+
+- Adds button text to Browse Files button and set css [10695].
+  [Cesar Gonzalez]
+
 - Adds layer specificity to json messages views.
   [Jose Dinuncio]
 

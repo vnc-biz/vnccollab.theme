@@ -20,6 +20,10 @@ body {
   }
 #portal-header {
   margin: 0;
+  text-align: center;
+  }
+#portal-header > * {
+  text-align: initial;
   }
 #portal-columns {
   background-color: #f2f2f2;
@@ -91,10 +95,8 @@ body {
 #portal-personaltools-loggedin {
   font-size:13px;
   line-height:18px;
-  position: absolute;
-  right: 26px;
-  top: 26px;
-  z-index:1;
+  float: right;
+  margin: 26px 26px 0 0;
   }
 .actionMenuUserImgWrapper {
   border: 1px solid #738ea2;
@@ -444,6 +446,7 @@ input[type="file"] > input[type="button"]::-moz-focus-inner {
 /*----- Logo -----*/
 #portal-logo {
   margin:15px 0 15px 30px;
+  float: left;
   }
 
 /*----- Searchbox -----*/
@@ -452,14 +455,15 @@ input[type="file"] > input[type="button"]::-moz-focus-inner {
   border:1px solid #738ea2;
   border-radius: 5px;
   box-shadow: 1px 1px 2px #d9d9d9 inset;
+  display: inline-block;
   font-size:1em;
-  margin: 0 -154px 0 0;
+  float:none;
   padding: 0;
-  position: absolute;
-  right: 46%;
-  top: 22px;
   width: 268px;
   height: 44px;
+  margin: 22px 0 0 0;
+  position: relative;
+  vertical-align: top;
   }
 #portal-searchbox .searchField {
   background-color: transparent;
@@ -554,6 +558,7 @@ input.searchField {
   padding:0;
   width: 500px;
   text-align: center;
+  margin-top: 6px;
   }
 .LSRow a:link {
   color: #012a43;
@@ -3921,19 +3926,17 @@ a.caltrigger {
   box-shadow: 1px 1px 2px #D9D9D9 inset;
   color: #fff;
   cursor: pointer;
+  display: inline-block;
+  vertical-align: top;
 
   font-size: 1.2em;
-  margin: 0 146px 0 0;
-  padding: 0 !important;
-  position: absolute;
-  right: 46%;
-  top: 22px;
-  width: 97px;
+  padding: 0 15px 0 20px !important;
+  min-width: 58px;
   height: 44px;
   line-height: 43px;
   overflow: hidden;
-  text-align: center;
-  z-index: 30;
+  text-align: center !important;
+  margin: 22px 0 0 0;
 
   background: #9bc061;
   background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,#A6D064), color-stop(44%,#82ad3f), color-stop(100%,#679819));
@@ -3950,23 +3953,22 @@ a.caltrigger {
   width: 17px;
   height: 17px;
   float: left;
-  margin: 13px -21px 0 18px;
+  margin: 12px 0 0 -5px;
 }
 
 .add-or {
   color: #032b42;
   font-size: 1.0em;
   font-weight: bold;
-  margin: 0 117px 0 0;
-  padding: 0 !important;
-  position: absolute;
-  right: 46%;
-  top: 22px;
-  width: 30px;
+  padding: 0 4px !important;
+  min-width: 30px;
   height: 44px;
   line-height: 43px;
   overflow: hidden;
-  text-align: center;
+  text-align: center !important;
+  display: inline-block;
+  margin: 22px 0 0 0;
+  vertical-align: top
 }
 
 /* Create New Content Wizzard */
@@ -4169,15 +4171,6 @@ a.caltrigger {
 }
 #createWizard .Column.Second #upload-place p {
   padding-top: 25px;
-}
-#createWizard .Column.Second #upload-place input[type="file"] {
-  background-image: url(&dtml-portal_url;/browse-files.png);
-  cursor:pointer;
-  width: 138px;
-  height: 46px;
-  border: none;
-  text-indent: -99999px;
-  padding: 0px!important;
 }
 #createWizard form label,
 #createWizard .label {
@@ -4420,26 +4413,32 @@ a.caltrigger {
 #createWizard .wizard_qq-upload-button-focus {outline:1px dotted black;cursor: pointer !important;}
 
 #createWizard .wizard_qq-upload-button {
-  background: none;
-  display: block;
-  -moz-border-radius: 0px;
-  -webkit-border-radius: 0px;
-  border-radius: 0px;
-  border-bottom: none;
-  color: transparent;
-  padding: 0px;
-  margin: 0px;
-  width: 138px;
-  height: 46px;
-  margin-top: 25px;
-  margin-right: 108px;
-  background-image: url(&dtml-portal_url;/browse-files.png);
-  cursor:pointer;
-  width: 138px;
-  height: 46px;
-  border: none;
-  text-indent: -99999px;
-  padding: 0px!important;
+  border: 1px solid #232D35;
+  border-radius: 5px;
+  box-shadow: 1px 1px 2px #D9D9D9 inset;
+  color: #fff;
+  cursor: pointer;
+  display: inline-block;
+  float:none;
+
+  font-size: 1.0em;
+  margin: 25px auto 0 auto;
+  padding: 0 20px !important;
+  height: 44px;
+  line-height: 44px;
+  overflow: hidden;
+  text-align: center;
+  width: auto;
+  z-index: 30;
+
+  background: #9bc061;
+  background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,#A6D064), color-stop(44%,#82ad3f), color-stop(100%,#679819));
+  background: -o-linear-gradient(top, #A6D064 0%, #91B658 50%, #82ad3f 50%, #679819 100%);
+  background: -ms-linear-gradient(top, #A6D064 0%, #91B658 50%, #82ad3f 50%, #679819 100%);
+  background: linear-gradient(top, #A6D064 0%, #91B658 50%, #82ad3f 50%, #578213);
+  background: -moz-linear-gradient(top, #A6D064 0%, #91B658 50%, #82ad3f 50%, #578213);
+  background: -webkit-gradient(linear, left top, left bottom, from(#A6D064), color-stop(0.50, #91B658), color-stop(0.50, #82ad3f), to(#578213));
+  filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#A6D064', endColorstr='#578213',GradientType=0 );
 }
 
 #createWizard .wizard_qq-files-to-upload {
@@ -4870,7 +4869,7 @@ a.ls-content-title {
 }
 
 .ls-foot{
-  margin-top: 7px;
+  margin-top: 6px;
   border-top: 1px solid #738EA2;
 }
 
