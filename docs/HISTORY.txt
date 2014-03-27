@@ -1,8 +1,23 @@
 Changelog
 =========
 
-1.7.10 - unreleased
--------------------
+1.7.11 - undefined
+------------------
+
+- Finishes removing OpenERP portlet [10362].
+  [Jose Dinuncio]
+
+- Ignores enter key on livesearch [10688].
+  [Cesar Gonzalez]
+
+- Adds layer specificity to json messages views.
+  [Jose Dinuncio]
+
+- Adds image width limit to 100% on content [10561].
+  [Cesar Gonzalez]
+
+1.7.10 - March 07, 2014
+-----------------------
 
 - Fixes overlays dialog position, update css selectors [10438].
   [Cesar Gonzalez]
@@ -25,6 +40,9 @@ Changelog
 
 - Adds ccs style to destination object autocomplete of the wizard.
   Remove unused ul element from template. [10171]
+  [Cesar Gonzalez]
+
+- Adds styled spinner to livesearch box (dashboard mode) [10169].
   [Cesar Gonzalez]
 
 - Adds styled spinner to livesearch box (dashboard mode) [10169].

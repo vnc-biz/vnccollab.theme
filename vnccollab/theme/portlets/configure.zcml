@@ -64,17 +64,6 @@
       />
 
   <plone:portlet
-      name="vnccollab.theme.portlets.OpenERPJSPortlet"
-      interface=".openerp_js.IOpenERPJSPortlet"
-      assignment=".openerp_js.Assignment"
-      view_permission="zope2.View"
-      edit_permission="cmf.ManagePortal"
-      renderer=".openerp_js.Renderer"
-      addview=".openerp_js.AddForm"
-      editview=".openerp_js.EditForm"
-      />
-
-  <plone:portlet
       name="vnccollab.theme.portlets.RedmineTicketsPortlet"
       interface=".redmine_tickets.IRedmineTicketsPortlet"
       assignment=".redmine_tickets.Assignment"
@@ -117,12 +106,5 @@
       addview=".generic_iframe.AddForm"
       editview=".generic_iframe.EditForm"
       />
-
-  <utility
-    factory=".openerp_js.OpenERPJSPortletVocabulary"
-    provides="zope.schema.interfaces.IVocabularyFactory"
-    name="vnccollab.theme.openerp_js.openerp_vocabulary"
-    />
-
 
 </configure>
