@@ -4,6 +4,9 @@ Changelog
 1.7.11 - undefined
 ------------------
 
+- Fixes style on +add button and search for dynamic content (translations) [10519].
+  [Cesar Gonzalez]
+
 - Add german translations [10519].
   [Marcin Staniszczak]
 
