@@ -4,6 +4,9 @@ Changelog
 1.7.11 - undefined
 ------------------
 
+- Customize plone e-mail's templates [10687].
+  [Marcin Staniszczak]
+
 - Ignores enter key on livesearch [10688].
   [Cesar Gonzalez]
 
