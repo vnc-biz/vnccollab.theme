@@ -3961,7 +3961,6 @@ a.caltrigger {
   font-size: 1.0em;
   font-weight: bold;
   padding: 0 4px !important;
-  min-width: 30px;
   height: 44px;
   line-height: 43px;
   overflow: hidden;
@@ -5187,6 +5186,7 @@ ul.followersList .followButtonWrapper {
 
 .anonymousMode #portal-columns {
   background-color: transparent !important;
+  clear: both;
 }
 
 .anonymousMode dl.portlet {
