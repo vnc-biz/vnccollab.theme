@@ -5186,6 +5186,7 @@ ul.followersList .followButtonWrapper {
 
 .anonymousMode #portal-columns {
   background-color: transparent !important;
+  clear: both;
 }
 
 .anonymousMode dl.portlet {
