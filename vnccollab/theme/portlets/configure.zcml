@@ -107,4 +107,10 @@
       editview=".generic_iframe.EditForm"
       />
 
+  <plone:portletRenderer
+    portlet="plone.app.portlets.portlets.navigation.INavigationPortlet"
+    class="vnccollab.theme.portlets.navigation.Renderer"
+    layer="..browser.interfaces.IThemeSpecific"
+    />
+
 </configure>
