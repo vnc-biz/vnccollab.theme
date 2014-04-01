@@ -1,8 +1,11 @@
 Changelog
 =========
 
-1.7.11 - undefined
-------------------
+1.7.11 - Unreleased
+-------------------
+
+- Align +Add wizard arrow [10838].
+  [Cesar Gonzalez]
 
 - Finishes removing OpenERP portlet [10362].
   [Jose Dinuncio]
