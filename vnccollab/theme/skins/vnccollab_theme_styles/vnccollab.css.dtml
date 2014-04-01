@@ -3934,7 +3934,8 @@ a.caltrigger {
   min-width: 58px;
   height: 44px;
   line-height: 43px;
-  overflow: hidden;
+  overflow: visible;
+  position: relative;
   text-align: center !important;
   margin: 22px 0 0 0;
 
@@ -3956,6 +3957,18 @@ a.caltrigger {
   margin: 12px 0 0 -5px;
 }
 
+.add-plus.open b:before {
+  background: url(&dtml-portal_url;/add_content_area/add-arrow.png) no-repeat 0 0;
+  width: 57px;
+  height: 41px;
+  content: ' ';
+  top: -44px;
+  left: 50%;
+  margin-left: -28.5px;
+  padding:0;
+  position: absolute;
+}
+
 .add-or {
   color: #032b42;
   font-size: 1.0em;
@@ -3975,18 +3988,18 @@ a.caltrigger {
   position: relative;
 }
 .wizardContentArea {
-  background: url(++resource++vnccollab.cloudstream.images/bg_metabox.png);
+  background: url(&dtml-portal_url;/add_content_area/bg_metabox.png);
 }
-#add-arrow {
-  background: url(++resource++vnccollab.cloudstream.images/add-arrow-bar.png) no-repeat 50% 0;
+#add-shadow {
+  background: url(&dtml-portal_url;/add_content_area/add-arrow-bar.png) no-repeat 50% 0;
   width: 100%;
   height: 35px;
   position: absolute;
-  margin-top: -36px;
-}
-#add-arrow.open {
   margin-top: -17px;
 }
+/*#add-arrow.open {
+  margin-top: -17px;
+}*/
 #createWizard {
   width: 960px;
   height: 450px;
