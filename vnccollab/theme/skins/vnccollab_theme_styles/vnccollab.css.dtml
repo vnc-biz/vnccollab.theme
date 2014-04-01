@@ -3991,15 +3991,12 @@ a.caltrigger {
   background: url(&dtml-portal_url;/add_content_area/bg_metabox.png);
 }
 #add-shadow {
-  background: url(&dtml-portal_url;/add_content_area/add-arrow-bar.png) no-repeat 50% 0;
+  background: url(&dtml-portal_url;/add_content_area/add-arrow-bar-shadow.png) repeat-x;
   width: 100%;
   height: 35px;
   position: absolute;
   margin-top: -17px;
 }
-/*#add-arrow.open {
-  margin-top: -17px;
-}*/
 #createWizard {
   width: 960px;
   height: 450px;
