@@ -4,6 +4,9 @@ Changelog
 1.7.11 - Unreleased
 -------------------
 
+- Hide user e-mail from UI [10193].
+  [Marcin Staniszczak]
+
 - Align +Add wizard arrow [10838].
   [Cesar Gonzalez]
 
