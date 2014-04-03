@@ -4,6 +4,9 @@ Changelog
 1.7.11 - Unreleased
 -------------------
 
+- Cleans dependencies [10861].
+  [Jose Dinuncio]
+
 - Align +Add wizard arrow [10838].
   [Cesar Gonzalez]
 
