@@ -1,26 +1,5 @@
 <?xml version="1.0"?>
 <object name="portal_javascripts">
-  <!-- Disabled scripts -->
-  <javascript enabled="False" remove="True"
-    id="++resource++jarn.xmpp.collaboration.js/jquery.ba-dotimeout.min.js" />
-  <javascript enabled="False" remove="True"
-    id="++resource++jarn.xmpp.collaboration.js/diff_match_patch.js" />
-  <javascript enabled="False" remove="True"
-    id="++resource++jarn.xmpp.collaboration.js/jarnxmpp.collaboration.protocol.js" />
-  <javascript enabled="False" remove="True"
-    id="++resource++jarn.xmpp.core.js/jquery.cookie.js" />
-  <javascript enabled="False" remove="True"
-    id="++resource++gritter/jquery.gritter.min.js" />
-  <javascript enabled="False" remove="True"
-    id="++resource++jarn.xmpp.collaboration.js/jarnxmpp.collaboration.collaborate.js" />
-  <javascript id="jquery.js"
-              enabled="False" />
-  <javascript id="jquery.autocomplete.min.js"
-              enabled="False" />
-  <javascript id="++resource++vnccollab.theme.js/slimScroll.js"
-              enabled="False" />
-
-  <!-- Enabled Scripts -->
   <javascript id="++resource++vnccollab.theme.js/jquery.textchange.js"
               insert-before="++resource++vnccollab.theme.js/main.js"
               enabled="True" />
