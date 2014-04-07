@@ -1,52 +1,49 @@
 vnccollab.theme Installation
 ----------------------------
 
-To install vnccollab.theme into the global Python environment (or a workingenv),
-using a traditional Zope 2 instance, you can do this:
+The preferred way to install vnccolla.theme is using zc.buildout, mr.developer
+and the plone.recipe.zope2instance recipe to manage your project, you can do
+this:
 
-* When you're reading this you have probably already run 
-  ``easy_install vnccollab.theme``. Find out how to install setuptools
-  (and EasyInstall) here:
-  http://peak.telecommunity.com/DevCenter/EasyInstall
-
-* If you are using Zope 2.9 (not 2.10), get `pythonproducts`_ and install it 
-  via::
-
-    python setup.py install --home /path/to/instance
-
-into your Zope instance.
-
-* Create a file called ``vnccollab.theme-configure.zcml`` in the
-  ``/path/to/instance/etc/package-includes`` directory.  The file
-  should only contain this::
-
-    <include package="vnccollab.theme" />
-
-.. _pythonproducts: http://plone.org/products/pythonproducts
-
-
-Alternatively, if you are using zc.buildout and the plone.recipe.zope2instance
-recipe to manage your project, you can do this:
-
-* Add ``vnccollab.theme`` to the list of eggs to install, e.g.:
+* Add the following to your buildout.cfg file:
 
     [buildout]
     ...
     eggs =
         ...
+        pyzimbra
+        collective.notices
+        collective.z3cform.datepicker
+        collective.braveportletsmanager
+        vnccollab.common
+        vnccollab.content
         vnccollab.theme
-       
-* Tell the plone.recipe.zope2instance recipe to install a ZCML slug:
+
+    extensions +=
+        mr.developer
+
+    auto-checkout =
+        pyzimbra
 
     [instance]
-    recipe = plone.recipe.zope2instance
     ...
     zcml =
-        vnccollab.theme
-      
+        ...
+        collective.customizablePersonalizeForm
+        collective.customizablePersonalizeForm-overrides
+
+    [sources]
+    pyzimbra = git git://github.com/vipod/pyzimbra.git rev=11947681d3beac84bdce8b2dcd7bc432dad5c1dd
+
+    [versions]
+    collective.js.jqueryui = 1.8.16.8
+    plone.app.jquery = 1.7.2
+
+
+
 * Re-run buildout, e.g. with:
 
     $ ./bin/buildout
-        
-You can skip the ZCML slug if you are going to explicitly include the package
+
+You can skip the ZCML slugs if you are going to explicitly include the packages
 from another package's configure.zcml file.
