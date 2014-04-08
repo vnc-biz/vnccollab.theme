@@ -4,8 +4,17 @@ Changelog
 1.7.11 - Unreleased
 -------------------
 
+- Hide user e-mail from UI [10193].
+  [Marcin Staniszczak]
+
+- Align +Add wizard arrow [10838].
+  [Cesar Gonzalez]
+
 - Finishes removing OpenERP portlet [10362].
   [Jose Dinuncio]
+
+- Customize plone e-mail's templates [10687].
+  [Marcin Staniszczak]
 
 - Ignores enter key on livesearch [10688].
   [Cesar Gonzalez]
@@ -15,12 +24,6 @@ Changelog
 
 - Cleans dependencies [10861].
   [Jose Dinuncio]
-
-- Align +Add wizard arrow [10838].
-  [Cesar Gonzalez]
-
-- Customize plone e-mail's templates [10687].
-  [Marcin Staniszczak]
 
 - Add german translations [10519].
   [Marcin Staniszczak]
