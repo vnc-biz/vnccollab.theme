@@ -10,6 +10,9 @@ Changelog
 - Customize plone e-mail's templates [10687].
   [Marcin Staniszczak]
 
+- Finishes removing OpenERP portlet [10362].
+  [Jose Dinuncio]
+
 - Ignores enter key on livesearch [10688].
   [Cesar Gonzalez]
 

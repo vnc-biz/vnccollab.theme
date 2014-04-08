@@ -1552,12 +1552,6 @@ dl.portlet dd.portletFooter {
   height: 300px;
 }
 
-/* Portlet OpenERP JS */
-.portletOpenERPJS iframe {
-  width: 100%;
-  height: 300px;
-}
-
 /*----- World Clock Portlet -----*/
 .portletWorldClock .portletItem {
   text-align: center;

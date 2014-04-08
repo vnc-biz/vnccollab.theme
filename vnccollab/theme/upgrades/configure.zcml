@@ -219,4 +219,25 @@
           />
     </genericsetup:upgradeSteps>
 
+    <genericsetup:upgradeStep
+      source="1119"
+      destination="1120"
+      sortkey="21"
+      profile="vnccollab.theme:default"
+      title="Finish removing OpenERP"
+      handler="vnccollab.theme.upgrades.upgrades.upgrade_1119_1120"
+      />
+
+  <genericsetup:upgradeSteps
+      source="1119"
+      destination="1120"
+      sortkey="22"
+      profile="vnccollab.theme:default">
+
+        <genericsetup:upgradeDepends
+          title="Re-cook js and css"
+          import_steps="jsregistry cssregistry"
+          />
+    </genericsetup:upgradeSteps>
+
 </configure>
