@@ -1,11 +1,23 @@
+<tal:root define="lt string:&lt;;gt string:&gt;;
+                  dummy python:request.RESPONSE.setHeader('Content-Type', 'text/html;; charset=%s' % here.plone_utils.getSiteEncoding());
+                  member python:options['member'];
+                  portal_properties context/@@plone_tools/properties;
+                  view context/@@passwordreset_view;
+                  reset python:options.get('reset', None) or here.portal_password_reset.requestReset(member.getId());
+                  fullname python:member.getProperty('fullname');
+                  reset_url python:here.pwreset_constructURL(reset['randomstring'])+'?userid='+member.getUserName()"
+>From: <span tal:replace="structure view/encoded_mail_sender" />
+To: <span tal:replace="python:member.getProperty('email')" />
+Subject: <span tal:replace="view/registered_notify_subject" />
+Content-Type: text/html; charset="utf-8" 
+Precedence: bulk
+
 <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en"
       xmlns:tal="http://xml.zope.org/namespaces/tal"
       xmlns:metal="http://xml.zope.org/namespaces/metal"
       xmlns:i18n="http://xml.zope.org/namespaces/i18n"
       i18n:domain="vnccollab.theme"
-      tal:define="utool nocall:context/portal_url;
-                  charset context/email_charset|string:utf-8;
-                  dummy python:request.RESPONSE.setHeader('Content-Type', 'text/html;;charset=%s' % charset)">
+      tal:define="charset context/email_charset|string:utf-8;">
 <head>
     <style type="text/css">
       /* /\/\/\/\/\/\/\/\/ CLIENT-SPECIFIC STYLES /\/\/\/\/\/\/\/\/ */
@@ -37,7 +49,7 @@
 </head>
 
 <body style="padding:0; margin:0;" bgcolor="#e6e9ee">
-    <table border="0" cellspacing="0" cellpadding="20px" width="100%" height="auto" bgcolor="#e6e9ee" border="0">
+<table border="0" cellspacing="0" cellpadding="20px" width="100%" height="auto" bgcolor="#e6e9ee" border="0">
         <tr>
             <td valign="top">
               <table width="100%" border="0" cellspacing="0" cellpadding="0" style="border: 1px solid #D1D8E7;" bgcolor="#ffffff" align="center">
@@ -45,20 +57,22 @@
                     <td align="center" valign="top" style="font-family: arial, sans-serif; line-height: 18px;color: #012a43; font-size: 14px; padding: 0 30px 10px;text-align: left;">
 
                             <h1 style="font-size: 28px; line-height: 28px;font-style: normal; font-weight: normal;margin: 0;padding: 25px 0 26px 0 !important;text-align: center;" i18n:translate="">
-                                New Message
+                                Welcome <span i18n:name="fullname" tal:replace="fullname" />
                             </h1>
-                            <p style="margin-top:0" i18n:translate="">
-                                This link is sent to you from <span i18n:name="portal_url" tal:omit-tag="" tal:replace="structure utool" />
-                                You are receiving this mail because someone read a page at
-                                <span i18n:name="portal_title" tal:omit-tag="" tal:replace="structure utool/Title" />
-                                and thought it might interest you.
-                                It is sent by <span i18n:name="from_address" tal:omit-tag="" tal:replace="structure options/send_from_address" />
-                                with the following comment:
-                            </p>
                             <p style="margin-top:1em;">
-                                <i>&#8220;
-                                <span tal:omit-tag="" tal:replace="structure options/comment | nothing" />
-                                </i>&#8221;
+                              <span i18n:domain="passwordresettool"
+                                   i18n:translate="mailtemplate_registered_user_body"
+                                   tal:omit-tag="">
+
+                                  Your user account has been created.<br/>
+                                  Your username is <i><span i18n:name="member" tal:replace="member" /></i>.<br/>
+                                  Please activate it by visiting<br/>
+                                  <a href="#" tal:attributes="gref reset_url" tal:content="reset_url"></a><br/><br/>
+
+                                  Please activate your account before <b><span i18n:name="expirationdate" tal:replace="python:
+                                  context.toLocalizedTime(reset['expires'], long_format=1)" /></b>.<br/>
+
+                              </span>
                             </p>
                     </td>
                 </tr>
@@ -71,13 +85,6 @@
                                 <td style="width:14em;font-size:16px">
                                     <b i18n:translate="">VNC CloudPortal</b>
                                 </td>
-                                <td style="text-align: right; height: auto;overflow: hidden;">
-                                    <a href="#"
-                                       style="font-size:12px"
-                                       target="_blank"
-                                       i18n:translate=""
-                                       tal:attributes="href options/url">Open this message in CloudPortal</a>
-                                </td>
                             </tr>
                         </table>
                     </td>
@@ -89,3 +96,4 @@
     </table>
 </body>
 </html>
+</tal:root>

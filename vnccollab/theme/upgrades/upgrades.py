@@ -99,8 +99,8 @@ def upgrade_1115_1116(context):
 
 def upgrade_1117_1118(context):
     """Removes OpenERP portlet."""
-    site = api.portal.get()
-    _unregisterPortlet(site, 'vnccollab.theme.portlets.OpenERPJSPortlet')
+    #site = api.portal.get()
+    #_unregisterPortlet(site, 'vnccollab.theme.portlets.OpenERPJSPortlet')
 
 
 def _unregisterPortlet(site, type):

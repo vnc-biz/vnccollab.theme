@@ -52,9 +52,6 @@
       </property>
       <property name="visible">True</property>
      </object>
-    <object name="xmpp-profile" meta_type="CMF Action" i18n:domain="jarn.xmpp.core">
-      <property name="visible">False</property>
-     </object>
   </object>
   <object name="join" meta_type="CMF Action" i18n:domain="plone">
     <property name="visible">False</property>

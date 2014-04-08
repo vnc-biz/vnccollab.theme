@@ -1,23 +1,11 @@
-import sys
 import transaction
-from StringIO import StringIO
-
-#import zope.component
-#from zope.publisher.http import HTTPCharsets
-from zope.interface import alsoProvides
-from zope.publisher.browser import setDefaultSkin #, BrowserLanguages
-from z3c.form.interfaces import IFormLayer
-from ZPublisher.HTTPResponse import HTTPResponse
-from ZPublisher.HTTPRequest import HTTPRequest
 
 from plone.app.testing import PloneSandboxLayer
-from plone.app.testing import applyProfile
 from plone.app.testing import PLONE_FIXTURE
 from plone.app.testing import IntegrationTesting
 from plone.app.testing import FunctionalTesting
 from plone.testing import z2
 
-from zope.configuration import xmlconfig
 
 try:
     import vnccollab.cloudcast
@@ -38,16 +26,17 @@ class VNCThemeContent(PloneSandboxLayer):
                        'collective.vaporisation', 'collective.quickupload',
                        'plone.formwidget.autocomplete', 'Products.Carousel',
                        'vnccollab.theme', 'collective.autopermission',
+                       'collective.braveportletsmanager',
                        'plone.app.iterate',
                        'vnccollab.content',
-                       'Products.PloneLanguageTool'] #, 'plone.i18n', 'plone.app.i18n']
+                       'Products.PloneLanguageTool']
 
         if CAST_ENABLED:
             depedencies.extend([
                 #'collective.customizablePersonalizeForm',
                 'plone.api', 'plone.app.discussion',
                 'collective.prettydate', 'five.grok',
-                'collective.autogroup','vnccollab.cloudcast',
+                'collective.autogroup', 'vnccollab.cloudcast',
                 'vnccollab.cloudmobile'])
 
         for package in depedencies:
@@ -59,12 +48,9 @@ class VNCThemeContent(PloneSandboxLayer):
 
         z2.installProduct(app, 'Products.PloneLanguageTool')
         z2.installProduct(app, 'plone.app.locales')
-        # z2.installProduct(app, 'plone.app.layout')
-        # z2.installProduct(app, 'plone.app.i18n')
         z2.installProduct(app, 'vnccollab.content')
         z2.installProduct(app, 'vnccollab.theme')
         z2.installProduct(app, 'Products.PythonScripts')
-
 
     def setUpPloneSite(self, portal):
         # Installs all the Plone stuff. Workflows etc.

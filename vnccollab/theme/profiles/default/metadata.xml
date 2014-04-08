@@ -15,6 +15,8 @@
     <dependency>profile-collective.customizablePersonalizeForm:default</dependency>
     <dependency>profile-collective.notices:default</dependency>
     <dependency>profile-collective.quickupload:default</dependency>
+    <dependency>profile-collective.vaporisation:default</dependency>
+    <dependency>profile-collective.braveportletsmanager:default</dependency>
     <dependency>profile-vnccollab.common:default</dependency>
     <dependency>profile-vnccollab.content:default</dependency>
   </dependencies>

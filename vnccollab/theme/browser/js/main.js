@@ -552,7 +552,7 @@ function setHandlersWizard() {
     animateContentWizardStep(1);
     jq('#createWizard').slideUp('fast');
     jq(this).removeClass('open');
-    jq('#add-arrow').removeClass('open');
+    jq('#add-shadow').removeClass('open');
     animateContentWizardStep(1, true);
   });
 
@@ -561,11 +561,11 @@ function setHandlersWizard() {
     if( jq('#createWizard').is(':hidden') ) {
       jq('#createWizard').slideDown('fast');
       jq(this).addClass('open');
-      jq('#add-arrow').addClass('open');
+      jq('#add-shadow').addClass('open');
     } else {
       jq('#createWizard').slideUp('fast');
       jq(this).removeClass('open');
-      jq('#add-arrow').removeClass('open');
+      jq('#add-shadow').removeClass('open');
     }
     return false;
   });
