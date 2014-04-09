@@ -4,6 +4,9 @@ Changelog
 1.7.11 - Unreleased
 -------------------
 
+- Fixes wizard dynatree data preparation [10936].
+  [Cesar Gonzalez]
+
 - Fixes +add arrow when wizard is closed [10936].
   [Cesar Gonzalez]
 

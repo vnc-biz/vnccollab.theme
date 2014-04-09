@@ -726,12 +726,18 @@ function attachSearchDestinationAutocomplete() {
     source: function( request, response ) {
       // loads user/groups to invite
       var data = {'SearchableText': jq('#search-destination').val()};
+
+      // If cast exists then complement data
+      if (typeof(extendCastData) != 'undefined') {
+        data = extendCastData(data);
+      }
+
       jq.ajax({
         type: 'GET',
         dataType: 'json',
         url: portal_url + '/@@wizard_search_destination.json?type_='+jq('#tree').data('contentType'),
         cache: false,
-        data: extendCastData(data),
+        data: data,
         success: function( data ){
           response($.map(data, function(item) {
               return {
