@@ -4,6 +4,9 @@ Changelog
 1.7.11 - Unreleased
 -------------------
 
+- Fixes url of dynatree json data on wizard [10963].
+  [Cesar Gonzalez]
+
 - Add white-cross and fav-icon images to theme and update css [10936].
   [Cesar Gonzalez]
 

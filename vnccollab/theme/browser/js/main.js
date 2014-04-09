@@ -601,13 +601,13 @@ function setHandlersWizard() {
     }
 
     $tree.dynatree({
-      initAjax: { url: cloudstream_url+'/@@wizard_get_initial_tree.json',
+      initAjax: { url: portal_url+'/@@wizard_get_initial_tree.json',
                   cache: false,
                   'data': {'type_': $tree.data('contentType')}
                 },
       onLazyRead: function(node){
                     node.appendAjax({
-                      'url': cloudstream_url+'/@@wizard_get_tree.json',
+                      'url': portal_url+'/@@wizard_get_tree.json',
                       'data': {'uid': node.data.key, 'type_': $tree.data('contentType')},
                     });
                 },
