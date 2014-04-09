@@ -4,6 +4,9 @@ Changelog
 1.7.11 - Unreleased
 -------------------
 
+- Add white-cross and fav-icon images to theme and update css [10936].
+  [Cesar Gonzalez]
+
 - Cleans dependencies [10861].
   [Jose Dinuncio]
 

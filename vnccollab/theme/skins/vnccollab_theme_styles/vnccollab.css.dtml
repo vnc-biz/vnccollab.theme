@@ -3944,7 +3944,7 @@ a.caltrigger {
 }
 
 .add-plus b {
-  background: url(++resource++vnccollab.cloudstream.images/white-cross.png) no-repeat 0 0;
+  background: url(&dtml-portal_url;/white-cross.png) no-repeat 0 0;
   width: 17px;
   height: 17px;
   float: left;
@@ -5344,7 +5344,7 @@ ul.followersList .followButtonWrapper {
 .template-author #content .authorPageActions .followLink:before {
   width: 16px;
   height: 16px;
-  background-image: url(++resource++vnccollab.cloudstream.images/action-fav.png);
+  background-image: url(&dtml-portal_url;/action-fav.png);
   background-size: 16px 16px;
   content: "";
   display: inline-block;
