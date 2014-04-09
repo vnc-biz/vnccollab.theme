@@ -4,6 +4,9 @@ Changelog
 1.7.11 - Unreleased
 -------------------
 
+- Fixes +add arrow when wizard is closed [10936].
+  [Cesar Gonzalez]
+
 - Fixes url of dynatree json data on wizard [10963].
   [Cesar Gonzalez]
 

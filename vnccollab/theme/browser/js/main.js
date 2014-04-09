@@ -550,22 +550,20 @@ function setHandlersWizard() {
   jq('.close_link').click(function(event) {
     event.preventDefault();
     animateContentWizardStep(1);
-    jq('#createWizard').slideUp('fast');
+    wizard_container.slideUp('fast');
     jq(this).removeClass('open');
-    jq('#add-shadow').removeClass('open');
+    jq('.add-plus').removeClass('open');
     animateContentWizardStep(1, true);
   });
 
   // set Add New Content button handler
   jq('#add-plus').click(function() {
-    if( jq('#createWizard').is(':hidden') ) {
-      jq('#createWizard').slideDown('fast');
+    if( wizard_container.is(':hidden') ) {
+      wizard_container.slideDown('fast');
       jq(this).addClass('open');
-      jq('#add-shadow').addClass('open');
     } else {
-      jq('#createWizard').slideUp('fast');
+      wizard_container.slideUp('fast');
       jq(this).removeClass('open');
-      jq('#add-shadow').removeClass('open');
     }
     return false;
   });
