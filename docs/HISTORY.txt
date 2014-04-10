@@ -4,6 +4,9 @@ Changelog
 1.7.12 - unreleased
 -------------------
 
+- Fixes the language selector to appear only if neccesary [10936].
+  [Cesar Gonzalez]
+
 - Cleans setup [11084].
   [Jose Dinuncio]
 

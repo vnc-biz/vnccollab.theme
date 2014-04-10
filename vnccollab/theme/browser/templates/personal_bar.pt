@@ -32,9 +32,13 @@
                 action title
             </a>
         </li>
-        <li id="personaltools-languageselector">
+        <tal:def define="languages view/languages;">
+          <li id="personaltools-languageselector"
+            tal:condition="python:len(languages)>=2" >
           <tal:flags replace="structure view/languages " />
-        </li>
+          </li>
+        </tal:def>
+
       </ul>
     </dt>
   </dl>
