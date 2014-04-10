@@ -4,6 +4,9 @@ Changelog
 1.7.11 - Unreleased
 -------------------
 
+- Fixes wizard dynatree data preparation for file upload [10936].
+  [Cesar Gonzalez]
+
 - Adds uninstall profile [10961].
   [Jose Dinuncio]
 
