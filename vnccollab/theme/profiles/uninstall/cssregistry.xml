@@ -1,0 +1,13 @@
+<?xml version="1.0"?>
+<object name="portal_css">
+ <stylesheet id="++resource++vnccollab.theme.stylesheets/zimbra_mail_portlet.css"
+    remove="true"/>
+ <stylesheet id="ie8fixes.css" remove="true"/>
+ <stylesheet id="++resource++vnccollab.theme.stylesheets/markitup_style.css"
+    remove="true"/>
+ <stylesheet id="vnccollab.css" remove="true" />
+ <stylesheet id="++resource++vnccollab.theme.stylesheets/jquery.datetimepicker.css"
+    remove="True" />
+ <stylesheet id="++resource++vnccollab.theme.stylesheets/jquery.datetimepicker.css"
+    remove="True" />
+</object>

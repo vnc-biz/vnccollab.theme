@@ -1,0 +1,23 @@
+<?xml version="1.0"?>
+<object name="portal_javascripts">
+  <javascript id="++resource++vnccollab.theme.js/zimbra_mail_portlet.js"
+              remove="True" />
+  <javascript id="++resource++vnccollab.theme.js/jquery.markitup.js"
+              remove="True" />
+  <javascript id="++resource++vnccollab.theme.js/helpers.js"
+              remove="True" />
+  <javascript id="++resource++vnccollab.theme.js/fileuploader.js"
+              remove="True" />
+  <javascript id="++resource++vnccollab.theme.js/jquery.blockUI.js"
+              remove="True" />
+  <javascript id="++resource++vnccollab.theme.js/overlayhelpers.js"
+              remove="True" />
+  <javascript id="++resource++vnccollab.theme.js/bubbleinfo.js"
+              remove="True" />
+  <javascript id="++resource++vnccollab.theme.js/jquery.datetimepicker.js"
+              remove="True" />
+  <javascript id="++resource++vnccollab.theme.js/jquery.textchange.js"
+              remove="True" />
+  <javascript id="++resource++vnccollab.theme.js/main.js"
+              remove="True" />
+</object>

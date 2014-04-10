@@ -4,6 +4,9 @@ Changelog
 1.7.11 - Unreleased
 -------------------
 
+- Adds uninstall profile [10961].
+  [Jose Dinuncio]
+
 - Fixes +add arrow when wizard is closed [10936].
   [Cesar Gonzalez]
 
