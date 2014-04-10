@@ -7,6 +7,9 @@ Changelog
 - Adds uninstall profile [10961].
   [Jose Dinuncio]
 
+- Fixes wizard dynatree data preparation [10936].
+  [Cesar Gonzalez]
+
 - Fixes +add arrow when wizard is closed [10936].
   [Cesar Gonzalez]
 
