@@ -4,6 +4,9 @@ Changelog
 1.7.12 - unreleased
 -------------------
 
+- Fixes css style for destination autocomplate on wizard [10936].
+  [Cesar Gonzalez]
+
 - Removes wrong char on wizard template [10936].
   [Cesar Gonzalez]
 
