@@ -1,33 +1,31 @@
 <?xml version="1.0"?>
 <object name="portal_javascripts">
-  <javascript id="++resource++vnccollab.theme.js/jquery.textchange.js"
-              insert-before="++resource++vnccollab.theme.js/main.js"
-              enabled="True" />
+  <javascript id="++resource++plone.app.jquery.js"
+              authenticated="False" bundle="default" cacheable="False"
+              compression="none" conditionalcomment="" cookable="False" enabled="True"
+              expression="" inline="False"/>
+  <javascript id="jquery.autocomplete.min.js"
+              enabled="False" />
   <javascript id="++resource++vnccollab.theme.js/zimbra_mail_portlet.js"
               enabled="True" />
   <javascript id="++resource++vnccollab.theme.js/jquery.markitup.js"
               enabled="True" />
-  <javascript
-      id="++resource++vnccollab.theme.js/vnc_chat.js"
-      remove="True" />
   <javascript id="++resource++vnccollab.theme.js/helpers.js"
               enabled="True" />
   <javascript id="++resource++vnccollab.theme.js/fileuploader.js"
               enabled="True" />
-  <javascript id="++resource++vnccollab.theme.js/main.js"
-              enabled="True" />
   <javascript id="++resource++vnccollab.theme.js/jquery.blockUI.js"
-              insert-before="++resource++vnccollab.theme.js/main.js"
               enabled="True" />
   <javascript id="++resource++vnccollab.theme.js/overlayhelpers.js"
               enabled="True" />
-  <javascript id="++resource++plone.formwidget.autocomplete/jquery.autocomplete.min.js"
-              enabled="False" />
   <javascript id="++resource++plone.app.jquerytools.dateinput.js"
               enabled="True" />
   <javascript id="++resource++vnccollab.theme.js/bubbleinfo.js"
               enabled="True" />
   <javascript id="++resource++vnccollab.theme.js/jquery.datetimepicker.js"
-              insert-before="++resource++vnccollab.theme.js/main.js"
+              enabled="True" />
+  <javascript id="++resource++vnccollab.theme.js/jquery.textchange.js"
+              enabled="True" />
+  <javascript id="++resource++vnccollab.theme.js/main.js"
               enabled="True" />
 </object>
