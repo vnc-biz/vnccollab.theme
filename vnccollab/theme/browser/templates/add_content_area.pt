@@ -6,7 +6,7 @@
    <div id="createWizard">
         <script  type="text/javascript" tal:content="view/upload_javascript">
         </script>
-        <H1><strong>CREATE</strong> NEW CONTENT...</H1>
+        <H1 i18n:translate=""><strong>CREATE</strong> NEW CONTENT...</H1>
         <div class="nav">
           <ul>
             <li class="tab"><a class="tab_link active" id="tab_1" href="" rel="1">1</a></li>
@@ -22,7 +22,7 @@
               <div class="step-content">
                 <div class="Column First"
                     tal:condition="types">
-                    <h3>SELECT CONTENT TYPE...<span>OR</span></h3>
+                    <h3><tal:i18n i18n:translate="">SELECT CONTENT TYPE...</tal:i18n><span i18n:translate="">OR</span></h3>
                     <tal:links repeat="link types">
                     <a href="#" class="Item"
                         tal:attributes="href link/url;
@@ -36,13 +36,13 @@
                          tal:content="link/title"
                          i18n:translate="">Folder</p>
                       <p class="Desc"
-                         i18n:translate="add_content_area_link_desc">Create a new <tal:type i18n:name="type" replace="link/title">folder</tal:type></p>
+                         i18n:translate="">Create a new <tal:type i18n:name="type" replace="link/title">folder</tal:type></p>
                     </a>
                     </tal:links>
 
                 </div>
                 <div class="Column Second">
-                  <h3>UPLOAD FILES HERE</h3>
+                  <h3 i18n:translate="">UPLOAD FILES HERE</h3>
                   <div id="upload-place" class="uploaderContainer">
                     <input type="hidden"
                            name="uploadUrl"
@@ -52,8 +52,8 @@
                            name="uploadData"
                            class="uploadData"
                            value="typeupload=File" />
-                    <p>Drop files you want to upload</p>
-                    <p>or</p>
+                    <p i18n:translate="">Drop files you want to upload</p>
+                    <p i18n:translate="">or</p>
                   </div>
                 </div>
 
@@ -66,7 +66,7 @@
                  </div>
             </div>
             <div class="step step3">
-                <H3>WHERE DO YOU WANT TO PUT THE NEW ITEM?</H3>
+                <H3 i18n:translate="">WHERE DO YOU WANT TO PUT THE NEW ITEM?</H3>
                 <div class="step-content">
                     <label class="formQuestion" for="tree">
                         <input name="SearchableTextDestination"
@@ -88,7 +88,7 @@
                     </label>
                     <div id="tree" name="tree"></div>
                     <input type="hidden" name="selected_destination" value=""/>
-                    <label class="destination-label" for="destination">Selected Container:</label>
+                    <label class="destination-label" for="destination"  i18n:translate="">Selected Container:</label>
                     <span class="selectedContainer"></span>
                 </div>
             </div>
@@ -104,5 +104,5 @@
                />
         </div>
     </div>
-    <div id="add-arrow"></div>
+    <div id="add-shadow"></div>
 </div>

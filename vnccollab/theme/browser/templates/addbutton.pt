@@ -1,6 +1,6 @@
-<div i18n:domain="vnccollab.theme" class="add-plus" id="add-plus">
+<div i18n:domain="vnccollab.theme" class="add-plus" id="add-plus" i18n:translate="">
 	<b></b>Add
 </div>
-<div i18n:domain="vnccollab.theme" class="add-or">
+<div i18n:domain="vnccollab.theme" class="add-or" i18n:translate="">
 	or
 </div>

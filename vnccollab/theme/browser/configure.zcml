@@ -51,6 +51,7 @@
       name="get_object_json"
       class=".zimbrajson.GetObjectJson"
       permission="zope2.View"
+      layer=".interfaces.IThemeSpecific"
       />
 
   <browser:page
@@ -58,6 +59,7 @@
       name="livesearch_reply_json"
       class=".zimbrajson.LiveSearchReplyJson"
       permission="zope2.View"
+      layer=".interfaces.IThemeSpecific"
       />
 
   <browser:page
@@ -65,6 +67,7 @@
       name="get_list_of_search_parameters"
       class=".zimbrajson.GetListOfSearchParameters"
       permission="zope2.View"
+      layer=".interfaces.IThemeSpecific"
       />
 
   <browser:page
@@ -72,6 +75,7 @@
       name="zimbra_get_tree_json"
       class=".zimbrajson.GetTreeJson"
       permission="zope2.View"
+      layer=".interfaces.IThemeSpecific"
       />
 
   <browser:page
@@ -79,6 +83,7 @@
       name="zimbra_set_filename"
       class=".zimbrajson.SetFilenameJson"
       permission="cmf.ModifyPortalContent"
+      layer=".interfaces.IThemeSpecific"
       />
 
   <browser:page
@@ -446,13 +451,6 @@
       name="worldclock-settings"
       for="Products.CMFPlone.interfaces.IPloneSiteRoot"
       class="vnccollab.theme.settings.WorldClockSettingsControlPanel"
-      permission="cmf.ManagePortal"
-      />
-
-  <browser:page
-      name="openerp-settings"
-      for="Products.CMFPlone.interfaces.IPloneSiteRoot"
-      class="vnccollab.theme.settings.OpenERPSettingsControlPanel"
       permission="cmf.ManagePortal"
       />
 

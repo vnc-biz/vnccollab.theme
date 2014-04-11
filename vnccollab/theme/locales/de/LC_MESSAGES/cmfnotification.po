@@ -1,0 +1,5 @@
+msgid "notification_portlet_header"
+msgstr "Mail-Abo"
+
+msgid "label_subscribe"
+msgstr "Anmelden"

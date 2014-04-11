@@ -1,6 +1,58 @@
 Changelog
 =========
 
+1.7.11 - April 11, 2014
+-----------------------
+
+- Hide user e-mail from UI [10193].
+  [Marcin Staniszczak]
+
+- Fixes wizard dynatree data preparation for file upload [10936].
+  [Cesar Gonzalez]
+
+- Adds uninstall profile [10961].
+  [Jose Dinuncio]
+
+- Fixes +add arrow when wizard is closed [10936].
+  [Cesar Gonzalez]
+
+- Fixes url of dynatree json data on wizard [10963].
+  [Cesar Gonzalez]
+
+- Add white-cross and fav-icon images to theme and update css [10936].
+  [Cesar Gonzalez]
+
+- Cleans dependencies [10861].
+  [Jose Dinuncio]
+
+- Finishes removing OpenERP portlet [10362].
+  [Jose Dinuncio]
+
+- Customize plone e-mail's templates [10687].
+  [Marcin Staniszczak]
+
+- Ignores enter key on livesearch [10688].
+  [Cesar Gonzalez]
+
+- Fixes style on +add button and search for dynamic content (translations) [10519].
+  [Cesar Gonzalez]
+
+- Add german translations [10519].
+  [Marcin Staniszczak]
+
+- Adds button text to Browse Files button and set css [10695].
+  [Cesar Gonzalez]
+
+- Adds layer specificity to json messages views.
+  [Jose Dinuncio]
+
+- Adds image width limit to 100% on content [10561].
+  [Cesar Gonzalez]
+
+- Customize navigation portlet to only show folders [10646].
+  [Marcin Staniszczak]
+
+
 1.7.10 - March 07, 2014
 -----------------------
 

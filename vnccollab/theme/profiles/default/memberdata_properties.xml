@@ -6,8 +6,6 @@
  <property name="etherpad_url" type="string"/>
  <property name="etherpad_username" type="string"/>
  <property name="etherpad_password" type="string"/>
- <property name="openerp_username" type="string"/>
- <property name="openerp_password" type="string"/>
  <property name="redmine_username" type="string"/>
  <property name="redmine_password" type="string"/>
 </object>

@@ -6,11 +6,11 @@
     i18n:domain="vnccollab.theme">
 
   <dt class="portletHeader"
-      tal:condition="view/data/header">
+      tal:condition="view/header">
     <span class="portletTopLeft"></span>
     <a href=""
        tal:attributes="href string:${context/portal_url}/Members"
-       tal:content="view/data/header">Users</a>
+       tal:content="view/header">Users</a>
     <span class="portletTopRight"></span>
   </dt>
     
@@ -29,17 +29,6 @@
           </a>
           <div class="bubbleinfo-popup">
             <strong><span tal:replace="user/fullname" /></strong>
-            <dl>
-              <dt>User ID:</dt>
-              <dd><span tal:replace="user/id" /></dd>
-
-              <dt>E-mail:</dt>
-              <dd>
-                <a tal:attributes="href python: 'mailto:%s' % (user['email'],)">
-                  <span tal:replace="user/email" />
-                </a>
-              </dd>
-            </dl>
           </div>
         </span>
         </tal:users>

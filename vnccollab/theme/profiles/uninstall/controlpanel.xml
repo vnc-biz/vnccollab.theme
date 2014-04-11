@@ -1,0 +1,22 @@
+<?xml version="1.0"?>
+<object
+    name="portal_controlpanel"
+    xmlns:i18n="http://xml.zope.org/namespaces/i18n"
+    i18n:domain="vnccollab.theme"
+    purge="False">
+
+    <configlet
+        title="WorldClock"
+        action_id="worldclock"
+        appId="vnccollab.theme.worldclock"
+        remove="True">
+    </configlet>
+
+    <configlet
+        title="Anonymous Homepage"
+        action_id="anonhomepage"
+        appId="vnccollab.theme.anonhomepage"
+        remove="True">
+    </configlet>
+
+</object>

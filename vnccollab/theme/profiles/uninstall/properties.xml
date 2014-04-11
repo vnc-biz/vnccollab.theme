@@ -1,0 +1,5 @@
+<?xml version="1.0"?>
+<site>
+ <property name="selectable_views" type="lines" purge="False" remove="True"/>
+ <property name="layout" type="string" remove="True" />
+</site>

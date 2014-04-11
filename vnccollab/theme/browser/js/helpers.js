@@ -67,12 +67,12 @@ WizardUpload.wizardUpload_NextStep = function(uploader, variable) {
     }
 
     jq("#tree").dynatree({
-      initAjax: { url: cloudstream_url+'/@@wizard_get_initial_tree.json',
+      initAjax: { url: portal_url+'/@@wizard_get_initial_tree.json',
                   cache: false
                 },
       onLazyRead: function(node){
                     node.appendAjax({
-                      'url': cloudstream_url+'/@@wizard_get_tree.json',
+                      'url': portal_url+'/@@wizard_get_tree.json',
                       'data': {'uid': node.data.key},
                     });
                 },

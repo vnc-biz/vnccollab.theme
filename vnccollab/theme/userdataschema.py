@@ -31,7 +31,6 @@ class UserDataSchemaPropertiesAdapter(object):
     def getProperties(self):
         return ['zimbra_username', 'zimbra_password',
                 'etherpad_url', 'etherpad_username', 'etherpad_password',
-                'openerp_username', 'openerp_password',
                 'redmine_username', 'redmine_password'
                 ]
 
@@ -72,14 +71,3 @@ class IUserDataSchema(Interface):
                       "pads, etc..."),
         required=False)
 
-    openerp_username = schema.ASCIILine(
-        title=_("OpenERP Username"),
-        description=_(u"We need this field in order to display your OpenERP "
-                      "related information."),
-        required=False)
-
-    openerp_password = schema.Password(
-        title=_("OpenERP Password"),
-        description=_(u"We need this field in order to display your OpenERP "
-                      "related information."),
-        required=False)

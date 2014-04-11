@@ -1,0 +1,31 @@
+<?xml version="1.0"?>
+<portlets
+    xmlns:i18n="http://xml.zope.org/namespaces/i18n"
+    i18n:domain="vnccollab.theme">
+
+ <portlet
+   addview="vnccollab.theme.portlets.WorldClockPortlet"
+   remove="True" />
+   title="World Clo
+
+ <portlet
+   addview="vnccollab.theme.portlets.EtherpadsListPortlet"
+   remove="True" />
+
+ <portlet
+   addview="vnccollab.theme.portlets.UsersBoxPortlet"
+   remove="True" />
+
+ <portlet
+   addview="vnccollab.theme.portlets.SpecialRSSPortlet"
+   remove="True" />
+
+ <portlet
+   addview="vnccollab.theme.portlets.DashletPortlet"
+   remove="True" />
+
+ <portlet
+   addview="vnccollab.theme.portlets.GenericIframePortlet"
+   remove="True" />
+
+</portlets>

@@ -29,7 +29,8 @@
     <value key="radius_3">35</value>
     <value key="no_seconds_3">False</value>
   </records>
-  <records interface="vnccollab.theme.settings.IOpenERPSettings" />
+  <records interface="vnccollab.theme.settings.IAnonymousHomepageSettings" />
+
   <!-- Delete legacy records -->
   <record name="vnccollab.theme.header_clock.tz_1" delete="true" />
   <record name="vnccollab.theme.header_clock.radius_1" delete="true" />
@@ -43,6 +44,4 @@
   <record name="vnccollab.theme.header_clock.radius_3" delete="true" />
   <record name="vnccollab.theme.header_clock.no_seconds_3" delete="true" />
   <record name="vnccollab.theme.header_clock.skin_3" delete="true" />
-
-  <records interface="vnccollab.theme.settings.IAnonymousHomepageSettings" />
 </registry>
