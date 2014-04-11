@@ -33,7 +33,8 @@ this:
         collective.customizablePersonalizeForm-overrides
 
     [sources]
-    pyzimbra = git git://github.com/vipod/pyzimbra.git rev=11947681d3beac84bdce8b2dcd7bc432dad5c1dd
+    # we are currently using our fork of pyzimbra
+    pyzimbra = git git://github.com/vnc-biz/pyzimbra.git branch=master
 
     [versions]
     collective.js.jqueryui = 1.8.16.8
