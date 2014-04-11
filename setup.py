@@ -6,7 +6,7 @@ version = open('version.txt').read()
 setup(name='vnccollab.theme',
       version=version,
       description="An installable theme for VNC Collaboration Plone 4 Site.",
-      long_description=open(os.path.join("docs", "README.txt")).read() + "\n" +
+      long_description=open("README.txt").read() + "\n" +
                        open(os.path.join("docs", "HISTORY.txt")).read(),
       # Get more strings from
       # http://pypi.python.org/pypi?:action=list_classifiers
@@ -17,7 +17,7 @@ setup(name='vnccollab.theme',
       keywords='web zope plone theme',
       author='Vitaliy Podoba',
       author_email='vitaliy.podoba@vnc.biz',
-      url='https://redmine.vnc.biz/redmine/projects/vnc-plone-theme',
+      url='https://github.com/vnc-biz/vnccollab.theme',
       license='GPL',
       packages=find_packages(exclude=['ez_setup']),
       namespace_packages=['vnccollab'],
