@@ -7,8 +7,23 @@ Changelog
 - Hide user e-mail from UI [10193].
   [Marcin Staniszczak]
 
-- Align +Add wizard arrow [10838].
+- Fixes wizard dynatree data preparation for file upload [10936].
   [Cesar Gonzalez]
+
+- Adds uninstall profile [10961].
+  [Jose Dinuncio]
+
+- Fixes +add arrow when wizard is closed [10936].
+  [Cesar Gonzalez]
+
+- Fixes url of dynatree json data on wizard [10963].
+  [Cesar Gonzalez]
+
+- Add white-cross and fav-icon images to theme and update css [10936].
+  [Cesar Gonzalez]
+
+- Cleans dependencies [10861].
+  [Jose Dinuncio]
 
 - Finishes removing OpenERP portlet [10362].
   [Jose Dinuncio]
@@ -21,9 +36,6 @@ Changelog
 
 - Fixes style on +add button and search for dynamic content (translations) [10519].
   [Cesar Gonzalez]
-
-- Cleans dependencies [10861].
-  [Jose Dinuncio]
 
 - Add german translations [10519].
   [Marcin Staniszczak]

@@ -550,22 +550,20 @@ function setHandlersWizard() {
   jq('.close_link').click(function(event) {
     event.preventDefault();
     animateContentWizardStep(1);
-    jq('#createWizard').slideUp('fast');
+    wizard_container.slideUp('fast');
     jq(this).removeClass('open');
-    jq('#add-shadow').removeClass('open');
+    jq('.add-plus').removeClass('open');
     animateContentWizardStep(1, true);
   });
 
   // set Add New Content button handler
   jq('#add-plus').click(function() {
-    if( jq('#createWizard').is(':hidden') ) {
-      jq('#createWizard').slideDown('fast');
+    if( wizard_container.is(':hidden') ) {
+      wizard_container.slideDown('fast');
       jq(this).addClass('open');
-      jq('#add-shadow').addClass('open');
     } else {
-      jq('#createWizard').slideUp('fast');
+      wizard_container.slideUp('fast');
       jq(this).removeClass('open');
-      jq('#add-shadow').removeClass('open');
     }
     return false;
   });
@@ -601,13 +599,13 @@ function setHandlersWizard() {
     }
 
     $tree.dynatree({
-      initAjax: { url: cloudstream_url+'/@@wizard_get_initial_tree.json',
+      initAjax: { url: portal_url+'/@@wizard_get_initial_tree.json',
                   cache: false,
                   'data': {'type_': $tree.data('contentType')}
                 },
       onLazyRead: function(node){
                     node.appendAjax({
-                      'url': cloudstream_url+'/@@wizard_get_tree.json',
+                      'url': portal_url+'/@@wizard_get_tree.json',
                       'data': {'uid': node.data.key, 'type_': $tree.data('contentType')},
                     });
                 },
@@ -728,12 +726,18 @@ function attachSearchDestinationAutocomplete() {
     source: function( request, response ) {
       // loads user/groups to invite
       var data = {'SearchableText': jq('#search-destination').val()};
+
+      // If cast exists then complement data
+      if (typeof(extendCastData) != 'undefined') {
+        data = extendCastData(data);
+      }
+
       jq.ajax({
         type: 'GET',
         dataType: 'json',
         url: portal_url + '/@@wizard_search_destination.json?type_='+jq('#tree').data('contentType'),
         cache: false,
-        data: extendCastData(data),
+        data: data,
         success: function( data ){
           response($.map(data, function(item) {
               return {

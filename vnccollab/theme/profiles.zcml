@@ -12,6 +12,14 @@
       />
 
   <genericsetup:registerProfile
+      name="uninstall"
+      title="VNC Collaboration Theme"
+      directory="profiles/uninstall"
+      description='Extension profile for the "VNC Collaboration Theme" Plone theme.'
+      provides="Products.GenericSetup.interfaces.EXTENSION"
+      />
+
+  <genericsetup:registerProfile
       name="worldclock"
       title="WorldClock Control Panel"
       directory="profiles/default"
