@@ -36,3 +36,9 @@ To add them to your site, follow one of the following procedures:
 
 The first option is easier, but the configuration will be stored in the ZODB. The
 second option requires programming.
+
+Known Issues
+------------
+
+Due to the use of plone.app.jquery 1.7.2, there could be some issues with
+overlays in Plone 4.2.
