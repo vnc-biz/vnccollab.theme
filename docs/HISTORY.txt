@@ -1,6 +1,12 @@
 Changelog
 =========
 
+1.7.12 - unreleased
+-------------------
+
+- Fixes dashboard url in user actions.
+  [Jose Dinuncio]
+
 1.7.11 - April 11, 2014
 -----------------------
 
