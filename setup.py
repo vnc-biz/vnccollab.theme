@@ -6,7 +6,7 @@ version = open('version.txt').readline().strip()
 setup(name='vnccollab.theme',
       version=version,
       description="An installable theme for VNC Collaboration Plone 4 Site.",
-      long_description=open("README.txt").read() + "\n" +
+      long_description=open("README.rst").read() + "\n" +
                        open(os.path.join("docs", "HISTORY.txt")).read(),
       # Get more strings from
       # http://pypi.python.org/pypi?:action=list_classifiers

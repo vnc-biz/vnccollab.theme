@@ -5,7 +5,7 @@ The preferred way to install vnccolla.theme is using zc.buildout, mr.developer
 and the plone.recipe.zope2instance recipe to manage your project, you can do
 this:
 
-* Add the following to your buildout.cfg file:
+* Add the following to your buildout.cfg file: ::
 
     [buildout]
     ...
@@ -20,6 +20,12 @@ this:
     auto-checkout =
         pyzimbra
 
+    [instance]
+    zcml =
+        ${buildout:eggs}
+        ...
+        vnccollab.theme-overrides
+
     [sources]
     # we are currently using our fork of pyzimbra
     pyzimbra = git git://github.com/vnc-biz/pyzimbra.git branch=master
@@ -31,9 +37,10 @@ this:
 
 
 
-* Re-run buildout, e.g. with:
+* Re-run buildout, e.g. with: ::
 
     $ ./bin/buildout
 
 You can skip the ZCML slugs if you are going to explicitly include the packages
 from another package's configure.zcml file.
+
