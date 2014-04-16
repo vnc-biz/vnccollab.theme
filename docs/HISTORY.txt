@@ -4,6 +4,9 @@ Changelog
 1.7.12 - unreleased
 -------------------
 
+- Cleans setup [11084].
+  [Jose Dinuncio]
+
 - Fixes dashboard url in user actions.
   [Jose Dinuncio]
 

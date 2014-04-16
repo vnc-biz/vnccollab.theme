@@ -12,11 +12,6 @@ this:
     eggs =
         ...
         pyzimbra
-        collective.notices
-        collective.z3cform.datepicker
-        collective.braveportletsmanager
-        vnccollab.common
-        vnccollab.content
         vnccollab.theme
 
     extensions +=
@@ -24,13 +19,6 @@ this:
 
     auto-checkout =
         pyzimbra
-
-    [instance]
-    ...
-    zcml =
-        ...
-        collective.customizablePersonalizeForm
-        collective.customizablePersonalizeForm-overrides
 
     [sources]
     # we are currently using our fork of pyzimbra

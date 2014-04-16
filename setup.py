@@ -1,7 +1,7 @@
 from setuptools import setup, find_packages
 import os
 
-version = open('version.txt').read()
+version = open('version.txt').readline().strip()
 
 setup(name='vnccollab.theme',
       version=version,
@@ -11,9 +11,9 @@ setup(name='vnccollab.theme',
       # Get more strings from
       # http://pypi.python.org/pypi?:action=list_classifiers
       classifiers=[
-        "Framework :: Plone",
-        "Programming Language :: Python",
-        ],
+          "Framework :: Plone",
+          "Programming Language :: Python",
+      ],
       keywords='web zope plone theme',
       author='Vitaliy Podoba',
       author_email='vitaliy.podoba@vnc.biz',

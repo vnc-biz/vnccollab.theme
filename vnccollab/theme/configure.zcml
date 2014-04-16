@@ -10,6 +10,9 @@
 
   <includeDependencies package="." />
 
+  <include package="collective.customizablePersonalizeForm" />
+  <include package="collective.customizablePersonalizeForm"
+           file="overrides.zcml"/>
   <include package=".browser" />
   <include package=".portlets" />
   <include package=".upgrades" />
