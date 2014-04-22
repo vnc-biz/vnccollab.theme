@@ -1,23 +1,23 @@
 from setuptools import setup, find_packages
 import os
 
-version = open('version.txt').read()
+version = open('version.txt').readline().strip()
 
 setup(name='vnccollab.theme',
       version=version,
       description="An installable theme for VNC Collaboration Plone 4 Site.",
-      long_description=open(os.path.join("docs", "README.txt")).read() + "\n" +
+      long_description=open("README.rst").read() + "\n" +
                        open(os.path.join("docs", "HISTORY.txt")).read(),
       # Get more strings from
       # http://pypi.python.org/pypi?:action=list_classifiers
       classifiers=[
-        "Framework :: Plone",
-        "Programming Language :: Python",
-        ],
+          "Framework :: Plone",
+          "Programming Language :: Python",
+      ],
       keywords='web zope plone theme',
       author='Vitaliy Podoba',
       author_email='vitaliy.podoba@vnc.biz',
-      url='https://redmine.vnc.biz/redmine/projects/vnc-plone-theme',
+      url='https://github.com/vnc-biz/vnccollab.theme',
       license='GPL',
       packages=find_packages(exclude=['ez_setup']),
       namespace_packages=['vnccollab'],

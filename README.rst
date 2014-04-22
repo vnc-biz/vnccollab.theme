@@ -22,7 +22,7 @@ functionality as:
 Installation
 ------------
 
-Please read INSTALL.txt for details about the installation.
+Please read INSTALL.rst for details about the installation.
 
 
 Usage
@@ -42,3 +42,4 @@ Known Issues
 
 Due to the use of plone.app.jquery 1.7.2, there could be some issues with
 overlays in Plone 4.2.
+

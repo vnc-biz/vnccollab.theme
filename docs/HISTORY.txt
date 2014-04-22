@@ -4,6 +4,18 @@ Changelog
 1.7.12 - unreleased
 -------------------
 
+- Fixes css style for destination autocomplate on wizard [10936].
+  [Cesar Gonzalez]
+
+- Removes wrong char on wizard template [10936].
+  [Cesar Gonzalez]
+
+- Fixes the language selector to appear only if neccesary [10936].
+  [Cesar Gonzalez]
+
+- Cleans setup [11084].
+  [Jose Dinuncio]
+
 - Fixes dashboard url in user actions.
   [Jose Dinuncio]
 

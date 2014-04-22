@@ -4649,6 +4649,38 @@ a.caltrigger {
 
 #createWizard .destination-object-autocomplete li a {
   font-weight: normal;
+  color: #012A43;
+  display: block;
+  font-size: 0.80em;
+  padding: 0 0.4em !important;
+  border: none;
+}
+#createWizard .destination-object-autocomplete li a:hover {
+  background: none repeat scroll 0 0 #DFE8EF !important;
+  border-radius: 0 !important;
+}
+#createWizard .destination-object-autocomplete li.ui-autocomplete-even {
+  background-color: #fff;
+}
+#createWizard .destination-object-autocomplete li.ui-autocomplete-odd {
+  background-color: #eee;
+}
+#createWizard .destination-object-autocomplete li.ui-autocomplete-state-default {
+  background-color: #fff;
+  border: 1px solid #fff;
+  color: #212121;
+}
+#createWizard .destination-object-autocomplete li.ui-autocomplete-state-active {
+  color: #000;
+  background:#E6E6E6;
+  border:1px solid #D3D3D3;
+}
+#createWizard .ui-autocomplete-loading {
+  background: white url(&dtml-portal_url;/spinner.gif) right center no-repeat;
+  background-position: 98% 50%;
+}
+#createWizard .ui-autocomplete-over {
+  background-color: #0A246A; color: white;
 }
 
 .cloud-package-link {
