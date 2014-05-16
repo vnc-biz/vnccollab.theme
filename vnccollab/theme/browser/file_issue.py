@@ -1,13 +1,9 @@
 import logging
 from pyactiveresource.activeresource import ActiveResource
 
-from Acquisition import aq_inner
-from ZODB.POSException import ConflictError
-
 from zope import schema
 from zope.component import getMultiAdapter, getUtility
 from zope.interface import implements, Interface, Invalid
-from zope.app.pagetemplate.viewpagetemplatefile import ViewPageTemplateFile
 
 from Products.CMFCore.utils import getToolByName
 from Products.CMFPlone.utils import safe_unicode
@@ -18,18 +14,12 @@ from z3c.form.interfaces import IErrorViewSnippet
 from plone.z3cform.layout import wrap_form
 from plone.registry.interfaces import IRegistry
 from plone.memoize.instance import memoize
-from plone.memoize import ram
-
-from collective.z3cform.datepicker.widget import DatePickerFieldWidget
 
 from vnccollab.theme import messageFactory as _
 from vnccollab.theme.portlets.zimbra_mail import logException
 
 
 logger = logging.getLogger('vnccollab.theme.redmine_file_ticket')
-
-
-# TODO: display error message above form
 
 
 class IFileTicketForm(Interface):
@@ -100,8 +90,6 @@ class FileTicketForm(form.Form):
 
     fields = field.Fields(IFileTicketForm)
 
-    fields['start_date'].widgetFactory = DatePickerFieldWidget
-    fields['due_date'].widgetFactory = DatePickerFieldWidget
 
     @property
     def action(self):

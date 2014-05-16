@@ -1,11 +1,12 @@
 from zope import schema
-from zope.interface import implements, alsoProvides, Interface, Invalid
-from Products.Five.browser.pagetemplatefile import ViewPageTemplateFile as FiveViewPageTemplateFile
+from zope.interface import implements, Interface
+from Products.Five.browser.pagetemplatefile import ViewPageTemplateFile \
+    as FiveViewPageTemplateFile
 
 
-from z3c.form import form, field, button
 import z3c.form.interfaces
-from plone.z3cform.layout import FormWrapper, wrap_form
+from z3c.form import form, field
+from plone.z3cform.layout import FormWrapper
 
 from vnccollab.theme import messageFactory as _
 from vnccollab.theme.vocabularies import SimpleVocabularyFactory
@@ -69,5 +70,3 @@ class NewTicketForm(FormWrapper):
         if 'zimbra_task_form.buttons.create' not in self.request.form:
             # Shows redmine form only if zimbra was not chosen
             self.redmine.update()
-
-
