@@ -4,6 +4,10 @@ Changelog
 1.7.12 - unreleased
 -------------------
 
+- Re-attach dateinput from jquerytools to Create Task overlay. Removes 
+  datepicker previous implementation from js [11437].
+  [Cesar Gonzalez]
+
 - Fixes css style for destination autocomplate on wizard [10936].
   [Cesar Gonzalez]
 
