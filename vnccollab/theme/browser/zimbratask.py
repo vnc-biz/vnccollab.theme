@@ -7,8 +7,6 @@ from z3c.form.interfaces import IErrorViewSnippet
 from Products.CMFCore.utils import getToolByName
 from Products.statusmessages.interfaces import IStatusMessage
 
-from collective.z3cform.datepicker.widget import DatePickerFieldWidget
-
 from vnccollab.theme import messageFactory as _
 from vnccollab.theme.zimbrautil import IZimbraUtil
 import vnccollab.theme.util as util
@@ -80,9 +78,6 @@ class ZimbraTaskForm(form.Form):
     implements(IZimbraTaskForm)
     fields = field.Fields(IZimbraTaskForm)
 
-    fields['startDate'].widgetFactory = DatePickerFieldWidget
-    fields['endDate'].widgetFactory = DatePickerFieldWidget
-
     label = _("New Zimbra Task")
     prefix = 'zimbra_task_form'
 
@@ -112,7 +107,7 @@ class ZimbraTaskForm(form.Form):
                 "your profile form in order to create a zimbra task.")
             else:
                 msg = _(u"Please, set Zimbra URL in Control "
-                    " Panel (Configuration Registry).")
+                        u" Panel (Configuration Registry).")
             # issue form level error
             self.status = msg
             error = getMultiAdapter((Invalid(u''), self.request, None,
@@ -142,7 +137,7 @@ class ZimbraTaskForm(form.Form):
             plone_utils = getToolByName(self.context, 'plone_utils')
             exception = plone_utils.exceptionString()
             self.status = _(u"Unable create issue: ${exception}",
-                mapping={u'exception': exception})
+                            mapping={u'exception': exception})
             error = getMultiAdapter((Invalid(u''), self.request, None,
                 None, self, self.context), IErrorViewSnippet)
             error.update()

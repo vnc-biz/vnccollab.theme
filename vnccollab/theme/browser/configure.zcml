@@ -3,8 +3,6 @@
     xmlns:browser="http://namespaces.zope.org/browser"
     i18n_domain="vnccollab.theme">
 
-  <include package="collective.z3cform.datepicker" />
-
   <!-- 'VNC Collaboration Theme' Zope 3 browser layer -->
   <interface
       interface=".interfaces.IThemeSpecific"
@@ -14,6 +12,33 @@
 
   <include package="plone.app.portlets" />
 
+
+  <!-- Resource directories -->
+  <browser:resourceDirectory
+      name="vnccollab.theme.images"
+      directory="images"
+      />
+
+  <browser:resourceDirectory
+      name="vnccollab.theme.js"
+      directory="js"
+      />
+
+  <browser:resourceDirectory
+      name="vnccollab.theme.stylesheets"
+      directory="stylesheets"
+      />
+
+
+  <!-- z3c.jbot overrides -->
+  <include package="z3c.jbot" file="meta.zcml" />
+
+  <browser:jbot
+      directory="z3cjbot_overrides"
+      layer=".interfaces.IThemeSpecific"/>
+
+
+  <!-- Pages -->
   <browser:page
       for="*"
       name="upload-file"
@@ -122,14 +147,6 @@
       permission="zope2.View"
       />
 
-  <!-- <browser:page
-      for="*"
-      name="zimbra-mail-portlet-view"
-      class=".zimbra.ZimbraMailPortletView"
-      layer=".interfaces.IThemeSpecific"
-      permission="plone.app.portlets.ViewDashboard"
-      /> -->
-
   <!-- Override dashboard and dashboard management forms,
        we need only one column there -->
   <browser:page
@@ -196,30 +213,6 @@
     permission="zope2.View"
     />
 
-  <adapter
-      factory=".portlet_manager.ColumnPortletManagerRenderer"
-      provides="plone.portlets.interfaces.IPortletManagerRenderer"
-      />
-  <adapter
-      factory=".portlet_manager.DashboardPortletManagerRenderer"
-      provides="plone.portlets.interfaces.IPortletManagerRenderer"
-      />
-  <!-- Renderer for the columns in edit mode, need also register it in order to
-       override above ones -->
-  <adapter
-      factory=".portlet_manager.EditPortletManagerRenderer"
-      provides="plone.portlets.interfaces.IPortletManagerRenderer"
-      />
-  <adapter
-      factory=".portlet_manager.ContextualEditPortletManagerRenderer"
-      provides="plone.portlets.interfaces.IPortletManagerRenderer"
-      />
-  <adapter
-      factory=".portlet_manager.DashboardEditPortletManagerRenderer"
-      provides="plone.portlets.interfaces.IPortletManagerRenderer"
-      />
-
-
   <browser:page
       for="*"
       name="folder-content-types"
@@ -255,6 +248,93 @@
       layer=".interfaces.IThemeSpecific"
       />
 
+  <!-- Control Panel -->
+  <browser:page
+      name="worldclock-settings"
+      for="Products.CMFPlone.interfaces.IPloneSiteRoot"
+      class="vnccollab.theme.settings.WorldClockSettingsControlPanel"
+      permission="cmf.ManagePortal"
+      />
+
+  <browser:page
+      name="anonhomepage-settings"
+      for="Products.CMFPlone.interfaces.IPloneSiteRoot"
+      class="vnccollab.theme.settings.AnonymousHomepageSettingsControlPanel"
+      permission="cmf.ManagePortal"
+      />
+
+  <browser:page
+      for="*"
+      name="wizard_get_initial_tree.json"
+      class=".wizardjson.GetTreeJson"
+      attribute="getInitialTree"
+      permission="zope2.View"
+      />
+
+  <browser:page
+      for="*"
+      name="wizard_get_tree.json"
+      class=".wizardjson.GetTreeJson"
+      attribute="getTree"
+      permission="zope2.View"
+      />
+
+  <browser:page
+      for="*"
+      name="livesearch_result"
+      class=".livesearch.LiveSearchReplyView"
+      attribute="result"
+      permission="zope2.View"
+      />
+
+  <browser:page
+      for="*"
+      name="wizard_uploader"
+      class=".wizarduploader.WizardUploadView"
+      permission="zope.Public"
+      />
+
+  <browser:page
+      for="*"
+      name="wizard_upload_init"
+      class=".wizarduploader.WizardUploadInit"
+      permission="zope.Public"
+      />
+
+  <browser:page
+      name="search"
+      class="vnccollab.common.browser.search.Search"
+      permission="zope2.View"
+      for="*"
+      template="templates/search.pt"
+      layer=".interfaces.IThemeSpecific"
+      />
+
+  <browser:page
+      name="wizard_search_destination.json"
+      for="*"
+      class=".wizardjson.GetTreeJson"
+      attribute="getSearchDestinationList"
+      permission="zope2.View"
+      />
+
+  <browser:view
+      name="edit"
+      for="collective.notices.interfaces.INotice"
+      class=".notices.EditNotice"
+      layer=".interfaces.IThemeSpecific"
+      permission="cmf.ManagePortal"
+      />
+
+  <browser:view
+      name="add"
+      for="collective.notices.interfaces.INoticesStorage"
+      class=".notices.AddNotice"
+      layer=".interfaces.IThemeSpecific"
+      permission="cmf.ManagePortal"
+      />
+
+
   <!-- Viewlet managers -->
   <browser:viewletManager
       name="vnccollab.theme.htmlhead"
@@ -273,6 +353,7 @@
       layer=".interfaces.IThemeSpecific"
       permission="zope2.View"
       />
+
   <browser:viewlet
       name="vnccollab.theme.related_zimbra_tasks"
       manager="plone.app.layout.viewlets.interfaces.IBelowContentBody"
@@ -407,123 +488,6 @@
     permission="zope2.View"
     />
 
-    <!-- This are the classes we want to edit with zopeedit-->
-    <class class="plone.app.blob.content.ATBlob">
-        <implements interface=".viewlets.IExternalEditable"/>
-    </class>
-
-  <!-- Zope 3 browser resources -->
-
-  <!-- Resource directory for images -->
-  <browser:resourceDirectory
-      name="vnccollab.theme.images"
-      directory="images"
-      />
-
-  <browser:resourceDirectory
-      name="vnccollab.theme.js"
-      directory="js"
-      />
-
-  <!-- Resource directory for stylesheets -->
-  <browser:resourceDirectory
-      name="vnccollab.theme.stylesheets"
-      directory="stylesheets"
-      />
-
-  <!-- z3c.jbot overrides -->
-  <include package="z3c.jbot" file="meta.zcml" />
-
-  <browser:jbot
-      directory="z3cjbot_overrides"
-      layer=".interfaces.IThemeSpecific"/>
-
-  <!-- <browser:page
-      for="plone.app.layout.navigation.interfaces.INavigationRoot"
-      name="im-details"
-      class=".imdetails.IMDetailsPanel"
-      layer=".interfaces.IThemeSpecific"
-      permission="cmf.SetOwnProperties"
-      /> -->
-
-  <!-- Control Panel -->
-  <browser:page
-      name="worldclock-settings"
-      for="Products.CMFPlone.interfaces.IPloneSiteRoot"
-      class="vnccollab.theme.settings.WorldClockSettingsControlPanel"
-      permission="cmf.ManagePortal"
-      />
-
-  <browser:page
-      name="anonhomepage-settings"
-      for="Products.CMFPlone.interfaces.IPloneSiteRoot"
-      class="vnccollab.theme.settings.AnonymousHomepageSettingsControlPanel"
-      permission="cmf.ManagePortal"
-      />
-
-  <browser:view
-      name="edit"
-      for="collective.notices.interfaces.INotice"
-      class=".notices.EditNotice"
-      layer=".interfaces.IThemeSpecific"
-      permission="cmf.ManagePortal"
-      />
-
-  <browser:view
-      name="add"
-      for="collective.notices.interfaces.INoticesStorage"
-      class=".notices.AddNotice"
-      layer=".interfaces.IThemeSpecific"
-      permission="cmf.ManagePortal"
-      />
-
-  <browser:page
-      for="*"
-      name="wizard_get_initial_tree.json"
-      class=".wizardjson.GetTreeJson"
-      attribute="getInitialTree"
-      permission="zope2.View"
-      />
-
-  <browser:page
-      for="*"
-      name="wizard_get_tree.json"
-      class=".wizardjson.GetTreeJson"
-      attribute="getTree"
-      permission="zope2.View"
-      />
-
-  <browser:page
-      for="*"
-      name="livesearch_result"
-      class=".livesearch.LiveSearchReplyView"
-      attribute="result"
-      permission="zope2.View"
-      />
-
-  <browser:page
-      for="*"
-      name="wizard_uploader"
-      class=".wizarduploader.WizardUploadView"
-      permission="zope.Public"
-      />
-
-  <browser:page
-      for="*"
-      name="wizard_upload_init"
-      class=".wizarduploader.WizardUploadInit"
-      permission="zope.Public"
-      />
-
-  <browser:page
-      name="search"
-      class="vnccollab.common.browser.search.Search"
-      permission="zope2.View"
-      for="*"
-      template="templates/search.pt"
-      layer=".interfaces.IThemeSpecific"
-      />
-
   <browser:viewlet
       name="vnccollab.theme.languageselector"
       manager="plone.app.layout.viewlets.interfaces.IPortalHeader"
@@ -540,12 +504,34 @@
       permission="zope2.View"
       />
 
-  <browser:page
-      name="wizard_search_destination.json"
-      for="*"
-      class=".wizardjson.GetTreeJson"
-      attribute="getSearchDestinationList"
-      permission="zope2.View"
+    <!-- This are the classes we want to edit with zopeedit-->
+    <class class="plone.app.blob.content.ATBlob">
+        <implements interface=".viewlets.IExternalEditable"/>
+    </class>
+
+
+  <!-- Adapters -->
+  <adapter
+      factory=".portlet_manager.ColumnPortletManagerRenderer"
+      provides="plone.portlets.interfaces.IPortletManagerRenderer"
+      />
+  <adapter
+      factory=".portlet_manager.DashboardPortletManagerRenderer"
+      provides="plone.portlets.interfaces.IPortletManagerRenderer"
+      />
+  <!-- Renderer for the columns in edit mode, need also register it in order to
+       override above ones -->
+  <adapter
+      factory=".portlet_manager.EditPortletManagerRenderer"
+      provides="plone.portlets.interfaces.IPortletManagerRenderer"
+      />
+  <adapter
+      factory=".portlet_manager.ContextualEditPortletManagerRenderer"
+      provides="plone.portlets.interfaces.IPortletManagerRenderer"
+      />
+  <adapter
+      factory=".portlet_manager.DashboardEditPortletManagerRenderer"
+      provides="plone.portlets.interfaces.IPortletManagerRenderer"
       />
 
 </configure>

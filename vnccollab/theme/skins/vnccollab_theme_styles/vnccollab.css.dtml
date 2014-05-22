@@ -3888,6 +3888,9 @@ div.overlay div.close {
 }
 
 /* jquery tools calendar widget styles */
+#calroot {
+    z-index: 99999;
+}
 a.caltrigger {
   padding: 0;
 }
