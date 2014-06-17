@@ -4,6 +4,9 @@ Changelog
 1.7.12 - unreleased
 -------------------
 
+- Adds uninstaller [10961].
+  [Jose Dinuncio]
+
 - Fixes css style for destination autocomplate on wizard [10936].
   [Cesar Gonzalez]
 

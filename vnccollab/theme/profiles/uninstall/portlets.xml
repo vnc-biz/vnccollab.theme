@@ -6,7 +6,6 @@
  <portlet
    addview="vnccollab.theme.portlets.WorldClockPortlet"
    remove="True" />
-   title="World Clo
 
  <portlet
    addview="vnccollab.theme.portlets.EtherpadsListPortlet"
