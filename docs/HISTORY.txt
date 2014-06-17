@@ -8,6 +8,9 @@ Changelog
   datepicker previous implementation from js [11437].
   [Cesar Gonzalez]
 
+- Adds uninstaller [10961].
+  [Jose Dinuncio]
+
 - Fixes css style for destination autocomplate on wizard [10936].
   [Cesar Gonzalez]
 
