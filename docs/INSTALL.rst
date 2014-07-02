@@ -34,6 +34,7 @@ this:
     collective.js.jqueryui = 1.8.16.8
     plone.app.jquery = 1.7.2
     plone.app.jquerytools = 1.4
+    pyactiveresource = 1.0.1
 
 
 
