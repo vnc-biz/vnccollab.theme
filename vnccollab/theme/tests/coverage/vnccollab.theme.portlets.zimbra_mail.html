@@ -53,7 +53,7 @@
     1:         title=_(u"Zimbra service URL"),
     1:         description=_(u"Root url to your Zimbra service."),
     1:         required=True,
-    1:         default='https://zcs.vnc.biz')
+    1:         default='https://')
        
     1:     folder_id = schema.ASCIILine(
     1:         title=_(u"Mail Folder Id"),
@@ -110,7 +110,7 @@
        
     1:     header = u'Zimbra Mail'
     1:     protocol = 'https://'
-    1:     url = 'https://zcs.vnc.biz'
+    1:     url = 'https://'
     1:     folder_id = 'inbox'
     1:     count = 5
     1:     username = ''
@@ -123,7 +123,7 @@
            def title(self):
                """Return portlet header"""
 <div class="notcovered">&gt;&gt;&gt;&gt;&gt;&gt;         return self.header</div>       
-    1:     def __init__(self, header=u'', url='https://zcs.vnc.biz',
+    1:     def __init__(self, header=u'', url='https://',
     1:                  folder_id='inbox', count=5, username='', password=u'',
     1:                  timeout=5, request_timeout=15, failure_delay=5):
 <div class="notcovered">&gt;&gt;&gt;&gt;&gt;&gt;         self.header = header</div><div class="notcovered">&gt;&gt;&gt;&gt;&gt;&gt;         self.url = url</div><div class="notcovered">&gt;&gt;&gt;&gt;&gt;&gt;         self.folder_id = folder_id</div><div class="notcovered">&gt;&gt;&gt;&gt;&gt;&gt;         self.count = count</div><div class="notcovered">&gt;&gt;&gt;&gt;&gt;&gt;         self.username = username</div><div class="notcovered">&gt;&gt;&gt;&gt;&gt;&gt;         self.password = password</div><div class="notcovered">&gt;&gt;&gt;&gt;&gt;&gt;         self.timeout = timeout</div><div class="notcovered">&gt;&gt;&gt;&gt;&gt;&gt;         self.request_timeout = request_timeout</div><div class="notcovered">&gt;&gt;&gt;&gt;&gt;&gt;         self.failure_delay = failure_delay</div>       

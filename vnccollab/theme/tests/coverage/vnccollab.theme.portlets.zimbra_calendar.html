@@ -43,7 +43,7 @@
     1:         title=_(u"Zimbra service URL"),
     1:         description=_(u"Root url to your Zimbra service."),
     1:         required=True,
-    1:         default='https://zcs.vnc.biz')
+    1:         default='https://')
        
     1:     mail_domain = schema.TextLine(
     1:         title=_(u"Domain of the mail account"),
@@ -100,7 +100,7 @@
            def title(self):
                """Return portlet header"""
 <div class="notcovered">&gt;&gt;&gt;&gt;&gt;&gt;         return self.header</div>       
-    1:     def __init__(self, header=u'', url=u'https://zcs.vnc.biz',
+    1:     def __init__(self, header=u'', url=u'https://',
     1:                  mail_domain=u'vnc.biz',
     1:                  username=u'', password=u'', calendar_name=u'',
     1:                  timeout=5, request_timeout=15, failure_delay=5):

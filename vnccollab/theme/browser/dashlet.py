@@ -19,7 +19,7 @@ class Dashlet(BrowserView):
     def __init__(self, context, request):
         self.context = context
         self.request = request
-        self.zimbra_url = request.get('zimbra_url', 'https://zcs.vnc.biz')
+        self.zimbra_url = request.get('zimbra_url', 'https://')
         self.count = int(request.get('count', '5'))
         self.type_ = request.get('type', 'all')
 

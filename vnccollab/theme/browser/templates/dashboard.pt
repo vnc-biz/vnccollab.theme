@@ -23,7 +23,7 @@
 
     <tal:comment replace="nothing">Temporarily remove toolbar
     <div class="dashboardToolbar">
-      <a href="https://zcs.vnc.biz/"
+      <a href="https://"
          target="_blank"
          class="inboxLink">
         <img src="db_inbox.png"

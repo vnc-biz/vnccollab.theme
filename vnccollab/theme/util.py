@@ -41,7 +41,7 @@ def getAllActiveResources(klass, limit=100, page=1):
 
 def getZimbraUrl(context):
     #TODO: get zimbra url from registry
-    return 'https://zcs.vnc.biz'
+    return 'https://'
 
 
 def getZimbraEmail(context):
