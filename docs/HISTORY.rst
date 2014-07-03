@@ -1,7 +1,7 @@
 Changelog
 =========
 
-1.7.12 - unreleased
+1.7.12 - July 02, 2014
 -------------------
 
 - Re-attach dateinput from jquerytools to Create Task overlay. Removes 
