@@ -41,7 +41,7 @@
     1:         title=_(u"Zimbra service URL"),
     1:         description=_(u"Root url to your Zimbra service."),
     1:         required=True,
-    1:         default='https://zcs.vnc.biz')
+    1:         default='https://')
        
     1:     count = schema.Int(title=_(u'Number of items to display'),
     1:         description=_(u'How many items to list.'),
@@ -53,7 +53,7 @@
     1:     implements(IDashletPortlet)
        
     1:     header = u'My Dashlet'
-    1:     zimbra_url = 'https://zcs.vnc.biz'
+    1:     zimbra_url = 'https://'
     1:     count = 5
        
     1:     @property

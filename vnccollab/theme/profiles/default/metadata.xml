@@ -6,6 +6,7 @@
     <dependency>profile-plone.app.jquery:default</dependency>
     <dependency>profile-plone.app.jquerytools:default</dependency>
     <dependency>profile-plone.app.registry:default</dependency>
+    <dependency>profile-plone.formwidget.autocomplete:default</dependency>
     <dependency>profile-cioppino.twothumbs:default</dependency>
     <dependency>profile-Products.CMFNotification:default</dependency>
     <dependency>profile-Products.Carousel:default</dependency>

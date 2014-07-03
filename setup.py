@@ -1,19 +1,19 @@
 from setuptools import setup, find_packages
 import os
 
-version = open('version.txt').read()
+version = open('version.txt').readline().strip()
 
 setup(name='vnccollab.theme',
       version=version,
       description="An installable theme for VNC Collaboration Plone 4 Site.",
-      long_description=open("README.txt").read() + "\n" +
+      long_description=open("README.rst").read() + "\n" +
                        open(os.path.join("docs", "HISTORY.txt")).read(),
       # Get more strings from
       # http://pypi.python.org/pypi?:action=list_classifiers
       classifiers=[
-        "Framework :: Plone",
-        "Programming Language :: Python",
-        ],
+          "Framework :: Plone",
+          "Programming Language :: Python",
+      ],
       keywords='web zope plone theme',
       author='Vitaliy Podoba',
       author_email='vitaliy.podoba@vnc.biz',
@@ -45,12 +45,12 @@ setup(name='vnccollab.theme',
           'plone.app.jquery',
           'plone.app.z3cform',
           'plone.app.jquerytools>=1.4',
+          'plone.formwidget.autocomplete',
           'collective.notices',
           'collective.quickupload',
           'collective.vaporisation',
           'collective.js.jqueryui>=1.8',
           'collective.plonetruegallery==3.3.1a2',
-          'collective.z3cform.datepicker',
           'collective.braveportletsmanager',
           'collective.customizablePersonalizeForm',
           'vnccollab.common',

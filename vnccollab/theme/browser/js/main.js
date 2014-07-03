@@ -231,89 +231,49 @@ function attachCalendarWidgets(container) {
     var container = jq('body');
   }
 
-  jq('input.datepicker-widget', container).each(function(elem, ids){
-    var for_display = jq(this), field = for_display.parent();
-    var input = field.find('input[type=hidden]'), iid = input.attr('id');
+  jq('input.date-widget', container).each(function(elem, ids) {
+    var field = jq(this).parent();
+    var input = field.find('input[type="hidden"]').last();//, iid = input.attr('id');
 
     // skip if widget is already initialized
     if (field.find('img.ui-datepicker-trigger').length > 0) {
       return;
     }
 
-    // attach date picker
-    // TODO: get below options from server side widget factory
-    // TODO: add i18n
-    var datepicker = input.datepicker({
-      'dateFormat': "dd/mm/yy",
-      'altField': for_display,
-      // 'altField': "#" + iid + "-for-display",
-      'shortYearCutoff': 10,
-      'showAnim': "show",
-      'maxDate': null,
-      'isRTL': false,
-      'dayNamesShort': ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'],
-      'changeYear': true,
-      'duration': "normal",
-      'monthNames': ['January', 'February', 'March', 'April', 'May', 'June',
-        'July', 'August', 'September', 'October', 'November',
-        'December'],
-      'dayNames': ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday',
-        'Friday', 'Saturday'],
-      'constrainInput': true,
-      'stepMonths': 1,
-      'showButtonPanel': false,
-      'changeFirstDay': true,
-      'altFormat': "DD, d MM, yy",
-      'beforeShowDay': null,
-      'changeMonth': true,
-      'monthNamesShort': ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul',
-        'Aug', 'Sep', 'Oct', 'Nov', 'Dec'],
-      'gotoCurrent': false,
-      'defaultDate': null,
-      'yearRange': "-10:+10",
-      'hideIfNoPrevNext': false,
-      'showOtherMonths': false,
-      'showOptions': {},
-      'showInline': false,
-      'buttonImageOnly': true,
-      'numberOfMonths': 1,
-      'prevText': "<Prev",
-      'nextText': "Next>",
-      'minDate': null,
-      'buttonImage': "popup_calendar.gif",
-      'beforeShow': null,
-      'navigationAsDateFormat': false,
-      'buttonText': "...",
-      'firstDay': 0,
-      'dayNamesMin': ['Su', 'Mo', 'Tu', 'We', 'Th', 'Fr', 'Sa'],
-      'currentText': "Today",
-      'calculateWeek': "$.datepicker.iso8601Week",
-      'closeText': "Close",
-      'showOn': "both"
-    });
-    // set for-display field to read-only mode
-    for_display.attr("readonly", "readonly");
-    // add embed class to it
-    for_display.addClass('embed');
-    // and set it's value based on hidden widget value
-    for_display.each(function() {
-      jq(this).val(jq.datepicker.formatDate("DD, d MM, yy",
-        input.datepicker('getDate'),
-        {'shortYearCutoff': 10,
-         'dayNamesShort': ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'],
-         'dayNames': ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday',
-           'Friday', 'Saturday'],
-         'monthNamesShort': ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul',
-           'Aug', 'Sep', 'Oct', 'Nov', 'Dec'],
-         'monthNames': ['January', 'February', 'March', 'April', 'May', 'June',
-           'July', 'August', 'September', 'October', 'November', 'December']}
-      ));
-    });
-    // attach calendar delete control
-    jq("#" + iid + "-clear", container).click(function() {
-      input.val('');
-      for_display.val('');
-    });
+    if (jq().dateinput) {
+
+      jq.tools.dateinput.localize('en', {
+        months: 'January,February,March,April,May,June,July,August,September,October,November,December',
+        shortMonths: 'Jan,Feb,Mar,Apr,May,Jun,Jul,Aug,Sep,Oct,Nov,Dec',
+        days: 'Sunday,Monday,Tuesday,Wednesday,Thursday,Friday,Saturday',
+        shortDays: 'Sun,Mon,Tue,Wed,Thu,Fri,Sat'
+      });
+
+      input.dateinput({
+        lang: 'en',
+        change: function() {
+          var value = this.getValue('yyyy-m-dd').split('-');
+          jq('input[type="text"]', field).first().val(value[2]);
+          jq('select', field).first().val(value[1]);
+          jq('input[type="text"]', field).last().val(value[0]);
+        },
+        firstDay: 0,
+        selectors: true,
+        trigger: true,
+        root: field,
+        yearRange: [-10, 10]
+      }).unbind('change')
+        .bind('onShow', function(event) {
+          var trigger_offset = jq(this).next().offset();
+          jq(this).data('dateinput').getCalendar().offset({
+            top: trigger_offset.top + 20,
+            left: trigger_offset.left
+          });
+        });
+
+      jq(input).next().css('background', 'url(popup_calendar.gif)').css('height', '16px').css('width', '16px').css('display', 'inline-block').css('vertical-align', 'middle');
+
+    }
 
   });
 }

@@ -17,7 +17,7 @@ class IZimbraUtil(Interface):
         """
 
 
-VNC_ZIMBRA_URL = 'https://zcs.vnc.biz'
+VNC_ZIMBRA_URL = 'https://'
 
 
 class ZimbraUtil:
